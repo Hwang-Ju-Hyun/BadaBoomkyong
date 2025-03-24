@@ -8,9 +8,6 @@
     <Filter Include="Manager">
       <UniqueIdentifier>{c2e7fef9-d4bd-4540-a4c5-020135ce4aa5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine">
-      <UniqueIdentifier>{b509b9e2-1053-4a48-bb83-01f763f0915c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component">
       <UniqueIdentifier>{23ac9234-6dc9-4e1a-88b2-a6381b9b8432}</UniqueIdentifier>
     </Filter>
@@ -20,10 +17,66 @@
     <Filter Include="GameObject">
       <UniqueIdentifier>{4544a5c2-44ef-4d7f-b937-d610f9e90f49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{b509b9e2-1053-4a48-bb83-01f763f0915c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Application">
+      <UniqueIdentifier>{d781e1cc-366b-4980-9f7b-1b0ae4ce02cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Windows">
+      <UniqueIdentifier>{760ca5a3-c136-4192-a2ae-14a6a055bf05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{b21b48ee-8f3b-4e00-a2ba-5d48a1e1124a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\RenderMgr">
+      <UniqueIdentifier>{e0fb8169-714b-4440-a7d0-3d637da1d558}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{0d18973e-a9d0-4f85-b7a2-7673dcdbfd1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ShaderMgr">
+      <UniqueIdentifier>{5b74122a-81c3-4f10-b67c-a74f20e6554c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\InputMgr">
+      <UniqueIdentifier>{8fdcf56e-a2af-40b3-8ab4-f1909a7947bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{d085d119-f12c-460c-96e8-04e4545c1bd7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Core\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Core\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Manager\InputMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Singleton.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Core\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Core\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Manager\InputMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
