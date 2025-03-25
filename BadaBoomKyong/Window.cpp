@@ -5,6 +5,8 @@ Window::Window() {}
 
 Window::~Window(){}
 
+static float time = 0.f;
+
 void Window::Init(GLint _windowWidth, GLint _windowHeight)
 {
 	m_iWindowWidth = _windowWidth;
@@ -19,7 +21,9 @@ void Window::Init(GLint _windowWidth, GLint _windowHeight)
 }
 
 void Window::Update()
-{
+{		
+	glClearColor(1.f, 0.f, 0.f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
 	glfwSwapBuffers(m_pWindowHandle);
 	glfwPollEvents();
 }
