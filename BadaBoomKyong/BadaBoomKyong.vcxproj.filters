@@ -41,14 +41,17 @@
     <Filter Include="Manager\InputMgr">
       <UniqueIdentifier>{8fdcf56e-a2af-40b3-8ab4-f1909a7947bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shader">
-      <UniqueIdentifier>{d085d119-f12c-460c-96e8-04e4545c1bd7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Model">
-      <UniqueIdentifier>{27a2eff5-e25b-46ed-9cb3-caddefb62cee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\ModelManager">
       <UniqueIdentifier>{28ee09eb-65bf-40c8-840a-e307a9d5783f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Shader">
+      <UniqueIdentifier>{d085d119-f12c-460c-96e8-04e4545c1bd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Model">
+      <UniqueIdentifier>{27a2eff5-e25b-46ed-9cb3-caddefb62cee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{32b1dad4-3ed1-4c37-8291-aea93b51014d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -65,10 +68,10 @@
       <Filter>Manager\InputMgr</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
-      <Filter>Shader</Filter>
+      <Filter>Graphics\Shader</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
-      <Filter>Model</Filter>
+      <Filter>Graphics\Model</Filter>
     </ClCompile>
     <ClCompile Include="ModelManager.cpp">
       <Filter>Manager\ModelManager</Filter>
@@ -88,10 +91,10 @@
       <Filter>Manager\InputMgr</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Shader</Filter>
+      <Filter>Graphics\Shader</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
-      <Filter>Model</Filter>
+      <Filter>Graphics\Model</Filter>
     </ClInclude>
     <ClInclude Include="header.h">
       <Filter>Header</Filter>
@@ -99,5 +102,10 @@
     <ClInclude Include="ModelManager.h">
       <Filter>Manager\ModelManager</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader.vert">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

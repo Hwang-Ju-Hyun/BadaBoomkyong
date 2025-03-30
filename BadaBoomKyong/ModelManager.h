@@ -9,9 +9,9 @@ class ModelManager
 public:
 	SINGLETON(ModelManager);
 private:
-	std::vector<Model> m_vModel;
+	std::vector<Model*> m_vModels;
 public:
-	void AddModel(const Model& _model);
+	void AddModel(Model* _model);
 public:
 	void Init();
 private:

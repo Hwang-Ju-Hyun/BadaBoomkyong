@@ -1,27 +1,39 @@
 #pragma once
 #include <string>
+#include <GLFW/glfw3.h>
 #include "header.h"
+#include <glm.hpp>
+#include <vector>
 
 class Model
 {
 public:
-	Model();
+	struct VertexAttribute
+	{
+	public:
+		glm::vec3 position;
+		glm::vec3 texcoord;
+	};
+private:
+	std::vector<VertexAttribute> m_vVertices;
+public:
+	Model(const std::string& _name, MODEL_TYPE _modelType, GLenum _primitiveType, std::vector<VertexAttribute> _vertices);
 	~Model();
 private:
-	std::string m_sName = "Default";
+	std::string m_sName;
 	enum MODEL_TYPE m_eModelType=MODEL_TYPE::TRIAGNLE;
-private:
-	unsigned int m_iVBO;
-public:
+	GLenum m_ePrimitiveType = -1;
+	unsigned int VBO;
+	unsigned int VAO;
+public:		
 	//Settor
-	inline void SetModelName(const std::string& _name) { m_sName = _name; }
 	inline void SetModelType(const enum MODEL_TYPE _modelType) { m_eModelType = _modelType; }
-	inline void SetVBO(const int _VBO) { m_iVBO = _VBO; }
+	inline void SetPrimitiveType(const GLenum _primitiveType) { m_ePrimitiveType = _primitiveType; }	
 public:
 	//Gettor
-	inline const enum MODEL_TYPE GetModelType()const { return m_eModelType; }
-	inline const std::string& GetModelName() { return m_sName; }
-	inline unsigned int GetVBO()const { return m_iVBO; }
+	inline const enum MODEL_TYPE GetModelType()const { return m_eModelType; }	
+	inline unsigned int GetVBO()const { return VBO; }
+	inline unsigned int GetPositionCnt_of_VBO()const { return m_vVertices.size() / 2; }
 public:
-	void CreateAndGetModel(enum Model_TYPE _eModel);
+	void Draw();
 };
