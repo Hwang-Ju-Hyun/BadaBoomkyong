@@ -107,5 +107,8 @@
     <None Include="shader.vert">
       <Filter>Shader</Filter>
     </None>
+    <None Include="shader.frag">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>
