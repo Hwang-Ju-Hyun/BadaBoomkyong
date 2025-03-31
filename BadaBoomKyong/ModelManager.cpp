@@ -24,17 +24,15 @@ void ModelManager::Init()
 
 void ModelManager::TriangleInit()
 {
-	std::string name = "Triangle";
+	std::string name = "Triangle";	
 	std::vector<Model::VertexAttribute> vertices;
-	vertices =
-	{		
+	vertices =						
+	{								
 		{glm::vec3{-1.f,-1.f,0.f},		glm::vec3{0.f,0.f,0.f}},//Bottom Left
 		{glm::vec3{0.f,1.f,0.f},		glm::vec3{0.5f,1.f,0.f}},//Middle 
 		{glm::vec3{1.f,-1.f,0.f},		glm::vec3{1.f,0.f,0.f}},//Bottom Right		
-	};
-
-
-	GLenum type = GL_TRIANGLES;	
+	};								
+	GLenum type = GL_TRIANGLES;		
 	Model* model = new Model(name, MODEL_TYPE::TRIAGNLE, type, std::move(vertices));
 	
 	assert(model != nullptr);

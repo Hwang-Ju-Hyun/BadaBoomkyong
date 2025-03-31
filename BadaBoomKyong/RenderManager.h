@@ -15,5 +15,6 @@ public:
 public:
 	void Init();
 	void Draw();
+	void Exit();
 };
 

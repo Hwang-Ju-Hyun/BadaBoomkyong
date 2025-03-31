@@ -42,9 +42,10 @@ void Application::Init()
 }
 
 void Application::Update()
-{
-    Window::GetInstance()->Update();
-    
+{    
+    glClearColor(1.f, 0.f, 0.f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    auto handle = Window::GetInstance()->GetWindowHandle();
 }
 
 void Application::Exit()

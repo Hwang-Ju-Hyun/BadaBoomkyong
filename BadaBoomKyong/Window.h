@@ -16,8 +16,7 @@ public:
 	inline const GLint GetWindowHeight() { return m_iWindowHeight; }
 	inline GLFWwindow* GetWindowHandle() { return m_pWindowHandle; }
 public:
-	void Init(GLint _windowWidth,GLint _windowHeight);
-	void Update();
+	void Init(GLint _windowWidth,GLint _windowHeight);	
 	void Exit();
 };
 

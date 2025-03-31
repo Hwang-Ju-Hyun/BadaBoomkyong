@@ -20,15 +20,6 @@ void Window::Init(GLint _windowWidth, GLint _windowHeight)
 	glViewport(0,0, m_iWindowWidth, m_iWindowHeight);
 }
 
-void Window::Update()
-{		
-	//Todo : 지울지 말지
-	//glClearColor(1.f, 0.f, 0.f, 1.0f);
-	//glClear(GL_COLOR_BUFFER_BIT);
-	//glfwSwapBuffers(m_pWindowHandle);
-	//glfwPollEvents();
-}
-
 void Window::Exit()
 {
 }

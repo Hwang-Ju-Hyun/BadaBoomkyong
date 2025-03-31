@@ -24,20 +24,26 @@ void RenderManager::Init()
 }
 
 void RenderManager::Draw()
-{
-	
-	glClearColor(1.f, 0.f, 0.f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	auto handle= Window::GetInstance()->GetWindowHandle();
-
+{		
 	std::vector<Model*> models=ModelManager::GetInstance()->GetAllModels();
 	auto shdr_handle = shdr->GetShaderProgramHandle();
+	
 	shdr->Use();
+
 	for (auto model : models)
 	{
 		model->Draw();
 	}
+
+	shdr->diUse();
+
+	auto handle=Window::GetInstance()->GetWindowHandle();
 	glfwSwapBuffers(handle);
 	glfwPollEvents();
-	shdr->diUse();
+	
+}
+
+void RenderManager::Exit()
+{
+	delete shdr;
 }
