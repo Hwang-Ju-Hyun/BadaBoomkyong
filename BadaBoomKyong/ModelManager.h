@@ -11,11 +11,12 @@ public:
 private:
 	std::vector<Model*> m_vModels;
 public:
-	void AddModel(Model* _model);
+	inline void AddModel(Model* _model){ m_vModels.push_back(_model); }
+	inline std::vector<Model*> GetAllModels() { return m_vModels; }
 public:
 	void Init();
 private:
 	void TriangleInit();
 	void CircleInit();
-	void RectangleInit();
+	void RectangleInit();	
 };

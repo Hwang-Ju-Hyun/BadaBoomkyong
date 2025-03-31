@@ -76,6 +76,9 @@
     <ClCompile Include="ModelManager.cpp">
       <Filter>Manager\ModelManager</Filter>
     </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>Manager\RenderMgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -101,6 +104,9 @@
     </ClInclude>
     <ClInclude Include="ModelManager.h">
       <Filter>Manager\ModelManager</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>Manager\RenderMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

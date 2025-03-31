@@ -22,10 +22,11 @@ void Window::Init(GLint _windowWidth, GLint _windowHeight)
 
 void Window::Update()
 {		
-	glClearColor(1.f, 0.f, 0.f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glfwSwapBuffers(m_pWindowHandle);
-	glfwPollEvents();
+	//Todo : 지울지 말지
+	//glClearColor(1.f, 0.f, 0.f, 1.0f);
+	//glClear(GL_COLOR_BUFFER_BIT);
+	//glfwSwapBuffers(m_pWindowHandle);
+	//glfwPollEvents();
 }
 
 void Window::Exit()

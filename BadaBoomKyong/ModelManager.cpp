@@ -1,6 +1,7 @@
 #include "ModelManager.h"
 #include "Model.h"
 #include <cassert>
+#include <utility>
 
 ModelManager::ModelManager()
 {
@@ -16,13 +17,9 @@ ModelManager::~ModelManager()
 	}
 }
 
-void ModelManager::AddModel(Model* _model)
-{
-	m_vModels.push_back(_model);
-}
-
 void ModelManager::Init()
 {
+	TriangleInit();
 }
 
 void ModelManager::TriangleInit()
@@ -36,8 +33,9 @@ void ModelManager::TriangleInit()
 		{glm::vec3{1.f,-1.f,0.f},		glm::vec3{1.f,0.f,0.f}},//Bottom Right		
 	};
 
+
 	GLenum type = GL_TRIANGLES;	
-	Model* model = new Model(name, MODEL_TYPE::TRIAGNLE, type, vertices);
+	Model* model = new Model(name, MODEL_TYPE::TRIAGNLE, type, std::move(vertices));
 	
 	assert(model != nullptr);
 

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <GL/glew.h>
 #include "Shader.h"
+#include <cassert>
 
 Shader::Shader()
 	:m_uShaderProgramHandle(0)
@@ -90,10 +91,20 @@ void Shader::CompileShader(const char* _vsCode, const char* _fsCode)
 
 void Shader::CreateShaderProgramFromFiles(const char* _vsPath, const char* _fsPath)
 {
-	std::string vsFile = ReadShaderFile(_vsPath);
-	std::string fsFile = ReadShaderFile(_fsPath);
+	const std::string vsFile = ReadShaderFile(_vsPath);
+	const std::string fsFile = ReadShaderFile(_fsPath);
 	const char* vsCode = vsFile.c_str();
 	const char* fsCode = fsFile.c_str();
 
 	CompileShader(vsCode, fsCode);
+}
+
+void Shader::Use()
+{		
+	glUseProgram(m_uShaderProgramHandle);
+}
+
+void Shader::diUse()
+{
+	glUseProgram(0);
 }
