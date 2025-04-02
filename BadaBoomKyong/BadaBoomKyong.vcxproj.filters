@@ -29,17 +29,8 @@
     <Filter Include="Graphics">
       <UniqueIdentifier>{b21b48ee-8f3b-4e00-a2ba-5d48a1e1124a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\RenderMgr">
-      <UniqueIdentifier>{e0fb8169-714b-4440-a7d0-3d637da1d558}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header">
       <UniqueIdentifier>{0d18973e-a9d0-4f85-b7a2-7673dcdbfd1c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\ShaderMgr">
-      <UniqueIdentifier>{5b74122a-81c3-4f10-b67c-a74f20e6554c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\InputMgr">
-      <UniqueIdentifier>{8fdcf56e-a2af-40b3-8ab4-f1909a7947bf}</UniqueIdentifier>
     </Filter>
     <Filter Include="Manager\ModelManager">
       <UniqueIdentifier>{28ee09eb-65bf-40c8-840a-e307a9d5783f}</UniqueIdentifier>
@@ -50,8 +41,17 @@
     <Filter Include="Graphics\Model">
       <UniqueIdentifier>{27a2eff5-e25b-46ed-9cb3-caddefb62cee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shader">
+    <Filter Include="ShaderFiles">
       <UniqueIdentifier>{32b1dad4-3ed1-4c37-8291-aea93b51014d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\InputManager">
+      <UniqueIdentifier>{8fdcf56e-a2af-40b3-8ab4-f1909a7947bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\GameObjectManger">
+      <UniqueIdentifier>{669aa80f-66f4-4366-b894-bf337f8275b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\RenderManager">
+      <UniqueIdentifier>{e0fb8169-714b-4440-a7d0-3d637da1d558}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -65,7 +65,7 @@
       <Filter>Core\Windows</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>Manager\InputMgr</Filter>
+      <Filter>Manager\InputManager</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Graphics\Shader</Filter>
@@ -77,7 +77,16 @@
       <Filter>Manager\ModelManager</Filter>
     </ClCompile>
     <ClCompile Include="RenderManager.cpp">
-      <Filter>Manager\RenderMgr</Filter>
+      <Filter>Manager\RenderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>Manager\GameObjectManger</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseComponent.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,7 +100,7 @@
       <Filter>Core\Windows</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>Manager\InputMgr</Filter>
+      <Filter>Manager\InputManager</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>Graphics\Shader</Filter>
@@ -106,15 +115,24 @@
       <Filter>Manager\ModelManager</Filter>
     </ClInclude>
     <ClInclude Include="RenderManager.h">
-      <Filter>Manager\RenderMgr</Filter>
+      <Filter>Manager\RenderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>Manager\GameObjectManger</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseComponent.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shader.vert">
-      <Filter>Shader</Filter>
+    <None Include="vertex.vert">
+      <Filter>ShaderFiles</Filter>
     </None>
-    <None Include="shader.frag">
-      <Filter>Shader</Filter>
+    <None Include="fragment.frag">
+      <Filter>ShaderFiles</Filter>
     </None>
   </ItemGroup>
 </Project>

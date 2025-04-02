@@ -43,7 +43,7 @@ void Application::Init()
 
 void Application::Update()
 {    
-    glClearColor(1.f, 0.f, 0.f, 1.0f);
+    glClearColor(0.f,0.f, 0.f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     auto handle = Window::GetInstance()->GetWindowHandle();
 }

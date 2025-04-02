@@ -15,8 +15,8 @@ RenderManager::~RenderManager()
 
 void RenderManager::Init()
 {
-	const char* vsFile = "shader.vert";
-	const char* fsFile = "shader.frag";
+	const char* vsFile = "vertex.vert";
+	const char* fsFile = "fragment.frag";
 
 	shdr = new Shader;	
 
@@ -32,10 +32,11 @@ void RenderManager::Draw()
 
 	for (auto model : models)
 	{
-		model->Draw();
+		if(model->GetModelType()==MODEL_TYPE::RECTANGLE)
+			model->Draw();
 	}
 
-	shdr->diUse();
+	shdr->Diuse();
 
 	auto handle=Window::GetInstance()->GetWindowHandle();
 	glfwSwapBuffers(handle);

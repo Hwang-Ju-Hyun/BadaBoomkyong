@@ -17,5 +17,5 @@ public:
 	void CreateShaderProgramFromFiles(const char* _vsPath, const char* _fsPath);
 public:
 	void Use();
-	void diUse();
+	void Diuse();
 };

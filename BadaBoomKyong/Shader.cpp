@@ -34,12 +34,12 @@ std::string Shader::ReadShaderFile(const char* _filePath)
 
 GLuint Shader::AddShader(const char* _shaderCode, GLenum _shaderType)
 {
-	//셰이더 프로그램과 연결할 셰이더를 생성하며 그 ID를 반환
+	//셰이더 프로그램과 연결할 셰이더를 생성하며 그 ID를 반환해주고
 	GLuint new_shader = glCreateShader(_shaderType);
 	const GLchar* code[1];
 	code[0] = _shaderCode;
 	
-	//직접 작성한 셰이더 코드를 glCreateShader를 통해 만든 셰이더에 연결
+	//직접 작성한 셰이더 코드를 glCreateShader를 통해 만든 셰이더에 연결해야함
 	glShaderSource(new_shader, 1, code, nullptr);
 
 	GLint result = 0;
@@ -104,7 +104,7 @@ void Shader::Use()
 	glUseProgram(m_uShaderProgramHandle);
 }
 
-void Shader::diUse()
+void Shader::Diuse()
 {
 	glUseProgram(0);
 }

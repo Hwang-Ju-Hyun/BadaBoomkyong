@@ -12,12 +12,13 @@ public:
 	{
 	public:
 		glm::vec3 position;
-		glm::vec3 texcoord;
+		glm::vec2 texcoord;
 	};
 private:
 	std::vector<VertexAttribute> m_vVertices;
+	std::vector<unsigned int> m_vIndices;
 public:
-	Model(const std::string& _name, MODEL_TYPE _modelType, GLenum _primitiveType, std::vector<VertexAttribute>&& _vertices);
+	Model(const std::string& _name, MODEL_TYPE _modelType, GLenum _primitiveType, std::vector<VertexAttribute>&& _vertices, std::vector<unsigned int>&& _indices = { 0 });
 	~Model();
 private:
 	std::string m_sName;
@@ -25,6 +26,8 @@ private:
 	GLenum m_ePrimitiveType = -1;
 	GLuint VBO=0;
 	GLuint VAO=0;
+	GLuint EBO = 0;
+	bool m_bEBO=false;
 private:
 	void UploadBuffers();
 public:		
