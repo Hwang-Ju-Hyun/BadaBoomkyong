@@ -53,6 +53,12 @@
     <Filter Include="Manager\RenderManager">
       <UniqueIdentifier>{e0fb8169-714b-4440-a7d0-3d637da1d558}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\ComponentManager">
+      <UniqueIdentifier>{fb2c0ab0-259c-4e32-abc2-751929987b54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Transform">
+      <UniqueIdentifier>{34bc6b4c-1cf7-4995-8ea4-5d5963baba31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -87,6 +93,12 @@
     </ClCompile>
     <ClCompile Include="BaseComponent.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentManager.cpp">
+      <Filter>Manager\ComponentManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Component\Transform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +137,12 @@
     </ClInclude>
     <ClInclude Include="BaseComponent.h">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentManager.h">
+      <Filter>Manager\ComponentManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Component\Transform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
