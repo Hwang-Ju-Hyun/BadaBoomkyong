@@ -1,6 +1,8 @@
 #include "GameObjectManager.h"
 #include "GameObject.h"
 #include <iostream>
+#include <algorithm>
+#include "ModelManager.h"
 
 GameObjectManager::GameObjectManager()
 {
@@ -9,13 +11,18 @@ GameObjectManager::GameObjectManager()
 
 GameObjectManager::~GameObjectManager()
 {
+	
+}
+
+void GameObjectManager::Exit()
+{
 	for (auto obj : m_vGameObjects)
 	{
 		delete obj;
 	}
 	m_vGameObjects.clear();
 
-	std::vector<GameObject*>temp = m_vGameObjects;	
+	std::vector<GameObject*>temp = m_vGameObjects;
 	temp.swap(m_vGameObjects);
 }
 
@@ -37,6 +44,22 @@ void GameObjectManager::DeleteObject(const std::string& _name)
 	for (auto iter = m_vGameObjects.begin();iter != m_vGameObjects.end();)
 	{
 		if ((*iter)->GetName() == _name)
+		{
+			delete (*iter);
+			iter = m_vGameObjects.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+}
+
+void GameObjectManager::DeleteAllObject()
+{
+	for (auto iter = m_vGameObjects.begin();iter != m_vGameObjects.end();)
+	{
+		if ((*iter) != nullptr)
 		{
 			delete (*iter);
 			iter = m_vGameObjects.erase(iter);

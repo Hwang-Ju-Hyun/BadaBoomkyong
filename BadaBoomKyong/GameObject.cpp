@@ -1,16 +1,28 @@
 #include "GameObject.h"
 #include "BaseComponent.h"
+#include "ModelManager.h"
+#include "GameObjectManager.h"
+#include "Model.h"
 
-GameObject::GameObject(const std::string& _name, Model* _model)
-	:m_sName(_name),
-	m_mModel(_model)
-{
-
+GameObject::GameObject(const std::string& _name,MODEL_TYPE _modelType)
+	:m_sName(_name)	
+{	
+	SetModel(ModelManager::GetInstance()->FindModel(_modelType));
+	GameObjectManager::GetInstance()->AddObject(this);
 }
 
 GameObject::~GameObject()
+{	
+}
+
+void GameObject::SetModelType(MODEL_TYPE _modelType)
 {
-	
+	SetModel(ModelManager::GetInstance()->FindModel(_modelType));
+}
+
+MODEL_TYPE GameObject::GetModelType()
+{
+	return m_mModel->GetModelType();
 }
 
 void GameObject::AddComponent(const std::string& _compName, BaseComponent* _comp)
@@ -35,3 +47,5 @@ void GameObject::DeleteComponent(const std::string& _compName)
 {
 
 }
+
+

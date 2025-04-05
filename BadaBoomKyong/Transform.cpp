@@ -48,4 +48,7 @@ void Transform::Update()
 	m_mModeltoNDC = WorldtoNDC*m_mModeltoWorld;
 }
 
-void Transform::Exit(){}
+void Transform::Exit()
+{
+
+}

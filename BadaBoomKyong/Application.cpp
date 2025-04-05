@@ -3,9 +3,13 @@
 #include <GLFW/glfw3.h>
 #include <cassert>
 #include "Window.h"
+#include "GameStateManager.h"
+#include "Stage01.h"
 #include "ModelManager.h"
 #include "Shader.h"
 #include "RenderManager.h"
+#include "ComponentManager.h"
+#include "GameObjectManager.h"
 
 Application::Application(){}
 
@@ -24,15 +28,16 @@ void Application::Init()
     //GLEW Init
     GLenum iGlewInit_Err = glewInit(); 
     assert(iGlewInit_Err == GLEW_OK);        
-   
+    
     //ModelInit
     ModelManager::GetInstance()->Init();
-
-
+    
     //RenderInit            
     RenderManager::GetInstance()->Init();
-    
-
+   
+    //GameStateManager    
+    GameStateManager::GetInstance()->ChangeLevel(new Stage01("Stage01"));
+        
 
     //TODO : Make sure to implement InputManager(KeyCallBack, MouseCallBack)
     //GLFWwindow* pWindowHandle = Window::GetInstance()->GetWindowHandle();
@@ -45,10 +50,23 @@ void Application::Update()
 {    
     glClearColor(0.f,0.f, 0.f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    auto handle = Window::GetInstance()->GetWindowHandle();
+    auto handle = Window::GetInstance()->GetWindowHandle();    
+
+    //GameState
+    GameStateManager::GetInstance()->Update();    
+
+    //Component
+
+    ComponentManager::GetInstance()->Update();
 }
 
 void Application::Exit()
 {
+    GameStateManager::GetInstance()->ChangeLevel(nullptr);
+    GameObjectManager::GetInstance()->Exit();
+    ComponentManager::GetInstance()->Exit();
+    ModelManager::GetInstance()->Exit();
+    RenderManager::GetInstance()->Exit();
+    Window::GetInstance()->Exit();
     glfwTerminate();
 }

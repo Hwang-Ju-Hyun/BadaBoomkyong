@@ -14,9 +14,6 @@
     <Filter Include="Level">
       <UniqueIdentifier>{d1165c6d-72e4-435e-a089-a9d3e10acffd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject">
-      <UniqueIdentifier>{4544a5c2-44ef-4d7f-b937-d610f9e90f49}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core">
       <UniqueIdentifier>{b509b9e2-1053-4a48-bb83-01f763f0915c}</UniqueIdentifier>
     </Filter>
@@ -59,6 +56,15 @@
     <Filter Include="Component\Transform">
       <UniqueIdentifier>{34bc6b4c-1cf7-4995-8ea4-5d5963baba31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\GameStateManager">
+      <UniqueIdentifier>{6ff7954a-8b1a-4367-aacb-1741f10064e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Stage01">
+      <UniqueIdentifier>{31eac67e-e6aa-4cf7-9480-c196fdaccb4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{4544a5c2-44ef-4d7f-b937-d610f9e90f49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -99,6 +105,15 @@
     </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateManager.cpp">
+      <Filter>Manager\GameStateManager</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage01.cpp">
+      <Filter>Level\Stage01</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +158,15 @@
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateManager.h">
+      <Filter>Manager\GameStateManager</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage01.h">
+      <Filter>Level\Stage01</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

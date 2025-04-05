@@ -3,6 +3,10 @@
 #include "Model.h"
 #include "Shader.h"
 #include "window.h"
+#include "GameObjectManager.h"
+#include "GameObject.h"
+#include "Model.h"
+
 RenderManager::RenderManager()
 {
 
@@ -25,18 +29,22 @@ void RenderManager::Init()
 
 void RenderManager::Draw()
 {		
-	std::vector<Model*> models=ModelManager::GetInstance()->GetAllModels();
+	//std::vector<Model*> models=ModelManager::GetInstance()->GetAllModels();
+	auto objs=GameObjectManager::GetInstance()->GetAllObjects();
 	auto shdr_handle = shdr->GetShaderProgramHandle();
 	
 	shdr->Use();
 
-	for (auto model : models)
+	for (auto obj : objs)
 	{
-		if(model->GetModelType()==MODEL_TYPE::RECTANGLE)
+		auto model = obj->GetModel();
+		if (model)
+		{
 			model->Draw();
+		}
 	}
 
-	shdr->Diuse();
+	//shdr->Diuse();
 
 	auto handle=Window::GetInstance()->GetWindowHandle();
 	glfwSwapBuffers(handle);

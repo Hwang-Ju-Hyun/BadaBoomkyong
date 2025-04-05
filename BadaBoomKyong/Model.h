@@ -22,7 +22,7 @@ public:
 	~Model();
 private:
 	std::string m_sName;
-	enum MODEL_TYPE m_eModelType=MODEL_TYPE::TRIAGNLE;
+	enum MODEL_TYPE m_eModelType=MODEL_TYPE::TRIANGLE;
 	GLenum m_ePrimitiveType = -1;
 	GLuint VBO=0;
 	GLuint VAO=0;

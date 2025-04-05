@@ -46,4 +46,8 @@ void ComponentManager::Exit()
 		if (comp != nullptr)
 			comp->Exit();
 	}
+	m_vComponents.clear();
+
+	std::vector<BaseComponent*>temp = m_vComponents;
+	temp.swap(m_vComponents);
 }

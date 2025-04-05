@@ -22,4 +22,5 @@ void Window::Init(GLint _windowWidth, GLint _windowHeight)
 
 void Window::Exit()
 {
+	glfwDestroyWindow(m_pWindowHandle);
 }

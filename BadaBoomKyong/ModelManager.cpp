@@ -9,18 +9,37 @@ ModelManager::ModelManager()
 
 ModelManager::~ModelManager()
 {	
+	
+}
+
+Model* ModelManager::FindModel(MODEL_TYPE _modelType)
+{
+	auto models = GetAllModels();
+	for (auto mdl : models)
+	{
+		if (mdl->GetModelType() == _modelType)
+			return mdl;
+	}	
+	return nullptr;
+}
+
+void ModelManager::Init()
+{
+	TriangleInit();
+	RectangleInit();	
+}
+
+void ModelManager::Exit()
+{
 	int size = m_vModels.size();
 	for (int i = 0;i < size;i++)
 	{
 		delete m_vModels[i];
 		m_vModels[i] = nullptr;
 	}
-}
-
-void ModelManager::Init()
-{
-	TriangleInit();
-	RectangleInit();
+	m_vModels.clear();
+	std::vector<Model*> temp;
+	temp.swap(m_vModels);
 }
 
 void ModelManager::TriangleInit()
@@ -33,7 +52,7 @@ void ModelManager::TriangleInit()
 		{glm::vec3{1.f,-1.f,0.f},		glm::vec2{1.f,0.f}},//Bottom Right		
 	};							
 	GLenum type = GL_TRIANGLES;		
-	Model* model = new Model(name, MODEL_TYPE::TRIAGNLE, type, std::move(vertices));
+	Model* model = new Model(name, MODEL_TYPE::TRIANGLE, type, std::move(vertices));
 	
 	assert(model != nullptr);
 
