@@ -27,6 +27,7 @@ public:
 	inline glm::vec3 GetPosition()const { return m_vPosition; }
 	inline glm::vec2 GetScale()const { return m_vScale; }
 	inline float GetRotation()const { return m_fRotation; }
+	glm::mat3 GetModelToNDC_Matrix()const;
 public:
 	virtual void Init() override;
 	virtual void Update() override;

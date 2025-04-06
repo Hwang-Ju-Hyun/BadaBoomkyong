@@ -7,7 +7,10 @@
 #include "ComponentManager.h"
 #include "ModelManager.h"
 #include "GameObjectManager.h"
+
+#ifdef _DEBUG
 #include <vld.h>
+#endif
 
 int main(void)
 {			

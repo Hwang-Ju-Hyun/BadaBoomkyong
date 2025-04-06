@@ -14,6 +14,7 @@ public:
 	virtual void Init()	override;
 	virtual void Update()override;
 	virtual void Exit()	override;
-	GameObject* temp = nullptr;
+	GameObject* tri = nullptr;
+	GameObject* rec = nullptr;
 };
 

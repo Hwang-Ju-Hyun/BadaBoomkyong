@@ -56,15 +56,14 @@ void Application::Update()
     GameStateManager::GetInstance()->Update();    
 
     //Component
-
     ComponentManager::GetInstance()->Update();
 }
 
 void Application::Exit()
 {
     GameStateManager::GetInstance()->ChangeLevel(nullptr);
-    GameObjectManager::GetInstance()->Exit();
     ComponentManager::GetInstance()->Exit();
+    GameObjectManager::GetInstance()->Exit();
     ModelManager::GetInstance()->Exit();
     RenderManager::GetInstance()->Exit();
     Window::GetInstance()->Exit();

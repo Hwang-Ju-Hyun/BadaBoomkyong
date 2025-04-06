@@ -12,6 +12,11 @@ Transform::~Transform()
 {
 }
 
+glm::mat3 Transform::GetModelToNDC_Matrix() const
+{	
+	return m_mModeltoNDC;
+}
+
 void Transform::Init(){}
 
 void Transform::Update()
