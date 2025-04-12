@@ -66,4 +66,5 @@ BaseComponent* GameObject::FindComponent(const std::string& _compName)
 	return (*m_hashComponents.find(_compName)).second;
 }
 
+
 void GameObject::DeleteComponent(const std::string& _compName){}

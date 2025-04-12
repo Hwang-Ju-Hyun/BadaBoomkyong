@@ -37,8 +37,8 @@ public:
 public:
 	//Gettor
 	inline const enum MODEL_TYPE GetModelType()const { return m_eModelType; }	
-	inline unsigned int GetVBO()const { return VBO; }
-	inline unsigned int GetPositionCnt_of_VBO()const { return m_vVertices.size(); }
+	inline size_t GetVBO()const { return VBO; }
+	inline size_t GetPositionCnt_of_VBO()const { return m_vVertices.size(); }
 public:
 	void Draw();
 };

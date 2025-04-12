@@ -28,9 +28,9 @@ void Model::Draw()
 {
 	glBindVertexArray(VAO);
 	if (m_bEBO)
-		glDrawElements(m_ePrimitiveType, m_vIndices.size(), GL_UNSIGNED_INT, 0);
+		glDrawElements(m_ePrimitiveType, (size_t)m_vIndices.size(), GL_UNSIGNED_INT, 0);
 	else
-		glDrawArrays(m_ePrimitiveType,0, GetPositionCnt_of_VBO());
+		glDrawArrays(m_ePrimitiveType,0, (size_t)GetPositionCnt_of_VBO());
 }
 
 void Model::UploadBuffers()

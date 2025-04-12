@@ -31,7 +31,7 @@ void ModelManager::Init()
 
 void ModelManager::Exit()
 {
-	int size = m_vModels.size();
+	size_t size = m_vModels.size();
 	for (int i = 0;i < size;i++)
 	{
 		delete m_vModels[i];
