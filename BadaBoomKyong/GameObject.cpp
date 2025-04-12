@@ -41,19 +41,24 @@ MODEL_TYPE GameObject::GetModelType()
 	return m_mModel->GetModelType();
 }
 
-void GameObject::AddComponent(const std::string& _compName, BaseComponent* _comp)
+BaseComponent* GameObject::AddComponent_and_Get(const std::string& _compName, BaseComponent* _comp)
 {	
 	for (auto comp : m_vComponents)
 	{
 		if (_compName == comp->GetName())
-		{
-			return;
+		{			
+			return nullptr;
 		}
 	}
 	m_hashComponents.insert({ _compName,_comp });	
 	m_vComponents.push_back(_comp);
 
-	ComponentManager::GetInstance()->AddComponent(_comp);
+	BaseComponent* comp = ComponentManager::GetInstance()->AddComponent_and_Get(_comp);
+	
+	if (comp != nullptr)
+		comp->SetOwner(this);
+
+	return comp;
 }
 
 BaseComponent* GameObject::FindComponent(const std::string& _compName)

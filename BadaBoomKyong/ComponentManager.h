@@ -12,7 +12,7 @@ private:
 	std::vector<BaseComponent*> m_vComponents;
 public:
 	std::vector<BaseComponent*> GetAllComponent();
-	void AddComponent(BaseComponent* _comp);	
+	BaseComponent* AddComponent_and_Get(BaseComponent* _comp);	
 public:
 	void Init();
 	void Update();

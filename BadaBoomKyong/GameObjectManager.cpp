@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include <iostream>
 #include <algorithm>
+#include <cassert>
 #include "ModelManager.h"
 
 GameObjectManager::GameObjectManager()
@@ -37,6 +38,13 @@ GameObject* GameObjectManager::FindObject(const std::string& _name)
 	}
 	std::cout << _name << " is not exist in GameObjectVector : GameObjectManager::FindObject" << std::endl;
 	return nullptr;
+}
+
+GameObject* GameObjectManager::GetLastObject()
+{
+	int size = m_vGameObjects.size();
+	assert(size > 0);
+	return m_vGameObjects[size - 1];
 }
 
 void GameObjectManager::DeleteObject(const std::string& _name)

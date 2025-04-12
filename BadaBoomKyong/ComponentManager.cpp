@@ -16,9 +16,11 @@ std::vector<BaseComponent*> ComponentManager::GetAllComponent()
 	return m_vComponents;
 }
 
-void ComponentManager::AddComponent(BaseComponent* _comp)
+BaseComponent* ComponentManager::AddComponent_and_Get(BaseComponent* _comp)
 {
 	m_vComponents.push_back(_comp);
+	int size = m_vComponents.size();
+	return m_vComponents[size - 1];
 }
 
 void ComponentManager::Init()

@@ -65,6 +65,15 @@
     <Filter Include="GameObject">
       <UniqueIdentifier>{4544a5c2-44ef-4d7f-b937-d610f9e90f49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RTTI">
+      <UniqueIdentifier>{246f045a-1112-4997-9ce8-97999511f5c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RTTI\Registry">
+      <UniqueIdentifier>{9fafbefa-a4b0-43c5-b1c8-43534e5663fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Serializer">
+      <UniqueIdentifier>{2582f953-aec7-42c0-b5f8-e471d8c782c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -114,6 +123,15 @@
     </ClCompile>
     <ClCompile Include="Stage01.cpp">
       <Filter>Level\Stage01</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseRTTI.cpp">
+      <Filter>RTTI</Filter>
+    </ClCompile>
+    <ClCompile Include="Registry.cpp">
+      <Filter>RTTI\Registry</Filter>
+    </ClCompile>
+    <ClCompile Include="Serializer.cpp">
+      <Filter>Manager\Serializer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +185,15 @@
     </ClInclude>
     <ClInclude Include="Stage01.h">
       <Filter>Level\Stage01</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseRTTI.h">
+      <Filter>RTTI</Filter>
+    </ClInclude>
+    <ClInclude Include="Registry.h">
+      <Filter>RTTI\Registry</Filter>
+    </ClInclude>
+    <ClInclude Include="Serializer.h">
+      <Filter>Manager\Serializer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

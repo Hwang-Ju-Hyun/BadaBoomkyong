@@ -1,4 +1,6 @@
 #pragma once
+#include <cassert>
+#define ASSERT_MSG(cond, msg) assert((cond) && (msg))
 
 enum MODEL_TYPE
 {

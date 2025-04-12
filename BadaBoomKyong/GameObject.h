@@ -7,6 +7,7 @@
 
 class Model;
 class BaseComponent;
+class BaseRTTI;
 
 class GameObject
 {
@@ -30,7 +31,7 @@ private:
 	std::vector<BaseComponent*> m_vComponents;
 	std::unordered_map<std::string, BaseComponent*> m_hashComponents;
 public:
-	void AddComponent(const std::string& _compName, BaseComponent* _comp);
+	BaseComponent* AddComponent_and_Get(const std::string& _compName, BaseComponent* _comp);
 	BaseComponent* FindComponent(const std::string& _compName);
 	void DeleteComponent(const std::string& _compName);
 };

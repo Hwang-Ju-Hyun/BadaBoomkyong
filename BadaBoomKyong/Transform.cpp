@@ -1,6 +1,7 @@
 #include "Transform.h"
 #include "GameObject.h"
 #include "Window.h"
+#include "GameObjectManager.h"
 
 Transform::Transform(GameObject* _owner)
 	:BaseComponent(_owner)
@@ -52,8 +53,27 @@ void Transform::Update()
 	m_mModeltoWorld = (transform  * rotation * scale);
 	m_mModeltoNDC = WorldtoNDC*m_mModeltoWorld;
 }
-
+ 
 void Transform::Exit()
 {
 
+}
+
+BaseRTTI* Transform::CreateTransformComponent()
+{
+	GameObject* last_obj = GameObjectManager::GetInstance()->GetLastObject();	
+	BaseRTTI* comp = last_obj->AddComponent_and_Get(TypeName, new Transform(last_obj));	
+	if(comp!=nullptr)
+		return comp;
+	return nullptr;
+}
+
+void Transform::LoadFromJson(const json& _str)
+{
+
+}
+
+json Transform::SaveToJson(const json& _str)
+{
+	return json();
 }

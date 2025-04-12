@@ -13,7 +13,7 @@ public:
 private:
 	glm::vec3 m_vPosition = {};
 	glm::vec2 m_vScale = {};
-	float m_fRotation=0.f;
+	float m_fRotation = 0.f;
 private:
 	glm::mat3 m_mModeltoNDC;
 	glm::mat3 m_mModeltoWorld;
@@ -34,4 +34,8 @@ public:
 	virtual void Exit() override;
 public:
 	static constexpr const char* TypeName = "Transform";
+public:
+	static BaseRTTI* CreateTransformComponent();
+	virtual void LoadFromJson(const json& _str)override;
+	virtual json SaveToJson(const json& _str)override;
 };

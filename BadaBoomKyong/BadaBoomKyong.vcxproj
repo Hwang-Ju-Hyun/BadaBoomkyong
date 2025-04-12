@@ -72,11 +72,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IntDir>$(SolutionDir)temp</IntDir>
-    <IncludePath>C:\Program Files (x86)\\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Extern\Json;$(SolutionDir)Extern\Assets;C:\Program Files (x86)\Visual Leak Detector\include</IncludePath>
     <LibraryPath>C:\Program Files (x86)\Visual Leak Detector\lib\Win64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(SolutionDir)temp</IntDir>
+    <IncludePath>$(SolutionDir)Extern\Json;$(SolutionDir)Extern\Assets</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -144,6 +145,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="BaseLevel.cpp" />
+    <ClCompile Include="BaseRTTI.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
@@ -152,7 +154,9 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelManager.cpp" />
+    <ClCompile Include="Registry.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="Serializer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Stage01.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -162,6 +166,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="BaseLevel.h" />
+    <ClInclude Include="BaseRTTI.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
@@ -170,7 +175,9 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelManager.h" />
+    <ClInclude Include="Registry.h" />
     <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="Serializer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Stage01.h" />
