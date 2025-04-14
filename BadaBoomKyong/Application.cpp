@@ -10,6 +10,7 @@
 #include "RenderManager.h"
 #include "ComponentManager.h"
 #include "GameObjectManager.h"
+#include "InputManager.h"
 
 Application::Application(){}
 
@@ -38,10 +39,9 @@ void Application::Init()
     //GameStateManager    
     GameStateManager::GetInstance()->ChangeLevel(new Stage01("Stage01"));
         
-
     //TODO : Make sure to implement InputManager(KeyCallBack, MouseCallBack)
-    //GLFWwindow* pWindowHandle = Window::GetInstance()->GetWindowHandle();
-    //glfwSetKeyCallback(pWindowHandle,KeyCallBack)
+    InputManager::GetInstance()->Init();
+
     //glfwSetMouseButtonCallback(pWindowHandle, MouseCallBack);
     //glfwSetCursorPosCallback(pWindowHandle, MousePositionCallBack);
 }
@@ -57,6 +57,8 @@ void Application::Update()
 
     //Component
     ComponentManager::GetInstance()->Update();
+
+    InputManager::GetInstance()->Update();
 }
 
 void Application::Exit()

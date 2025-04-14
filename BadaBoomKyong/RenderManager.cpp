@@ -76,7 +76,7 @@ void RenderManager::Draw()
 	}	
 
 	auto handle=Window::GetInstance()->GetWindowHandle();
-	glfwSwapBuffers(handle);
+	glfwSwapBuffers(handle);	
 	glfwPollEvents();
 	
 }
