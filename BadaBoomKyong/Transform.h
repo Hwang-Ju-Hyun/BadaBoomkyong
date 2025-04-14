@@ -33,7 +33,11 @@ public:
 	virtual void Update() override;
 	virtual void Exit() override;
 public:
-	static constexpr const char* TypeName = "Transform";
+	static constexpr const char* PositionName = "Pos";
+	static constexpr const char* ScaleName = "Sca";
+	static constexpr const char* RotationName = "Rot";
+	
+	static constexpr const char* TransformTypeName = "Transform";
 public:
 	static BaseRTTI* CreateTransformComponent();
 	virtual void LoadFromJson(const json& _str)override;

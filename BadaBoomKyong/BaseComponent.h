@@ -25,5 +25,7 @@ public:
 	virtual void Update();
 	virtual void Exit();
 public:
+	static constexpr const char* CompDataName = "CompData";
+public:
 	BaseComponent* operator = (BaseComponent*) = delete;
 };

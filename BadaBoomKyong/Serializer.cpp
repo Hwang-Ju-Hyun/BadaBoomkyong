@@ -15,6 +15,7 @@ Serializer::~Serializer(){}
 GameObject* Serializer::LoadJson(const std::string& _path)
 {
 	std::fstream file;	
+	file.open(_path, std::fstream::in);
 	ASSERT_MSG(file.is_open(), ("Can't open file : " + _path).c_str());
 	
 	json js_all_data;

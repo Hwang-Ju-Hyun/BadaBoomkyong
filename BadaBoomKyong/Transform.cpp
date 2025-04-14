@@ -2,11 +2,13 @@
 #include "GameObject.h"
 #include "Window.h"
 #include "GameObjectManager.h"
+#include "Serializer.h"
+
 
 Transform::Transform(GameObject* _owner)
 	:BaseComponent(_owner)
 {
-	SetName(this->TypeName);
+	SetName(this->TransformTypeName);
 }
 
 Transform::~Transform()
@@ -62,7 +64,7 @@ void Transform::Exit()
 BaseRTTI* Transform::CreateTransformComponent()
 {
 	GameObject* last_obj = GameObjectManager::GetInstance()->GetLastObject();	
-	BaseRTTI* comp = last_obj->AddComponent_and_Get(TypeName, new Transform(last_obj));	
+	BaseRTTI* comp = last_obj->AddComponent_and_Get(TransformTypeName, new Transform(last_obj));	
 	if(comp!=nullptr)
 		return comp;
 	return nullptr;
@@ -70,10 +72,36 @@ BaseRTTI* Transform::CreateTransformComponent()
 
 void Transform::LoadFromJson(const json& _str)
 {
+	auto iter_compData = _str.find(CompDataName);
+	if (iter_compData != _str.end())
+	{
+		auto pos = iter_compData->find(PositionName);
+		m_vPosition.x = pos->begin().value();
+		m_vPosition.y = (pos->begin()+1).value();
+		m_vPosition.z = (pos->begin() + 2).value();
 
+		auto sca = iter_compData->find(ScaleName);
+		m_vScale.x = sca->begin().value();
+		m_vScale.y = (sca->begin()+1).value();
+
+		auto rot= iter_compData->find(RotationName);
+		m_fRotation = rot->begin().value();
+	}
 }
 
 json Transform::SaveToJson(const json& _str)
-{
-	return json();
+{	
+	json data;
+
+	auto serializer = Serializer::GetInstance();
+	data[serializer->ComponentTypeNameInJson] = TransformTypeName;
+
+	json compData;
+	compData[PositionName] = { m_vPosition.x,m_vPosition.y,m_vPosition.z };
+	compData[ScaleName] = { m_vScale.x,m_vScale.y };
+	compData[RotationName] = { m_fRotation };
+
+	data[CompDataName] = compData;
+	
+	return data;	
 }

@@ -158,6 +158,7 @@
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="Serializer.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage01.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="Serializer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage01.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Window.h" />

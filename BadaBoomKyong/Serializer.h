@@ -15,10 +15,10 @@ public:
 	GameObject* LoadJson(const std::string& _path);
 	void SaveJson(const std::string& _path);
 	GameObject* CreateObjectFromJson(json _item);
-private:
-	const char* ModelTypeNameInJson = "Model";
-	const char* ComponentNameInJson = "Components";
-	const char* NameTypeInJson = "Name";
-	const char* ComponentTypeNameInJson = "Type";
+public:
+	static constexpr const char* ModelTypeNameInJson = "Model";
+	static constexpr const char* ComponentNameInJson = "Components";
+	static constexpr const char* NameTypeInJson = "Name";
+	static constexpr const char* ComponentTypeNameInJson = "Type";
 };
 

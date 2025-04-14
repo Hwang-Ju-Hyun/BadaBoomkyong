@@ -74,6 +74,9 @@
     <Filter Include="Manager\Serializer">
       <UniqueIdentifier>{2582f953-aec7-42c0-b5f8-e471d8c782c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Sprite">
+      <UniqueIdentifier>{6d2d22d1-cc67-4541-b86f-bf055e544dcd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -132,6 +135,9 @@
     </ClCompile>
     <ClCompile Include="Serializer.cpp">
       <Filter>Manager\Serializer</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Component\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="Serializer.h">
       <Filter>Manager\Serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Component\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

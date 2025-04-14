@@ -11,6 +11,7 @@
 #include <GLFW/glfw3.h>
 #include <../GLM/gtc/type_ptr.hpp>
 #include "Transform.h"
+#include "Sprite.h"
 #include <cassert>
 
 RenderManager::RenderManager()
@@ -48,16 +49,24 @@ void RenderManager::Draw()
 		if (model)
 		{
 			//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
-			GLint uniform_var_loc = glGetUniformLocation(shdr_handle, "uModel_to_NDC");
-			assert(uniform_var_loc >= 0);
-									
-			Transform* trs = dynamic_cast<Transform*>(obj->FindComponent(Transform::TypeName));
+			GLint Model_to_NDC_location = glGetUniformLocation(shdr_handle, "uModel_to_NDC");
+			assert(Model_to_NDC_location >= 0);
+
+			Transform* trs = dynamic_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName));
 			assert(trs != nullptr);
 
+			GLint ColorLocation = glGetUniformLocation(shdr_handle, "uColor");
+			assert(ColorLocation >= 0);
+			
+			Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
+			assert(spr != nullptr);
+
 			glm::mat3 model_to_ndc = trs->GetModelToNDC_Matrix();
+			glm::vec4 color = spr->GetColor();
 
 			//셰이더한테 이 3x3 행렬 좀 써줘 라는 함수
-			glUniformMatrix3fv(uniform_var_loc, 1, GL_FALSE, glm::value_ptr(model_to_ndc));
+			glUniformMatrix3fv(Model_to_NDC_location, 1, GL_FALSE, glm::value_ptr(model_to_ndc));
+			glUniform4fv(ColorLocation, 1, glm::value_ptr(color));
 
 			//Draw
 			model->Draw();	
