@@ -19,10 +19,12 @@ GameObject::~GameObject()
 		if (m_vComponents[i] != nullptr)
 		{
 			delete m_vComponents[i];
-			m_vComponents[i] = nullptr;
+			ComponentManager::GetInstance()->DeleteComponent(m_vComponents[i]);
+			m_vComponents[i] = nullptr;	
 		}
-	}
-	m_vComponents.clear();
+	}		
+	m_vComponents.clear();	
+
 	std::vector<BaseComponent*> vTemp = m_vComponents;
 	vTemp.swap(m_vComponents);
 

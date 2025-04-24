@@ -19,6 +19,7 @@ public:
 	void Init();	
 	void Exit();
 private:
+	void LineInit();
 	void TriangleInit();
 	void CircleInit();
 	void RectangleInit();	

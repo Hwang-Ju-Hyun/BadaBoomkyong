@@ -7,7 +7,7 @@ Model::Model(const std::string& _name, MODEL_TYPE _modelType, GLenum _primitiveT
 	m_ePrimitiveType(_primitiveType),
 	m_vVertices(_vertices),
 	m_vIndices(_indices)
-{	
+{
 	m_vIndices.size() <= 2 ? m_bEBO = false : m_bEBO = true;
 	UploadBuffers();
 }
@@ -30,12 +30,17 @@ void Model::Draw()
 	if (m_bEBO)
 		glDrawElements(m_ePrimitiveType, (size_t)m_vIndices.size(), GL_UNSIGNED_INT, 0);
 	else
-		glDrawArrays(m_ePrimitiveType,0, (size_t)GetPositionCnt_of_VBO());
+	{							
+		if (m_ePrimitiveType == GL_LINES)
+			glLineWidth(100.f);
+		glDrawArrays(m_ePrimitiveType, 0, (size_t)GetPositionCnt_of_VBO());
+	}
+		
 }
 
 void Model::UploadBuffers()
 {
-	//Create Buffer	
+	//Create Buffer
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 	if (m_bEBO)

@@ -10,12 +10,18 @@ public:
 	
 private:
 	GameObject* m_pSelectedObject = nullptr;
+	GameObject* m_pAxis_X=nullptr;
+	GameObject* m_pAxis_Y=nullptr;
+private:
+	bool m_bGizmoActive = false;
 public:
 	void Init();
 	void Update();
 	void Exit();
-public:	
+public:
+	void CreateAxis(GameObject* _obj);
+public:
 	void MoveObject();
 	void UpdateSelectedObject();
+	
 };
-

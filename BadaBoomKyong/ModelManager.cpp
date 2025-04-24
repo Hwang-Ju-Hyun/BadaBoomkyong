@@ -25,6 +25,7 @@ Model* ModelManager::FindModel(MODEL_TYPE _modelType)
 
 void ModelManager::Init()
 {
+	LineInit();
 	TriangleInit();
 	RectangleInit();	
 }
@@ -40,6 +41,22 @@ void ModelManager::Exit()
 	m_vModels.clear();
 	std::vector<Model*> temp;
 	temp.swap(m_vModels);
+}
+
+void ModelManager::LineInit()
+{
+	std::string name = "Line";
+	std::vector<Model::VertexAttribute> vertices =
+	{
+		{glm::vec3{ -0.5f, 0.f, 0.f }, glm::vec2{ 0.f, 0.f }},
+		{glm::vec3{ 0.5f, 0.f, 0.f }, glm::vec2{ 0.f, 0.f }}
+	};
+	GLenum type = GL_LINES;
+	Model* model = new Model(name, MODEL_TYPE::LINE, type, std::move(vertices));
+
+	assert(model != nullptr);
+
+	AddModel(model);
 }
 
 void ModelManager::TriangleInit()

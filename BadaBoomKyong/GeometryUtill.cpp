@@ -9,8 +9,8 @@ GeometryUtil::GeometryUtil(){}
 GeometryUtil::~GeometryUtil() {}
 
 bool GeometryUtil::IsPointInsideRectangle(glm::vec2 _point, Transform* _trs)
-{	
-    if(_trs->GetOwner()->GetModelType() == MODEL_TYPE::RECTANGLE)
+{	  
+    if(_trs->GetOwner()->GetModelType() == MODEL_TYPE::RECTANGLE|| _trs->GetOwner()->GetModelType() == MODEL_TYPE::LINE)
 	{        
         glm::vec3 obj_pos = _trs->GetPosition();
         glm::vec2 obj_scale = _trs->GetScale();

@@ -110,7 +110,11 @@ GameObject* InputManager::IsMouseInsideObject(GameObject* _obj)
             else if (_obj->GetModelType() == MODEL_TYPE::RECTANGLE)
             {
                 GeometryUtil::GetInstance()->IsPointInsideRectangle(cur_pos, obj_trs) ? obj = _obj : obj = nullptr;
-            }                            
+            }
+            else if(_obj->GetModelType()==MODEL_TYPE::LINE)
+            {
+                GeometryUtil::GetInstance()->IsPointInsideRectangle(cur_pos, obj_trs) ? obj = _obj : obj = nullptr;
+            }
             return obj;
         }                
     }

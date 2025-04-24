@@ -42,8 +42,7 @@ void Transform::Init(){}
 void Transform::Update()
 {
 	float window_width  = static_cast<float>(Window::GetInstance()->GetWindowWidth());
-	float window_height = static_cast<float>(Window::GetInstance()->GetWindowHeight());
-	
+	float window_height = static_cast<float>(Window::GetInstance()->GetWindowHeight());	
 	glm::mat3 transform =
 	{
 		1,				0,				0,			//	1 0 position x	
@@ -67,10 +66,9 @@ void Transform::Update()
 		2.f/window_width,		0,				0,
 		0,					2.f/window_height,	0,
 		0,						0,				1
-	};
-
-	m_mModeltoWorld = (transform  * rotation * scale);
-	m_mModeltoNDC = WorldtoNDC*m_mModeltoWorld;
+	};	
+	m_mModeltoWorld = (transform * rotation * scale);	
+	m_mModeltoNDC = WorldtoNDC*m_mModeltoWorld;	
 }
  
 void Transform::Exit()

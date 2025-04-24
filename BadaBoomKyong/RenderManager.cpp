@@ -72,6 +72,7 @@ void RenderManager::Draw()
 			glm::vec4 color = spr->GetColor();
 
 			//셰이더한테 이 3x3 행렬 좀 써줘 라는 함수
+			//GL_FALSE - Column major로 인식해라 
 			glUniformMatrix3fv(Model_to_NDC_location, 1, GL_FALSE, glm::value_ptr(model_to_ndc));
 			glUniform4fv(ColorLocation, 1, glm::value_ptr(color));
 
