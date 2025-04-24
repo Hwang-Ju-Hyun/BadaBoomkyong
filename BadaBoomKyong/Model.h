@@ -36,9 +36,11 @@ public:
 	inline void SetPrimitiveType(const GLenum _primitiveType) { m_ePrimitiveType = _primitiveType; }	
 public:
 	//Gettor
+	inline const std::string& GetName() { return m_sName; }
 	inline const enum MODEL_TYPE GetModelType()const { return m_eModelType; }	
 	inline size_t GetVBO()const { return VBO; }
 	inline size_t GetPositionCnt_of_VBO()const { return m_vVertices.size(); }
+	inline std::vector<VertexAttribute> GetVertices()const { return m_vVertices; }
 public:
 	void Draw();
 };

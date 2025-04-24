@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseComponent.h"
 #include <glm.hpp>
+#include <vector>
 
 class GameObject;
 
@@ -15,7 +16,7 @@ private:
 	glm::vec2 m_vScale = {};
 	float m_fRotation = 0.f;
 private:
-	glm::mat3 m_mModeltoNDC;
+	glm::mat3 m_mModeltoNDC;	
 	glm::mat3 m_mModeltoWorld;
 public:
 	//settor
@@ -27,6 +28,7 @@ public:
 	inline glm::vec3 GetPosition()const { return m_vPosition; }
 	inline glm::vec2 GetScale()const { return m_vScale; }
 	inline float GetRotation()const { return m_fRotation; }
+	std::vector<glm::vec3> GeteEachVertexPosition();
 	glm::mat3 GetModelToNDC_Matrix()const;
 public:
 	virtual void Init() override;
@@ -42,4 +44,8 @@ public:
 	static BaseRTTI* CreateTransformComponent();
 	virtual void LoadFromJson(const json& _str)override;
 	virtual json SaveToJson(const json& _str)override;
+public:
+#ifdef _DEBUG
+	virtual void EditInfoFromButton()override;
+#endif // DEBUG
 };

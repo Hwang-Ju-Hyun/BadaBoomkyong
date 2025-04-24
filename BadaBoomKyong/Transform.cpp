@@ -3,6 +3,8 @@
 #include "Window.h"
 #include "GameObjectManager.h"
 #include "Serializer.h"
+#include "BaseComponent.h"
+#include "Model.h"
 
 
 Transform::Transform(GameObject* _owner)
@@ -13,6 +15,21 @@ Transform::Transform(GameObject* _owner)
 
 Transform::~Transform()
 {
+}
+
+
+//It returns worldspace coords
+std::vector<glm::vec3> Transform::GeteEachVertexPosition()
+{
+	std::vector<Model::VertexAttribute> attr = GetOwner()->GetModel()->GetVertices();	
+	std::vector<glm::vec3> pos;	
+	for (int i = 0;i < attr.size();i++)
+	{
+		glm::vec3 localPos = attr[i].position;
+		glm::vec3 worldPos = m_mModeltoWorld * glm::vec3(localPos.x, localPos.y, 1.0f);
+		pos.push_back({ worldPos });
+	}	
+	return pos;
 }
 
 glm::mat3 Transform::GetModelToNDC_Matrix() const
@@ -47,8 +64,8 @@ void Transform::Update()
 	};
 	glm::mat3 WorldtoNDC =
 	{
-		1.f/window_width,		0,				0,
-		0,					1.f/window_height,	0,
+		2.f/window_width,		0,				0,
+		0,					2.f/window_height,	0,
 		0,						0,				1
 	};
 
@@ -105,3 +122,13 @@ json Transform::SaveToJson(const json& _str)
 	
 	return data;	
 }
+
+
+#ifdef _DEBUG
+void Transform::EditInfoFromButton()
+{	
+	ImGui::InputFloat2("Pos", &(m_vPosition[0]));
+	ImGui::InputFloat2("Scale", &(m_vScale[0]));
+	ImGui::InputFloat("Rot", &(m_fRotation));
+}
+#endif // DEBUG

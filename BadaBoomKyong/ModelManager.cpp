@@ -47,9 +47,9 @@ void ModelManager::TriangleInit()
 	std::string name = "Triangle";	
 	std::vector<Model::VertexAttribute> vertices =						
 	{								
-		{glm::vec3{-1.f,-1.f,0.f},		glm::vec2{0.f,0.f}},//Bottom Left
-		{glm::vec3{0.f,1.f,0.f},		glm::vec2{0.5f,1.f}},//Middle 
-		{glm::vec3{1.f,-1.f,0.f},		glm::vec2{1.f,0.f}},//Bottom Right		
+		{glm::vec3{ -0.5f, -0.5f, 0.f }, glm::vec2{ 0.f, 0.f }}, // Bottom Left
+		{glm::vec3{  0.0f,  0.5f, 0.f }, glm::vec2{ 0.5f, 1.f }}, // Top Center
+		{glm::vec3{  0.5f, -0.5f, 0.f }, glm::vec2{ 1.f, 0.f }}  // Bottom Right
 	};							
 	GLenum type = GL_TRIANGLES;		
 	Model* model = new Model(name, MODEL_TYPE::TRIANGLE, type, std::move(vertices));

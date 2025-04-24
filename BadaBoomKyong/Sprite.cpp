@@ -3,10 +3,12 @@
 #include "GameObjectManager.h"
 #include <cassert>
 #include "Serializer.h"
+#include "BaseComponent.h"
 
 Sprite::Sprite(GameObject* _owner)
 	:BaseComponent(_owner)
 {
+	SetName(SpriteTypeName);
 }
 
 Sprite::~Sprite()
@@ -59,3 +61,11 @@ json Sprite::SaveToJson(const json& _str)
 	data[CompDataName] = compData;
 	return data;
 }
+
+#ifdef _DEBUG
+void Sprite::EditInfoFromButton()
+{	
+	ImGui::InputFloat4("Color", &m_vColor[0]);
+	ImGui::ColorEdit3("Color", (float*)&m_vColor);
+}
+#endif // DEBUG

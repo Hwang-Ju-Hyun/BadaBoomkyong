@@ -14,6 +14,13 @@
 #include "Sprite.h"
 #include <cassert>
 
+#ifdef _DEBUG
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+#endif // DEBUG
+
+
 RenderManager::RenderManager()
 {
 
@@ -75,9 +82,14 @@ void RenderManager::Draw()
 		}
 	}	
 
+#ifdef _DEBUG
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+#endif
+
 	auto handle=Window::GetInstance()->GetWindowHandle();
 	glfwSwapBuffers(handle);	
-	glfwPollEvents();
+	
 	
 }
 

@@ -22,3 +22,11 @@ void BaseComponent::Update()
 void BaseComponent::Exit()
 {
 }
+
+#ifdef _DEBUG
+void BaseComponent::EditInfoFromButton()
+{			
+		
+	
+}
+#endif // DEBUG

@@ -26,5 +26,9 @@ public:
     static BaseRTTI* CreateSpriteComponent();
     virtual void LoadFromJson(const json& _str)override;
     virtual json SaveToJson(const json& _str)override;
+public:
+#ifdef _DEBUG
+    virtual void EditInfoFromButton()override;
+#endif // DEBUG    
 };
 

@@ -7,8 +7,8 @@ public:
 	SINGLETON(Window);
 private:
 	const char m_cWindowTitleName[100] = "BadaBoomKyoung";
-	GLint m_iWindowWidth = 1980;
-	GLint m_iWindowHeight = 1080;
+	GLint m_iWindowWidth = 1280;
+	GLint m_iWindowHeight = 720;
 	GLFWwindow* m_pWindowHandle = nullptr;
 public:
 	inline const char* GetWindowName() { return m_cWindowTitleName; }
@@ -19,4 +19,3 @@ public:
 	void Init(GLint _windowWidth, GLint _windowHeight);
 	void Exit();
 };
-

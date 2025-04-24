@@ -11,6 +11,7 @@
 #include "ComponentManager.h"
 #include "GameObjectManager.h"
 #include "InputManager.h"
+#include "MainEditor.h"
 
 Application::Application(){}
 
@@ -24,7 +25,7 @@ void Application::Init()
     assert(iGlfwInit_Err);
 
     //Window Init        
-    Window::GetInstance()->Init(Window::GetInstance()->GetWindowWidth(), Window::GetInstance()->GetWindowHeight());
+    Window::GetInstance()->Init(Window::GetInstance()->GetWindowWidth(), Window::GetInstance()->GetWindowHeight());    
 
     //GLEW Init
     GLenum iGlewInit_Err = glewInit(); 
@@ -40,25 +41,34 @@ void Application::Init()
     GameStateManager::GetInstance()->ChangeLevel(new Stage01("Stage01"));
         
     //TODO : Make sure to implement InputManager(KeyCallBack, MouseCallBack)
-    InputManager::GetInstance()->Init();
+    InputManager::GetInstance()->Init();    
 
-    //glfwSetMouseButtonCallback(pWindowHandle, MouseCallBack);
-    //glfwSetCursorPosCallback(pWindowHandle, MousePositionCallBack);
+#ifdef _DEBUG
+    //MainEditor
+    MainEditor::GetInstance()->Init();
+#endif
 }
 
 void Application::Update()
 {    
     glClearColor(0.f,0.f, 0.f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+    glfwPollEvents();
     auto handle = Window::GetInstance()->GetWindowHandle();    
 
     //GameState
     GameStateManager::GetInstance()->Update();    
 
+    //Input
+    InputManager::GetInstance()->Update();
+
     //Component
     ComponentManager::GetInstance()->Update();
 
-    InputManager::GetInstance()->Update();
+#ifdef _DEBUG
+    //Main Editor
+    MainEditor::GetInstance()->Update();
+#endif
 }
 
 void Application::Exit()
@@ -68,6 +78,13 @@ void Application::Exit()
     GameObjectManager::GetInstance()->Exit();
     ModelManager::GetInstance()->Exit();
     RenderManager::GetInstance()->Exit();
+
+#ifdef _DEBUG
+    // Cleanup
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+#endif // DEBUG
     Window::GetInstance()->Exit();
     glfwTerminate();
 }

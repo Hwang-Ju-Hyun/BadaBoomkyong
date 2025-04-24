@@ -77,6 +77,27 @@
     <Filter Include="Component\Sprite">
       <UniqueIdentifier>{6d2d22d1-cc67-4541-b86f-bf055e544dcd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IMGUI">
+      <UniqueIdentifier>{bf94b43f-7fc5-4eaf-90c2-ec0fb26928e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{29d8193f-2fdc-480d-ba7b-93ac9b6839c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\MainEditor">
+      <UniqueIdentifier>{98aaa504-c853-49e4-92d1-457cc3784d22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{e0b3c6f5-fc22-4903-a5f2-75402d20da88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util\GeometryUtil">
+      <UniqueIdentifier>{83f453e6-1d0d-4c81-b82e-f680185930b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util\MathUtil">
+      <UniqueIdentifier>{10e265fe-b277-417a-bcbf-ae1e825bb35a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Gizmo">
+      <UniqueIdentifier>{c5f63a51-5495-4216-a871-da8bbf098a43}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -138,6 +159,42 @@
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>Component\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_demo.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_draw.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_impl_glfw.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_impl_opengl3.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_stdlib.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_tables.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_widgets.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="MainEditor.cpp">
+      <Filter>Editor\MainEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryUtill.cpp">
+      <Filter>Util\GeometryUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="MathUtil.cpp">
+      <Filter>Util\MathUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="GizmoManager.cpp">
+      <Filter>Editor\Gizmo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +261,48 @@
     <ClInclude Include="Sprite.h">
       <Filter>Component\Sprite</Filter>
     </ClInclude>
+    <ClInclude Include="IMGUI\imconfig.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui_impl_glfw.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui_impl_opengl3.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui_impl_opengl3_loader.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui_internal.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui_stdlib.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imstb_rectpack.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imstb_textedit.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imstb_truetype.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="MainEditor.h">
+      <Filter>Editor\MainEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryUtill.h">
+      <Filter>Util\GeometryUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtil.h">
+      <Filter>Util\MathUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="GizmoManager.h">
+      <Filter>Editor\Gizmo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex.vert">
@@ -211,6 +310,9 @@
     </None>
     <None Include="fragment.frag">
       <Filter>ShaderFiles</Filter>
+    </None>
+    <None Include="IMGUI\imgui.ini">
+      <Filter>IMGUI</Filter>
     </None>
   </ItemGroup>
 </Project>

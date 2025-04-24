@@ -8,6 +8,7 @@
 #include "InputManager.h"
 #include <iostream>
 
+
 Stage01::Stage01(const std::string& _name)
 	:BaseLevel(_name)
 {

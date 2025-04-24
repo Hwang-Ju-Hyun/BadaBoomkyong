@@ -2,6 +2,12 @@
 #include <string>
 #include "BaseRTTI.h"
 
+#ifdef _DEBUG
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+#endif // DEBUG
+
 class GameObject;
 
 class BaseComponent : public BaseRTTI
@@ -28,4 +34,8 @@ public:
 	static constexpr const char* CompDataName = "CompData";
 public:
 	BaseComponent* operator = (BaseComponent*) = delete;
+public:
+#ifdef _DEBUG
+	virtual void EditInfoFromButton();
+#endif // DEBUG
 };
