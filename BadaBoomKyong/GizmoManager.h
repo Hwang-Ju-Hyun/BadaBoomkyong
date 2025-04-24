@@ -13,7 +13,7 @@ private:
 	GameObject* m_pAxis_X=nullptr;
 	GameObject* m_pAxis_Y=nullptr;
 private:
-	bool m_bGizmoActive = false;
+	bool m_bAxis_Actice = false;
 public:
 	void Init();
 	void Update();

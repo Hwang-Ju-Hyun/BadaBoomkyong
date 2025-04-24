@@ -59,20 +59,25 @@ void GizmoManager::MoveObject()
 		Transform* selected_trs = dynamic_cast<Transform*>(m_pSelectedObject->FindComponent(Transform::TransformTypeName));
 		if (selected_trs != nullptr)
 		{
-			if (input->GetMouseBtn(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS&&!m_bGizmoActive)
+			//처음 오브젝트를 선택하였을때
+			//축 생성
+			if (input->GetMouseBtn(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 			{
-		 		CreateAxis(m_pSelectedObject);				
-				if (input->IsMouseInsideObject(m_pAxis_X))
+				if (!m_bAxis_Actice)
 				{
-					m_bGizmoActive = true;					
-				}
+					CreateAxis(m_pSelectedObject);
+					if (input->IsMouseInsideObject(m_pAxis_X)|| input->IsMouseInsideObject(m_pAxis_Y))
+					{
+						m_bAxis_Actice = true;
+					}
+				}	
 			}
-			else if (input->GetMouseBtn(GLFW_MOUSE_BUTTON_LEFT) == GLFW_REPEAT&&m_bGizmoActive)
-			{	
-				Transform* axis_x_trs = static_cast<Transform*>(m_pAxis_X->FindComponent(Transform::TransformTypeName));
-				float offset_x = input->GetCursorPostion().x - axis_x_trs->GetPosition().x;
-				float offset_y = input->GetCursorPostion().y - axis_x_trs->GetPosition().y;
-				selected_trs->SetPosition({ selected_trs->GetPosition().x + offset_x,selected_trs->GetPosition().y,selected_trs->GetPosition().z });		
+			else if (input->GetMouseBtn(GLFW_MOUSE_BUTTON_LEFT) == GLFW_REPEAT)
+			{
+				if (m_bAxis_Actice)
+				{
+					if(input->)
+				}
 			}
 		}
 	}
@@ -85,7 +90,7 @@ void GizmoManager::MoveObject()
 				GameObjectManager::GetInstance()->DeleteObject("Axis_X");
 				GameObjectManager::GetInstance()->DeleteObject("Axis_Y");
 			}			
-			m_bGizmoActive = false;
+			m_bAxis_Actice = false;
 		}
 	}
 }

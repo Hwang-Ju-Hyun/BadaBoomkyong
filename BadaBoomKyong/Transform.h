@@ -19,10 +19,17 @@ private:
 	glm::mat3 m_mModeltoNDC;	
 	glm::mat3 m_mModeltoWorld;
 public:
-	//settor
+	//settor	
 	inline void SetPosition(glm::vec3 _position) { m_vPosition = _position; }
 	inline void SetScale(glm::vec3 _scale) { m_vScale = _scale; }
 	inline void SetAngle(float _rot) { m_fRotation = _rot; }
+
+	//Add
+	inline void AddPositionX(float _x) { m_vPosition.x += _x; }
+	inline void AddPositionY(float _y) { m_vPosition.y += _y; }
+	inline void AddPositionZ(float _z) { m_vPosition.z += _z; }
+
+
 
 	//gettor
 	inline glm::vec3 GetPosition()const { return m_vPosition; }
