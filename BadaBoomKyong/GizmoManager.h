@@ -14,7 +14,7 @@ public:
 	void Init();
 	void Update();
 	void Exit();
-public:
+public:	
 	void MoveObject();
 	void UpdateSelectedObject();
 };
