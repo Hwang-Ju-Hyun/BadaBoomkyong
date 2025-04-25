@@ -32,7 +32,7 @@ void Model::Draw()
 	else
 	{							
 		if (m_ePrimitiveType == GL_LINES)
-			glLineWidth(100.f);
+			glLineWidth(50.f);
 		glDrawArrays(m_ePrimitiveType, 0, (size_t)GetPositionCnt_of_VBO());
 	}
 		

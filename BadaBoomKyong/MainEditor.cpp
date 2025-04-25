@@ -42,7 +42,7 @@ void MainEditor::Update()
 	ObjectPannelDraw();		
 	GizmoManager::GetInstance()->Update();
 	TopMenuBarDraw();
-	InputManager::GetInstance()->PrintCursorPosInConsole();
+	//InputManager::GetInstance()->PrintCursorPosInConsole();
 }
 
 void MainEditor::TopMenuBarDraw()
