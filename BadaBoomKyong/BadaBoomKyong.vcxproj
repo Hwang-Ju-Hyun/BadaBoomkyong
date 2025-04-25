@@ -166,12 +166,15 @@
     <ClCompile Include="MathUtil.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelManager.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Registry.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Serializer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage01.cpp" />
+    <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -202,13 +205,16 @@
     <ClInclude Include="MathUtil.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelManager.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Registry.h" />
     <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Serializer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage01.h" />
+    <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

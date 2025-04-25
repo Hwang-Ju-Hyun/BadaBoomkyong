@@ -3,6 +3,12 @@
 #include <glm.hpp>
 class GameObject;
 
+struct SelectObjectInfo
+{
+	GameObject* s_pCurSelectedObject = nullptr;
+	bool s_bIsSelected = false;
+};
+
 class GizmoManager
 {
 public:
@@ -25,7 +31,7 @@ public:
 public:
 	static constexpr const char* Axis_X_Name = "Axis_X";
 	static constexpr const char* Axis_Y_Name = "Axis_Y";
-public:		
+public:	
 	void MoveObject();
 	void UpdateSelectedObject();
 private:

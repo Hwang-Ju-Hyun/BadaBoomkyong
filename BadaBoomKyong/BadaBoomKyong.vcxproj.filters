@@ -98,6 +98,15 @@
     <Filter Include="Editor\Gizmo">
       <UniqueIdentifier>{c5f63a51-5495-4216-a871-da8bbf098a43}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Player">
+      <UniqueIdentifier>{aa6fc971-8e5d-4619-b07b-919a22e2f699}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\RigidBody">
+      <UniqueIdentifier>{3109bb1b-d4e5-4e54-8488-77b0c83fbacd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\TimeManager">
+      <UniqueIdentifier>{00700c28-7318-43e8-86e6-b475ab81aa42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -195,6 +204,15 @@
     </ClCompile>
     <ClCompile Include="GizmoManager.cpp">
       <Filter>Editor\Gizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Component\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Component\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>Manager\TimeManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +320,15 @@
     </ClInclude>
     <ClInclude Include="GizmoManager.h">
       <Filter>Editor\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Component\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>Component\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>Manager\TimeManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

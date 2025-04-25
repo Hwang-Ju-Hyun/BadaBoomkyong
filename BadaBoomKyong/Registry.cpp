@@ -1,11 +1,13 @@
 #include "Registry.h"
 #include "Transform.h"
 #include "Sprite.h"
+#include "RigidBody.h"
 
 Registry::Registry()
 {
     m_mapRTTI.insert({ Transform::TransformTypeName,&Transform::CreateTransformComponent });
     m_mapRTTI.insert({ Sprite::SpriteTypeName,&Sprite::CreateSpriteComponent });
+    m_mapRTTI.insert({ RigidBody::RigidBodyTypeName,&RigidBody::CreateRigidBodyComponent });
 }
 
 Registry::~Registry()
