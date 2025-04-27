@@ -10,3 +10,18 @@ enum MODEL_TYPE
 	LINE=3,
 	LAST
 };
+
+enum class GROUP_TYPE
+{
+	DEFAULT = 0,
+	PLAYER = 1,
+	TEMP = 2,
+
+	LAST
+};
+
+enum class STAGE_TYPE
+{
+	STAGE_01=0,
+	LAST
+};

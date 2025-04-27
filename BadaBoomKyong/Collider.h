@@ -1,0 +1,46 @@
+#pragma once
+#include "BaseComponent.h"
+#include <glm.hpp>
+
+class Transform;
+class Model;
+class Sprite;
+
+class Collider :
+    public BaseComponent
+{
+public:
+    Collider(GameObject* _owner);
+    virtual ~Collider()override;
+private:
+    glm::vec3 m_vOffsetPosition = {};
+    glm::vec3 m_vFinalPosition = {};
+    glm::vec3 m_vScale = {};
+    Transform* m_pOwnerTransform = nullptr;
+    Transform* m_pColliderTransform = nullptr;
+    Sprite* m_pColliderSpirte = nullptr;
+    Model* m_pModel = nullptr;
+public:
+    virtual void Init()override;
+    virtual void Update()override;
+    virtual void Exit()override;
+public:
+    inline void SetOffsetPosition(const glm::vec3& _offset) { m_vOffsetPosition = _offset; }
+    inline void SetScale(const glm::vec3& _scale) { m_vScale = _scale; }
+    
+    inline glm::vec3 GetOffsetPosition()const { return m_vOffsetPosition; }
+    inline glm::vec3 GetScale()const {return m_vScale;}
+public:
+    static constexpr const char* ColliderTypeName = "Collider";
+    static constexpr const char* OffsetTypeName = "Offset_Position";
+    static constexpr const char* ScaleTypeName = "Scale";
+public:
+    static BaseRTTI* CreateCollideComponent();
+    virtual void LoadFromJson(const json& _str)override;
+    virtual json SaveToJson(const json& _str)override;
+#ifdef _DEBUG
+public:
+    void DrawCollider();
+#endif
+};
+

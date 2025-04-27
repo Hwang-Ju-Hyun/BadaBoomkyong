@@ -2,12 +2,16 @@
 #include "Transform.h"
 #include "Sprite.h"
 #include "RigidBody.h"
+#include "Player.h"
+#include "Collider.h"
 
 Registry::Registry()
 {
     m_mapRTTI.insert({ Transform::TransformTypeName,&Transform::CreateTransformComponent });
     m_mapRTTI.insert({ Sprite::SpriteTypeName,&Sprite::CreateSpriteComponent });
     m_mapRTTI.insert({ RigidBody::RigidBodyTypeName,&RigidBody::CreateRigidBodyComponent });
+    m_mapRTTI.insert({ Player::PlayerTypeName,&Player::CreatePlayerComponent });
+    m_mapRTTI.insert({ Collider::ColliderTypeName,&Collider::CreateCollideComponent });
 }
 
 Registry::~Registry()

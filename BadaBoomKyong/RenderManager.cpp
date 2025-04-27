@@ -48,10 +48,9 @@ void RenderManager::Draw()
 
 	for (auto obj : objs)
 	{
-
 		shdr->Use();
 
-		auto model = obj->GetModel();		
+		auto model = obj->GetModel();						
 
 		if (model)
 		{
@@ -78,10 +77,11 @@ void RenderManager::Draw()
 
 			//Draw
 			model->Draw();	
+			
 
 			shdr->Diuse();
 		}
-	}	
+	}		
 
 #ifdef _DEBUG
 	ImGui::Render();

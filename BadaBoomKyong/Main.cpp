@@ -24,7 +24,7 @@ int main(void)
 		TimeManager::m_dLastFrame = CurrentTime;
 
 		Application::GetInstance()->Update();
-		RenderManager::GetInstance()->Draw();
+		RenderManager::GetInstance()->Draw();		
 	}	
 	Application::GetInstance()->Exit();
 	return 0;

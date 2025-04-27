@@ -24,7 +24,6 @@ void RigidBody::Update()
 	double dt = TimeManager::GetInstance()->GetDeltaTime();
 	m_vVelocity.x = m_vVelocity.x + m_vAccelation.x * dt;
 	m_vVelocity.y = m_vVelocity.y + m_vAccelation.y * dt;
-
 }
 
 BaseRTTI* RigidBody::CreateRigidBodyComponent()

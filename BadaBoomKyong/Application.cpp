@@ -33,15 +33,16 @@ void Application::Init()
     
     //ModelInit
     ModelManager::GetInstance()->Init();
-    
-    //RenderInit            
-    RenderManager::GetInstance()->Init();
-   
+       
     //GameStateManager    
-    GameStateManager::GetInstance()->ChangeLevel(new Stage01("Stage01"));
-        
+    GameStateManager::GetInstance()->ChangeLevel(new Stage01("Stage01"));    
+
     //TODO : Make sure to implement InputManager(KeyCallBack, MouseCallBack)
     InputManager::GetInstance()->Init();    
+
+    //RenderInit            
+    RenderManager::GetInstance()->Init();
+
 
 #ifdef _DEBUG
     //MainEditor

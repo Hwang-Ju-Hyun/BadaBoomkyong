@@ -48,8 +48,8 @@ BaseComponent* GameObject::AddComponent_and_Get(const std::string& _compName, Ba
 	for (auto comp : m_vComponents)
 	{
 		if (_compName == comp->GetName())
-		{			
-			return nullptr;
+		{							
+			return comp;
 		}
 	}
 	m_hashComponents.insert({ _compName,_comp });	
