@@ -34,12 +34,15 @@ GameObject* Serializer::CreateObjectFromJson(json _item)
 {
 	json::iterator iter_name = _item.find(NameTypeInJson);
 	json::iterator iter_model = _item.find(ModelTypeNameInJson);
+	json::iterator iter_group = _item.find(GroupTypeNameInJson);
 	ASSERT_MSG(iter_name!=_item.end(),"Name not exist");
 	ASSERT_MSG(iter_name != _item.end(), "Model not exist");
 
 	std::string obj_name = (*iter_name);
 	MODEL_TYPE obj_model = (*iter_model);
-	GameObject* obj = new GameObject(obj_name, obj_model);
+	GROUP_TYPE obj_group = (*iter_group);
+
+	GameObject* obj = new GameObject(obj_name, obj_model,obj_group);
 	ASSERT_MSG(obj != nullptr, "GameObject can't construct");
 	
 	json::iterator iter_comp = _item.find(ComponentNameInJson);
@@ -82,6 +85,7 @@ void Serializer::SaveJson(const std::string& _path)
 		}
 		js_obj[ComponentNameInJson] = js_components;
 		js_obj[ModelTypeNameInJson] = all_objs[i]->GetModelType();
+		js_obj[GroupTypeNameInJson] = all_objs[i]->GetGroupType();
 		js_all_data.push_back(js_obj);
 	}
 	std::fstream file;

@@ -20,5 +20,6 @@ public:
 	static constexpr const char* ComponentNameInJson = "Components";
 	static constexpr const char* NameTypeInJson = "Name";
 	static constexpr const char* ComponentTypeNameInJson = "Type";
+	static constexpr const char* GroupTypeNameInJson = "Group";
 };
 

@@ -43,7 +43,7 @@ void Collider::Update()
 {
 	glm::vec3 owner_pos=m_pOwnerTransform->GetPosition();
 	m_vFinalPosition = owner_pos + m_vOffsetPosition;	
-	m_pColliderTransform->SetPosition(m_vFinalPosition);	
+	m_pColliderTransform->SetPosition(m_vFinalPosition);
 }
 
 void Collider::Exit()
