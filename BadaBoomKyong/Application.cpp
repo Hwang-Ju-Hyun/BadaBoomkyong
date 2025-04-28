@@ -12,6 +12,7 @@
 #include "GameObjectManager.h"
 #include "InputManager.h"
 #include "MainEditor.h"
+#include "CollisionManager.h"
 
 Application::Application(){}
 
@@ -36,8 +37,8 @@ void Application::Init()
        
     //GameStateManager    
     GameStateManager::GetInstance()->ChangeLevel(new Stage01("Stage01"));    
-
-    //TODO : Make sure to implement InputManager(KeyCallBack, MouseCallBack)
+    
+    //InputManager
     InputManager::GetInstance()->Init();    
 
     //RenderInit            
@@ -62,6 +63,9 @@ void Application::Update()
 
     //Input
     InputManager::GetInstance()->Update();
+
+    //Collision
+    CollisionManager::GetInstance()->Update();
 
     //Component
     ComponentManager::GetInstance()->Update();

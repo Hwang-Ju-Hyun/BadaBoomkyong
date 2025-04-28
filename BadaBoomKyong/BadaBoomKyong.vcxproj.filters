@@ -113,6 +113,9 @@
     <Filter Include="Manager\CollisionManager">
       <UniqueIdentifier>{3405b47f-6ed7-4f3a-8bf7-4e8d356a2226}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Json">
+      <UniqueIdentifier>{9d8f479c-a500-45c9-9e55-eda855921d6e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -358,6 +361,9 @@
     </None>
     <None Include="IMGUI\imgui.ini">
       <Filter>IMGUI</Filter>
+    </None>
+    <None Include="json\temp\temp.json">
+      <Filter>Json</Filter>
     </None>
   </ItemGroup>
 </Project>

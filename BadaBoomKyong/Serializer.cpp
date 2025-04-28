@@ -40,8 +40,10 @@ GameObject* Serializer::CreateObjectFromJson(json _item)
 
 	std::string obj_name = (*iter_name);
 	MODEL_TYPE obj_model = (*iter_model);
+	
 	GROUP_TYPE obj_group = (*iter_group);
 
+	//todO
 	GameObject* obj = new GameObject(obj_name, obj_model,obj_group);
 	ASSERT_MSG(obj != nullptr, "GameObject can't construct");
 	

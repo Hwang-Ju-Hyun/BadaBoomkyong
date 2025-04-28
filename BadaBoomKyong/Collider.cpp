@@ -14,7 +14,8 @@
 #include "RenderManager.h"
 
 Collider::Collider(GameObject* _owner)
-	:BaseComponent(_owner)
+	:BaseComponent(_owner),
+	m_iID(g_iNextID)
 {
 	SetName(ColliderTypeName);
 
@@ -48,6 +49,21 @@ void Collider::Update()
 
 void Collider::Exit()
 {
+}
+
+void Collider::OnCollision(Collider* _col)
+{
+	std::cout << "On Collision" << std::endl;
+}
+
+void Collider::CollisionEnter(Collider* _col)
+{
+	std::cout << "Enter Collision" << std::endl;
+}
+
+void Collider::CollisionExit(Collider* _col)
+{
+	std::cout << "Exit Collision" << std::endl;
 }
 
 BaseRTTI* Collider::CreateCollideComponent()

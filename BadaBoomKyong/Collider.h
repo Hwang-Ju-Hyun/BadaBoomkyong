@@ -21,15 +21,24 @@ private:
     Sprite* m_pColliderSpirte = nullptr;
     Model* m_pModel = nullptr;
 public:
+    static unsigned long long g_iNextID;
+    unsigned int m_iID;
+public:
     virtual void Init()override;
     virtual void Update()override;
     virtual void Exit()override;
 public:
     inline void SetOffsetPosition(const glm::vec3& _offset) { m_vOffsetPosition = _offset; }
-    inline void SetScale(const glm::vec3& _scale) { m_vScale = _scale; }
-    
+    inline void SetScale(const glm::vec3& _scale) { m_vScale = _scale; }    
+
     inline glm::vec3 GetOffsetPosition()const { return m_vOffsetPosition; }
     inline glm::vec3 GetScale()const {return m_vScale;}
+    inline glm::vec3 GetFinalPosition()const { return m_vFinalPosition; }
+    inline unsigned int GetID()const { return m_iID; }
+public:
+    void OnCollision(Collider* _col);
+    void CollisionEnter(Collider* _col);
+    void CollisionExit(Collider* _col);
 public:
     static constexpr const char* ColliderTypeName = "Collider";
     static constexpr const char* OffsetTypeName = "Offset_Position";
