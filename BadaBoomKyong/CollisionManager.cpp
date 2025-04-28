@@ -110,11 +110,13 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 				//이전에도 충돌함
 				if (iter->second)
 				{
-					left_col->OnCollision(right_col);					
+					left_col->OnCollision(right_col);
+					right_col->OnCollision(left_col);
 				}			
 				else //첨 충돌함 이전 충돌 x
 				{
 					left_col->CollisionEnter(right_col);
+					right_col->CollisionEnter(left_col);
 				}
 				iter->second = true;
 			}
@@ -123,7 +125,9 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 				if (iter->second)
 				{
 					left_col->CollisionExit(right_col);
+					right_col->CollisionExit(left_col);
 				}
+				iter->second = false;
 			}
 		}
 	}

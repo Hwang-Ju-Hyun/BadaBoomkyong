@@ -13,6 +13,8 @@
 #include "Shader.h"
 #include "RenderManager.h"
 
+unsigned long long Collider::g_iNextID = 0;
+
 Collider::Collider(GameObject* _owner)
 	:BaseComponent(_owner),
 	m_iID(g_iNextID)
