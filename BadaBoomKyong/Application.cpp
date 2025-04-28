@@ -64,11 +64,11 @@ void Application::Update()
     //Input
     InputManager::GetInstance()->Update();
 
-    //Collision
-    CollisionManager::GetInstance()->Update();
-
     //Component
     ComponentManager::GetInstance()->Update();
+
+    //Collision
+    CollisionManager::GetInstance()->Update();
 
 #ifdef _DEBUG
     //Main Editor

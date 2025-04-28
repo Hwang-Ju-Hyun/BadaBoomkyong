@@ -18,6 +18,7 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+#include "Collider.h"
 #endif // DEBUG
 
 
@@ -78,9 +79,13 @@ void RenderManager::Draw()
 			//Draw
 			model->Draw();	
 			
-
 			shdr->Diuse();
 		}
+#ifdef _DEBUG
+		/*Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
+		if (col != nullptr)
+			col->DrawCollider();*/
+#endif
 	}		
 
 #ifdef _DEBUG

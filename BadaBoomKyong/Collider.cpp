@@ -30,8 +30,6 @@ Collider::Collider(GameObject* _owner)
 
 	m_pModel = ModelManager::GetInstance()->FindModel(MODEL_TYPE::RECTANGLE);
 	assert(m_pModel != nullptr);
-
-	m_pColliderTransform->SetScale(m_vScale);
 }
 
 Collider::~Collider()

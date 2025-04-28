@@ -25,12 +25,7 @@ Stage01::~Stage01()
 void Stage01::Init()
 {
 	Serializer::GetInstance()->LoadJson("json/temp/temp.json");
-	GameObject* temp = GameObjectManager::GetInstance()->FindObject("temp");
-	GameObject* rec=GameObjectManager::GetInstance()->FindObject("rec");
-	//tri->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(tri));
-	Collider* temp_col = dynamic_cast<Collider*>(temp->FindComponent(Collider::ColliderTypeName));
-	Collider* rec_col = dynamic_cast<Collider*>(rec->FindComponent(Collider::ColliderTypeName));
-
+	
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::DEFAULT, GROUP_TYPE::TEMP);
 }
 

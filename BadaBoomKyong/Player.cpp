@@ -36,7 +36,23 @@ void Player::Init()
 
 void Player::Update()
 {
-	Move();
+	double dt = TimeManager::GetInstance()->GetDeltaTime();
+	if (!m_bIsGround)
+	{
+		m_fVerticalVelocity -= m_fGravity * dt;
+		m_pTransform->AddPositionY(m_fVerticalVelocity * dt);
+
+		if (m_pTransform->GetPosition().y <= 0.f)
+		{
+			m_pTransform->SetPosition({ m_pTransform->GetPosition().x,0.f,m_pTransform->GetPosition().z });
+			m_fVerticalVelocity = 0.f;
+			m_bIsGround = true;
+		}
+		
+	}
+
+	Jump();
+	//Move();
 }
 
 void Player::Exit()
@@ -69,7 +85,14 @@ void Player::Move()
 
 void Player::Jump()
 {
+	auto input = InputManager::GetInstance();
 	
+	glm::vec3 pos = m_pTransform->GetPosition();
+	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS)
+	{		
+		m_fVerticalVelocity = 100.f;
+		m_bIsGround = false;
+	}
 }
 
 
@@ -90,8 +113,8 @@ void Player::LoadFromJson(const json& _str)
 		auto speed = iter_compData->find(SpeedName);
 		m_fSpeed = speed->begin().value();
 
-		auto jump = iter_compData->find(JumpScaleName);
-		m_fJumpScale = jump->begin().value();		
+		auto jump = iter_compData->find(VerticalVelocityName);
+		m_fVerticalVelocity = jump->begin().value();		
 	}
 }
 
@@ -104,7 +127,7 @@ json Player::SaveToJson(const json& _str)
 
 	json compData;
 	compData[SpeedName] = m_fSpeed;
-	compData[JumpScaleName] = m_fJumpScale;	
+	compData[VerticalVelocityName] = m_fVerticalVelocity;	
 
 	data[CompDataName] = compData;
 
