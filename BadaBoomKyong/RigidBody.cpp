@@ -85,6 +85,15 @@ void RigidBody::LoadFromJson(const json& _str)
 		auto acc = iter_compData->find(AccelatioinName);
 		m_vAccelation.x = acc->begin().value();
 		m_vAccelation.y = acc->begin().value()+1;
+
+		auto Iskinematic = iter_compData->find(KinematicName);
+		m_bIsKinematic = Iskinematic->begin().value();
+
+		auto gra = iter_compData->find(GravityName);
+		m_fGravity = gra->begin().value();
+
+		auto mass = iter_compData->find(MassName);
+		m_fMass = mass->begin().value();
 	}
 }
 
@@ -98,6 +107,9 @@ json RigidBody::SaveToJson(const json& _str)
 	json compData;
 	compData[VelocityName] = { m_vVelocity.x,m_vVelocity.y };
 	compData[AccelatioinName] = { m_vAccelation.x,m_vAccelation.y };
+	compData[KinematicName] = { m_bIsKinematic };
+	compData[GravityName] = { m_fGravity };
+	compData[MassName] = { m_fMass };
 	data[CompDataName] = compData;
 
 	return data;

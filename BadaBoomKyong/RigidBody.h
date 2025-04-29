@@ -37,6 +37,9 @@ public:
     static constexpr const char* RigidBodyTypeName = "RigidBody";
     static constexpr const char* VelocityName = "Velocity";
     static constexpr const char* AccelatioinName = "Accelation";
+    static constexpr const char* KinematicName = "Kinematic";
+    static constexpr const char* GravityName = "Gravity";
+    static constexpr const char* MassName = "Mass";
 public:
     static BaseRTTI* CreateRigidBodyComponent();
     virtual void LoadFromJson(const json& _str)override;

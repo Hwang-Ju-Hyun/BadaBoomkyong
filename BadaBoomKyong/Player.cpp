@@ -41,8 +41,8 @@ void Player::Update()
 {		
 	//EnterCollision(static_cast<Collider*>(GameObjectManager::GetInstance()->FindObject("rec")->FindComponent(Collider::ColliderTypeName)));
 	//ExitCollision(static_cast<Collider*>(GameObjectManager::GetInstance()->FindObject("rec")->FindComponent(Collider::ColliderTypeName)));
-		
-	Jump();
+	if(JumpAble())
+		Jump();
 	Move();
 }
 
@@ -101,19 +101,28 @@ void Player::ExitCollision(Collider* _other)
 }
 
 
-void Player::Jump()
+bool Player::JumpAble()
 {
-	if (m_pTransform->GetPosition().y <= 0.f)
+	//todo :temp value should be changed to obj(ground) 
+	float temp = 0.f; 
+	if (m_pTransform->GetPosition().y <= temp)
 	{
 		auto pos = m_pTransform->GetPosition();
-		pos.y = 0.f;
+		pos.y = temp;
 		m_pTransform->SetPosition(pos);
 
 		m_bIsGround = true;
 		glm::vec3 vel = m_pRigidBody->GetVelocity();
 		vel.y = 0.f;
 		m_pRigidBody->SetVelocity(vel);
+		return true;
 	}
+	return false;
+}
+
+void Player::Jump()
+{
+	
 	auto input = InputManager::GetInstance();
 	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS && m_bIsGround)
 	{
