@@ -5,10 +5,13 @@
 class Transform;
 class Model;
 class Sprite;
+class CollisionManager;
 
 class Collider :
     public BaseComponent
 {
+public:
+    friend class CollisionManager;
 public:
     Collider(GameObject* _owner);
     virtual ~Collider()override;
@@ -20,6 +23,14 @@ private:
     Transform* m_pColliderTransform = nullptr;
     Sprite* m_pColliderSpirte = nullptr;
     Model* m_pModel = nullptr;
+private:
+    bool m_bOnCol = false;
+    bool m_bEnterCol = false;
+    bool m_bExitCol = false;
+public:
+    Collider* IsEnterCollision(Collider* _col)const;
+    Collider* IsOnCollision(Collider* _col)const;
+    Collider* IsExitCollision(Collider* _col)const;
 public:
     static unsigned long long g_iNextID;
     unsigned int m_iID;
@@ -29,13 +40,13 @@ public:
     virtual void Exit()override;
 public:
     inline void SetOffsetPosition(const glm::vec3& _offset) { m_vOffsetPosition = _offset; }
-    inline void SetScale(const glm::vec3& _scale) { m_vScale = _scale; }    
+    inline void SetScale(const glm::vec3& _scale) { m_vScale = _scale; }
 
     inline glm::vec3 GetOffsetPosition()const { return m_vOffsetPosition; }
-    inline glm::vec3 GetScale()const {return m_vScale;}
+    inline glm::vec3 GetScale()const { return m_vScale; }
     inline glm::vec3 GetFinalPosition()const { return m_vFinalPosition; }
     inline unsigned int GetID()const { return m_iID; }
-public:
+private:
     void OnCollision(Collider* _col);
     void CollisionEnter(Collider* _col);
     void CollisionExit(Collider* _col);
@@ -50,6 +61,5 @@ public:
 #ifdef _DEBUG
 public:
     void DrawCollider();
-#endif
+#endif 
 };
-

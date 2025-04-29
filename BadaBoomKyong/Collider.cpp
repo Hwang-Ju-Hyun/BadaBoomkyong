@@ -36,6 +36,27 @@ Collider::~Collider()
 {
 }
 
+Collider* Collider::IsEnterCollision(Collider* _col) const
+{
+	if(m_bEnterCol&&!m_bOnCol&&!m_bExitCol)
+		return _col;
+	return nullptr;
+}
+
+Collider* Collider::IsOnCollision(Collider* _col) const
+{
+	if (!m_bEnterCol && m_bOnCol && !m_bExitCol)
+		return _col;
+	return nullptr;
+}
+
+Collider* Collider::IsExitCollision(Collider* _col) const
+{
+	if (!m_bEnterCol && !m_bOnCol && m_bExitCol)
+		return _col;
+	return nullptr;
+}
+
 void Collider::Init()
 {	
 }
@@ -51,19 +72,32 @@ void Collider::Exit()
 {
 }
 
-void Collider::OnCollision(Collider* _col)
-{
-	std::cout << "On Collision" << std::endl;
-}
-
 void Collider::CollisionEnter(Collider* _col)
 {
+	m_bEnterCol = true;
+	m_bOnCol = false;
+	m_bExitCol = false;
 	std::cout << "Enter Collision" << std::endl;
+	IsEnterCollision(_col);
 }
+
+void Collider::OnCollision(Collider* _col)
+{
+	m_bEnterCol = false;
+	m_bOnCol = true;
+	m_bExitCol = false;	
+	std::cout << "On Collision" << std::endl;
+	IsOnCollision(_col);
+}
+
 
 void Collider::CollisionExit(Collider* _col)
 {
+	m_bExitCol = true;
+	m_bEnterCol = false;
+	m_bOnCol = false;
 	std::cout << "Exit Collision" << std::endl;
+	IsExitCollision(_col);
 }
 
 BaseRTTI* Collider::CreateCollideComponent()

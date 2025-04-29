@@ -35,24 +35,11 @@ void Player::Init()
 }
 
 void Player::Update()
-{
-	double dt = TimeManager::GetInstance()->GetDeltaTime();
-	if (!m_bIsGround)
-	{
-		m_fVerticalVelocity -= m_fGravity * dt;
-		m_pTransform->AddPositionY(m_fVerticalVelocity * dt);
-
-		if (m_pTransform->GetPosition().y <= 0.f)
-		{
-			m_pTransform->SetPosition({ m_pTransform->GetPosition().x,0.f,m_pTransform->GetPosition().z });
-			m_fVerticalVelocity = 0.f;
-			m_bIsGround = true;
-		}
-		
-	}
-
+{		
+	EnterCollision(static_cast<Collider*>(GameObjectManager::GetInstance()->FindObject("rec")->FindComponent(Collider::ColliderTypeName)));
+	ExitCollision(static_cast<Collider*>(GameObjectManager::GetInstance()->FindObject("rec")->FindComponent(Collider::ColliderTypeName)));
 	Jump();
-	//Move();
+	Move();
 }
 
 void Player::Exit()
@@ -83,14 +70,64 @@ void Player::Move()
 	m_pTransform->SetPosition(pos);
 }
 
+void Player::EnterCollision(Collider* _other)
+{
+	Collider* col = m_pCollider->IsEnterCollision(_other);
+	if (col == nullptr)
+		return;
+	GameObject* other_obj = nullptr;
+	other_obj = col->GetOwner();
+
+	if (other_obj != nullptr)
+		other_obj->SetModelType(MODEL_TYPE::TRIANGLE);
+}
+
+void Player::OnCollision(Collider* _other)
+{	
+	Collider* col = m_pCollider->IsEnterCollision(_other);
+	if (col == nullptr)
+		return;
+	GameObject* other_obj = nullptr;
+	other_obj = col->GetOwner();
+	if (other_obj->GetName() == "rec")
+	{
+
+	}
+}
+
+void Player::ExitCollision(Collider* _other)
+{
+	Collider* col = m_pCollider->IsExitCollision(_other);
+	if (col == nullptr)
+		return;
+	GameObject* other_obj = nullptr;
+	other_obj = col->GetOwner();
+	if (other_obj != nullptr)
+		other_obj->SetModelType(MODEL_TYPE::RECTANGLE);
+}
+
+
 void Player::Jump()
 {
+	double dt = TimeManager::GetInstance()->GetDeltaTime();
+	if (!m_bIsGround)
+	{
+		m_fVerticalVelocity -= m_fGravity * dt;
+		m_pTransform->AddPositionY(m_fVerticalVelocity * dt);
+
+		if (m_pTransform->GetPosition().y <= 0.f)
+		{
+			m_pTransform->SetPosition({ m_pTransform->GetPosition().x,0.f,m_pTransform->GetPosition().z });
+			m_fVerticalVelocity = 0.f;
+			m_bIsGround = true;
+		}
+	}
 	auto input = InputManager::GetInstance();
 	
 	glm::vec3 pos = m_pTransform->GetPosition();
 	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS)
 	{		
-		m_fVerticalVelocity = 100.f;
+		m_fVerticalVelocity = m_fJumpForce;
 		m_bIsGround = false;
 	}
 }
@@ -113,8 +150,8 @@ void Player::LoadFromJson(const json& _str)
 		auto speed = iter_compData->find(SpeedName);
 		m_fSpeed = speed->begin().value();
 
-		auto jump = iter_compData->find(VerticalVelocityName);
-		m_fVerticalVelocity = jump->begin().value();		
+		auto jump = iter_compData->find(JumpForceName);
+		m_fJumpForce = jump->begin().value();		
 	}
 }
 
@@ -127,7 +164,7 @@ json Player::SaveToJson(const json& _str)
 
 	json compData;
 	compData[SpeedName] = m_fSpeed;
-	compData[VerticalVelocityName] = m_fVerticalVelocity;	
+	compData[JumpForceName] = m_fJumpForce;	
 
 	data[CompDataName] = compData;
 

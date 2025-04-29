@@ -44,3 +44,52 @@ bool GeometryUtil::IsPointInsideTraingle(glm::vec2 _point, Transform* _trs)
 
     return !(has_neg && has_pos);    
 }
+
+void GeometryUtil::HandlePosition_CollisionAABB(GameObject* _obj1, GameObject* _obj2)
+{	
+	Transform* obj1_trs = dynamic_cast<Transform*>(_obj1->FindComponent(Transform::TransformTypeName));
+	Transform* obj2_trs =  dynamic_cast<Transform*>( _obj2->FindComponent (Transform::TransformTypeName));
+
+	glm::vec2 obj1_pos = obj1_trs->GetPosition();
+	glm::vec2 obj2_pos = obj2_trs->GetPosition();
+
+	glm::vec2 obj1_scale = obj1_trs->GetScale();
+	glm::vec2 obj2_scale = obj2_trs->GetScale();
+
+
+	float upper_distance = std::fabs((obj1_pos.y - (obj1_scale.y / 2.f)) - (obj2_pos.y + obj2_scale.y / 2.f));
+	float down_distance = std::fabs((obj1_pos.y + (obj1_scale.y / 2.f)) - (obj2_pos.y - obj2_scale.y / 2.f));
+	float right_distance = std::fabs((obj1_pos.x + (obj1_scale.x / 2.f)) - (obj2_pos.x - obj2_scale.x / 2.f));
+	float left_distance = std::fabs((obj1_pos.x - (obj1_scale.x / 2.f)) - (obj2_pos.x + obj2_scale.x / 2.f));
+
+	float arr_distance[4] = { upper_distance, down_distance, right_distance, left_distance };
+	float min_distance = arr_distance[0];
+	int direction = 0;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (min_distance > arr_distance[i])
+		{
+			min_distance = arr_distance[i];
+			direction = i;
+		}
+	}
+
+	switch (direction)
+	{
+	case 0:
+		obj2_trs->AddPositionY(-min_distance);
+		break;
+	case 1:
+		obj2_trs->AddPositionY(min_distance);
+		break;
+	case 2:
+		obj2_trs->AddPositionX(min_distance);
+		break;
+	case 3:
+		obj2_trs->AddPositionX(-min_distance);
+		break;
+	default:
+		break;
+	}
+}
