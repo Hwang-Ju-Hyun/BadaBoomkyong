@@ -6,10 +6,10 @@ class TimeManager
 public:
 	SINGLETON(TimeManager);
 public:
-	static double m_dDeltaTime;
-	static double m_dLastFrame;
+	static float m_dDeltaTime;
+	static float m_dLastFrame;
 public:
 	void Update();
-	inline double GetDeltaTime() { return m_dDeltaTime; }
+	inline float GetDeltaTime() { return m_dDeltaTime; }
 };
 

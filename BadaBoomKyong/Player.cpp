@@ -7,6 +7,7 @@
 #include "InputManager.h"
 #include "TimeManager.h"
 #include "Collider.h"
+#include "RigidBody.h"
 #include <cassert>
 
 Player::Player(GameObject* _owner)
@@ -16,13 +17,15 @@ Player::Player(GameObject* _owner)
 	m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));	
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
+	m_pRigidBody= dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
 
-	assert(m_pTransform && m_pSprite && m_pCollider);
+	assert(m_pTransform && m_pSprite && m_pCollider&&m_pRigidBody);
 
 	m_pTransform->SetPosition({ 100.f,100.f,0.f });
 	m_pTransform->SetScale({ 50.f,50.f,0.f });
 	m_pCollider->SetOffsetPosition({ 0.f,0.f,0.f });
 	m_pCollider->SetScale({ m_pTransform->GetScale(),0.f });
+	m_pRigidBody->SetIsKinematic(false);
 }
 
 Player::~Player()
@@ -36,8 +39,9 @@ void Player::Init()
 
 void Player::Update()
 {		
-	EnterCollision(static_cast<Collider*>(GameObjectManager::GetInstance()->FindObject("rec")->FindComponent(Collider::ColliderTypeName)));
-	ExitCollision(static_cast<Collider*>(GameObjectManager::GetInstance()->FindObject("rec")->FindComponent(Collider::ColliderTypeName)));
+	//EnterCollision(static_cast<Collider*>(GameObjectManager::GetInstance()->FindObject("rec")->FindComponent(Collider::ColliderTypeName)));
+	//ExitCollision(static_cast<Collider*>(GameObjectManager::GetInstance()->FindObject("rec")->FindComponent(Collider::ColliderTypeName)));
+		
 	Jump();
 	Move();
 }
@@ -47,27 +51,17 @@ void Player::Exit()
 }
 
 void Player::Move()
-{
+{	
 	auto input = InputManager::GetInstance();
-	auto pos = m_pTransform->GetPosition();
-	double dt= TimeManager::GetInstance()->GetDeltaTime();
-	if (input->GetKetCode(GLFW_KEY_W) == GLFW_REPEAT)
-	{
-		pos.y += 100.f*dt;
-	}
+	glm::vec3 newVelocity = { 0.f, m_pRigidBody->GetVelocity().y ,0.f};
+
+	//가속 없음
 	if (input->GetKetCode(GLFW_KEY_A) == GLFW_REPEAT)
-	{
-		pos.x -= 100.f*dt;
-	}
-	if (input->GetKetCode(GLFW_KEY_S) == GLFW_REPEAT)
-	{
-		pos.y-= 100.f * dt;
-	}
+		newVelocity.x = -m_fSpeed;
 	if (input->GetKetCode(GLFW_KEY_D) == GLFW_REPEAT)
-	{
-		pos.x+= 100.f * dt;
-	}	
-	m_pTransform->SetPosition(pos);
+		newVelocity.x = m_fSpeed;
+
+	m_pRigidBody->SetVelocity(newVelocity);
 }
 
 void Player::EnterCollision(Collider* _other)
@@ -109,25 +103,21 @@ void Player::ExitCollision(Collider* _other)
 
 void Player::Jump()
 {
-	double dt = TimeManager::GetInstance()->GetDeltaTime();
-	if (!m_bIsGround)
+	if (m_pTransform->GetPosition().y <= 0.f)
 	{
-		m_fVerticalVelocity -= m_fGravity * dt;
-		m_pTransform->AddPositionY(m_fVerticalVelocity * dt);
+		auto pos = m_pTransform->GetPosition();
+		pos.y = 0.f;
+		m_pTransform->SetPosition(pos);
 
-		if (m_pTransform->GetPosition().y <= 0.f)
-		{
-			m_pTransform->SetPosition({ m_pTransform->GetPosition().x,0.f,m_pTransform->GetPosition().z });
-			m_fVerticalVelocity = 0.f;
-			m_bIsGround = true;
-		}
+		m_bIsGround = true;
+		glm::vec3 vel = m_pRigidBody->GetVelocity();
+		vel.y = 0.f;
+		m_pRigidBody->SetVelocity(vel);
 	}
 	auto input = InputManager::GetInstance();
-	
-	glm::vec3 pos = m_pTransform->GetPosition();
-	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS)
-	{		
-		m_fVerticalVelocity = m_fJumpForce;
+	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS && m_bIsGround)
+	{
+		m_pRigidBody->AddImpulse({ 0.f, 100.f,0.f});
 		m_bIsGround = false;
 	}
 }

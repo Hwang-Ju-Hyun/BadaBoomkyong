@@ -56,7 +56,6 @@ void GeometryUtil::HandlePosition_CollisionAABB(GameObject* _obj1, GameObject* _
 	glm::vec2 obj1_scale = obj1_trs->GetScale();
 	glm::vec2 obj2_scale = obj2_trs->GetScale();
 
-
 	float upper_distance = std::fabs((obj1_pos.y - (obj1_scale.y / 2.f)) - (obj2_pos.y + obj2_scale.y / 2.f));
 	float down_distance = std::fabs((obj1_pos.y + (obj1_scale.y / 2.f)) - (obj2_pos.y - obj2_scale.y / 2.f));
 	float right_distance = std::fabs((obj1_pos.x + (obj1_scale.x / 2.f)) - (obj2_pos.x - obj2_scale.x / 2.f));

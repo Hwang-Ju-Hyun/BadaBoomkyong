@@ -1,7 +1,7 @@
 #include "TimeManager.h"
 
-double TimeManager::m_dDeltaTime = 0;
-double TimeManager::m_dLastFrame = 0;
+float TimeManager::m_dDeltaTime = 0;
+float TimeManager::m_dLastFrame = 0;
 
 TimeManager::TimeManager()
 {

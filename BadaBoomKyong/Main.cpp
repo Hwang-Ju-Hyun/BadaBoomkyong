@@ -19,7 +19,7 @@ int main(void)
 	TimeManager::m_dLastFrame= 0;
 	while (!glfwWindowShouldClose(Window::GetInstance()->GetWindowHandle()))
 	{
-		double CurrentTime = glfwGetTime();
+		float CurrentTime = glfwGetTime();
 		TimeManager::m_dDeltaTime = CurrentTime - TimeManager::m_dLastFrame;
 		TimeManager::m_dLastFrame = CurrentTime;
 
