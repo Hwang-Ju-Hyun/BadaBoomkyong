@@ -24,7 +24,7 @@ Stage01::~Stage01()
 
 void Stage01::Init()
 {
-	Serializer::GetInstance()->LoadJson("json/temp/temp.json");
+	Serializer::GetInstance()->LoadJson("json/temp/temp.json");	
 	
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::DEFAULT, GROUP_TYPE::TEMP);
 }

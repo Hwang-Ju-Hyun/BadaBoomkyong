@@ -53,9 +53,6 @@
     <Filter Include="Manager\ComponentManager">
       <UniqueIdentifier>{fb2c0ab0-259c-4e32-abc2-751929987b54}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Transform">
-      <UniqueIdentifier>{34bc6b4c-1cf7-4995-8ea4-5d5963baba31}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\GameStateManager">
       <UniqueIdentifier>{6ff7954a-8b1a-4367-aacb-1741f10064e1}</UniqueIdentifier>
     </Filter>
@@ -73,9 +70,6 @@
     </Filter>
     <Filter Include="Manager\Serializer">
       <UniqueIdentifier>{2582f953-aec7-42c0-b5f8-e471d8c782c6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Sprite">
-      <UniqueIdentifier>{6d2d22d1-cc67-4541-b86f-bf055e544dcd}</UniqueIdentifier>
     </Filter>
     <Filter Include="IMGUI">
       <UniqueIdentifier>{bf94b43f-7fc5-4eaf-90c2-ec0fb26928e5}</UniqueIdentifier>
@@ -98,23 +92,38 @@
     <Filter Include="Editor\Gizmo">
       <UniqueIdentifier>{c5f63a51-5495-4216-a871-da8bbf098a43}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Player">
-      <UniqueIdentifier>{aa6fc971-8e5d-4619-b07b-919a22e2f699}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\RigidBody">
-      <UniqueIdentifier>{3109bb1b-d4e5-4e54-8488-77b0c83fbacd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\TimeManager">
       <UniqueIdentifier>{00700c28-7318-43e8-86e6-b475ab81aa42}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Collider">
-      <UniqueIdentifier>{37ddfb3f-1071-45b8-9018-8d9d8ee5ca11}</UniqueIdentifier>
     </Filter>
     <Filter Include="Manager\CollisionManager">
       <UniqueIdentifier>{3405b47f-6ed7-4f3a-8bf7-4e8d356a2226}</UniqueIdentifier>
     </Filter>
     <Filter Include="Json">
       <UniqueIdentifier>{9d8f479c-a500-45c9-9e55-eda855921d6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Default">
+      <UniqueIdentifier>{178ba916-a5e5-4f39-8bf6-8ee57a9a1098}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Default\RigidBody">
+      <UniqueIdentifier>{3109bb1b-d4e5-4e54-8488-77b0c83fbacd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Default\Collider">
+      <UniqueIdentifier>{37ddfb3f-1071-45b8-9018-8d9d8ee5ca11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Default\Collider\Interface">
+      <UniqueIdentifier>{d79bfbcb-5d5b-4ae2-8b84-5372cc13c636}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Default\Sprite">
+      <UniqueIdentifier>{6d2d22d1-cc67-4541-b86f-bf055e544dcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Default\Transform">
+      <UniqueIdentifier>{34bc6b4c-1cf7-4995-8ea4-5d5963baba31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom">
+      <UniqueIdentifier>{c4edf3c8-98ad-450c-9e6c-1b55410ca9d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Player">
+      <UniqueIdentifier>{aa6fc971-8e5d-4619-b07b-919a22e2f699}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -155,7 +164,7 @@
       <Filter>Manager\ComponentManager</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>Component\Transform</Filter>
+      <Filter>Component\Default\Transform</Filter>
     </ClCompile>
     <ClCompile Include="GameStateManager.cpp">
       <Filter>Manager\GameStateManager</Filter>
@@ -176,7 +185,7 @@
       <Filter>Manager\Serializer</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>Component\Sprite</Filter>
+      <Filter>Component\Default\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="IMGUI\imgui.cpp">
       <Filter>IMGUI</Filter>
@@ -215,19 +224,25 @@
       <Filter>Editor\Gizmo</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Component\Player</Filter>
+      <Filter>Component\Custom\Player</Filter>
     </ClCompile>
     <ClCompile Include="RigidBody.cpp">
-      <Filter>Component\RigidBody</Filter>
+      <Filter>Component\Default\RigidBody</Filter>
     </ClCompile>
     <ClCompile Include="TimeManager.cpp">
       <Filter>Manager\TimeManager</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
-      <Filter>Component\Collider</Filter>
+      <Filter>Component\Default\Collider</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Manager\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ICollisionHandler.cpp">
+      <Filter>Component\Default\Collider\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="MonoBehaviour.cpp">
+      <Filter>Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -271,7 +286,7 @@
       <Filter>Manager\ComponentManager</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
-      <Filter>Component\Transform</Filter>
+      <Filter>Component\Default\Transform</Filter>
     </ClInclude>
     <ClInclude Include="GameStateManager.h">
       <Filter>Manager\GameStateManager</Filter>
@@ -292,7 +307,7 @@
       <Filter>Manager\Serializer</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
-      <Filter>Component\Sprite</Filter>
+      <Filter>Component\Default\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="IMGUI\imconfig.h">
       <Filter>IMGUI</Filter>
@@ -337,20 +352,24 @@
       <Filter>Editor\Gizmo</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Component\Player</Filter>
+      <Filter>Component\Custom\Player</Filter>
     </ClInclude>
     <ClInclude Include="RigidBody.h">
-      <Filter>Component\RigidBody</Filter>
+      <Filter>Component\Default\RigidBody</Filter>
     </ClInclude>
     <ClInclude Include="TimeManager.h">
       <Filter>Manager\TimeManager</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
-      <Filter>Component\Collider</Filter>
+      <Filter>Component\Default\Collider</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
       <Filter>Manager\CollisionManager</Filter>
     </ClInclude>
+    <ClInclude Include="ICollisionHandler.h">
+      <Filter>Component\Default\Collider\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="MonoBehaviour.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex.vert">

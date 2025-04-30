@@ -3,6 +3,7 @@
 #include "Collider.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "ICollisionHandler.h"
 #include <cassert>
 #include <iostream>
 
@@ -115,8 +116,8 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 				}			
 				else //첨 충돌함 이전 충돌 x
 				{
-					left_col->CollisionEnter(right_col);
-					right_col->CollisionEnter(left_col);
+					left_col->EnterCollision(right_col);
+					right_col->EnterCollision(left_col);
 				}
 				iter->second = true;
 			}
@@ -124,8 +125,8 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 			{
 				if (iter->second)
 				{
-					left_col->CollisionExit(right_col);
-					right_col->CollisionExit(left_col);
+					left_col->ExitCollision(right_col);
+					right_col->ExitCollision(left_col);
 				}
 				iter->second = false;
 			}

@@ -12,6 +12,7 @@
 #include <../GLM/gtc/type_ptr.hpp>	
 #include "Shader.h"
 #include "RenderManager.h"
+#include "ICollisionHandler.h"
 
 unsigned long long Collider::g_iNextID = 0;
 
@@ -36,27 +37,6 @@ Collider::~Collider()
 {
 }
 
-Collider* Collider::IsEnterCollision(Collider* _col) const
-{
-	if(m_bEnterCol&&!m_bOnCol&&!m_bExitCol)
-		return _col;
-	return nullptr;
-}
-
-Collider* Collider::IsOnCollision(Collider* _col) const
-{
-	if (!m_bEnterCol && m_bOnCol && !m_bExitCol)
-		return _col;
-	return nullptr;
-}
-
-Collider* Collider::IsExitCollision(Collider* _col) const
-{
-	if (!m_bEnterCol && !m_bOnCol && m_bExitCol)
-		return _col;
-	return nullptr;
-}
-
 void Collider::Init()
 {	
 }
@@ -72,32 +52,44 @@ void Collider::Exit()
 {
 }
 
-void Collider::CollisionEnter(Collider* _col)
+void Collider::EnterCollision(Collider* _col)
 {
-	m_bEnterCol = true;
-	m_bOnCol = false;
-	m_bExitCol = false;
-	std::cout << "Enter Collision" << std::endl;
-	IsEnterCollision(_col);
+	std::unordered_map<std::string, BaseComponent*>  all_comp=_col->GetOwner()->GetAllComponentsOfObj();
+	for (auto comp : all_comp)
+	{
+		ICollisionHandler* handler = dynamic_cast<ICollisionHandler*>(comp.second);
+		if (handler)
+		{
+			handler->EnterCollision(_col);
+		}
+	}
 }
 
 void Collider::OnCollision(Collider* _col)
 {
-	m_bEnterCol = false;
-	m_bOnCol = true;
-	m_bExitCol = false;	
-	std::cout << "On Collision" << std::endl;
-	IsOnCollision(_col);
+	std::unordered_map<std::string, BaseComponent*>  all_comp = _col->GetOwner()->GetAllComponentsOfObj();	
+	for (auto comp : all_comp)
+	{
+		ICollisionHandler* handler = dynamic_cast<ICollisionHandler*>(comp.second);
+		if (handler)
+		{
+			handler->OnCollision(_col);
+		}
+	}
 }
 
 
-void Collider::CollisionExit(Collider* _col)
+void Collider::ExitCollision(Collider* _col)
 {
-	m_bExitCol = true;
-	m_bEnterCol = false;
-	m_bOnCol = false;
-	std::cout << "Exit Collision" << std::endl;
-	IsExitCollision(_col);
+	std::unordered_map<std::string, BaseComponent*>  all_comp = _col->GetOwner()->GetAllComponentsOfObj();
+	for (auto comp : all_comp)
+	{
+		ICollisionHandler* handler = dynamic_cast<ICollisionHandler*>(comp.second);
+		if (handler)
+		{
+			handler->ExitCollision(_col);
+		}
+	}
 }
 
 BaseRTTI* Collider::CreateCollideComponent()
@@ -142,6 +134,7 @@ json Collider::SaveToJson(const json& _str)
 	return data;
 }
 
+#ifdef _DEBUG_
 #include "ComponentManager.h"
 void Collider::DrawCollider()
 {		
@@ -167,3 +160,4 @@ void Collider::DrawCollider()
 
 	m_pModel->Draw();shdr->Diuse();
 }
+#endif

@@ -23,14 +23,6 @@ private:
     Transform* m_pColliderTransform = nullptr;
     Sprite* m_pColliderSpirte = nullptr;
     Model* m_pModel = nullptr;
-private:
-    bool m_bOnCol = false;
-    bool m_bEnterCol = false;
-    bool m_bExitCol = false;
-public:
-    Collider* IsEnterCollision(Collider* _col)const;
-    Collider* IsOnCollision(Collider* _col)const;
-    Collider* IsExitCollision(Collider* _col)const;
 public:
     static unsigned long long g_iNextID;
     unsigned int m_iID;
@@ -48,8 +40,8 @@ public:
     inline unsigned int GetID()const { return m_iID; }
 private:
     void OnCollision(Collider* _col);
-    void CollisionEnter(Collider* _col);
-    void CollisionExit(Collider* _col);
+    void EnterCollision(Collider* _col);
+    void ExitCollision(Collider* _col);
 public:
     static constexpr const char* ColliderTypeName = "Collider";
     static constexpr const char* OffsetTypeName = "Offset_Position";

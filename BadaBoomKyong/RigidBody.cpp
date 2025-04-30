@@ -36,7 +36,7 @@ void RigidBody::Update()
 {
 	if (m_bIsKinematic)
 		return;
-	double dt = TimeManager::GetInstance()->GetDeltaTime();
+	float dt = TimeManager::GetInstance()->GetDeltaTime();
 	
 	if (m_bUseGravity)
 		m_vAccelation.y -= m_fGravity;
@@ -78,14 +78,6 @@ void RigidBody::LoadFromJson(const json& _str)
 	auto iter_compData = _str.find(CompDataName);
 	if (iter_compData != _str.end())
 	{
-		auto vel = iter_compData->find(VelocityName);
-		m_vVelocity.x=  vel->begin().value();
-		m_vVelocity.x = vel->begin().value()+1;
-
-		auto acc = iter_compData->find(AccelatioinName);
-		m_vAccelation.x = acc->begin().value();
-		m_vAccelation.y = acc->begin().value()+1;
-
 		auto Iskinematic = iter_compData->find(KinematicName);
 		m_bIsKinematic = Iskinematic->begin().value();
 
@@ -105,8 +97,6 @@ json RigidBody::SaveToJson(const json& _str)
 	data[serializer->ComponentTypeNameInJson] = RigidBodyTypeName;
 
 	json compData;
-	compData[VelocityName] = { m_vVelocity.x,m_vVelocity.y };
-	compData[AccelatioinName] = { m_vAccelation.x,m_vAccelation.y };
 	compData[KinematicName] = { m_bIsKinematic };
 	compData[GravityName] = { m_fGravity };
 	compData[MassName] = { m_fMass };

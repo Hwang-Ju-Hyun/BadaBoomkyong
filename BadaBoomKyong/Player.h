@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseComponent.h"
+#include "ICollisionHandler.h"
 #include <glm.hpp>
 
 class Transform;
@@ -9,7 +10,7 @@ class Collider;
 class RigidBody;
 
 class Player :
-    public BaseComponent
+    public BaseComponent, public ICollisionHandler
 {
 public:
     Player(GameObject* _owner);
@@ -50,4 +51,5 @@ public:
     static BaseRTTI* CreatePlayerComponent();
     virtual void LoadFromJson(const json& _str)override;
     virtual json SaveToJson(const json& _str)override;
+
 };
