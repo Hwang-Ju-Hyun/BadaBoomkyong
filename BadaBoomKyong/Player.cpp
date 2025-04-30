@@ -132,21 +132,22 @@ json Player::SaveToJson(const json& _str)
 	return data;
 }
 
-void Player::EnterCollision(Collider* _col)
-{		
-	if (_col->GetOwner()->GetName() == "rec")
-	{
-		_col->GetOwner()->SetModelType(MODEL_TYPE::TRIANGLE);
-	}
-}
-
-void Player::OnCollision(Collider* _col)
-{
-}
-
-void Player::ExitCollision(Collider* _col)
-{
-}
+//void Player::EnterCollision(Collider* _col)
+//{		
+//
+//	if (_col->GetOwner()->GetName() == "rec")
+//	{
+//		_col->GetOwner()->SetModelType(MODEL_TYPE::TRIANGLE);
+//	}
+//}
+//
+//void Player::OnCollision(Collider* _col)
+//{
+//}
+//
+//void Player::ExitCollision(Collider* _col)
+//{
+//}
 
 //void Player::EnterCollision(Collider* _other)
 //{

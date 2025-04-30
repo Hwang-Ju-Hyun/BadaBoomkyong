@@ -10,7 +10,7 @@ class Collider;
 class RigidBody;
 
 class Player :
-    public BaseComponent, public ICollisionHandler
+    public BaseComponent
 {
 public:
     Player(GameObject* _owner);
@@ -36,9 +36,9 @@ public:
     inline float GetSpeed()const { return m_fSpeed; }
     inline float GetJumpForce()const { return m_fJumpForce; }
 public:
-    void EnterCollision(Collider* _other);
-    void OnCollision(Collider* _other);
-    void ExitCollision(Collider* _other);    
+    //virtual void EnterCollision(Collider* _other)override;
+    //virtual void OnCollision(Collider* _other)   override;
+    //virtual void ExitCollision(Collider* _other) override;    
 public:
     bool JumpAble();
     void Jump();
