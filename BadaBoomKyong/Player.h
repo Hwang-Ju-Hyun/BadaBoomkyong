@@ -23,7 +23,10 @@ private:
     float m_fSpeed=0.f;
     float m_fVerticalVelocity = 0.f;
     float m_fJumpForce = 0.f;    
+public:
     bool m_bIsGround = false;
+    int m_iMaxJumpCount = 1;
+    int m_iCurJump = 0;
 public:
     virtual void Init()override;
     virtual void Update()override;
@@ -42,6 +45,7 @@ public:
     bool JumpAble();
     void Jump();
     void Move();  
+    bool IsGround();
 public:
     static constexpr const char* PlayerTypeName = "Player";
     static constexpr const char* SpeedName = "Speed";

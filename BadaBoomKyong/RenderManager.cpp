@@ -82,9 +82,9 @@ void RenderManager::Draw()
 			shdr->Diuse();
 		}
 #ifdef _DEBUG
-		/*Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
-		if (col != nullptr)
-			col->DrawCollider();*/
+		//Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
+		//if (col != nullptr)
+		//	col->DrawCollider();
 #endif
 	}		
 

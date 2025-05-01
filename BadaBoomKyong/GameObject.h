@@ -17,18 +17,18 @@ public:
 	~GameObject();
 private:
 	std::string m_sName = "";
-	Model* m_mModel = nullptr;
+	Model* m_pModel = nullptr;
 	GROUP_TYPE m_eGroup;
 public:
 	//settor
 	inline void SetName(const std::string& _name) { m_sName = _name; }
-	inline void SetModel(Model* _model) { m_mModel = _model; }
+	inline void SetModel(Model* _model) { m_pModel = _model; }
 	inline void SetGroupType(GROUP_TYPE _groupType) { m_eGroup=_groupType; }
 	void SetModelType(MODEL_TYPE _modelType);
 
 	//gettor
 	inline const std::string GetName() { return m_sName; }
-	inline Model* GetModel() { return m_mModel; }
+	inline Model* GetModel() { return m_pModel; }
 	inline const GROUP_TYPE GetGroupType() { return m_eGroup; }
 	MODEL_TYPE GetModelType();
 private:

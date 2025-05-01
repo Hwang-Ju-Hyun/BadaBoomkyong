@@ -41,7 +41,7 @@ void GameObject::SetModelType(MODEL_TYPE _modelType)
 
 MODEL_TYPE GameObject::GetModelType()
 {
-	return m_mModel->GetModelType();
+	return m_pModel->GetModelType();
 }
 
 BaseComponent* GameObject::AddComponent_and_Get(const std::string& _compName, BaseComponent* _comp)

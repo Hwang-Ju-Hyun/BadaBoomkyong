@@ -44,7 +44,7 @@ bool GeometryUtil::IsPointInsideTraingle(glm::vec2 _point, Transform* _trs)
 
     return !(has_neg && has_pos);    
 }
-
+#include "Player.h"
 void GeometryUtil::HandlePosition_CollisionAABB(GameObject* _obj1, GameObject* _obj2)
 {	
 	Transform* obj1_trs = dynamic_cast<Transform*>(_obj1->FindComponent(Transform::TransformTypeName));
@@ -73,22 +73,26 @@ void GeometryUtil::HandlePosition_CollisionAABB(GameObject* _obj1, GameObject* _
 			direction = i;
 		}
 	}
-
+	Player* p = static_cast<Player*>(_obj2->FindComponent(Player::PlayerTypeName));
 	switch (direction)
 	{
 	case 0:
-		obj2_trs->AddPositionY(-min_distance);
+		obj2_trs->AddPositionY(-min_distance);		
+		p->m_bIsGround = false;
 		break;
-	case 1:
-		obj2_trs->AddPositionY(min_distance);
-		break;
+	case 1:	
+		obj2_trs->AddPositionY(min_distance);		
+		p->m_bIsGround = true;
+		break;	
 	case 2:
-		obj2_trs->AddPositionX(min_distance);
+		obj2_trs->AddPositionX(min_distance);		
+		p->m_bIsGround = false;
 		break;
 	case 3:
-		obj2_trs->AddPositionX(-min_distance);
+		obj2_trs->AddPositionX(-min_distance);		
+		p->m_bIsGround = false;
 		break;
 	default:
 		break;
-	}
+	}	
 }

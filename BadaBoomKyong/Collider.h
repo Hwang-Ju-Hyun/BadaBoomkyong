@@ -1,6 +1,8 @@
 #pragma once
 #include <glm.hpp>
 #include "MonoBehaviour.h"
+#include "header.h"
+
 class Transform;
 class Model;
 class Sprite;
@@ -21,7 +23,7 @@ private:
     Transform* m_pOwnerTransform = nullptr;
     Transform* m_pColliderTransform = nullptr;
     Sprite* m_pColliderSpirte = nullptr;
-    Model* m_pModel = nullptr;
+    Model* m_pColliderModel = nullptr;
 public:
     static unsigned long long g_iNextID;
     unsigned int m_iID;
@@ -29,13 +31,17 @@ public:
     virtual void Init()override;
     virtual void Update()override;
     virtual void Exit()override;
+    
 public:
     inline void SetOffsetPosition(const glm::vec3& _offset) { m_vOffsetPosition = _offset; }
-    inline void SetScale(const glm::vec3& _scale) { m_vScale = _scale; }
+    inline void SetScale(const glm::vec3& _scale) { m_vScale = _scale; }        
+    inline void SetColModel(Model* _model) { m_pColliderModel = _model; }
+    void SetColliderModelType(MODEL_TYPE _modelType);
 
     inline glm::vec3 GetOffsetPosition()const { return m_vOffsetPosition; }
     inline glm::vec3 GetScale()const { return m_vScale; }
     inline glm::vec3 GetFinalPosition()const { return m_vFinalPosition; }
+    inline Model* GetColliderModel()const { return m_pColliderModel; }
     inline unsigned int GetID()const { return m_iID; }
 private:    
     void EnterCollision(Collider* _col);

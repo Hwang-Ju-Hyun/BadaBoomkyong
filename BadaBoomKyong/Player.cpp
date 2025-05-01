@@ -38,12 +38,10 @@ void Player::Init()
 }
 
 void Player::Update()
-{		
-	//EnterCollision(static_cast<Collider*>(GameObjectManager::GetInstance()->FindObject("rec")->FindComponent(Collider::ColliderTypeName)));
-	//ExitCollision(static_cast<Collider*>(GameObjectManager::GetInstance()->FindObject("rec")->FindComponent(Collider::ColliderTypeName)));
+{				
 	if(JumpAble())
 		Jump();
-	Move();	
+	Move();		
 }
 
 void Player::Exit()
@@ -63,29 +61,46 @@ void Player::Move()
 
 	m_pRigidBody->SetVelocity(newVelocity);
 }
+
 #include <stdio.h>
+bool Player::IsGround()
+{	
+	if (m_bIsGround)
+		return true;
+	return false;
+}
 
 void Player::EnterCollision(Collider* _other)
-{	
-	printf("EnterCol\n");
+{		
+	if (_other->GetOwner()->GetName() == "rec")
+	{
+		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());
+	}				
 }
 
 void Player::OnCollision(Collider* _other)
-{
-	printf("OnCol\n");
+{	
+	if (_other->GetOwner()->GetName() == "rec")
+	{
+		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(),this->GetOwner());
+	}
 }
 
 void Player::ExitCollision(Collider* _other)
 {
-	printf("ExitCol\n");
+	if (_other->GetOwner()->GetName() == "rec")		
+		_other->GetOwner()->SetModelType(MODEL_TYPE::RECTANGLE);
 }
 
 
 bool Player::JumpAble()
-{
-	//todo :temp value should be changed to obj(ground) 
-	float temp = 0.f; 
-	if (m_pTransform->GetPosition().y <= temp)
+{	
+	if (m_bIsGround&&m_iCurJump<m_iMaxJumpCount)
+	{		
+		return true;
+	}
+	return false;
+	/*if (m_pTransform->GetPosition().y <= temp)
 	{
 		auto pos = m_pTransform->GetPosition();
 		pos.y = temp;
@@ -96,20 +111,20 @@ bool Player::JumpAble()
 		vel.y = 0.f;
 		m_pRigidBody->SetVelocity(vel);
 		return true;
-	}
+	}*/
 	return false;
 }
 
 void Player::Jump()
 {	
 	auto input = InputManager::GetInstance();
-	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS && m_bIsGround)
+	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
+		m_iCurJump++;
 		m_pRigidBody->AddImpulse({ 0.f, m_fJumpForce,0.f});
 		m_bIsGround = false;
 	}
 }
-
 
 BaseRTTI* Player::CreatePlayerComponent()
 {
@@ -148,54 +163,3 @@ json Player::SaveToJson(const json& _str)
 
 	return data;
 }
-
-//void Player::EnterCollision(Collider* _col)
-//{		
-//
-//	if (_col->GetOwner()->GetName() == "rec")
-//	{
-//		_col->GetOwner()->SetModelType(MODEL_TYPE::TRIANGLE);
-//	}
-//}
-//
-//void Player::OnCollision(Collider* _col)
-//{
-//}
-//
-//void Player::ExitCollision(Collider* _col)
-//{
-//}
-
-//void Player::EnterCollision(Collider* _other)
-//{
-//	Collider* col = m_pCollider->IsEnterCollision(_other);
-//	if (col == nullptr)
-//		return;
-//	GameObject* other_obj = nullptr;
-//	other_obj = col->GetOwner();
-//
-//	if (other_obj != nullptr)
-//		other_obj->SetModelType(MODEL_TYPE::TRIANGLE);
-//}
-//
-//void Player::OnCollision(Collider* _other)
-//{
-//	Collider* col = m_pCollider->IsOnCollision(_other);
-//	if (col == nullptr)
-//		return;
-//	GameObject* other_obj = nullptr;
-//	other_obj = col->GetOwner();
-//	if (other_obj->GetName() == "rec")
-//	{
-//		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(other_obj, this->GetOwner());
-//	}
-//}
-//
-//void Player::ExitCollision(Collider* _other)
-//{
-//	Collider* col = m_pCollider->IsExitCollision(_other);
-//	if (col == nullptr)
-//		return;
-//	GameObject* other_obj = nullptr;
-//	other_obj = col->GetOwner();
-//}

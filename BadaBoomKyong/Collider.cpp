@@ -29,8 +29,8 @@ Collider::Collider(GameObject* _owner)
 	m_pColliderSpirte = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	assert(m_pColliderTransform != nullptr && m_pColliderSpirte != nullptr);
 
-	m_pModel = ModelManager::GetInstance()->FindModel(MODEL_TYPE::RECTANGLE);
-	assert(m_pModel != nullptr);
+	m_pColliderModel = ModelManager::GetInstance()->FindModel(MODEL_TYPE::RECTANGLE);
+	assert(m_pColliderModel != nullptr);
 }
 
 Collider::~Collider()
@@ -52,6 +52,11 @@ void Collider::Exit()
 {
 }
 
+void Collider::SetColliderModelType(MODEL_TYPE _modelType)
+{
+	SetColModel(ModelManager::GetInstance()->FindModel(_modelType));
+}
+
 void Collider::EnterCollision(Collider* _col)
 {
 	NotifyCollisionToHandler(_col, &ICollisionHandler::EnterCollision);
@@ -69,7 +74,7 @@ void Collider::ExitCollision(Collider* _col)
 
 //2번째 파라미터 
 //멤버 함수 포인터 -> 공부는 했고 이해는 했는데 곧 까먹을듯 두고두고 시간있을때 보자 꽤나 유용하게 쓰일듯
-void Collider::NotifyCollisionToHandler(Collider* _col, void(ICollisionHandler::* _ColFunc)(Collider*))
+void Collider::NotifyCollisionToHandler(Collider* _col, void(ICollisionHandler::*_ColFunc)(Collider*))
 {
 	std::unordered_map<std::string, BaseComponent*>  all_comp = _col->GetOwner()->GetAllComponentsOfObj_Hash();
 	for (auto comp : all_comp)
@@ -151,6 +156,6 @@ void Collider::DrawCollider()
 	glUniformMatrix3fv(Model_to_NDC_location, 1, GL_FALSE, glm::value_ptr(model_to_ndc));
 	glUniform4fv(ColorLocation, 1, glm::value_ptr(color));
 
-	m_pModel->Draw();shdr->Diuse();
+	m_pColliderModel->Draw();shdr->Diuse();
 }
 #endif
