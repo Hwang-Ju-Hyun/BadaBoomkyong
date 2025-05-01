@@ -39,8 +39,8 @@ void MainEditor::Update()
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	ObjectPannelDraw();		
-	GizmoManager::GetInstance()->Update();
+	ObjectPannelDraw();
+	//GizmoManager::GetInstance()->Update();
 	TopMenuBarDraw();
 	//InputManager::GetInstance()->PrintCursorPosInConsole();
 }
@@ -88,7 +88,7 @@ void MainEditor::ObjectPannelDraw()
 		}
 		if (m_pSelectedObjByButton == obj)
 		{			
-			std::unordered_map<std::string, BaseComponent*> comps = obj->GetAllComponentsOfObj();
+			std::unordered_map<std::string, BaseComponent*> comps = obj->GetAllComponentsOfObj_Hash();
 			for (auto iter = comps.begin(); iter != comps.end(); ++iter)
 			{
 				BaseComponent* comp = iter->second;

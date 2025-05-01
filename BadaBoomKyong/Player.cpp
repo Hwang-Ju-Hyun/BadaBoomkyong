@@ -12,13 +12,13 @@
 #include "GeometryUtill.h"
 
 Player::Player(GameObject* _owner)
-	:BaseComponent(_owner)
+	:MonoBehaviour(_owner)
 {
 	SetName(PlayerTypeName);
 	m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));	
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
-	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
 	m_pRigidBody= dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
+	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
 
 	assert(m_pTransform && m_pSprite && m_pCollider&&m_pRigidBody);
 
@@ -63,6 +63,23 @@ void Player::Move()
 
 	m_pRigidBody->SetVelocity(newVelocity);
 }
+#include <stdio.h>
+
+void Player::EnterCollision(Collider* _other)
+{	
+	printf("EnterCol\n");
+}
+
+void Player::OnCollision(Collider* _other)
+{
+	printf("OnCol\n");
+}
+
+void Player::ExitCollision(Collider* _other)
+{
+	printf("ExitCol\n");
+}
+
 
 bool Player::JumpAble()
 {

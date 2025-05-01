@@ -1,11 +1,11 @@
 #pragma once
-#include "BaseComponent.h"
+#include "MonoBehaviour.h"
 #include <glm.hpp>
 
 class GameObject;
 
 class RigidBody :
-    public BaseComponent
+    public MonoBehaviour
 {
 public:
     RigidBody(GameObject* _owner);

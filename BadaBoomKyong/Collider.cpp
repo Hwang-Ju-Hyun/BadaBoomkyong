@@ -17,7 +17,7 @@
 unsigned long long Collider::g_iNextID = 0;
 
 Collider::Collider(GameObject* _owner)
-	:BaseComponent(_owner),
+	:MonoBehaviour(_owner),
 	m_iID(g_iNextID)
 {
 	SetName(ColliderTypeName);
@@ -54,40 +54,33 @@ void Collider::Exit()
 
 void Collider::EnterCollision(Collider* _col)
 {
-	std::unordered_map<std::string, BaseComponent*>  all_comp=_col->GetOwner()->GetAllComponentsOfObj();
-	for (auto comp : all_comp)
-	{
-		ICollisionHandler* handler = dynamic_cast<ICollisionHandler*>(comp.second);
-		if (handler)
-		{
-			handler->EnterCollision(_col);
-		}
-	}
+	NotifyCollisionToHandler(_col, &ICollisionHandler::EnterCollision);
 }
 
 void Collider::OnCollision(Collider* _col)
 {
-	std::unordered_map<std::string, BaseComponent*>  all_comp = _col->GetOwner()->GetAllComponentsOfObj();	
-	for (auto comp : all_comp)
-	{
-		ICollisionHandler* handler = dynamic_cast<ICollisionHandler*>(comp.second);
-		if (handler)
-		{
-			handler->OnCollision(_col);
-		}
-	}
+	NotifyCollisionToHandler(_col, &ICollisionHandler::OnCollision);
 }
-
 
 void Collider::ExitCollision(Collider* _col)
 {
-	std::unordered_map<std::string, BaseComponent*>  all_comp = _col->GetOwner()->GetAllComponentsOfObj();
+	NotifyCollisionToHandler(_col, &ICollisionHandler::ExitCollision);
+}
+
+//2번째 파라미터 
+//멤버 함수 포인터 -> 공부는 했고 이해는 했는데 곧 까먹을듯 두고두고 시간있을때 보자 꽤나 유용하게 쓰일듯
+void Collider::NotifyCollisionToHandler(Collider* _col, void(ICollisionHandler::* _ColFunc)(Collider*))
+{
+	std::unordered_map<std::string, BaseComponent*>  all_comp = _col->GetOwner()->GetAllComponentsOfObj_Hash();
 	for (auto comp : all_comp)
 	{
+		if (comp.first == this->GetName())
+			return;
 		ICollisionHandler* handler = dynamic_cast<ICollisionHandler*>(comp.second);
 		if (handler)
 		{
-			handler->ExitCollision(_col);
+			//자기자신 호출
+			(handler->*_ColFunc)(this);
 		}
 	}
 }
@@ -134,7 +127,7 @@ json Collider::SaveToJson(const json& _str)
 	return data;
 }
 
-#ifdef _DEBUG_
+#ifdef _DEBUG
 #include "ComponentManager.h"
 void Collider::DrawCollider()
 {		

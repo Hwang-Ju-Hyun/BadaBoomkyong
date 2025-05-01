@@ -6,7 +6,7 @@
 #include "Transform.h"
 
 RigidBody::RigidBody(GameObject* _owner)
-	:BaseComponent(_owner)
+	:MonoBehaviour(_owner)
 {
 	SetName(this->RigidBodyTypeName);
 }

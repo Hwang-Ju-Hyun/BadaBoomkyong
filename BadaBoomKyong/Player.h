@@ -1,6 +1,5 @@
 #pragma once
-#include "BaseComponent.h"
-#include "ICollisionHandler.h"
+#include "MonoBehaviour.h"
 #include <glm.hpp>
 
 class Transform;
@@ -10,7 +9,7 @@ class Collider;
 class RigidBody;
 
 class Player :
-    public BaseComponent
+    public MonoBehaviour
 {
 public:
     Player(GameObject* _owner);
@@ -36,9 +35,9 @@ public:
     inline float GetSpeed()const { return m_fSpeed; }
     inline float GetJumpForce()const { return m_fJumpForce; }
 public:
-    //virtual void EnterCollision(Collider* _other)override;
-    //virtual void OnCollision(Collider* _other)   override;
-    //virtual void ExitCollision(Collider* _other) override;    
+    virtual void EnterCollision(Collider* _other)override;
+    virtual void OnCollision(Collider* _other)   override;
+    virtual void ExitCollision(Collider* _other) override;    
 public:
     bool JumpAble();
     void Jump();

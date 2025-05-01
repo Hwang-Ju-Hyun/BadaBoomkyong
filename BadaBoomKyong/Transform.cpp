@@ -8,7 +8,7 @@
 
 
 Transform::Transform(GameObject* _owner)
-	:BaseComponent(_owner)
+	:MonoBehaviour(_owner)
 {
 	SetName(this->TransformTypeName);
 }

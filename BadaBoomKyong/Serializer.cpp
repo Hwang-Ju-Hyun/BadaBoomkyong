@@ -80,9 +80,9 @@ void Serializer::SaveJson(const std::string& _path)
 
 		std::string obj_name = all_objs[i]->GetName();
 		js_obj[NameTypeInJson] = obj_name;
-		for (auto element : all_objs[i]->GetAllComponentsOfObj())
-		{
-			BaseComponent* comp = element.second;
+		for (auto element : all_objs[i]->GetAllComponentsOfObj_vec())
+		{		
+			BaseComponent* comp = element;
 			js_components.push_back(comp->SaveToJson(_path));
 		}
 		js_obj[ComponentNameInJson] = js_components;

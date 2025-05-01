@@ -5,7 +5,7 @@ class MonoBehaviour
 	:public BaseComponent,public ICollisionHandler
 {
 public:
-	MonoBehaviour(GameObject* _owner);	
+	MonoBehaviour(GameObject* _owner);
 	virtual ~MonoBehaviour();
 public:
 	virtual void EnterCollision(Collider* _col)override{}

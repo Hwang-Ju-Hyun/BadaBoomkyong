@@ -6,7 +6,7 @@
 #include "ComponentManager.h"
 
 GameObject::GameObject(const std::string& _name,MODEL_TYPE _modelType, GROUP_TYPE _groupType)
-	:m_sName(_name)	
+	:m_sName(_name)
 {	
 	SetModel(ModelManager::GetInstance()->FindModel(_modelType));
 	m_eGroup=_groupType;

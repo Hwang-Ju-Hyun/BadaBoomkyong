@@ -6,7 +6,7 @@
 #include "BaseComponent.h"
 
 Sprite::Sprite(GameObject* _owner)
-	:BaseComponent(_owner)
+	:MonoBehaviour(_owner)
 {
 	SetName(SpriteTypeName);
 }

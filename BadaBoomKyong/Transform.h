@@ -1,12 +1,12 @@
 #pragma once
-#include "BaseComponent.h"
+#include "MonoBehaviour.h"
 #include <glm.hpp>
 #include <vector>
 
 class GameObject;
 
 class Transform :
-	public BaseComponent
+	public MonoBehaviour
 {
 public:
 	Transform(GameObject* _owner);

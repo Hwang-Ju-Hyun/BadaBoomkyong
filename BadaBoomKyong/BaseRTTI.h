@@ -9,7 +9,8 @@ public:
 	BaseRTTI();
 	virtual ~BaseRTTI();
 public:
-	virtual void LoadFromJson(const json& _str) = 0;
-	virtual json SaveToJson(const json& _str) = 0;
+	//todo : when work donoe should reset to be abstract
+	virtual void LoadFromJson(const json& _str) =0;
+	virtual json SaveToJson(const json& _str)=0;
 };
 

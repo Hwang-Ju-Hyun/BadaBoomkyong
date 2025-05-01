@@ -1,14 +1,13 @@
 #pragma once
-#include "BaseComponent.h"
 #include <glm.hpp>
-
+#include "MonoBehaviour.h"
 class Transform;
 class Model;
 class Sprite;
 class CollisionManager;
 
 class Collider :
-    public BaseComponent
+    public MonoBehaviour
 {
 public:
     friend class CollisionManager;
@@ -38,10 +37,11 @@ public:
     inline glm::vec3 GetScale()const { return m_vScale; }
     inline glm::vec3 GetFinalPosition()const { return m_vFinalPosition; }
     inline unsigned int GetID()const { return m_iID; }
-private:
-    void OnCollision(Collider* _col);
+private:    
     void EnterCollision(Collider* _col);
-    void ExitCollision(Collider* _col);
+    void OnCollision(Collider* _col);
+    void ExitCollision(Collider* _col) ;
+    void NotifyCollisionToHandler(Collider* _col, void(ICollisionHandler::*_ColFunc)(Collider*));
 public:
     static constexpr const char* ColliderTypeName = "Collider";
     static constexpr const char* OffsetTypeName = "Offset_Position";

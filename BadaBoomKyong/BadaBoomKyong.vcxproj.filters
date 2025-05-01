@@ -242,7 +242,7 @@
       <Filter>Component\Default\Collider\Interface</Filter>
     </ClCompile>
     <ClCompile Include="MonoBehaviour.cpp">
-      <Filter>Main</Filter>
+      <Filter>Component\Default</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -369,7 +369,9 @@
     <ClInclude Include="ICollisionHandler.h">
       <Filter>Component\Default\Collider\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="MonoBehaviour.h" />
+    <ClInclude Include="MonoBehaviour.h">
+      <Filter>Component\Default</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex.vert">

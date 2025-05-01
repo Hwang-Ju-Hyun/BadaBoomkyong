@@ -1,11 +1,11 @@
 #pragma once
-#include "BaseComponent.h"
+#include "MonoBehaviour.h"
 #include <glm.hpp>
 
 class GameObject;
 
 class Sprite :
-    public BaseComponent
+    public MonoBehaviour
 {
 public:
     Sprite(GameObject* _owner);

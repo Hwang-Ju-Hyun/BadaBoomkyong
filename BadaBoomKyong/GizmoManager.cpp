@@ -7,6 +7,7 @@
 #include <cassert>
 #include <iostream>
 
+#ifdef _GIZMO
 GizmoManager::GizmoManager(){}
 
 GizmoManager::~GizmoManager(){}  
@@ -117,3 +118,4 @@ void GizmoManager::UpdateSelectedObject()
 			m_pCurSelectedObject = nullptr;
 	}		
 }
+#endif

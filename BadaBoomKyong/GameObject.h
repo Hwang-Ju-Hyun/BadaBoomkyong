@@ -37,6 +37,7 @@ private:
 public:
 	BaseComponent* AddComponent_and_Get(const std::string& _compName, BaseComponent* _comp);
 	BaseComponent* FindComponent(const std::string& _compName);
-	inline std::unordered_map<std::string, BaseComponent*> GetAllComponentsOfObj() { return m_hashComponents; }
+	inline std::unordered_map<std::string, BaseComponent*> GetAllComponentsOfObj_Hash() { return m_hashComponents; }
+	inline std::vector<BaseComponent*>  GetAllComponentsOfObj_vec() { return m_vComponents; }
 	void DeleteComponent(const std::string& _compName);
 };
