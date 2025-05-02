@@ -13,11 +13,15 @@ public:
 	virtual ~Transform() override;
 private:
 	glm::vec3 m_vPosition = {};
-	glm::vec2 m_vScale = {};
+	glm::vec3 m_vScale = {};
+	glm::vec3 m_vRotation = {};
 	float m_fRotation = 0.f;
 private:
-	glm::mat3 m_mModeltoNDC;	
-	glm::mat3 m_mModeltoWorld;
+	//2D
+	glm::mat3 m_mModeltoNDC_2D;	
+	glm::mat3 m_mModeltoWorld_2D;
+	//3D
+	glm::mat4 m_mModeltoWorld_3D;
 public:
 	//settor	
 	inline void SetPosition(glm::vec3 _position) { m_vPosition = _position; }

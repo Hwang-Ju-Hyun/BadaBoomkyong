@@ -5,7 +5,7 @@
 #include "Serializer.h"
 #include "BaseComponent.h"
 #include "Model.h"
-
+#include <gtc/matrix_transform.hpp>
 
 Transform::Transform(GameObject* _owner)
 	:MonoBehaviour(_owner)
@@ -26,7 +26,7 @@ std::vector<glm::vec3> Transform::GeteEachVertexPosition()
 	for (int i = 0;i < attr.size();i++)
 	{
 		glm::vec3 localPos = attr[i].position;
-		glm::vec3 worldPos = m_mModeltoWorld * glm::vec3(localPos.x, localPos.y, 1.0f);
+		glm::vec3 worldPos = m_mModeltoWorld_2D * glm::vec3(localPos.x, localPos.y, 1.0f);
 		pos.push_back({ worldPos });
 	}	
 	return pos;
@@ -34,41 +34,66 @@ std::vector<glm::vec3> Transform::GeteEachVertexPosition()
 
 glm::mat3 Transform::GetModelToNDC_Matrix() const
 {	
-	return m_mModeltoNDC;
+	return m_mModeltoNDC_2D;
 }
 
 void Transform::Init(){}
 
 void Transform::Update()
 {
-	float window_width  = static_cast<float>(Window::GetInstance()->GetWindowWidth());
-	float window_height = static_cast<float>(Window::GetInstance()->GetWindowHeight());	
-	glm::mat3 transform =
+	float window_width = static_cast<float>(Window::GetInstance()->GetWindowWidth());
+	float window_height = static_cast<float>(Window::GetInstance()->GetWindowHeight());
+	if (GetOwner()->GetIs3D())
 	{
-		1,				0,				0,			//	1 0 position x	
-		0,				1,				0,			//	0 1 position y
-		m_vPosition.x,  m_vPosition.y,	1			//  0 0 1
-	};
-	glm::mat3 scale =
+		glm::mat4 translate = glm::mat4(1.0f);
+		glm::mat4 scale = glm::mat4(1.0f);
+
+		glm::mat4 rotateYXZ = glm::mat4(1.0f);
+
+		glm::mat4 a = glm::mat4(1.0f);
+		glm::mat4 b = glm::mat4(1.0f);
+		glm::mat4 c = glm::mat4(1.0f);
+		
+		translate = glm::translate(translate, m_vPosition);
+		scale = glm::scale(scale, m_vScale);
+
+		a = glm::rotate(a, glm::radians(m_vRotation.y), { 0,1,0 });
+		b = glm::rotate(b, glm::radians(m_vRotation.x), { 1,0,0 });
+		c = glm::rotate(c, glm::radians(m_vRotation.z), { 0,0,1 });
+
+		rotateYXZ = a * b * c;
+
+		m_mModeltoWorld_3D = translate * rotateYXZ * scale;
+	}
+	else
 	{
-		m_vScale.x,0,0,								// scale 0 0
-		0,m_vScale.y,0,								// 0 scale 0
-		0,0,1										// 0  0    1
-	};
-	glm::mat3 rotation =						
-	{
-		std::cos(m_fRotation),	std::sin(m_fRotation),0,				//cos() -sin() 0
-		-std::sin(m_fRotation),	std::cos(m_fRotation),0,				//sin() cos()  0
-		0,						0,					  1					// 0      0    1
-	};
-	glm::mat3 WorldtoNDC =
-	{
-		2.f/window_width,		0,				0,
-		0,					2.f/window_height,	0,
-		0,						0,				1
-	};	
-	m_mModeltoWorld = (transform * rotation * scale);	
-	m_mModeltoNDC = WorldtoNDC*m_mModeltoWorld;	
+		glm::mat3 transform =
+		{
+			1,				0,				0,			//	1 0 position x	
+			0,				1,				0,			//	0 1 position y
+			m_vPosition.x,  m_vPosition.y,	1			//  0 0 1
+		};
+		glm::mat3 scale =
+		{
+			m_vScale.x,0,0,								// scale 0 0
+			0,m_vScale.y,0,								// 0 scale 0
+			0,0,1										// 0  0    1
+		};
+		glm::mat3 rotation =
+		{
+			std::cos(m_fRotation),	std::sin(m_fRotation),0,				//cos() -sin() 0
+			-std::sin(m_fRotation),	std::cos(m_fRotation),0,				//sin() cos()  0
+			0,						0,					  1					// 0      0    1
+		};
+		glm::mat3 WorldtoNDC =
+		{
+			2.f / window_width,		0,				0,
+			0,					2.f / window_height,	0,
+			0,						0,				1
+		};
+		m_mModeltoWorld_2D = (transform * rotation * scale);
+		m_mModeltoNDC_2D = WorldtoNDC * m_mModeltoWorld_2D;
+	}
 }
  
 void Transform::Exit()

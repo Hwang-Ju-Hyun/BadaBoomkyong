@@ -5,7 +5,7 @@
 #include "Model.h"
 #include "ComponentManager.h"
 
-GameObject::GameObject(const std::string& _name,MODEL_TYPE _modelType, GROUP_TYPE _groupType)
+GameObject::GameObject(const std::string& _name,MODEL_TYPE _modelType, GROUP_TYPE _groupType, bool _Is3D)
 	:m_sName(_name)
 {	
 	SetModel(ModelManager::GetInstance()->FindModel(_modelType));

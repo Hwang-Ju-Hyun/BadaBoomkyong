@@ -68,15 +68,19 @@ void Model::UploadBuffers()
 	}
 	
 	//첫번째 인자 : VertexAttribute번호
-	//coord Vertex
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GL_FLOAT), (void*)0);
+	//coord Vertex (Location = 0)
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GL_FLOAT), (void*)0);
 	//VertexAttribute번호 전달
 	glEnableVertexAttribArray(0);
 
-	//Texture
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GL_FLOAT), (void*)(3 * sizeof(GL_FLOAT)));
+	//Texture (Location = 1)
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GL_FLOAT), (void*)(3 * sizeof(GL_FLOAT)));
 	glEnableVertexAttribArray(1);
 
+	//Normal (Location = 2)
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GL_FLOAT), (void*)(5 * sizeof(GL_FLOAT)));
+	glEnableVertexAttribArray(2);
+	 
 	//Binding 끊기 <- 더 이상 변경하지 않음
 	//즉
 	//glBindVertexArray(VAO); 하면 이후의 VBO, 속성 설정 등이 이 VAO에 저장됨
