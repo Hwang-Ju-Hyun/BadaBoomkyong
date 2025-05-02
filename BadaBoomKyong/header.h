@@ -8,6 +8,8 @@ enum MODEL_TYPE
 	CIRCLE = 1,
 	RECTANGLE = 2,
 	LINE=3,
+	PLANE=4,
+	CUBE=5,
 	LAST
 };
 

@@ -25,6 +25,7 @@ public:
 	inline void SetAngle(float _rot) { m_fRotation = _rot; }
 
 	//Add
+	inline void AddPosition(const glm::vec3& _xyz) { m_vPosition += _xyz; }
 	inline void AddPositionX(float _x) { m_vPosition.x += _x; }
 	inline void AddPositionY(float _y) { m_vPosition.y += _y; }
 	inline void AddPositionZ(float _z) { m_vPosition.z += _z; }

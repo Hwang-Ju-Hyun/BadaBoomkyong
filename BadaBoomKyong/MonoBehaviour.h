@@ -11,5 +11,4 @@ public:
 	virtual void EnterCollision(Collider* _col)override{}
 	virtual void OnCollision(Collider* _col)override{}
 	virtual void ExitCollision(Collider* _col) override{}
-
 };

@@ -65,9 +65,16 @@ BaseComponent* GameObject::AddComponent_and_Get(const std::string& _compName, Ba
 }
 
 BaseComponent* GameObject::FindComponent(const std::string& _compName)
-{
-	auto a = (*m_hashComponents.find(_compName)).second;
-	return a;
+{	
+	auto iter = m_hashComponents.find(_compName);
+	if (iter == m_hashComponents.end())
+	{
+		return nullptr;
+	}
+	else
+	{
+		return (*iter).second;
+	}	
 }
 
 

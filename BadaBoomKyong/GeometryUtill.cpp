@@ -44,55 +44,108 @@ bool GeometryUtil::IsPointInsideTraingle(glm::vec2 _point, Transform* _trs)
 
     return !(has_neg && has_pos);    
 }
+
 #include "Player.h"
-void GeometryUtil::HandlePosition_CollisionAABB(GameObject* _obj1, GameObject* _obj2)
-{	
-	Transform* obj1_trs = dynamic_cast<Transform*>(_obj1->FindComponent(Transform::TransformTypeName));
-	Transform* obj2_trs =  dynamic_cast<Transform*>( _obj2->FindComponent (Transform::TransformTypeName));
+#include "RigidBody.h"
+#include <iostream>
 
-	glm::vec2 obj1_pos = obj1_trs->GetPosition();
-	glm::vec2 obj2_pos = obj2_trs->GetPosition();
+void GeometryUtil::HandlePosition_CollisionAABB(GameObject* ground, GameObject* playerObj)
+{
+    auto playerTrs = dynamic_cast<Transform*>(playerObj->FindComponent("Transform"));
+    auto groundTrs = dynamic_cast<Transform*>(ground->FindComponent("Transform"));
 
-	glm::vec2 obj1_scale = obj1_trs->GetScale();
-	glm::vec2 obj2_scale = obj2_trs->GetScale();
+    glm::vec2 pPos = playerTrs->GetPosition();
+    glm::vec2 gPos = groundTrs->GetPosition();
+    glm::vec2 pScale = playerTrs->GetScale();
+    glm::vec2 gScale = groundTrs->GetScale();
 
-	float upper_distance = std::fabs((obj1_pos.y - (obj1_scale.y / 2.f)) - (obj2_pos.y + obj2_scale.y / 2.f));
-	float down_distance = std::fabs((obj1_pos.y + (obj1_scale.y / 2.f)) - (obj2_pos.y - obj2_scale.y / 2.f));
-	float right_distance = std::fabs((obj1_pos.x + (obj1_scale.x / 2.f)) - (obj2_pos.x - obj2_scale.x / 2.f));
-	float left_distance = std::fabs((obj1_pos.x - (obj1_scale.x / 2.f)) - (obj2_pos.x + obj2_scale.x / 2.f));
+    float dx = (pPos.x - gPos.x);
+    float px = (pScale.x + gScale.x) * 0.5f - std::abs(dx);
 
-	float arr_distance[4] = { upper_distance, down_distance, right_distance, left_distance };
-	float min_distance = arr_distance[0];
-	int direction = 0;
+    float dy = (pPos.y - gPos.y);
+    float py = (pScale.y + gScale.y) * 0.5f - std::abs(dy);
 
-	for (int i = 0; i < 4; i++)
-	{
-		if (min_distance > arr_distance[i])
-		{
-			min_distance = arr_distance[i];
-			direction = i;
-		}
-	}
-	Player* p = static_cast<Player*>(_obj2->FindComponent(Player::PlayerTypeName));
-	switch (direction)
-	{
-	case 0:
-		obj2_trs->AddPositionY(-min_distance);		
-		p->m_bIsGround = false;
-		break;
-	case 1:	
-		obj2_trs->AddPositionY(min_distance);		
-		p->m_bIsGround = true;
-		break;	
-	case 2:
-		obj2_trs->AddPositionX(min_distance);		
-		p->m_bIsGround = false;
-		break;
-	case 3:
-		obj2_trs->AddPositionX(-min_distance);		
-		p->m_bIsGround = false;
-		break;
-	default:
-		break;
-	}	
+    if (px < py) 
+    {
+        playerTrs->AddPositionX((dx > 0) ? px : -px);
+    }
+    else 
+    {
+        playerTrs->AddPositionY((dy > 0) ? py : -py);
+
+        Player* p = static_cast<Player*>(playerObj->FindComponent(Player::PlayerTypeName));
+        if (dy > 0 && p)
+        {            
+            RigidBody* rb = static_cast<RigidBody*>(playerObj->FindComponent(RigidBody::RigidBodyTypeName));
+            if (rb)
+            {               
+                if (p->jumpPressed)
+                {                    
+                    p->jumpPressed = false;
+                    return;
+                }
+                else
+                {
+                    p->SetIsGround(true);
+                    glm::vec3 vel = rb->GetVelocity();
+                    vel.y = 0.f;
+                    rb->SetVelocity(vel);
+                }                
+            }
+        }
+            
+    }
 }
+
+
+//void GeometryUtil::HandlePosition_CollisionAABB(GameObject* _obj1, GameObject* _obj2)
+//{	
+//	Transform* obj1_trs = dynamic_cast<Transform*>(_obj1->FindComponent(Transform::TransformTypeName));
+//	Transform* obj2_trs =  dynamic_cast<Transform*>( _obj2->FindComponent (Transform::TransformTypeName));
+//
+//	glm::vec2 obj1_pos = obj1_trs->GetPosition();
+//	glm::vec2 obj2_pos = obj2_trs->GetPosition();
+//
+//	glm::vec2 obj1_scale = obj1_trs->GetScale();
+//	glm::vec2 obj2_scale = obj2_trs->GetScale();
+//
+//	float upper_distance = std::fabs((obj1_pos.y - (obj1_scale.y / 2.f)) - (obj2_pos.y + obj2_scale.y / 2.f));
+//	float down_distance = std::fabs((obj1_pos.y + (obj1_scale.y / 2.f)) - (obj2_pos.y - obj2_scale.y / 2.f));
+//	float right_distance = std::fabs((obj1_pos.x + (obj1_scale.x / 2.f)) - (obj2_pos.x - obj2_scale.x / 2.f));
+//	float left_distance = std::fabs((obj1_pos.x - (obj1_scale.x / 2.f)) - (obj2_pos.x + obj2_scale.x / 2.f));
+//
+//	float arr_distance[4] = { upper_distance, down_distance, right_distance, left_distance };
+//	float min_distance = arr_distance[0];
+//	int direction = 0;
+//
+//	for (int i = 0; i < 4; i++)
+//	{
+//		if (min_distance > arr_distance[i])
+//		{
+//			min_distance = arr_distance[i];
+//			direction = i;
+//		}
+//	}
+//	Player* p = static_cast<Player*>(_obj2->FindComponent(Player::PlayerTypeName));
+//	RigidBody* rig =static_cast<RigidBody*>(p->GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
+//	switch (direction)
+//	{
+//	case 0:
+//		obj2_trs->AddPositionY(-min_distance);				
+//		break;
+//	case 1:	
+//		obj2_trs->AddPositionY(min_distance);		
+//		p->SetJumpForce(0);
+//		p->SetIsGround(true);
+//		p->SetCurJumpCountZero();
+//		break;	
+//	case 2:
+//		obj2_trs->AddPositionX(min_distance);				
+//		break;
+//	case 3:
+//		obj2_trs->AddPositionX(-min_distance);				
+//		break;
+//	default:
+//		break;
+//	}	
+//}

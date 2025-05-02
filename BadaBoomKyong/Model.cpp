@@ -57,8 +57,8 @@ void Model::UploadBuffers()
 
 	//  버퍼에 실질적 데이터 담기
 	// (미리 준비된 정점, 색상 등등의 배열 데이터(Attribute)를 vbo에 연결)
-	// m_vVertices.size()*2를 한 이유 : position과 uv좌표(총 2개의 변수)가 있기 때문
-	const auto size_of_vertex = sizeof(glm::vec3) * m_vVertices.size()*2;
+	// m_vVertices.size()*2를 한 이유 : position과 uv좌표(총 2개의 변수)가 있기 때문 <- 이였는데 지금 노말 벡터 추가함
+	const auto size_of_vertex = sizeof(glm::vec3) * m_vVertices.size()*3;
 	glBufferData(GL_ARRAY_BUFFER, size_of_vertex, m_vVertices.data(), GL_STATIC_DRAW);
 	
 	if (m_bEBO)

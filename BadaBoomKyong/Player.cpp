@@ -22,7 +22,7 @@ Player::Player(GameObject* _owner)
 
 	assert(m_pTransform && m_pSprite && m_pCollider&&m_pRigidBody);
 
-	m_pTransform->SetPosition({ 100.f,100.f,0.f });
+	m_pTransform->SetPosition({ 100.f,500.f,0.f });
 	m_pTransform->SetScale({ 50.f,50.f,0.f });
 	m_pCollider->SetOffsetPosition({ 0.f,0.f,0.f });
 	m_pCollider->SetScale({ m_pTransform->GetScale(),0.f });
@@ -37,37 +37,21 @@ void Player::Init()
 	
 }
 
-void Player::Update()
-{				
-	if(JumpAble())
-		Jump();
-	Move();		
-}
-
 void Player::Exit()
 {
 }
 
-void Player::Move()
-{	
+
+void Player::Update() 
+{
+	
+	Move();
+
 	auto input = InputManager::GetInstance();
-	glm::vec3 newVelocity = { 0.f, m_pRigidBody->GetVelocity().y ,0.f};
-
-	//가속 없음
-	if (input->GetKetCode(GLFW_KEY_A) == GLFW_REPEAT)
-		newVelocity.x = -m_fSpeed;
-	if (input->GetKetCode(GLFW_KEY_D) == GLFW_REPEAT)
-		newVelocity.x = m_fSpeed;
-
-	m_pRigidBody->SetVelocity(newVelocity);
-}
-
-#include <stdio.h>
-bool Player::IsGround()
-{	
-	if (m_bIsGround)
-		return true;
-	return false;
+	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS && m_bIsGround) 
+	{			
+		Jump();
+	}
 }
 
 void Player::EnterCollision(Collider* _other)
@@ -79,7 +63,7 @@ void Player::EnterCollision(Collider* _other)
 }
 
 void Player::OnCollision(Collider* _other)
-{	
+{		
 	if (_other->GetOwner()->GetName() == "rec")
 	{
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(),this->GetOwner());
@@ -92,38 +76,23 @@ void Player::ExitCollision(Collider* _other)
 		_other->GetOwner()->SetModelType(MODEL_TYPE::RECTANGLE);
 }
 
-
-bool Player::JumpAble()
-{	
-	if (m_bIsGround&&m_iCurJump<m_iMaxJumpCount)
-	{		
-		return true;
-	}
-	return false;
-	/*if (m_pTransform->GetPosition().y <= temp)
-	{
-		auto pos = m_pTransform->GetPosition();
-		pos.y = temp;
-		m_pTransform->SetPosition(pos);
-
-		m_bIsGround = true;
-		glm::vec3 vel = m_pRigidBody->GetVelocity();
-		vel.y = 0.f;
-		m_pRigidBody->SetVelocity(vel);
-		return true;
-	}*/
-	return false;
+void Player::Move() {
+	auto input = InputManager::GetInstance();
+	glm::vec3 velocity = m_pRigidBody->GetVelocity();
+	velocity.x = 0.f;
+	if (input->GetKetCode(GLFW_KEY_A) == GLFW_REPEAT)
+		velocity.x = -m_fSpeed;
+	if (input->GetKetCode(GLFW_KEY_D) == GLFW_REPEAT)
+		velocity.x = m_fSpeed;
+	m_pRigidBody->SetVelocity(velocity);
 }
 
-void Player::Jump()
-{	
-	auto input = InputManager::GetInstance();
-	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS)
-	{
-		m_iCurJump++;
-		m_pRigidBody->AddImpulse({ 0.f, m_fJumpForce,0.f});
-		m_bIsGround = false;
-	}
+void Player::Jump() 
+{ 	
+	m_iCurJumpCount++;
+	m_bIsGround = false;
+	jumpPressed = true;
+	m_pRigidBody->AddImpulse({ 0.f, m_fJumpImpulse, 0.f });	
 }
 
 BaseRTTI* Player::CreatePlayerComponent()
@@ -144,7 +113,7 @@ void Player::LoadFromJson(const json& _str)
 		m_fSpeed = speed->begin().value();
 
 		auto jump = iter_compData->find(JumpForceName);
-		m_fJumpForce = jump->begin().value();		
+		m_fJumpImpulse = jump->begin().value();		
 	}
 }
 
@@ -157,7 +126,7 @@ json Player::SaveToJson(const json& _str)
 
 	json compData;
 	compData[SpeedName] = m_fSpeed;
-	compData[JumpForceName] = m_fJumpForce;	
+	compData[JumpForceName] = m_fJumpImpulse;
 
 	data[CompDataName] = compData;
 

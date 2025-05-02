@@ -18,9 +18,14 @@ public:
 public:
 	void Init();	
 	void Exit();
+//2d
 private:
 	void LineInit();
 	void TriangleInit();
 	void CircleInit();
-	void RectangleInit();	
+	void RectangleInit();
+//3d
+private:
+	void PlaneInit();
+	void CubeInit();	
 };

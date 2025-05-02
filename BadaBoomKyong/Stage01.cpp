@@ -13,7 +13,6 @@
 #include "RigidBody.h"
 #include <iostream>
 
-
 Stage01::Stage01(const std::string& _name)
 	:BaseLevel(_name)
 {
@@ -26,6 +25,12 @@ Stage01::~Stage01()
 void Stage01::Init()
 {
 	Serializer::GetInstance()->LoadJson("json/temp/temp.json");	
+	/*GameObject* plane = new GameObject("Plane",MODEL_TYPE::PLANE,GROUP_TYPE::TEMP);
+	plane->AddComponent_and_Get(Transform::TransformTypeName, new Transform(plane));
+	plane->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(plane));
+	GameObject* cube= new GameObject("Cube", MODEL_TYPE::CUBE, GROUP_TYPE::TEMP);
+	cube->AddComponent_and_Get(Transform::TransformTypeName, new Transform(cube));
+	cube->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(cube));*/
 
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::DEFAULT, GROUP_TYPE::TEMP);
 }
@@ -38,6 +43,6 @@ void Stage01::Update()
 
 void Stage01::Exit()
 {	
-	Serializer::GetInstance()->SaveJson("json/temp/temp.json");
+	//Serializer::GetInstance()->SaveJson("json/temp/temp.json");
 	GameObjectManager::GetInstance()->DeleteAllObject();
 }

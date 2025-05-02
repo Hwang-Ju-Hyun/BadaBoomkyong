@@ -13,10 +13,12 @@ public:
 	public:
 		glm::vec3 position;
 		glm::vec2 texcoord;
+		glm::vec3 normals;
 	};
 private:
 	std::vector<VertexAttribute> m_vVertices;
-	std::vector<unsigned int> m_vIndices;
+	std::vector<unsigned int> m_vIndices;	
+	std::vector<glm::vec3> m_vNormals;
 public:
 	Model(const std::string& _name, MODEL_TYPE _modelType, GLenum _primitiveType, std::vector<VertexAttribute>&& _vertices, std::vector<unsigned int>&& _indices = { 0 });
 	~Model();

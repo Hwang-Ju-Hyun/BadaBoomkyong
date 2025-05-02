@@ -11,22 +11,23 @@ public:
     RigidBody(GameObject* _owner);
     virtual ~RigidBody()override;
 private:
+    glm::vec3 m_vVelocity{};
+    glm::vec3 m_vForce{};
+    float m_fMass = 1.0f;
+    float m_fGravity = 980.f;
     bool m_bUseGravity = true;
     bool m_bIsKinematic = false;
-    float m_fMass = 1.0f;
-    glm::vec3 m_vForce = { 0.f, 0.f,0.f};
-    float m_fGravity = 150.f; 
-    glm::vec3 m_vVelocity = { 0.f,0.f,0.f};
-    glm::vec3 m_vAccelation = { 0.f,0.f ,0.f};
 public:
     void SetVelocity(const glm::vec3& _vel);
     inline void AddForce(const glm::vec3& _force) { m_vForce += _force; }
     inline void SetIsKinematic(bool _kinematic) { m_bIsKinematic = _kinematic; }
     inline void SetGravity(float _gravity) {m_fGravity = _gravity;}
     void AddImpulse(const glm::vec3& impulse);
+    //todo
+    inline void AddVelocity(const glm::vec3& _vel) { m_vVelocity += _vel; }
 
     inline const glm::vec3 GetVelocity() { return m_vVelocity; }
-    inline const glm::vec3 GetAccelation() { return m_vAccelation; }
+    //inline const glm::vec3 GetAccelation() { return m_vAccelation; }
     inline const glm::vec3 GetForce() { return m_vForce; }
     inline const bool GetIsKinematic()const { return m_bIsKinematic; }
     inline const float GetGravity()const {return m_fGravity;}

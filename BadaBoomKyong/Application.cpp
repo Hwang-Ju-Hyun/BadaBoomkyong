@@ -69,7 +69,7 @@ void Application::Update()
 
     //Collision
     CollisionManager::GetInstance()->Update();
-
+   
 #ifdef _DEBUG
     //Main Editor
     MainEditor::GetInstance()->Update();
