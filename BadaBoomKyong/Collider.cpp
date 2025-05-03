@@ -136,7 +136,7 @@ json Collider::SaveToJson(const json& _str)
 #include "ComponentManager.h"
 void Collider::DrawCollider()
 {		
-	auto shdr=RenderManager::GetInstance()->GetShader();
+	auto shdr=RenderManager::GetInstance()->GetShader(SHADER_REF::TWO_DIMENSIONS);
 	auto shdr_handle = shdr->GetShaderProgramHandle();
 
 	shdr->Use();	

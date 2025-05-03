@@ -7,9 +7,10 @@
 
 GameObject::GameObject(const std::string& _name,MODEL_TYPE _modelType, GROUP_TYPE _groupType, bool _Is3D)
 	:m_sName(_name)
+	,m_bIs3D(_Is3D)
 {	
 	SetModel(ModelManager::GetInstance()->FindModel(_modelType));
-	m_eGroup=_groupType;
+	m_eGroup=_groupType;	
 	GameObjectManager::GetInstance()->AddObject(this);
 }
 

@@ -125,6 +125,15 @@
     <Filter Include="Component\Custom\Player">
       <UniqueIdentifier>{aa6fc971-8e5d-4619-b07b-919a22e2f699}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ShaderFiles\2D">
+      <UniqueIdentifier>{95d5f775-6c9f-4ee7-a501-1b4c183caa8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderFiles\3D">
+      <UniqueIdentifier>{a9e264ac-fc82-4de1-8974-71d59e9a11f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{ce5d65a4-0f20-4e8a-a6d3-fced627c7be3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -243,6 +252,9 @@
     </ClCompile>
     <ClCompile Include="MonoBehaviour.cpp">
       <Filter>Component\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -372,19 +384,28 @@
     <ClInclude Include="MonoBehaviour.h">
       <Filter>Component\Default</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="vertex.vert">
-      <Filter>ShaderFiles</Filter>
-    </None>
-    <None Include="fragment.frag">
-      <Filter>ShaderFiles</Filter>
-    </None>
     <None Include="IMGUI\imgui.ini">
       <Filter>IMGUI</Filter>
     </None>
     <None Include="json\temp\temp.json">
       <Filter>Json</Filter>
+    </None>
+    <None Include="vertex.vert">
+      <Filter>ShaderFiles\2D</Filter>
+    </None>
+    <None Include="fragment.frag">
+      <Filter>ShaderFiles\2D</Filter>
+    </None>
+    <None Include="vertex3d.vert">
+      <Filter>ShaderFiles\3D</Filter>
+    </None>
+    <None Include="fragment3d.frag">
+      <Filter>ShaderFiles\3D</Filter>
     </None>
   </ItemGroup>
 </Project>

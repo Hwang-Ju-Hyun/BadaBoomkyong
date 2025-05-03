@@ -54,7 +54,7 @@ void Application::Init()
 void Application::Update()
 {    
     glClearColor(0.f,0.f, 0.f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     glfwPollEvents();
     auto handle = Window::GetInstance()->GetWindowHandle();    
 

@@ -27,3 +27,10 @@ enum class STAGE_TYPE
 	STAGE_01=0,
 	LAST
 };
+
+enum class SHADER_REF
+{
+	TWO_DIMENSIONS = 0,
+	THREE_DIMENSIONS = 1,
+	SHADER_REF_LAST
+};

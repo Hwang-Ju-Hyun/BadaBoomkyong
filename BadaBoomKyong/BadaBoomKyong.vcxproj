@@ -146,6 +146,7 @@
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="BaseLevel.cpp" />
     <ClCompile Include="BaseRTTI.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="BaseLevel.h" />
     <ClInclude Include="BaseRTTI.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="ComponentManager.h" />
@@ -228,9 +230,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment.frag" />
+    <None Include="fragment3d.frag" />
     <None Include="IMGUI\imgui.ini" />
     <None Include="json\temp\temp.json" />
     <None Include="vertex.vert" />
+    <None Include="vertex3d.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

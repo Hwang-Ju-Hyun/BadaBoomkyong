@@ -30,10 +30,11 @@ void Stage01::Init()
 	plane->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(plane));
 	plane_trs->SetRotation({ 0.f,90.f,0.f });
 	
-	GameObject* cube= new GameObject("Cube", MODEL_TYPE::CUBE, GROUP_TYPE::TEMP);
+	GameObject* cube= new GameObject("Cube", MODEL_TYPE::CUBE, GROUP_TYPE::TEMP,true);
 	Transform* cube_trs=static_cast<Transform*>(cube->AddComponent_and_Get(Transform::TransformTypeName, new Transform(cube)));
 	cube->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(cube));
-
+	cube_trs->SetPosition({ 0,0,0 });
+	cube_trs->SetScale({ 10.f,10.f,10.f });
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::DEFAULT, GROUP_TYPE::TEMP);
 }
 

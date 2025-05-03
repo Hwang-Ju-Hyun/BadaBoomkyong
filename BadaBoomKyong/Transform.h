@@ -22,6 +22,7 @@ private:
 	glm::mat3 m_mModeltoWorld_2D;
 	//3D
 	glm::mat4 m_mModeltoWorld_3D;
+	glm::mat4 m_mModelViewProjection_3D;
 public:
 	//settor	
 	inline void SetPosition(glm::vec3 _position) { m_vPosition = _position; }
@@ -35,15 +36,15 @@ public:
 	inline void AddPositionY(float _y) { m_vPosition.y += _y; }
 	inline void AddPositionZ(float _z) { m_vPosition.z += _z; }
 
-
-
 	//gettor
 	inline glm::vec3 GetPosition()const { return m_vPosition; }
 	inline glm::vec2 GetScale()const { return m_vScale; }
 	inline float GetRotation()const { return m_fRotation; }
 	inline glm::vec3 GetRotation_3D()const { return m_vRotation; }
 	std::vector<glm::vec3> GeteEachVertexPosition();
-	glm::mat3 GetModelToNDC_Matrix()const;
+	inline glm::mat3 GetModelToNDC_Matrix()const{ return m_mModeltoNDC_2D; }
+	inline glm::mat4 GetModelToWorld_Matrix()const { return m_mModeltoWorld_3D; }
+	inline glm::mat4 GetMVP_Matrix()const { return m_mModelViewProjection_3D; }
 public:
 	virtual void Init() override;
 	virtual void Update() override;

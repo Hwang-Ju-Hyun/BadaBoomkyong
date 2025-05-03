@@ -32,10 +32,6 @@ std::vector<glm::vec3> Transform::GeteEachVertexPosition()
 	return pos;
 }
 
-glm::mat3 Transform::GetModelToNDC_Matrix() const
-{	
-	return m_mModeltoNDC_2D;
-}
 
 void Transform::Init(){}
 
