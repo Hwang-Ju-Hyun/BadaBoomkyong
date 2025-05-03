@@ -26,7 +26,8 @@ public:
 	//settor	
 	inline void SetPosition(glm::vec3 _position) { m_vPosition = _position; }
 	inline void SetScale(glm::vec3 _scale) { m_vScale = _scale; }
-	inline void SetAngle(float _rot) { m_fRotation = _rot; }
+	inline void SetRotation(float _rot) { m_fRotation = _rot; }
+	inline void SetRotation(glm::vec3 _rot) { m_vRotation = _rot; }
 
 	//Add
 	inline void AddPosition(const glm::vec3& _xyz) { m_vPosition += _xyz; }
@@ -40,6 +41,7 @@ public:
 	inline glm::vec3 GetPosition()const { return m_vPosition; }
 	inline glm::vec2 GetScale()const { return m_vScale; }
 	inline float GetRotation()const { return m_fRotation; }
+	inline glm::vec3 GetRotation_3D()const { return m_vRotation; }
 	std::vector<glm::vec3> GeteEachVertexPosition();
 	glm::mat3 GetModelToNDC_Matrix()const;
 public:

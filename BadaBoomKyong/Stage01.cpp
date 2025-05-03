@@ -25,9 +25,10 @@ Stage01::~Stage01()
 void Stage01::Init()
 {
 	Serializer::GetInstance()->LoadJson("json/temp/temp.json");	
-	GameObject* plane = new GameObject("Plane",MODEL_TYPE::PLANE,GROUP_TYPE::TEMP);
+	GameObject* plane = new GameObject("Plane",MODEL_TYPE::PLANE,GROUP_TYPE::TEMP,true);
 	Transform* plane_trs=static_cast<Transform*>(plane->AddComponent_and_Get(Transform::TransformTypeName, new Transform(plane)));	
 	plane->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(plane));
+	plane_trs->SetRotation({ 0.f,90.f,0.f });
 	
 	GameObject* cube= new GameObject("Cube", MODEL_TYPE::CUBE, GROUP_TYPE::TEMP);
 	Transform* cube_trs=static_cast<Transform*>(cube->AddComponent_and_Get(Transform::TransformTypeName, new Transform(cube)));
