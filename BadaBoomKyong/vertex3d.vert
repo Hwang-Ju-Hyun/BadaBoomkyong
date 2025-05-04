@@ -10,5 +10,5 @@ out vec2 UV;
 void main()
 {
    gl_Position = uMVP * vPosition;   
-   //UV=vTextCoords;
+   UV=vTextCoords;
 }

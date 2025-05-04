@@ -108,8 +108,8 @@ void RenderManager::Draw()
 			Transform* trs = dynamic_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName));
 			assert(trs != nullptr);
 
-			GLint ColorLocation = glGetUniformLocation(shadr_handle_3D, "uColor");
-			assert(ColorLocation >= 0);
+			//GLint ColorLocation = glGetUniformLocation(shadr_handle_3D, "uColor");
+			//assert(ColorLocation >= 0);
 
 			Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
 			assert(spr != nullptr);
@@ -122,7 +122,7 @@ void RenderManager::Draw()
 			glm::vec4 color = spr->GetColor();
 			
 			glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
-			glUniform4fv(ColorLocation, 1, glm::value_ptr(color));
+			//glUniform4fv(ColorLocation, 1, glm::value_ptr(color));
 
 			//Draw
 			model->Draw();			

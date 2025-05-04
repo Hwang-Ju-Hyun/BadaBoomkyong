@@ -146,8 +146,12 @@ json Transform::SaveToJson(const json& _str)
 #ifdef _DEBUG
 void Transform::EditInfoFromButton()
 {	
-	ImGui::InputFloat2("Pos", &(m_vPosition[0]));
-	ImGui::InputFloat2("Scale", &(m_vScale[0]));
-	ImGui::InputFloat("Rot", &(m_fRotation));
+	bool is3d = GetOwner()->GetIs3D();	
+	ImGui::InputFloat3("Pos", &(m_vPosition[0]));
+	ImGui::InputFloat3("Scale", &(m_vScale[0]));
+	if (is3d)
+		ImGui::InputFloat3("Rot", &(m_vRotation[0]));
+	else
+		ImGui::InputFloat("Rot", &(m_fRotation));
 }
 #endif // DEBUG
