@@ -24,8 +24,8 @@ Stage01::~Stage01()
 
 void Stage01::Init()
 {
-	Serializer::GetInstance()->LoadJson("json/temp/temp.json");	
-	GameObject* plane = new GameObject("Plane",MODEL_TYPE::PLANE,GROUP_TYPE::TEMP,true);
+	Serializer::GetInstance()->LoadJson_Object("json/temp/temp_3D.json");	
+	/*GameObject* plane = new GameObject("Plane",MODEL_TYPE::PLANE,GROUP_TYPE::TEMP,true);
 	Transform* plane_trs=static_cast<Transform*>(plane->AddComponent_and_Get(Transform::TransformTypeName, new Transform(plane)));	
 	plane->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(plane));
 	plane_trs->SetRotation({ 0.f,90.f,0.f });
@@ -34,7 +34,7 @@ void Stage01::Init()
 	Transform* cube_trs=static_cast<Transform*>(cube->AddComponent_and_Get(Transform::TransformTypeName, new Transform(cube)));
 	cube->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(cube));
 	cube_trs->SetPosition({ 0,0,0 });
-	cube_trs->SetScale({ 10.f,10.f,10.f });
+	cube_trs->SetScale({ 10.f,10.f,10.f });*/
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::DEFAULT, GROUP_TYPE::TEMP);
 }
 

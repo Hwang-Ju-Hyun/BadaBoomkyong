@@ -12,8 +12,8 @@ class Serializer
 public:
 	SINGLETON(Serializer);
 public:
-	GameObject* LoadJson(const std::string& _path);
-	void SaveJson(const std::string& _path);
+	GameObject* LoadJson_Object(const std::string& _path);	
+	void SaveJson_Object(const std::string& _path);
 	GameObject* CreateObjectFromJson(json _item);
 public:
 	static constexpr const char* ModelTypeNameInJson = "Model";
@@ -21,5 +21,7 @@ public:
 	static constexpr const char* NameTypeInJson = "Name";
 	static constexpr const char* ComponentTypeNameInJson = "Type";
 	static constexpr const char* GroupTypeNameInJson = "Group";
+private:
+	
 };
 

@@ -12,7 +12,7 @@ Serializer::Serializer() {}
 
 Serializer::~Serializer(){}
 
-GameObject* Serializer::LoadJson(const std::string& _path)
+GameObject* Serializer::LoadJson_Object(const std::string& _path)
 {
 	std::fstream file;	
 	file.open(_path, std::fstream::in);
@@ -68,7 +68,8 @@ GameObject* Serializer::CreateObjectFromJson(json _item)
 	return obj;
 }
 
-void Serializer::SaveJson(const std::string& _path)
+
+void Serializer::SaveJson_Object(const std::string& _path)
 {
 	std::vector<GameObject*> all_objs = GameObjectManager::GetInstance()->GetAllObjects();
 	json js_all_data;

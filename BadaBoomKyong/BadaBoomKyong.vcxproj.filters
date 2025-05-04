@@ -134,6 +134,12 @@
     <Filter Include="Camera">
       <UniqueIdentifier>{ce5d65a4-0f20-4e8a-a6d3-fced627c7be3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Json\Object_2D">
+      <UniqueIdentifier>{5a48f277-50f0-4a77-9bb6-7c2a7bea2cbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json\Object_3D">
+      <UniqueIdentifier>{389fa36d-48d7-4539-a0ae-cb54fabaecf6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -392,9 +398,6 @@
     <None Include="IMGUI\imgui.ini">
       <Filter>IMGUI</Filter>
     </None>
-    <None Include="json\temp\temp.json">
-      <Filter>Json</Filter>
-    </None>
     <None Include="vertex.vert">
       <Filter>ShaderFiles\2D</Filter>
     </None>
@@ -406,6 +409,12 @@
     </None>
     <None Include="fragment3d.frag">
       <Filter>ShaderFiles\3D</Filter>
+    </None>
+    <None Include="json\temp\temp.json">
+      <Filter>Json\Object_2D</Filter>
+    </None>
+    <None Include="temp_3D.json">
+      <Filter>Json\Object_3D</Filter>
     </None>
   </ItemGroup>
 </Project>

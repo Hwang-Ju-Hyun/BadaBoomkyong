@@ -233,6 +233,7 @@
     <None Include="fragment3d.frag" />
     <None Include="IMGUI\imgui.ini" />
     <None Include="json\temp\temp.json" />
+    <None Include="temp_3D.json" />
     <None Include="vertex.vert" />
     <None Include="vertex3d.vert" />
   </ItemGroup>

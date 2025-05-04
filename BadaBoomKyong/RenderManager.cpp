@@ -51,6 +51,7 @@ void RenderManager::Init()
 	m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->CreateShaderProgramFromFiles(vsFile_3D, fsFile_3D);
 
 	m_pCam = new Camera;
+	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 }
 
