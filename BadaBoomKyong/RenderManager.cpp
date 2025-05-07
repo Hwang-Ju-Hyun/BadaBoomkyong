@@ -51,9 +51,9 @@ void RenderManager::Init()
 	m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->CreateShaderProgramFromFiles(vsFile_3D, fsFile_3D);
 
 	m_pCam = new Camera;
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CCW);
+	glEnable(GL_CULL_FACE);// 컬링 기능 활성화
+	glCullFace(GL_BACK); // 뒷면 제거
+	glFrontFace(GL_CCW); // 반시계 방향을 앞면으로 간주
 	glEnable(GL_DEPTH_TEST);
 }
 

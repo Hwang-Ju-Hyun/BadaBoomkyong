@@ -35,6 +35,14 @@ public:
 	inline void AddPositionX(float _x) { m_vPosition.x += _x; }
 	inline void AddPositionY(float _y) { m_vPosition.y += _y; }
 	inline void AddPositionZ(float _z) { m_vPosition.z += _z; }
+	inline void AddRotation(float _rot) { m_fRotation += _rot; }
+	inline void AddRotationX(float _rot) { m_vRotation.x += _rot;}
+	inline void AddRotationY(float _rot) { m_vRotation.y += _rot; }
+	inline void AddRotationZ(float _rot) { m_vRotation.z += _rot; }
+	inline void AddScale(const glm::vec3& _sca) { m_vScale += _sca; }
+	inline void AddScaleX(float _x) { m_vScale.x += _x; }
+	inline void AddScaleY(float _y) { m_vScale.y += _y; }
+	inline void AddScaleZ(float _z) { m_vScale.z += _z; }
 
 	//gettor
 	inline glm::vec3 GetPosition()const { return m_vPosition; }

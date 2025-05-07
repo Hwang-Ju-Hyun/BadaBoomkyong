@@ -31,11 +31,16 @@ void Stage01::Init()
 
 void Stage01::Update()
 {	
-    auto in = InputManager::GetInstance();	
+    auto in = InputManager::GetInstance();
+	auto wb=GameObjectManager::GetInstance()->FindObject("WALL_BACK");
+	Transform* trs=static_cast<Transform*>(wb->FindComponent(Transform::TransformTypeName));
+	trs->AddRotationX(0.05f);
+	trs->AddRotationY(0.05f);
+	trs->AddRotationZ(0.05f);
 }
 
 void Stage01::Exit()
 {	
-	Serializer::GetInstance()->SaveJson_Object("json/temp/temp.json",false);
+	//Serializer::GetInstance()->SaveJson_Object("json/temp/temp_3D.json",true);
 	GameObjectManager::GetInstance()->DeleteAllObject();
 }
