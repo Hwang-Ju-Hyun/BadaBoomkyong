@@ -113,12 +113,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\GLFW\include\;$(ProjectDir)Dependencies\GLEW\include\;$(ProjectDir)Dependencies\GLM\;$(ProjectDir)IMGUI</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\GLFW\include\;$(ProjectDir)Dependencies\GLEW\include\;$(ProjectDir)Dependencies\GLM\;$(ProjectDir)IMGUI;$(ProjectDir)IMGUIZMO</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\GLFW\lib-vc2019\;$(ProjectDir)Dependencies\GLEW\lib\;$(ProjectDir)IMGUI;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\GLFW\lib-vc2019\;$(ProjectDir)Dependencies\GLEW\lib\;$(ProjectDir)IMGUI;$(ProjectDir)IMGUIZMO;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -156,6 +156,11 @@
     <ClCompile Include="GeometryUtill.cpp" />
     <ClCompile Include="GizmoManager.cpp" />
     <ClCompile Include="ICollisionHandler.cpp" />
+    <ClCompile Include="IMGUIZMO\GraphEditor.cpp" />
+    <ClCompile Include="IMGUIZMO\ImCurveEdit.cpp" />
+    <ClCompile Include="IMGUIZMO\ImGradient.cpp" />
+    <ClCompile Include="IMGUIZMO\ImGuizmo.cpp" />
+    <ClCompile Include="IMGUIZMO\ImSequencer.cpp" />
     <ClCompile Include="IMGUI\imgui.cpp" />
     <ClCompile Include="IMGUI\imgui_demo.cpp" />
     <ClCompile Include="IMGUI\imgui_draw.cpp" />
@@ -199,6 +204,12 @@
     <ClInclude Include="GizmoManager.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="ICollisionHandler.h" />
+    <ClInclude Include="IMGUIZMO\GraphEditor.h" />
+    <ClInclude Include="IMGUIZMO\ImCurveEdit.h" />
+    <ClInclude Include="IMGUIZMO\ImGradient.h" />
+    <ClInclude Include="IMGUIZMO\ImGuizmo.h" />
+    <ClInclude Include="IMGUIZMO\ImSequencer.h" />
+    <ClInclude Include="IMGUIZMO\ImZoomSlider.h" />
     <ClInclude Include="IMGUI\imconfig.h" />
     <ClInclude Include="IMGUI\imgui.h" />
     <ClInclude Include="IMGUI\imgui_impl_glfw.h" />
@@ -233,7 +244,7 @@
     <None Include="fragment3d.frag" />
     <None Include="IMGUI\imgui.ini" />
     <None Include="json\temp\temp.json" />
-    <None Include="temp_3D.json" />
+    <None Include="json\temp\temp_3D.json" />
     <None Include="vertex.vert" />
     <None Include="vertex3d.vert" />
   </ItemGroup>

@@ -17,12 +17,12 @@ Player::Player(GameObject* _owner)
 	SetName(PlayerTypeName);
 	m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));	
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
-	//m_pRigidBody= dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
+	m_pRigidBody= dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
 	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
 
-	assert(m_pTransform && m_pSprite && m_pCollider/*&&m_pRigidBody*/);
+	assert(m_pTransform && m_pSprite && m_pCollider&&m_pRigidBody);
 
-	m_pTransform->SetPosition({ 100.f,500.f,0.f });
+	m_pTransform->SetPosition({ 100.f,1000.f,0.f });
 	m_pTransform->SetScale({ 50.f,50.f,0.f });
 	m_pCollider->SetOffsetPosition({ 0.f,0.f,0.f });
 	m_pCollider->SetScale({ m_pTransform->GetScale(),0.f });
@@ -44,36 +44,49 @@ void Player::Exit()
 
 void Player::Update() 
 {
-	//
-	//Move();
-	// 
-	//auto input = InputManager::GetInstance();
-	//if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS && m_bIsGround) 
-	//{			
-	//	Jump();
-	//}
+	
+	Move();
+	 
+	auto input = InputManager::GetInstance();
+	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS && m_bIsGround) 
+	{			
+		Jump();
+	}
 }
 
+#include <iostream>
 void Player::EnterCollision(Collider* _other)
 {		
 	if (_other->GetOwner()->GetName() == "rec")
 	{
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());
+		std::cout << "Enter Collision" << std::endl;
 	}				
 }
 
+static int i = 0;
 void Player::OnCollision(Collider* _other)
 {		
 	if (_other->GetOwner()->GetName() == "rec")
 	{
-		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(),this->GetOwner());
+		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(),this->GetOwner());		
+		i++;
+		if (i % 100 == 0)
+		{
+			std::cout << "On Collision" << std::endl;
+			i = 0;
+		}
+			
 	}
 }
 
 void Player::ExitCollision(Collider* _other)
 {
-	if (_other->GetOwner()->GetName() == "rec")		
+	if (_other->GetOwner()->GetName() == "rec")
+	{
 		_other->GetOwner()->SetModelType(MODEL_TYPE::RECTANGLE);
+		std::cout << "Exit Collision" << std::endl;
+	}
 }
 
 void Player::Move() {

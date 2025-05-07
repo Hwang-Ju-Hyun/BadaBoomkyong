@@ -52,6 +52,8 @@ void RenderManager::Init()
 
 	m_pCam = new Camera;
 	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CCW);
 	glEnable(GL_DEPTH_TEST);
 }
 

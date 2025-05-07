@@ -68,7 +68,8 @@ void MainEditor::TopMenuBarDraw()
 		}
 		if (ImGui::MenuItem("SAVE"))
 		{
-			Serializer::GetInstance()->SaveJson_Object("json/temp/temp.json");
+			/*Serializer::GetInstance()->SaveJson_Object("json/temp/temp_3D.json");
+			Serializer::GetInstance()->SaveJson_Object("json/temp/temp.json");*/
 		}				
 		ImGui::EndMainMenuBar();
 	}

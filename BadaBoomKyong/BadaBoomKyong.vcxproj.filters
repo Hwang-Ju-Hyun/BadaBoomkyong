@@ -131,14 +131,17 @@
     <Filter Include="ShaderFiles\3D">
       <UniqueIdentifier>{a9e264ac-fc82-4de1-8974-71d59e9a11f3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Camera">
-      <UniqueIdentifier>{ce5d65a4-0f20-4e8a-a6d3-fced627c7be3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Json\Object_2D">
       <UniqueIdentifier>{5a48f277-50f0-4a77-9bb6-7c2a7bea2cbb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Json\Object_3D">
       <UniqueIdentifier>{389fa36d-48d7-4539-a0ae-cb54fabaecf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMGUI\Gizmo">
+      <UniqueIdentifier>{b4606360-0e3f-4332-a3f8-348c1bb0470c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{ce5d65a4-0f20-4e8a-a6d3-fced627c7be3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -261,6 +264,21 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUIZMO\GraphEditor.cpp">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUIZMO\ImCurveEdit.cpp">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUIZMO\ImGradient.cpp">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUIZMO\ImGuizmo.cpp">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUIZMO\ImSequencer.cpp">
+      <Filter>IMGUI\Gizmo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -393,6 +411,24 @@
     <ClInclude Include="Camera.h">
       <Filter>Camera</Filter>
     </ClInclude>
+    <ClInclude Include="IMGUIZMO\GraphEditor.h">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUIZMO\ImCurveEdit.h">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUIZMO\ImGradient.h">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUIZMO\ImGuizmo.h">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUIZMO\ImSequencer.h">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUIZMO\ImZoomSlider.h">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="IMGUI\imgui.ini">
@@ -413,7 +449,7 @@
     <None Include="json\temp\temp.json">
       <Filter>Json\Object_2D</Filter>
     </None>
-    <None Include="temp_3D.json">
+    <None Include="json\temp\temp_3D.json">
       <Filter>Json\Object_3D</Filter>
     </None>
   </ItemGroup>

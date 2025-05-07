@@ -33,18 +33,19 @@ GameObject* Serializer::LoadJson_Object(const std::string& _path)
 GameObject* Serializer::CreateObjectFromJson(json _item)
 {
 	json::iterator iter_name = _item.find(NameTypeInJson);
+	json::iterator iter_dimension = _item.find(DimensionTypeNameInJson);
 	json::iterator iter_model = _item.find(ModelTypeNameInJson);
 	json::iterator iter_group = _item.find(GroupTypeNameInJson);
 	ASSERT_MSG(iter_name!=_item.end(),"Name not exist");
 	ASSERT_MSG(iter_name != _item.end(), "Model not exist");
 
 	std::string obj_name = (*iter_name);
-	MODEL_TYPE obj_model = (*iter_model);
-	
+	bool dimension = (*iter_dimension);
+	MODEL_TYPE obj_model = (*iter_model);	
 	GROUP_TYPE obj_group = (*iter_group);
 
 	//todO
-	GameObject* obj = new GameObject(obj_name, obj_model,obj_group);
+	GameObject* obj = new GameObject(obj_name, obj_model,obj_group, dimension);
 	ASSERT_MSG(obj != nullptr, "GameObject can't construct");
 	
 	json::iterator iter_comp = _item.find(ComponentNameInJson);
@@ -69,7 +70,7 @@ GameObject* Serializer::CreateObjectFromJson(json _item)
 }
 
 
-void Serializer::SaveJson_Object(const std::string& _path)
+void Serializer::SaveJson_Object(const std::string& _path, bool _is3d)
 {
 	std::vector<GameObject*> all_objs = GameObjectManager::GetInstance()->GetAllObjects();
 	json js_all_data;
@@ -77,19 +78,22 @@ void Serializer::SaveJson_Object(const std::string& _path)
 	for (int i = 0;i < all_objs.size();i++)
 	{
 		json js_components;
-		json js_obj;
-
+		json js_obj;		
 		std::string obj_name = all_objs[i]->GetName();
 		js_obj[NameTypeInJson] = obj_name;
-		for (auto element : all_objs[i]->GetAllComponentsOfObj_vec())
-		{		
-			BaseComponent* comp = element;
-			js_components.push_back(comp->SaveToJson(_path));
-		}
-		js_obj[ComponentNameInJson] = js_components;
-		js_obj[ModelTypeNameInJson] = all_objs[i]->GetModelType();
-		js_obj[GroupTypeNameInJson] = all_objs[i]->GetGroupType();
-		js_all_data.push_back(js_obj);
+		if (all_objs[i]->GetIs3D() == _is3d)
+		{
+			js_obj[DimensionTypeNameInJson] = all_objs[i]->GetIs3D();
+			for (auto element : all_objs[i]->GetAllComponentsOfObj_vec())
+			{
+				BaseComponent* comp = element;
+				js_components.push_back(comp->SaveToJson(_path));
+			}
+			js_obj[ComponentNameInJson] = js_components;
+			js_obj[ModelTypeNameInJson] = all_objs[i]->GetModelType();
+			js_obj[GroupTypeNameInJson] = all_objs[i]->GetGroupType();
+			js_all_data.push_back(js_obj);
+		}		
 	}
 	std::fstream file;
 	file.open(_path, std::fstream::out);

@@ -32,7 +32,6 @@ void RigidBody::Init()
 
 }
 
-#include <iostream>
 void RigidBody::Update()
 {
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
@@ -40,8 +39,7 @@ void RigidBody::Update()
 	if (m_bUseGravity)
 		m_vVelocity.y -= m_fGravity * dt;
 
-	auto transform = dynamic_cast<Transform*>(GetOwner()->FindComponent("Transform"));
-	std::cout << transform->GetPosition().x << ", " << transform->GetPosition().y << ", " << transform->GetPosition().z << std::endl;
+	auto transform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));	
 	if (transform)
 		transform->AddPosition(m_vVelocity * dt);
 	m_vForce = glm::vec3(0.f);

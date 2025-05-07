@@ -28,7 +28,10 @@ void Model::Draw()
 {
 	glBindVertexArray(VAO);
 	if (m_bEBO)
+	{		
 		glDrawElements(m_ePrimitiveType, (size_t)m_vIndices.size(), GL_UNSIGNED_INT, 0);
+	}
+		
 	else
 	{							
 		if (m_ePrimitiveType == GL_LINES)

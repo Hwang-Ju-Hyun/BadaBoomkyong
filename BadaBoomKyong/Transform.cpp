@@ -118,10 +118,21 @@ void Transform::LoadFromJson(const json& _str)
 
 		auto sca = iter_compData->find(ScaleName);
 		m_vScale.x = sca->begin().value();
-		m_vScale.y = (sca->begin()+1).value();
+		m_vScale.y = (sca->begin()+1).value();		
+		m_vScale.z = (sca->begin()+2).value();
 
-		auto rot= iter_compData->find(RotationName);
-		m_fRotation = rot->begin().value();
+		if (GetOwner()->GetIs3D())
+		{
+			auto rot = iter_compData->find(RotationName);
+			m_vRotation.x = rot->begin().value();
+			m_vRotation.y = (rot->begin()+1).value();
+			m_vRotation.z = (rot->begin()+2).value();
+		}
+		else
+		{
+			auto rot = iter_compData->find(RotationName);
+			m_fRotation = rot->begin().value();
+		}		
 	}
 }
 
@@ -134,8 +145,11 @@ json Transform::SaveToJson(const json& _str)
 
 	json compData;
 	compData[PositionName] = { m_vPosition.x,m_vPosition.y,m_vPosition.z };
-	compData[ScaleName] = { m_vScale.x,m_vScale.y };
-	compData[RotationName] = { m_fRotation };
+	compData[ScaleName] = { m_vScale.x,m_vScale.y,m_vScale.z};
+	if (GetOwner()->GetIs3D())	
+		compData[RotationName] = { m_vRotation.x,m_vRotation.y,m_vRotation.z};
+	else
+		compData[RotationName] = { m_fRotation };
 
 	data[CompDataName] = compData;
 	

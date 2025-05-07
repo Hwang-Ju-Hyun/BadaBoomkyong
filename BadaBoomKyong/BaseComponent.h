@@ -1,7 +1,7 @@
 #pragma once
+
 #include <string>
 #include "BaseRTTI.h"
-
 #ifdef _DEBUG
 #include "imgui.h"
 #include "imgui_impl_glfw.h"

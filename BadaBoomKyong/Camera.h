@@ -11,7 +11,7 @@ private:
 	float     width = 16.0f;
 	float     height = 9.0f;
 	float     nearPlane = 1.0f;
-	float     farPlane = 500.0f;
+	float     farPlane = 5000.0f;
 	glm::vec3 m_vCamPos;
 	glm::vec3 m_vCamTarget;
 	glm::vec3 m_vCamUp;
@@ -23,6 +23,10 @@ public:
 	void Init();
 	void Update();
 	void Exit();
+public:
+	void RotateCamX(float _angle);
+	void RotateCamY(float _angle);
+	void RotateCamZ(float _angle);
 public:
 	inline void SetCamTarget(const glm::vec3& _targetPos) { m_vCamTarget = _targetPos; }
 	inline void SetCamPosition(const glm::vec3& _camPos) { m_vCamPos = _camPos; }
