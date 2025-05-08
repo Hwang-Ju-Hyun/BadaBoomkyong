@@ -25,7 +25,7 @@ private:
 	GameObject* m_pSelectedObjByLevel = nullptr;
 	Transform* m_pTransform_SelectedObj_Level = nullptr;
 	const char* m_sCreateObject_PopUp_Title = "CreateObject";
-	Camera* m_pCam = nullptr;
+	Camera* m_pCam = nullptr;	
 public:
 	void Init();
 	void Update();

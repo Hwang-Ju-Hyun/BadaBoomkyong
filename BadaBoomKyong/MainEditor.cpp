@@ -33,6 +33,9 @@ void MainEditor::Init()
 		ImGui_ImplGlfw_InitForOpenGL(window_handle, true);          // Second param install_callback=true will install GLFW callbacks and chain to existing ones.
 		ImGui_ImplOpenGL3_Init();
 	}	
+	GameObject* g = GameObjectManager::GetInstance()->FindObject("WALL_BACK");	
+	m_pTransform_SelectedObj_Level = static_cast<Transform*>(g->FindComponent(Transform::TransformTypeName));
+
 	m_pCam=RenderManager::GetInstance()->GetCamera();
 }
 
@@ -43,18 +46,19 @@ void MainEditor::Update()
 	ImGui::NewFrame();
 	
 	
-	UpdateSelectedObjectByLevel();
+	//UpdateSelectedObjectByLevel();
 	if (m_pTransform_SelectedObj_Level != nullptr)
 	{
+		auto g=GameObjectManager::GetInstance()->FindObject("WALL_BACK");		
 		glm::mat4 model = m_pTransform_SelectedObj_Level->GetModelToWorld_Matrix();
 		DrawGizmo(model, m_pCam->GetViewMatrix(), m_pCam->GetProjMatrix());
 		std::cout << m_pTransform_SelectedObj_Level->GetOwner()->GetName() << std::endl;
 	}				
 	//ObjectPannelDraw();
-	////GizmoManager::GetInstance()->Update();
+	//GizmoManager::GetInstance()->Update();
 
-	////TopMenuBarDraw();
-	////InputManager::GetInstance()->PrintCursorPosInConsole();	
+	//TopMenuBarDraw();
+	//InputManager::GetInstance()->PrintCursorPosInConsole();	
 	
 	//ImGui::End();
 }
@@ -139,8 +143,7 @@ void MainEditor::ObjectPannelDraw()
 			}
 			ImGui::Separator();
 		}
-	}
-	ImGui::End();	
+	}	
 }
 
 
@@ -152,24 +155,19 @@ void MainEditor::Draw_ObjectInfoPannel()
 //Chat GPT 쓴 함수
 void MainEditor::DrawGizmo(glm::mat4& _modelMatrix, const glm::mat4& _viewMatrix, const glm::mat4& _projectionMatrix)
 {
+	ImGuizmo::BeginFrame(); // 필수: 내부 상태 초기화
 	// 1. ImGuizmo 설정
 	ImGuizmo::SetOrthographic(false); // Perspective 모드 사용
-	ImGuizmo::SetDrawlist();
+	ImGuizmo::SetDrawlist(ImGui::GetBackgroundDrawList());
 
-	// 현재 ImGui 창의 위치와 크기를 가져옴
-	ImVec2 winPos = ImGui::GetWindowPos();
-	ImVec2 winSize = ImGui::GetWindowSize();
-		
-	auto w = Window::GetInstance()->GetWindowWidth();
-	auto h = Window::GetInstance()->GetWindowHeight();
-
-	//// 2D 화면 좌표계를 ImGuizmo로 전달하기 위해 뷰포트를 설정
-	ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, winSize.x, winSize.y);
-
+// 화면 전체 기준으로 좌표 잡기
+    ImVec2 displaySize = ImGui::GetIO().DisplaySize;
+    ImGuizmo::SetRect(0, 0, displaySize.x, displaySize.y);
+	
 	// 3. 조작 모드 선택 (이동 / 회전 / 스케일)
 	static ImGuizmo::OPERATION currentGizmoOperation = ImGuizmo::TRANSLATE;
 	static ImGuizmo::MODE currentGizmoMode = ImGuizmo::WORLD;
-
+	
 	// 키 입력으로 조작 모드 전환 (선택 사항)
 	if (ImGui::IsKeyPressed(ImGuiKey_T))
 		currentGizmoOperation = ImGuizmo::TRANSLATE;
@@ -177,7 +175,7 @@ void MainEditor::DrawGizmo(glm::mat4& _modelMatrix, const glm::mat4& _viewMatrix
 		currentGizmoOperation = ImGuizmo::ROTATE;
 	if (ImGui::IsKeyPressed(ImGuiKey_S))
 		currentGizmoOperation = ImGuizmo::SCALE;	
-
+	
 	// 4. 오브젝트의 월드 좌표를 사용해 Gizmo를 그린다.
 	ImGuizmo::Manipulate(
 		glm::value_ptr(_viewMatrix),
