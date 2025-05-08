@@ -164,11 +164,11 @@ void MainEditor::DrawGizmo(glm::mat4& _modelMatrix, const glm::mat4& _viewMatrix
 	auto h = Window::GetInstance()->GetWindowHeight();
 
 	//// 2D 화면 좌표계를 ImGuizmo로 전달하기 위해 뷰포트를 설정
-	ImGuizmo::SetRect(-w/2,-h/2,w, h);
+	ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, winSize.x, winSize.y);
 
 	// 3. 조작 모드 선택 (이동 / 회전 / 스케일)
 	static ImGuizmo::OPERATION currentGizmoOperation = ImGuizmo::TRANSLATE;
-	static ImGuizmo::MODE currentGizmoMode = ImGuizmo::LOCAL;
+	static ImGuizmo::MODE currentGizmoMode = ImGuizmo::WORLD;
 
 	// 키 입력으로 조작 모드 전환 (선택 사항)
 	if (ImGui::IsKeyPressed(ImGuiKey_T))
