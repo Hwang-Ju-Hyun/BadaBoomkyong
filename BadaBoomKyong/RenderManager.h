@@ -23,5 +23,7 @@ public:
 	void Init();
 	void Draw();
 	void Exit();
+public:
+	inline Camera* GetCamera()const { return m_pCam; }
 };
 

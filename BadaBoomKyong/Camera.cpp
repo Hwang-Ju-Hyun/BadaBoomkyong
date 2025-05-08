@@ -14,7 +14,7 @@ Camera::Camera()
 	nearPlane = 0.1;
 	farPlane = 5000.f;
 	m_vCamPos = { 0 ,0,0 };
-	m_vCamTarget = { 0,0, 50};
+	m_vCamTarget = { 0,0, 10};
 	m_vCamUp = { 0, 1, 0 };
 }
 
@@ -38,9 +38,9 @@ void Camera::Update()
 	if (input->GetKetCode(GLFW_KEY_V) == GLFW_REPEAT)
 		RotateCamY(-0.1f);
 	if (input->GetKetCode(GLFW_KEY_Q) == GLFW_REPEAT)
-		RotateCamZ(0.001f);
+		RotateCamZ(0.01f);
 	if (input->GetKetCode(GLFW_KEY_E) == GLFW_REPEAT)
-		RotateCamZ(-0.001f);
+		RotateCamZ(-0.01f);
 
 	glm::vec3 dir = glm::normalize(m_vCamTarget - m_vCamPos);
 	dir = -dir;

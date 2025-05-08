@@ -60,7 +60,7 @@ void Player::EnterCollision(Collider* _other)
 	if (_other->GetOwner()->GetName() == "rec")
 	{
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());
-		std::cout << "Enter Collision" << std::endl;
+		//std::cout << "Enter Collision" << std::endl;
 	}				
 }
 
@@ -73,7 +73,7 @@ void Player::OnCollision(Collider* _other)
 		i++;
 		if (i % 100 == 0)
 		{
-			std::cout << "On Collision" << std::endl;
+			//std::cout << "On Collision" << std::endl;
 			i = 0;
 		}
 			
@@ -85,7 +85,7 @@ void Player::ExitCollision(Collider* _other)
 	if (_other->GetOwner()->GetName() == "rec")
 	{
 		_other->GetOwner()->SetModelType(MODEL_TYPE::RECTANGLE);
-		std::cout << "Exit Collision" << std::endl;
+		//std::cout << "Exit Collision" << std::endl;
 	}
 }
 
