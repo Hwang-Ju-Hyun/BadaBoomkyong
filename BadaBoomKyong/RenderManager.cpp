@@ -57,8 +57,11 @@ void RenderManager::Init()
 	glEnable(GL_DEPTH_TEST);
 }
 
+#include "FrameBuffer.h"
 void RenderManager::Draw()
 {		
+	
+
 	auto objs=GameObjectManager::GetInstance()->GetAllObjects();
 	auto shdr_handle_2D = m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->GetShaderProgramHandle();
 	auto shadr_handle_3D= m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->GetShaderProgramHandle();
@@ -147,7 +150,6 @@ void RenderManager::Draw()
 
 	auto handle=Window::GetInstance()->GetWindowHandle();
 	glfwSwapBuffers(handle);	
-	
 	
 }
 

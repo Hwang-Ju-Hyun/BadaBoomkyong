@@ -5,6 +5,7 @@
 
 class Shader;
 class Camera;
+class FrameBuffer;
 
 //todo : 나중에 3d오브젝트 띄우고 다 되면 주석 다지우셈
 class RenderManager
@@ -25,5 +26,7 @@ public:
 	void Exit();
 public:
 	inline Camera* GetCamera()const { return m_pCam; }
+private:
+	FrameBuffer* m_pFrameBuffer = nullptr;
 };
 

@@ -82,8 +82,8 @@ void Application::Exit()
     ComponentManager::GetInstance()->Exit();
     GameObjectManager::GetInstance()->Exit();
     ModelManager::GetInstance()->Exit();
+    MainEditor::GetInstance()->Exit();
     RenderManager::GetInstance()->Exit();
-
 #ifdef _DEBUG
     // Cleanup
     ImGui_ImplOpenGL3_Shutdown();

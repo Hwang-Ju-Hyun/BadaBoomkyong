@@ -143,6 +143,9 @@
     <Filter Include="Camera">
       <UniqueIdentifier>{ce5d65a4-0f20-4e8a-a6d3-fced627c7be3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\FrameBuffer">
+      <UniqueIdentifier>{d2c34801-789f-4308-9dfc-59fb4a04e979}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -279,6 +282,9 @@
     </ClCompile>
     <ClCompile Include="IMGUIZMO\ImSequencer.cpp">
       <Filter>IMGUI\Gizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameBuffer.cpp">
+      <Filter>Graphics\FrameBuffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -428,6 +434,9 @@
     </ClInclude>
     <ClInclude Include="IMGUIZMO\ImZoomSlider.h">
       <Filter>IMGUI\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBuffer.h">
+      <Filter>Graphics\FrameBuffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

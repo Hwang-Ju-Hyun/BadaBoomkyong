@@ -150,6 +150,7 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
+    <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GameStateManager.h" />

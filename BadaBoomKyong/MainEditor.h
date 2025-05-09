@@ -15,7 +15,7 @@ class BaseComponent;
 class GameObject;
 class Camera;
 class Transform;
-
+class FrameBuffer;
 class MainEditor
 {
 public:
@@ -23,17 +23,19 @@ public:
 private:
 	GameObject* m_pSelectedObjByButton=nullptr;
 	GameObject* m_pSelectedObjByLevel = nullptr;
-	Transform* m_pTransform_SelectedObj_Level = nullptr;
-	const char* m_sCreateObject_PopUp_Title = "CreateObject";
-	Camera* m_pCam = nullptr;	
+	Transform* m_pTransform_SelectedObj_Level = nullptr;	
+	Camera* m_pCam = nullptr;		
+	FrameBuffer* m_pFrameBuffer = nullptr;
 public:
 	void Init();
 	void Update();
+	void Exit();
 private:
+	void FrameBufferDraw();
 	void UpdateSelectedObjectByLevel();
 	void TopMenuBarDraw();
-	void ObjectPannelDraw();
-	void Draw_ObjectInfoPannel();
+	void ObjectPannelDraw();	
 	void DrawGizmo(glm::mat4& _modelMatrix, const glm::mat4& _viewMatrix, const glm::mat4& _projectionMatrix);
+ 
 };
 #endif
