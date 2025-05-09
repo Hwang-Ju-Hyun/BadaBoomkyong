@@ -31,6 +31,8 @@ private:
 	void DeletObjectModal();
 	void TopMenuBarDraw();
 	void ObjectPannelDraw();	
-	void DrawGizmo(glm::mat4& _modelMatrix, const glm::mat4& _viewMatrix, const glm::mat4& _projectionMatrix);
+	void DrawGizmo();
+	void UpdateEditorCameraControls();
+
 };
 #endif

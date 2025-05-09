@@ -13,7 +13,7 @@ Camera::Camera()
 	height = window_height;
 	nearPlane = 0.1;
 	farPlane = 5000.f;
-	m_vCamPos = { 0 ,0,0 };
+	m_vCamPos = { 0 ,0,-300 };
 	m_vCamTarget = { 0,0, 10};
 	m_vCamUp = { 0, 1, 0 };
 }
@@ -28,42 +28,18 @@ void Camera::Init()
 
 void Camera::Update()
 {
-	auto input=InputManager::GetInstance();
-	if (input->GetKetCode(GLFW_KEY_Z) == GLFW_REPEAT)
-		RotateCamX(0.01f);
-	if (input->GetKetCode(GLFW_KEY_X) == GLFW_REPEAT)
-		RotateCamX(-0.01f);
-	if (input->GetKetCode(GLFW_KEY_C) == GLFW_REPEAT)
-		RotateCamY(0.01f);
-	if (input->GetKetCode(GLFW_KEY_V) == GLFW_REPEAT)
-		RotateCamY(-0.01f);
-	if (input->GetKetCode(GLFW_KEY_Q) == GLFW_REPEAT)
-		ZoomInOut(0.001f);
-	if (input->GetKetCode(GLFW_KEY_E) == GLFW_REPEAT)
-		ZoomInOut(-0.001f);
+	//구면좌표계 -> 데카르트 좌표계(직교 좌표계)
+	glm::vec3 front;
+	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	front.y = sin(glm::radians(pitch));
+	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 
-	glm::vec3 dir = glm::normalize(m_vCamTarget - m_vCamPos);
-	dir = -dir;
-	glm::vec3 r = glm::normalize(glm::cross(m_vCamUp, dir));
-	glm::mat4 V = glm::mat4(1);
-	glm::vec3 up = glm::normalize(glm::cross(dir, r));
+	m_vCamFront = glm::normalize(front);
+	m_vCamRight = glm::normalize(glm::cross(m_vCamFront, glm::vec3(0.0f, 1.0f, 0.0f)));
+	m_vCamUp = glm::normalize(glm::cross(m_vCamRight, m_vCamFront));
 
-	V[0][0] = r.x;
-	V[1][0] = r.y;
-	V[2][0] = r.z;
-	V[0][1] = up.x;
-	V[1][1] = up.y;
-	V[2][1] = up.z;
-	V[0][2] = dir.x;
-	V[1][2] = dir.y;
-	V[2][2] = dir.z;
-	V[3][0] = -dot(r,m_vCamPos);
-	V[3][1] = -dot(up,m_vCamPos);
-	V[3][2] = -dot(dir,m_vCamPos);
-
-	m_mViewMat = glm::lookAt(m_vCamPos, m_vCamTarget, up);
-	//ViewMat = V;
-
+	m_vCamTarget = m_vCamPos + m_vCamFront;
+	m_mViewMat = glm::lookAt(m_vCamPos, m_vCamTarget, m_vCamUp);
 	m_mProjMat = glm::perspective(glm::radians(fovy), width / height, nearPlane, farPlane);
 }
 
@@ -71,18 +47,24 @@ void Camera::Exit()
 {
 }
 
+//todo : 중요하니깐 알아라
+//행렬 곱 벡터 = 벡터( 모델 곱하기 월드 행렬 곱하면 월드에서의 모델위치의 벡터가 나오는거라 같음)
 void Camera::RotateCamX(float _angle)
 {
 	glm::vec3 right = glm::cross(m_vCamUp, m_vCamPos - m_vCamTarget);
 	glm::vec3 rotVec = glm::vec3(glm::rotate(glm::identity<glm::mat4>(), glm::radians(-_angle), right) * glm::vec4(m_vCamTarget - m_vCamPos, 1));
 
-	if (abs(rotVec.z) > 0.1f)
-		m_vCamPos = m_vCamTarget - rotVec;
+	m_vCamPos = m_vCamTarget - rotVec;		
 }
 
 void Camera::RotateCamY(float _angle)
 {
 	m_vCamPos = m_vCamTarget - glm::vec3(glm::rotate(glm::identity<glm::mat4>(), glm::radians(_angle), m_vCamUp) * glm::vec4(m_vCamTarget - m_vCamPos, 1));
+}
+
+void Camera::RoatatCam(const glm::vec3& _angle)
+{
+
 }
 
 void Camera::ZoomInOut(float _val)

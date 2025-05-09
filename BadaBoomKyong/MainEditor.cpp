@@ -49,10 +49,13 @@ void MainEditor::Update()
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();		
 
-
 	ObjectPannelDraw();	
 	TopMenuBarDraw();
 	DeletObjectModal();
+	
+	UpdateEditorCameraControls();
+
+	DrawGizmo();
 }
 
 static bool openDeletePopup = false;
@@ -188,9 +191,13 @@ void MainEditor::ObjectPannelDraw()
 }
 
 //Chat GPT 쓴 함수
-void MainEditor::DrawGizmo(glm::mat4& _modelMatrix, const glm::mat4& _viewMatrix, const glm::mat4& _projectionMatrix)
+void MainEditor::DrawGizmo()
 {
+	if (m_pTransform_SelectedObj == nullptr)
+		return;
+
 	ImGuizmo::BeginFrame(); // 필수: 내부 상태 초기화
+
 	// 1. ImGuizmo 설정
 	ImGuizmo::SetOrthographic(false); // Perspective 모드 사용
 	ImGuizmo::SetDrawlist(ImGui::GetBackgroundDrawList());
@@ -212,19 +219,24 @@ void MainEditor::DrawGizmo(glm::mat4& _modelMatrix, const glm::mat4& _viewMatrix
 		currentGizmoOperation = ImGuizmo::ROTATE;
 	if (ImGui::IsKeyPressed(ImGuiKey_Y))
 		currentGizmoOperation = ImGuizmo::SCALE;	
+		
+	glm::mat4 ModelMatrix = m_pTransform_SelectedObj->GetModelToWorld_Matrix();
+	glm::mat4 ViewMatrix = m_pCam->GetViewMatrix();
+	glm::mat4 ProjMatrix = m_pCam->GetProjMatrix();
 	
 	// 4. 오브젝트의 월드 좌표를 사용해 Gizmo를 그린다.	
 	bool changed =ImGuizmo::Manipulate(
-		glm::value_ptr(_viewMatrix),
-		glm::value_ptr(_projectionMatrix),
+		glm::value_ptr(ViewMatrix),
+		glm::value_ptr(ProjMatrix),
 		currentGizmoOperation,
 		currentGizmoMode,
-		glm::value_ptr(_modelMatrix)
+		glm::value_ptr(ModelMatrix)
 	);
+
 	if (changed)
-	{
+	{		
 		glm::vec3 translation, rotation, scale;
-		ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(_modelMatrix), glm::value_ptr(translation), glm::value_ptr(rotation), glm::value_ptr(scale));
+		ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(ModelMatrix), glm::value_ptr(translation), glm::value_ptr(rotation), glm::value_ptr(scale));
 
 		// 회전은 degree 단위임
 		if (m_pTransform_SelectedObj)
@@ -234,5 +246,63 @@ void MainEditor::DrawGizmo(glm::mat4& _modelMatrix, const glm::mat4& _viewMatrix
 			m_pTransform_SelectedObj->SetScale(scale);
 		}
 	}
+}
+
+void MainEditor::UpdateEditorCameraControls()
+{
+	auto input = InputManager::GetInstance();
+	static glm::vec2 prevMousePos = { 0.f, 0.f };
+	static bool isFirst = true;
+
+	if (input->GetMouseBtn(GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS ||
+		input->GetMouseBtn(GLFW_MOUSE_BUTTON_RIGHT) == GLFW_REPEAT)
+	{
+		glm::vec2 currMousePos = input->GetCursorPostion();
+		if (isFirst)
+		{
+			prevMousePos = currMousePos;
+			isFirst = false;
+		}
+
+		glm::vec2 delta = currMousePos - prevMousePos;
+		prevMousePos = currMousePos;
+
+		float sensitivity = 0.1f;
+		m_pCam->yaw += delta.x * sensitivity;
+		m_pCam->pitch += delta.y * sensitivity;
+
+		// pitch 제한
+		//if (m_pCam->pitch > 89.0f) m_pCam->pitch = 89.0f;
+		//if (m_pCam->pitch < -89.0f) m_pCam->pitch = -89.0f;
+	
+
+		// 이동 WASD (카메라 기준 방향으로 이동)
+		glm::vec3 moveDir{ 0.0f };
+		float speed = 5.f;
+		if (input->GetKetCode(GLFW_KEY_W) == GLFW_REPEAT)
+			moveDir += m_pCam->m_vCamFront;
+		if (input->GetKetCode(GLFW_KEY_S) == GLFW_REPEAT)
+			moveDir -= m_pCam->m_vCamFront;
+		if (input->GetKetCode(GLFW_KEY_A) == GLFW_REPEAT)
+			moveDir -= m_pCam->m_vCamRight;
+		if (input->GetKetCode(GLFW_KEY_D) == GLFW_REPEAT)
+			moveDir += m_pCam->m_vCamRight;
+		if (input->GetKetCode(GLFW_KEY_E) == GLFW_REPEAT)
+			moveDir += m_pCam->m_vCamUp;
+		if (input->GetKetCode(GLFW_KEY_Q) == GLFW_REPEAT)
+			moveDir -= m_pCam->m_vCamUp;
+
+		if (glm::length(moveDir) > 0.0f)
+		{
+			moveDir = glm::normalize(moveDir);
+			m_pCam->AddPosition(moveDir * speed);
+		}
+
+	}
+	else
+	{
+		isFirst = true;
+	}
+
 }
 #endif // DEBUG
