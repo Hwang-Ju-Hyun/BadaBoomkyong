@@ -5,12 +5,12 @@
 #include "Model.h"
 #include "ComponentManager.h"
 
-GameObject::GameObject(const std::string& _name,MODEL_TYPE _modelType, GROUP_TYPE _groupType, bool _Is3D)
-	:m_sName(_name)
-	,m_bIs3D(_Is3D)
+GameObject::GameObject(const std::string& _name,MODEL_TYPE _modelType, GROUP_TYPE _groupType)
+	:m_sName(_name)	
 {	
 	SetModel(ModelManager::GetInstance()->FindModel(_modelType));
-	m_eGroup=_groupType;	
+	m_eGroup=_groupType;
+	_modelType >= 4 ? m_bIs3D = true : m_bIs3D = false;
 	GameObjectManager::GetInstance()->AddObject(this);
 }
 

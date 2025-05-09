@@ -53,6 +53,13 @@ void Transform::Update()
 		translate = glm::translate(translate, m_vPosition);
 		scale = glm::scale(scale, m_vScale);
 
+		if(m_vRotation.x > 360.f)
+			m_vRotation.x = 0.f;
+		if (m_vRotation.y > 360.f)
+			m_vRotation.y = 0.f;
+		if (m_vRotation.z > 360.f)
+			m_vRotation.z = 0.f;
+
 		a = glm::rotate(a, glm::radians(m_vRotation.y), { 0,1,0 });
 		b = glm::rotate(b, glm::radians(m_vRotation.x), { 1,0,0 });
 		c = glm::rotate(c, glm::radians(m_vRotation.z), { 0,0,1 });

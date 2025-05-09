@@ -34,9 +34,7 @@ void MainEditor::Init()
 		auto window_handle = Window::GetInstance()->GetWindowHandle();
 		ImGui_ImplGlfw_InitForOpenGL(window_handle, true);          // Second param install_callback=true will install GLFW callbacks and chain to existing ones.
 		ImGui_ImplOpenGL3_Init();
-	}	
-	GameObject* g = GameObjectManager::GetInstance()->FindObject("WALL_BACK");	
-	m_pTransform_SelectedObj_Level = static_cast<Transform*>(g->FindComponent(Transform::TransformTypeName));
+	}		
 
 	m_pCam=RenderManager::GetInstance()->GetCamera();
 
@@ -49,45 +47,47 @@ void MainEditor::Update()
 {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
-	ImGui::NewFrame();	
-	
-	//UpdateSelectedObjectByLevel();
-	/*if (m_pTransform_SelectedObj_Level != nullptr)
-	{
-		glm::mat4 model = m_pTransform_SelectedObj_Level->GetModelToWorld_Matrix();
-		DrawGizmo(model, m_pCam->GetViewMatrix(), m_pCam->GetProjMatrix());
-		std::cout << m_pTransform_SelectedObj_Level->GetOwner()->GetName() << std::endl;
-	}*/
+	ImGui::NewFrame();		
+
 
 	ObjectPannelDraw();	
 	TopMenuBarDraw();
-	
+	DeletObjectModal();
 }
 
-void MainEditor::Exit()
+static bool openDeletePopup = false;
+static std::string deletePopupName = "";
+
+void MainEditor::DeletObjectModal()
 {
-
-}
-
-void MainEditor::UpdateSelectedObjectByLevel()
-{
-	const auto input = InputManager::GetInstance();
-	const auto all_obj=GameObjectManager::GetInstance()->GetAllObjects();
-	const glm::vec2 cursor=input->GetCursorPostion();
-
-	for (auto obj : all_obj)
+	if (ImGui::IsKeyPressed(ImGuiKey_Delete) && m_pSelectedObjByPannel)
 	{
-		Transform* obj_trs = dynamic_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName));
-		if (obj_trs == nullptr)
-			continue;
-		if (input->GetMouseBtn(GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
+		deletePopupName = "Delete Object" + m_pSelectedObjByPannel->GetName();
+		openDeletePopup = true;
+	}
+
+	if (openDeletePopup)
+	{
+		ImGui::OpenPopup(deletePopupName.c_str());
+		openDeletePopup = false;
+	}
+
+	if (ImGui::BeginPopupModal(deletePopupName.c_str(), NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Are you sure you want to delete '%s'?", m_pSelectedObjByPannel->GetName().c_str());
+		if (ImGui::Button("YES"))
 		{
-			bool IsInside = GeometryUtil::GetInstance()->IsPointInsideRectangle(cursor, obj_trs);
-			m_pSelectedObjByLevel = obj;
-			m_pTransform_SelectedObj_Level = obj_trs;
-			return;
-		}		
-	}		
+			GameObjectManager::GetInstance()->DeleteObject(m_pSelectedObjByPannel->GetName());
+			m_pSelectedObjByPannel = nullptr;
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("NO"))
+		{
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::EndPopup();
+	}	
 }
 
 void MainEditor::TopMenuBarDraw()
@@ -122,8 +122,8 @@ void MainEditor::TopMenuBarDraw()
 		}
 		if (ImGui::MenuItem("SAVE"))
 		{
-			/*Serializer::GetInstance()->SaveJson_Object("json/temp/temp_3D.json");
-			Serializer::GetInstance()->SaveJson_Object("json/temp/temp.json");*/
+			Serializer::GetInstance()->SaveJson_Object("json/temp/temp_3D.json",true);
+			Serializer::GetInstance()->SaveJson_Object("json/temp/temp.json",false);
 		}				
 		ImGui::EndMainMenuBar();
 	}
@@ -134,17 +134,13 @@ void MainEditor::TopMenuBarDraw()
 		if (ImGui::BeginPopupModal("Enter Object Name", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 		{
 			ImGui::Text("Enter a name for the new object:");
-			ImGui::InputText("Name", objectNameBuffer, IM_ARRAYSIZE(objectNameBuffer));
-
-			if()
-
+			ImGui::InputText("Name", objectNameBuffer, IM_ARRAYSIZE(objectNameBuffer));			
 
 			if (ImGui::Button("Create"))
-			{
-				// TODO: 오브젝트 생성 로직 구현
-				// 예: ObjectManager::GetInstance()->CreateObject(selectedModelName, objectNameBuffer);
-
-				GameObjectManager::GetInstance()->AddObject(new GameObject(objectNameBuffer,Selected_ModelType,)
+			{			
+				GameObject* obj=new GameObject(objectNameBuffer, MODEL_TYPE(Selected_ModelType));
+				Transform* trs= static_cast<Transform*>(obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(obj)));
+				Sprite* spr= static_cast<Sprite*>(obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(obj)));
 
 				ShowCreateObjectWindow = false;
 				ImGui::CloseCurrentPopup();
@@ -163,16 +159,17 @@ void MainEditor::TopMenuBarDraw()
 void MainEditor::ObjectPannelDraw()
 {
 	auto ObjMgr = GameObjectManager::GetInstance();
-
 	ImGui::Begin("Object List");
 
 	for (auto obj : ObjMgr->GetAllObjects())
 	{		
 		if (ImGui::Button(obj->GetName().c_str()))
 		{ 
-			m_pSelectedObjByButton = obj;		
+			m_pSelectedObjByPannel = obj;
+			m_pTransform_SelectedObj = dynamic_cast<Transform*>(m_pSelectedObjByPannel->FindComponent(Transform::TransformTypeName));
+			
 		}
-		if (m_pSelectedObjByButton == obj)
+		if (m_pSelectedObjByPannel == obj)
 		{			
 			std::unordered_map<std::string, BaseComponent*> comps = obj->GetAllComponentsOfObj_Hash();
 			for (auto iter = comps.begin(); iter != comps.end(); ++iter)
@@ -184,8 +181,8 @@ void MainEditor::ObjectPannelDraw()
 					ImGui::TreePop();
 				}
 			}
-			ImGui::Separator();
-		}
+			ImGui::Separator();			
+		}		
 	}
 	ImGui::End();
 }
@@ -230,11 +227,11 @@ void MainEditor::DrawGizmo(glm::mat4& _modelMatrix, const glm::mat4& _viewMatrix
 		ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(_modelMatrix), glm::value_ptr(translation), glm::value_ptr(rotation), glm::value_ptr(scale));
 
 		// 회전은 degree 단위임
-		if (m_pTransform_SelectedObj_Level)
+		if (m_pTransform_SelectedObj)
 		{
-			m_pTransform_SelectedObj_Level->SetPosition(translation);
-			m_pTransform_SelectedObj_Level->SetRotation(rotation); // 회전 저장 방식에 맞게 처리 필요 (Euler/Quaternion)
-			m_pTransform_SelectedObj_Level->SetScale(scale);
+			m_pTransform_SelectedObj->SetPosition(translation);
+			m_pTransform_SelectedObj->SetRotation(rotation); // 회전 저장 방식에 맞게 처리 필요 (Euler/Quaternion)
+			m_pTransform_SelectedObj->SetScale(scale);
 		}
 	}
 }

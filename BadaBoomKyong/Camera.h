@@ -26,7 +26,7 @@ public:
 public:
 	void RotateCamX(float _angle);
 	void RotateCamY(float _angle);
-	void RotateCamZ(float _angle);
+	void ZoomInOut(float _angle);
 public:
 	inline void SetCamTarget(const glm::vec3& _targetPos) { m_vCamTarget = _targetPos; }
 	inline void SetCamPosition(const glm::vec3& _camPos) { m_vCamPos = _camPos; }

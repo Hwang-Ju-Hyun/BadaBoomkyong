@@ -15,27 +15,22 @@ class BaseComponent;
 class GameObject;
 class Camera;
 class Transform;
-class FrameBuffer;
+
 class MainEditor
 {
 public:
 	SINGLETON(MainEditor);
 private:
-	GameObject* m_pSelectedObjByButton=nullptr;
-	GameObject* m_pSelectedObjByLevel = nullptr;
-	Transform* m_pTransform_SelectedObj_Level = nullptr;	
-	Camera* m_pCam = nullptr;		
-	FrameBuffer* m_pFrameBuffer = nullptr;
+	GameObject* m_pSelectedObjByPannel=nullptr;	
+	Transform* m_pTransform_SelectedObj = nullptr;
+	Camera* m_pCam = nullptr;				
 public:
 	void Init();
-	void Update();
-	void Exit();
-private:
-	void FrameBufferDraw();
-	void UpdateSelectedObjectByLevel();
+	void Update();	
+private:	
+	void DeletObjectModal();
 	void TopMenuBarDraw();
 	void ObjectPannelDraw();	
 	void DrawGizmo(glm::mat4& _modelMatrix, const glm::mat4& _viewMatrix, const glm::mat4& _projectionMatrix);
- 
 };
 #endif

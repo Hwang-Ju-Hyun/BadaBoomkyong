@@ -30,17 +30,17 @@ void Camera::Update()
 {
 	auto input=InputManager::GetInstance();
 	if (input->GetKetCode(GLFW_KEY_Z) == GLFW_REPEAT)
-		RotateCamX(0.1f);
+		RotateCamX(0.01f);
 	if (input->GetKetCode(GLFW_KEY_X) == GLFW_REPEAT)
-		RotateCamX(-0.1f);
+		RotateCamX(-0.01f);
 	if (input->GetKetCode(GLFW_KEY_C) == GLFW_REPEAT)
-		RotateCamY(0.1f);
+		RotateCamY(0.01f);
 	if (input->GetKetCode(GLFW_KEY_V) == GLFW_REPEAT)
-		RotateCamY(-0.1f);
+		RotateCamY(-0.01f);
 	if (input->GetKetCode(GLFW_KEY_Q) == GLFW_REPEAT)
-		RotateCamZ(0.01f);
+		ZoomInOut(0.001f);
 	if (input->GetKetCode(GLFW_KEY_E) == GLFW_REPEAT)
-		RotateCamZ(-0.01f);
+		ZoomInOut(-0.001f);
 
 	glm::vec3 dir = glm::normalize(m_vCamTarget - m_vCamPos);
 	dir = -dir;
@@ -85,7 +85,7 @@ void Camera::RotateCamY(float _angle)
 	m_vCamPos = m_vCamTarget - glm::vec3(glm::rotate(glm::identity<glm::mat4>(), glm::radians(_angle), m_vCamUp) * glm::vec4(m_vCamTarget - m_vCamPos, 1));
 }
 
-void Camera::RotateCamZ(float _angle)
+void Camera::ZoomInOut(float _val)
 {
-	m_vCamPos += _angle * (m_vCamTarget - m_vCamPos);
+	m_vCamPos += _val * (m_vCamTarget - m_vCamPos);
 }

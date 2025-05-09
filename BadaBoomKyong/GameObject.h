@@ -13,7 +13,7 @@ class GameObject
 {
 public:
 	GameObject() = delete;
-	GameObject(const std::string& _name = "Default", MODEL_TYPE _modelType = MODEL_TYPE::TRIANGLE, GROUP_TYPE _groupType = GROUP_TYPE::DEFAULT,bool _Is3D=false);
+	GameObject(const std::string& _name = "Default", MODEL_TYPE _modelType = MODEL_TYPE::TRIANGLE, GROUP_TYPE _groupType = GROUP_TYPE::DEFAULT);
 	~GameObject();
 private:
 	std::string m_sName = "";
