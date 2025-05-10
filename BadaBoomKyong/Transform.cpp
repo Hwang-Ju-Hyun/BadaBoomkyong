@@ -6,6 +6,7 @@
 #include "BaseComponent.h"
 #include "Model.h"
 #include <gtc/matrix_transform.hpp>
+#include <gtx/quaternion.hpp>
 
 Transform::Transform(GameObject* _owner)
 	:MonoBehaviour(_owner)
@@ -43,12 +44,6 @@ void Transform::Update()
 	{
 		glm::mat4 translate = glm::mat4(1.0f);
 		glm::mat4 scale = glm::mat4(1.0f);
-
-		glm::mat4 rotateYXZ = glm::mat4(1.0f);
-
-		glm::mat4 a = glm::mat4(1.0f);
-		glm::mat4 b = glm::mat4(1.0f);
-		glm::mat4 c = glm::mat4(1.0f);
 		
 		translate = glm::translate(translate, m_vPosition);
 		scale = glm::scale(scale, m_vScale);
@@ -60,13 +55,13 @@ void Transform::Update()
 		if (m_vRotation.z > 360.f)
 			m_vRotation.z = 0.f;
 
-		a = glm::rotate(a, glm::radians(m_vRotation.y), { 0,1,0 });
-		b = glm::rotate(b, glm::radians(m_vRotation.x), { 1,0,0 });
-		c = glm::rotate(c, glm::radians(m_vRotation.z), { 0,0,1 });
+		// Convert Euler angles to quaternion		
+		glm::quat quatRotation = glm::quat(glm::radians(m_vRotation));
 
-		rotateYXZ = a * b * c;
+		// Convert quaternion to rotation matrix
+		glm::mat4 rotationMatrix = glm::toMat4(quatRotation);		
 
-		m_mModeltoWorld_3D = translate * rotateYXZ * scale;
+		m_mModeltoWorld_3D = translate * rotationMatrix * scale;
 	}
 	else
 	{

@@ -14,7 +14,7 @@ Camera::Camera()
 	nearPlane = 0.1;
 	farPlane = 5000.f;
 	m_vCamPos = { 0 ,0,-300 };
-	m_vCamTarget = { 0,0, 10};
+	m_vCamTarget = { 0,0, 0};
 	m_vCamUp = { 0, 1, 0 };
 }
 
@@ -49,25 +49,3 @@ void Camera::Exit()
 
 //todo : 중요하니깐 알아라
 //행렬 곱 벡터 = 벡터( 모델 곱하기 월드 행렬 곱하면 월드에서의 모델위치의 벡터가 나오는거라 같음)
-void Camera::RotateCamX(float _angle)
-{
-	glm::vec3 right = glm::cross(m_vCamUp, m_vCamPos - m_vCamTarget);
-	glm::vec3 rotVec = glm::vec3(glm::rotate(glm::identity<glm::mat4>(), glm::radians(-_angle), right) * glm::vec4(m_vCamTarget - m_vCamPos, 1));
-
-	m_vCamPos = m_vCamTarget - rotVec;		
-}
-
-void Camera::RotateCamY(float _angle)
-{
-	m_vCamPos = m_vCamTarget - glm::vec3(glm::rotate(glm::identity<glm::mat4>(), glm::radians(_angle), m_vCamUp) * glm::vec4(m_vCamTarget - m_vCamPos, 1));
-}
-
-void Camera::RoatatCam(const glm::vec3& _angle)
-{
-
-}
-
-void Camera::ZoomInOut(float _val)
-{
-	m_vCamPos += _val * (m_vCamTarget - m_vCamPos);
-}

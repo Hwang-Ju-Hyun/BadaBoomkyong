@@ -25,19 +25,11 @@ public:
 	void Update();
 	void Exit();
 public:
-	inline void AddPositionX(float _val) { m_vCamPos.x += _val;m_vCamTarget += _val; }
-	inline void AddPositionY(float _val) { m_vCamPos.y += _val;m_vCamTarget += _val; }
-	inline void AddPositionZ(float _val) { m_vCamPos.z += _val;m_vCamTarget += _val; }
-	inline void AddPosition(const glm::vec3& _val) { m_vCamPos += _val; m_vCamTarget += _val; }
-	 
-	void RotateCamX(float _angle);
-	void RotateCamY(float _angle);
-	void RoatatCam(const glm::vec3& _angle);
-	void ZoomInOut(float _angle);
+	inline void AddPositionX(float _val) { m_vCamPos.x += _val;m_vCamTarget.x += _val; }
+	inline void AddPositionY(float _val) { m_vCamPos.y += _val;m_vCamTarget.y += _val; }
+	inline void AddPositionZ(float _val) { m_vCamPos.z += _val;m_vCamTarget.z += _val; }
+	inline void AddPosition(const glm::vec3& _val) { m_vCamPos += _val; m_vCamTarget += _val; }	 
 public:
-	inline void SetCamTargetPos(const glm::vec3& _targetPos) { m_vCamTarget = _targetPos; }
-	inline void AddCamTargetPos(const glm::vec3& _val) { m_vCamTarget += _val; }
-	inline void SetCamPosition(const glm::vec3& _camPos) { m_vCamPos = _camPos; }
 	inline glm::vec3 GetCamTargetPosition()const { return m_vCamTarget; }
 	inline glm::vec3 GetCamPosition()const { return m_vCamPos; }
 
@@ -50,6 +42,5 @@ public:
 public:
 	float yaw = -90.0f;     //ÁÂ¿ì
 	float pitch = 0.0f;		//»óÇÏ
-
 };
 

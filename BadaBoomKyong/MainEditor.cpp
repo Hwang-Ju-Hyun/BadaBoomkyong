@@ -297,12 +297,10 @@ void MainEditor::UpdateEditorCameraControls()
 			moveDir = glm::normalize(moveDir);
 			m_pCam->AddPosition(moveDir * speed);
 		}
-
 	}
 	else
 	{
 		isFirst = true;
 	}
-
 }
 #endif // DEBUG

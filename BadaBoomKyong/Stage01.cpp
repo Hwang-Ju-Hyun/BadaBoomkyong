@@ -34,7 +34,7 @@ void Stage01::Update()
     auto in = InputManager::GetInstance();
 	auto wb=GameObjectManager::GetInstance()->FindObject("WALL_BACK");
 	Transform* trs=static_cast<Transform*>(wb->FindComponent(Transform::TransformTypeName));
-	trs->AddRotationX(0.01f);
+	//trs->AddRotationX(0.01f);
 	/*trs->AddRotationY(0.01f);
 	trs->AddRotationZ(0.01f);*/
 }
