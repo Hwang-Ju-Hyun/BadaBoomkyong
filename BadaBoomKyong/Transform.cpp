@@ -64,33 +64,12 @@ void Transform::Update()
 		m_mModeltoWorld_3D = translate * rotationMatrix * scale;
 	}
 	else
-	{
-		glm::mat3 transform =
-		{
-			1,				0,				0,			//	1 0 position x	
-			0,				1,				0,			//	0 1 position y
-			m_vPosition.x,  m_vPosition.y,	1			//  0 0 1
-		};
-		glm::mat3 scale =
-		{
-			m_vScale.x,0,0,								// scale 0 0
-			0,m_vScale.y,0,								// 0 scale 0
-			0,0,1										// 0  0    1
-		};
-		glm::mat3 rotation =
-		{
-			std::cos(m_fRotation),	std::sin(m_fRotation),0,				//cos() -sin() 0
-			-std::sin(m_fRotation),	std::cos(m_fRotation),0,				//sin() cos()  0
-			0,						0,					  1					// 0      0    1
-		};
-		glm::mat3 WorldtoNDC =
-		{
-			2.f / window_width,		0,				0,
-			0,					2.f / window_height,	0,
-			0,						0,				1
-		};
-		m_mModeltoWorld_2D = (transform * rotation * scale);
-		m_mModeltoNDC_2D = WorldtoNDC * m_mModeltoWorld_2D;
+	{				
+		m_vPosition.z = 0.f;
+		glm::mat4 translate = glm::translate(glm::mat4(1.0f),m_vPosition);
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f),m_vScale);
+		glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f), m_fRotation, glm::vec3(0, 0, 1));
+		m_mModeltoWorld_3D = translate * rotateZ * scale;
 	}
 }
  

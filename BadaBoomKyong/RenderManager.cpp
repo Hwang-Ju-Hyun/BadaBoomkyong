@@ -59,42 +59,45 @@ void RenderManager::Init()
 
 #include "FrameBuffer.h"
 void RenderManager::Draw()
-{		
-	
-
+{			
 	auto objs=GameObjectManager::GetInstance()->GetAllObjects();
 	auto shdr_handle_2D = m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->GetShaderProgramHandle();
 	auto shadr_handle_3D= m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->GetShaderProgramHandle();
 
 
 	glEnable(GL_DEPTH_TEST);
-	
+	m_pCam->Update();
 	for (auto obj : objs)
 	{				
 		auto model = obj->GetModel();
 
 		if (model&& !obj->GetIs3D())
 		{
-			m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->Use();
+			m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->Use();	
+			
 			//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
-			GLint Model_to_NDC_location = glGetUniformLocation(shdr_handle_2D, "uModel_to_NDC");
-			assert(Model_to_NDC_location >= 0);
+			GLint MVP_Location = glGetUniformLocation(shdr_handle_2D, "uMVP_2d");
+			assert(MVP_Location >= 0);
 
 			Transform* trs = dynamic_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName));
 			assert(trs != nullptr);
 
-			GLint ColorLocation = glGetUniformLocation(shdr_handle_2D, "uColor");
+			GLint ColorLocation = glGetUniformLocation(shdr_handle_2D, "uColor_2d");
 			assert(ColorLocation >= 0);
 			
 			Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
 			assert(spr != nullptr);
 
-			glm::mat3 model_to_ndc = trs->GetModelToNDC_Matrix();
+			glm::mat4 m2w = trs->GetModelToWorld_Matrix();
 			glm::vec4 color = spr->GetColor();
 
-			//셰이더한테 이 3x3 행렬 좀 써줘 라는 함수
-			//GL_FALSE - Column major로 인식해라 
-			glUniformMatrix3fv(Model_to_NDC_location, 1, GL_FALSE, glm::value_ptr(model_to_ndc));
+			glm::mat4 proj = m_pCam->GetProjMatrix();
+			glm::mat4 view = m_pCam->GetViewMatrix();
+			glm::mat4 MVP = proj * view * m2w;			
+
+			//셰이더한테 이 4x4 행렬 좀 써줘 라는 함수
+			//GL_FALSE - Column major로 인식해라 			
+			glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
 			glUniform4fv(ColorLocation, 1, glm::value_ptr(color));
 
 			//Draw
@@ -106,7 +109,7 @@ void RenderManager::Draw()
 		{
 			m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
 			//todo
-			m_pCam->Update();
+		
 			//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
 			GLint MVP_Location = glGetUniformLocation(shadr_handle_3D, "uMVP");
 			assert(MVP_Location >= 0);

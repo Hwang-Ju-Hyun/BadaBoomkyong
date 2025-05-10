@@ -26,17 +26,18 @@ void Stage01::Init()
 {
 	Serializer::GetInstance()->LoadJson_Object("json/temp/temp_3D.json");
 	Serializer::GetInstance()->LoadJson_Object("json/temp/temp.json");
+
+	GameObject* Plat = GameObjectManager::GetInstance()->FindObject("tempPlatform1");
+	//Collider* Plat_col = static_cast<Collider*>(Plat->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(Plat)));
+
+	
+
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::DEFAULT, GROUP_TYPE::TEMP);
 }
 
 void Stage01::Update()
 {	
-    auto in = InputManager::GetInstance();
-	auto wb=GameObjectManager::GetInstance()->FindObject("WALL_BACK");
-	Transform* trs=static_cast<Transform*>(wb->FindComponent(Transform::TransformTypeName));
-	//trs->AddRotationX(0.01f);
-	/*trs->AddRotationY(0.01f);
-	trs->AddRotationZ(0.01f);*/
+	
 }
 
 void Stage01::Exit()

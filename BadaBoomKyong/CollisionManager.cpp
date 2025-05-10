@@ -104,8 +104,7 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 			{
 				m_mapColInfo.insert(std::make_pair(id.ID, false));
 				iter = m_mapColInfo.find(id.ID);
-			}
-
+			};
 			if (IsCollisionAABB(left_col, right_col))
 			{
 				//이전에도 충돌함

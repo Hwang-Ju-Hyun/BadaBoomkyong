@@ -81,9 +81,9 @@ void Collider::NotifyCollisionToHandler(Collider* _col, void(ICollisionHandler::
 	{
 		if (comp.first == this->GetName())
 			return;
-		ICollisionHandler* handler = dynamic_cast<ICollisionHandler*>(comp.second);
+		ICollisionHandler* handler = dynamic_cast<ICollisionHandler*>(comp.second);		
 		if (handler)
-		{
+		{			
 			//자기자신 호출
 			(handler->*_ColFunc)(this);
 		}

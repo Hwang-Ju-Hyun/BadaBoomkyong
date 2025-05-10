@@ -20,9 +20,10 @@ Player::Player(GameObject* _owner)
 	m_pRigidBody= dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
 	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
 
+	//TODO : RIGIDBODYµÇ»ì¸®¼À
 	assert(m_pTransform && m_pSprite && m_pCollider&&m_pRigidBody);
 
-	m_pTransform->SetPosition({ 100.f,1000.f,0.f });
+	m_pTransform->SetPosition({ -161.f,-200.f,0.f });
 	m_pTransform->SetScale({ 50.f,50.f,0.f });
 	m_pCollider->SetOffsetPosition({ 0.f,0.f,0.f });
 	m_pCollider->SetScale({ m_pTransform->GetScale(),0.f });
@@ -57,36 +58,36 @@ void Player::Update()
 #include <iostream>
 void Player::EnterCollision(Collider* _other)
 {		
-	if (_other->GetOwner()->GetName() == "rec")
+	if (_other->GetOwner()->GetName() == "tempPlatform1")
 	{
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());
-		//std::cout << "Enter Collision" << std::endl;
+		std::cout << "Enter Collision" << std::endl;
 	}				
 }
 
 static int i = 0;
 void Player::OnCollision(Collider* _other)
 {		
-	if (_other->GetOwner()->GetName() == "rec")
+	if (_other->GetOwner()->GetName() == "tempPlatform1")
 	{
+		
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(),this->GetOwner());		
 		i++;
 		if (i % 100 == 0)
 		{
 			//std::cout << "On Collision" << std::endl;
 			i = 0;
-		}
-			
+		}			
 	}
 }
 
 void Player::ExitCollision(Collider* _other)
 {
-	if (_other->GetOwner()->GetName() == "rec")
-	{
-		_other->GetOwner()->SetModelType(MODEL_TYPE::RECTANGLE);
-		//std::cout << "Exit Collision" << std::endl;
-	}
+	//if (_other->GetOwner()->GetName() == "tempPlatform1")
+	//{
+	//	_other->GetOwner()->SetModelType(MODEL_TYPE::RECTANGLE);
+	//	//std::cout << "Exit Collision" << std::endl;
+	//}
 }
 
 void Player::Move() {
