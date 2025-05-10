@@ -66,6 +66,8 @@ void CollisionManager::CheckCollision(GROUP_TYPE _left, GROUP_TYPE _right)
 	}
 }
 
+#include "Player.h"
+
 void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 {
 	std::vector<GameObject*> vecLeft, vecRight;
@@ -93,7 +95,7 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 			if (vecLeft[i]->GetGroupType() == vecRight[j]->GetGroupType())
 				continue;
 			Collider* left_col = static_cast<Collider*>(vecLeft[i]->FindComponent(Collider::ColliderTypeName));
-			Collider* right_col = static_cast<Collider*>(vecRight[i]->FindComponent(Collider::ColliderTypeName));
+			Collider* right_col = static_cast<Collider*>(vecRight[j]->FindComponent(Collider::ColliderTypeName));
 
 			COLLISION_ID id;
 			id.LEFT  = left_col->GetID();
@@ -105,6 +107,8 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 				m_mapColInfo.insert(std::make_pair(id.ID, false));
 				iter = m_mapColInfo.find(id.ID);
 			};
+			if (static_cast<Transform*>(left_col->GetOwner()->FindComponent(Transform::TransformTypeName))->GetPosition().x >= 656)
+				int a = 0;
 			if (IsCollisionAABB(left_col, right_col))
 			{
 				//이전에도 충돌함

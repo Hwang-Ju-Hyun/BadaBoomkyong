@@ -13,7 +13,7 @@ Camera::Camera()
 	height = window_height;
 	nearPlane = 0.1;
 	farPlane = 5000.f;
-	m_vCamPos = { 0 ,0,-300 };
+	m_vCamPos = { 0 ,-300,3000 };
 	m_vCamTarget = { 0,0, 0};
 	m_vCamUp = { 0, 1, 0 };
 }
@@ -25,7 +25,7 @@ Camera::~Camera()
 void Camera::Init()
 {
 }
-
+#include <iostream>
 void Camera::Update()
 {
 	//±¸¸éÁÂÇ¥°è -> µ¥Ä«¸£Æ® ÁÂÇ¥°è(Á÷±³ ÁÂÇ¥°è)
@@ -41,6 +41,8 @@ void Camera::Update()
 	m_vCamTarget = m_vCamPos + m_vCamFront;
 	m_mViewMat = glm::lookAt(m_vCamPos, m_vCamTarget, m_vCamUp);
 	m_mProjMat = glm::perspective(glm::radians(fovy), width / height, nearPlane, farPlane);
+	
+	std::cout << m_vCamPos.x <<" , " << m_vCamPos.y << " , "<<m_vCamPos.z << std::endl;
 }
 
 void Camera::Exit()

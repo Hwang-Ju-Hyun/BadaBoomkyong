@@ -18,7 +18,7 @@ unsigned long long Collider::g_iNextID = 0;
 
 Collider::Collider(GameObject* _owner)
 	:MonoBehaviour(_owner),
-	m_iID(g_iNextID)
+	m_iID(g_iNextID++)
 {
 	SetName(ColliderTypeName);
 

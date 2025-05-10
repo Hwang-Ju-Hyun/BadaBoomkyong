@@ -23,7 +23,7 @@ Player::Player(GameObject* _owner)
 	//TODO : RIGIDBODYµÇ»ì¸®¼À
 	assert(m_pTransform && m_pSprite && m_pCollider&&m_pRigidBody);
 
-	m_pTransform->SetPosition({ -161.f,-200.f,0.f });
+	m_pTransform->SetPosition({ -161.f,500.f,0.f });
 	m_pTransform->SetScale({ 50.f,50.f,0.f });
 	m_pCollider->SetOffsetPosition({ 0.f,0.f,0.f });
 	m_pCollider->SetScale({ m_pTransform->GetScale(),0.f });
@@ -60,9 +60,12 @@ void Player::EnterCollision(Collider* _other)
 {		
 	if (_other->GetOwner()->GetName() == "tempPlatform1")
 	{
+		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());		
+	}			
+	if (_other->GetOwner()->GetName() == "tempPlatform2")
+	{
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());
-		std::cout << "Enter Collision" << std::endl;
-	}				
+	}
 }
 
 static int i = 0;
@@ -78,6 +81,10 @@ void Player::OnCollision(Collider* _other)
 			//std::cout << "On Collision" << std::endl;
 			i = 0;
 		}			
+	}
+	if (_other->GetOwner()->GetName() == "tempPlatform2")
+	{
+		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());		
 	}
 }
 
