@@ -5,6 +5,8 @@
 #include "Serializer.h"
 #include "BaseComponent.h"
 #include "Model.h"
+#include "Camera.h"
+#include "RenderManager.h"
 #include <gtc/matrix_transform.hpp>
 #include <gtx/quaternion.hpp>
 
@@ -33,15 +35,21 @@ std::vector<glm::vec3> Transform::GeteEachVertexPosition()
 	return pos;
 }
 
+glm::mat4 Transform::GetModelToWorld_Matrix()
+{
 
-void Transform::Init(){}
+	return m_mModeltoWorld_3D;
+}
+
+
+void Transform::Init(){	}
 
 void Transform::Update()
 {
 	float window_width = static_cast<float>(Window::GetInstance()->GetWindowWidth());
 	float window_height = static_cast<float>(Window::GetInstance()->GetWindowHeight());
 	if (GetOwner()->GetIs3D())
-	{
+	{		
 		glm::mat4 translate = glm::mat4(1.0f);
 		glm::mat4 scale = glm::mat4(1.0f);
 		
@@ -54,6 +62,27 @@ void Transform::Update()
 			m_vRotation.y = 0.f;
 		if (m_vRotation.z > 360.f)
 			m_vRotation.z = 0.f;
+
+		if (GetOwner()->GetName() == "Player")
+		{
+			const GameObject* owner = GetOwner();
+			Camera* cam = RenderManager::GetInstance()->GetCamera();
+			glm::vec3 cam_pos = cam->GetCamPosition();
+			glm::vec3 obj_pos = m_vPosition;
+
+			glm::vec3 dir = glm::normalize(cam_pos - obj_pos);
+			dir.y = 0.0f; // cylindrical billboard (수직은 고정)
+			glm::vec3 right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), dir));
+			glm::vec3 up = glm::cross(dir, right);
+
+			glm::mat4 billboard = glm::mat4(1.0f);
+			billboard[0] = glm::vec4(right, 0.0f);
+			billboard[1] = glm::vec4(up, 0.0f);
+			billboard[2] = glm::vec4(dir, 0.0f);
+
+			m_mModeltoWorld_3D = translate * billboard * scale;
+			return;
+		}
 
 		// Convert Euler angles to quaternion		
 		glm::quat quatRotation = glm::quat(glm::radians(m_vRotation));

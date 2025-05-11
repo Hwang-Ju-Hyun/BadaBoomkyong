@@ -25,9 +25,8 @@ Stage01::~Stage01()
 void Stage01::Init()
 {
 	Serializer::GetInstance()->LoadJson_Object("json/temp/temp_3D.json");
-	Serializer::GetInstance()->LoadJson_Object("json/temp/temp.json");
-
-	GameObject* Plat = GameObjectManager::GetInstance()->FindObject("tempPlatform1");
+	//Serializer::GetInstance()->LoadJson_Object("json/temp/temp.json");
+	
 	//Collider* Plat_col = static_cast<Collider*>(Plat->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(Plat)));
 
 	

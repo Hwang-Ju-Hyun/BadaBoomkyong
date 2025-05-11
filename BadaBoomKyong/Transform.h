@@ -5,6 +5,7 @@
 
 class GameObject;
 
+
 class Transform :
 	public MonoBehaviour
 {
@@ -51,7 +52,7 @@ public:
 	inline glm::vec3 GetRotation_3D()const { return m_vRotation; }
 	std::vector<glm::vec3> GeteEachVertexPosition();
 	inline glm::mat3 GetModelToNDC_Matrix()const{ return m_mModeltoNDC_2D; }
-	inline glm::mat4 GetModelToWorld_Matrix() { return m_mModeltoWorld_3D; }
+	glm::mat4 GetModelToWorld_Matrix();
 	inline glm::mat4 GetMVP_Matrix()const { return m_mModelViewProjection_3D; }
 public:
 	virtual void Init() override;

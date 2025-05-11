@@ -25,6 +25,7 @@ Camera::~Camera()
 void Camera::Init()
 {
 }
+
 #include <iostream>
 void Camera::Update()
 {
@@ -42,7 +43,7 @@ void Camera::Update()
 	m_mViewMat = glm::lookAt(m_vCamPos, m_vCamTarget, m_vCamUp);
 	m_mProjMat = glm::perspective(glm::radians(fovy), width / height, nearPlane, farPlane);
 	
-	std::cout << m_vCamPos.x <<" , " << m_vCamPos.y << " , "<<m_vCamPos.z << std::endl;
+
 }
 
 void Camera::Exit()

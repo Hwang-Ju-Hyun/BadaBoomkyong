@@ -22,8 +22,7 @@ Player::Player(GameObject* _owner)
 
 	//TODO : RIGIDBODYµÇ»ì¸®¼À
 	assert(m_pTransform && m_pSprite && m_pCollider&&m_pRigidBody);
-
-	m_pTransform->SetPosition({ -161.f,500.f,0.f });
+	
 	m_pTransform->SetScale({ 50.f,50.f,0.f });
 	m_pCollider->SetOffsetPosition({ 0.f,0.f,0.f });
 	m_pCollider->SetScale({ m_pTransform->GetScale(),0.f });
