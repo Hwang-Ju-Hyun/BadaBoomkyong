@@ -13,13 +13,13 @@ private:
 	float     nearPlane = 1.0f;
 	float     farPlane = 5000.0f;
 public:
-	glm::vec3 m_vCamPos;
-	glm::vec3 m_vCamTarget;
-	glm::vec3 m_vCamUp;
-	glm::vec3 m_vCamRight;
-	glm::vec3 m_vCamFront;
-	glm::mat4 m_mViewMat;
-	glm::mat4 m_mProjMat;
+	glm::vec3 m_vCamPos   ={};
+	glm::vec3 m_vCamTarget={};
+	glm::vec3 m_vCamUp    ={};
+	glm::vec3 m_vCamRight ={};
+	glm::vec3 m_vCamFront ={};
+	glm::mat4 m_mViewMat  ={};
+	glm::mat4 m_mProjMat  ={};
 public:
 	void Init();	
 	void Update();

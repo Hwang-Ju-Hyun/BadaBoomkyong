@@ -146,6 +146,8 @@
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="BaseLevel.cpp" />
     <ClCompile Include="BaseRTTI.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletFactory.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
@@ -174,6 +176,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainEditor.cpp" />
     <ClCompile Include="MathUtil.cpp" />
+    <ClCompile Include="MemoryPoolManager.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="MonoBehaviour.cpp" />
@@ -194,6 +197,8 @@
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="BaseLevel.h" />
     <ClInclude Include="BaseRTTI.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="BulletFactory.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
@@ -225,6 +230,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MainEditor.h" />
     <ClInclude Include="MathUtil.h" />
+    <ClInclude Include="MemoryPoolManager.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="MonoBehaviour.h" />

@@ -22,12 +22,10 @@ public:
     inline void AddForce(const glm::vec3& _force) { m_vForce += _force; }
     inline void SetIsKinematic(bool _kinematic) { m_bIsKinematic = _kinematic; }
     inline void SetGravity(float _gravity) {m_fGravity = _gravity;}
-    void AddImpulse(const glm::vec3& impulse);
-    //todo
+    void AddImpulse(const glm::vec3& impulse);    
     inline void AddVelocity(const glm::vec3& _vel) { m_vVelocity += _vel; }
 
-    inline const glm::vec3 GetVelocity() { return m_vVelocity; }
-    //inline const glm::vec3 GetAccelation() { return m_vAccelation; }
+    inline const glm::vec3 GetVelocity() { return m_vVelocity; }    
     inline const glm::vec3 GetForce() { return m_vForce; }
     inline const bool GetIsKinematic()const { return m_bIsKinematic; }
     inline const float GetGravity()const {return m_fGravity;}

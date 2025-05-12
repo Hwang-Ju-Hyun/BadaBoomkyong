@@ -108,7 +108,6 @@ void RenderManager::Draw()
 		else if (model && obj->GetIs3D())
 		{
 			m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
-			//todo
 		
 			//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
 			GLint MVP_Location = glGetUniformLocation(shadr_handle_3D, "uMVP");

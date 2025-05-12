@@ -34,3 +34,10 @@ enum class SHADER_REF
 	THREE_DIMENSIONS = 1,
 	SHADER_REF_LAST
 };
+
+enum class BULLET_TYPE
+{
+	PISTOL = 0,
+	MACHINE_GUN = 1,
+	BULLET_LAST
+};

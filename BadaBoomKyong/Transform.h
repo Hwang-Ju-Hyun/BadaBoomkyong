@@ -19,9 +19,9 @@ private:
 	float m_fRotation = 0.f;
 private:
 	//2D
-	glm::mat3 m_mModeltoNDC_2D;	
+	glm::mat3 m_mModeltoNDC_2D;
 	glm::mat3 m_mModeltoWorld_2D;
-	//3D
+	//3D								
 	glm::mat4 m_mModeltoWorld_3D;
 	glm::mat4 m_mModelViewProjection_3D;
 public:

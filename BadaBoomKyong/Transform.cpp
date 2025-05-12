@@ -79,7 +79,6 @@ void Transform::Update()
 			billboard[0] = glm::vec4(right, 0.0f);
 			billboard[1] = glm::vec4(up, 0.0f);
 			billboard[2] = glm::vec4(dir, 0.0f);
-
 			m_mModeltoWorld_3D = translate * billboard * scale;
 			return;
 		}

@@ -204,8 +204,8 @@ void MainEditor::DrawGizmo()
 
 	// 화면 전체 기준으로 좌표 잡기
     ImVec2 displaySize = ImGui::GetIO().DisplaySize;
-	float width = Window::GetInstance()->GetWindowWidth();
-	float height = Window::GetInstance()->GetWindowHeight();
+	float width = static_cast<float>(Window::GetInstance()->GetWindowWidth());
+	float height = static_cast<float>(Window::GetInstance()->GetWindowHeight());
     ImGuizmo::SetRect(0, 0, width, height);
 	
 	// 3. 조작 모드 선택 (이동 / 회전 / 스케일)

@@ -12,4 +12,3 @@ public:
 	virtual void LoadFromJson(const json& _str) =0;
 	virtual json SaveToJson(const json& _str)=0;
 };
-

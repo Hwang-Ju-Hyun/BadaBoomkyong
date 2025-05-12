@@ -146,6 +146,18 @@
     <Filter Include="Graphics\FrameBuffer">
       <UniqueIdentifier>{d2c34801-789f-4308-9dfc-59fb4a04e979}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\MemoryPoolManager">
+      <UniqueIdentifier>{2daa8bc6-6628-4717-aaea-e927d5290062}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Factory">
+      <UniqueIdentifier>{ca68a4fb-1e8a-4fa1-9859-1cfc22470af6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet">
+      <UniqueIdentifier>{8dfff092-d20b-43df-882e-efee9766c799}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Factory\BulletFactory">
+      <UniqueIdentifier>{937c57b5-3eb8-4019-8401-518a0df97147}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -285,6 +297,15 @@
     </ClCompile>
     <ClCompile Include="FrameBuffer.cpp">
       <Filter>Graphics\FrameBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryPoolManager.cpp">
+      <Filter>Manager\MemoryPoolManager</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletFactory.cpp">
+      <Filter>Factory\BulletFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Component\Custom\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -437,6 +458,15 @@
     </ClInclude>
     <ClInclude Include="FrameBuffer.h">
       <Filter>Graphics\FrameBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryPoolManager.h">
+      <Filter>Manager\MemoryPoolManager</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletFactory.h">
+      <Filter>Factory\BulletFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Component\Custom\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,8 @@
 #include "RigidBody.h"
 #include <cassert>
 #include "GeometryUtill.h"
+#include "BulletFactory.h"
+#include "Bullet.h"
 
 Player::Player(GameObject* _owner)
 	:MonoBehaviour(_owner)
@@ -20,12 +22,14 @@ Player::Player(GameObject* _owner)
 	m_pRigidBody= dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
 	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
 
-	//TODO : RIGIDBODYµÇ»ì¸®¼À
+
 	assert(m_pTransform && m_pSprite && m_pCollider&&m_pRigidBody);
 	
 	m_pTransform->SetScale({ 50.f,50.f,0.f });
 	m_pCollider->SetOffsetPosition({ 0.f,0.f,0.f });
-	m_pCollider->SetScale({ m_pTransform->GetScale(),0.f });
+	m_pCollider->SetScale({ m_pTransform->GetScale(),0.f });	
+
+	m_pBulletFactory = new BulletFactory;
 }
 
 Player::~Player()
@@ -39,6 +43,7 @@ void Player::Init()
 
 void Player::Exit()
 {
+	delete m_pBulletFactory;
 }
 
 
@@ -51,6 +56,11 @@ void Player::Update()
 	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS && m_bIsGround) 
 	{			
 		Jump();
+	}
+
+	if (input->GetKetCode(GLFW_KEY_J) == GLFW_PRESS)
+	{
+		Fire();
 	}
 }
 
@@ -105,6 +115,14 @@ void Player::Move() {
 	if (input->GetKetCode(GLFW_KEY_D) == GLFW_REPEAT)
 		velocity.x = m_fSpeed;
 	m_pRigidBody->SetVelocity(velocity);
+}
+
+void Player::Fire()
+{	
+	m_pBullet = m_pBulletFactory->CreateBullet(BULLET_TYPE::PISTOL, GetOwner());
+	Transform* BulletTransform = dynamic_cast<Transform*>(m_pBullet->GetOwner()->FindComponent(Transform::TransformTypeName));
+	assert(BulletTransform != nullptr);
+	BulletTransform->SetPosition(m_pTransform->GetPosition());
 }
 
 void Player::Jump() 

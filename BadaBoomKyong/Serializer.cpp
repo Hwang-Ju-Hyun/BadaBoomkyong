@@ -42,8 +42,7 @@ GameObject* Serializer::CreateObjectFromJson(json _item)
 	
 	MODEL_TYPE obj_model = (*iter_model);	
 	GROUP_TYPE obj_group = (*iter_group);
-
-	//todO
+	
 	GameObject* obj = new GameObject(obj_name, obj_model,obj_group);
 	ASSERT_MSG(obj != nullptr, "GameObject can't construct");
 	
@@ -77,7 +76,7 @@ void Serializer::SaveJson_Object(const std::string& _path, bool _is3d)
 	for (int i = 0;i < all_objs.size();i++)
 	{
 		json js_components;
-		json js_obj;		
+		json js_obj;
 		std::string obj_name = all_objs[i]->GetName();
 		js_obj[NameTypeInJson] = obj_name;
 		if (all_objs[i]->GetIs3D() == _is3d)

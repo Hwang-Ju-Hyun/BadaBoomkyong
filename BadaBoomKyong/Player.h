@@ -7,6 +7,8 @@ class Sprite;
 class GameObject;
 class Collider;
 class RigidBody;
+class BulletFactory;
+class Bullet;
 
 class Player :
     public MonoBehaviour
@@ -19,6 +21,9 @@ private:
     Sprite* m_pSprite = nullptr;
     Collider* m_pCollider = nullptr;
     RigidBody* m_pRigidBody = nullptr;
+private:
+    BulletFactory* m_pBulletFactory=nullptr;
+    Bullet* m_pBullet;
 private:
     float m_fSpeed=0.f;
     float m_fVerticalVelocity = 0.f;        
@@ -46,6 +51,7 @@ public:
     //bool JumpAble();
     void Jump();
     void Move();  
+    void Fire();
     //bool IsGround();
 public:
     static constexpr const char* PlayerTypeName = "Player";

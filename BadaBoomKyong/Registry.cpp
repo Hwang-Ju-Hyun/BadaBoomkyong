@@ -4,6 +4,7 @@
 #include "RigidBody.h"
 #include "Player.h"
 #include "Collider.h"
+#include "Bullet.h"
 
 Registry::Registry()
 {
@@ -12,6 +13,7 @@ Registry::Registry()
     m_mapRTTI.insert({ RigidBody::RigidBodyTypeName,&RigidBody::CreateRigidBodyComponent });
     m_mapRTTI.insert({ Player::PlayerTypeName,&Player::CreatePlayerComponent });
     m_mapRTTI.insert({ Collider::ColliderTypeName,&Collider::CreateCollideComponent });
+    m_mapRTTI.insert({ Bullet::BulletTypeName,&Bullet::CreateBulletComponent });
 }
 
 Registry::~Registry()
