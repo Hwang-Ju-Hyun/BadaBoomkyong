@@ -80,7 +80,7 @@ void Collider::NotifyCollisionToHandler(Collider* _col, void(ICollisionHandler::
 	for (auto comp : all_comp)
 	{
 		if (comp.first == this->GetName())
-			return;
+			continue;
 		ICollisionHandler* handler = dynamic_cast<ICollisionHandler*>(comp.second);		
 		if (handler)
 		{			

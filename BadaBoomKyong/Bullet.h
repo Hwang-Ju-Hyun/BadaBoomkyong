@@ -10,7 +10,7 @@ class Bullet
 {
 public:	
 	Bullet(GameObject* _owner);
-	~Bullet();
+	virtual ~Bullet()override;
 public:
 	void Init();
 	void Update();

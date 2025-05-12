@@ -10,6 +10,7 @@ class BulletFactory
 public:
 	BulletFactory();
 	~BulletFactory();
+	static int id;
 public:
-	Bullet* CreateBullet(BULLET_TYPE _bulletType=BULLET_TYPE::PISTOL,GameObject* _owner=nullptr);
+	Bullet* CreateBullet(BULLET_TYPE _bulletType=BULLET_TYPE::PISTOL);
 };

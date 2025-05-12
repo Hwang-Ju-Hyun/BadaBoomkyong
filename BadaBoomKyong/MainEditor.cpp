@@ -161,10 +161,36 @@ void MainEditor::TopMenuBarDraw()
 
 void MainEditor::ObjectPannelDraw()
 {
-	auto ObjMgr = GameObjectManager::GetInstance();
+	auto obj_mgr = GameObjectManager::GetInstance();
+	auto all_objs = obj_mgr->GetAllObjects();
 	ImGui::Begin("Object List");
 
-	for (auto obj : ObjMgr->GetAllObjects())
+	for (int i = 0;i < all_objs.size();i++)
+	{
+		if (ImGui::Button(all_objs[i]->GetName().c_str()))
+		{
+			m_pSelectedObjByPannel = all_objs[i];
+			m_pTransform_SelectedObj = dynamic_cast<Transform*>(m_pSelectedObjByPannel->FindComponent(Transform::TransformTypeName));
+
+		}
+		if (m_pSelectedObjByPannel == all_objs[i])
+		{
+			std::unordered_map<std::string, BaseComponent*> comps = all_objs[i]->GetAllComponentsOfObj_Hash();
+			for (auto iter = comps.begin(); iter != comps.end(); ++iter)
+			{
+				BaseComponent* comp = iter->second;
+				if (ImGui::TreeNode(comp->GetName().c_str()))
+				{
+					comp->EditInfoFromButton();
+					ImGui::TreePop();
+				}
+			}
+			ImGui::Separator();
+		}
+	}
+	ImGui::End();
+
+	/*for (auto obj : all_objs)
 	{		
 		if (ImGui::Button(obj->GetName().c_str()))
 		{ 
@@ -187,7 +213,7 @@ void MainEditor::ObjectPannelDraw()
 			ImGui::Separator();			
 		}		
 	}
-	ImGui::End();
+	ImGui::End();*/
 }
 
 //Chat GPT ¾´ ÇÔ¼ö

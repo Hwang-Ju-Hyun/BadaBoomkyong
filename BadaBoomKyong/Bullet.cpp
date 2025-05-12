@@ -9,14 +9,16 @@
 Bullet::Bullet(GameObject* _owner)
 	:MonoBehaviour(_owner)
 	, m_fSpeed(0.5f)
-{	
-	m_pTransform = dynamic_cast<Transform*>(GetOwner()->AddComponent_and_Get(Transform::TransformTypeName, new Transform(GetOwner())));
-	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(GetOwner())));
-	m_pCollider = dynamic_cast<Collider*>(GetOwner()->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(GetOwner())));
+{
+	SetName(BulletTypeName);
+	m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
+	m_pSprite =   dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
+	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
 
-	assert(m_pTransform != nullptr && m_pSprite != nullptr);
-	
-	m_pTransform->SetScale(glm::vec3{ 30.f,30.f,0.f });
+	assert(m_pTransform != nullptr && m_pSprite != nullptr&& m_pCollider!=nullptr);
+
+	m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
+	m_pCollider->SetScale(m_pTransform->GetScale());
 }
 
 Bullet::~Bullet()
@@ -36,15 +38,20 @@ void Bullet::Update()
 void Bullet::Exit()
 {
 }
-
+#include <iostream>
+#include "GameObjectManager.h"
 void Bullet::EnterCollision(Collider* _col)
 {
 	if (_col->GetOwner()->GetName() == "tempPlatform2")
-		delete this;
+		GameObjectManager::GetInstance()->DeleteObject("Bullet");
+		//std::cout << "Enter Col" << std::endl;
 }
 
 void Bullet::OnCollision(Collider* _col)
 {		
+	if (_col->GetOwner()->GetName() == "tempPlatform2")
+		int a = 0;
+	//	std::cout << "On Col" << std::endl;
 }
 
 void Bullet::ExitCollision(Collider* _col)

@@ -37,13 +37,15 @@ void ComponentManager::Init()
 	}
 }
 
+#include <iostream>
 void ComponentManager::Update()
-{
-	for (auto comp : m_vComponents)
+{	
+	for (int i = 0;i < m_vComponents.size();i++)
 	{
-		if (comp != nullptr)
-			comp->Update();
+		if (m_vComponents[i] != nullptr)
+			m_vComponents[i]->Update();
 	}
+		
 }
 
 void ComponentManager::Exit()

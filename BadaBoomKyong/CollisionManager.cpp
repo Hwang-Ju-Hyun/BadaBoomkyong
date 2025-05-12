@@ -72,8 +72,11 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 {
 	std::vector<GameObject*> vecLeft, vecRight;
 	auto all_obj = GameObjectManager::GetInstance()->GetAllObjects();	
+	
 	for (auto obj : all_obj)
 	{
+		if (obj->GetName() == "Bullet" && static_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName))->GetPosition().x >= 493)
+			int a = 0;
 		if (obj->GetGroupType() == _left)
 		{
 			Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
@@ -107,8 +110,7 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 				m_mapColInfo.insert(std::make_pair(id.ID, false));
 				iter = m_mapColInfo.find(id.ID);
 			};
-			if (static_cast<Transform*>(left_col->GetOwner()->FindComponent(Transform::TransformTypeName))->GetPosition().x >= 656)
-				int a = 0;
+			
 			if (IsCollisionAABB(left_col, right_col))
 			{
 				//이전에도 충돌함

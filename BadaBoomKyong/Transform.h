@@ -47,7 +47,7 @@ public:
 
 	//gettor
 	inline glm::vec3 GetPosition()const { return m_vPosition; }
-	inline glm::vec2 GetScale()const { return m_vScale; }
+	inline glm::vec3 GetScale()const { return m_vScale; }
 	inline float GetRotation()const { return m_fRotation; }
 	inline glm::vec3 GetRotation_3D()const { return m_vRotation; }
 	std::vector<glm::vec3> GeteEachVertexPosition();
