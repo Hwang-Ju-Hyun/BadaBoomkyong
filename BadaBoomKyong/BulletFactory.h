@@ -1,5 +1,6 @@
 #pragma once
 #include "header.h"
+#include "BulletPool.h"
 #include <string>
 
 class Bullet;
@@ -13,4 +14,7 @@ public:
 	static int id;
 public:
 	Bullet* CreateBullet(BULLET_TYPE _bulletType=BULLET_TYPE::PISTOL);
+	//todo : ∏Æ∆Â≈‰∏µ «œº¿
+public:
+	BulletPool pool;
 };

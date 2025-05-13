@@ -32,4 +32,10 @@ public:
 	virtual json SaveToJson(const json& _str) { return nullptr; };
 public:
 	static BaseRTTI* CreateBulletComponent();
+
+	
+//todo : ∏Æ∆Â≈‰∏µ «œº¿
+public:
+	bool m_bIsActive = false;
+	bool reset() { m_bIsActive = false;}
 };

@@ -298,13 +298,13 @@
     <ClCompile Include="FrameBuffer.cpp">
       <Filter>Graphics\FrameBuffer</Filter>
     </ClCompile>
-    <ClCompile Include="MemoryPoolManager.cpp">
-      <Filter>Manager\MemoryPoolManager</Filter>
-    </ClCompile>
     <ClCompile Include="BulletFactory.cpp">
       <Filter>Factory\BulletFactory</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
+      <Filter>Component\Custom\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletPool.cpp">
       <Filter>Component\Custom\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
@@ -459,13 +459,13 @@
     <ClInclude Include="FrameBuffer.h">
       <Filter>Graphics\FrameBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="MemoryPoolManager.h">
-      <Filter>Manager\MemoryPoolManager</Filter>
-    </ClInclude>
     <ClInclude Include="BulletFactory.h">
       <Filter>Factory\BulletFactory</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
+      <Filter>Component\Custom\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletPool.h">
       <Filter>Component\Custom\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
