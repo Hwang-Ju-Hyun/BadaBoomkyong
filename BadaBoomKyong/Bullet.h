@@ -27,15 +27,13 @@ private:
 	float m_fSpeed = 0.f;
 public:
 	static constexpr const char* BulletTypeName = "Bullet";
+	
 public:
-	virtual void LoadFromJson(const json& _str) {};
-	virtual json SaveToJson(const json& _str) { return nullptr; };
+	virtual void LoadFromJson(const json& _str) override{};
+	virtual json SaveToJson(const json& _str) override{ return nullptr; };	
 public:
 	static BaseRTTI* CreateBulletComponent();
-
 	
 //todo : ∏Æ∆Â≈‰∏µ «œº¿
-public:
-	bool m_bIsActive = false;
-	bool reset() { m_bIsActive = false;}
+
 };

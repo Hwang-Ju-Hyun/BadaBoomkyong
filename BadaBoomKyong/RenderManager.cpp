@@ -68,75 +68,78 @@ void RenderManager::Draw()
 	glEnable(GL_DEPTH_TEST);
 	m_pCam->Update();
 	for (auto obj : objs)
-	{				
-		auto model = obj->GetModel();
-
-		if (model&& !obj->GetIs3D())
+	{
+		if (obj->GetActive())
 		{
-			m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->Use();	
-			
-			//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
-			GLint MVP_Location = glGetUniformLocation(shdr_handle_2D, "uMVP_2d");
-			assert(MVP_Location >= 0);
+			auto model = obj->GetModel();
 
-			Transform* trs = dynamic_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName));
-			assert(trs != nullptr);
+			if (model && !obj->GetIs3D())
+			{
+				m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->Use();
 
-			GLint ColorLocation = glGetUniformLocation(shdr_handle_2D, "uColor_2d");
-			assert(ColorLocation >= 0);
-			
-			Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
-			assert(spr != nullptr);
+				//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
+				GLint MVP_Location = glGetUniformLocation(shdr_handle_2D, "uMVP_2d");
+				assert(MVP_Location >= 0);
 
-			glm::mat4 m2w = trs->GetModelToWorld_Matrix();
-			glm::vec4 color = spr->GetColor();
+				Transform* trs = dynamic_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName));
+				assert(trs != nullptr);
 
-			glm::mat4 proj = m_pCam->GetProjMatrix();
-			glm::mat4 view = m_pCam->GetViewMatrix();
-			glm::mat4 MVP = proj * view * m2w;			
+				GLint ColorLocation = glGetUniformLocation(shdr_handle_2D, "uColor_2d");
+				assert(ColorLocation >= 0);
 
-			//셰이더한테 이 4x4 행렬 좀 써줘 라는 함수
-			//GL_FALSE - Column major로 인식해라 			
-			glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
-			glUniform4fv(ColorLocation, 1, glm::value_ptr(color));
+				Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
+				assert(spr != nullptr);
 
-			//Draw
-			model->Draw();	
-			
-			m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->Diuse();
-		}
-		else if (model && obj->GetIs3D())
-		{
-			m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
-		
-			//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
-			GLint MVP_Location = glGetUniformLocation(shadr_handle_3D, "uMVP");
-			assert(MVP_Location >= 0);
+				glm::mat4 m2w = trs->GetModelToWorld_Matrix();
+				glm::vec4 color = spr->GetColor();
 
-			Transform* trs = dynamic_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName));
-			assert(trs != nullptr);
+				glm::mat4 proj = m_pCam->GetProjMatrix();
+				glm::mat4 view = m_pCam->GetViewMatrix();
+				glm::mat4 MVP = proj * view * m2w;
 
-			//GLint ColorLocation = glGetUniformLocation(shadr_handle_3D, "uColor");
-			//assert(ColorLocation >= 0);
+				//셰이더한테 이 4x4 행렬 좀 써줘 라는 함수
+				//GL_FALSE - Column major로 인식해라 			
+				glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
+				glUniform4fv(ColorLocation, 1, glm::value_ptr(color));
 
-			Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
-			assert(spr != nullptr);
+				//Draw
+				model->Draw();
 
-			glm::mat4 m2w = trs->GetModelToWorld_Matrix();
+				m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->Diuse();
+			}
+			else if (model && obj->GetIs3D())
+			{
+				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
 
-			glm::mat4 proj = m_pCam->GetProjMatrix();
-			glm::mat4 view = m_pCam->GetViewMatrix();
-			glm::mat4 MVP = proj * view * m2w;
-			glm::vec4 color = spr->GetColor();
-			
-			glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
-			//glUniform4fv(ColorLocation, 1, glm::value_ptr(color));
+				//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
+				GLint MVP_Location = glGetUniformLocation(shadr_handle_3D, "uMVP");
+				assert(MVP_Location >= 0);
 
-			//Draw
-			model->Draw();			
-			
-			//last
-			m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();
+				Transform* trs = dynamic_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName));
+				assert(trs != nullptr);
+
+				//GLint ColorLocation = glGetUniformLocation(shadr_handle_3D, "uColor");
+				//assert(ColorLocation >= 0);
+
+				Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
+				assert(spr != nullptr);
+
+				glm::mat4 m2w = trs->GetModelToWorld_Matrix();
+
+				glm::mat4 proj = m_pCam->GetProjMatrix();
+				glm::mat4 view = m_pCam->GetViewMatrix();
+				glm::mat4 MVP = proj * view * m2w;
+				glm::vec4 color = spr->GetColor();
+
+				glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
+				//glUniform4fv(ColorLocation, 1, glm::value_ptr(color));
+
+				//Draw
+				model->Draw();
+
+				//last
+				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();
+			}
 		}
 #ifdef _DEBUG
 		//Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));

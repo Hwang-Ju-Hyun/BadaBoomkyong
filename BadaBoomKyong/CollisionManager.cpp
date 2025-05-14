@@ -74,9 +74,7 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 	auto all_obj = GameObjectManager::GetInstance()->GetAllObjects();	
 	
 	for (auto obj : all_obj)
-	{
-		if (obj->GetName() == "Bullet" && static_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName))->GetPosition().x >= 493)
-			int a = 0;
+	{		
 		if (obj->GetGroupType() == _left)
 		{
 			Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));

@@ -60,7 +60,7 @@ public:
 public:
     static BaseRTTI* CreatePlayerComponent();
     virtual void LoadFromJson(const json& _str)override;
-    virtual json SaveToJson(const json& _str)override;
+    virtual json SaveToJson(const json& _str)override;    
 public:
     //temp :sholud delete
     bool jumpPressed = false;

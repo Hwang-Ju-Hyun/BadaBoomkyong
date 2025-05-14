@@ -14,7 +14,7 @@
 #include "Bullet.h"
 
 Player::Player(GameObject* _owner)
-	:MonoBehaviour(_owner)
+	:MonoBehaviour(_owner)	
 {
 	SetName(PlayerTypeName);
 	m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));	
@@ -110,9 +110,9 @@ void Player::Move() {
 	auto input = InputManager::GetInstance();
 	glm::vec3 velocity = m_pRigidBody->GetVelocity();
 	velocity.x = 0.f;
-	if (input->GetKetCode(GLFW_KEY_A) == GLFW_REPEAT)
+	if (input->GetKetCode(GLFW_KEY_Z) == GLFW_REPEAT)
 		velocity.x = -m_fSpeed;
-	if (input->GetKetCode(GLFW_KEY_D) == GLFW_REPEAT)
+	if (input->GetKetCode(GLFW_KEY_X) == GLFW_REPEAT)
 		velocity.x = m_fSpeed;
 	m_pRigidBody->SetVelocity(velocity);
 }

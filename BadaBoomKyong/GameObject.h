@@ -43,4 +43,14 @@ public:
 	inline std::unordered_map<std::string, BaseComponent*> GetAllComponentsOfObj_Hash() { return m_hashComponents; }
 	inline std::vector<BaseComponent*>  GetAllComponentsOfObj_vec() { return m_vComponents; }
 	void DeleteComponent(const std::string& _compName);
+private:
+	bool m_bIsSerializable=true;
+public:
+	inline void SetIsSerializable(bool _savable) { m_bIsSerializable = _savable; }
+	inline bool GetIsSerializable()const { return m_bIsSerializable; }
+public:
+	bool m_bIsActive = true;
+	inline void SetActive(bool _active) { m_bIsActive = _active; }
+	inline bool GetActive()const { return m_bIsActive; }
+	void reset() { return; }
 };

@@ -13,6 +13,8 @@
 #include "InputManager.h"
 #include "MainEditor.h"
 #include "CollisionManager.h"
+//todo : bulletfactory.h ¸®ÆåÅä¸® ÇÏ¼À 
+#include "BulletFactory.h"
 
 Application::Application(){}
 
@@ -37,14 +39,17 @@ void Application::Init()
        
     //GameStateManager    
     GameStateManager::GetInstance()->ChangeLevel(new Stage01("Stage01"));    
-    
+    BulletFactory fac;
+    fac.init();
+
+    //BulletFactory::CreateBullet(BULLET_TYPE::PISTOL);
     //InputManager
     InputManager::GetInstance()->Init();    
 
     //RenderInit            
     RenderManager::GetInstance()->Init();
 
-
+  
 #ifdef _DEBUG
     //MainEditor
     MainEditor::GetInstance()->Init();

@@ -1,5 +1,6 @@
 #include "ComponentManager.h"
 #include "BaseComponent.h"
+#include "GameObject.h"
 
 ComponentManager::ComponentManager()
 {
@@ -37,12 +38,11 @@ void ComponentManager::Init()
 	}
 }
 
-#include <iostream>
 void ComponentManager::Update()
 {	
 	for (int i = 0;i < m_vComponents.size();i++)
 	{
-		if (m_vComponents[i] != nullptr)
+		if(m_vComponents[i]->GetOwner()->GetActive())
 			m_vComponents[i]->Update();
 	}
 		

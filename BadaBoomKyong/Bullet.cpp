@@ -8,17 +8,9 @@
 
 Bullet::Bullet(GameObject* _owner)
 	:MonoBehaviour(_owner)
-	, m_fSpeed(0.5f)
+	, m_fSpeed(0.5f)	
 {
-	SetName(BulletTypeName);
-	m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
-	m_pSprite =   dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
-	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
-
-	assert(m_pTransform != nullptr && m_pSprite != nullptr&& m_pCollider!=nullptr);
-
-	m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
-	m_pCollider->SetScale(m_pTransform->GetScale());
+	GetOwner()->SetIsSerializable(false);
 }
 
 Bullet::~Bullet()
@@ -27,13 +19,25 @@ Bullet::~Bullet()
 
 void Bullet::Init()
 {
-	
+	SetName(BulletTypeName);
+	m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
+	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
+	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
+
+	assert(m_pTransform != nullptr && m_pSprite != nullptr && m_pCollider != nullptr);
+
+	if (GetOwner()->m_bIsActive)
+	{
+		m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
+		m_pCollider->SetScale(m_pTransform->GetScale());
+	}
 }
 
 void Bullet::Update()
 {	
-	m_pTransform->AddPositionX(m_fSpeed);
-}
+	if(GetOwner()->GetActive())
+		m_pTransform->AddPositionX(m_fSpeed);
+}  
 
 void Bullet::Exit()
 {
@@ -42,15 +46,16 @@ void Bullet::Exit()
 #include "GameObjectManager.h"
 void Bullet::EnterCollision(Collider* _col)
 {
-	if (_col->GetOwner()->GetName() == "tempPlatform2")
-		GameObjectManager::GetInstance()->DeleteObject("Bullet");
+	if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::TEMP)
+		GetOwner()->SetActive(false);
+		//GameObjectManager::GetInstance()->DeleteObject("Bullet");
 		//std::cout << "Enter Col" << std::endl;
 }
 
 void Bullet::OnCollision(Collider* _col)
 {		
 	if (_col->GetOwner()->GetName() == "tempPlatform2")
-		int a = 0;
+		GetOwner()->SetActive(false);
 	//	std::cout << "On Col" << std::endl;
 }
 

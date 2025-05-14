@@ -1,5 +1,6 @@
 #include "BulletPool.h"
 #include "Bullet.h"
+#include "GameObject.h"
 
 BulletPool::BulletPool()
 {
@@ -9,14 +10,16 @@ BulletPool::~BulletPool()
 {
 }
 
-#include <iostream>
+
 Bullet* BulletPool::GetBullet()
 {
 	for (int i = 0;i < 30;i++)
 	{
-		if (!m_aBulletPool[i]->m_bIsActive)
-		{
-			m_aBulletPool[i]->reset();
+
+		if (!(m_aBulletPool[i]->GetOwner()->GetActive()))
+		{			
+			m_aBulletPool[i]->GetOwner()->SetActive(true);
+			m_aBulletPool[i]->Init();
 			return m_aBulletPool[i];
 		}
 	}
@@ -25,6 +28,5 @@ Bullet* BulletPool::GetBullet()
 
 void BulletPool::release(Bullet* _bullet)
 {
-	if (_bullet)
-		_bullet->reset();
+	return;
 }
