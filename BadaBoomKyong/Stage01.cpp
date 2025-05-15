@@ -42,5 +42,6 @@ void Stage01::Exit()
 {	
 	Serializer::GetInstance()->SaveJson_Object("json/temp/temp_3D.json",true);
 	Serializer::GetInstance()->SaveJson_Object("json/temp/temp.json", false);
+	ComponentManager::GetInstance()->Exit();
 	GameObjectManager::GetInstance()->DeleteAllObject();
 }

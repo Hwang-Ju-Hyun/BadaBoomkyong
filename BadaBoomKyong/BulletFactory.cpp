@@ -14,19 +14,12 @@ BulletFactory::~BulletFactory()
 {
 }
 
-//todo : static id 지우셈 풀링으로 관리할꺼임
-int BulletFactory::id = 0;
-
-#include "GameObjectManager.h"
 void BulletFactory::init()
 {
 	Bullet* bullet_comp = nullptr;
-	pool = new BulletPool;
+	m_pPool = new BulletPool;
 
-	auto f = GameObjectManager::GetInstance()->GetAllObjects();
-	int qa = 0;
-
-	for (int i = 0;i < pool->m_aBulletPool.size();i++)
+	for (int i = 0;i < m_pPool->m_aBulletPool.size();i++)
 	{
 		GameObject* bullet_obj=new GameObject("Bullet", MODEL_TYPE::PLANE, GROUP_TYPE::DEFAULT);
 		Transform* trs=dynamic_cast<Transform*>(bullet_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(bullet_obj)));
@@ -36,15 +29,17 @@ void BulletFactory::init()
 		
 		bullet_obj->SetActive(false);
 
-		pool->m_aBulletPool[i] = bullet_comp;
-	}
-	auto objs=GameObjectManager::GetInstance()->GetAllObjects();
-	int a = 0;
+		m_pPool->m_aBulletPool[i] = bullet_comp;
+	}	
 }
 
-BulletPool* BulletFactory::pool = nullptr;
 Bullet* BulletFactory::CreateBullet(BULLET_TYPE _bulletType)
 {		
-	Bullet* bullet_comp  = pool->GetBullet();
+	Bullet* bullet_comp  = m_pPool->GetBullet();
 	return bullet_comp;
+}
+
+void BulletFactory::Exit()
+{
+	delete m_pPool;
 }

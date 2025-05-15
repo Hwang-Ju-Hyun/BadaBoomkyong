@@ -50,11 +50,11 @@ void ComponentManager::Update()
 
 void ComponentManager::Exit()
 {
-	//for (auto comp : m_vComponents)
-	//{
-	//	if (comp != nullptr)
-	//		comp->Exit();
-	//}
+	for (auto comp : m_vComponents)
+	{
+		if (comp != nullptr)
+			comp->Exit();
+	}
 	m_vComponents.clear();
 
 	std::vector<BaseComponent*>temp = m_vComponents;

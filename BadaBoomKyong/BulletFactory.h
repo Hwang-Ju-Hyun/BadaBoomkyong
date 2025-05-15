@@ -10,12 +10,12 @@ class BulletFactory
 {
 public:
 	BulletFactory();
-	~BulletFactory();
-	static int id;
+	~BulletFactory();	
 public:
 	void init();
-	static Bullet* CreateBullet(BULLET_TYPE _bulletType=BULLET_TYPE::PISTOL);
+	Bullet* CreateBullet(BULLET_TYPE _bulletType=BULLET_TYPE::PISTOL);
+	void Exit();
 	//todo : ∏Æ∆Â≈‰∏µ «œº¿
 public:
-	static BulletPool* pool;
+	BulletPool* m_pPool;
 };

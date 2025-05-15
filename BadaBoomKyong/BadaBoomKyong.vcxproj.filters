@@ -158,6 +158,9 @@
     <Filter Include="Factory\BulletFactory">
       <UniqueIdentifier>{937c57b5-3eb8-4019-8401-518a0df97147}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\FactoryManager">
+      <UniqueIdentifier>{785c33ee-c986-4e10-909f-e47552b02d8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -306,6 +309,12 @@
     </ClCompile>
     <ClCompile Include="BulletPool.cpp">
       <Filter>Component\Custom\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="FactoryManager.cpp">
+      <Filter>Manager\FactoryManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool.cpp">
+      <Filter>Factory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -467,6 +476,12 @@
     </ClInclude>
     <ClInclude Include="BulletPool.h">
       <Filter>Component\Custom\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryManager.h">
+      <Filter>Manager\FactoryManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>Factory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
