@@ -1,15 +1,15 @@
-#include "FactoryManager.h"
-
-FactoryManager::FactoryManager()
-{
-
-}
-
-FactoryManager::~FactoryManager()
-{
-
-}
-
-void FactoryManager::Init()
-{
-}
+//#include "FactoryManager.h"
+//
+//FactoryManager::FactoryManager()
+//{
+//
+//}
+//
+//FactoryManager::~FactoryManager()
+//{
+//
+//}
+//
+//void FactoryManager::Init()
+//{
+//}

@@ -33,7 +33,5 @@ public:
 	virtual json SaveToJson(const json& _str) override{ return nullptr; };	
 public:
 	static BaseRTTI* CreateBulletComponent();
-	
-//todo : ∏Æ∆Â≈‰∏µ «œº¿
 
 };

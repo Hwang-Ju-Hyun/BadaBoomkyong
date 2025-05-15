@@ -48,6 +48,7 @@ private:
 public:
 	inline void SetIsSerializable(bool _savable) { m_bIsSerializable = _savable; }
 	inline bool GetIsSerializable()const { return m_bIsSerializable; }
+	//todo : 리펙토리해야함
 public:
 	bool m_bIsActive = true;
 	inline void SetActive(bool _active) { m_bIsActive = _active; }

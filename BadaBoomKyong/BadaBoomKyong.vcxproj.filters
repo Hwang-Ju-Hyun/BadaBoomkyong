@@ -313,7 +313,13 @@
     <ClCompile Include="FactoryManager.cpp">
       <Filter>Manager\FactoryManager</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectPool.cpp">
+    <ClCompile Include="BaseFactory.cpp">
+      <Filter>Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPoolManager.cpp">
+      <Filter>Manager\MemoryPoolManager</Filter>
+    </ClCompile>
+    <ClCompile Include="IFactory.cpp">
       <Filter>Factory</Filter>
     </ClCompile>
   </ItemGroup>
@@ -481,6 +487,15 @@
       <Filter>Manager\FactoryManager</Filter>
     </ClInclude>
     <ClInclude Include="ObjectPool.h">
+      <Filter>Component\Custom\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseFactory.h">
+      <Filter>Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPoolManager.h">
+      <Filter>Manager\MemoryPoolManager</Filter>
+    </ClInclude>
+    <ClInclude Include="IFactory.h">
       <Filter>Factory</Filter>
     </ClInclude>
   </ItemGroup>

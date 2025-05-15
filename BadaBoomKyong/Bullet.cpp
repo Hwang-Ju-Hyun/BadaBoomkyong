@@ -34,7 +34,7 @@ void Bullet::Init()
 }
 
 void Bullet::Update()
-{	
+{		
 	if(GetOwner()->GetActive())
 		m_pTransform->AddPositionX(m_fSpeed);
 }  
@@ -46,6 +46,7 @@ void Bullet::Exit()
 #include "GameObjectManager.h"
 void Bullet::EnterCollision(Collider* _col)
 {
+	
 	if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::TEMP)
 		GetOwner()->SetActive(false);
 		//GameObjectManager::GetInstance()->DeleteObject("Bullet");

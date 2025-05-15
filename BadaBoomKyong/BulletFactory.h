@@ -1,21 +1,24 @@
 #pragma once
 #include "header.h"
-#include "BulletPool.h"
+#include "BaseFactory.h"
 #include <string>
+#include "ObjectPool.h"
 
+class BulletPool;
 class Bullet;
 class GameObject;
 
+
 class BulletFactory
+	:public BaseFactory
 {
 public:
 	BulletFactory();
 	~BulletFactory();	
 public:
-	void init();
+	virtual void Init()override;
 	Bullet* CreateBullet(BULLET_TYPE _bulletType=BULLET_TYPE::PISTOL);
-	void Exit();
-	//todo : ∏Æ∆Â≈‰∏µ «œº¿
+	virtual void Exit()override;	
 public:
-	BulletPool* m_pPool;
+	BulletPool* m_pPool=nullptr;	
 };

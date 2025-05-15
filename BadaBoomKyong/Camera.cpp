@@ -29,7 +29,7 @@ void Camera::Init()
 #include <iostream>
 void Camera::Update()
 {
-	//구면좌표계 -> 데카르트 좌표계(직교 좌표계)
+	//구면좌표계 -> 데카르트 좌표계(직교 좌표계) 
 	glm::vec3 front;
 	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	front.y = sin(glm::radians(pitch));
@@ -49,6 +49,3 @@ void Camera::Update()
 void Camera::Exit()
 {
 }
-
-//todo : 중요하니깐 알아라
-//행렬 곱 벡터 = 벡터( 모델 곱하기 월드 행렬 곱하면 월드에서의 모델위치의 벡터가 나오는거라 같음)

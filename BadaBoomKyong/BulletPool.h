@@ -13,4 +13,4 @@ public:
 public:
 	Bullet* GetBullet();
 	void release(Bullet* _bullet);
-};
+}; 

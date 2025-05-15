@@ -40,7 +40,7 @@ void Application::Init()
     //GameStateManager    
     GameStateManager::GetInstance()->ChangeLevel(new Stage01("Stage01"));    
     BulletFactory fac;
-    fac.init();
+    fac.Init();
 
     //BulletFactory::CreateBullet(BULLET_TYPE::PISTOL);
     //InputManager
