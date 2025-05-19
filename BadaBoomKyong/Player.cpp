@@ -12,6 +12,7 @@
 #include "GeometryUtill.h"
 #include "BulletFactory.h"
 #include "Bullet.h"
+#include "FactoryManager.h"
 
 Player::Player(GameObject* _owner)
 	:MonoBehaviour(_owner)	
@@ -29,7 +30,10 @@ Player::Player(GameObject* _owner)
 	m_pCollider->SetOffsetPosition({ 0.f,0.f,0.f });
 	m_pCollider->SetScale({ m_pTransform->GetScale()});	
 
-	m_pBulletFactory = new BulletFactory;
+	//주석 지우셈
+	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
+
+	assert(m_pBulletFactory != nullptr);
 }
 
 Player::~Player()
@@ -99,11 +103,11 @@ void Player::OnCollision(Collider* _other)
 
 void Player::ExitCollision(Collider* _other)
 {
-	//if (_other->GetOwner()->GetName() == "tempPlatform1")
-	//{
-	//	_other->GetOwner()->SetModelType(MODEL_TYPE::RECTANGLE);
-	//	//std::cout << "Exit Collision" << std::endl;
-	//}
+	if (_other->GetOwner()->GetName() == "tempPlatform1")
+	{
+		_other->GetOwner()->SetModelType(MODEL_TYPE::RECTANGLE);
+		//std::cout << "Exit Collision" << std::endl;
+	}
 }
 
 void Player::Move() {
@@ -118,12 +122,14 @@ void Player::Move() {
 }
 
 void Player::Fire()
-{	
-	m_pBullet = m_pBulletFactory->CreateBullet(BULLET_TYPE::PISTOL);
+{		
+	m_pBullet = dynamic_cast<Bullet*>(m_pBulletFactory->CreateObject());
+	if (m_pBullet == nullptr)
+		return;
 	Transform* BulletTransform = dynamic_cast<Transform*>(m_pBullet->GetOwner()->FindComponent(Transform::TransformTypeName));
 	
 	assert(BulletTransform != nullptr);
-
+	
 	BulletTransform->SetPosition(m_pTransform->GetPosition());
 }
 

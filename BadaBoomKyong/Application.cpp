@@ -15,6 +15,11 @@
 #include "CollisionManager.h"
 //todo : bulletfactory.h ¸®ÆåÅä¸® ÇÏ¼À 
 #include "BulletFactory.h"
+#include "FactoryManager.h"
+#include "BulletFactory.h"
+
+#include "Bullet.h"
+#include "ObjectPoolManager.h"
 
 Application::Application(){}
 
@@ -36,11 +41,17 @@ void Application::Init()
     
     //ModelInit
     ModelManager::GetInstance()->Init();
-       
+    
+    //PoolManager
+    ObjectPoolManager::GetInstance()->CreatePool<Bullet>(30);
+
+    //FactoryManager
+    FactoryManager::GetInstance()->InsertFactory(BulletFactory::BulletFactoryTypeName, new BulletFactory);
+
     //GameStateManager    
     GameStateManager::GetInstance()->ChangeLevel(new Stage01("Stage01"));    
-    BulletFactory fac;
-    fac.Init();
+   
+
 
     //BulletFactory::CreateBullet(BULLET_TYPE::PISTOL);
     //InputManager
@@ -87,7 +98,7 @@ void Application::Exit()
     ComponentManager::GetInstance()->Exit();
     GameObjectManager::GetInstance()->Exit();
     ModelManager::GetInstance()->Exit();
-
+    FactoryManager::GetInstance()->Exit();
     RenderManager::GetInstance()->Exit();
 #ifdef _DEBUG
     // Cleanup

@@ -6,9 +6,8 @@ class IFactory
 {
 public:
 	IFactory();
-	~IFactory();
+	virtual ~IFactory();
 public:
 	virtual BaseComponent* CreateObject() = 0;
 	virtual BaseComponent* CreatePoolObject()=0;
 };
-

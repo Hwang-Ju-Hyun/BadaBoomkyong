@@ -5,6 +5,8 @@
 #include "Player.h"
 #include "Collider.h"
 #include "Bullet.h"
+#include "BaseFactory.h"
+#include "BulletFactory.h"
 
 Registry::Registry()
 {

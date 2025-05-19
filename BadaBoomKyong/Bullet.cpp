@@ -42,8 +42,8 @@ void Bullet::Update()
 void Bullet::Exit()
 {
 }
-#include <iostream>
-#include "GameObjectManager.h"
+
+
 void Bullet::EnterCollision(Collider* _col)
 {
 	
@@ -71,4 +71,9 @@ BaseRTTI* Bullet::CreateBulletComponent()
 	if (comp != nullptr)
 		return comp;	
 	return nullptr;
+}
+
+void Bullet::Reset()
+{
+
 }

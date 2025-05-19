@@ -6,9 +6,10 @@
 #include "BaseFactory.h"
 
 class BulletPool;
-class Bullet;
 class GameObject;
+class Bullet;
 
+//static const size_t g_PoolSize = 30;
 
 class BulletFactory
 	:public BaseFactory
@@ -18,8 +19,10 @@ public:
 	~BulletFactory();	
 public:
 	virtual void Init()override;
-	Bullet* CreateBullet(BULLET_TYPE _bulletType=BULLET_TYPE::PISTOL);
-	virtual void Exit()override;	
+	virtual BaseComponent* CreateObject()override;	
+	virtual void Exit()override;
+private:
+	BulletPool* m_pBulletPool;
 public:
-	BulletPool* m_pPool=nullptr;	
+	static constexpr const char* BulletFactoryTypeName = "BulletFactory";
 };

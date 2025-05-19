@@ -1,29 +1,61 @@
 #pragma once
-#include <array>
 #include <vector>
+#include <stack>
+#include "BaseComponent.h"
 
-template <typename T,size_t size>
+class GameObject;
+
+template <typename T>
 class ObjectPool
 {
 public:
-	ObjectPool() {}
+	ObjectPool(size_t _size=30,GameObject* _owner=nullptr)
+	{
+		//for (size_t i = 0; i <_size; i++)
+		//{
+		//	T* obj = new T();
+		//	obj->SetOwner(_owner);
+		//	obj->Reset();
+		//	m_stkPool.push(obj);
+		//}
+	}
+
 	~ObjectPool() 
 	{
+		while (!m_stkPool.empty())
+		{
+			delete m_stkPool.top();
+			m_stkPool.pop();
+		}
 	}
 public:
-	std::array<T*, size> m_arrPool;
-public:
-	T* GetPool()
-	{
-		for (int i = 0;i < size;i++)
+	T* Acquire()
+	{	
+		if (m_stkPool.empty())
+		{
+			return new T();
+		}
+		T* obj = m_stkPool.top();
+		m_stkPool.pop();
+		return obj;
+
+	/*	for (int i = 0;i < size;i++)
 		{
 			if (!(m_arrPool[i]->GetOwner()->GetActive()))
 			{
 				m_arrPool[i]->GetOwner()->SetActive(true);
 				return m_arrPool[i];
 			}
+		}*/
+	}	
+	inline void Release(T* _type)
+	{
+		if (_type)
+		{
+			_type->Reset();
+			m_stkPool.push(_type);
 		}
 	}	
-	void release(T* _type) { return; }
-	inline size_t GetSize() { return size; }
+public:
+	std::stack<T*> m_stkPool;
 };

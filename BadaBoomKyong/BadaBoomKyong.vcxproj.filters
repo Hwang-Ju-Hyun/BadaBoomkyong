@@ -161,6 +161,9 @@
     <Filter Include="Manager\FactoryManager">
       <UniqueIdentifier>{785c33ee-c986-4e10-909f-e47552b02d8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ObjectPool">
+      <UniqueIdentifier>{d93f0bcb-e266-4bec-96fe-af90acc6188d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -316,8 +319,11 @@
     <ClCompile Include="ObjectPoolManager.cpp">
       <Filter>Manager\MemoryPoolManager</Filter>
     </ClCompile>
-    <ClCompile Include="IFactory.cpp">
+    <ClCompile Include="BaseFactory.cpp">
       <Filter>Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="IFactory.cpp">
+      <Filter>Manager\FactoryManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -471,9 +477,6 @@
     <ClInclude Include="FrameBuffer.h">
       <Filter>Graphics\FrameBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="BulletFactory.h">
-      <Filter>Factory\BulletFactory</Filter>
-    </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Component\Custom\Bullet</Filter>
     </ClInclude>
@@ -483,17 +486,23 @@
     <ClInclude Include="FactoryManager.h">
       <Filter>Manager\FactoryManager</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectPool.h">
-      <Filter>Component\Custom\Bullet</Filter>
+    <ClInclude Include="ObjectPoolManager.h">
+      <Filter>Manager\MemoryPoolManager</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletFactory.h">
+      <Filter>Factory\BulletFactory</Filter>
     </ClInclude>
     <ClInclude Include="BaseFactory.h">
       <Filter>Factory</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectPoolManager.h">
+    <ClInclude Include="IPoolable.h">
       <Filter>Manager\MemoryPoolManager</Filter>
     </ClInclude>
     <ClInclude Include="IFactory.h">
-      <Filter>Factory</Filter>
+      <Filter>Manager\FactoryManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>ObjectPool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

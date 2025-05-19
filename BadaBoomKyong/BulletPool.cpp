@@ -13,7 +13,7 @@ BulletPool::~BulletPool()
 
 Bullet* BulletPool::GetBullet()
 {
-	/*for (int i = 0;i < 30;i++)
+	for (int i = 0;i < 30;i++)
 	{
 
 		if (!(m_aBulletPool[i]->GetOwner()->GetActive()))
@@ -22,7 +22,7 @@ Bullet* BulletPool::GetBullet()
 			m_aBulletPool[i]->Init();
 			return m_aBulletPool[i];
 		}
-	}*/
+	}
 	return nullptr;
 }
 
