@@ -313,9 +313,6 @@
     <ClCompile Include="FactoryManager.cpp">
       <Filter>Manager\FactoryManager</Filter>
     </ClCompile>
-    <ClCompile Include="BaseFactory.cpp">
-      <Filter>Factory</Filter>
-    </ClCompile>
     <ClCompile Include="ObjectPoolManager.cpp">
       <Filter>Manager\MemoryPoolManager</Filter>
     </ClCompile>

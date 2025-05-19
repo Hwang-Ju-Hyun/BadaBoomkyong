@@ -3,6 +3,7 @@
 #include "BaseFactory.h"
 #include <string>
 #include "ObjectPool.h"
+#include "BaseFactory.h"
 
 class BulletPool;
 class Bullet;

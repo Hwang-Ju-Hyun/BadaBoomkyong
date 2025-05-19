@@ -8,6 +8,7 @@ public:
 	IFactory();
 	~IFactory();
 public:
-	virtual BaseComponent* Create()=0;
+	virtual BaseComponent* CreateObject() = 0;
+	virtual BaseComponent* CreatePoolObject()=0;
 };
 
