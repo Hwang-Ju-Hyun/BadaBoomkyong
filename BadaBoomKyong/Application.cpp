@@ -40,22 +40,21 @@ void Application::Init()
     assert(iGlewInit_Err == GLEW_OK);        
     
     //ModelInit
-    ModelManager::GetInstance()->Init();
-    
-    //PoolManager
-    ObjectPoolManager::GetInstance()->CreatePool<Bullet>(30);
+    ModelManager::GetInstance()->Init();       
 
     //FactoryManager
     FactoryManager::GetInstance()->InsertFactory(BulletFactory::BulletFactoryTypeName, new BulletFactory);
+    BulletFactory* bullet_fac = static_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
+    FactoryManager::GetInstance()->Init();
+
+    bullet_fac->CreateObject();
+
 
     //GameStateManager    
     GameStateManager::GetInstance()->ChangeLevel(new Stage01("Stage01"));    
-   
-
-
-    //BulletFactory::CreateBullet(BULLET_TYPE::PISTOL);
+       
     //InputManager
-    InputManager::GetInstance()->Init();    
+    InputManager::GetInstance()->Init();                
 
     //RenderInit            
     RenderManager::GetInstance()->Init();

@@ -5,7 +5,7 @@ class Bullet;
 
 class BulletPool
 {
-public:
+public:	
 	BulletPool();
 	~BulletPool();
 public:
@@ -13,4 +13,4 @@ public:
 public:
 	Bullet* GetBullet();
 	void release(Bullet* _bullet);
-}; 
+};

@@ -73,7 +73,8 @@ BaseRTTI* Bullet::CreateBulletComponent()
 	return nullptr;
 }
 
+#include <iostream>
 void Bullet::Reset()
 {
-
+	std::cout << "Bullet Reset" << std::endl;
 }

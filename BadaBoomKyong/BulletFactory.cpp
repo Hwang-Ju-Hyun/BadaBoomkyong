@@ -18,22 +18,24 @@ BulletFactory::~BulletFactory()
 
 void BulletFactory::Init()
 {			
-	for (int i = 0;i <30;i++)
+	m_pPools = ObjectPoolManager::GetInstance()->GetPool<Bullet, 30>();
+	for (int i = 0;i<30; i++)
 	{		
 		Bullet* bullet_comp = nullptr;
 		GameObject* bullet_obj=new GameObject("Bullet", MODEL_TYPE::PLANE, GROUP_TYPE::DEFAULT);
+		bullet_comp = dynamic_cast<Bullet*>(bullet_obj->AddComponent_and_Get(Bullet::BulletTypeName, new Bullet(bullet_obj)));		
 		Transform* trs=dynamic_cast<Transform*>(bullet_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(bullet_obj)));
 		Sprite* spr = dynamic_cast<Sprite*>(bullet_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(bullet_obj)));
 		Collider* col = dynamic_cast<Collider*>(bullet_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(bullet_obj)));
-		bullet_comp = dynamic_cast<Bullet*>(bullet_obj->AddComponent_and_Get(Bullet::BulletTypeName, new Bullet(bullet_obj)));		
-		bullet_obj->SetActive(false);
-		m_pBulletPool->m_aBulletPool[i] = bullet_comp;		
+		bullet_obj->SetActive(false);		
+		m_pPools->m_arrPool[i] = bullet_comp;
 	}
 }
+#include "ObjectPoolManager.h"
 
 BaseComponent* BulletFactory::CreateObject()
-{
-	Bullet* bullet_comp = m_pBulletPool->GetObjectOfPool();
+{	
+	Bullet*bullet_comp=dynamic_cast<Bullet*>(m_pPools->GetPool());
 	return bullet_comp;	
 }
 
