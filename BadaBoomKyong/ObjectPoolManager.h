@@ -13,24 +13,23 @@ private:
 	std::unordered_map<std::string, void*> m_hashPools;
 public:
 	template <typename T, size_t size = 30>
-	void CreatePool(GameObject* _owner=nullptr)
+	void CreatePool(GameObject* _obj=nullptr)
 	{
 		const std::type_index& typeIndex = typeid(T);
 		const std::string typeName = typeIndex.name();
 		if (m_hashPools.find(typeName) == m_hashPools.end())
 		{
-			m_hashPools[typeName] = new ObjectPool<T,size>(_owner);
+			m_hashPools[typeName] = new ObjectPool<T,size>(_obj,size);
 		}
 	}
 	template<typename T, size_t size = 30>
-	ObjectPool<T,size>* GetPool()
+	void* GetPool()
 	{
 		const std::string typeName = typeid(T).name();
 		auto it = m_hashPools.find(typeName); // 키 타입 일치
 		if (it != m_hashPools.end())
 		{
-			ObjectPool<T,size>* pool = static_cast<ObjectPool<T,size>*>(it->second);
-			return pool;
+			return static_cast<ObjectPool<T,size>*>(it->second);			
 		}
 		return nullptr;
 	}

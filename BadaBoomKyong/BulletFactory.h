@@ -22,7 +22,7 @@ public:
 	virtual BaseComponent* CreateObject()override;	
 	virtual void Exit()override;
 private:
-	ObjectPool<Bullet, 30>* m_pPools;
+	ObjectPool<Bullet,30>* m_pPools;
 public:
 	static constexpr const char* BulletFactoryTypeName = "BulletFactory";
 };
