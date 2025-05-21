@@ -164,6 +164,9 @@
     <Filter Include="ObjectPool">
       <UniqueIdentifier>{d93f0bcb-e266-4bec-96fe-af90acc6188d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Factory\Interface">
+      <UniqueIdentifier>{4a4ed593-d5d9-4544-9eb9-24f3e45eb3dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -323,7 +326,7 @@
       <Filter>Factory</Filter>
     </ClCompile>
     <ClCompile Include="IFactory.cpp">
-      <Filter>Manager\FactoryManager</Filter>
+      <Filter>Factory\Interface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -495,14 +498,11 @@
     <ClInclude Include="BaseFactory.h">
       <Filter>Factory</Filter>
     </ClInclude>
-    <ClInclude Include="IPoolable.h">
-      <Filter>Manager\MemoryPoolManager</Filter>
-    </ClInclude>
-    <ClInclude Include="IFactory.h">
-      <Filter>Manager\FactoryManager</Filter>
-    </ClInclude>
     <ClInclude Include="ObjectPool.h">
       <Filter>ObjectPool</Filter>
+    </ClInclude>
+    <ClInclude Include="IFactory.h">
+      <Filter>Factory\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

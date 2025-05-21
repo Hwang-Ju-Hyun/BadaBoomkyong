@@ -14,6 +14,7 @@ BulletFactory::BulletFactory()
 
 BulletFactory::~BulletFactory()
 {
+	int a = 0;
 }
 
 void BulletFactory::Init()
@@ -41,6 +42,5 @@ BaseComponent* BulletFactory::CreateObject()
 }
 
 void BulletFactory::Exit()
-{
-	
+{	
 }

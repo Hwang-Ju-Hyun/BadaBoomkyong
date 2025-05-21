@@ -1,13 +1,12 @@
 #pragma once
 #include "MonoBehaviour.h"
-#include "IPoolable.h"
 
 class Transform;
 class Sprite;
 class Collider;
 
 class Bullet
-	:public MonoBehaviour,IPoolable
+	:public MonoBehaviour
 {
 public:	
 	Bullet(GameObject* _owner);	
@@ -33,6 +32,5 @@ public:
 	virtual void LoadFromJson(const json& _str) override{};
 	virtual json SaveToJson(const json& _str) override{ return nullptr; };	
 public:
-	static BaseRTTI* CreateBulletComponent();
-	virtual void Reset()override;
+	static BaseRTTI* CreateBulletComponent();	
 };

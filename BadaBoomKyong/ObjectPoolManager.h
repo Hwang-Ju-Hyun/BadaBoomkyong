@@ -49,4 +49,6 @@ public:
 	//		delete obj; // 풀 없으면 그냥 삭제
 	//	}
 	//}
+public:
+	void Exit();
 };

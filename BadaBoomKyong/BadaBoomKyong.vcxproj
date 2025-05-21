@@ -236,7 +236,6 @@
     <ClInclude Include="IMGUI\imstb_textedit.h" />
     <ClInclude Include="IMGUI\imstb_truetype.h" />
     <ClInclude Include="InputManager.h" />
-    <ClInclude Include="IPoolable.h" />
     <ClInclude Include="MainEditor.h" />
     <ClInclude Include="MathUtil.h" />
     <ClInclude Include="Model.h" />

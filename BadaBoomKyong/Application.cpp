@@ -13,10 +13,8 @@
 #include "InputManager.h"
 #include "MainEditor.h"
 #include "CollisionManager.h"
-#include "BulletFactory.h"
 #include "FactoryManager.h"
 #include "BulletFactory.h"
-
 #include "Bullet.h"
 #include "ObjectPoolManager.h"
 
@@ -62,7 +60,7 @@ void Application::Init()
     MainEditor::GetInstance()->Init();
 #endif
 }
-
+#include <iostream>
 void Application::Update()
 {    
     glClearColor(0.f,0.f, 0.f, 1.0f);
@@ -85,16 +83,17 @@ void Application::Update()
 #ifdef _DEBUG
     //Main Editor
     MainEditor::GetInstance()->Update();
-#endif
+#endif      
 }
 
 void Application::Exit()
-{
+{        
     GameStateManager::GetInstance()->ChangeLevel(nullptr);
     ComponentManager::GetInstance()->Exit();
     GameObjectManager::GetInstance()->Exit();
     ModelManager::GetInstance()->Exit();
     FactoryManager::GetInstance()->Exit();
+    ObjectPoolManager::GetInstance()->Exit();
     RenderManager::GetInstance()->Exit();
 #ifdef _DEBUG
     // Cleanup

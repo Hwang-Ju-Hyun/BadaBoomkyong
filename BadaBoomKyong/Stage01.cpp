@@ -25,13 +25,9 @@ Stage01::~Stage01()
 void Stage01::Init()
 {
 	Serializer::GetInstance()->LoadJson_Object("json/temp/temp_3D.json");
-	//Serializer::GetInstance()->LoadJson_Object("json/temp/temp.json");
-	
-	//Collider* Plat_col = static_cast<Collider*>(Plat->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(Plat)));
+	//Serializer::GetInstance()->LoadJson_Object("json/temp/temp.json");		
 
-	
-
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::DEFAULT, GROUP_TYPE::TEMP);
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::DEFAULT, GROUP_TYPE::TEMP);	
 }
 
 void Stage01::Update()

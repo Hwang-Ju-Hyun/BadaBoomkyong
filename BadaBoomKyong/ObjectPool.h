@@ -16,7 +16,10 @@ public:
 			m_arrPool[i] = _obj;
 		}
 	}
-	~ObjectPool() {}
+	~ObjectPool() 
+	{
+		int a = 0;
+	}
 public:
 	GameObject* GetPool()
 	{

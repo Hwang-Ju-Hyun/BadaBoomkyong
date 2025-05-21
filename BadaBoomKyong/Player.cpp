@@ -45,7 +45,7 @@ void Player::Init()
 
 void Player::Exit()
 {
-	delete m_pBulletFactory;
+	
 }
 
 
@@ -57,7 +57,7 @@ void Player::Update()
 	auto input = InputManager::GetInstance();
 	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS && m_bIsGround) 
 	{			
-		Jump();
+ 		Jump();
 	}
 
 	if (input->GetKetCode(GLFW_KEY_J) == GLFW_PRESS)
@@ -66,46 +66,20 @@ void Player::Update()
 	}
 }
 
-#include <iostream>
 void Player::EnterCollision(Collider* _other)
 {		
-	if (_other->GetOwner()->GetName() == "tempPlatform1")
-	{
-		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());		
-	}			
-	if (_other->GetOwner()->GetName() == "tempPlatform2")
-	{
-		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());
-	}
+	if (_other->GetOwner()->GetGroupType()==GROUP_TYPE::TEMP)
+		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());			
 }
 
-static int i = 0;
 void Player::OnCollision(Collider* _other)
 {		
-	if (_other->GetOwner()->GetName() == "tempPlatform1")
-	{
-		
-		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(),this->GetOwner());		
-		i++;
-		if (i % 100 == 0)
-		{
-			//std::cout << "On Collision" << std::endl;
-			i = 0;
-		}			
-	}
-	if (_other->GetOwner()->GetName() == "tempPlatform2")
-	{
+	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::TEMP)	
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());		
-	}
 }
 
 void Player::ExitCollision(Collider* _other)
-{
-	if (_other->GetOwner()->GetName() == "tempPlatform1")
-	{
-		_other->GetOwner()->SetModelType(MODEL_TYPE::RECTANGLE);
-		//std::cout << "Exit Collision" << std::endl;
-	}
+{	
 }
 
 void Player::Move() 

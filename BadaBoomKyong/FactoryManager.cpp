@@ -11,8 +11,9 @@ FactoryManager::FactoryManager()
 
 FactoryManager::~FactoryManager()
 {
-
+	
 }
+
 
 void FactoryManager::Init()
 {					
@@ -40,7 +41,10 @@ void FactoryManager::Exit()
 {
 	for (auto iter = m_hashFactories.begin();iter != m_hashFactories.end();iter++)
 	{
-		delete iter->second;
+		if (iter->second != nullptr)
+			delete iter->second;
 	}
+	std::unordered_map<std::string, BaseFactory*> temp;
+	temp.swap(m_hashFactories);
 }
 
