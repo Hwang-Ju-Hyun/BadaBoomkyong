@@ -22,6 +22,7 @@ public:
 			m_hashPools[typeName] = new ObjectPool<T,size>(_obj,size);
 		}
 	}
+
 	template<typename T, size_t size = 30>
 	void* GetPool()
 	{

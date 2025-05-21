@@ -33,19 +33,21 @@ void ComponentManager::Init()
 {
 	for (auto comp : m_vComponents)
 	{
-		if(comp!=nullptr)
+		if (comp != nullptr)
 			comp->Init();
 	}
 }
 
 void ComponentManager::Update()
-{	
+{
 	for (int i = 0;i < m_vComponents.size();i++)
-	{
-		if(m_vComponents[i]->GetOwner()->GetActive())
+	{		
+		//todo GetOwner()->GetActive ³ÖÀ¸¼À
+		if (m_vComponents[i]/*->GetOwner()->GetActive()*/)
+		{			
 			m_vComponents[i]->Update();
-	}
-		
+		}			
+	}		
 }
 
 void ComponentManager::Exit()

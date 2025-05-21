@@ -13,7 +13,6 @@
 #include "InputManager.h"
 #include "MainEditor.h"
 #include "CollisionManager.h"
-//todo : bulletfactory.h ¸®ÆåÅä¸® ÇÏ¼À 
 #include "BulletFactory.h"
 #include "FactoryManager.h"
 #include "BulletFactory.h"
@@ -37,22 +36,20 @@ void Application::Init()
 
     //GLEW Init
     GLenum iGlewInit_Err = glewInit(); 
-    assert(iGlewInit_Err == GLEW_OK);        
-    
-    //ModelInit
-    ModelManager::GetInstance()->Init();       
+    assert(iGlewInit_Err == GLEW_OK);                
 
-    //FactoryManager
-    FactoryManager::GetInstance()->InsertFactory(BulletFactory::BulletFactoryTypeName, new BulletFactory);
-    BulletFactory* bullet_fac = static_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
+    //ModelInit
+    ModelManager::GetInstance()->Init();                        
+
+    //FactoryManager    
     FactoryManager::GetInstance()->Init();
 
-    bullet_fac->CreateObject();
-
+    //ComponentInit
+    ComponentManager::GetInstance()->Init();       
 
     //GameStateManager    
-    GameStateManager::GetInstance()->ChangeLevel(new Stage01("Stage01"));    
-       
+    GameStateManager::GetInstance()->ChangeLevel(new Stage01("Stage01"));                   
+
     //InputManager
     InputManager::GetInstance()->Init();                
 

@@ -1,5 +1,8 @@
 #include "FactoryManager.h"
 #include "Registry.h"
+#include "BulletFactory.h"
+#include "ObjectPoolManager.h"
+#include "Bullet.h"
 
 FactoryManager::FactoryManager()
 {
@@ -13,6 +16,8 @@ FactoryManager::~FactoryManager()
 
 void FactoryManager::Init()
 {					
+	InsertFactory(BulletFactory::BulletFactoryTypeName, new BulletFactory);
+	ObjectPoolManager::GetInstance()->CreatePool<Bullet, 30>();
 	for (auto iter = m_hashFactories.begin();iter != m_hashFactories.end();iter++)
 	{
 		iter->second->Init();

@@ -19,7 +19,7 @@ Bullet* BulletPool::GetBullet()
 		if (!(m_aBulletPool[i]->GetOwner()->GetActive()))
 		{			
 			m_aBulletPool[i]->GetOwner()->SetActive(true);
-			m_aBulletPool[i]->Init();
+			//m_aBulletPool[i]->Init();
 			return m_aBulletPool[i];
 		}
 	}

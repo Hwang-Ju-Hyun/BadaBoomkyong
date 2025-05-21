@@ -114,10 +114,10 @@ void RenderManager::Draw()
 				//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
 				GLint MVP_Location = glGetUniformLocation(shadr_handle_3D, "uMVP");
 				assert(MVP_Location >= 0);
-
+			
 				Transform* trs = dynamic_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName));
-				assert(trs != nullptr);
-
+				assert(trs != nullptr);				
+				
 				//GLint ColorLocation = glGetUniformLocation(shadr_handle_3D, "uColor");
 				//assert(ColorLocation >= 0);
 
@@ -140,7 +140,7 @@ void RenderManager::Draw()
 				//last
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();
 			}
-		}
+		}		
 #ifdef _DEBUG
 		//Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
 		//if (col != nullptr)

@@ -15,7 +15,6 @@ class BaseComponent : public BaseRTTI
 private:
 	std::string m_sName="";
 public:
-	//todo 기본생성자 delete 원상복구 시키셈
 	BaseComponent() = delete;
 	BaseComponent(GameObject* _owner);
 	virtual ~BaseComponent();

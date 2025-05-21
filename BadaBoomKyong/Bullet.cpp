@@ -8,7 +8,7 @@
 
 Bullet::Bullet(GameObject* _owner)
 	:MonoBehaviour(_owner)
-	, m_fSpeed(0.5f)	
+	, m_fSpeed(1.5f)	
 {
 	GetOwner()->SetIsSerializable(false);
 }
@@ -26,11 +26,8 @@ void Bullet::Init()
 
 	assert(m_pTransform != nullptr && m_pSprite != nullptr && m_pCollider != nullptr);
 
-	if (GetOwner()->m_bIsActive)
-	{
-		m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
-		m_pCollider->SetScale(m_pTransform->GetScale());
-	}
+	m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
+	m_pCollider->SetScale(m_pTransform->GetScale());
 }
 
 void Bullet::Update()
@@ -43,12 +40,17 @@ void Bullet::Exit()
 {
 }
 
-
 void Bullet::EnterCollision(Collider* _col)
-{
-	
+{		
 	if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::TEMP)
+	{		
+		//todo 여기 문제인거 같은데 바로 false해주는게		
 		GetOwner()->SetActive(false);
+		if (GetOwner()->GetActive() == false)
+		{
+			m_pTransform->SetPosition({ -10000.f, 10000.f, -1000.f });
+		}
+	}				
 		//GameObjectManager::GetInstance()->DeleteObject("Bullet");
 		//std::cout << "Enter Col" << std::endl;
 }
@@ -57,7 +59,6 @@ void Bullet::OnCollision(Collider* _col)
 {		
 	if (_col->GetOwner()->GetName() == "tempPlatform2")
 		GetOwner()->SetActive(false);
-	//	std::cout << "On Col" << std::endl;
 }
 
 void Bullet::ExitCollision(Collider* _col)

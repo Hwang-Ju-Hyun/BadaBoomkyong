@@ -29,8 +29,7 @@ Player::Player(GameObject* _owner)
 	m_pTransform->SetScale({ 50.f,50.f,0.f });
 	m_pCollider->SetOffsetPosition({ 0.f,0.f,0.f });
 	m_pCollider->SetScale({ m_pTransform->GetScale()});	
-
-	//ÁÖ¼® Áö¿ì¼À
+	
 	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
 
 	assert(m_pBulletFactory != nullptr);
@@ -126,11 +125,11 @@ void Player::Fire()
 	m_pBullet = dynamic_cast<Bullet*>(m_pBulletFactory->CreateObject());
 	if (m_pBullet == nullptr)
 		return;
-	Transform* BulletTransform = dynamic_cast<Transform*>(m_pBullet->GetOwner()->FindComponent(Transform::TransformTypeName));
-	
+	Transform* BulletTransform = dynamic_cast<Transform*>(m_pBullet->GetOwner()->FindComponent(Transform::TransformTypeName));	
 	assert(BulletTransform != nullptr);
 	
 	BulletTransform->SetPosition(m_pTransform->GetPosition());
+	BulletTransform->SetScale({ glm::vec3{30.f,30.f,30.f} });
 }
 
 void Player::Jump() 

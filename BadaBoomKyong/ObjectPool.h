@@ -24,7 +24,7 @@ public:
 		{
 			if (!(m_arrPool[i]->GetActive()))
 			{
-				m_arrPool[i]->SetActive(true);
+				m_arrPool[i]->SetActive(true);				
 				return m_arrPool[i];
 			}
 		}

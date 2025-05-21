@@ -32,12 +32,14 @@ void BulletFactory::Init()
 		m_pPools->m_arrPool[i] = bullet_obj;
 	}
 }
-#include "ObjectPoolManager.h"
 
+#include "GameObjectManager.h"
 BaseComponent* BulletFactory::CreateObject()
 {		
-	GameObject* bullet_obj=(m_pPools->GetPool());
+	GameObject* bullet_obj=(m_pPools->GetPool());	
 	Bullet* bullet_comp = dynamic_cast<Bullet*>(bullet_obj->FindComponent(Bullet::BulletTypeName));
+	auto a = GameObjectManager::GetInstance()->GetAllObjects();
+	int b = 0;
 	return bullet_comp;
 }
 
