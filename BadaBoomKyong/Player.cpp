@@ -23,16 +23,13 @@ Player::Player(GameObject* _owner)
 	m_pRigidBody= dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
 	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
 
-
 	assert(m_pTransform && m_pSprite && m_pCollider&&m_pRigidBody);
 	
 	m_pTransform->SetScale({ 50.f,50.f,0.f });
 	m_pCollider->SetOffsetPosition({ 0.f,0.f,0.f });
 	m_pCollider->SetScale({ m_pTransform->GetScale()});	
 	
-	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
-
-	assert(m_pBulletFactory != nullptr);
+	
 }
 
 Player::~Player()
@@ -41,7 +38,9 @@ Player::~Player()
 
 void Player::Init()
 {		
-	
+	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
+
+	assert(m_pBulletFactory != nullptr);
 }
 
 void Player::Exit()
@@ -109,7 +108,8 @@ void Player::ExitCollision(Collider* _other)
 	}
 }
 
-void Player::Move() {
+void Player::Move() 
+{
 	auto input = InputManager::GetInstance();
 	glm::vec3 velocity = m_pRigidBody->GetVelocity();
 	velocity.x = 0.f;
@@ -123,11 +123,12 @@ void Player::Move() {
 void Player::Fire()
 {		
 	m_pBullet = dynamic_cast<Bullet*>(m_pBulletFactory->CreateObject());
+	m_pBullet->Init();
 	if (m_pBullet == nullptr)
 		return;
 	Transform* BulletTransform = dynamic_cast<Transform*>(m_pBullet->GetOwner()->FindComponent(Transform::TransformTypeName));	
 	assert(BulletTransform != nullptr);
-	
+
 	BulletTransform->SetPosition(m_pTransform->GetPosition());
 	BulletTransform->SetScale({ glm::vec3{30.f,30.f,30.f} });
 }

@@ -33,13 +33,10 @@ void BulletFactory::Init()
 	}
 }
 
-#include "GameObjectManager.h"
 BaseComponent* BulletFactory::CreateObject()
 {		
 	GameObject* bullet_obj=(m_pPools->GetPool());	
-	Bullet* bullet_comp = dynamic_cast<Bullet*>(bullet_obj->FindComponent(Bullet::BulletTypeName));
-	auto a = GameObjectManager::GetInstance()->GetAllObjects();
-	int b = 0;
+	Bullet* bullet_comp = dynamic_cast<Bullet*>(bullet_obj->FindComponent(Bullet::BulletTypeName));	
 	return bullet_comp;
 }
 

@@ -41,21 +41,21 @@ void Application::Init()
     //ModelInit
     ModelManager::GetInstance()->Init();                        
 
+    //GameStateManager    
+    GameStateManager::GetInstance()->ChangeLevel(new Stage01("Stage01"));
+
     //FactoryManager    
     FactoryManager::GetInstance()->Init();
 
     //ComponentInit
     ComponentManager::GetInstance()->Init();       
 
-    //GameStateManager    
-    GameStateManager::GetInstance()->ChangeLevel(new Stage01("Stage01"));                   
-
+    
     //InputManager
     InputManager::GetInstance()->Init();                
 
     //RenderInit            
     RenderManager::GetInstance()->Init();
-
   
 #ifdef _DEBUG
     //MainEditor
@@ -74,14 +74,14 @@ void Application::Update()
     GameStateManager::GetInstance()->Update();    
 
     //Input
-    InputManager::GetInstance()->Update();
+    InputManager::GetInstance()->Update();    
 
     //Component
     ComponentManager::GetInstance()->Update();
 
     //Collision
     CollisionManager::GetInstance()->Update();
-   
+
 #ifdef _DEBUG
     //Main Editor
     MainEditor::GetInstance()->Update();

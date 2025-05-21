@@ -17,6 +17,7 @@ Bullet::~Bullet()
 {
 }
 
+//todo 얘 무조건 GetPool로 받아오기전에 불러져야함 
 void Bullet::Init()
 {
 	SetName(BulletTypeName);
@@ -45,20 +46,16 @@ void Bullet::EnterCollision(Collider* _col)
 	if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::TEMP)
 	{		
 		//todo 여기 문제인거 같은데 바로 false해주는게		
+		m_pTransform->SetPosition({ -10000.f, 10000.f, -1000.f });
 		GetOwner()->SetActive(false);
-		if (GetOwner()->GetActive() == false)
-		{
-			m_pTransform->SetPosition({ -10000.f, 10000.f, -1000.f });
-		}
-	}				
-		//GameObjectManager::GetInstance()->DeleteObject("Bullet");
-		//std::cout << "Enter Col" << std::endl;
+	}
 }
 
+#include <iostream>
 void Bullet::OnCollision(Collider* _col)
-{		
+{
 	if (_col->GetOwner()->GetName() == "tempPlatform2")
-		GetOwner()->SetActive(false);
+		std::cout << "On Col" << std::endl;
 }
 
 void Bullet::ExitCollision(Collider* _col)
