@@ -184,7 +184,6 @@
     <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="MonoBehaviour.cpp" />
     <ClCompile Include="ObjectPoolManager.cpp" />
-    <ClCompile Include="PlatformFactory.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Registry.cpp" />
     <ClCompile Include="RenderManager.cpp" />
@@ -244,7 +243,6 @@
     <ClInclude Include="MonoBehaviour.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectPoolManager.h" />
-    <ClInclude Include="PlatformFactory.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Registry.h" />
     <ClInclude Include="RenderManager.h" />

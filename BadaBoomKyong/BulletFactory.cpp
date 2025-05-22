@@ -21,7 +21,7 @@ void BulletFactory::Init()
 {			
 	ObjectPoolManager::GetInstance()->CreatePool<Bullet, 30>();
 	m_pPools = static_cast<ObjectPool<Bullet, 30>*>(ObjectPoolManager::GetInstance()->GetPool<Bullet, 30>());
-	for (int i = 0;i<5; i++)
+	for (int i = 0;i<30; i++)
 	{		
 		Bullet* bullet_comp = nullptr;
 		GameObject* bullet_obj=new GameObject("Bullet", MODEL_TYPE::PLANE, GROUP_TYPE::DEFAULT);
@@ -36,10 +36,8 @@ void BulletFactory::Init()
 
 GameObject* BulletFactory::CreateObject()
 {		
-	GameObject* bullet_obj=(m_pPools->GetPool());		
+	GameObject* bullet_obj=(m_pPools->GetPool());
 	return bullet_obj;
 }
 
-void BulletFactory::Exit()
-{	
-}
+void BulletFactory::Exit(){}

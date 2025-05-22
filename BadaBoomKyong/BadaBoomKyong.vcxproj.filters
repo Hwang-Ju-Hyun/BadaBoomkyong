@@ -167,9 +167,6 @@
     <Filter Include="Factory\Interface">
       <UniqueIdentifier>{4a4ed593-d5d9-4544-9eb9-24f3e45eb3dd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Factory\PlatformFactory">
-      <UniqueIdentifier>{c4462dbe-7876-4b41-8f32-b9b93264add1}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -330,9 +327,6 @@
     </ClCompile>
     <ClCompile Include="IFactory.cpp">
       <Filter>Factory\Interface</Filter>
-    </ClCompile>
-    <ClCompile Include="PlatformFactory.cpp">
-      <Filter>Factory\PlatformFactory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -509,9 +503,6 @@
     </ClInclude>
     <ClInclude Include="IFactory.h">
       <Filter>Factory\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="PlatformFactory.h">
-      <Filter>Factory\PlatformFactory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

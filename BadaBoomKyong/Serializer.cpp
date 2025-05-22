@@ -37,7 +37,7 @@ GameObject* Serializer::LoadJson_Object(const std::string& _path)
 
 GameObject* Serializer::CreateObjectFromJson(json _item)
 {
-	json::iterator iter_name = _item.find(NameTypeInJson);	
+	json::iterator iter_name = _item.find(NameTypeInJson);
 	json::iterator iter_model = _item.find(ModelTypeNameInJson);
 	json::iterator iter_group = _item.find(GroupTypeNameInJson);
 	ASSERT_MSG(iter_name!=_item.end(),"Name not exist");
@@ -47,7 +47,7 @@ GameObject* Serializer::CreateObjectFromJson(json _item)
 	MODEL_TYPE obj_model = (*iter_model);
 	GROUP_TYPE obj_group = (*iter_group);
 	
-	GameObject* obj = new GameObject(obj_name, obj_model,obj_group);	
+	GameObject* obj = new GameObject(obj_name, obj_model,obj_group);
 	ASSERT_MSG(obj != nullptr, "GameObject can't construct");
 	
 	json::iterator iter_comp = _item.find(ComponentNameInJson);
