@@ -27,6 +27,35 @@ void GameObjectManager::Exit()
 	temp.swap(m_vGameObjects);
 }
 
+void GameObjectManager::AddObject(GameObject* _obj)
+{	
+	m_vGameObjects.push_back(_obj);
+	if (m_vGameObjects.size() > 0)
+	{
+		if (m_vGameObjects.size() == 1)
+		{
+			m_vGameObjects[0]->SetID(m_uObjID);
+			m_uObjID++;			
+		}
+		else
+		{			
+			for (int i = 1;i < m_vGameObjects.size();i++)
+			{
+				if (m_vGameObjects[i - 1]->GetName() == m_vGameObjects[i]->GetName())
+				{
+					m_vGameObjects[i]->SetID(m_uObjID);					
+				}
+				else
+				{
+					m_uObjID = 0;
+					m_vGameObjects[i]->SetID(m_uObjID);
+				}
+				m_uObjID++;
+			}
+		}		
+	}		
+}
+
 GameObject* GameObjectManager::FindObject(const std::string& _name)
 {
 	for (int i = 0;i < m_vGameObjects.size();i++)

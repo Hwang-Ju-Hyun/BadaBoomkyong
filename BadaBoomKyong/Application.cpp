@@ -90,7 +90,7 @@ void Application::Exit()
 {        
     GameStateManager::GetInstance()->ChangeLevel(nullptr);
     ComponentManager::GetInstance()->Exit();
-    GameObjectManager::GetInstance()->Exit();
+    GameObjectManager::GetInstance()->Exit(); 
     ModelManager::GetInstance()->Exit();
     FactoryManager::GetInstance()->Exit();
     ObjectPoolManager::GetInstance()->Exit();

@@ -39,7 +39,7 @@ void ComponentManager::Init()
 }
 
 void ComponentManager::Update()
-{
+{	
 	for (int i = 0;i < m_vComponents.size();i++)
 	{
 		//todo GetOwner()->GetActive ≥÷¿∏º¿

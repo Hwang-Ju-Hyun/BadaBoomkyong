@@ -17,7 +17,7 @@ public:
 	virtual ~BulletFactory();	
 public:
 	virtual void Init()override;
-	virtual BaseComponent* CreateObject()override;	
+	virtual GameObject* CreateObject()override;
 	virtual void Exit()override;
 private:
 	ObjectPool<Bullet,30>* m_pPools;

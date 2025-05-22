@@ -16,12 +16,12 @@ void BaseFactory::Exit()
 {
 }
 
-BaseComponent* BaseFactory::CreateObject()
+GameObject* BaseFactory::CreateObject()
 {
 	return nullptr;
 }
 
-BaseComponent* BaseFactory::CreatePoolObject()
+GameObject* BaseFactory::CreatePoolObject()
 {
 	return nullptr;
 }

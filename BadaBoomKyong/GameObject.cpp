@@ -11,6 +11,7 @@ GameObject::GameObject(const std::string& _name,MODEL_TYPE _modelType, GROUP_TYP
 	SetModel(ModelManager::GetInstance()->FindModel(_modelType));
 	m_eGroup=_groupType;
 	_modelType >= 4 ? m_bIs3D = true : m_bIs3D = false;
+
 	GameObjectManager::GetInstance()->AddObject(this);
 }
 

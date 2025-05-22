@@ -1,7 +1,7 @@
 #pragma once
 #include "IFactory.h"
 
-class BaseComponent;
+class GameObject;
 
 class BaseFactory
 	:public IFactory
@@ -13,6 +13,6 @@ public:
 	virtual void Init();
 	virtual void Exit();
 public:
-	virtual BaseComponent* CreateObject()override;
-	virtual BaseComponent* CreatePoolObject()override;
+	virtual GameObject* CreateObject()override;
+	virtual GameObject* CreatePoolObject()override;
 };

@@ -19,6 +19,7 @@ public:
 	static constexpr const char* ModelTypeNameInJson = "Model";
 	static constexpr const char* ComponentNameInJson = "Components";
 	static constexpr const char* NameTypeInJson = "Name";
+	static constexpr const char* IDTypeInJson = "ID";
 	static constexpr const char* ComponentTypeNameInJson = "Type";
 	static constexpr const char* GroupTypeNameInJson = "Group";
 	static constexpr const char* DimensionTypeNameInJson = "Is3D";

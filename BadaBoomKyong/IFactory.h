@@ -1,6 +1,6 @@
 #pragma once
 
-class BaseComponent;
+class GameObject;
 
 class IFactory
 {
@@ -8,6 +8,6 @@ public:
 	IFactory();
 	virtual ~IFactory();
 public:
-	virtual BaseComponent* CreateObject() = 0;
-	virtual BaseComponent* CreatePoolObject()=0;
+	virtual GameObject* CreateObject() = 0;
+	virtual GameObject* CreatePoolObject()=0;
 };

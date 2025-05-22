@@ -96,10 +96,12 @@ void Player::Move()
 
 void Player::Fire()
 {		
-	m_pBullet = dynamic_cast<Bullet*>(m_pBulletFactory->CreateObject());
-	m_pBullet->Init();
-	if (m_pBullet == nullptr)
-		return;
+	GameObject* bullet_obj=m_pBulletFactory->CreateObject();
+	m_pBullet = dynamic_cast<Bullet*>(bullet_obj->FindComponent(Bullet::BulletTypeName));
+	
+	assert(m_pBullet != nullptr);
+
+	m_pBullet->Init();	
 	Transform* BulletTransform = dynamic_cast<Transform*>(m_pBullet->GetOwner()->FindComponent(Transform::TransformTypeName));	
 	assert(BulletTransform != nullptr);
 

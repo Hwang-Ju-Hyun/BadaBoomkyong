@@ -7,6 +7,8 @@
 #include "BaseComponent.h"
 #include "Registry.h"
 #include "BaseRTTI.h"
+#include "FactoryManager.h"
+#include "PlatformFactory.h"
 
 Serializer::Serializer() {}
 
@@ -21,7 +23,10 @@ GameObject* Serializer::LoadJson_Object(const std::string& _path)
 	json js_all_data;
 	file >> js_all_data;
 	file.close();
-		
+	
+	auto fac_mgr=FactoryManager::GetInstance();
+	fac_mgr->InsertFactory(PlatformFactory::PlatformFactoryTypeName, new PlatformFactory);
+
 	for (auto& item : js_all_data)
 	{
 		CreateObjectFromJson(item);
@@ -32,18 +37,17 @@ GameObject* Serializer::LoadJson_Object(const std::string& _path)
 
 GameObject* Serializer::CreateObjectFromJson(json _item)
 {
-	json::iterator iter_name = _item.find(NameTypeInJson);
+	json::iterator iter_name = _item.find(NameTypeInJson);	
 	json::iterator iter_model = _item.find(ModelTypeNameInJson);
 	json::iterator iter_group = _item.find(GroupTypeNameInJson);
 	ASSERT_MSG(iter_name!=_item.end(),"Name not exist");
 	ASSERT_MSG(iter_name != _item.end(), "Model not exist");
 
-	std::string obj_name = (*iter_name);
-	
-	MODEL_TYPE obj_model = (*iter_model);	
+	std::string obj_name = (*iter_name);	
+	MODEL_TYPE obj_model = (*iter_model);
 	GROUP_TYPE obj_group = (*iter_group);
 	
-	GameObject* obj = new GameObject(obj_name, obj_model,obj_group);
+	GameObject* obj = new GameObject(obj_name, obj_model,obj_group);	
 	ASSERT_MSG(obj != nullptr, "GameObject can't construct");
 	
 	json::iterator iter_comp = _item.find(ComponentNameInJson);
@@ -80,7 +84,9 @@ void Serializer::SaveJson_Object(const std::string& _path, bool _is3d)
 			json js_components;
 			json js_obj;
 			std::string obj_name = all_objs[i]->GetName();
+			size_t obj_id = all_objs[i]->GetID();
 			js_obj[NameTypeInJson] = obj_name;
+			js_obj[IDTypeInJson] = obj_id;
 			if (all_objs[i]->GetIs3D() == _is3d)
 			{
 				js_obj[DimensionTypeNameInJson] = all_objs[i]->GetIs3D();
