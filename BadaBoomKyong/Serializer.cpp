@@ -8,7 +8,6 @@
 #include "Registry.h"
 #include "BaseRTTI.h"
 #include "FactoryManager.h"
-#include "PlatformFactory.h"
 
 Serializer::Serializer() {}
 
@@ -24,9 +23,7 @@ GameObject* Serializer::LoadJson_Object(const std::string& _path)
 	file >> js_all_data;
 	file.close();
 	
-	auto fac_mgr=FactoryManager::GetInstance();
-	fac_mgr->InsertFactory(PlatformFactory::PlatformFactoryTypeName, new PlatformFactory);
-
+	
 	for (auto& item : js_all_data)
 	{
 		CreateObjectFromJson(item);
