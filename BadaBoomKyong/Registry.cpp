@@ -7,6 +7,7 @@
 #include "Bullet.h"
 #include "BaseFactory.h"
 #include "BulletFactory.h"
+#include "Monster.h"
 
 Registry::Registry()
 {
@@ -16,6 +17,7 @@ Registry::Registry()
     m_mapRTTI.insert({ Player::PlayerTypeName,&Player::CreatePlayerComponent });
     m_mapRTTI.insert({ Collider::ColliderTypeName,&Collider::CreateCollideComponent });
     m_mapRTTI.insert({ Bullet::BulletTypeName,&Bullet::CreateBulletComponent });
+    m_mapRTTI.insert({ Monster::MonsterTypeName,&Monster::CreateMonsterComponent });
 }
 
 Registry::~Registry()

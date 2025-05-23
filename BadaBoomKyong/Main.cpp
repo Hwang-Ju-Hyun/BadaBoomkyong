@@ -14,7 +14,6 @@
 
 int main(void)
 {				
-
 	Application::GetInstance()->Init();	
 	TimeManager::m_dDeltaTime = 0;
 	TimeManager::m_dLastFrame= 0;

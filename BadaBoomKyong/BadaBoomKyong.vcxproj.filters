@@ -167,6 +167,15 @@
     <Filter Include="Factory\Interface">
       <UniqueIdentifier>{4a4ed593-d5d9-4544-9eb9-24f3e45eb3dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Custom\Monster">
+      <UniqueIdentifier>{6603f99e-feea-4413-a072-bc794d585fde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI">
+      <UniqueIdentifier>{7053d56b-9366-4664-9262-a2ba45573ab7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\FiniteStateMachine">
+      <UniqueIdentifier>{291109b3-df4d-49c7-a6ea-5389b3053548}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -327,6 +336,15 @@
     </ClCompile>
     <ClCompile Include="IFactory.cpp">
       <Filter>Factory\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Component\Custom\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="AI.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseState.cpp">
+      <Filter>AI\FiniteStateMachine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -503,6 +521,15 @@
     </ClInclude>
     <ClInclude Include="IFactory.h">
       <Filter>Factory\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Component\Custom\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="AI.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseState.h">
+      <Filter>AI\FiniteStateMachine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,7 @@ Model::~Model()
 	{
 		glDeleteBuffers(1, &VBO);
 	}
-}
+} 
 
 void Model::Draw()
 {

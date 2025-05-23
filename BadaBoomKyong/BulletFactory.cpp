@@ -14,7 +14,7 @@ BulletFactory::BulletFactory()
 
 BulletFactory::~BulletFactory()
 {
-	int a = 0;
+
 }
 
 void BulletFactory::Init()
