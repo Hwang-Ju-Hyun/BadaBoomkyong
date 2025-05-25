@@ -27,46 +27,34 @@ void GameObjectManager::Exit()
 	temp.swap(m_vGameObjects);
 }
 
-void GameObjectManager::AddObject(GameObject* _obj)
-{	
-	m_vGameObjects.push_back(_obj);
-	if (m_vGameObjects.size() > 0)
-	{
-		if (m_vGameObjects.size() == 1)
-		{
-			m_vGameObjects[0]->SetID(m_uObjID);
-			m_uObjID++;			
-		}
-		else
-		{			
-			for (int i = 1;i < m_vGameObjects.size();i++)
-			{
-				if (m_vGameObjects[i - 1]->GetName() == m_vGameObjects[i]->GetName())
-				{
-					m_vGameObjects[i]->SetID(m_uObjID);					
-				}
-				else
-				{
-					m_uObjID = 0;
-					m_vGameObjects[i]->SetID(m_uObjID);
-				}
-				m_uObjID++;
-			}
-		}		
-	}		
-}
-
-GameObject* GameObjectManager::FindObject(const std::string& _name)
+size_t GameObjectManager::AssignObjectID(GameObject* _obj)
 {
-	for (int i = 0;i < m_vGameObjects.size();i++)
+	int size = m_vGameObjects.size();
+	size_t next_id=0;
+	for (int i = 0;i <size-1;i++)
 	{
-		if (m_vGameObjects[i]->GetName() == _name)
+		if (m_vGameObjects[i]->GetName() == _obj->GetName())
 		{
-			return m_vGameObjects[i];
+			next_id = m_vGameObjects[i]->GetID() + 1;
+			_obj->SetID(next_id);			
 		}
 	}
-	std::cout << _name << " is not exist in GameObjectVector : GameObjectManager::FindObject" << std::endl;
-	return nullptr;
+	return next_id;
+}
+
+void GameObjectManager::AddObject(GameObject* _obj)
+{	
+	m_vGameObjects.push_back(_obj);			
+	size_t next_id=AssignObjectID(_obj);
+	m_mapGameObject.insert({ {_obj->GetName(),next_id},_obj });
+}
+
+GameObject* GameObjectManager::FindObject(const std::string& _name, size_t _id)
+{
+	auto iter = m_mapGameObject.find({ _name,_id });
+	if (iter != m_mapGameObject.end())
+		return iter->second;
+	return nullptr;	
 }
 
 GameObject* GameObjectManager::GetLastObject()

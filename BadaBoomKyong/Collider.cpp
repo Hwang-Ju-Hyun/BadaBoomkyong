@@ -125,7 +125,7 @@ json Collider::SaveToJson(const json& _str)
 
 	json compData;
 	compData[OffsetTypeName] = {m_vOffsetPosition.x,m_vOffsetPosition.y,m_vOffsetPosition.z};
-	compData[ScaleTypeName] = { m_vScale.x,m_vScale.y,m_vScale.z};	
+	compData[ScaleTypeName] = { m_vScale.x,m_vScale.y,m_vScale.z};
 
 	data[CompDataName] = compData;
 
@@ -134,28 +134,30 @@ json Collider::SaveToJson(const json& _str)
 
 #ifdef _DEBUG
 #include "ComponentManager.h"
+#include "RenderManager.h"
+#include "Camera.h"
+#include "Monster.h"
 void Collider::DrawCollider()
-{		
-	auto shdr=RenderManager::GetInstance()->GetShader(SHADER_REF::TWO_DIMENSIONS);
-	auto shdr_handle = shdr->GetShaderProgramHandle();
+{
+	const std::string a=GetOwner()->GetName();
+	if (a!= Monster::MonsterTypeName)
+		return;
+	auto shdr=RenderManager::GetInstance()->GetShader(SHADER_REF::THREE_DIMENSIONS);
+	auto shadr_handle_3D = shdr->GetShaderProgramHandle();
 
-	shdr->Use();	
-	GLint Model_to_NDC_location = glGetUniformLocation(shdr_handle, "uModel_to_NDC");
-	assert(Model_to_NDC_location >= 0);
+	GLint IsColliderLocation = glGetUniformLocation(shadr_handle_3D, "uIsCollider");
+	glUniform1i(IsColliderLocation, true); // true
+
+	GLint DebugColorLocation = glGetUniformLocation(shadr_handle_3D, "uDebugColor");
+	assert(DebugColorLocation >= 0);
 	
-	assert(m_pColliderTransform != nullptr);
+	Monster* mon = dynamic_cast<Monster*>(GetOwner()->FindComponent(Monster::MonsterTypeName));
+	glm::vec4 color = { 0.f,1.f,0.f,1.f };
+	mon->m_bCol == true ? color : color = { 1.0f,0.f,0.f,1.f };
+	glUniform4fv(DebugColorLocation, 1, glm::value_ptr(color));
 
-	GLint ColorLocation = glGetUniformLocation(shdr_handle, "uColor");
-	assert(ColorLocation >= 0);
-
-	assert(m_pColliderSpirte != nullptr);
-
-	glm::mat3 model_to_ndc = m_pColliderTransform->GetModelToNDC_Matrix();
-	glm::vec4 color = m_pColliderSpirte->GetColor();
-	color = { 0.f,1.f,0.f,1.f };
-	glUniformMatrix3fv(Model_to_NDC_location, 1, GL_FALSE, glm::value_ptr(model_to_ndc));
-	glUniform4fv(ColorLocation, 1, glm::value_ptr(color));
-
-	m_pColliderModel->Draw();shdr->Diuse();
+	m_pColliderModel->Draw();
+	glUniform1i(IsColliderLocation, false);
+	//shdr->Diuse();
 }
 #endif

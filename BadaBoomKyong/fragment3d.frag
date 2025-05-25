@@ -1,11 +1,14 @@
 #version 460
 
 out vec4 color;
-//uniform vec4 uColor;
+uniform bool uIsCollider;
+uniform vec4 uDebugColor;
 in vec2 UV;
 
 void main()
 {   
-	//uColor={0.0,0.0,0.0,0.0};
-	color = vec4(UV,0.0,0.0);
+	if(uIsCollider)
+		color=uDebugColor;
+	else
+		color = vec4(UV,0.0,0.0);
 }

@@ -164,6 +164,7 @@
     <ClCompile Include="GeometryUtill.cpp" />
     <ClCompile Include="GizmoManager.cpp" />
     <ClCompile Include="ICollisionHandler.cpp" />
+    <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="IFactory.cpp" />
     <ClCompile Include="IMGUIZMO\GraphEditor.cpp" />
     <ClCompile Include="IMGUIZMO\ImCurveEdit.cpp" />
@@ -182,12 +183,14 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainEditor.cpp" />
     <ClCompile Include="MathUtil.cpp" />
+    <ClCompile Include="MeleeState.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="MonoBehaviour.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="ObjectPoolManager.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RangedState.cpp" />
     <ClCompile Include="Registry.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="RigidBody.cpp" />
@@ -196,6 +199,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage01.cpp" />
     <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="TraceState.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -223,6 +227,7 @@
     <ClInclude Include="GizmoManager.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="ICollisionHandler.h" />
+    <ClInclude Include="IdleState.h" />
     <ClInclude Include="IFactory.h" />
     <ClInclude Include="IMGUIZMO\GraphEditor.h" />
     <ClInclude Include="IMGUIZMO\ImCurveEdit.h" />
@@ -243,6 +248,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MainEditor.h" />
     <ClInclude Include="MathUtil.h" />
+    <ClInclude Include="MeleeState.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="MonoBehaviour.h" />
@@ -250,6 +256,7 @@
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectPoolManager.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RangedState.h" />
     <ClInclude Include="Registry.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="RigidBody.h" />
@@ -259,6 +266,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage01.h" />
     <ClInclude Include="TimeManager.h" />
+    <ClInclude Include="TraceState.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

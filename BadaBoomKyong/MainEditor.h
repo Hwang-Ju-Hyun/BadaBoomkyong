@@ -33,6 +33,5 @@ private:
 	void ObjectPannelDraw();	
 	void DrawGizmo();
 	void UpdateEditorCameraControls();
-
 };
 #endif

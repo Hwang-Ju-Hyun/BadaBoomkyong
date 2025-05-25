@@ -55,7 +55,8 @@ void Bullet::EnterCollision(Collider* _col)
 void Bullet::OnCollision(Collider* _col)
 {
 	if (_col->GetOwner()->GetName() == "tempPlatform2")
-		std::cout << "On Col" << std::endl;
+		//std::cout << "On Col" << std::endl;
+		int a = 0;
 }
 
 void Bullet::ExitCollision(Collider* _col)

@@ -166,12 +166,11 @@ void MainEditor::ObjectPannelDraw()
 	ImGui::Begin("Object List");
 
 	for (int i = 0;i < all_objs.size();i++)
-	{
-		if (ImGui::Button(all_objs[i]->GetName().c_str()))
+	{		
+		if (ImGui::Button((all_objs[i]->GetName() + std::to_string(all_objs[i]->GetID())).c_str()))
 		{
 			m_pSelectedObjByPannel = all_objs[i];
 			m_pTransform_SelectedObj = dynamic_cast<Transform*>(m_pSelectedObjByPannel->FindComponent(Transform::TransformTypeName));
-
 		}
 		if (m_pSelectedObjByPannel == all_objs[i])
 		{

@@ -170,11 +170,26 @@
     <Filter Include="Component\Custom\Monster">
       <UniqueIdentifier>{6603f99e-feea-4413-a072-bc794d585fde}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AI">
+    <Filter Include="Component\Custom\AI">
       <UniqueIdentifier>{7053d56b-9366-4664-9262-a2ba45573ab7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AI\FiniteStateMachine">
+    <Filter Include="Component\Custom\AI\FiniteStateMachine">
       <UniqueIdentifier>{291109b3-df4d-49c7-a6ea-5389b3053548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\AI\FiniteStateMachine\Idle">
+      <UniqueIdentifier>{99415940-9c29-46f9-adc4-f1045a6d8a59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\AI\FiniteStateMachine\Trace">
+      <UniqueIdentifier>{009cb4ff-1a27-40fd-836c-9398d79aae5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\AI\FiniteStateMachine\Patrol">
+      <UniqueIdentifier>{d547c685-3a08-44ed-806a-e6be1495e67b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\AI\FiniteStateMachine\Melee">
+      <UniqueIdentifier>{c696bffb-63b1-43cc-8356-2890de5c95d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\AI\FiniteStateMachine\Ranged">
+      <UniqueIdentifier>{4469d03d-80bc-43d1-8cbf-e863554e6795}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -341,10 +356,22 @@
       <Filter>Component\Custom\Monster</Filter>
     </ClCompile>
     <ClCompile Include="AI.cpp">
-      <Filter>AI</Filter>
+      <Filter>Component\Custom\AI</Filter>
     </ClCompile>
     <ClCompile Include="BaseState.cpp">
-      <Filter>AI\FiniteStateMachine</Filter>
+      <Filter>Component\Custom\AI\FiniteStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="IdleState.cpp">
+      <Filter>Component\Custom\AI\FiniteStateMachine\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="TraceState.cpp">
+      <Filter>Component\Custom\AI\FiniteStateMachine\Trace</Filter>
+    </ClCompile>
+    <ClCompile Include="RangedState.cpp">
+      <Filter>Component\Custom\AI\FiniteStateMachine\Ranged</Filter>
+    </ClCompile>
+    <ClCompile Include="MeleeState.cpp">
+      <Filter>Component\Custom\AI\FiniteStateMachine\Melee</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -526,10 +553,22 @@
       <Filter>Component\Custom\Monster</Filter>
     </ClInclude>
     <ClInclude Include="AI.h">
-      <Filter>AI</Filter>
+      <Filter>Component\Custom\AI</Filter>
     </ClInclude>
     <ClInclude Include="BaseState.h">
-      <Filter>AI\FiniteStateMachine</Filter>
+      <Filter>Component\Custom\AI\FiniteStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="IdleState.h">
+      <Filter>Component\Custom\AI\FiniteStateMachine\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="TraceState.h">
+      <Filter>Component\Custom\AI\FiniteStateMachine\Trace</Filter>
+    </ClInclude>
+    <ClInclude Include="RangedState.h">
+      <Filter>Component\Custom\AI\FiniteStateMachine\Ranged</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeState.h">
+      <Filter>Component\Custom\AI\FiniteStateMachine\Melee</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

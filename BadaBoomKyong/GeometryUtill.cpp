@@ -49,10 +49,10 @@ bool GeometryUtil::IsPointInsideTraingle(glm::vec2 _point, Transform* _trs)
 #include "RigidBody.h"
 #include <iostream>
 
-void GeometryUtil::HandlePosition_CollisionAABB(GameObject* ground, GameObject* playerObj)
+void GeometryUtil::HandlePosition_CollisionAABB(GameObject* _ground, GameObject* _otherObj)
 {
-    auto playerTrs = dynamic_cast<Transform*>(playerObj->FindComponent("Transform"));
-    auto groundTrs = dynamic_cast<Transform*>(ground->FindComponent("Transform"));
+    auto playerTrs = dynamic_cast<Transform*>(_otherObj->FindComponent("Transform"));
+    auto groundTrs = dynamic_cast<Transform*>(_ground->FindComponent("Transform"));
 
     glm::vec2 pPos = playerTrs->GetPosition();
     glm::vec2 gPos = groundTrs->GetPosition();

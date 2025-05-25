@@ -14,7 +14,7 @@ public:
 	bool IsPointInsideTraingle(glm::vec2 _point, Transform* _trs);
 public:
 	//void HandlePosition_CollisionAABB(GameObject* _obj1, GameObject* _obj2);	
-	void HandlePosition_CollisionAABB(GameObject* ground, GameObject* playerObj);
+	void HandlePosition_CollisionAABB(GameObject* _ground, GameObject* _otherObj);
 	bool CollisionFromLeft = false;
 	bool CollisionFromRight= false;
 	bool CollisionFromBottom=false;

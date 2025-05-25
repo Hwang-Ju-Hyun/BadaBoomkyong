@@ -68,13 +68,13 @@ void Player::Update()
 
 void Player::EnterCollision(Collider* _other)
 {		
-	if (_other->GetOwner()->GetGroupType()==GROUP_TYPE::TEMP)
+	if (_other->GetOwner()->GetGroupType()==GROUP_TYPE::PLATFORM)
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());			
 }
 
 void Player::OnCollision(Collider* _other)
 {		
-	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::TEMP)	
+	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());		
 }
 

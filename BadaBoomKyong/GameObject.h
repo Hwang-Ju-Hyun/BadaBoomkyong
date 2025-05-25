@@ -15,13 +15,13 @@ public:
 	GameObject() = delete;
 	GameObject(const std::string& _name = "Default", MODEL_TYPE _modelType = MODEL_TYPE::TRIANGLE, GROUP_TYPE _groupType = GROUP_TYPE::DEFAULT);
 	~GameObject();
-private:
+private:	
 	std::string m_sName = "";	
 	Model* m_pModel = nullptr;
 	bool m_bIs3D = false;
 	GROUP_TYPE m_eGroup;
 	size_t m_uID = 0;
-public:
+public:	
 	//settor	
 	inline void SetName(const std::string& _name) { m_sName = _name; }
 	inline void SetModel(Model* _model) { m_pModel = _model; }
@@ -30,11 +30,11 @@ public:
 	void SetModelType(MODEL_TYPE _modelType);
 	inline void SetID(size_t _id) { m_uID = _id; }
 	//gettor
-	inline const std::string GetName() { return m_sName; }
+	inline std::string GetName() { return m_sName; }
 	inline Model* GetModel() { return m_pModel; }
 	inline const GROUP_TYPE GetGroupType() { return m_eGroup; }
 	inline bool GetIs3D()const { return m_bIs3D; }
-	inline size_t GetID()const { return m_uID; }
+	inline size_t GetID() { return m_uID; }
 	MODEL_TYPE GetModelType();
 private:
 	std::vector<BaseComponent*> m_vComponents;

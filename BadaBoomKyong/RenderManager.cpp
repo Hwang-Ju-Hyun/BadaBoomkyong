@@ -58,13 +58,13 @@ void RenderManager::Init()
 }
 
 #include "FrameBuffer.h"
+#include <iostream>
 void RenderManager::Draw()
 {			
 	auto objs=GameObjectManager::GetInstance()->GetAllObjects();
 	auto shdr_handle_2D = m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->GetShaderProgramHandle();
 	auto shadr_handle_3D= m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->GetShaderProgramHandle();
-
-
+	
 	glEnable(GL_DEPTH_TEST);
 	m_pCam->Update();
 	for (auto obj : objs)
@@ -75,8 +75,7 @@ void RenderManager::Draw()
 
 			if (model && !obj->GetIs3D())
 			{
-				m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->Use();
-
+				m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->Use();		
 				//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
 				GLint MVP_Location = glGetUniformLocation(shdr_handle_2D, "uMVP_2d");
 				assert(MVP_Location >= 0);
@@ -116,36 +115,38 @@ void RenderManager::Draw()
 				assert(MVP_Location >= 0);
 			
 				Transform* trs = dynamic_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName));
-				assert(trs != nullptr);				
-				
-				//GLint ColorLocation = glGetUniformLocation(shadr_handle_3D, "uColor");
-				//assert(ColorLocation >= 0);
-
+				assert(trs != nullptr);											
 				Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
 				assert(spr != nullptr);
+				GLint DebugColorLocation = glGetUniformLocation(shadr_handle_3D, "uDebugColor");
+				assert(DebugColorLocation >= 0);
 
 				glm::mat4 m2w = trs->GetModelToWorld_Matrix();
-
 				glm::mat4 proj = m_pCam->GetProjMatrix();
 				glm::mat4 view = m_pCam->GetViewMatrix();
 				glm::mat4 MVP = proj * view * m2w;
 				glm::vec4 color = spr->GetColor();
 
-				glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
-				//glUniform4fv(ColorLocation, 1, glm::value_ptr(color));
+				GLint IsColliderLocation = glGetUniformLocation(shadr_handle_3D, "uIsCollider");
+				glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));				
+				glUniform1i(IsColliderLocation, false); // false
 
+#ifdef _DEBUG
+				if (obj->GetName() == "Monster")
+				{
+					Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
+					if (col != nullptr)
+						col->DrawCollider();
+				}				
+#endif
 				//Draw
 				model->Draw();
 
 				//last
-				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();
+				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();	
 			}
 		}		
-#ifdef _DEBUG
-		//Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
-		//if (col != nullptr)
-		//	col->DrawCollider();
-#endif
+
 	}		
 
 #ifdef _DEBUG
