@@ -13,6 +13,7 @@
 #include "BulletFactory.h"
 #include "Bullet.h"
 #include "FactoryManager.h"
+#include "EventManager.h"
 
 Player::Player(GameObject* _owner)
 	:MonoBehaviour(_owner)	
@@ -100,16 +101,10 @@ void Player::Move()
 void Player::Fire()
 {		
 	GameObject* bullet_obj=m_pBulletFactory->CreateObject();
-	m_pBullet = dynamic_cast<Bullet*>(bullet_obj->FindComponent(Bullet::BulletTypeName));
-	
+	m_pBullet = dynamic_cast<Bullet*>(bullet_obj->FindComponent(Bullet::BulletTypeName));	
 	assert(m_pBullet != nullptr);
 
-	m_pBullet->Init();	
-	Transform* BulletTransform = dynamic_cast<Transform*>(m_pBullet->GetOwner()->FindComponent(Transform::TransformTypeName));	
-	assert(BulletTransform != nullptr);
-
-	BulletTransform->SetPosition(m_pTransform->GetPosition());
-	BulletTransform->SetScale({ glm::vec3{30.f,30.f,30.f} });
+	EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
 }
 
 

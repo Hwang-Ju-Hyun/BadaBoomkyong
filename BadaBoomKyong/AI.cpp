@@ -88,6 +88,15 @@ void AI::Update()
 
 void AI::Exit()
 {
+	for (auto iter = m_mapMonsterState.begin();iter != m_mapMonsterState.end();iter++)
+	{
+		if (iter->second != nullptr)
+		{
+			delete iter->second;;
+		}
+	}
+	std::map<MONSTER_STATE, BaseState*> temp;
+	temp.swap(m_mapMonsterState);
 }
 
 BaseRTTI* AI::CreateAIComponent()

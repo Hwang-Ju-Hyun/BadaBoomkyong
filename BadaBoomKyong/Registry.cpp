@@ -21,7 +21,7 @@ Registry::Registry()
     m_mapRTTI.insert({ Bullet::BulletTypeName,&Bullet::CreateBulletComponent });
     m_mapRTTI.insert({ Monster::MonsterTypeName,&Monster::CreateMonsterComponent });
     m_mapRTTI.insert({ AI::AITypeName,&AI::CreateAIComponent });
-    m_mapRTTI.insert({ ThrowingWeapon::ThrowingImpulseTypeName,&ThrowingWeapon::CreateThrowingWeaponComponent });
+    m_mapRTTI.insert({ ThrowingWeapon::ThrowingWeaponTypeName,&ThrowingWeapon::CreateThrowingWeaponComponent });
 }
 
 Registry::~Registry()

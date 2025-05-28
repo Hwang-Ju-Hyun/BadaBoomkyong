@@ -24,6 +24,7 @@ public:
 	GameObject* GetLastObject();
 	inline const std::vector<GameObject*>& GetAllObjects()const { return m_vGameObjects; }
 	void DeleteObject(const std::string& _name);
+	void DeleteObject(const std::string& _name,size_t _id);
 	void DeleteAllObject();	
 private:
 	size_t AssignObjectID(GameObject* _obj);

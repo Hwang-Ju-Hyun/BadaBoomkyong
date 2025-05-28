@@ -65,7 +65,7 @@ void MainEditor::DeletObjectModal()
 {
 	if (ImGui::IsKeyPressed(ImGuiKey_Delete) && m_pSelectedObjByPannel)
 	{
-		deletePopupName = "Delete Object" + m_pSelectedObjByPannel->GetName();
+		deletePopupName = "Delete Object" + m_pSelectedObjByPannel->GetName() + std::to_string(m_pSelectedObjByPannel->GetID());
 		openDeletePopup = true;
 	}
 
@@ -77,10 +77,10 @@ void MainEditor::DeletObjectModal()
 
 	if (ImGui::BeginPopupModal(deletePopupName.c_str(), NULL, ImGuiWindowFlags_AlwaysAutoResize))
 	{
-		ImGui::Text("Are you sure you want to delete '%s'?", m_pSelectedObjByPannel->GetName().c_str());
+		ImGui::Text("Are you sure you want to delete '%s'?", (m_pSelectedObjByPannel->GetName()+ std::to_string(m_pSelectedObjByPannel->GetID())).c_str());
 		if (ImGui::Button("YES"))
 		{
-			GameObjectManager::GetInstance()->DeleteObject(m_pSelectedObjByPannel->GetName());
+			GameObjectManager::GetInstance()->DeleteObject(m_pSelectedObjByPannel->GetName(), m_pSelectedObjByPannel->GetID());
 			m_pSelectedObjByPannel = nullptr;
 			ImGui::CloseCurrentPopup();
 		}

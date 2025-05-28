@@ -7,6 +7,7 @@
 #include <cassert>
 #include <iostream>
 #include "EventManager.h"
+#include "Player.h"
 
 Bullet::Bullet(GameObject* _owner)
 	:MonoBehaviour(_owner)
@@ -19,20 +20,22 @@ Bullet::~Bullet()
 {
 }
 
-
-static int i = 0;
-//todo 얘 무조건 GetPool로 받아오기전에 불러져야함 
 void Bullet::Init()
 {
-	SetName(BulletTypeName);
-	std::cout << i << std::endl;
-	i++;
+	SetName(BulletTypeName);	
 	m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
+	GameObject* player_obj=(GameObjectManager::GetInstance()->FindObject(Player::PlayerTypeName));
+	m_pPlayer = dynamic_cast<Player*>(player_obj->FindComponent(Player::PlayerTypeName));
+	m_pPlayerTrs= dynamic_cast<Transform*>(player_obj->FindComponent(Transform::TransformTypeName));
+	assert(m_pTransform != nullptr && m_pSprite != nullptr && m_pCollider != nullptr
+	&& m_pPlayer!=nullptr&& m_pPlayerTrs!=nullptr);
+}
 
-	assert(m_pTransform != nullptr && m_pSprite != nullptr && m_pCollider != nullptr);
-
+void Bullet::Awake()
+{	
+	m_pTransform->SetPosition(m_pPlayerTrs->GetPosition());
 	m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
 	m_pCollider->SetScale(m_pTransform->GetScale());
 }
@@ -50,18 +53,13 @@ void Bullet::Exit()
 void Bullet::EnterCollision(Collider* _col)
 {		
 	if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
-	{				
-		int a = 0;
+	{						
 		EventManager::GetInstance()->SetActiveFalse(GetOwner());
 	}
 }
 
-#include <iostream>
 void Bullet::OnCollision(Collider* _col)
-{
-	if (_col->GetOwner()->GetName() == "tempPlatform2")
-		//std::cout << "On Col" << std::endl;
-		int a = 0;
+{	
 }
 
 void Bullet::ExitCollision(Collider* _col)

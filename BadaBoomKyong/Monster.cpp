@@ -65,12 +65,13 @@ void Monster::Update()
 		m_pAI->ChangeState(MONSTER_STATE::RANGE_ATTACK_STATE);
 	}
 	auto input = InputManager::GetInstance();
-	if (input->GetKetCode(GLFW_KEY_T) == GLFW_PRESS)
+	/*if (input->GetKetCode(GLFW_KEY_T) == GLFW_PRESS)
 	{
 		GameObject* a= GameObjectManager::GetInstance()->FindObject(ThrowingWeapon::ThrowingWeaponTypeName);
 		ThrowingWeapon* b= static_cast<ThrowingWeapon*>(a->FindComponent(ThrowingWeapon::ThrowingWeaponTypeName));			
 		EventManager::GetInstance()->SetActiveTrue(a);
-	}
+		b->m_bThrowable = true;
+	}*/
 }
 
 void Monster::Exit()

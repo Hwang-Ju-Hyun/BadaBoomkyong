@@ -35,5 +35,12 @@ public:
 	virtual json SaveToJson(const json& _str) override;
 public:
 	static BaseRTTI* CreateThrowingWeaponComponent();
+
+	//todo: °íÄ¡¼À
+	void Throw();
+	inline void SetThrowable(bool _able) { m_bThrowable = _able; }
+	inline bool GetThrowable()const { return m_bThrowable; }
+private:
+	bool m_bThrowable=false;
 };
 

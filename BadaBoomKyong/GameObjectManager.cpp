@@ -89,6 +89,22 @@ void GameObjectManager::DeleteObject(const std::string& _name)
 	}
 }
 
+void GameObjectManager::DeleteObject(const std::string& _name, size_t _id)
+{
+	for (auto iter = m_vGameObjects.begin();iter != m_vGameObjects.end();)
+	{
+		if ((*iter)->GetName() == _name&&(*iter)->GetID()==_id)
+		{
+			delete (*iter);
+			iter = m_vGameObjects.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+}
+
 void GameObjectManager::DeleteAllObject()
 {
 	for (auto iter = m_vGameObjects.begin();iter != m_vGameObjects.end();)
