@@ -16,6 +16,7 @@ public:
 	void DeleteComponent(BaseComponent* _comp);
 public:
 	void Init();
+	void Awake();
 	void Update();
 	void Exit();
 };

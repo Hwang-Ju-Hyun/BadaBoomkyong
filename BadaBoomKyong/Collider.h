@@ -58,6 +58,7 @@ public:
     virtual json SaveToJson(const json& _str)override;
 #ifdef _DEBUG
 public:
-    void DrawCollider();
+    void DrawCollider()const;   
 #endif 
+//todo Áö¿ì¼À
 };

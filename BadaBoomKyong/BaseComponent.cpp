@@ -14,6 +14,10 @@ void BaseComponent::Init()
 {
 }
 
+void BaseComponent::Awake()
+{
+}
+
 void BaseComponent::Update()
 {
 
@@ -21,6 +25,15 @@ void BaseComponent::Update()
 
 void BaseComponent::Exit()
 {
+}
+
+void BaseComponent::SetActive(bool _active)
+{
+	if (_active == false && m_bAwoken == true)
+	{
+		m_bAwoken = false;
+	}
+	m_bIsActive = _active;
 }
 
 #ifdef _DEBUG

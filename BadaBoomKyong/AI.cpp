@@ -18,6 +18,7 @@ AI::~AI()
 
 #include "IdleState.h"
 #include "TraceState.h"
+#include "RangedState.h"
 //todo at .h
 void AI::InsertState(MONSTER_STATE _state)
 {
@@ -32,9 +33,10 @@ void AI::InsertState(MONSTER_STATE _state)
 	case MONSTER_STATE::TRACE_STATE:
 		state = new TraceState;
 		break;
-	case MONSTER_STATE::MELEE_ATTACK_STATE:
+	case MONSTER_STATE::MELEE_ATTACK_STATE:		
 		break;
 	case MONSTER_STATE::RANGE_ATTACK_STATE:
+		state = new RangedState;
 		break;
 	case MONSTER_STATE::DEAD_STATE:
 		break;
@@ -48,18 +50,20 @@ void AI::InsertState(MONSTER_STATE _state)
 
 void AI::SetCurState(MONSTER_STATE _state)
 {
-	BaseState* state=FindState(_state);
+	BaseState* state=FindState(_state);	
 	m_pCurState = state;
+	m_pCurState->SetAI(this);
 }
 
 void AI::ChangeState(MONSTER_STATE _state)
 {
 	if (m_pCurState->GetType() == _state)
-		assert(false);
+		int a = 0;//assert(false);
 
 	BaseState* next_state = FindState(_state);	
 	m_pCurState->Exit();
 	m_pCurState = next_state;
+	m_pCurState->SetAI(this);
 	m_pCurState->Init();
 }
 
@@ -90,6 +94,7 @@ BaseRTTI* AI::CreateAIComponent()
 {
 	GameObject* last_obj = GameObjectManager::GetInstance()->GetLastObject();
 	BaseRTTI* comp = last_obj->AddComponent_and_Get(AITypeName, new AI(last_obj));
+
 	if (comp != nullptr)
 		return comp;
 	return nullptr;

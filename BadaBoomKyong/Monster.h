@@ -18,24 +18,28 @@ public:
     virtual ~Monster()override;
    
 private:
-    Transform* m_pTransform = nullptr;
+    Transform* m_pTransform = nullptr;    
     Sprite* m_pSprite = nullptr;
     Collider* m_pCollider = nullptr;
     RigidBody* m_pRigidBody = nullptr;
     AI* m_pAI = nullptr;
     Player* m_pPlayer;
+    Transform* m_pPlayerTransform = nullptr;
 private:    
-    float m_fDirection=0.f;          //Postive : Right | Negative : Left
+    float m_fDirection=1.f;          //Postive : Right | Negative : Left
     glm::vec3 m_vPosition = {};
     glm::vec3 m_vPlayerPosition = {};
+public:
+    inline void SetDirection(float _dir) { m_fDirection = _dir; }
+    inline float GetDirection()const { return m_fDirection; }
 private:
-    glm::vec3 m_vDetectRange = {};
+    float m_fDetectRange =0.f;
     glm::vec3 m_vRangedMoveAtkRange = {};
     glm::vec3 m_vMeleeAtkRange = {};
-
-    Collider* m_pDetectRangeCol;
-    Collider* m_pRangedMoveAtkCol;
-    Collider* m_pMeleeAtkRange;
+public:
+    inline float GetDetectRange()const { return m_fDetectRange; }
+    inline glm::vec3 GetRangedMoveAtkRange()const {return m_vRangedMoveAtkRange;}
+    inline glm::vec3 GetMeleeAtckRange()const { return m_vMeleeAtkRange; }
 private:
     float m_fSpeed = 0.f;
     float m_fVerticalVelocity = 0.f;

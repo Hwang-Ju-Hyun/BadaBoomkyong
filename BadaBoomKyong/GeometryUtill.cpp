@@ -2,7 +2,9 @@
 #include "Transform.h"
 #include "GameObject.h"
 #include "MathUtil.h"
-#include <stdio.h>
+#include "Player.h"
+#include "RigidBody.h"
+#include <iostream>
 
 GeometryUtil::GeometryUtil(){}
 
@@ -45,19 +47,16 @@ bool GeometryUtil::IsPointInsideTraingle(glm::vec2 _point, Transform* _trs)
     return !(has_neg && has_pos);    
 }
 
-#include "Player.h"
-#include "RigidBody.h"
-#include <iostream>
 
-void GeometryUtil::HandlePosition_CollisionAABB(GameObject* _ground, GameObject* _otherObj)
+void GeometryUtil::HandlePosition_CollisionAABB(GameObject* _groundObj, GameObject* _otherObj)
 {
-    auto playerTrs = dynamic_cast<Transform*>(_otherObj->FindComponent("Transform"));
-    auto groundTrs = dynamic_cast<Transform*>(_ground->FindComponent("Transform"));
+    Transform* other_obj_trs = dynamic_cast<Transform*>(_otherObj->FindComponent("Transform"));
+    Transform* ground_obj_trs = dynamic_cast<Transform*>(_groundObj->FindComponent("Transform"));
 
-    glm::vec2 pPos = playerTrs->GetPosition();
-    glm::vec2 gPos = groundTrs->GetPosition();
-    glm::vec2 pScale = playerTrs->GetScale();
-    glm::vec2 gScale = groundTrs->GetScale();
+    glm::vec2 pPos = other_obj_trs->GetPosition();
+    glm::vec2 gPos = ground_obj_trs->GetPosition();
+    glm::vec2 pScale = other_obj_trs->GetScale();
+    glm::vec2 gScale = ground_obj_trs->GetScale();
 
     float dx = (pPos.x - gPos.x);
     float px = (pScale.x + gScale.x) * 0.5f - std::abs(dx);
@@ -67,33 +66,26 @@ void GeometryUtil::HandlePosition_CollisionAABB(GameObject* _ground, GameObject*
 
     if (px < py) 
     {
-        playerTrs->AddPositionX((dx > 0) ? px : -px);
+        other_obj_trs->AddPositionX((dx > 0) ? px : -px);
     }
     else 
     {
-        playerTrs->AddPositionY((dy > 0) ? py : -py);
+        other_obj_trs->AddPositionY((dy > 0) ? py : -py);
 
-        Player* p = static_cast<Player*>(playerObj->FindComponent(Player::PlayerTypeName));
-        if (dy > 0 && p)
-        {            
-            RigidBody* rb = static_cast<RigidBody*>(playerObj->FindComponent(RigidBody::RigidBodyTypeName));
-            if (rb)
-            {               
-                if (p->jumpPressed)
-                {                    
-                    p->jumpPressed = false;
-                    return;
-                }
-                else
-                {
-                    p->SetIsGround(true);
-                    glm::vec3 vel = rb->GetVelocity();
-                    vel.y = 0.f;
-                    rb->SetVelocity(vel);
-                }                
-            }
-        }
-            
+        Player* p = dynamic_cast<Player*>(_otherObj->FindComponent(Player::PlayerTypeName));
+        RigidBody* rb = dynamic_cast<RigidBody*>(_otherObj->FindComponent(RigidBody::RigidBodyTypeName));
+        assert(rb != nullptr);
+        if (rb!=nullptr&& dy > 0)
+        {                
+            if (p != nullptr && p->jumpPressed)
+            {
+                p->jumpPressed = false;
+                return;
+            }                
+            glm::vec3 vel = rb->GetVelocity();
+            vel.y = 0.f;
+            rb->SetVelocity(vel);
+        }            
     }
 }
 

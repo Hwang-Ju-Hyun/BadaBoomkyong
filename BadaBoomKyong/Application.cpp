@@ -66,16 +66,22 @@ void Application::Update()
     glClearColor(0.f,0.f, 0.f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     glfwPollEvents();
-    auto handle = Window::GetInstance()->GetWindowHandle();    
+    auto handle = Window::GetInstance()->GetWindowHandle();
+
+    //GameObjectManager
+    //GameObjectManager::GetInstance()->Update();
+    
+    //Active
+    ComponentManager::GetInstance()->Awake();
 
     //GameState
     GameStateManager::GetInstance()->Update();    
 
-    //Input
-    InputManager::GetInstance()->Update();    
-
     //Component
     ComponentManager::GetInstance()->Update();
+
+    //Input
+    InputManager::GetInstance()->Update();    
 
     //Collision
     CollisionManager::GetInstance()->Update();

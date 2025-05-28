@@ -15,11 +15,7 @@ public:
 private:
 	std::map<MONSTER_STATE, BaseState*> m_mapMonsterState;
 	BaseState* m_pCurState;
-private:
-	GameObject* m_pOwner;
 public:
-	inline void SetOwner(GameObject* _owner) { m_pOwner = _owner; }
-	inline GameObject* GetOwner()const { return m_pOwner; }
 	//todo 지금은 키값만 주고 switch하는식으로 하는데 rtti를 쓰던가 그런식으로 나중에 리펙토링해라
 	void InsertState(MONSTER_STATE _state);
 	void SetCurState(MONSTER_STATE _state);

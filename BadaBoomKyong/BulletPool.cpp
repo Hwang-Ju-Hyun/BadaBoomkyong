@@ -16,9 +16,9 @@ Bullet* BulletPool::GetBullet()
 	for (int i = 0;i < 30;i++)
 	{
 
-		if (!(m_aBulletPool[i]->GetOwner()->GetActive()))
-		{			
-			m_aBulletPool[i]->GetOwner()->SetActive(true);
+		if (!(m_aBulletPool[i]->GetActive()))
+		{						
+			m_aBulletPool[i]->GetOwner()->SetActiveAllComps(true);
 			//m_aBulletPool[i]->Init();
 			return m_aBulletPool[i];
 		}

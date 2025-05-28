@@ -152,9 +152,6 @@
     <Filter Include="Factory">
       <UniqueIdentifier>{ca68a4fb-1e8a-4fa1-9859-1cfc22470af6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Custom\Bullet">
-      <UniqueIdentifier>{8dfff092-d20b-43df-882e-efee9766c799}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Factory\BulletFactory">
       <UniqueIdentifier>{937c57b5-3eb8-4019-8401-518a0df97147}</UniqueIdentifier>
     </Filter>
@@ -190,6 +187,15 @@
     </Filter>
     <Filter Include="Component\Custom\AI\FiniteStateMachine\Ranged">
       <UniqueIdentifier>{4469d03d-80bc-43d1-8cbf-e863554e6795}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Player\Bullet">
+      <UniqueIdentifier>{8dfff092-d20b-43df-882e-efee9766c799}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\ThrowingWeapon">
+      <UniqueIdentifier>{ca189c89-96ba-41ae-a056-3503368717f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\EventManager">
+      <UniqueIdentifier>{56e832d1-3b7e-4844-8854-f97a4f9cb937}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -335,10 +341,10 @@
       <Filter>Factory\BulletFactory</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>Component\Custom\Bullet</Filter>
+      <Filter>Component\Custom\Player\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="BulletPool.cpp">
-      <Filter>Component\Custom\Bullet</Filter>
+      <Filter>Component\Custom\Player\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="FactoryManager.cpp">
       <Filter>Manager\FactoryManager</Filter>
@@ -372,6 +378,12 @@
     </ClCompile>
     <ClCompile Include="MeleeState.cpp">
       <Filter>Component\Custom\AI\FiniteStateMachine\Melee</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrowingWeapon.cpp">
+      <Filter>Component\Custom\Monster\ThrowingWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>Manager\EventManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -526,10 +538,10 @@
       <Filter>Graphics\FrameBuffer</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
-      <Filter>Component\Custom\Bullet</Filter>
+      <Filter>Component\Custom\Player\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="BulletPool.h">
-      <Filter>Component\Custom\Bullet</Filter>
+      <Filter>Component\Custom\Player\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="FactoryManager.h">
       <Filter>Manager\FactoryManager</Filter>
@@ -569,6 +581,12 @@
     </ClInclude>
     <ClInclude Include="MeleeState.h">
       <Filter>Component\Custom\AI\FiniteStateMachine\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowingWeapon.h">
+      <Filter>Component\Custom\Monster\ThrowingWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>Manager\EventManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

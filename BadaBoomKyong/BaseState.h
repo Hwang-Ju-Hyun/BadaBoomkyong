@@ -1,7 +1,6 @@
 #pragma once
 #include "header.h"
-
-class AI;
+#include "AI.h"
 
 class BaseState
 {
@@ -17,7 +16,7 @@ public:
 	virtual void Update()=0;
 	virtual void Exit()=0;
 public:
-	inline void SetAI(AI* _ai) { m_pAI = _ai; }
+	inline void SetAI(AI* _ai) { m_pAI = _ai; int a = 0; }
 	inline AI* GetAI()const { return m_pAI; }
 	inline MONSTER_STATE GetType() { return m_eState; }
 };

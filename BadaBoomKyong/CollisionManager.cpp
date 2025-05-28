@@ -95,10 +95,12 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 		{
 			if (vecLeft[i]->GetGroupType() == vecRight[j]->GetGroupType())
 				continue;
-			if (!vecLeft[i]->GetActive() || !vecRight[j]->GetActive())
-				continue;
+
 			Collider* left_col = static_cast<Collider*>(vecLeft[i]->FindComponent(Collider::ColliderTypeName));
 			Collider* right_col = static_cast<Collider*>(vecRight[j]->FindComponent(Collider::ColliderTypeName));
+
+			if (!left_col->GetActive() || !right_col->GetActive())
+				continue;			
 
 			COLLISION_ID id;
 			id.LEFT  = left_col->GetID();

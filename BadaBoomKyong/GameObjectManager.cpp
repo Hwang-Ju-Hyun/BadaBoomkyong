@@ -7,13 +7,22 @@
 
 GameObjectManager::GameObjectManager()
 {
-
 }
 
 GameObjectManager::~GameObjectManager()
-{
-	
+{	
 }
+
+//void GameObjectManager::Update()
+//{
+//	for (int i = 0;i < m_vGameObjects.size();i++)
+//	{
+//		if (m_vGameObjects[i]->GetActive())
+//		{
+//			m_vGameObjects[i]->SetAwakable(true);
+//		}
+//	}
+//}
 
 void GameObjectManager::Exit()
 {

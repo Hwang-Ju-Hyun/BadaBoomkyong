@@ -12,3 +12,8 @@ float MathUtil::DegreeToRadian(float _degree)
 {
 	return 0.0f;
 }
+
+float MathUtil::DistanceBetweenPoints(glm::vec3 _point1, glm::vec3 _point2)
+{
+	return std::sqrt(std::pow(_point2.x - _point1.x, 2) + std::pow(_point2.y - _point1.y, 2) + std::pow(_point2.z - _point1.z, 2));	
+}

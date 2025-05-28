@@ -5,7 +5,7 @@
 #include "Model.h"
 #include "ComponentManager.h"
 
-GameObject::GameObject(const std::string& _name,MODEL_TYPE _modelType, GROUP_TYPE _groupType)
+GameObject::GameObject(const std::string& _name, MODEL_TYPE _modelType, GROUP_TYPE _groupType)
 	:m_sName(_name)	
 {	
 	SetModel(ModelManager::GetInstance()->FindModel(_modelType));
@@ -79,5 +79,10 @@ BaseComponent* GameObject::FindComponent(const std::string& _compName)
 	}	
 }
 
-
 void GameObject::DeleteComponent(const std::string& _compName){}
+
+void GameObject::SetActiveAllComps(bool _active)
+{
+	for (BaseComponent* comp : m_vComponents)
+		comp->SetActive(_active);
+}

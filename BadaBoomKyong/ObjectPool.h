@@ -24,10 +24,11 @@ public:
 	GameObject* GetPool()
 	{
 		for (int i = 0;i < size; i++)
-		{
-			if (!(m_arrPool[i]->GetActive()))
+		{				
+			T* comp = m_arrPool[i]->FindComponent<T>();
+			if (!(comp->GetActive()))
 			{
-				m_arrPool[i]->SetActive(true);				
+				m_arrPool[i]->SetActiveAllComps(true);
 				return m_arrPool[i];
 			}
 		}

@@ -27,9 +27,7 @@ Player::Player(GameObject* _owner)
 	
 	m_pTransform->SetScale({ 50.f,50.f,0.f });
 	m_pCollider->SetOffsetPosition({ 0.f,0.f,0.f });
-	m_pCollider->SetScale({ m_pTransform->GetScale()});	
-	
-	
+	m_pCollider->SetScale({ m_pTransform->GetScale()});			
 }
 
 Player::~Player()
@@ -48,16 +46,14 @@ void Player::Exit()
 	
 }
 
-
 void Player::Update() 
-{
-	
+{	
 	Move();
 	 
 	auto input = InputManager::GetInstance();
 	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS && m_bIsGround) 
-	{			
- 		Jump();
+	{	
+		Jump(); 		
 	}
 
 	if (input->GetKetCode(GLFW_KEY_J) == GLFW_PRESS)
@@ -68,14 +64,21 @@ void Player::Update()
 
 void Player::EnterCollision(Collider* _other)
 {		
-	if (_other->GetOwner()->GetGroupType()==GROUP_TYPE::PLATFORM)
-		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());			
+	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
+	{
+		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());
+		SetIsGround(true);
+		jumpPressed = false;
+	}
+		
 }
 
 void Player::OnCollision(Collider* _other)
 {		
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
-		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());		
+	{
+		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());				
+	}
 }
 
 void Player::ExitCollision(Collider* _other)
@@ -109,8 +112,9 @@ void Player::Fire()
 	BulletTransform->SetScale({ glm::vec3{30.f,30.f,30.f} });
 }
 
+
 void Player::Jump() 
-{ 	
+{ 			
 	m_iCurJumpCount++;
 	m_bIsGround = false;
 	jumpPressed = true;

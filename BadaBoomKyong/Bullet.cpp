@@ -17,10 +17,14 @@ Bullet::~Bullet()
 {
 }
 
+#include <iostream>
+static int i = 0;
 //todo 얘 무조건 GetPool로 받아오기전에 불러져야함 
 void Bullet::Init()
 {
 	SetName(BulletTypeName);
+	std::cout << i << std::endl;
+	i++;
 	m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
@@ -33,7 +37,7 @@ void Bullet::Init()
 
 void Bullet::Update()
 {		
-	if(GetOwner()->GetActive())
+	if(GetActive())
 		m_pTransform->AddPositionX(m_fSpeed);
 }  
 
@@ -43,11 +47,12 @@ void Bullet::Exit()
 
 void Bullet::EnterCollision(Collider* _col)
 {		
-	if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::TEMP)
+	if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
 	{		
 		//todo 여기 문제인거 같은데 바로 false해주는게		
-		m_pTransform->SetPosition({ -10000.f, 10000.f, -1000.f });
-		GetOwner()->SetActive(false);
+		//m_pTransform->SetPosition({ -10000.f, 10000.f, -1000.f });
+		//SetActive(false);
+		GetOwner()->SetActiveAllComps(false);
 	}
 }
 

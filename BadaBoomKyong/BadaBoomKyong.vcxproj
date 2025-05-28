@@ -156,6 +156,7 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
+    <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="FactoryManager.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -198,6 +199,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage01.cpp" />
+    <ClCompile Include="ThrowingWeapon.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TraceState.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -218,6 +220,7 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="EventManager.h" />
     <ClInclude Include="FactoryManager.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GameObject.h" />
@@ -265,6 +268,7 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage01.h" />
+    <ClInclude Include="ThrowingWeapon.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TraceState.h" />
     <ClInclude Include="Transform.h" />

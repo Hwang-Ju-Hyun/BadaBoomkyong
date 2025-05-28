@@ -137,11 +137,9 @@ json Collider::SaveToJson(const json& _str)
 #include "RenderManager.h"
 #include "Camera.h"
 #include "Monster.h"
-void Collider::DrawCollider()
+void Collider::DrawCollider()const
 {
-	const std::string a=GetOwner()->GetName();
-	if (a!= Monster::MonsterTypeName)
-		return;
+
 	auto shdr=RenderManager::GetInstance()->GetShader(SHADER_REF::THREE_DIMENSIONS);
 	auto shadr_handle_3D = shdr->GetShaderProgramHandle();
 

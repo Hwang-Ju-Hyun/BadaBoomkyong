@@ -57,19 +57,22 @@ void RenderManager::Init()
 	glEnable(GL_DEPTH_TEST);
 }
 
-#include "FrameBuffer.h"
+#include "Monster.h"
 #include <iostream>
 void RenderManager::Draw()
 {			
 	auto objs=GameObjectManager::GetInstance()->GetAllObjects();
 	auto shdr_handle_2D = m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->GetShaderProgramHandle();
 	auto shadr_handle_3D= m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->GetShaderProgramHandle();
-	
+	Transform* obj_trs = nullptr;
 	glEnable(GL_DEPTH_TEST);
 	m_pCam->Update();
 	for (auto obj : objs)
 	{
-		if (obj->GetActive())
+		//todo 이거 transform만 active이면 실행되는거 이상함 sprite로 하든가 수정필요함
+		obj_trs = dynamic_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName));
+		assert(obj_trs != nullptr);
+		if (obj_trs->GetActive())
 		{
 			auto model = obj->GetModel();
 
@@ -133,7 +136,7 @@ void RenderManager::Draw()
 
 #ifdef _DEBUG
 				if (obj->GetName() == "Monster")
-				{
+				{					
 					Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
 					if (col != nullptr)
 						col->DrawCollider();

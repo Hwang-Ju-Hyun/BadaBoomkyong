@@ -12,9 +12,9 @@ public:
 	Bullet(GameObject* _owner);	
 	virtual ~Bullet()override;
 public:
-	void Init();
-	void Update();
-	void Exit();
+	virtual void Init()  override;
+	virtual void Update()override;
+	virtual void Exit()  override;
 private:
 	Transform* m_pTransform=nullptr;
 	Sprite* m_pSprite=nullptr;

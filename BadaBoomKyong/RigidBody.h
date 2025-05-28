@@ -24,6 +24,8 @@ public:
     inline void SetGravity(float _gravity) {m_fGravity = _gravity;}
     void AddImpulse(const glm::vec3& impulse);    
     inline void AddVelocity(const glm::vec3& _vel) { m_vVelocity += _vel; }
+    inline void AddVelocityX(float _vel) { m_vVelocity.x += _vel; }
+    inline void AddVelocityY(float _vel) { m_vVelocity.y += _vel; }
 
     inline const glm::vec3 GetVelocity() { return m_vVelocity; }    
     inline const glm::vec3 GetForce() { return m_vForce; }

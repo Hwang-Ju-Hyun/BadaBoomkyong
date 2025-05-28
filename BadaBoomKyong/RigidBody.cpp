@@ -39,7 +39,7 @@ void RigidBody::Update()
 	if (m_bUseGravity)
 		m_vVelocity.y -= m_fGravity * dt;
 
-	auto transform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));	
+	Transform* transform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));	
 	if (transform)
 		transform->AddPosition(m_vVelocity * dt);
 	m_vForce = glm::vec3(0.f);

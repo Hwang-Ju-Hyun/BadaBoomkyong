@@ -11,6 +11,7 @@
 #include "IdleState.h"
 #include "TraceState.h"
 #include "Player.h"
+#include "MathUtil.h"
 
 Monster::Monster(GameObject* _owner)
 	:MonoBehaviour(_owner)
@@ -29,22 +30,15 @@ Monster::Monster(GameObject* _owner)
 	m_vPosition = m_pTransform->GetPosition();	
 	m_pCollider->SetScale({ m_pTransform->GetScale() });
 
-	Transform* player_trs = dynamic_cast<Transform*>(m_pPlayer->GetOwner()->FindComponent(Transform::TransformTypeName));
-	assert(player_trs);
-	m_vPlayerPosition = player_trs->GetPosition();
+	m_pPlayerTransform = dynamic_cast<Transform*>(m_pPlayer->GetOwner()->FindComponent(Transform::TransformTypeName));
+	assert(m_pPlayerTransform);
+	m_vPlayerPosition = m_pPlayerTransform->GetPosition();
 
-	m_pAI=dynamic_cast<AI*>(GetOwner()->FindComponent(AI::AITypeName));
+	m_pAI=dynamic_cast<AI*>(GetOwner()->FindComponent(AI::AITypeName));	
+	m_pAI->SetOwner(_owner);
 	m_pAI->SetCurState(MONSTER_STATE::IDLE_STATE);
-	assert(m_pAI != nullptr);
 
-	m_pDetectRangeCol = new Collider(GetOwner());
-	m_pDetectRangeCol->SetScale(m_vDetectRange);
-
-	m_pRangedMoveAtkCol = new Collider(GetOwner());
-	m_pRangedMoveAtkCol->SetScale(m_vRangedMoveAtkRange);
-
-	m_pMeleeAtkRange = new Collider(GetOwner());
-	m_pMeleeAtkRange->SetScale(m_vMeleeAtkRange);
+	assert(m_pAI != nullptr);	
 }
 
 Monster::~Monster()
@@ -55,26 +49,41 @@ void Monster::Init()
 {	
 }
 
+#include "InputManager.h"
+#include "ThrowingWeapon.h"
 void Monster::Update()
 {		
 	//인지범위
-	/*if ((-1 * m_fDetectRange) + m_vPosition.x<=m_vPlayerPosition.x &&m_vPlayerPosition.x <= m_fDetectRange + m_vPosition.x)
+	auto math = MathUtil::GetInstance();
+	m_vPosition = m_pTransform->GetPosition();
+	m_vPlayerPosition = m_pPlayerTransform->GetPosition();
+
+	float dist = math->DistanceBetweenPoints(m_vPosition, m_vPlayerPosition);
+	if (dist <= m_fDetectRange)
 	{
 		m_pAI->ChangeState(MONSTER_STATE::RANGE_ATTACK_STATE);
-	}*/		
+	}
+	auto input = InputManager::GetInstance();
+	if (input->GetKetCode(GLFW_KEY_T) == GLFW_PRESS)
+	{
+		GameObject* a= GameObjectManager::GetInstance()->FindObject(ThrowingWeapon::ThrowingWeaponTypeName);
+		ThrowingWeapon* b= static_cast<ThrowingWeapon*>(a->FindComponent(ThrowingWeapon::ThrowingWeaponTypeName));			
+		a->SetActiveAllComps(true);
+	}
 }
 
 void Monster::Exit()
 {
-	delete m_pDetectRangeCol;
-	delete m_pRangedMoveAtkCol;
-	delete m_pMeleeAtkRange;
+
 }
 
 void Monster::EnterCollision(Collider* _other)
 {
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
+	{
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());
+		SetIsGround(true);
+	}
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLAYER)
 		m_bCol = true;
 }
@@ -82,7 +91,10 @@ void Monster::EnterCollision(Collider* _other)
 void Monster::OnCollision(Collider* _other)
 {
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
+	{
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());
+		SetIsGround(true);
+	}
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLAYER)
 		m_bCol = true;
 }
@@ -114,9 +126,7 @@ void Monster::LoadFromJson(const json& _str)
 		m_fJumpImpulse = jump->begin().value();
 
 		auto detect_ran = iter_compData->find(DetectRangeName);
-		m_vDetectRange.x = detect_ran->begin().value();
-		m_vDetectRange.y = (detect_ran->begin()+1).value();
-		m_vDetectRange.z = (detect_ran->begin()+2).value();
+		m_fDetectRange = detect_ran->begin().value();		
 
 		auto ranged_move_ran = iter_compData->find(RangedMoveAtkRangeName);
 		m_vRangedMoveAtkRange.x = ranged_move_ran->begin().value();
@@ -140,7 +150,7 @@ json Monster::SaveToJson(const json& _str)
 	json compData;
 	compData[SpeedName] = m_fSpeed;
 	compData[JumpForceName] = m_fJumpImpulse;
-	compData[DetectRangeName] =			{ m_vDetectRange.x,m_vDetectRange.y,m_vDetectRange.z };
+	compData[DetectRangeName] =			m_fDetectRange;
 	compData[RangedMoveAtkRangeName] =	{ m_vRangedMoveAtkRange.x,m_vRangedMoveAtkRange.y,m_vRangedMoveAtkRange.z };
 	compData[MeleeAtkRangeName] =		{ m_vMeleeAtkRange.x,m_vMeleeAtkRange.y,m_vMeleeAtkRange.z };
 

@@ -27,7 +27,14 @@ public:
 	inline void SetOwner(GameObject* _obj) { m_pOwner = _obj; }
 	inline GameObject* GetOwner()const { return m_pOwner; }
 public:
+	bool m_bIsActive = true;
+	void SetActive(bool _active);
+	inline bool GetActive()const { return m_bIsActive; }	
+	bool m_bAwoken = false;
+	inline void MarkAwoken(bool _mark) { m_bAwoken = _mark; }
+public:
 	virtual void Init();
+	virtual void Awake();
 	virtual void Update();
 	virtual void Exit();
 public:
