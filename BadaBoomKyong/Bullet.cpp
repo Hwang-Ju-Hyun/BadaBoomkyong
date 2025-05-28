@@ -5,6 +5,8 @@
 #include "GameObjectManager.h"
 #include "Collider.h"
 #include <cassert>
+#include <iostream>
+#include "EventManager.h"
 
 Bullet::Bullet(GameObject* _owner)
 	:MonoBehaviour(_owner)
@@ -17,7 +19,7 @@ Bullet::~Bullet()
 {
 }
 
-#include <iostream>
+
 static int i = 0;
 //todo 얘 무조건 GetPool로 받아오기전에 불러져야함 
 void Bullet::Init()
@@ -48,11 +50,9 @@ void Bullet::Exit()
 void Bullet::EnterCollision(Collider* _col)
 {		
 	if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
-	{		
-		//todo 여기 문제인거 같은데 바로 false해주는게		
-		//m_pTransform->SetPosition({ -10000.f, 10000.f, -1000.f });
-		//SetActive(false);
-		GetOwner()->SetActiveAllComps(false);
+	{				
+		int a = 0;
+		EventManager::GetInstance()->SetActiveFalse(GetOwner());
 	}
 }
 

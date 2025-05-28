@@ -17,6 +17,7 @@
 #include "BulletFactory.h"
 #include "Bullet.h"
 #include "ObjectPoolManager.h"
+#include "EventManager.h"
 
 Application::Application(){}
 
@@ -58,7 +59,7 @@ void Application::Init()
 #ifdef _DEBUG
     //MainEditor
     MainEditor::GetInstance()->Init();
-#endif
+#endif    
 }
 #include <iostream>
 void Application::Update()
@@ -89,7 +90,7 @@ void Application::Update()
 #ifdef _DEBUG
     //Main Editor
     MainEditor::GetInstance()->Update();
-#endif      
+#endif    
 }
 
 void Application::Exit()

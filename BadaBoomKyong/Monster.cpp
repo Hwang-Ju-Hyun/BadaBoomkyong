@@ -51,6 +51,7 @@ void Monster::Init()
 
 #include "InputManager.h"
 #include "ThrowingWeapon.h"
+#include "EventManager.h"
 void Monster::Update()
 {		
 	//인지범위
@@ -68,7 +69,7 @@ void Monster::Update()
 	{
 		GameObject* a= GameObjectManager::GetInstance()->FindObject(ThrowingWeapon::ThrowingWeaponTypeName);
 		ThrowingWeapon* b= static_cast<ThrowingWeapon*>(a->FindComponent(ThrowingWeapon::ThrowingWeaponTypeName));			
-		a->SetActiveAllComps(true);
+		EventManager::GetInstance()->SetActiveTrue(a);
 	}
 }
 

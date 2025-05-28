@@ -8,6 +8,7 @@
 #include "ModelManager.h"
 #include "GameObjectManager.h"
 #include "TimeManager.h"
+#include "EventManager.h"
 #ifdef _DEBUG
 #include <vld.h>
 #endif
@@ -25,6 +26,8 @@ int main(void)
 
 		Application::GetInstance()->Update();
 		RenderManager::GetInstance()->Draw();		
+		//Event
+		EventManager::GetInstance()->Update();
 	}	
 	Application::GetInstance()->Exit();
 	return 0;

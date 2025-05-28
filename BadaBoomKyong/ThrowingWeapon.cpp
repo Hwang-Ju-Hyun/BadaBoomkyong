@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "GameObjectManager.h"
 #include "Serializer.h"
+#include "EventManager.h"
 
 ThrowingWeapon::ThrowingWeapon(GameObject* _owner)
     :MonoBehaviour(_owner)
@@ -72,7 +73,9 @@ void ThrowingWeapon::Update()
             int a = 0;
         }
         std::cout << "catch" << std::endl;
-        GetOwner()->SetActiveAllComps(false);
+        //todo
+        //GetOwner()->SetActiveAllComps(false);
+        EventManager::GetInstance()->SetActiveFalse(GetOwner());
         a = false;
         maximum = 0.f;
     }
