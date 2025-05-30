@@ -19,7 +19,7 @@ Registry::Registry()
     m_mapRTTI.insert({ RigidBody::RigidBodyTypeName,&RigidBody::CreateRigidBodyComponent });
     m_mapRTTI.insert({ Player::PlayerTypeName,&Player::CreatePlayerComponent });
     m_mapRTTI.insert({ Collider::ColliderTypeName,&Collider::CreateCollideComponent });
-    m_mapRTTI.insert({ Bullet::BulletTypeName,&Bullet::CreateBulletComponent });
+    //m_mapRTTI.insert({ Bullet::BulletTypeName,&Bullet::CreateBulletComponent });
     m_mapRTTI.insert({ Monster::MonsterTypeName,&Monster::CreateMonsterComponent });
     m_mapRTTI.insert({ AI::AITypeName,&AI::CreateAIComponent });
     m_mapRTTI.insert({ ThrowingWeapon::ThrowingWeaponTypeName,&ThrowingWeapon::CreateThrowingWeaponComponent });

@@ -4,6 +4,7 @@
 #include "ObjectPool.h"
 
 class ThrowingWeapon;
+class BulletFactory;
 
 class RangedState :
     public BaseState
@@ -20,8 +21,8 @@ public:
     void MoveSideBySide();
     void ThrowAttack();
     float m_fStepSum = 0.f;
-    ThrowingWeapon* throwWeapon_comp=nullptr;
-private:    
+    Bullet* m_pBullet=nullptr;
+private:        
     ObjectPool<ThrowingWeapon, 30>*  m_pThrowWeaponPool = nullptr;
 };
 

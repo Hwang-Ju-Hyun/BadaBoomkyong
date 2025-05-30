@@ -2,6 +2,7 @@
 #include "header.h"
 
 class GameObject;
+class Bullet;
 
 class BaseFactory	
 {
@@ -12,6 +13,6 @@ public:
 	virtual void Init();
 	virtual void Exit();
 public:
-	virtual GameObject* CreateObject(BULLET_TYPE _type);
+	virtual Bullet* CreateBullet(BULLET_TYPE _type);
 	virtual GameObject* CreatePoolObject();
 };

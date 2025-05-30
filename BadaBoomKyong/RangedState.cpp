@@ -7,6 +7,7 @@
 #include "ObjectPoolManager.h"
 #include "ObjectPool.h"
 #include "EventManager.h"
+#include "BulletFactory.h"
 
 RangedState::RangedState(MONSTER_STATE _state)
 	:BaseState(MONSTER_STATE::RANGE_ATTACK_STATE)
@@ -59,9 +60,13 @@ void RangedState::MoveSideBySide()
 
 void RangedState::ThrowAttack()
 {
-	//todo 여기서 오류남 여기서 금욜부터 고치면 됌
-	GameObject* throwWeapon_obj=m_pThrowWeaponPool->GetPool();
-	EventManager::GetInstance()->SetActiveTrue(throwWeapon_obj);
-	throwWeapon_comp = throwWeapon_obj->FindComponent<ThrowingWeapon>();
-	throwWeapon_comp->SetThrowable(true);
+	//todo
+	Monster* mon_comp = dynamic_cast<Monster*>(GetAI()->GetOwner()->FindComponent(Monster::MonsterTypeName));	
+	Bullet* bullet_comp = mon_comp->GetBulletFactory()->CreateBullet(BULLET_TYPE::MONSTER_TEMP_PISTOL);		
+	m_pBullet = bullet_comp;
+	ThrowingWeapon* thw_comp = dynamic_cast<ThrowingWeapon*>(m_pBullet->GetOwner()->FindComponent(ThrowingWeapon::ThrowingWeaponTypeName));
+
+	EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
+	
+	thw_comp->SetThrowable(true);
 }

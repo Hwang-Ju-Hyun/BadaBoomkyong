@@ -8,9 +8,10 @@
 #include "Serializer.h"
 #include "EventManager.h"
 #include "Monster.h"
+#include "Bullet.h"
 
 ThrowingWeapon::ThrowingWeapon(GameObject* _owner)
-    :MonoBehaviour(_owner)
+    :Bullet(_owner)
 {
     GetOwner()->SetIsSerializable(false);
 }

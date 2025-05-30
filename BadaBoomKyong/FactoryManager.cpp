@@ -14,7 +14,6 @@ FactoryManager::~FactoryManager()
 	
 }
 
-#include "Pistol.h"
 void FactoryManager::Init()
 {					
 	InsertFactory(BulletFactory::BulletFactoryTypeName, new BulletFactory);	

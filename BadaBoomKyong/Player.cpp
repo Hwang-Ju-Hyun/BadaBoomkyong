@@ -101,8 +101,8 @@ void Player::Move()
 
 void Player::Fire()
 {		
-	GameObject* bullet_obj=m_pBulletFactory->CreateObject(BULLET_TYPE::PISTOL);
-	m_pBullet = dynamic_cast<Pistol*>(bullet_obj->FindComponent(Pistol::PistolTypeName));	
+	Bullet* bullet_comp=m_pBulletFactory->CreateBullet(BULLET_TYPE::PISTOL);
+	m_pBullet = bullet_comp;
 	assert(m_pBullet != nullptr);
 
 	EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());

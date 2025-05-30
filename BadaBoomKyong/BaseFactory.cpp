@@ -1,4 +1,5 @@
 #include "BaseFactory.h"
+#include "Bullet.h"
 
 BaseFactory::BaseFactory()
 {
@@ -16,7 +17,7 @@ void BaseFactory::Exit()
 {
 }
 
-GameObject* BaseFactory::CreateObject(BULLET_TYPE _type)
+Bullet* BaseFactory::CreateBullet(BULLET_TYPE _type)
 {
 	return nullptr;
 }

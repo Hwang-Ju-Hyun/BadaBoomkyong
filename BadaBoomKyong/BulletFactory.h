@@ -20,7 +20,7 @@ public:
 	virtual ~BulletFactory();
 public:
 	virtual void Init()override;
-	virtual GameObject* CreateObject(BULLET_TYPE _type)override;
+	virtual Bullet* CreateBullet(BULLET_TYPE _type)override;
 	virtual GameObject* CreatePoolObject()override { return nullptr; };
 	virtual void Exit()override;
 private:

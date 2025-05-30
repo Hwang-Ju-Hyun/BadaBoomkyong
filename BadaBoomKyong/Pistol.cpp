@@ -20,7 +20,7 @@ Pistol::~Pistol()
 
 void Pistol::Init()
 {
-	SetName(BulletTypeName);
+	SetName(PistolTypeName);
 	m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));

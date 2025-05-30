@@ -1,5 +1,8 @@
 #pragma once
 #include "Bullet.h"
+
+class Player;
+
 class Pistol :
     public Bullet
 {
@@ -15,6 +18,9 @@ private:
     Transform* m_pTransform = nullptr;
     Sprite* m_pSprite = nullptr;
     Collider* m_pCollider = nullptr;
+private:
+    Player* m_pPlayer = nullptr;
+    Transform* m_pPlayerTrs = nullptr;
 private:
     float m_fSpeed = 0.f;
 public:

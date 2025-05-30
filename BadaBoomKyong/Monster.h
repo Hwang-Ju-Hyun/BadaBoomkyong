@@ -9,6 +9,7 @@ class Collider;
 class RigidBody;
 class AI;
 class Player;
+class BulletFactory;
 
 class Monster :
     public MonoBehaviour
@@ -45,6 +46,7 @@ private:
     float m_fVerticalVelocity = 0.f;
     float m_fJumpImpulse = 500.f;
     bool m_bIsGround = false;
+    BulletFactory* m_pBulletFactory = nullptr;
 public:
     virtual void Init()override;
     virtual void Update()override;
@@ -71,5 +73,7 @@ public:
     static constexpr const char* DetectRangeName = "DetectRange";
     static constexpr const char* RangedMoveAtkRangeName = "RangedMoveAtkRange";
     static constexpr const char* MeleeAtkRangeName = "MeleeAtkRange";
+public:
+    inline BulletFactory* GetBulletFactory()const {return m_pBulletFactory;};
 };
 

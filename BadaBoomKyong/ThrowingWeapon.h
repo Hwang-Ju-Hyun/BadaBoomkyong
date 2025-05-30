@@ -1,12 +1,12 @@
 #pragma once
-#include "MonoBehaviour.h"
+#include "Bullet.h"
 
 class Transform;
 class Sprite;
 class RigidBody;
 
 class ThrowingWeapon :
-    public MonoBehaviour
+	public Bullet
 {
 public:
     ThrowingWeapon(GameObject* _owner);

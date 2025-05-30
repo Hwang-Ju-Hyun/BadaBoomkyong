@@ -9,6 +9,7 @@
 #include "ThrowingWeapon.h"
 #include "RigidBody.h"
 #include "Pistol.h"
+#include "GameObject.h"
 
 BulletFactory::BulletFactory()
 {			
@@ -42,7 +43,7 @@ void BulletFactory::Init()
 	{
 		ThrowingWeapon* trw_comp = nullptr;
 		GameObject* trw_obj = new GameObject(ThrowingWeapon::ThrowingWeaponTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::BULLET);
-		trw_comp=dynamic_cast<ThrowingWeapon*>(trw_obj->AddComponent_and_Get(ThrowingWeapon::ThrowingImpulseTypeName, new ThrowingWeapon(trw_obj)));
+		trw_comp=dynamic_cast<ThrowingWeapon*>(trw_obj->AddComponent_and_Get(ThrowingWeapon::ThrowingWeaponTypeName, new ThrowingWeapon(trw_obj)));
 		Transform* trw_trs = dynamic_cast<Transform*>(trw_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(trw_obj)));
 		Sprite* trw_spr = dynamic_cast<Sprite*>(trw_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(trw_obj)));
 		RigidBody* trw_rig = dynamic_cast<RigidBody*>(trw_obj->AddComponent_and_Get(RigidBody::RigidBodyTypeName, new RigidBody(trw_obj)));
@@ -52,22 +53,24 @@ void BulletFactory::Init()
 	}
 }
 
-GameObject* BulletFactory::CreateObject(BULLET_TYPE _type)
+Bullet* BulletFactory::CreateBullet(BULLET_TYPE _type)
 {
-	GameObject* bullet_obj = nullptr;
+	Bullet* bullet_comp = nullptr;
 	switch (_type)	
 	{
 	case BULLET_TYPE::PISTOL:
-		bullet_obj=m_pBulletPool->GetPool();
+		bullet_comp = m_pBulletPool->GetPool()->FindComponent<Pistol>();
 		break;
 	case BULLET_TYPE::MACHINE_GUN:
 		break;
 	case BULLET_TYPE::BULLET_LAST:
 		break;
+	case BULLET_TYPE::MONSTER_TEMP_PISTOL:
+		bullet_comp = m_pThrowingWeaponPool->GetPool()->FindComponent<ThrowingWeapon>();
 	default:
 		break;
 	}
-	return bullet_obj;
+	return bullet_comp;
 }
 
 void BulletFactory::Exit(){}
