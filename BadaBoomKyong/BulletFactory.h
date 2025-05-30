@@ -10,7 +10,7 @@ class Pistol;
 class BulletPool;
 class GameObject;
 class Bullet;
-class ThrowingWeapon;
+class SoldierGrenade;
 
 class BulletFactory
 	:public BaseFactory
@@ -25,7 +25,7 @@ public:
 	virtual void Exit()override;
 private:
 	ObjectPool<Pistol,30>* m_pBulletPool;
-	ObjectPool<ThrowingWeapon, 30>* m_pThrowingWeaponPool;
+	ObjectPool<SoldierGrenade, 30>* m_pMonsterGrenadePool;
 public:
 	static constexpr const char* BulletFactoryTypeName = "BulletFactory";
 };

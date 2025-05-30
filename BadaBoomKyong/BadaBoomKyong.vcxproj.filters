@@ -167,27 +167,6 @@
     <Filter Include="Component\Custom\AI">
       <UniqueIdentifier>{7053d56b-9366-4664-9262-a2ba45573ab7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Custom\AI\FiniteStateMachine">
-      <UniqueIdentifier>{291109b3-df4d-49c7-a6ea-5389b3053548}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Custom\AI\FiniteStateMachine\Idle">
-      <UniqueIdentifier>{99415940-9c29-46f9-adc4-f1045a6d8a59}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Custom\AI\FiniteStateMachine\Trace">
-      <UniqueIdentifier>{009cb4ff-1a27-40fd-836c-9398d79aae5c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Custom\AI\FiniteStateMachine\Patrol">
-      <UniqueIdentifier>{d547c685-3a08-44ed-806a-e6be1495e67b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Custom\AI\FiniteStateMachine\Melee">
-      <UniqueIdentifier>{c696bffb-63b1-43cc-8356-2890de5c95d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Custom\AI\FiniteStateMachine\Ranged">
-      <UniqueIdentifier>{4469d03d-80bc-43d1-8cbf-e863554e6795}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Custom\Monster\ThrowingWeapon">
-      <UniqueIdentifier>{ca189c89-96ba-41ae-a056-3503368717f7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\EventManager">
       <UniqueIdentifier>{56e832d1-3b7e-4844-8854-f97a4f9cb937}</UniqueIdentifier>
     </Filter>
@@ -199,6 +178,48 @@
     </Filter>
     <Filter Include="Component\Custom\Bullet\Player\Pistol">
       <UniqueIdentifier>{537dd74e-bbc3-49b2-88f4-c5432173d645}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Monster">
+      <UniqueIdentifier>{d4ab23bf-810e-4fe9-8e9a-61fdf1de5204}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FiniteStateMachine">
+      <UniqueIdentifier>{291109b3-df4d-49c7-a6ea-5389b3053548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FiniteStateMachine\Idle">
+      <UniqueIdentifier>{99415940-9c29-46f9-adc4-f1045a6d8a59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FiniteStateMachine\Trace">
+      <UniqueIdentifier>{009cb4ff-1a27-40fd-836c-9398d79aae5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FiniteStateMachine\Patrol">
+      <UniqueIdentifier>{d547c685-3a08-44ed-806a-e6be1495e67b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FiniteStateMachine\Melee">
+      <UniqueIdentifier>{c696bffb-63b1-43cc-8356-2890de5c95d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FiniteStateMachine\Ranged">
+      <UniqueIdentifier>{4469d03d-80bc-43d1-8cbf-e863554e6795}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\Soldier">
+      <UniqueIdentifier>{d8a4c8bc-d7d9-4636-abc6-ae63eba4a969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\Soldier\State">
+      <UniqueIdentifier>{af4db368-554a-4585-9ebe-066529926f9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\Soldier\State\IDLE">
+      <UniqueIdentifier>{e5825eda-b2ea-4b29-8e23-4331810def86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Monster\SoliderGrenade">
+      <UniqueIdentifier>{ca189c89-96ba-41ae-a056-3503368717f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\Soldier\State\RANGED">
+      <UniqueIdentifier>{cf4f7bfe-bc10-4ceb-9b88-6872f7fd5908}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\Soldier\State\MELEE">
+      <UniqueIdentifier>{0e832c55-419c-436d-b4c4-08b73eb8930d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Melee">
+      <UniqueIdentifier>{010fe2ac-4568-4ae6-ab5f-d108de9a20f2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -362,28 +383,43 @@
       <Filter>Component\Custom\AI</Filter>
     </ClCompile>
     <ClCompile Include="BaseState.cpp">
-      <Filter>Component\Custom\AI\FiniteStateMachine</Filter>
+      <Filter>FiniteStateMachine</Filter>
     </ClCompile>
     <ClCompile Include="IdleState.cpp">
-      <Filter>Component\Custom\AI\FiniteStateMachine\Idle</Filter>
+      <Filter>FiniteStateMachine\Idle</Filter>
     </ClCompile>
     <ClCompile Include="TraceState.cpp">
-      <Filter>Component\Custom\AI\FiniteStateMachine\Trace</Filter>
+      <Filter>FiniteStateMachine\Trace</Filter>
     </ClCompile>
     <ClCompile Include="RangedState.cpp">
-      <Filter>Component\Custom\AI\FiniteStateMachine\Ranged</Filter>
+      <Filter>FiniteStateMachine\Ranged</Filter>
     </ClCompile>
     <ClCompile Include="MeleeState.cpp">
-      <Filter>Component\Custom\AI\FiniteStateMachine\Melee</Filter>
+      <Filter>FiniteStateMachine\Melee</Filter>
     </ClCompile>
-    <ClCompile Include="ThrowingWeapon.cpp">
-      <Filter>Component\Custom\Monster\ThrowingWeapon</Filter>
+    <ClCompile Include="SoldierGrenade.cpp">
+      <Filter>Component\Custom\Bullet\Monster\SoliderGrenade</Filter>
     </ClCompile>
     <ClCompile Include="EventManager.cpp">
       <Filter>Manager\EventManager</Filter>
     </ClCompile>
     <ClCompile Include="Pistol.cpp">
       <Filter>Component\Custom\Bullet\Player\Pistol</Filter>
+    </ClCompile>
+    <ClCompile Include="IDLE_SoliderMonster.cpp">
+      <Filter>Component\Custom\Monster\Soldier\State\IDLE</Filter>
+    </ClCompile>
+    <ClCompile Include="SoldierMonster.cpp">
+      <Filter>Component\Custom\Monster\Soldier</Filter>
+    </ClCompile>
+    <ClCompile Include="RANGED_SoliderMonster.cpp">
+      <Filter>Component\Custom\Monster\Soldier\State\RANGED</Filter>
+    </ClCompile>
+    <ClCompile Include="MELEE_SoldierMonster.cpp">
+      <Filter>Component\Custom\Monster\Soldier\State\MELEE</Filter>
+    </ClCompile>
+    <ClCompile Include="Melee.cpp">
+      <Filter>Component\Custom\Melee</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -562,28 +598,55 @@
       <Filter>Component\Custom\AI</Filter>
     </ClInclude>
     <ClInclude Include="BaseState.h">
-      <Filter>Component\Custom\AI\FiniteStateMachine</Filter>
+      <Filter>FiniteStateMachine</Filter>
     </ClInclude>
     <ClInclude Include="IdleState.h">
-      <Filter>Component\Custom\AI\FiniteStateMachine\Idle</Filter>
+      <Filter>FiniteStateMachine\Idle</Filter>
     </ClInclude>
     <ClInclude Include="TraceState.h">
-      <Filter>Component\Custom\AI\FiniteStateMachine\Trace</Filter>
+      <Filter>FiniteStateMachine\Trace</Filter>
     </ClInclude>
     <ClInclude Include="RangedState.h">
-      <Filter>Component\Custom\AI\FiniteStateMachine\Ranged</Filter>
+      <Filter>FiniteStateMachine\Ranged</Filter>
     </ClInclude>
     <ClInclude Include="MeleeState.h">
-      <Filter>Component\Custom\AI\FiniteStateMachine\Melee</Filter>
+      <Filter>FiniteStateMachine\Melee</Filter>
     </ClInclude>
-    <ClInclude Include="ThrowingWeapon.h">
-      <Filter>Component\Custom\Monster\ThrowingWeapon</Filter>
+    <ClInclude Include="SoldierGrenade.h">
+      <Filter>Component\Custom\Bullet\Monster\SoliderGrenade</Filter>
     </ClInclude>
     <ClInclude Include="EventManager.h">
       <Filter>Manager\EventManager</Filter>
     </ClInclude>
     <ClInclude Include="Pistol.h">
       <Filter>Component\Custom\Bullet\Player\Pistol</Filter>
+    </ClInclude>
+    <ClInclude Include="SoldierMonster.h">
+      <Filter>Component\Custom\Monster\Soldier</Filter>
+    </ClInclude>
+    <ClInclude Include="IRangedBehaviour.h">
+      <Filter>FiniteStateMachine\Ranged</Filter>
+    </ClInclude>
+    <ClInclude Include="IMeleeBehaviour.h">
+      <Filter>FiniteStateMachine\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="IIdleBehaviour.h">
+      <Filter>FiniteStateMachine\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="ITraceBehaviour.h">
+      <Filter>FiniteStateMachine\Trace</Filter>
+    </ClInclude>
+    <ClInclude Include="IDLE_SoliderMonster.h">
+      <Filter>Component\Custom\Monster\Soldier\State\IDLE</Filter>
+    </ClInclude>
+    <ClInclude Include="RANGED_SoliderMonster.h">
+      <Filter>Component\Custom\Monster\Soldier\State\RANGED</Filter>
+    </ClInclude>
+    <ClInclude Include="MELEE_SoldierMonster.h">
+      <Filter>Component\Custom\Monster\Soldier\State\MELEE</Filter>
+    </ClInclude>
+    <ClInclude Include="Melee.h">
+      <Filter>Component\Custom\Melee</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

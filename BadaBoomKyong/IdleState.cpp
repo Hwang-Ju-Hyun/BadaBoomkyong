@@ -9,16 +9,14 @@ IdleState::~IdleState()
 {
 }
 
-void IdleState::Init()
+void IdleState::Init(Monster* _mon)
 {
 }
 
-#include <iostream>
-void IdleState::Update()
-{
-	//std::cout << "IDLE" << std::endl;
+void IdleState::Update(Monster* _mon)
+{	
 }
 
-void IdleState::Exit()
+void IdleState::Exit(Monster* _mon)
 {
 }

@@ -135,7 +135,7 @@ void RenderManager::Draw()
 				glUniform1i(IsColliderLocation, false); // false
 
 #ifdef _DEBUG
-				if (obj->GetName() == "Monster")
+				if (obj->GetName() == "SoldierMonster")
 				{					
 					Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
 					if (col != nullptr)

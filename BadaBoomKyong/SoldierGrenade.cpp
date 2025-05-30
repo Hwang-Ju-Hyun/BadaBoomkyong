@@ -1,4 +1,4 @@
-#include "ThrowingWeapon.h"
+#include "SoldierGrenade.h"
 #include "Transform.h"
 #include "Sprite.h"
 #include "Collider.h"
@@ -9,20 +9,21 @@
 #include "EventManager.h"
 #include "Monster.h"
 #include "Bullet.h"
+#include "SoldierMonster.h"
 
-ThrowingWeapon::ThrowingWeapon(GameObject* _owner)
+SoldierGrenade::SoldierGrenade(GameObject* _owner)
     :Bullet(_owner)
 {
     GetOwner()->SetIsSerializable(false);
 }
 
-ThrowingWeapon::~ThrowingWeapon()
+SoldierGrenade::~SoldierGrenade()
 {
 }
 
-void ThrowingWeapon::Init()
+void SoldierGrenade::Init()
 {
-    SetName(ThrowingWeaponTypeName);
+    SetName(SoldierMonsterGrenadeTypaName);
     m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
     m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
     m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
@@ -33,11 +34,11 @@ void ThrowingWeapon::Init()
     GetOwner()->SetActiveAllComps(false);
 }
 
-void ThrowingWeapon::Awake()
+void SoldierGrenade::Awake()
 { 
-    GameObject* mon_obj = GameObjectManager::GetInstance()->FindObject(Monster::MonsterTypeName);
+    GameObject* mon_obj = GameObjectManager::GetInstance()->FindObject(SoldierMonster::SoldierMonsterTypeName);
     Transform* mon_trs = dynamic_cast<Transform*>(mon_obj->FindComponent(Transform::TransformTypeName));
-    Monster* mon_comp = dynamic_cast<Monster*>(mon_obj->FindComponent(Monster::MonsterTypeName));
+    SoldierMonster* mon_comp = dynamic_cast<SoldierMonster*>(mon_obj->FindComponent(SoldierMonster::SoldierMonsterTypeName));
 
     m_pTransform->SetPosition({ mon_trs->GetPosition() });
     m_pRigidBody->SetVelocity({ 0.f,0.f,0.f });
@@ -45,18 +46,26 @@ void ThrowingWeapon::Awake()
     m_pCollider->SetScale(m_pTransform->GetScale()); 
 }
 
-void ThrowingWeapon::Update()
-{    
-    if(m_bThrowable)
-        Throw();
-
+void SoldierGrenade::Fire()
+{
+    float impulseX = -100.f;
+    float impulseY = 700.f;
+    m_pRigidBody->AddImpulse({ impulseX,impulseY,0.f });
+    m_bCanFire = false;
 }
 
-void ThrowingWeapon::Exit()
+
+void SoldierGrenade::Update()
+{    
+    if(m_bCanFire)
+        Fire();
+}
+
+void SoldierGrenade::Exit()
 {
 }
 
-void ThrowingWeapon::EnterCollision(Collider* _col)
+void SoldierGrenade::EnterCollision(Collider* _col)
 {
     if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
     {
@@ -64,52 +73,45 @@ void ThrowingWeapon::EnterCollision(Collider* _col)
     }
 }
 
-void ThrowingWeapon::OnCollision(Collider* _col)
+void SoldierGrenade::OnCollision(Collider* _col)
 {
 }
 
-void ThrowingWeapon::ExitCollision(Collider* _col)
+void SoldierGrenade::ExitCollision(Collider* _col)
 {
 }
 
-void ThrowingWeapon::LoadFromJson(const json& _str)
+void SoldierGrenade::LoadFromJson(const json& _str)
 {
     auto iter_compData = _str.find(CompDataName);
     if (iter_compData != _str.end())
     {     
-        auto throwing_impulse = iter_compData->find(ThrowingImpulseTypeName);
+        auto throwing_impulse = iter_compData->find(SoldierMonsterGrenadeImpulseTypeName);
         m_fThrowingForce = throwing_impulse->begin().value();
     }
 }
 
-json ThrowingWeapon::SaveToJson(const json& _str)
+json SoldierGrenade::SaveToJson(const json& _str)
 {
     json data;
 
     auto serializer = Serializer::GetInstance();
-    data[serializer->ComponentTypeNameInJson] = ThrowingWeaponTypeName;
+    data[serializer->ComponentTypeNameInJson] = SoldierMonsterGrenadeTypaName;
 
     json compData;
-    compData[ThrowingImpulseTypeName] = m_fThrowingForce;    
+    compData[SoldierMonsterGrenadeImpulseTypeName] = m_fThrowingForce;
 
     data[CompDataName] = compData;
 
     return data;    
 }
 
-BaseRTTI* ThrowingWeapon::CreateThrowingWeaponComponent()
+BaseRTTI* SoldierGrenade::CreateThrowingWeaponComponent()
 {
     GameObject* last_obj = GameObjectManager::GetInstance()->GetLastObject();
-    BaseRTTI* comp = last_obj->AddComponent_and_Get(ThrowingWeaponTypeName, new ThrowingWeapon(last_obj));
+    BaseRTTI* comp = last_obj->AddComponent_and_Get(SoldierMonsterGrenadeTypaName, new SoldierGrenade(last_obj));
     if (comp != nullptr)
         return comp;
     return nullptr;
 }
 
-void ThrowingWeapon::Throw()
-{
-    float impulseX = -100.f;
-    float impulseY = 700.f;
-    m_pRigidBody->AddImpulse({ impulseX,impulseY,0.f });    
-    m_bThrowable = false;
-}

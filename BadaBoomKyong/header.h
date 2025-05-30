@@ -20,6 +20,7 @@ enum class GROUP_TYPE
 	BULLET = 2,
 	MONSTER = 3,
 	PLATFORM =4,
+	MELEE=5,
 	LAST
 };
 

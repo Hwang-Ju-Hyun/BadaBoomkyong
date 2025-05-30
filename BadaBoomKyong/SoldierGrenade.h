@@ -5,17 +5,17 @@ class Transform;
 class Sprite;
 class RigidBody;
 
-class ThrowingWeapon :
+class SoldierGrenade :
 	public Bullet
 {
 public:
-    ThrowingWeapon(GameObject* _owner);
-    virtual ~ThrowingWeapon()override;
+    SoldierGrenade(GameObject* _owner);
+    virtual ~SoldierGrenade()override;
 public:
 	virtual void Init()  override;
 	virtual void Awake() override;
 	virtual void Update()override;
-	virtual void Exit()  override;
+	virtual void Exit()  override;	
 public:
 	virtual void EnterCollision(Collider* _col)override;
 	virtual void OnCollision(Collider* _col)override;
@@ -28,19 +28,16 @@ private:
 private:
 	float m_fThrowingForce = 0.f;
 public:
-	static constexpr const char* ThrowingWeaponTypeName = "ThrowingWeapon";
-	static constexpr const char* ThrowingImpulseTypeName = "ThrowingImpulse";
+	static constexpr const char* SoldierMonsterGrenadeTypaName = "SoliderMonsterGrenade";
+	static constexpr const char* SoldierMonsterGrenadeImpulseTypeName = "SoldierMonsterGrenadeImpulse";
+public:
+	virtual void Fire() override;
+	inline void SetCanFire(bool _able) { m_bCanFire = _able; }
+	inline bool GetCanFire()const { return m_bCanFire; }
 public:
 	virtual void LoadFromJson(const json& _str) override;
 	virtual json SaveToJson(const json& _str) override;
-public:
 	static BaseRTTI* CreateThrowingWeaponComponent();
-
-	//todo: °íÄ¡¼À
-	void Throw();
-	inline void SetThrowable(bool _able) { m_bThrowable = _able; }
-	inline bool GetThrowable()const { return m_bThrowable; }
 private:
-	bool m_bThrowable=false;
+	bool m_bCanFire=false;
 };
-

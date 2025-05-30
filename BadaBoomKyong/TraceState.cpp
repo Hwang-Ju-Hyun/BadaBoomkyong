@@ -9,15 +9,15 @@ TraceState::~TraceState()
 {
 }
 
-void TraceState::Init()
+void TraceState::Init(Monster* _mon)
 {
-}
-#include <iostream>
-void TraceState::Update()
-{
-	//std::cout << "TRACE" << std::endl;
 }
 
-void TraceState::Exit()
+void TraceState::Update(Monster* _mon)
+{
+
+}
+
+void TraceState::Exit(Monster* _mon)
 {
 }

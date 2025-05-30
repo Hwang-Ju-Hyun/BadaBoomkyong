@@ -60,5 +60,4 @@ public:
 public:
     void DrawCollider()const;   
 #endif 
-//todo Áö¿ì¼À
 };

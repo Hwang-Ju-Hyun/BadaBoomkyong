@@ -14,6 +14,8 @@ public:
     virtual void Awake() override;
     virtual void Update()override;
     virtual void Exit()  override;
+public:
+    virtual void Fire()override;
 private:
     Transform* m_pTransform = nullptr;
     Sprite* m_pSprite = nullptr;
@@ -28,11 +30,9 @@ public:
     virtual void OnCollision(Collider* _col)override;
     virtual void ExitCollision(Collider* _col) override;
 public:
-    static constexpr const char* PistolTypeName = "Pistol";
-public:
     virtual void LoadFromJson(const json& _str) override {};
     virtual json SaveToJson(const json& _str) override { return nullptr; };
-public:
     static BaseRTTI* CreatePistolComponent();
+    static constexpr const char* PistolTypeName = "Pistol";
 };
 

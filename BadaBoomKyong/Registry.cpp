@@ -9,8 +9,9 @@
 #include "BulletFactory.h"
 #include "Monster.h"
 #include "AI.h"
-#include "ThrowingWeapon.h"
+#include "SoldierGrenade.h"
 #include "Pistol.h"
+#include "SoldierMonster.h"
 
 Registry::Registry()
 {
@@ -20,9 +21,10 @@ Registry::Registry()
     m_mapRTTI.insert({ Player::PlayerTypeName,&Player::CreatePlayerComponent });
     m_mapRTTI.insert({ Collider::ColliderTypeName,&Collider::CreateCollideComponent });
     //m_mapRTTI.insert({ Bullet::BulletTypeName,&Bullet::CreateBulletComponent });
-    m_mapRTTI.insert({ Monster::MonsterTypeName,&Monster::CreateMonsterComponent });
+    //m_mapRTTI.insert({ Monster::MonsterTypeName,&Monster::CreateMonsterComponent });
     m_mapRTTI.insert({ AI::AITypeName,&AI::CreateAIComponent });
-    m_mapRTTI.insert({ ThrowingWeapon::ThrowingWeaponTypeName,&ThrowingWeapon::CreateThrowingWeaponComponent });
+    m_mapRTTI.insert({ SoldierMonster::SoldierMonsterTypeName,&SoldierMonster::CreateSoliderMonsterComponent });
+    m_mapRTTI.insert({ SoldierGrenade::SoldierMonsterGrenadeTypaName,&SoldierGrenade::CreateThrowingWeaponComponent });
     m_mapRTTI.insert({ Pistol::PistolTypeName,&Pistol::CreatePistolComponent });
 }
 

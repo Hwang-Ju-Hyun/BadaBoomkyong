@@ -6,7 +6,7 @@
 #include "Collider.h"
 #include "ObjectPool.h"
 #include "ObjectPoolManager.h"
-#include "ThrowingWeapon.h"
+#include "SoldierGrenade.h"
 #include "RigidBody.h"
 #include "Pistol.h"
 #include "GameObject.h"
@@ -25,7 +25,7 @@ void BulletFactory::Init()
 	ObjectPoolManager::GetInstance()->ReigistPool<Pistol, 30>();
 	m_pBulletPool = static_cast<ObjectPool<Pistol, 30>*>(ObjectPoolManager::GetInstance()->GetPool<Pistol, 30>());
 	for (int i = 0;i<30; i++)
-	{		
+	{
 		Pistol* bullet_comp = nullptr;
 		GameObject* bullet_obj=new GameObject(Pistol::PistolTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::BULLET);
 		bullet_comp = dynamic_cast<Pistol*>(bullet_obj->AddComponent_and_Get(Pistol::PistolTypeName, new Pistol(bullet_obj)));
@@ -37,19 +37,19 @@ void BulletFactory::Init()
 	}	
 
 
-	ObjectPoolManager::GetInstance()->ReigistPool<ThrowingWeapon, 30>();
-	m_pThrowingWeaponPool = static_cast<ObjectPool<ThrowingWeapon, 30>*>(ObjectPoolManager::GetInstance()->GetPool<ThrowingWeapon, 30>());
+	ObjectPoolManager::GetInstance()->ReigistPool<SoldierGrenade, 30>();
+	m_pMonsterGrenadePool = static_cast<ObjectPool<SoldierGrenade, 30>*>(ObjectPoolManager::GetInstance()->GetPool<SoldierGrenade, 30>());
 	for (int i = 0;i < 30;i++)
 	{
-		ThrowingWeapon* trw_comp = nullptr;
-		GameObject* trw_obj = new GameObject(ThrowingWeapon::ThrowingWeaponTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::BULLET);
-		trw_comp=dynamic_cast<ThrowingWeapon*>(trw_obj->AddComponent_and_Get(ThrowingWeapon::ThrowingWeaponTypeName, new ThrowingWeapon(trw_obj)));
-		Transform* trw_trs = dynamic_cast<Transform*>(trw_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(trw_obj)));
-		Sprite* trw_spr = dynamic_cast<Sprite*>(trw_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(trw_obj)));
-		RigidBody* trw_rig = dynamic_cast<RigidBody*>(trw_obj->AddComponent_and_Get(RigidBody::RigidBodyTypeName, new RigidBody(trw_obj)));
-		Collider* trw_col = dynamic_cast<Collider*>(trw_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(trw_obj)));
-		trw_obj->SetActiveAllComps(false);
-		m_pThrowingWeaponPool->m_arrPool[i] = trw_obj;
+		SoldierGrenade* grn_comp = nullptr;
+		GameObject* grn_obj = new GameObject(SoldierGrenade::SoldierMonsterGrenadeTypaName, MODEL_TYPE::PLANE, GROUP_TYPE::BULLET);
+		grn_comp=dynamic_cast<SoldierGrenade*>(grn_obj->AddComponent_and_Get(SoldierGrenade::SoldierMonsterGrenadeTypaName, new SoldierGrenade(grn_obj)));
+		Transform* grn_trs = dynamic_cast<Transform*>(grn_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(grn_obj)));
+		Sprite* grn_spr = dynamic_cast<Sprite*>(grn_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(grn_obj)));
+		RigidBody* grn_rig = dynamic_cast<RigidBody*>(grn_obj->AddComponent_and_Get(RigidBody::RigidBodyTypeName, new RigidBody(grn_obj)));
+		Collider* grn_col = dynamic_cast<Collider*>(grn_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(grn_obj)));
+		grn_obj->SetActiveAllComps(false);
+		m_pMonsterGrenadePool->m_arrPool[i] = grn_obj;
 	}
 }
 
@@ -66,7 +66,9 @@ Bullet* BulletFactory::CreateBullet(BULLET_TYPE _type)
 	case BULLET_TYPE::BULLET_LAST:
 		break;
 	case BULLET_TYPE::MONSTER_TEMP_PISTOL:
-		bullet_comp = m_pThrowingWeaponPool->GetPool()->FindComponent<ThrowingWeapon>();
+		break;
+	case BULLET_TYPE::MONSTER_TEMP_BOOB:
+		bullet_comp = m_pMonsterGrenadePool->GetPool()->FindComponent<SoldierGrenade>();
 	default:
 		break;
 	}

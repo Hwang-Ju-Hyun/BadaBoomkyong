@@ -41,11 +41,16 @@ void Pistol::Awake()
 void Pistol::Update()
 {
 	if (GetActive())
-		m_pTransform->AddPositionX(m_fSpeed);
+		Fire();
 }
 
 void Pistol::Exit()
 {
+}
+
+void Pistol::Fire()
+{
+	m_pTransform->AddPositionX(m_fSpeed);
 }
 
 void Pistol::EnterCollision(Collider* _col)

@@ -7,8 +7,8 @@ public:
     TraceState(MONSTER_STATE _state = MONSTER_STATE::TRACE_STATE);
     virtual ~TraceState()override;
 public:
-    virtual void Init()  override;
-    virtual void Update()override;
-    virtual void Exit()  override;
+    virtual void Init(Monster* _mon)  override;
+    virtual void Update(Monster* _mon)override;
+    virtual void Exit(Monster* _mon)  override;
 };
 

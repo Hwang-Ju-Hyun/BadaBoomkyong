@@ -187,32 +187,7 @@ void MainEditor::ObjectPannelDraw()
 			ImGui::Separator();
 		}
 	}
-	ImGui::End();
-
-	/*for (auto obj : all_objs)
-	{		
-		if (ImGui::Button(obj->GetName().c_str()))
-		{ 
-			m_pSelectedObjByPannel = obj;
-			m_pTransform_SelectedObj = dynamic_cast<Transform*>(m_pSelectedObjByPannel->FindComponent(Transform::TransformTypeName));
-			
-		}
-		if (m_pSelectedObjByPannel == obj)
-		{			
-			std::unordered_map<std::string, BaseComponent*> comps = obj->GetAllComponentsOfObj_Hash();
-			for (auto iter = comps.begin(); iter != comps.end(); ++iter)
-			{
-				BaseComponent* comp = iter->second;
-				if (ImGui::TreeNode(comp->GetName().c_str()))
-				{
-					comp->EditInfoFromButton();
-					ImGui::TreePop();
-				}
-			}
-			ImGui::Separator();			
-		}		
-	}
-	ImGui::End();*/
+	ImGui::End();	
 }
 
 //Chat GPT ¾´ ÇÔ¼ö

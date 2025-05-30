@@ -4,11 +4,11 @@
 #include <cassert>
 #include "GameObject.h"
 #include "GameObjectManager.h"
-
+#include "Monster.h"
 AI::AI(GameObject* _owner)
 	:BaseComponent(_owner)
 	,m_pCurState(nullptr)
-{	
+{			
 	SetName(AITypeName);
 }
 
@@ -19,6 +19,7 @@ AI::~AI()
 #include "IdleState.h"
 #include "TraceState.h"
 #include "RangedState.h"
+#include "MeleeState.h"
 //todo at .h
 void AI::InsertState(MONSTER_STATE _state)
 {
@@ -33,7 +34,8 @@ void AI::InsertState(MONSTER_STATE _state)
 	case MONSTER_STATE::TRACE_STATE:
 		state = new TraceState;
 		break;
-	case MONSTER_STATE::MELEE_ATTACK_STATE:		
+	case MONSTER_STATE::MELEE_ATTACK_STATE:
+		state = new MeleeState;
 		break;
 	case MONSTER_STATE::RANGE_ATTACK_STATE:
 		state = new RangedState;
@@ -44,7 +46,7 @@ void AI::InsertState(MONSTER_STATE _state)
 		break;
 	}
 	if (FindState(state->GetType()) != nullptr)
-		assert(false);
+		assert(false);	
 	m_mapMonsterState.insert({ state->GetType(),state });
 }
 
@@ -60,11 +62,11 @@ void AI::ChangeState(MONSTER_STATE _state)
 	if (m_pCurState->GetType() == _state)
 		int a = 0;//assert(false);
 
-	BaseState* next_state = FindState(_state);	
-	m_pCurState->Exit();
+	BaseState* next_state = FindState(_state);
+	m_pCurState->Exit(m_pMonster);
 	m_pCurState = next_state;
 	m_pCurState->SetAI(this);
-	m_pCurState->Init();
+	m_pCurState->Init(m_pMonster);
 }
 
 
@@ -81,9 +83,9 @@ void AI::Init()
 }
 
 void AI::Update()
-{
-	if(m_pCurState!=nullptr)
-		m_pCurState->Update();
+{	
+	if (m_pCurState != nullptr)
+		m_pCurState->Update(m_pMonster);
 }
 
 void AI::Exit()

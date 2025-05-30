@@ -57,8 +57,7 @@ void ComponentManager::Awake()
 void ComponentManager::Update()
 {	
 	for (int i = 0;i < m_vComponents.size();i++)
-	{
-		//todo GetOwner()->GetActive ³ÖÀ¸¼À
+	{		
 		if (m_vComponents[i]->GetActive())
 		{
 			m_vComponents[i]->Update();
