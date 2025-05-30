@@ -151,7 +151,6 @@
     <ClCompile Include="BaseState.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletFactory.cpp" />
-    <ClCompile Include="BulletPool.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
@@ -166,7 +165,6 @@
     <ClCompile Include="GizmoManager.cpp" />
     <ClCompile Include="ICollisionHandler.cpp" />
     <ClCompile Include="IdleState.cpp" />
-    <ClCompile Include="IFactory.cpp" />
     <ClCompile Include="IMGUIZMO\GraphEditor.cpp" />
     <ClCompile Include="IMGUIZMO\ImCurveEdit.cpp" />
     <ClCompile Include="IMGUIZMO\ImGradient.cpp" />
@@ -215,7 +213,6 @@
     <ClInclude Include="BaseState.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletFactory.h" />
-    <ClInclude Include="BulletPool.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
@@ -231,7 +228,6 @@
     <ClInclude Include="header.h" />
     <ClInclude Include="ICollisionHandler.h" />
     <ClInclude Include="IdleState.h" />
-    <ClInclude Include="IFactory.h" />
     <ClInclude Include="IMGUIZMO\GraphEditor.h" />
     <ClInclude Include="IMGUIZMO\ImCurveEdit.h" />
     <ClInclude Include="IMGUIZMO\ImGradient.h" />

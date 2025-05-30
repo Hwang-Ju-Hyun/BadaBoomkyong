@@ -13,7 +13,7 @@ private:
 	std::unordered_map<std::string, void*> m_hashPools;
 public:
 	template <typename T, size_t size = 30>
-	void CreatePool(GameObject* _obj=nullptr)
+	void ReigistPool(GameObject* _obj=nullptr)
 	{
 		const std::type_index& typeIndex = typeid(T);
 		const std::string typeName = typeIndex.name();

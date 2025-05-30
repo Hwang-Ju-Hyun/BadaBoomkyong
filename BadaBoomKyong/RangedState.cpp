@@ -20,17 +20,12 @@ RangedState::~RangedState()
 
 void RangedState::Init()
 {
-	ObjectPoolManager::GetInstance()->CreatePool<ThrowingWeapon, 30>();
 	m_pThrowWeaponPool = static_cast<ObjectPool<ThrowingWeapon, 30>*>(ObjectPoolManager::GetInstance()->GetPool<ThrowingWeapon, 30>());
-	for (int i = 0;i < 30;i++)
-	{
-
-	}
+	ObjectPoolManager::GetInstance()->ReigistPool<ThrowingWeapon, 30>();
 }
 
 void RangedState::Update()
-{
-	//std::cout << "RangedState" << std::endl;
+{	
 	MoveSideBySide();
 }
 
@@ -45,7 +40,7 @@ void RangedState::MoveSideBySide()
 	if (mon_comp != nullptr)
 	{
 		Transform* mon_trs = dynamic_cast<Transform*>(GetAI()->GetOwner()->FindComponent(Transform::TransformTypeName));		
-		float move_speed = 0.5f;
+		float move_speed = 0.05f;
 		float pos = move_speed*mon_comp->GetDirection();		
 		if (std::fabs(m_fStepSum) <= mon_comp->GetRangedMoveAtkRange().x)
 		{
@@ -64,6 +59,7 @@ void RangedState::MoveSideBySide()
 
 void RangedState::ThrowAttack()
 {
+	//todo 여기서 오류남 여기서 금욜부터 고치면 됌
 	GameObject* throwWeapon_obj=m_pThrowWeaponPool->GetPool();
 	EventManager::GetInstance()->SetActiveTrue(throwWeapon_obj);
 	throwWeapon_comp = throwWeapon_obj->FindComponent<ThrowingWeapon>();

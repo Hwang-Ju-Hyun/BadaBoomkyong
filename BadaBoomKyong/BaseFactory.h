@@ -1,10 +1,8 @@
 #pragma once
-#include "IFactory.h"
 
 class GameObject;
 
-class BaseFactory
-	:public IFactory
+class BaseFactory	
 {
 public:
 	BaseFactory();
@@ -13,6 +11,6 @@ public:
 	virtual void Init();
 	virtual void Exit();
 public:
-	virtual GameObject* CreateObject()override;
-	virtual GameObject* CreatePoolObject()override;
+	virtual GameObject* CreateObject()=0;
+	virtual GameObject* CreatePoolObject()=0;
 };

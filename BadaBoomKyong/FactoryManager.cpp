@@ -18,7 +18,7 @@ FactoryManager::~FactoryManager()
 void FactoryManager::Init()
 {					
 	InsertFactory(BulletFactory::BulletFactoryTypeName, new BulletFactory);
-	ObjectPoolManager::GetInstance()->CreatePool<Bullet, 30>();
+	ObjectPoolManager::GetInstance()->ReigistPool<Bullet, 30>();
 	for (auto iter = m_hashFactories.begin();iter != m_hashFactories.end();iter++)
 	{
 		iter->second->Init();

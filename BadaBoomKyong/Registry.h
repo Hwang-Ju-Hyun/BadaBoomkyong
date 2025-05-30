@@ -6,15 +6,13 @@
 #include "BaseFactory.h"
 
 class BaseRTTI;
-class IFactory;
 
 class Registry
 {
 public:
 	SINGLETON(Registry);
 private:
-	std::map<std::string, BaseRTTI*(*)()> m_mapRTTI;	
-	std::unordered_map<std::string, IFactory*> m_hashFactoryRegistry;
+	std::map<std::string, BaseRTTI*(*)()> m_mapRTTI;		
 public:
 	BaseRTTI* FindOrCreate(const std::string& _type);
 

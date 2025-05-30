@@ -54,6 +54,11 @@ enum class MONSTER_STATE
 	LAST
 };
 
+enum class MONSTER_TYPE
+{
+	MONSTER_TEMP=0
+};
+
 enum class EVENT_TYPE
 {
 	CREATE_OBJECT,

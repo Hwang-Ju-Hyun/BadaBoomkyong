@@ -161,9 +161,6 @@
     <Filter Include="ObjectPool">
       <UniqueIdentifier>{d93f0bcb-e266-4bec-96fe-af90acc6188d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Factory\Interface">
-      <UniqueIdentifier>{4a4ed593-d5d9-4544-9eb9-24f3e45eb3dd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Custom\Monster">
       <UniqueIdentifier>{6603f99e-feea-4413-a072-bc794d585fde}</UniqueIdentifier>
     </Filter>
@@ -343,9 +340,6 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Component\Custom\Player\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="BulletPool.cpp">
-      <Filter>Component\Custom\Player\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="FactoryManager.cpp">
       <Filter>Manager\FactoryManager</Filter>
     </ClCompile>
@@ -354,9 +348,6 @@
     </ClCompile>
     <ClCompile Include="BaseFactory.cpp">
       <Filter>Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="IFactory.cpp">
-      <Filter>Factory\Interface</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
       <Filter>Component\Custom\Monster</Filter>
@@ -540,9 +531,6 @@
     <ClInclude Include="Bullet.h">
       <Filter>Component\Custom\Player\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="BulletPool.h">
-      <Filter>Component\Custom\Player\Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="FactoryManager.h">
       <Filter>Manager\FactoryManager</Filter>
     </ClInclude>
@@ -557,9 +545,6 @@
     </ClInclude>
     <ClInclude Include="ObjectPool.h">
       <Filter>ObjectPool</Filter>
-    </ClInclude>
-    <ClInclude Include="IFactory.h">
-      <Filter>Factory\Interface</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
       <Filter>Component\Custom\Monster</Filter>

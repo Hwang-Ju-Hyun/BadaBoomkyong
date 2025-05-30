@@ -12,7 +12,7 @@
 ThrowingWeapon::ThrowingWeapon(GameObject* _owner)
     :MonoBehaviour(_owner)
 {
-    
+    GetOwner()->SetIsSerializable(false);
 }
 
 ThrowingWeapon::~ThrowingWeapon()
