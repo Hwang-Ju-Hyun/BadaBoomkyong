@@ -188,6 +188,7 @@
     <ClCompile Include="MonoBehaviour.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="ObjectPoolManager.cpp" />
+    <ClCompile Include="Pistol.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RangedState.cpp" />
     <ClCompile Include="Registry.cpp" />
@@ -254,6 +255,7 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectPoolManager.h" />
+    <ClInclude Include="Pistol.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RangedState.h" />
     <ClInclude Include="Registry.h" />

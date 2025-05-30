@@ -8,6 +8,7 @@
 #include "ObjectPoolManager.h"
 #include "ThrowingWeapon.h"
 #include "RigidBody.h"
+#include "Pistol.h"
 
 BulletFactory::BulletFactory()
 {			
@@ -20,13 +21,13 @@ BulletFactory::~BulletFactory()
 
 void BulletFactory::Init()
 {			
-	ObjectPoolManager::GetInstance()->ReigistPool<Bullet, 30>();
-	m_pBulletPool = static_cast<ObjectPool<Bullet, 30>*>(ObjectPoolManager::GetInstance()->GetPool<Bullet, 30>());
+	ObjectPoolManager::GetInstance()->ReigistPool<Pistol, 30>();
+	m_pBulletPool = static_cast<ObjectPool<Pistol, 30>*>(ObjectPoolManager::GetInstance()->GetPool<Pistol, 30>());
 	for (int i = 0;i<30; i++)
 	{		
-		Bullet* bullet_comp = nullptr;
-		GameObject* bullet_obj=new GameObject(Bullet::BulletTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::BULLET);
-		bullet_comp = dynamic_cast<Bullet*>(bullet_obj->AddComponent_and_Get(Bullet::BulletTypeName, new Bullet(bullet_obj)));		
+		Pistol* bullet_comp = nullptr;
+		GameObject* bullet_obj=new GameObject(Pistol::PistolTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::BULLET);
+		bullet_comp = dynamic_cast<Pistol*>(bullet_obj->AddComponent_and_Get(Pistol::PistolTypeName, new Pistol(bullet_obj)));
 		Transform* trs=dynamic_cast<Transform*>(bullet_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(bullet_obj)));
 		Sprite* spr = dynamic_cast<Sprite*>(bullet_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(bullet_obj)));
 		Collider* col = dynamic_cast<Collider*>(bullet_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(bullet_obj)));
@@ -51,9 +52,21 @@ void BulletFactory::Init()
 	}
 }
 
-GameObject* BulletFactory::CreateObject()
-{		
-	GameObject* bullet_obj=(m_pBulletPool->GetPool());
+GameObject* BulletFactory::CreateObject(BULLET_TYPE _type)
+{
+	GameObject* bullet_obj = nullptr;
+	switch (_type)	
+	{
+	case BULLET_TYPE::PISTOL:
+		bullet_obj=m_pBulletPool->GetPool();
+		break;
+	case BULLET_TYPE::MACHINE_GUN:
+		break;
+	case BULLET_TYPE::BULLET_LAST:
+		break;
+	default:
+		break;
+	}
 	return bullet_obj;
 }
 

@@ -16,7 +16,7 @@ void BaseFactory::Exit()
 {
 }
 
-GameObject* BaseFactory::CreateObject()
+GameObject* BaseFactory::CreateObject(BULLET_TYPE _type)
 {
 	return nullptr;
 }

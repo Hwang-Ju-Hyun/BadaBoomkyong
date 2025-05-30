@@ -185,14 +185,20 @@
     <Filter Include="Component\Custom\AI\FiniteStateMachine\Ranged">
       <UniqueIdentifier>{4469d03d-80bc-43d1-8cbf-e863554e6795}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Custom\Player\Bullet">
-      <UniqueIdentifier>{8dfff092-d20b-43df-882e-efee9766c799}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Custom\Monster\ThrowingWeapon">
       <UniqueIdentifier>{ca189c89-96ba-41ae-a056-3503368717f7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Manager\EventManager">
       <UniqueIdentifier>{56e832d1-3b7e-4844-8854-f97a4f9cb937}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet">
+      <UniqueIdentifier>{8dfff092-d20b-43df-882e-efee9766c799}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Player">
+      <UniqueIdentifier>{565aa095-c49b-4d16-ab7d-9eea451da0cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Player\Pistol">
+      <UniqueIdentifier>{537dd74e-bbc3-49b2-88f4-c5432173d645}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -338,7 +344,7 @@
       <Filter>Factory\BulletFactory</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>Component\Custom\Player\Bullet</Filter>
+      <Filter>Component\Custom\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="FactoryManager.cpp">
       <Filter>Manager\FactoryManager</Filter>
@@ -375,6 +381,9 @@
     </ClCompile>
     <ClCompile Include="EventManager.cpp">
       <Filter>Manager\EventManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Pistol.cpp">
+      <Filter>Component\Custom\Bullet\Player\Pistol</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -529,7 +538,7 @@
       <Filter>Graphics\FrameBuffer</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
-      <Filter>Component\Custom\Player\Bullet</Filter>
+      <Filter>Component\Custom\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="FactoryManager.h">
       <Filter>Manager\FactoryManager</Filter>
@@ -572,6 +581,9 @@
     </ClInclude>
     <ClInclude Include="EventManager.h">
       <Filter>Manager\EventManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Pistol.h">
+      <Filter>Component\Custom\Bullet\Player\Pistol</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

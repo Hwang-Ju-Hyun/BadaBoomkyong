@@ -40,6 +40,8 @@ enum class BULLET_TYPE
 {
 	PISTOL = 0,
 	MACHINE_GUN = 1,
+
+	
 	BULLET_LAST
 };
 

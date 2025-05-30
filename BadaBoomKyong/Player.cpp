@@ -14,6 +14,7 @@
 #include "Bullet.h"
 #include "FactoryManager.h"
 #include "EventManager.h"
+#include "Pistol.h"
 
 Player::Player(GameObject* _owner)
 	:MonoBehaviour(_owner)	
@@ -100,8 +101,8 @@ void Player::Move()
 
 void Player::Fire()
 {		
-	GameObject* bullet_obj=m_pBulletFactory->CreateObject();
-	m_pBullet = dynamic_cast<Bullet*>(bullet_obj->FindComponent(Bullet::BulletTypeName));	
+	GameObject* bullet_obj=m_pBulletFactory->CreateObject(BULLET_TYPE::PISTOL);
+	m_pBullet = dynamic_cast<Pistol*>(bullet_obj->FindComponent(Pistol::PistolTypeName));	
 	assert(m_pBullet != nullptr);
 
 	EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());

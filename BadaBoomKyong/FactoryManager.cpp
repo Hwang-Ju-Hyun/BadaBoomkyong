@@ -14,11 +14,10 @@ FactoryManager::~FactoryManager()
 	
 }
 
-
+#include "Pistol.h"
 void FactoryManager::Init()
 {					
-	InsertFactory(BulletFactory::BulletFactoryTypeName, new BulletFactory);
-	ObjectPoolManager::GetInstance()->ReigistPool<Bullet, 30>();
+	InsertFactory(BulletFactory::BulletFactoryTypeName, new BulletFactory);	
 	for (auto iter = m_hashFactories.begin();iter != m_hashFactories.end();iter++)
 	{
 		iter->second->Init();

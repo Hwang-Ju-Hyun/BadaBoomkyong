@@ -4,7 +4,9 @@
 #include <string>
 #include "ObjectPool.h"
 #include "BaseFactory.h"
+#include "header.h"
 
+class Pistol;
 class BulletPool;
 class GameObject;
 class Bullet;
@@ -18,11 +20,11 @@ public:
 	virtual ~BulletFactory();
 public:
 	virtual void Init()override;
-	virtual GameObject* CreateObject()override;
+	virtual GameObject* CreateObject(BULLET_TYPE _type)override;
 	virtual GameObject* CreatePoolObject()override { return nullptr; };
 	virtual void Exit()override;
 private:
-	ObjectPool<Bullet,30>* m_pBulletPool;
+	ObjectPool<Pistol,30>* m_pBulletPool;
 	ObjectPool<ThrowingWeapon, 30>* m_pThrowingWeaponPool;
 public:
 	static constexpr const char* BulletFactoryTypeName = "BulletFactory";

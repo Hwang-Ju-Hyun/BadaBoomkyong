@@ -1,4 +1,5 @@
 #pragma once
+#include "header.h"
 
 class GameObject;
 
@@ -11,6 +12,6 @@ public:
 	virtual void Init();
 	virtual void Exit();
 public:
-	virtual GameObject* CreateObject()=0;
-	virtual GameObject* CreatePoolObject()=0;
+	virtual GameObject* CreateObject(BULLET_TYPE _type);
+	virtual GameObject* CreatePoolObject();
 };

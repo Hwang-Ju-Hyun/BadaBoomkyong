@@ -10,7 +10,7 @@ class Bullet
 	:public MonoBehaviour
 {
 public:	
-	Bullet(GameObject* _owner);	
+	Bullet(GameObject* _owner);
 	virtual ~Bullet()override;
 public:
 	virtual void Init()  override;
@@ -31,8 +31,7 @@ public:
 private:
 	float m_fSpeed = 0.f;
 public:
-	static constexpr const char* BulletTypeName = "Bullet";
-	
+	static constexpr const char* BulletTypeName = "Bullet";	
 public:
 	virtual void LoadFromJson(const json& _str) override{};
 	virtual json SaveToJson(const json& _str) override{ return nullptr; };	
