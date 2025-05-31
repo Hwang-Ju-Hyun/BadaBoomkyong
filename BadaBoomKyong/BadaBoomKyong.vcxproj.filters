@@ -209,9 +209,6 @@
     <Filter Include="Component\Custom\Monster\Soldier\State\IDLE">
       <UniqueIdentifier>{e5825eda-b2ea-4b29-8e23-4331810def86}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Custom\Bullet\Monster\SoliderGrenade">
-      <UniqueIdentifier>{ca189c89-96ba-41ae-a056-3503368717f7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Custom\Monster\Soldier\State\RANGED">
       <UniqueIdentifier>{cf4f7bfe-bc10-4ceb-9b88-6872f7fd5908}</UniqueIdentifier>
     </Filter>
@@ -220,6 +217,21 @@
     </Filter>
     <Filter Include="Component\Custom\Melee">
       <UniqueIdentifier>{010fe2ac-4568-4ae6-ab5f-d108de9a20f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Factory\HitBoxFactory">
+      <UniqueIdentifier>{2d1e86f8-a415-4cc7-89c2-04a105dbfd64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Melee\Monster">
+      <UniqueIdentifier>{ce0b76be-3460-47a9-a57b-ec933de403cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Melee\Player">
+      <UniqueIdentifier>{d0247e73-ae41-4d17-8b96-542af5e0122a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Melee\Monster\SoldierMelee">
+      <UniqueIdentifier>{06281e8e-a4ac-495a-be73-af6843ed835e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Monster\SoldierGrenade">
+      <UniqueIdentifier>{ca189c89-96ba-41ae-a056-3503368717f7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -398,7 +410,7 @@
       <Filter>FiniteStateMachine\Melee</Filter>
     </ClCompile>
     <ClCompile Include="SoldierGrenade.cpp">
-      <Filter>Component\Custom\Bullet\Monster\SoliderGrenade</Filter>
+      <Filter>Component\Custom\Bullet\Monster\SoldierGrenade</Filter>
     </ClCompile>
     <ClCompile Include="EventManager.cpp">
       <Filter>Manager\EventManager</Filter>
@@ -420,6 +432,12 @@
     </ClCompile>
     <ClCompile Include="Melee.cpp">
       <Filter>Component\Custom\Melee</Filter>
+    </ClCompile>
+    <ClCompile Include="MeleeFactory.cpp">
+      <Filter>Factory\HitBoxFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="SoldierMelee.cpp">
+      <Filter>Component\Custom\Melee\Monster\SoldierMelee</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -613,7 +631,7 @@
       <Filter>FiniteStateMachine\Melee</Filter>
     </ClInclude>
     <ClInclude Include="SoldierGrenade.h">
-      <Filter>Component\Custom\Bullet\Monster\SoliderGrenade</Filter>
+      <Filter>Component\Custom\Bullet\Monster\SoldierGrenade</Filter>
     </ClInclude>
     <ClInclude Include="EventManager.h">
       <Filter>Manager\EventManager</Filter>
@@ -647,6 +665,12 @@
     </ClInclude>
     <ClInclude Include="Melee.h">
       <Filter>Component\Custom\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeFactory.h">
+      <Filter>Factory\HitBoxFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="SoldierMelee.h">
+      <Filter>Component\Custom\Melee\Monster\SoldierMelee</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

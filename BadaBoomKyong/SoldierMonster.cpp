@@ -19,9 +19,12 @@
 #include "IDLE_SoliderMonster.h"
 #include "RANGED_SoliderMonster.h"
 #include "MELEE_SoldierMonster.h"
+#include "MeleeFactory.h"
+#include "Melee.h"
+#include "SoldierMelee.h"
 
 SoldierMonster::SoldierMonster(GameObject* _owner)
-    :Monster(_owner)
+    :Monster(_owner)	
 {	
 	SetName(SoldierMonsterTypeName);
 
@@ -45,7 +48,8 @@ void SoldierMonster::Init()
 {	
 	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
 	assert(m_pBulletFactory != nullptr);
-
+	m_pMeleeFactory =dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
+	assert(m_pMeleeFactory != nullptr);
 	m_pGrenadePool = static_cast<ObjectPool<SoldierGrenade, 30>*>(ObjectPoolManager::GetInstance()->GetPool<SoldierGrenade, 30>());
 	ObjectPoolManager::GetInstance()->ReigistPool<SoldierGrenade, 30>();
 }
@@ -60,7 +64,11 @@ void SoldierMonster::Update()
 	float dist = math->DistanceBetweenPoints(m_vPosition, m_vPlayerPosition);
 	if (dist <= m_fDetectRange)
 	{
-		m_pAI->ChangeState(MONSTER_STATE::RANGE_ATTACK_STATE);
+		m_pAI->ChangeState(MONSTER_STATE::MELEE_ATTACK_STATE);
+	}
+	else if(m_pAI->GetCurrentState()->GetType() == MONSTER_STATE::MELEE_ATTACK_STATE)
+	{
+		m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
 	}
 }
 
@@ -78,6 +86,18 @@ void SoldierMonster::Fire()
 
 	EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
 	grn_comp->SetCanFire(true);
+}
+
+void SoldierMonster::MeleeAttack()
+{
+	m_pMelee = m_pMeleeFactory->CreateMelee(GROUP_TYPE::MELEE);
+	SoldierMelee* melee_comp = dynamic_cast<SoldierMelee*>(m_pMelee);
+	assert(m_pMelee != nullptr);	
+	if (m_bCanMeleeAttack == false)
+	{
+		EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
+		m_bCanMeleeAttack = true;
+	}
 }
 
 void SoldierMonster::EnterCollision(Collider* _other)

@@ -41,13 +41,9 @@ void ComponentManager::Init()
 void ComponentManager::Awake()
 {
 	for (int i = 0;i < m_vComponents.size();i++)
-	{	
-		if (m_vComponents[i]->GetName() == "ThrowingWeapon")
-			int a = 0;
+	{			
 		if (!m_vComponents[i]->m_bAwoken && m_vComponents[i]->GetActive())
-		{			
-			if (m_vComponents[i]->GetName() == "ThrowingWeapon")
-				int a = 0;
+		{						
 			m_vComponents[i]->Awake();
 			m_vComponents[i]->MarkAwoken(true);
 		}

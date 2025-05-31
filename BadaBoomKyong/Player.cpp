@@ -15,6 +15,8 @@
 #include "FactoryManager.h"
 #include "EventManager.h"
 #include "Pistol.h"
+#include "MeleeFactory.h"
+#include "Melee.h"
 
 Player::Player(GameObject* _owner)
 	:MonoBehaviour(_owner)	
@@ -39,8 +41,8 @@ Player::~Player()
 void Player::Init()
 {		
 	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
-
-	assert(m_pBulletFactory != nullptr);
+	//m_pMeleeFactory = dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
+	assert(m_pBulletFactory != nullptr/*&&m_pMeleeFactory!=nullptr*/);
 }
 
 void Player::Exit()
@@ -61,6 +63,11 @@ void Player::Update()
 	if (input->GetKetCode(GLFW_KEY_J) == GLFW_PRESS)
 	{
 		Fire();
+	}
+
+	if (input->GetMouseBtn(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	{
+		MeleeAttack();
 	}
 }
 
@@ -100,12 +107,16 @@ void Player::Move()
 }
 
 void Player::Fire()
-{		
+{
 	Bullet* bullet_comp=m_pBulletFactory->CreateBullet(BULLET_TYPE::PISTOL);
 	m_pBullet = bullet_comp;
 	assert(m_pBullet != nullptr);
 
 	EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
+}
+
+void Player::MeleeAttack()
+{	
 }
 
 

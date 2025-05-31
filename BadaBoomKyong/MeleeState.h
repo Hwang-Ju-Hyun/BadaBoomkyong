@@ -8,7 +8,7 @@ public:
     virtual ~MeleeState()override;
 public:
     virtual void Init(Monster* _mon)  override;
-    virtual void Update(Monster* _mon)override;
-    virtual void Exit(Monster* _mon)  override;
+    virtual void Update(Monster* _mon)override; 
+    virtual void Exit(Monster* _mon)override;
 };
 

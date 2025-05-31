@@ -163,6 +163,7 @@
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="GeometryUtill.cpp" />
     <ClCompile Include="GizmoManager.cpp" />
+    <ClCompile Include="MeleeFactory.cpp" />
     <ClCompile Include="ICollisionHandler.cpp" />
     <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="IDLE_SoliderMonster.cpp" />
@@ -200,6 +201,7 @@
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Serializer.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SoldierMelee.cpp" />
     <ClCompile Include="SoldierMonster.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage01.cpp" />
@@ -232,6 +234,7 @@
     <ClInclude Include="GeometryUtill.h" />
     <ClInclude Include="GizmoManager.h" />
     <ClInclude Include="header.h" />
+    <ClInclude Include="MeleeFactory.h" />
     <ClInclude Include="ICollisionHandler.h" />
     <ClInclude Include="IdleState.h" />
     <ClInclude Include="IDLE_SoliderMonster.h" />
@@ -277,6 +280,7 @@
     <ClInclude Include="Serializer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="SoldierMelee.h" />
     <ClInclude Include="SoldierMonster.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage01.h" />

@@ -20,7 +20,7 @@ void MeleeState::Init(Monster* _mon)
 void MeleeState::Update(Monster* _mon)
 {
 	if (_mon->GetMeleeBehaviour())
-		_mon->GetMeleeBehaviour()->Init(_mon);
+		_mon->GetMeleeBehaviour()->DoMeleeBehaviour(_mon);
 }
 
 void MeleeState::Exit(Monster* _mon)

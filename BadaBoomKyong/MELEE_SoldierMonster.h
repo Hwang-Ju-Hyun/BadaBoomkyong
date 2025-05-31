@@ -10,5 +10,5 @@ private:
     SoldierMonster* m_pSoliderMonster = nullptr;
 public:
     virtual void Init(Monster* _mon)override;
-    virtual void DoMeleeBehaviour(Monster* _mon)override;
+    virtual void DoMeleeBehaviour(Monster* _mon)override;    
 };

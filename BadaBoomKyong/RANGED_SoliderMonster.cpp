@@ -24,7 +24,7 @@ void RANGED_SoliderMonster::MoveSideBySide_Attack()
 	if (m_pSoliderMonster != nullptr)
 	{					
 		Transform* mon_trs = dynamic_cast<Transform*>(m_pSoliderMonster->GetOwner()->FindComponent(Transform::TransformTypeName));
-		float move_speed = 0.05f;
+		float move_speed = m_pSoliderMonster->GetSpeed();
 		float pos = move_speed * m_pSoliderMonster->GetDirection();
 		if (std::fabs(m_fStepSum) <= m_pSoliderMonster->GetRangedMoveAtkRange().x)
 		{

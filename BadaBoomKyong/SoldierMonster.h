@@ -7,6 +7,8 @@ class SoldierGrenade;
 class Bullet;
 class Transform;
 class GameObject;
+class Melee;
+class MeleeFactory;
 
 class SoldierMonster :
     public Monster
@@ -47,6 +49,10 @@ public:
     virtual void Exit()override; 
 public:
     void Fire();
+    void MeleeAttack();
+    MeleeFactory* m_pMeleeFactory = nullptr;
+    Melee* m_pMelee = nullptr;
+    bool m_bCanMeleeAttack = false;
 public:
     virtual void EnterCollision(Collider* _other)override;
     virtual void OnCollision(Collider* _other)   override;

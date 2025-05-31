@@ -3,6 +3,7 @@
 #include "BulletFactory.h"
 #include "ObjectPoolManager.h"
 #include "Bullet.h"
+#include "MeleeFactory.h"
 
 FactoryManager::FactoryManager()
 {
@@ -17,6 +18,7 @@ FactoryManager::~FactoryManager()
 void FactoryManager::Init()
 {					
 	InsertFactory(BulletFactory::BulletFactoryTypeName, new BulletFactory);	
+	InsertFactory(MeleeFactory::MeleeFactoryTypeName, new MeleeFactory);
 	for (auto iter = m_hashFactories.begin();iter != m_hashFactories.end();iter++)
 	{
 		iter->second->Init();

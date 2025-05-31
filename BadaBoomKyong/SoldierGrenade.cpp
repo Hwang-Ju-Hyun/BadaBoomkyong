@@ -12,7 +12,7 @@
 #include "SoldierMonster.h"
 
 SoldierGrenade::SoldierGrenade(GameObject* _owner)
-    :Bullet(_owner)
+    :Bullet(_owner)    
 {
     GetOwner()->SetIsSerializable(false);
 }

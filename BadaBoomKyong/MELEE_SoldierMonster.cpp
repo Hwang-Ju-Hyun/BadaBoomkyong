@@ -12,5 +12,5 @@ void MELEE_SoldierMonster::Init(Monster* _mon)
 
 void MELEE_SoldierMonster::DoMeleeBehaviour(Monster* _mon)
 {
-
+	m_pSoliderMonster->MeleeAttack();
 }
