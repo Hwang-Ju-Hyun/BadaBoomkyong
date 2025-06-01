@@ -20,7 +20,8 @@ public:
 	void Exit();
 public:
 	void AddObject(GameObject* _obj);
-	GameObject* FindObject(const std::string& _name,size_t _id=0);	
+	GameObject* FindObject(const std::string& _name,size_t _id=0);
+	int GetObjectNumber(const std::string& _name);
 	GameObject* GetLastObject();
 	inline const std::vector<GameObject*>& GetAllObjects()const { return m_vGameObjects; }
 	void DeleteObject(const std::string& _name);

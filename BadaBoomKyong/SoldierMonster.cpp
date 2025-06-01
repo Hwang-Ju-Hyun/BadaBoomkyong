@@ -28,8 +28,7 @@ SoldierMonster::SoldierMonster(GameObject* _owner)
 {	
 	SetName(SoldierMonsterTypeName);
 
-	m_fDirection = -1.f;
-
+	m_fDirection = -1.f;		
 	m_pAI->RegistryMonster(this);
 	m_pAI->SetOwner(_owner);
 	m_pAI->SetCurState(MONSTER_STATE::IDLE_STATE);
@@ -64,12 +63,13 @@ void SoldierMonster::Update()
 	float dist = math->DistanceBetweenPoints(m_vPosition, m_vPlayerPosition);
 	if (dist <= m_fDetectRange)
 	{
-		m_pAI->ChangeState(MONSTER_STATE::MELEE_ATTACK_STATE);
-	}
-	else if(m_pAI->GetCurrentState()->GetType() == MONSTER_STATE::MELEE_ATTACK_STATE)
-	{
-		m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
-	}
+		if (dist <= m_vMeleeAtkRange.x)
+			m_pAI->ChangeState(MONSTER_STATE::MELEE_ATTACK_STATE);
+		else
+			m_pAI->ChangeState(MONSTER_STATE::RANGE_ATTACK_STATE);
+	}		
+	else	
+		m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);	
 }
 
 void SoldierMonster::Exit()
@@ -81,8 +81,9 @@ void SoldierMonster::Exit()
 
 void SoldierMonster::Fire()
 {
-	m_pBullet = GetBulletFactory()->CreateBullet(BULLET_TYPE::MONSTER_TEMP_BOOB);
+	m_pBullet = GetBulletFactory()->CreateBullet(BULLET_TYPE::SOLDIER_BOMB);
 	SoldierGrenade* grn_comp = dynamic_cast<SoldierGrenade*>(m_pBullet->GetOwner()->FindComponent(SoldierGrenade::SoldierMonsterGrenadeTypaName));
+	grn_comp->SetShooter(this->GetOwner());
 
 	EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
 	grn_comp->SetCanFire(true);
@@ -92,7 +93,7 @@ void SoldierMonster::MeleeAttack()
 {
 	m_pMelee = m_pMeleeFactory->CreateMelee(GROUP_TYPE::MELEE);
 	SoldierMelee* melee_comp = dynamic_cast<SoldierMelee*>(m_pMelee);
-	assert(m_pMelee != nullptr);	
+	assert(m_pMelee != nullptr);
 	if (m_bCanMeleeAttack == false)
 	{
 		EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());

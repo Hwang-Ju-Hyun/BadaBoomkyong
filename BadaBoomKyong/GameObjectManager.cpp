@@ -66,6 +66,17 @@ GameObject* GameObjectManager::FindObject(const std::string& _name, size_t _id)
 	return nullptr;	
 }
 
+int GameObjectManager::GetObjectNumber(const std::string& _name)
+{
+	int num = 0;
+	for (int i = 0;i < m_vGameObjects.size();i++)
+	{
+		if (m_vGameObjects[i]->GetName() == _name)
+			num++;
+	}
+	return num;
+}
+
 GameObject* GameObjectManager::GetLastObject()
 {
 	int size = m_vGameObjects.size();

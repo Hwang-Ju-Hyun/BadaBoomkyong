@@ -7,8 +7,8 @@
 #include "Player.h"
 #include "EventManager.h"
 
-Pistol::Pistol(GameObject* _owner)
-	:Bullet(_owner)
+Pistol::Pistol(GameObject* _owner,GameObject* _shooter)
+	:Bullet(_owner,_shooter)
 	, m_fSpeed(1.5f)
 {
 	GetOwner()->SetIsSerializable(false);
@@ -33,7 +33,11 @@ void Pistol::Init()
 
 void Pistol::Awake()
 {
-	m_pTransform->SetPosition(m_pPlayerTrs->GetPosition());
+	//shooter is equal player
+	Transform* shooter_trs = GetShooter()->FindComponent<Transform>();
+	glm::vec3 shooter_pos = shooter_trs->GetPosition();
+
+	m_pTransform->SetPosition(shooter_pos);
 	m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
 	m_pCollider->SetScale(m_pTransform->GetScale());
 }
@@ -71,9 +75,9 @@ void Pistol::ExitCollision(Collider* _col)
 
 BaseRTTI* Pistol::CreatePistolComponent()
 {
-	GameObject* last_obj = GameObjectManager::GetInstance()->GetLastObject();
+	/*GameObject* last_obj = GameObjectManager::GetInstance()->GetLastObject();
 	BaseRTTI* comp = last_obj->AddComponent_and_Get(PistolTypeName, new Pistol(last_obj));
 	if (comp != nullptr)
-		return comp;
+		return comp;*/
 	return nullptr;
 }

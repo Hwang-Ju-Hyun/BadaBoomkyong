@@ -60,7 +60,7 @@ void AI::SetCurState(MONSTER_STATE _state)
 void AI::ChangeState(MONSTER_STATE _state)
 {
 	if (m_pCurState->GetType() == _state)
-		int a = 0;//assert(false);
+		int a = 0;
 
 	BaseState* next_state = FindState(_state);
 	m_pCurState->Exit(m_pMonster);

@@ -7,7 +7,7 @@ class Pistol :
     public Bullet
 {
 public:
-    Pistol(GameObject* _owner);
+    Pistol(GameObject* _owner,GameObject* _shooter);
     virtual ~Pistol()override;
 public:
     virtual void Init()  override;

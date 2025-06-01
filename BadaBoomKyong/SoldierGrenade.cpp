@@ -11,8 +11,8 @@
 #include "Bullet.h"
 #include "SoldierMonster.h"
 
-SoldierGrenade::SoldierGrenade(GameObject* _owner)
-    :Bullet(_owner)    
+SoldierGrenade::SoldierGrenade(GameObject* _owner, GameObject* _shooter)
+    :Bullet(_owner,_shooter)    
 {
     GetOwner()->SetIsSerializable(false);
 }
@@ -37,7 +37,7 @@ void SoldierGrenade::Init()
 void SoldierGrenade::Awake()
 { 
     GameObject* mon_obj = GameObjectManager::GetInstance()->FindObject(SoldierMonster::SoldierMonsterTypeName);
-    Transform* mon_trs = dynamic_cast<Transform*>(mon_obj->FindComponent(Transform::TransformTypeName));
+    Transform* mon_trs = dynamic_cast<Transform*>(GetShooter()->FindComponent(Transform::TransformTypeName));
     SoldierMonster* mon_comp = dynamic_cast<SoldierMonster*>(mon_obj->FindComponent(SoldierMonster::SoldierMonsterTypeName));
 
     m_pTransform->SetPosition({ mon_trs->GetPosition() });
@@ -108,10 +108,10 @@ json SoldierGrenade::SaveToJson(const json& _str)
 
 BaseRTTI* SoldierGrenade::CreateThrowingWeaponComponent()
 {
-    GameObject* last_obj = GameObjectManager::GetInstance()->GetLastObject();
+   /* GameObject* last_obj = GameObjectManager::GetInstance()->GetLastObject();
     BaseRTTI* comp = last_obj->AddComponent_and_Get(SoldierMonsterGrenadeTypaName, new SoldierGrenade(last_obj));
     if (comp != nullptr)
-        return comp;
+        return comp;*/
     return nullptr;
 }
 

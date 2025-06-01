@@ -52,7 +52,7 @@ void SoldierMelee::Update()
 {
     float dt = TimeManager::GetInstance()->GetDeltaTime();
     if (m_fCurTime <= m_fLifeTime)    
-        m_fCurTime += dt;    
+        m_fCurTime += dt;
     else
     {
         m_fCurTime = 0.f;

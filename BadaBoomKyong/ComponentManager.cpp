@@ -56,6 +56,8 @@ void ComponentManager::Update()
 	{		
 		if (m_vComponents[i]->GetActive())
 		{
+			if (m_vComponents[i]->GetName() == "AI")
+				int a = 0;
 			m_vComponents[i]->Update();
 		}
 	}

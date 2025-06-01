@@ -4,6 +4,7 @@
 #include <string>
 #include "ObjectPool.h"
 #include "BaseFactory.h"
+#include <vector>
 #include "header.h"
 
 class Pistol;

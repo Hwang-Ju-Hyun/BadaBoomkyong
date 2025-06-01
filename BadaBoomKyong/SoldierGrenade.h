@@ -4,12 +4,13 @@
 class Transform;
 class Sprite;
 class RigidBody;
+class SoldierMonster;
 
 class SoldierGrenade :
 	public Bullet
 {
 public:
-    SoldierGrenade(GameObject* _owner);
+    SoldierGrenade(GameObject* _owner, GameObject* _shooter);
     virtual ~SoldierGrenade()override;
 public:
 	virtual void Init()  override;
