@@ -5,6 +5,7 @@
 #include "Sprite.h"
 #include "Collider.h"
 #include "SoldierMelee.h"
+#include "PlayerMelee.h"
 
 MeleeFactory::MeleeFactory()
 {
@@ -22,22 +23,27 @@ void MeleeFactory::Init()
 	Transform* trs = dynamic_cast<Transform*>(m_pSoldierMeleeObject->AddComponent_and_Get(Transform::TransformTypeName, new Transform(m_pSoldierMeleeObject)));
 	Sprite* spr = dynamic_cast<Sprite*>(m_pSoldierMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pSoldierMeleeObject)));
 	Collider* col = dynamic_cast<Collider*>(m_pSoldierMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pSoldierMeleeObject)));
+
+	m_pPlayerMeleeObject =new GameObject(Melee::MeleeTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::MELEE);
+	m_pPlayerMelee = dynamic_cast<PlayerMelee*>(m_pPlayerMeleeObject->AddComponent_and_Get(Melee::MeleeTypeName, new PlayerMelee(m_pPlayerMeleeObject)));
+	Transform* player_trs = dynamic_cast<Transform*>(m_pPlayerMeleeObject->AddComponent_and_Get(Transform::TransformTypeName, new Transform(m_pPlayerMeleeObject)));
+	Sprite* player_spr    = dynamic_cast<Sprite*>(m_pPlayerMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pPlayerMeleeObject)));
+	Collider* player_col  = dynamic_cast<Collider*>(m_pPlayerMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pPlayerMeleeObject)));
 }
 
 Melee* MeleeFactory::CreateMelee(GROUP_TYPE _type)
 {
+	//todo : 이거 그룹타입 밀리인거 이상함 꼭 고치셈 1순위 급임
 	Melee* melee_comp = nullptr;
 	switch (_type)
 	{
 	case GROUP_TYPE::MELEE : 
-	{
-		m_pSoldierMeleeObject;
-		this;
-		int a = 0;
-
+	{	
 		melee_comp = m_pSoldierMelee;
 	}
 		break;
+	case GROUP_TYPE::PLAYER:
+		melee_comp = m_pPlayerMelee;
 	default:
 		break;
 	}

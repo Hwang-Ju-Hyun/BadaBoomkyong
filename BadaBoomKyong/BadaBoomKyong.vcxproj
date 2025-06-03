@@ -196,6 +196,7 @@
     <ClCompile Include="PATROL_SoliderMonster.cpp" />
     <ClCompile Include="Pistol.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerMelee.cpp" />
     <ClCompile Include="RangedState.cpp" />
     <ClCompile Include="RANGED_SoliderMonster.cpp" />
     <ClCompile Include="Registry.cpp" />
@@ -280,6 +281,7 @@
     <ClInclude Include="PATROL_SoliderMonster.h" />
     <ClInclude Include="Pistol.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerMelee.h" />
     <ClInclude Include="RangedState.h" />
     <ClInclude Include="RANGED_SoliderMonster.h" />
     <ClInclude Include="Registry.h" />

@@ -50,8 +50,7 @@ public:
 protected:
     float m_fSpeed = 0.f;
     float m_fJumpImpulse = 500.f;
-    bool m_bIsGround = false;
-    float m_fVerticalVelocity = 0.f;
+    bool m_bIsGround = false;    
 public:
     inline void SetIsGround(bool _ground) { m_bIsGround = _ground; }
     inline bool GetIsGround()const { return m_bIsGround; }

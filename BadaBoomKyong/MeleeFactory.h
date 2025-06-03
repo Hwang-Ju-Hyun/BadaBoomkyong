@@ -4,6 +4,7 @@
 class Melee;
 class SoldierMelee;
 class GameObject;
+class PlayerMelee;
 
 class MeleeFactory :
     public BaseFactory
@@ -18,6 +19,9 @@ public:
 private:
     GameObject* m_pSoldierMeleeObject = nullptr;
     SoldierMelee*m_pSoldierMelee = nullptr;
+    
+    GameObject* m_pPlayerMeleeObject = nullptr;
+    PlayerMelee* m_pPlayerMelee = nullptr;
 public:
     static constexpr const char* MeleeFactoryTypeName = "MeleeFactory";
 };

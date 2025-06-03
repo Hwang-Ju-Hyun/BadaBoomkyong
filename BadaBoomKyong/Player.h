@@ -29,12 +29,13 @@ private:
     Bullet* m_pBullet=nullptr;
     Melee* m_pMelee=nullptr;
 private:
-    float m_fSpeed=0.f;
-    float m_fVerticalVelocity = 0.f;        
-    float m_fJumpImpulse = 500.f;
-public:
+    float m_fSpeed=0.f;            
+    float m_fJumpImpulse = 500.f;    
+public:    
     bool m_bIsGround = false;
     int m_iCurJumpCount = 0;
+private:
+    bool m_bCanMeleeAttack = false;
 public:
     virtual void Init()override;
     virtual void Update()override;
@@ -47,6 +48,8 @@ public:
 
     inline float GetSpeed()const { return m_fSpeed; }
     //inline float GetJumpForce()const { return m_fJumpForce; }
+    inline void SetCanMeleeAttack(bool _canMelee) { m_bCanMeleeAttack = _canMelee; }
+    inline bool GetCanMeleeAttack()const { return m_bCanMeleeAttack; }
 public:
     virtual void EnterCollision(Collider* _other)override;
     virtual void OnCollision(Collider* _other)   override;

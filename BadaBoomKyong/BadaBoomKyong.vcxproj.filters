@@ -466,6 +466,9 @@
     <ClCompile Include="TextureResource.cpp">
       <Filter>Resource\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerMelee.cpp">
+      <Filter>Component\Custom\Melee\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -716,6 +719,9 @@
     </ClInclude>
     <ClInclude Include="TextureResource.h">
       <Filter>Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMelee.h">
+      <Filter>Component\Custom\Melee\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
