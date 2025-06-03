@@ -12,6 +12,7 @@ class Player;
 class IIdleBehaviour;
 class IRangedBehaviour;
 class IMeleeBehaviour;
+class IPatrolBehaviour;
 
 class Monster :
     public MonoBehaviour
@@ -34,13 +35,17 @@ protected:
     IIdleBehaviour*   m_pIdleBehavior;
     IRangedBehaviour* m_pRangedBehavior;
     IMeleeBehaviour*  m_pMeleeBehaviour;
+    IPatrolBehaviour* m_pPatrolBehaviour;
 public:
     inline void SetIdleBehaviour(IIdleBehaviour* _behaviour) { m_pIdleBehavior = _behaviour; }
     inline void SetRangedBehaviour(IRangedBehaviour* _behaviour) { m_pRangedBehavior = _behaviour; }
     inline void SetMeleeBehaivour(IMeleeBehaviour* _behaviour) { m_pMeleeBehaviour = _behaviour; }
+    inline void SetPatrolBehaviour(IPatrolBehaviour* _behaviour) { m_pPatrolBehaviour = _behaviour; }
+
     inline IIdleBehaviour* GetIdleBehavior() { return m_pIdleBehavior; }
     inline IRangedBehaviour* GetRangedBehavior() { return m_pRangedBehavior; }
     inline IMeleeBehaviour* GetMeleeBehaviour() { return m_pMeleeBehaviour; }
+    inline IPatrolBehaviour* GetPatrolBehaviour() { return m_pPatrolBehaviour; }
     inline AI* GetAI()const { return m_pAI; }
 protected:
     float m_fSpeed = 0.f;

@@ -233,6 +233,18 @@
     <Filter Include="Component\Custom\Bullet\Monster\SoldierGrenade">
       <UniqueIdentifier>{ca189c89-96ba-41ae-a056-3503368717f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Custom\Monster\Soldier\State\PATROL">
+      <UniqueIdentifier>{66f75b8c-d5f0-4c9b-a4a2-0660d4bc36a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{2ed29f3f-69b5-4323-a4ab-9fe66e99bb4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ResourceManager">
+      <UniqueIdentifier>{bbb484cf-60e9-40fa-8d03-7ec804aab61e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Texture">
+      <UniqueIdentifier>{e0e23275-9019-4102-b5df-daf8d6a52ea4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -438,6 +450,21 @@
     </ClCompile>
     <ClCompile Include="SoldierMelee.cpp">
       <Filter>Component\Custom\Melee\Monster\SoldierMelee</Filter>
+    </ClCompile>
+    <ClCompile Include="PatrolState.cpp">
+      <Filter>FiniteStateMachine\Patrol</Filter>
+    </ClCompile>
+    <ClCompile Include="PATROL_SoliderMonster.cpp">
+      <Filter>Component\Custom\Monster\Soldier\State\PATROL</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Manager\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureResource.cpp">
+      <Filter>Resource\Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -671,6 +698,24 @@
     </ClInclude>
     <ClInclude Include="SoldierMelee.h">
       <Filter>Component\Custom\Melee\Monster\SoldierMelee</Filter>
+    </ClInclude>
+    <ClInclude Include="PatrolState.h">
+      <Filter>FiniteStateMachine\Patrol</Filter>
+    </ClInclude>
+    <ClInclude Include="IPatrolBehaviour.h">
+      <Filter>FiniteStateMachine\Patrol</Filter>
+    </ClInclude>
+    <ClInclude Include="PATROL_SoliderMonster.h">
+      <Filter>Component\Custom\Monster\Soldier\State\PATROL</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Manager\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureResource.h">
+      <Filter>Resource\Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

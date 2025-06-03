@@ -8,7 +8,7 @@ Camera::Camera()
 {
 	auto window_width=Window::GetInstance()->GetWindowWidth();
 	auto window_height=Window::GetInstance()->GetWindowHeight();
-	fovy = 60.0;
+	fovy = 45.f; 
 	width = window_width;
 	height = window_height;
 	nearPlane = 0.1;

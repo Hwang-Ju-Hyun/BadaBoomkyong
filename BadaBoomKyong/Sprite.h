@@ -2,6 +2,7 @@
 #include "MonoBehaviour.h"
 #include <glm.hpp>
 
+class TextureResource;
 class GameObject;
 
 class Sprite :
@@ -12,9 +13,13 @@ public:
     virtual ~Sprite()override;
 private:
     glm::vec4 m_vColor = { 1.f,1.f,1.f,1.f };
+    TextureResource* m_pTextureResource = nullptr;
 public:
     inline glm::vec4 GetColor() { return m_vColor; }
     inline void SetColor(const glm::vec4& _color) { m_vColor = _color; }
+
+    inline void SetTexture(TextureResource* _res) { m_pTextureResource = _res; }
+    inline TextureResource* GetTexture()const { return m_pTextureResource; }
 public:
     virtual void Init()override;
     virtual void Update()override;
@@ -22,6 +27,8 @@ public:
 public:
     static constexpr const char* SpriteTypeName = "Sprite";
     static constexpr const char* ColorName = "RGBA";
+    static constexpr const char* TextureTypeName = "TextureName";
+    static constexpr const char* TexturePathTypeName = "TexturePath";
 public:
     static BaseRTTI* CreateSpriteComponent();
     virtual void LoadFromJson(const json& _str)override;

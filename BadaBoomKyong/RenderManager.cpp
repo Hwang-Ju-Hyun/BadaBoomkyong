@@ -13,7 +13,7 @@
 #include "Transform.h"
 #include "Sprite.h"
 #include <cassert>
-
+#include "TextureResource.h"
 #ifdef _DEBUG
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
@@ -55,6 +55,9 @@ void RenderManager::Init()
 	glCullFace(GL_BACK); // 뒷면 제거
 	glFrontFace(GL_CCW); // 반시계 방향을 앞면으로 간주
 	glEnable(GL_DEPTH_TEST);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 #include "Monster.h"
@@ -63,7 +66,7 @@ void RenderManager::Draw()
 {			
 	auto objs=GameObjectManager::GetInstance()->GetAllObjects();
 	auto shdr_handle_2D = m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->GetShaderProgramHandle();
-	auto shadr_handle_3D= m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->GetShaderProgramHandle();
+	auto shdr_handle_3D= m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->GetShaderProgramHandle();
 	Transform* obj_trs = nullptr;
 	glEnable(GL_DEPTH_TEST);
 	m_pCam->Update();
@@ -114,15 +117,30 @@ void RenderManager::Draw()
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
 
 				//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
-				GLint MVP_Location = glGetUniformLocation(shadr_handle_3D, "uMVP");
+				GLint MVP_Location = glGetUniformLocation(shdr_handle_3D, "uMVP");
 				assert(MVP_Location >= 0);
 			
 				Transform* trs = dynamic_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName));
 				assert(trs != nullptr);											
 				Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
-				assert(spr != nullptr);
-				GLint DebugColorLocation = glGetUniformLocation(shadr_handle_3D, "uDebugColor");
-				assert(DebugColorLocation >= 0);
+				assert(spr != nullptr);				
+
+				GLint has_texture_location = glGetUniformLocation(shdr_handle_3D, "uHasTexture");
+				GLint out_texture_location = glGetUniformLocation(shdr_handle_3D, "uOutTexture");
+
+				if (spr->GetTexture() != nullptr)
+				{					
+					GLuint tex_id = spr->GetTexture()->GetTextureID();
+					glBindTextureUnit(0, tex_id);
+					assert(has_texture_location >= 0 && out_texture_location >= 0);
+					
+					glUniform1i(out_texture_location, 0);
+					glUniform1i(has_texture_location, true);
+				}
+				else
+				{					
+					glUniform1i(has_texture_location, false);
+				}
 
 				glm::mat4 m2w = trs->GetModelToWorld_Matrix();
 				glm::mat4 proj = m_pCam->GetProjMatrix();
@@ -130,11 +148,17 @@ void RenderManager::Draw()
 				glm::mat4 MVP = proj * view * m2w;
 				glm::vec4 color = spr->GetColor();
 
-				GLint IsColliderLocation = glGetUniformLocation(shadr_handle_3D, "uIsCollider");
+
+				//todo : 주석처리된거 지우고 충돌체 쉐이더를 통해 그리는거 이것도 쉐이더에서 수정하고 
+				// draw collider에도 주석있음 아마 assert주석 처리해놓았을 거임 그것도 지우셈
+				//GLint IsColliderLocation = glGetUniformLocation(shdr_handle_3D, "uIsCollider");
 				glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));				
-				glUniform1i(IsColliderLocation, false); // false
+				//glUniform1i(IsColliderLocation, false); // false
 
 #ifdef _DEBUG
+				/*GLint DebugColorLocation = glGetUniformLocation(shdr_handle_3D, "uDebugColor");
+				assert(DebugColorLocation >= 0);*/
+
 				if (obj->GetName() == "SoldierMonster")
 				{					
 					Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));

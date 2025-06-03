@@ -113,12 +113,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\GLFW\include\;$(ProjectDir)Dependencies\GLEW\include\;$(ProjectDir)Dependencies\GLM\;$(ProjectDir)IMGUI;$(ProjectDir)IMGUIZMO;$(ProjectDir)IMAPP</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\GLFW\include\;$(ProjectDir)Dependencies\GLEW\include\;$(ProjectDir)Dependencies\GLM\;$(ProjectDir)Dependencies\STB\;$(ProjectDir)IMGUI;$(ProjectDir)IMGUIZMO</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\GLFW\lib-vc2019\;$(ProjectDir)Dependencies\GLEW\lib\;$(ProjectDir)IMGUI;$(ProjectDir)IMGUIZMO;$(ProjectDir)IMAPP;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\GLFW\lib-vc2019\;$(ProjectDir)Dependencies\GLEW\lib\;$(ProjectDir)IMGUI;$(ProjectDir)IMGUIZMO;$(ProjectDir)IMAPP;%(AdditionalLibraryDirectories);%(AdditionalLibraryDirectories);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -130,14 +130,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\GLFW\include\;$(ProjectDir)Dependencies\GLEW\include\;$(ProjectDir)Dependencies\GLM\;$(ProjectDir)IMGUIZMO;$(ProjectDir)IMAPP;$(ProjectDir)IMGUI</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\GLFW\include\;$(ProjectDir)Dependencies\GLEW\include\;$(ProjectDir)Dependencies\GLM\;$(ProjectDir)Dependencies\STB\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\GLFW\lib-vc2019\;$(ProjectDir)Dependencies\GLEW\lib\;$(ProjectDir)IMGUI;$(ProjectDir)IMAPP;$(ProjectDir)IMGUIZMO;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\GLFW\lib-vc2019\;$(ProjectDir)Dependencies\GLEW\lib\;$(ProjectDir)IMGUI;$(ProjectDir)IMAPP;$(ProjectDir)IMGUIZMO;%(AdditionalLibraryDirectories);%(AdditionalLibraryDirectories);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -192,12 +192,16 @@
     <ClCompile Include="MonoBehaviour.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="ObjectPoolManager.cpp" />
+    <ClCompile Include="PatrolState.cpp" />
+    <ClCompile Include="PATROL_SoliderMonster.cpp" />
     <ClCompile Include="Pistol.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RangedState.cpp" />
     <ClCompile Include="RANGED_SoliderMonster.cpp" />
     <ClCompile Include="Registry.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Serializer.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -206,6 +210,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage01.cpp" />
     <ClCompile Include="SoldierGrenade.cpp" />
+    <ClCompile Include="TextureResource.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TraceState.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -234,6 +239,7 @@
     <ClInclude Include="GeometryUtill.h" />
     <ClInclude Include="GizmoManager.h" />
     <ClInclude Include="header.h" />
+    <ClInclude Include="IPatrolBehaviour.h" />
     <ClInclude Include="MeleeFactory.h" />
     <ClInclude Include="ICollisionHandler.h" />
     <ClInclude Include="IdleState.h" />
@@ -270,12 +276,16 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectPoolManager.h" />
+    <ClInclude Include="PatrolState.h" />
+    <ClInclude Include="PATROL_SoliderMonster.h" />
     <ClInclude Include="Pistol.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RangedState.h" />
     <ClInclude Include="RANGED_SoliderMonster.h" />
     <ClInclude Include="Registry.h" />
     <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Serializer.h" />
     <ClInclude Include="Shader.h" />
@@ -285,6 +295,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage01.h" />
     <ClInclude Include="SoldierGrenade.h" />
+    <ClInclude Include="TextureResource.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TraceState.h" />
     <ClInclude Include="Transform.h" />

@@ -1,14 +1,26 @@
-//{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ generated include file.
-// Used by BadaBoomKyong.rc
+#pragma once
+#include <string>
 
-// 다음은 새 개체에 사용할 기본값입니다.
-// 
-#ifdef APSTUDIO_INVOKED
-#ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        101
-#define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1001
-#define _APS_NEXT_SYMED_VALUE           101
-#endif
-#endif
+class BaseResource
+{
+public:
+	BaseResource() = delete;
+	BaseResource(const std::string& _name);
+	virtual ~BaseResource();
+private:
+	std::string m_sResourceName;
+	std::string m_sResourcePath;
+protected:
+	unsigned char* m_cData = nullptr;
+public:
+	unsigned char* GetData()const { return m_cData; }
+public:
+	inline void SetResourceName(const std::string& _resName)	{ m_sResourceName = _resName; }
+	inline const std::string& GetResourceName()const			{ return m_sResourceName; }
+	inline void SetResourcePath(const std::string& _resPath)	{ m_sResourcePath = _resPath; }
+	inline const std::string& GetResourcePath()const			{ return m_sResourcePath; }
+public:
+	virtual void Load(const std::string& _path) = 0;
+	virtual void UnLoad() = 0;
+};
+

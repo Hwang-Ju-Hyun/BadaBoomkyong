@@ -4,6 +4,9 @@
 #include <cassert>
 #include "Serializer.h"
 #include "BaseComponent.h"
+#include "TextureResource.h"
+#include "ResourceManager.h"
+#include "Resource.h"
 
 Sprite::Sprite(GameObject* _owner)
 	:MonoBehaviour(_owner)
@@ -46,6 +49,15 @@ void Sprite::LoadFromJson(const json& _str)
 		m_vColor.g = (color->begin()+1).value();
 		m_vColor.b = (color->begin()+2).value();
 		m_vColor.a = (color->begin()+3).value();
+
+		auto texture_name = comp_data->find(TextureTypeName);
+		auto texture_path = comp_data->find(TexturePathTypeName);
+		if (texture_name != comp_data->end() && texture_path != comp_data->end())
+		{		
+			TextureResource* res= dynamic_cast<TextureResource*>(ResourceManager::GetInstance()->GetAndLoad(texture_name.value(), texture_path.value()));
+			assert(res != nullptr);
+			m_pTextureResource = res;
+		}
 	}
 }
 
@@ -58,6 +70,12 @@ json Sprite::SaveToJson(const json& _str)
 	json compData;
 	compData[ColorName] = { m_vColor.r,m_vColor.g,m_vColor.b,m_vColor.a };
 
+	if (m_pTextureResource != nullptr)
+	{
+		compData[TextureTypeName] = { m_pTextureResource->GetResourceName() };
+		compData[TexturePathTypeName] = { m_pTextureResource->GetResourcePath() };
+	}
+	
 	data[CompDataName] = compData;
 	return data;
 }

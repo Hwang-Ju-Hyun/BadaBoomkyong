@@ -147,7 +147,7 @@ void Collider::DrawCollider()const
 	glUniform1i(IsColliderLocation, true); // true
 
 	GLint DebugColorLocation = glGetUniformLocation(shadr_handle_3D, "uDebugColor");
-	assert(DebugColorLocation >= 0);
+	//assert(DebugColorLocation >= 0);
 	
 	Monster* mon = dynamic_cast<Monster*>(GetOwner()->FindComponent<Monster>());
 	glm::vec4 color = { 0.f,1.f,0.f,1.f };

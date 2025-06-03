@@ -12,10 +12,10 @@ class AI
 	:public BaseComponent
 {
 public:
-	AI(GameObject* _owner);	
+	AI(GameObject* _owner);
 	~AI();
 private:
-	std::map<MONSTER_STATE, BaseState*> m_mapMonsterState;	
+	std::map<MONSTER_STATE, BaseState*> m_mapMonsterState;
 	BaseState* m_pCurState;
 	Monster* m_pMonster;
 public:
@@ -39,4 +39,3 @@ public:
 	virtual void LoadFromJson(const json& _str) override;
 	virtual json SaveToJson(const json& _str)   override;
 };
-
