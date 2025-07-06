@@ -26,6 +26,7 @@
 
 
 #pragma once
+#ifdef _DEBUG
 #include <stdint.h>
 #include "imgui.h"
 
@@ -80,3 +81,4 @@ namespace ImCurveEdit
 
    int Edit(Delegate& delegate, const ImVec2& size, unsigned int id, const ImRect* clippingRect = NULL, ImVector<EditPoint>* selectedPoints = NULL);
 }
+#endif

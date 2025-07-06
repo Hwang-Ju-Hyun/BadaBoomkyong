@@ -9,12 +9,14 @@
 #include "GameObjectManager.h"
 #include "TimeManager.h"
 #include "EventManager.h"
+
 #ifdef _DEBUG
 #include <vld.h>
 #endif
+#include <Windows.h>
 
 int main(void)
-{				
+{	
 	Application::GetInstance()->Init();	
 	TimeManager::m_dDeltaTime = 0;
 	TimeManager::m_dLastFrame= 0;

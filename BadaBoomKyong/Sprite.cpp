@@ -52,7 +52,7 @@ void Sprite::LoadFromJson(const json& _str)
 
 		auto texture_name = comp_data->find(TextureTypeName);
 		auto texture_path = comp_data->find(TexturePathTypeName);
-		if (texture_name != comp_data->end() && texture_path != comp_data->end())
+		if (texture_name != comp_data ->end() && texture_path != comp_data->end())
 		{		
 			TextureResource* res= dynamic_cast<TextureResource*>(ResourceManager::GetInstance()->GetAndLoad(texture_name.value(), texture_path.value()));
 			assert(res != nullptr);

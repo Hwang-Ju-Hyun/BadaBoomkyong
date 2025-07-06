@@ -113,13 +113,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\GLFW\include\;$(ProjectDir)Dependencies\GLEW\include\;$(ProjectDir)Dependencies\GLM\;$(ProjectDir)Dependencies\STB\;$(ProjectDir)IMGUI;$(ProjectDir)IMGUIZMO</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\GLFW\include\;$(ProjectDir)Dependencies\GLEW\include\;$(ProjectDir)Dependencies\GLM\;$(ProjectDir)Dependencies\STB\;$(ProjectDir)Dependencies\Assimp\include\;$(ProjectDir)IMGUI\;$(ProjectDir)IMGUIZMO\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\GLFW\lib-vc2019\;$(ProjectDir)Dependencies\GLEW\lib\;$(ProjectDir)IMGUI;$(ProjectDir)IMGUIZMO;$(ProjectDir)IMAPP;%(AdditionalLibraryDirectories);%(AdditionalLibraryDirectories);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\GLFW\lib-vc2019\;$(ProjectDir)Dependencies\GLEW\lib\;$(ProjectDir)IMGUI\;$(ProjectDir)Dependencies\Assimp\lib\;$(ProjectDir)IMGUIZMO\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -130,15 +130,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\GLFW\include\;$(ProjectDir)Dependencies\GLEW\include\;$(ProjectDir)Dependencies\GLM\;$(ProjectDir)Dependencies\STB\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\GLFW\include\;$(ProjectDir)Dependencies\GLEW\include\;$(ProjectDir)Dependencies\GLM\;$(ProjectDir)Dependencies\STB\;$(ProjectDir)Dependencies\Assimp\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\GLFW\lib-vc2019\;$(ProjectDir)Dependencies\GLEW\lib\;$(ProjectDir)IMGUI;$(ProjectDir)IMAPP;$(ProjectDir)IMGUIZMO;%(AdditionalLibraryDirectories);%(AdditionalLibraryDirectories);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\GLFW\lib-vc2019\;$(ProjectDir)Dependencies\GLEW\lib\;$(ProjectDir)Dependencies\Assimp\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

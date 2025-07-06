@@ -23,6 +23,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
+#ifdef _DEBUG
 #include "ImCurveEdit.h"
 #include "imgui.h"
 #include "imgui_internal.h"
@@ -455,3 +456,4 @@ namespace ImCurveEdit
       return ret;
    }
 }
+#endif

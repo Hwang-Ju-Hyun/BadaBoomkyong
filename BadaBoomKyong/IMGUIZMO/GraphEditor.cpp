@@ -26,6 +26,7 @@
 
 
 #define IMGUI_DEFINE_MATH_OPERATORS 
+#ifdef _DEBUG
 #include "imgui.h"
 //#define IMGUI_DEFINE_MATH_OPERATORS
 #include "imgui_internal.h"
@@ -1110,3 +1111,4 @@ bool EditOptions(Options& options)
 }
 
 } // namespace
+#endif

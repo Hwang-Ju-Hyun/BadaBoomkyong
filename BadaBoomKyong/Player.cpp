@@ -32,7 +32,8 @@ Player::Player(GameObject* _owner)
 	
 	m_pTransform->SetScale({ 50.f,50.f,0.f });
 	m_pCollider->SetOffsetPosition({ 0.f,0.f,0.f });
-	m_pCollider->SetScale({ m_pTransform->GetScale()});			
+	//todo °íÄ¡¼À ÀÓ½Ã·Î Å©±â ´Ã·ÈÀ½
+	m_pCollider->SetScale({46,92,0});			
 }
 
 Player::~Player()

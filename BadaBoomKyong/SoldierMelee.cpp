@@ -40,7 +40,7 @@ void SoldierMelee::Awake()
     Transform* mon_trs = dynamic_cast<Transform*>(mon_obj->FindComponent(Transform::TransformTypeName));
     m_pSoldierMonster = dynamic_cast<SoldierMonster*>(mon_obj->FindComponent(SoldierMonster::SoldierMonsterTypeName));
 
-    m_pTransform->SetPosition({ mon_trs->GetPosition().x+55.f,mon_trs->GetPosition().y,mon_trs->GetPosition().z});
+    m_pTransform->SetPosition({ mon_trs->GetPosition().x-55.f,mon_trs->GetPosition().y,mon_trs->GetPosition().z});
 
     m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
     m_pCollider->SetScale(m_pTransform->GetScale());

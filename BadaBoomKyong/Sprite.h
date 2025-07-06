@@ -36,6 +36,6 @@ public:
 public:
 #ifdef _DEBUG
     virtual void EditInfoFromButton()override;
-#endif // DEBUG    
+#endif // DEBUG
 };
 

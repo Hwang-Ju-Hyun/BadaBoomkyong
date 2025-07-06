@@ -12,6 +12,15 @@ Model::Model(const std::string& _name, MODEL_TYPE _modelType, GLenum _primitiveT
 	UploadBuffers();
 }
 
+Model::Model(const std::string& _name,std::vector<VertexAttribute>&& _vertices, std::vector<unsigned int>&& _indices)
+	:m_sName(_name),
+	m_vVertices(_vertices),
+	m_vIndices(_indices)
+{
+	m_vIndices.size() <= 2 ? m_bEBO = false : m_bEBO = true;
+	UploadBuffers();
+}
+
 Model::~Model()
 {
 	if (VAO != 0)

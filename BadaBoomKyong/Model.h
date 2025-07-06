@@ -21,6 +21,7 @@ private:
 	std::vector<glm::vec3> m_vNormals;
 public:
 	Model(const std::string& _name, MODEL_TYPE _modelType, GLenum _primitiveType, std::vector<VertexAttribute>&& _vertices, std::vector<unsigned int>&& _indices = { 0 });
+	Model(const std::string& _name,std::vector<VertexAttribute>&& _vertices, std::vector<unsigned int>&& _indices = { 0 });
 	~Model();
 private:
 	std::string m_sName;
