@@ -32,6 +32,8 @@ void ModelManager::Init()
 	CubeInit();
 	//todo : load 이거 이상함
 	LoadModel("tempShip.obj");
+	m_vModels;
+	int a = 0;
 }
 
 void ModelManager::Exit()
