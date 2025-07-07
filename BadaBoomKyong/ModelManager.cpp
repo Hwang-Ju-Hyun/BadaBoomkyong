@@ -242,6 +242,7 @@ void ModelManager::LoadNode(aiNode* _node, const aiScene* _scene)
 	}
 }
 
+static int temp_i = 0;
 // 실제로 VBO, IBO로 쏴줄 정보들을 구성한다.
 void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
 {
@@ -285,14 +286,13 @@ void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
 		{
 			indices.push_back(face.mIndices[j]);
 		}
-	}
-
+	}	
 	//todo 이거 정리하셈
-	std::string name = "tempShip";
+	std::string name = "tempShip" + std::to_string(temp_i++);
 	Model* model = new Model(name, std::move(vertices), std::move(indices));
 
 	assert(model != nullptr);
-
+	 
 	AddModel(model);
 	// meshList에 mesh를 채워줌과 동시에, meshToTex에는 그 mesh의 materialIndex를 채워준다.
 	// 이렇게 meshList와 meshToTex를 나란히 채워줌으로써 mesh와 맞는 material을 손쉽게 찾을 수 있다.

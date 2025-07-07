@@ -164,6 +164,10 @@ void RenderManager::Draw()
 					Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
 					if (col != nullptr)
 						col->DrawCollider();
+					/*auto model = ModelManager::GetInstance()->m_vModels;
+					model[model.size() - 1]->SetPrimitiveType(GL_TRIANGLES);
+					obj->SetModel(model[model.size() - 1]);*/
+
 				}				
 #endif
 				//Draw

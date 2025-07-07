@@ -10,6 +10,7 @@ enum MODEL_TYPE
 	LINE=3,
 	PLANE=4,
 	CUBE=5,
+	CUSTOM_MODEL=6,
 	LAST
 };
 

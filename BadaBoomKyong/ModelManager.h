@@ -15,8 +15,9 @@ class ModelManager
 public:
 	SINGLETON(ModelManager);
 private:
-	std::vector<Model*> m_vModels;
 //todo : temp임 나중에 리펙토링 하셈
+public:
+	std::vector<Model*> m_vModels;
 	std::vector<size_t> m_vMaterials;
 	std::vector<TextureResource*> m_vTextureList;
 public:
