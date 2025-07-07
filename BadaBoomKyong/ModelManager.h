@@ -14,8 +14,7 @@ class ModelManager
 {
 public:
 	SINGLETON(ModelManager);
-private:
-//todo : temp임 나중에 리펙토링 하셈
+//todo : temp임 나중에 리펙토링  하셈
 public:
 	std::vector<Model*> m_vModels;
 	std::vector<size_t> m_vMaterials;
@@ -23,9 +22,11 @@ public:
 public:
 	inline void AddModel(Model* _model){ m_vModels.push_back(_model); }
 	inline std::vector<Model*> GetAllModels() { return m_vModels; }
-	Model* FindModel(MODEL_TYPE _modelType);
+	Model* FindModel(const std::string& _modelName);
+private:
+	Model* m_pCustomModel = nullptr;
 public:
-	void Init();	
+	void Init();
 	void Exit();
 //2d
 private:
@@ -49,4 +50,6 @@ private:
 	void LoadMesh(aiMesh* _mesh, const aiScene* _scene);
 	// 텍스쳐를 로드한다.
 	void LoadMaterials(const aiScene* _scene);
+public:
+	static int g_mesh_cnt;
 };

@@ -29,7 +29,6 @@ void Mesh::Draw()
 	{
 		glDrawElements(m_ePrimitiveType, (size_t)m_vIndices.size(), GL_UNSIGNED_INT, 0);
 	}
-
 	else
 	{
 		if (m_ePrimitiveType == GL_LINES)

@@ -2,6 +2,9 @@
 #include "Model.h"
 #include <cassert>
 #include <utility>
+#include "Mesh.h"
+
+int ModelManager::g_mesh_cnt = 0;
 
 ModelManager::ModelManager()
 {	
@@ -12,12 +15,12 @@ ModelManager::~ModelManager()
 	
 }
 
-Model* ModelManager::FindModel(MODEL_TYPE _modelType)
+Model* ModelManager::FindModel(const std::string& _modelName)
 {
-	auto models = GetAllModels();
+	auto models = GetAllModels();	
 	for (auto mdl : models)
 	{
-		if (mdl->GetModelType() == _modelType)
+		if (mdl->GetName() == _modelName)
 			return mdl;
 	}	
 	return nullptr;
@@ -52,40 +55,45 @@ void ModelManager::Exit()
 void ModelManager::LineInit()
 {
 	std::string name = "Line";
-	std::vector<Model::VertexAttribute> vertices =
+	std::vector<Mesh::VertexAttribute> vertices =
 	{
 		{glm::vec3{ -0.5f, 0.f, 0.f }, glm::vec2{ 0.f, 0.f }},
 		{glm::vec3{ 0.5f, 0.f, 0.f }, glm::vec2{ 0.f, 0.f }}
-	};
+	};	
+
 	GLenum type = GL_LINES;
-	Model* model = new Model(name, MODEL_TYPE::LINE, type, std::move(vertices));
+	Mesh* mesh = new Mesh(MODEL_TYPE::LINE, type, std::move(vertices));
+	assert(mesh != nullptr);
+
+	Model* model = new Model(name, MODEL_TYPE::LINE);
 
 	assert(model != nullptr);
-
-	AddModel(model);
+	model->AddMesh(mesh);
 }
 
 void ModelManager::TriangleInit()
 {
 	std::string name = "Triangle";	
-	std::vector<Model::VertexAttribute> vertices =						
+	std::vector<Mesh::VertexAttribute> vertices =						
 	{								
 		{glm::vec3{ -0.5f, -0.5f, 0.f }, glm::vec2{ 0.f, 0.f }}, // Bottom Left
 		{glm::vec3{  0.0f,  0.5f, 0.f }, glm::vec2{ 0.5f, 1.f }}, // Top Center
 		{glm::vec3{  0.5f, -0.5f, 0.f }, glm::vec2{ 1.f, 0.f }}  // Bottom Right
 	};							
-	GLenum type = GL_TRIANGLES;		
-	Model* model = new Model(name, MODEL_TYPE::TRIANGLE, type, std::move(vertices));
-	
-	assert(model != nullptr);
+	GLenum type = GL_TRIANGLES;
+	Mesh* mesh = new Mesh(MODEL_TYPE::TRIANGLE, type, std::move(vertices));
+	assert(mesh != nullptr);
 
-	AddModel(model); 
+	Model* model = new Model(name, MODEL_TYPE::TRIANGLE);
+
+	assert(model != nullptr);
+	model->AddMesh(mesh);
 }
 
 void ModelManager::RectangleInit()
 {	
 	std::string name = "Rectangle";
-	std::vector<Model::VertexAttribute> vertices =
+	std::vector<Mesh::VertexAttribute> vertices =
 	{
 		{glm::vec3{-0.5f,-0.5f,0.f},glm::vec2{0.f,1.f}},//Top Left
 		{glm::vec3{0.5f,-0.5f,0.f},glm::vec2{1.f,1.f}},//Bottom Right
@@ -96,12 +104,15 @@ void ModelManager::RectangleInit()
 	{
 		0,1,2,0,2,3
 	};
+
 	GLenum type = GL_TRIANGLES;
-	Model* model = new Model(name, MODEL_TYPE::RECTANGLE, type, std::move(vertices),std::move(indices));
+	Mesh* mesh = new Mesh(MODEL_TYPE::RECTANGLE, type, std::move(vertices), std::move(indices));
+	assert(mesh != nullptr);
+
+	Model* model = new Model(name, MODEL_TYPE::RECTANGLE);
 
 	assert(model != nullptr);
-
-	AddModel(model);
+	model->AddMesh(mesh);
 }
 
 void ModelManager::CircleInit()
@@ -112,7 +123,7 @@ void ModelManager::CircleInit()
 void ModelManager::PlaneInit()
 {
 	std::string name = "Plane";
-	std::vector<Model::VertexAttribute> vertices =
+	std::vector<Mesh::VertexAttribute> vertices =
 	{		
 		//			VERTEX				UV					NORMAL
 		{glm::vec3{-0.5f,-0.5f,0.f},glm::vec2{0.f,1.f},glm::vec3{0.f,0.f,1.f}},//Bottom Left
@@ -125,18 +136,21 @@ void ModelManager::PlaneInit()
 	{
 		0,1,2,0,2,3
 	};
+
 	GLenum type = GL_TRIANGLES;
-	Model* model = new Model(name, MODEL_TYPE::PLANE, type, std::move(vertices), std::move(indices));
+	Mesh* mesh = new Mesh(MODEL_TYPE::PLANE, type, std::move(vertices), std::move(indices));
+	assert(mesh != nullptr);
+	
+	Model* model = new Model(name, MODEL_TYPE::PLANE);
 
 	assert(model != nullptr);
-
-	AddModel(model);
+	model->AddMesh(mesh);
 }
 
 void ModelManager::CubeInit()
 {
 	std::string name = "Cube";
-	std::vector<Model::VertexAttribute> vertices =
+	std::vector<Mesh::VertexAttribute> vertices =
 	{
 		// Front face
 		{{-0.5f, -0.5f,  0.5f}, {0.f, 1.f}, {0.f, 0.f, 1.f}}, // 0
@@ -192,11 +206,13 @@ void ModelManager::CubeInit()
 	};
 
 	GLenum type = GL_TRIANGLES;
-	Model* model = new Model(name, MODEL_TYPE::CUBE, type, std::move(vertices), std::move(indices));
-
+	Mesh* mesh = new Mesh(MODEL_TYPE::CUBE,type, std::move(vertices), std::move(indices));	
+	assert(mesh != nullptr);
+	
+	Model* model=new Model(name,MODEL_TYPE::CUBE);
+	
 	assert(model != nullptr);
-
-	AddModel(model);
+	model->AddMesh(mesh);	
 }
 
 #include <iostream>
@@ -208,6 +224,8 @@ void ModelManager::LoadModel(const std::string& _fileName)
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile("../Extern/Assets/Model/tempShip/" + _fileName,
 		aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
+
+	m_pCustomModel = new Model(model_name, MODEL_TYPE::CUSTOM_MODEL, _fileName);
 
 	if (!scene)
 	{
@@ -227,7 +245,7 @@ void ModelManager::ClearModel()
 }
 
 void ModelManager::LoadNode(aiNode* _node, const aiScene* _scene)
-{
+{	
 	for (size_t i = 0; i < _node->mNumMeshes; i++)
 	{
 		// node->mMeshes[i] : 메시 자체가 아니고, 메시의 ID를 의미한다.
@@ -242,11 +260,11 @@ void ModelManager::LoadNode(aiNode* _node, const aiScene* _scene)
 	}
 }
 
-static int temp_i = 0;
+
 // 실제로 VBO, IBO로 쏴줄 정보들을 구성한다.
 void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
 {
-	std::vector<Model::VertexAttribute> vertices;
+	std::vector<Mesh::VertexAttribute> vertices;
 	std::vector<unsigned int> indices;
 	
 	for (size_t i = 0; i < _mesh->mNumVertices; i++)
@@ -270,7 +288,7 @@ void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
 		glm::vec3 normals;
 		normals={ _mesh->mNormals[i].x ,_mesh->mNormals[i].y,_mesh->mNormals[i].z };
 
-		Model::VertexAttribute mva;
+		Mesh::VertexAttribute mva;
 		mva.position = pos;
 		mva.texcoord = texture;
 		mva.normals = normals;
@@ -288,12 +306,15 @@ void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
 		}
 	}	
 	//todo 이거 정리하셈
-	std::string name = "tempShip" + std::to_string(temp_i++);
-	Model* model = new Model(name, std::move(vertices), std::move(indices));
+	GLenum type = GL_TRIANGLES;
+	std::string name = "tempShip" + std::to_string(g_mesh_cnt++);
+	Mesh* mesh = new Mesh(MODEL_TYPE::CUSTOM_MODEL, type,std::move(vertices), std::move(indices));
 
-	assert(model != nullptr);
+	assert(mesh != nullptr);
 	 
-	AddModel(model);
+	m_pCustomModel->AddMesh(mesh);
+
+
 	// meshList에 mesh를 채워줌과 동시에, meshToTex에는 그 mesh의 materialIndex를 채워준다.
 	// 이렇게 meshList와 meshToTex를 나란히 채워줌으로써 mesh와 맞는 material을 손쉽게 찾을 수 있다.
 	m_vMaterials.push_back(_mesh->mMaterialIndex);
@@ -343,6 +364,3 @@ void ModelManager::LoadMaterials(const aiScene* _scene)
 		}
 	}
 }
-
-
-

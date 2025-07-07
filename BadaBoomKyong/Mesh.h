@@ -16,7 +16,7 @@ public:
 		glm::vec3 normals;
 	};
 public:
-	Mesh(MODEL_TYPE _modelType, GLenum _primitiveType, std::vector<VertexAttribute>&& _vertices, std::vector<unsigned int>&& _indices);
+	Mesh(MODEL_TYPE _modelType, GLenum _primitiveType, std::vector<VertexAttribute>&& _vertices, std::vector<unsigned int>&& _indices={0,});
 	~Mesh();
 private:
 	std::vector<VertexAttribute> m_vVertices;
@@ -39,7 +39,6 @@ public:
 	inline size_t GetVBO()const { return VBO; }
 	inline size_t GetPositionCnt_of_VBO()const { return m_vVertices.size(); }
 	inline std::vector<VertexAttribute> GetVertices()const { return m_vVertices; }
-
 public:
 	void Draw();
 };
