@@ -245,6 +245,12 @@
     <Filter Include="Resource\Texture">
       <UniqueIdentifier>{e0e23275-9019-4102-b5df-daf8d6a52ea4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Mesh">
+      <UniqueIdentifier>{e318628e-416b-45e0-88fd-c859e6acda57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Materials">
+      <UniqueIdentifier>{a9829d66-ce17-49bb-b644-ee726438d554}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -468,6 +474,9 @@
     </ClCompile>
     <ClCompile Include="PlayerMelee.cpp">
       <Filter>Component\Custom\Melee\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Graphics\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -722,6 +731,9 @@
     </ClInclude>
     <ClInclude Include="PlayerMelee.h">
       <Filter>Component\Custom\Melee\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Graphics\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
