@@ -9,6 +9,7 @@
 #include "RenderManager.h"
 #include <gtc/matrix_transform.hpp>
 #include <gtx/quaternion.hpp>
+#include "Mesh.h"
 
 Transform::Transform(GameObject* _owner)
 	:MonoBehaviour(_owner)
@@ -24,7 +25,8 @@ Transform::~Transform()
 //It returns worldspace coords
 std::vector<glm::vec3> Transform::GeteEachVertexPosition()
 {
-	std::vector<Model::VertexAttribute> attr = GetOwner()->GetModel()->GetVertices();	
+	//todo 이거 함수 자체를 지우던가 getvertices를 손보던가
+	std::vector<Mesh::VertexAttribute> attr/*= GetOwner()->GetModel()->GetVertices()*/;	
 	std::vector<glm::vec3> pos;	
 	for (int i = 0;i < attr.size();i++)
 	{

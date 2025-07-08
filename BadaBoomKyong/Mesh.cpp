@@ -1,3 +1,4 @@
+#include <GL/glew.h>
 #include "Mesh.h"
 
 Mesh::Mesh(MODEL_TYPE _modelType, GLenum _primitiveType, std::vector<VertexAttribute>&& _vertices, std::vector<unsigned int>&& _indices)

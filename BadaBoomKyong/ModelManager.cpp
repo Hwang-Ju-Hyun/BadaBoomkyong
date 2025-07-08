@@ -22,7 +22,22 @@ Model* ModelManager::FindModel(const std::string& _modelName)
 	{
 		if (mdl->GetName() == _modelName)
 			return mdl;
-	}	
+	}
+	return nullptr;
+}
+
+Model* ModelManager::FindModel(MODEL_TYPE _modelType)
+{
+	if (_modelType != MODEL_TYPE::CUSTOM_MODEL)
+	{
+		auto models = GetAllModels();
+		for (auto mdl : models)
+		{
+			if (mdl->GetModelType() == _modelType)
+				return mdl;
+		}
+		return nullptr;
+	}
 	return nullptr;
 }
 
@@ -34,7 +49,7 @@ void ModelManager::Init()
 	PlaneInit();
 	CubeInit();
 	//todo : load 이거 이상함
-	LoadModel("tempShip.obj");
+	m_pCustomModel=LoadModel("tempShip.obj");
 	m_vModels;
 	int a = 0;
 }
@@ -216,7 +231,7 @@ void ModelManager::CubeInit()
 }
 
 #include <iostream>
-void ModelManager::LoadModel(const std::string& _fileName)
+Model* ModelManager::LoadModel(const std::string& _fileName)
 {
 	int model_name_end_pos = _fileName.find('/', 0);
 	std::string model_name = _fileName.substr(0, model_name_end_pos);
@@ -229,15 +244,14 @@ void ModelManager::LoadModel(const std::string& _fileName)
 
 	if (!scene)
 	{
-		std::cout << _fileName << " Model 로드 실패 : " << importer.GetErrorString() << std::endl;
-		return;
+		std::cout << _fileName << " Fail Load Model  : " << importer.GetErrorString() << std::endl;
+		return nullptr;
 	}
 	LoadNode(scene->mRootNode, scene);
 	//LoadMaterials(scene);
-}
-
-void ModelManager::RenderModel()
-{
+	
+	ModelManager::GetInstance()->AddModel(m_pCustomModel);
+	return m_pCustomModel;
 }
 
 void ModelManager::ClearModel()
@@ -259,7 +273,6 @@ void ModelManager::LoadNode(aiNode* _node, const aiScene* _scene)
 		LoadNode(_node->mChildren[i], _scene);
 	}
 }
-
 
 // 실제로 VBO, IBO로 쏴줄 정보들을 구성한다.
 void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
@@ -311,9 +324,9 @@ void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
 	Mesh* mesh = new Mesh(MODEL_TYPE::CUSTOM_MODEL, type,std::move(vertices), std::move(indices));
 
 	assert(mesh != nullptr);
-	 
+	 	
 	m_pCustomModel->AddMesh(mesh);
-
+	m_pCustomModel->m_meshCnt = g_mesh_cnt;
 
 	// meshList에 mesh를 채워줌과 동시에, meshToTex에는 그 mesh의 materialIndex를 채워준다.
 	// 이렇게 meshList와 meshToTex를 나란히 채워줌으로써 mesh와 맞는 material을 손쉽게 찾을 수 있다.

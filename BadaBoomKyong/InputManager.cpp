@@ -104,8 +104,8 @@ GameObject* InputManager::IsMouseInsideObject(GameObject* _obj)
         if (obj_trs != nullptr)
         {
             if (_obj->GetModelType() == MODEL_TYPE::TRIANGLE)
-            {
-                GeometryUtil::GetInstance()->IsPointInsideTraingle(cur_pos, obj_trs) ? obj = _obj : obj = nullptr;
+            {//todo 이거 지우던가 하던가 하셈 model
+                //GeometryUtil::GetInstance()->IsPointInsideTraingle(cur_pos, obj_trs) ? obj = _obj : obj = nullptr;
             }
             else if (_obj->GetModelType() == MODEL_TYPE::RECTANGLE)
             {

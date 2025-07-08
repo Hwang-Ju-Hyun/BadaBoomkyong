@@ -158,16 +158,14 @@ void RenderManager::Draw()
 #ifdef _DEBUG
 				/*GLint DebugColorLocation = glGetUniformLocation(shdr_handle_3D, "uDebugColor");
 				assert(DebugColorLocation >= 0);*/
-
+				 
 				if (obj->GetName() == "SoldierMonster")
 				{					
-					Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
+					/*Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
 					if (col != nullptr)
-						col->DrawCollider();
-					/*auto model = ModelManager::GetInstance()->m_vModels;
-					model[model.size() - 1]->SetPrimitiveType(GL_TRIANGLES);
-					obj->SetModel(model[model.size() - 1]);*/
-
+						col->DrawCollider();*/
+					Model* ship_model = ModelManager::GetInstance()->m_pCustomModel;
+					obj->SetModel(ship_model);					
 				}				
 #endif
 				//Draw

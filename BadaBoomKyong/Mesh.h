@@ -1,9 +1,9 @@
 #pragma once
-#include <string>
-#include "header.h"
-#include <GL/glew.h>
-#include <vector>
+#include <GLFW/glfw3.h>
 #include <glm.hpp>
+#include <string>
+#include <vector>
+#include "header.h"
 
 class Mesh
 {

@@ -23,7 +23,8 @@ public:
 	inline void AddModel(Model* _model){ m_vModels.push_back(_model); }
 	inline std::vector<Model*> GetAllModels() { return m_vModels; }
 	Model* FindModel(const std::string& _modelName);
-private:
+	Model* FindModel(MODEL_TYPE _modelType);
+public:
 	Model* m_pCustomModel = nullptr;
 public:
 	void Init();
@@ -39,8 +40,8 @@ private:
 	void PlaneInit();
 	void CubeInit();
 
-private:
-	void LoadModel(const std::string& _fileName); // 모델을 메모리에 올린다.
+public:
+	Model* LoadModel(const std::string& _fileName); // 모델을 메모리에 올린다.
 	void RenderModel(); // 렌더링한다.
 	void ClearModel(); // 메모리에서 내린다.	
 private:
