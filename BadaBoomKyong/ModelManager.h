@@ -41,8 +41,7 @@ private:
 	void CubeInit();
 
 public:
-	Model* LoadModel(const std::string& _fileName); // 모델을 메모리에 올린다.
-	void RenderModel(); // 렌더링한다.
+	Model* LoadModel(const std::string& _filePath); // 모델을 메모리에 올린다.	
 	void ClearModel(); // 메모리에서 내린다.	
 private:
 	// 재귀호출되며 노드를 순회하기 위한 함수

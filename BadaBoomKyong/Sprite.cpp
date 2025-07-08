@@ -72,8 +72,8 @@ json Sprite::SaveToJson(const json& _str)
 
 	if (m_pTextureResource != nullptr)
 	{
-		compData[TextureTypeName] = { m_pTextureResource->GetResourceName() };
-		compData[TexturePathTypeName] = { m_pTextureResource->GetResourcePath() };
+		compData[TextureTypeName] = m_pTextureResource->GetResourceName() ;
+		compData[TexturePathTypeName] = m_pTextureResource->GetResourcePath() ;
 	}
 	
 	data[CompDataName] = compData;

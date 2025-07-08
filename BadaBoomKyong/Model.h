@@ -25,4 +25,5 @@ public:
 	inline void AddMesh(Mesh* _mesh) { m_vMeshes.push_back(_mesh); }
 	inline const std::string& GetName()const { return m_sName; }
 	inline MODEL_TYPE GetModelType()const { return m_eModelType; }
+	inline const std::string GetPath()const { return m_sPath; }
 };

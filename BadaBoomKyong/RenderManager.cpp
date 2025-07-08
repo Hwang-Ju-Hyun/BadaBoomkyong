@@ -115,11 +115,12 @@ void RenderManager::Draw()
 			else if (model && obj->GetIs3D())
 			{				
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
-
+				if (obj->GetName() == "customModelObj")
+					int a = 0;
 				//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
 				GLint MVP_Location = glGetUniformLocation(shdr_handle_3D, "uMVP");
 				assert(MVP_Location >= 0);
-			
+			 
 				Transform* trs = dynamic_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName));
 				assert(trs != nullptr);											
 				Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
@@ -159,14 +160,7 @@ void RenderManager::Draw()
 				/*GLint DebugColorLocation = glGetUniformLocation(shdr_handle_3D, "uDebugColor");
 				assert(DebugColorLocation >= 0);*/
 				 
-				if (obj->GetName() == "SoldierMonster")
-				{					
-					/*Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
-					if (col != nullptr)
-						col->DrawCollider();*/
-					Model* ship_model = ModelManager::GetInstance()->m_pCustomModel;
-					obj->SetModel(ship_model);					
-				}				
+			
 #endif
 				//Draw
 				model->Draw();

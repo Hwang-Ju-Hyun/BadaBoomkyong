@@ -2,26 +2,6 @@
 #include "Model.h"
 #include "ModelManager.h"
 
-//Model::Model(const std::string& _name, MODEL_TYPE _modelType, GLenum _primitiveType, std::vector<VertexAttribute>&& _vertices, std::vector<unsigned int>&& _indices)
-//	:m_sName(_name),
-//	m_eModelType(_modelType),
-//	m_ePrimitiveType(_primitiveType),
-//	m_vVertices(_vertices),
-//	m_vIndices(_indices)
-//{
-//	/*m_vIndices.size() <= 2 ? m_bEBO = false : m_bEBO = true;
-//	UploadBuffers();*/
-//}
-//
-//Model::Model(const std::string& _name,std::vector<VertexAttribute>&& _vertices, std::vector<unsigned int>&& _indices)
-//	:m_sName(_name),
-//	m_vVertices(_vertices),
-//	m_vIndices(_indices)
-//{
-//	/*m_vIndices.size() <= 2 ? m_bEBO = false : m_bEBO = true;
-//	UploadBuffers();*/
-//}
-
 Model::Model(const std::string _name, MODEL_TYPE _modelType, const std::string& _path)
 	:m_sName(_name),
 	m_eModelType(_modelType),

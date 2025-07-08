@@ -17,6 +17,7 @@ public:
 	GameObject* CreateObjectFromJson(json _item);
 public:
 	static constexpr const char* ModelTypeNameInJson = "Model";
+	static constexpr const char* ModelPathInJson = "ModelPath";
 	static constexpr const char* ComponentNameInJson = "Components";
 	static constexpr const char* NameTypeInJson = "Name";
 	static constexpr const char* IDTypeInJson = "ID";

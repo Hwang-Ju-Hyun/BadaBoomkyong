@@ -49,8 +49,8 @@ void ModelManager::Init()
 	PlaneInit();
 	CubeInit();
 	//todo : load 이거 이상함
-	m_pCustomModel=LoadModel("tempShip.obj");
-	m_vModels;
+	//m_pCustomModel=LoadModel("tempShip.obj");
+	//m_vModels;
 	int a = 0;
 }
 
@@ -231,24 +231,45 @@ void ModelManager::CubeInit()
 }
 
 #include <iostream>
-Model* ModelManager::LoadModel(const std::string& _fileName)
-{
-	int model_name_end_pos = _fileName.find('/', 0);
-	std::string model_name = _fileName.substr(0, model_name_end_pos);
+Model* ModelManager::LoadModel(const std::string& _filePath)
+{	
+	int str_find_cnt = 0;
+	for (int i = _filePath.size() - 1;i >= 0;i--)
+	{
+		if (_filePath[i] == '.')
+		{			
+			break;
+		}
+		str_find_cnt++;
+	}	
+	std::string model_name = "Nothing";
+	int str_iter = 0;
+	char find_slash = ' ';
+	while (1)
+	{		
+		if (find_slash == '/')
+		{
+			str_iter--;
+			model_name=_filePath.substr(_filePath.size() - str_iter,str_iter- str_find_cnt -1);
+			break;
+		}					
+		find_slash = _filePath[_filePath.size()-1 - str_iter];
+		str_iter++;
+	}	
 
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile("../Extern/Assets/Model/tempShip/" + _fileName,
+	const aiScene* scene = importer.ReadFile(_filePath,
 		aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
 
-	m_pCustomModel = new Model(model_name, MODEL_TYPE::CUSTOM_MODEL, _fileName);
+	m_pCustomModel = new Model(model_name, MODEL_TYPE::CUSTOM_MODEL, _filePath);
 
 	if (!scene)
 	{
-		std::cout << _fileName << " Fail Load Model  : " << importer.GetErrorString() << std::endl;
+		std::cout << _filePath << " Fail Load Model  : " << importer.GetErrorString() << std::endl;
 		return nullptr;
 	}
-	LoadNode(scene->mRootNode, scene);
-	//LoadMaterials(scene);
+	LoadNode(scene->mRootNode, scene);	
+	LoadMaterials(scene);
 	
 	ModelManager::GetInstance()->AddModel(m_pCustomModel);
 	return m_pCustomModel;
@@ -319,8 +340,8 @@ void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
 		}
 	}	
 	//todo 이거 정리하셈
-	GLenum type = GL_TRIANGLES;
-	std::string name = "tempShip" + std::to_string(g_mesh_cnt++);
+	GLenum type = GL_TRIANGLES;	
+	std::string name = m_pCustomModel->GetName() + std::to_string(g_mesh_cnt++);
 	Mesh* mesh = new Mesh(MODEL_TYPE::CUSTOM_MODEL, type,std::move(vertices), std::move(indices));
 
 	assert(mesh != nullptr);
@@ -336,37 +357,30 @@ void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
 #include "TextureResource.h"
 void ModelManager::LoadMaterials(const aiScene* _scene)
 {
-	std::string name = "tempShip";
+	const std::string name = m_pCustomModel->GetName();
 	m_vTextureList.resize(_scene->mNumMaterials);
 	for (size_t i = 0; i < _scene->mNumMaterials; i++)
 	{
 		aiMaterial* material = _scene->mMaterials[i];
 
-		m_vTextureList[i] = nullptr;
+		m_vTextureList[i] = nullptr;				
 
-		// 텍스쳐가 존재하는 지 먼저 확인
-		if (material->GetTextureCount(aiTextureType_BASE_COLOR))
+		// 텍스쳐가 존재하는 지 먼저 확인		
+		if (material->GetTextureCount(aiTextureType_DIFFUSE))
 		{
 			aiString texturePath;
 			// 텍스쳐 경로를 가져오는 데 성공했다면
-			if (material->GetTexture(aiTextureType_BASE_COLOR, 0, &texturePath) == aiReturn_SUCCESS)
-			{
-				// 혹시나 텍스쳐 경로가 절대 경로로 되어있다면 그에 대한 처리
-				int idx = std::string(texturePath.data).rfind("/");
-				std::string textureName = std::string(texturePath.data).substr(idx + 1);
+			if (material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath) == aiReturn_SUCCESS) {
+				std::string pathStr = texturePath.C_Str();
 
-				std::string texPath = "Models/" + name + "/textures/" + textureName;
+				// 슬래시가 있는 경우만 처리
+				int idx = pathStr.find_last_of("/\\");
+				std::string textureName = (idx != std::string::npos) ? pathStr.substr(idx + 1) : pathStr;
 
-				m_vTextureList[i] = new TextureResource(texPath.c_str());
+				std::string texPath = "../Extern/Assets/Model/mask/" + textureName;
 
-				// 텍스쳐를 디스크에서 메모리로 로드, GPU로 쏴준다.				
+				m_vTextureList[i] = new TextureResource(texPath);
 				m_vTextureList[i]->Load(texPath.c_str());
-				//if ()
-				//{ // 실패 시
-				//	std::cout << "텍스쳐 로드 실패 : " << texPath << std::endl;
-				//	delete m_vTextureList[i];
-				//	m_vTextureList[i] = nullptr;
-				//}
 			}
 		}
 
