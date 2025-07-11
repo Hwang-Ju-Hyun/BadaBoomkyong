@@ -3,7 +3,7 @@
 #include "stb_image.h"
 #include <GL/glew.h>
 #include <cassert>
-
+#include <iostream>
 TextureResource::TextureResource(const std::string& _name)
     :BaseResource(_name)
 {
@@ -11,6 +11,7 @@ TextureResource::TextureResource(const std::string& _name)
 
 TextureResource::~TextureResource()
 {
+    UnLoad();
 }
 
 #include <iostream>
@@ -54,10 +55,11 @@ void TextureResource::Load(const std::string& _path)
 }
 
 void TextureResource::UnLoad()
-{
+{    
     glDeleteTextures(1, &m_iTextureID);
     m_iTextureID = 0;
     m_iWidth = 0;
     m_iHeight = 0;
     m_iNrChannels = 0;
+    m_cData = nullptr;
 }

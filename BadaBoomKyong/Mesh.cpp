@@ -1,5 +1,6 @@
 #include <GL/glew.h>
 #include "Mesh.h"
+#include "Material.h"
 
 Mesh::Mesh(MODEL_TYPE _modelType, GLenum _primitiveType, std::vector<VertexAttribute>&& _vertices, std::vector<unsigned int>&& _indices)
 	:m_eModelType(_modelType),
@@ -21,6 +22,7 @@ Mesh::~Mesh()
 	{
 		glDeleteBuffers(1, &VBO);
 	}
+	DeleteMaterial();
 }
 
 void Mesh::Draw()
@@ -35,6 +37,15 @@ void Mesh::Draw()
 		if (m_ePrimitiveType == GL_LINES)
 			glLineWidth(50.f);
 		glDrawArrays(m_ePrimitiveType, 0, (size_t)GetPositionCnt_of_VBO());
+	}
+}
+
+void Mesh::DeleteMaterial()
+{
+	if (m_pMaterial) 
+	{
+		delete m_pMaterial;
+		m_pMaterial = nullptr;
 	}
 }
 

@@ -48,10 +48,6 @@ void ModelManager::Init()
 	RectangleInit();
 	PlaneInit();
 	CubeInit();
-	//todo : load 이거 이상함
-	//m_pCustomModel=LoadModel("tempShip.obj");
-	//m_vModels;
-	int a = 0;
 }
 
 void ModelManager::Exit()
@@ -387,11 +383,11 @@ void ModelManager::LoadMaterials(const aiScene* _scene)
 
 				std::string texPath = "../Extern/Assets/Model/mask/" + textureName;
 				
-
 				Material* mat = new Material;
 				m_pCustomModel->GetMeshes()[i]->SetMaterial(mat);
-				mat->SetTexture(new TextureResource(texPath));				
-				ResourceManager::GetInstance()->AddResource(textureName, mat->GetTexture());
+				TextureResource* texture = new TextureResource(texPath);
+				ResourceManager::GetInstance()->AddResource(textureName,texture);
+				mat->SetTexture(texture);
 
 				BaseResource* tex = ResourceManager::GetInstance()->GetAndLoad(textureName, texPath);
 				TextureResource* texture_res = dynamic_cast<TextureResource*>(tex);

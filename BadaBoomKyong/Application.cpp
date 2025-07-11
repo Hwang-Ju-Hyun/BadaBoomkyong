@@ -18,6 +18,7 @@
 #include "Bullet.h"
 #include "ObjectPoolManager.h"
 #include "EventManager.h"
+#include "ResourceManager.h"
 
 Application::Application(){}
 
@@ -98,10 +99,12 @@ void Application::Exit()
     GameStateManager::GetInstance()->ChangeLevel(nullptr);
     ComponentManager::GetInstance()->Exit();
     GameObjectManager::GetInstance()->Exit(); 
-    ModelManager::GetInstance()->Exit();
+    ResourceManager::GetInstance()->RemoveAllRes();
+    ModelManager::GetInstance()->Exit();    
     FactoryManager::GetInstance()->Exit();
     ObjectPoolManager::GetInstance()->Exit();
     RenderManager::GetInstance()->Exit();
+    
 #ifdef _DEBUG
     // Cleanup
     ImGui_ImplOpenGL3_Shutdown();

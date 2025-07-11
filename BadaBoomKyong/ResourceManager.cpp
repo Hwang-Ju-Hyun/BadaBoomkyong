@@ -83,6 +83,7 @@ void ResourceManager::RemoveAllRes()
 		{
 			delete iter->second;
 			iter = m_mapResource.erase(iter++);
+			iter->second = nullptr;
 		}
 		else
 		{
