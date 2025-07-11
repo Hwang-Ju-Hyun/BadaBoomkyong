@@ -27,7 +27,7 @@ Collider::Collider(GameObject* _owner)
 	
 	m_pColliderTransform= dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
 	m_pColliderSpirte = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
-	assert(m_pColliderTransform != nullptr && m_pColliderSpirte != nullptr);
+	assert(m_pColliderTransform != nullptr /*&& m_pColliderSpirte != nullptr*/);
 
 	m_pColliderModel = ModelManager::GetInstance()->FindModel(MODEL_TYPE::RECTANGLE);
 	assert(m_pColliderModel != nullptr);

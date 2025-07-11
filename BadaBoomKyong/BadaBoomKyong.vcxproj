@@ -163,6 +163,7 @@
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="GeometryUtill.cpp" />
     <ClCompile Include="GizmoManager.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="MeleeFactory.cpp" />
     <ClCompile Include="ICollisionHandler.cpp" />
     <ClCompile Include="IdleState.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="GizmoManager.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="IPatrolBehaviour.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="MeleeFactory.h" />
     <ClInclude Include="ICollisionHandler.h" />
     <ClInclude Include="IdleState.h" />

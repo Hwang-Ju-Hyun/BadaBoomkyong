@@ -11,7 +11,7 @@ public:
 	SINGLETON(ResourceManager);
 public:
 	std::map<std::string, BaseResource*> m_mapResource;
-private:
+private: 
 	enum SELECT_EXTENSION
 	{
 		png,
@@ -25,6 +25,7 @@ public:
 public:
 	BaseResource* GetAndLoad(const std::string& _resName, const std::string& _path);
 	BaseResource* FindResource(const std::string& _resName);
+	inline void AddResource(const std::string& _resName, BaseResource* _res) { m_mapResource.insert({ _resName,_res }); }
 public:
 	void RemoveAllRes();
 };

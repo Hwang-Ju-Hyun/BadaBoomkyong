@@ -478,6 +478,9 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Graphics\Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Graphics\Materials</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -734,6 +737,9 @@
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Graphics\Materials</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

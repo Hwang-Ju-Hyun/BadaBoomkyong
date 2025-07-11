@@ -268,7 +268,9 @@ Model* ModelManager::LoadModel(const std::string& _filePath)
 		std::cout << _filePath << " Fail Load Model  : " << importer.GetErrorString() << std::endl;
 		return nullptr;
 	}
+
 	LoadNode(scene->mRootNode, scene);	
+
 	LoadMaterials(scene);
 	
 	ModelManager::GetInstance()->AddModel(m_pCustomModel);
@@ -295,6 +297,7 @@ void ModelManager::LoadNode(aiNode* _node, const aiScene* _scene)
 	}
 }
 
+#include "Material.h"
 // 실제로 VBO, IBO로 쏴줄 정보들을 구성한다.
 void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
 {
@@ -339,10 +342,13 @@ void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
 			indices.push_back(face.mIndices[j]);
 		}
 	}	
+
 	//todo 이거 정리하셈
 	GLenum type = GL_TRIANGLES;	
 	std::string name = m_pCustomModel->GetName() + std::to_string(g_mesh_cnt++);
 	Mesh* mesh = new Mesh(MODEL_TYPE::CUSTOM_MODEL, type,std::move(vertices), std::move(indices));
+	//Material* material = new Material;	
+	//mesh->SetMaterial(material);
 
 	assert(mesh != nullptr);
 	 	
@@ -355,10 +361,12 @@ void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
 }
 
 #include "TextureResource.h"
+#include "ResourceManager.h"
 void ModelManager::LoadMaterials(const aiScene* _scene)
-{
+{		
 	const std::string name = m_pCustomModel->GetName();
 	m_vTextureList.resize(_scene->mNumMaterials);
+	Material* mat = nullptr;
 	for (size_t i = 0; i < _scene->mNumMaterials; i++)
 	{
 		aiMaterial* material = _scene->mMaterials[i];
@@ -367,7 +375,7 @@ void ModelManager::LoadMaterials(const aiScene* _scene)
 
 		// 텍스쳐가 존재하는 지 먼저 확인		
 		if (material->GetTextureCount(aiTextureType_DIFFUSE))
-		{
+		{			
 			aiString texturePath;
 			// 텍스쳐 경로를 가져오는 데 성공했다면
 			if (material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath) == aiReturn_SUCCESS) {
@@ -378,9 +386,18 @@ void ModelManager::LoadMaterials(const aiScene* _scene)
 				std::string textureName = (idx != std::string::npos) ? pathStr.substr(idx + 1) : pathStr;
 
 				std::string texPath = "../Extern/Assets/Model/mask/" + textureName;
+				
 
-				m_vTextureList[i] = new TextureResource(texPath);
-				m_vTextureList[i]->Load(texPath.c_str());
+				Material* mat = new Material;
+				m_pCustomModel->GetMeshes()[i]->SetMaterial(mat);
+				mat->SetTexture(new TextureResource(texPath));				
+				ResourceManager::GetInstance()->AddResource(textureName, mat->GetTexture());
+
+				BaseResource* tex = ResourceManager::GetInstance()->GetAndLoad(textureName, texPath);
+				TextureResource* texture_res = dynamic_cast<TextureResource*>(tex);
+				texture_res->Load(texPath);
+				//m_vTextureList[i] = new TextureResource(texPath);
+				//m_vTextureList[i]->Load(texPath.c_str());
 			}
 		}
 

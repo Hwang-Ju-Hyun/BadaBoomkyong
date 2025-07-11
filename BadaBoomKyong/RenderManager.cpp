@@ -23,6 +23,8 @@
 
 #include "header.h"
 #include "Camera.h"
+#include "Mesh.h"
+
 RenderManager::RenderManager()
 {
 
@@ -62,6 +64,7 @@ void RenderManager::Init()
 
 #include "Monster.h"
 #include <iostream>
+#include "Material.h"
 void RenderManager::Draw()
 {			
 	auto objs=GameObjectManager::GetInstance()->GetAllObjects();
@@ -122,14 +125,33 @@ void RenderManager::Draw()
 				assert(MVP_Location >= 0);
 			 
 				Transform* trs = dynamic_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName));
-				assert(trs != nullptr);											
+				assert(trs != nullptr);		
+				
 				Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
-				assert(spr != nullptr);				
+				//assert(spr != nullptr);												
 
 				GLint has_texture_location = glGetUniformLocation(shdr_handle_3D, "uHasTexture");
 				GLint out_texture_location = glGetUniformLocation(shdr_handle_3D, "uOutTexture");
 
-				if (spr->GetTexture() != nullptr)
+				for (auto m : model->GetMeshes())
+				{
+					if (m&&m->GetMaterial()&&m->GetMaterial()->HasTexture())
+					{
+						GLuint tex_id = m->GetMaterial()->GetTexture()->GetTextureID();
+						glBindTextureUnit(0, tex_id);
+						assert(has_texture_location >= 0 && out_texture_location >= 0);
+
+						glUniform1i(out_texture_location, 0);
+						glUniform1i(has_texture_location, true);
+						break;
+					}
+					else
+					{
+						glUniform1i(has_texture_location, false);
+					}
+				}
+
+				/*if (spr&&spr->GetTexture() != nullptr)
 				{					
 					GLuint tex_id = spr->GetTexture()->GetTextureID();
 					glBindTextureUnit(0, tex_id);
@@ -141,13 +163,15 @@ void RenderManager::Draw()
 				else
 				{					
 					glUniform1i(has_texture_location, false);
-				}
+				}*/
 
 				glm::mat4 m2w = trs->GetModelToWorld_Matrix();
 				glm::mat4 proj = m_pCam->GetProjMatrix();
 				glm::mat4 view = m_pCam->GetViewMatrix();
 				glm::mat4 MVP = proj * view * m2w;
-				glm::vec4 color = spr->GetColor();
+				glm::vec4 color;
+				if(spr)
+				 color= spr->GetColor();
 
 
 				//todo : 주석처리된거 지우고 충돌체 쉐이더를 통해 그리는거 이것도 쉐이더에서 수정하고 

@@ -5,6 +5,8 @@
 #include <vector>
 #include "header.h"
 
+class Material;
+
 class Mesh
 {
 public:
@@ -15,6 +17,11 @@ public:
 		glm::vec2 texcoord;
 		glm::vec3 normals;
 	};
+private:
+	Material* m_pMaterial = nullptr;
+public:
+	inline Material* GetMaterial() { return m_pMaterial; }
+	inline void SetMaterial(Material* _mat) { m_pMaterial = _mat; }
 public:
 	Mesh(MODEL_TYPE _modelType, GLenum _primitiveType, std::vector<VertexAttribute>&& _vertices, std::vector<unsigned int>&& _indices={0,});
 	~Mesh();
