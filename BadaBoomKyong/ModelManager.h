@@ -49,7 +49,7 @@ private:
 	// 실제 메시 오브젝트를 참조하여 버텍스 정보를 로드한다.
 	void LoadMesh(aiMesh* _mesh, const aiScene* _scene);
 	// 텍스쳐를 로드한다.
-	void LoadMaterials(const aiScene* _scene);
+	void LoadMaterials(const aiScene* _scene,const std::string& _filePath);
 public:
 	static int g_mesh_cnt;
 };

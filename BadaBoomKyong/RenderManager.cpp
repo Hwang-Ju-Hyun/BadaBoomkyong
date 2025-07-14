@@ -118,8 +118,7 @@ void RenderManager::Draw()
 			else if (model && obj->GetIs3D())
 			{				
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
-				if (obj->GetName() == "customModelObj")
-					int a = 0;
+
 				//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
 				GLint MVP_Location = glGetUniformLocation(shdr_handle_3D, "uMVP");
 				assert(MVP_Location >= 0);
@@ -133,38 +132,49 @@ void RenderManager::Draw()
 				GLint has_texture_location = glGetUniformLocation(shdr_handle_3D, "uHasTexture");
 				GLint out_texture_location = glGetUniformLocation(shdr_handle_3D, "uOutTexture");
 
-				for (auto m : model->GetMeshes())
+				if (!spr)
 				{
-					if (m&&m->GetMaterial()&&m->GetMaterial()->HasTexture())
+					for (auto m : model->GetMeshes())
 					{
-						GLuint tex_id = m->GetMaterial()->GetTexture()->GetTextureID();
+						if (!m)
+							continue;
+
+						if (m->GetMaterial() && m->GetMaterial()->HasTexture())
+						{
+							GLuint tex_id = m->GetMaterial()->GetTexture()->GetTextureID();
+							glBindTextureUnit(0, tex_id);
+							assert(has_texture_location >= 0 && out_texture_location >= 0);
+
+							glUniform1i(out_texture_location, 0);
+							glUniform1i(has_texture_location, true);							
+						}
+						else
+						{
+							glUniform1i(has_texture_location, false);
+						}
+						//Draw
+						//model->Draw();
+						m->Draw();
+					}
+				}				
+				else if (spr)
+				{			
+					if (spr->GetTexture() != nullptr)
+					{
+						GLuint tex_id = spr->GetTexture()->GetTextureID();
 						glBindTextureUnit(0, tex_id);
 						assert(has_texture_location >= 0 && out_texture_location >= 0);
 
 						glUniform1i(out_texture_location, 0);
 						glUniform1i(has_texture_location, true);
-						break;
-					}
+					}					
 					else
 					{
 						glUniform1i(has_texture_location, false);
 					}
-				}
 
-				/*if (spr&&spr->GetTexture() != nullptr)
-				{					
-					GLuint tex_id = spr->GetTexture()->GetTextureID();
-					glBindTextureUnit(0, tex_id);
-					assert(has_texture_location >= 0 && out_texture_location >= 0);
-					
-					glUniform1i(out_texture_location, 0);
-					glUniform1i(has_texture_location, true);
-				}
-				else
-				{					
-					glUniform1i(has_texture_location, false);
-				}*/
-
+				} 
+				
 				glm::mat4 m2w = trs->GetModelToWorld_Matrix();
 				glm::mat4 proj = m_pCam->GetProjMatrix();
 				glm::mat4 view = m_pCam->GetViewMatrix();
@@ -186,8 +196,8 @@ void RenderManager::Draw()
 				 
 			
 #endif
-				//Draw
-				model->Draw();
+				//Draw				
+				//model->Draw();
 
 				//last
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();	

@@ -51,12 +51,15 @@ void ModelManager::Init()
 }
 
 void ModelManager::Exit()
-{
+{	
 	size_t size = m_vModels.size();
 	for (int i = 0;i < size;i++)
-	{
-		delete m_vModels[i];
-		m_vModels[i] = nullptr;
+	{		
+		if (m_vModels[i])
+		{
+			delete m_vModels[i];
+			m_vModels[i] = nullptr;
+		}		
 	}
 	m_vModels.clear();
 	std::vector<Model*> temp;
@@ -255,7 +258,16 @@ Model* ModelManager::LoadModel(const std::string& _filePath)
 
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(_filePath,
-		aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
+		aiProcess_Triangulate |
+		aiProcess_JoinIdenticalVertices |
+		aiProcess_FlipUVs |
+		aiProcess_GenSmoothNormals |
+		aiProcess_CalcTangentSpace | // (Normal mapping 사용 시 필요)
+		aiProcess_ImproveCacheLocality |
+		aiProcess_RemoveRedundantMaterials |
+		aiProcess_SortByPType |
+		aiProcess_PreTransformVertices // glTF에서 node transform 적용 시 유용
+	);
 
 	m_pCustomModel = new Model(model_name, MODEL_TYPE::CUSTOM_MODEL, _filePath);
 
@@ -267,7 +279,7 @@ Model* ModelManager::LoadModel(const std::string& _filePath)
 
 	LoadNode(scene->mRootNode, scene);	
 
-	LoadMaterials(scene);
+	LoadMaterials(scene, _filePath);
 	
 	ModelManager::GetInstance()->AddModel(m_pCustomModel);
 	return m_pCustomModel;
@@ -319,7 +331,8 @@ void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
 
 		// normal (aiProcess_GenSmoothNormals를 적용했기 때문에 없을 수가 없다.)
 		glm::vec3 normals;
-		normals={ _mesh->mNormals[i].x ,_mesh->mNormals[i].y,_mesh->mNormals[i].z };
+		if (_mesh->HasNormals())
+			normals = { _mesh->mNormals[i].x ,_mesh->mNormals[i].y,_mesh->mNormals[i].z };		
 
 		Mesh::VertexAttribute mva;
 		mva.position = pos;
@@ -358,33 +371,41 @@ void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
 
 #include "TextureResource.h"
 #include "ResourceManager.h"
-void ModelManager::LoadMaterials(const aiScene* _scene)
-{		
+void ModelManager::LoadMaterials(const aiScene* _scene,const std::string& _filePath)
+{			
 	const std::string name = m_pCustomModel->GetName();
 	m_vTextureList.resize(_scene->mNumMaterials);
 	Material* mat = nullptr;
+	
 	for (size_t i = 0; i < _scene->mNumMaterials; i++)
 	{
 		aiMaterial* material = _scene->mMaterials[i];
 
 		m_vTextureList[i] = nullptr;				
 
-		// 텍스쳐가 존재하는 지 먼저 확인		
-		if (material->GetTextureCount(aiTextureType_DIFFUSE))
+		// 텍스쳐가 존재하는 지 먼저 확인
+		if (material->GetTextureCount(aiTextureType_BASE_COLOR))
 		{			
 			aiString texturePath;
 			// 텍스쳐 경로를 가져오는 데 성공했다면
-			if (material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath) == aiReturn_SUCCESS) {
-				std::string pathStr = texturePath.C_Str();
+			if (material->GetTexture(aiTextureType_BASE_COLOR, 0, &texturePath) == aiReturn_SUCCESS||
+				material->GetTexture(aiTextureType_BASE_COLOR, 0, &texturePath) == aiReturn_SUCCESS)
+			{
+				//todo : 요거 변수이름 너무 중복되는거 많음 리펙토링 할 때 이거 좀 고치셈
+				std::string pathStr = texturePath.C_Str();								
+				int idx = pathStr.find_last_of("/");
+				std::string textureName = (idx != std::string::npos) ? pathStr.substr(idx + 1) : pathStr;				
+				int file_path_idx = _filePath.find_last_of("/");
 
-				// 슬래시가 있는 경우만 처리
-				int idx = pathStr.find_last_of("/\\");
-				std::string textureName = (idx != std::string::npos) ? pathStr.substr(idx + 1) : pathStr;
-
-				std::string texPath = "../Extern/Assets/Model/mask/" + textureName;
+				std::string texture_path = (file_path_idx != std::string::npos) ? _filePath.substr(0, file_path_idx + 1) : _filePath;
+				std::string texPath = texture_path + textureName;
 				
 				Material* mat = new Material;
-				m_pCustomModel->GetMeshes()[i]->SetMaterial(mat);
+
+				if (i < m_pCustomModel->GetMeshes().size()) {
+					m_pCustomModel->GetMeshes()[i]->SetMaterial(mat);
+				}
+				//m_pCustomModel->GetMeshes()[i]->SetMaterial(mat);
 				TextureResource* texture = new TextureResource(texPath);
 				ResourceManager::GetInstance()->AddResource(textureName,texture);
 				mat->SetTexture(texture);
