@@ -131,63 +131,94 @@ void RenderManager::Draw()
 
 				GLint has_texture_location = glGetUniformLocation(shdr_handle_3D, "uHasTexture");
 				GLint out_texture_location = glGetUniformLocation(shdr_handle_3D, "uOutTexture");
-
+				static int a = 0;
 				if (!spr)
 				{
 					for (auto m : model->GetMeshes())
 					{
-						if (!m)
+						if (!m)						
 							continue;
-
+						if (a % 6 == 0)
+							int b = 0;
 						if (m->GetMaterial() && m->GetMaterial()->HasTexture())
 						{
 							GLuint tex_id = m->GetMaterial()->GetTexture()->GetTextureID();
-							glBindTextureUnit(0, tex_id);
-							assert(has_texture_location >= 0 && out_texture_location >= 0);
-
+							glActiveTexture(GL_TEXTURE0);
+							glBindTexture(GL_TEXTURE_2D, tex_id);
 							glUniform1i(out_texture_location, 0);
+							//assert(has_texture_location >= 0 && out_texture_location >= 0);							
 							glUniform1i(has_texture_location, true);							
 						}
 						else
 						{
-							glUniform1i(has_texture_location, false);
+							glBindTexture(GL_TEXTURE_2D, 0); // <- 바인딩 해제 추가
+							glUniform1i(has_texture_location, false); // <- 반드시 false 세팅
 						}
+						glm::mat4 m2w = trs->GetModelToWorld_Matrix();
+						glm::mat4 proj = m_pCam->GetProjMatrix();
+						glm::mat4 view = m_pCam->GetViewMatrix();
+						glm::mat4 MVP = proj * view * m2w;
+						glm::vec4 color;
+						if (spr)
+							color = spr->GetColor();
+
+
+						//todo : 주석처리된거 지우고 충돌체 쉐이더를 통해 그리는거 이것도 쉐이더에서 수정하고 
+						// draw collider에도 주석있음 아마 assert주석 처리해놓았을 거임 그것도 지우셈
+						//GLint IsColliderLocation = glGetUniformLocation(shdr_handle_3D, "uIsCollider");
+						glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
 						//Draw
 						//model->Draw();
-						m->Draw();
+						m->Draw();						
+						//temp
+						a++;
 					}
+					
 				}				
 				else if (spr)
 				{			
 					if (spr->GetTexture() != nullptr)
 					{
 						GLuint tex_id = spr->GetTexture()->GetTextureID();
-						glBindTextureUnit(0, tex_id);
-						assert(has_texture_location >= 0 && out_texture_location >= 0);
-
-						glUniform1i(out_texture_location, 0);
+						glActiveTexture(GL_TEXTURE0); //반드시 유닛 0 활성화
+						glBindTexture(GL_TEXTURE_2D, tex_id); //텍스처 바인딩
+						glUniform1i(out_texture_location, 0); //셰이더에서 사용할 유닛 지정
 						glUniform1i(has_texture_location, true);
 					}					
 					else
 					{
 						glUniform1i(has_texture_location, false);
 					}
+					glm::mat4 m2w = trs->GetModelToWorld_Matrix();
+					glm::mat4 proj = m_pCam->GetProjMatrix();
+					glm::mat4 view = m_pCam->GetViewMatrix();
+					glm::mat4 MVP = proj * view * m2w;
+					glm::vec4 color;
+					if (spr)
+						color = spr->GetColor();
 
+
+					//todo : 주석처리된거 지우고 충돌체 쉐이더를 통해 그리는거 이것도 쉐이더에서 수정하고 
+					// draw collider에도 주석있음 아마 assert주석 처리해놓았을 거임 그것도 지우셈
+					//GLint IsColliderLocation = glGetUniformLocation(shdr_handle_3D, "uIsCollider");
+					glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
+
+					model->Draw();
 				} 
 				
-				glm::mat4 m2w = trs->GetModelToWorld_Matrix();
+				/*glm::mat4 m2w = trs->GetModelToWorld_Matrix();
 				glm::mat4 proj = m_pCam->GetProjMatrix();
 				glm::mat4 view = m_pCam->GetViewMatrix();
 				glm::mat4 MVP = proj * view * m2w;
 				glm::vec4 color;
 				if(spr)
-				 color= spr->GetColor();
+				 color= spr->GetColor();*/
 
 
 				//todo : 주석처리된거 지우고 충돌체 쉐이더를 통해 그리는거 이것도 쉐이더에서 수정하고 
 				// draw collider에도 주석있음 아마 assert주석 처리해놓았을 거임 그것도 지우셈
 				//GLint IsColliderLocation = glGetUniformLocation(shdr_handle_3D, "uIsCollider");
-				glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));				
+				//glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));				
 				//glUniform1i(IsColliderLocation, false); // false
 
 #ifdef _DEBUG
@@ -197,7 +228,7 @@ void RenderManager::Draw()
 			
 #endif
 				//Draw				
-				//model->Draw();
+				
 
 				//last
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();	

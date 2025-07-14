@@ -49,7 +49,8 @@ void TextureResource::Load(const std::string& _path)
     }
     //이미지 데이터를 GPU 텍스처로 업로드
     glTexImage2D(GL_TEXTURE_2D, 0, format, m_iWidth, m_iHeight, 0, format, GL_UNSIGNED_BYTE, m_cData);
-    
+    glGenerateMipmap(GL_TEXTURE_2D); //  꼭 추가!
+
     stbi_image_free(m_cData);
     SetResourcePath(_path);
 }
