@@ -82,8 +82,8 @@ void ResourceManager::RemoveAllRes()
 		if (iter->second != nullptr)
 		{
 			delete iter->second;
-			iter = m_mapResource.erase(iter++);
 			iter->second = nullptr;
+			iter = m_mapResource.erase(iter++);
 		}
 		else
 		{

@@ -13,11 +13,8 @@ void main()
 	if(uHasTexture)	
 		color = texture(uOutTexture, UV) * vec4(1.0, 1.0, 1.0, 1.0);
 	else
-		color = vec4(0.5,0.0,0.0,1.0);
+		color = vec4(UV,0.0,1.0);
 	return;
 
-	if(uHasTexture)	
-		color = texture(uOutTexture,UV);	
-	else
-		color = vec4(0.5,0.0,0.0,1.0);
+	//color = texture(uOutTexture, UV) * vec4(1.0, 1.0, 1.0, 1.0);
 }

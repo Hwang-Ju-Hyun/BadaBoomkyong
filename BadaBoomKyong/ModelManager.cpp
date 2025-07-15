@@ -388,8 +388,7 @@ void ModelManager::LoadMaterials(const aiScene* _scene,const std::string& _fileP
 		{			
 			aiString texturePath;
 			// 텍스쳐 경로를 가져오는 데 성공했다면
-			if (material->GetTexture(aiTextureType_BASE_COLOR, 0, &texturePath) == aiReturn_SUCCESS||
-				material->GetTexture(aiTextureType_BASE_COLOR, 0, &texturePath) == aiReturn_SUCCESS)
+			if (material->GetTexture(aiTextureType_BASE_COLOR, 0, &texturePath) == aiReturn_SUCCESS)
 			{
 				//todo : 요거 변수이름 너무 중복되는거 많음 리펙토링 할 때 이거 좀 고치셈
 				std::string pathStr = texturePath.C_Str();								
@@ -415,9 +414,8 @@ void ModelManager::LoadMaterials(const aiScene* _scene,const std::string& _fileP
 				texture_res->Load(texPath);
 				//m_vTextureList[i] = new TextureResource(texPath);
 				//m_vTextureList[i]->Load(texPath.c_str());
-			}
-		}
-
+			}		
+		}		
 		// textureList에 텍스쳐를 담는데 실패했다면
 		if (!m_vTextureList[i])
 		{

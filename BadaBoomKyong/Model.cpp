@@ -20,15 +20,12 @@ Model::Model(const std::string _name, MODEL_TYPE _modelType, const std::string& 
 
 Model::~Model()
 {	
-	//mesh들 지워주셈
+
 	for (int i = 0;i < m_vMeshes.size();i++)
 	{		
 		delete m_vMeshes[i];
 		m_vMeshes[i] = nullptr;
-	}
-	/*m_vMeshes.clear();
-	std::vector<Mesh*> temp = m_vMeshes;
-	temp.swap(m_vMeshes);*/
+	}	
 } 
 
 void Model::Draw()
