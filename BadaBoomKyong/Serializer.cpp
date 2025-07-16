@@ -38,12 +38,9 @@ GameObject* Serializer::CreateObjectFromJson(json _item)
 {
 	json::iterator iter_name = _item.find(NameTypeInJson);
 	json::iterator iter_model = _item.find(ModelTypeNameInJson);
-	json::iterator iter_model_path;	
-	if ((*iter_model) == MODEL_TYPE::CUSTOM_MODEL)
-	{
-		iter_model_path = _item.find(ModelPathInJson);
-	}
+	json::iterator iter_model_path= _item.find(ModelPathInJson);
 	json::iterator iter_group = _item.find(GroupTypeNameInJson);
+
 	ASSERT_MSG(iter_name!=_item.end(),"Name not exist");
 	ASSERT_MSG(iter_name != _item.end(), "Model not exist");
 
@@ -54,7 +51,7 @@ GameObject* Serializer::CreateObjectFromJson(json _item)
 	GameObject* obj = new GameObject(obj_name, obj_model,obj_group);	
 	ASSERT_MSG(obj != nullptr, "GameObject can't construct");
 
-	if (obj_model == MODEL_TYPE::CUSTOM_MODEL)
+	if (iter_model_path != _item.end())
 	{
 		auto model_mgr = ModelManager::GetInstance();
 		Model* custom_model = model_mgr->LoadModel((*iter_model_path));

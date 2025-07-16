@@ -251,6 +251,9 @@
     <Filter Include="Graphics\Materials">
       <UniqueIdentifier>{a9829d66-ce17-49bb-b644-ee726438d554}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Default\Animation">
+      <UniqueIdentifier>{2af79aca-fcd7-46c3-877c-43d69a42b799}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -480,6 +483,9 @@
     </ClCompile>
     <ClCompile Include="Material.cpp">
       <Filter>Graphics\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Component\Default\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -740,6 +746,9 @@
     </ClInclude>
     <ClInclude Include="Material.h">
       <Filter>Graphics\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Component\Default\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -151,8 +151,8 @@ void RenderManager::Draw()
 						}
 						else
 						{
-							//glBindTexture(GL_TEXTURE_2D, 0); // <- 바인딩 해제 추가
-							//glUniform1i(has_texture_location, false); // <- 반드시 false 세팅
+							glBindTexture(GL_TEXTURE_2D, 0); // <- 바인딩 해제 추가
+							glUniform1i(has_texture_location, false); // <- 반드시 false 세팅
 						}
 						glm::mat4 m2w = trs->GetModelToWorld_Matrix();
 						glm::mat4 proj = m_pCam->GetProjMatrix();
