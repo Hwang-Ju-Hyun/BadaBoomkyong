@@ -14,6 +14,8 @@
 #include "Sprite.h"
 #include <cassert>
 #include "TextureResource.h"
+#include "Animator.h"
+
 #ifdef _DEBUG
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
@@ -127,19 +129,22 @@ void RenderManager::Draw()
 				assert(trs != nullptr);		
 				
 				Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
-				//assert(spr != nullptr);												
+				//assert(spr != nullptr);
+				GLint UV_Offset_Location = glGetUniformLocation(shdr_handle_3D, "uUV_Offset");
+				GLint UV_Scale_Location  = glGetUniformLocation(shdr_handle_3D, "uUV_Scale");
+
+				Animator* anim = dynamic_cast<Animator*>(obj->FindComponent(Animator::AnimatorTypeName));
+
 
 				GLint has_texture_location = glGetUniformLocation(shdr_handle_3D, "uHasTexture");
 				GLint out_texture_location = glGetUniformLocation(shdr_handle_3D, "uOutTexture");
-				static int a = 0;
+				
 				if (!spr)
 				{
 					for (auto m : model->GetMeshes())
 					{
 						if (!m)						
-							continue;
-						if (a % 6 == 0)
-							int b = 0;
+							continue;					
 						if (m->GetMaterial() && m->GetMaterial()->HasTexture())
 						{
 							GLuint tex_id = m->GetMaterial()->GetTexture()->GetTextureID();
@@ -161,7 +166,7 @@ void RenderManager::Draw()
 						glm::vec4 color;
 						if (spr)
 							color = spr->GetColor();
-
+												
 
 						//todo : 주석처리된거 지우고 충돌체 쉐이더를 통해 그리는거 이것도 쉐이더에서 수정하고 
 						// draw collider에도 주석있음 아마 assert주석 처리해놓았을 거임 그것도 지우셈
@@ -169,22 +174,19 @@ void RenderManager::Draw()
 						glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
 						//Draw
 						//model->Draw();
-						m->Draw();						
-						//temp
-						a++;
-					}
-					
+						m->Draw();												
+					}					
 				}				
 				else if (spr)
-				{			
+				{
 					if (spr->GetTexture() != nullptr)
 					{
 						GLuint tex_id = spr->GetTexture()->GetTextureID();
-						glActiveTexture(GL_TEXTURE0); //반드시 유닛 0 활성화
+						glActiveTexture(GL_TEXTURE0); //반드시 유닛 0 활성화``
 						glBindTexture(GL_TEXTURE_2D, tex_id); //텍스처 바인딩
 						glUniform1i(out_texture_location, 0); //셰이더에서 사용할 유닛 지정
 						glUniform1i(has_texture_location, true);
-					}					
+					}
 					else
 					{
 						glUniform1i(has_texture_location, false);
@@ -194,9 +196,21 @@ void RenderManager::Draw()
 					glm::mat4 view = m_pCam->GetViewMatrix();
 					glm::mat4 MVP = proj * view * m2w;
 					glm::vec4 color;
+
+					if (anim)
+					{
+						glUniform2f(UV_Offset_Location, anim->GetAnimation()->m_fSheet_UV_offset_X, anim->GetAnimation()->m_fSheet_UV_offset_Y);
+						glUniform2f(UV_Scale_Location, anim->GetAnimation()->m_fSheet_UV_Width, anim->GetAnimation()->m_fSheet_UV_Height);
+					}
+					else
+					{
+						glUniform2f(UV_Offset_Location,0,0 );
+						glUniform2f(UV_Scale_Location, 1,1);
+					}
+
+
 					if (spr)
 						color = spr->GetColor();
-
 
 					//todo : 주석처리된거 지우고 충돌체 쉐이더를 통해 그리는거 이것도 쉐이더에서 수정하고 
 					// draw collider에도 주석있음 아마 assert주석 처리해놓았을 거임 그것도 지우셈
@@ -204,16 +218,7 @@ void RenderManager::Draw()
 					glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
 
 					model->Draw();
-				} 
-				
-				/*glm::mat4 m2w = trs->GetModelToWorld_Matrix();
-				glm::mat4 proj = m_pCam->GetProjMatrix();
-				glm::mat4 view = m_pCam->GetViewMatrix();
-				glm::mat4 MVP = proj * view * m2w;
-				glm::vec4 color;
-				if(spr)
-				 color= spr->GetColor();*/
-
+				} 							
 
 				//todo : 주석처리된거 지우고 충돌체 쉐이더를 통해 그리는거 이것도 쉐이더에서 수정하고 
 				// draw collider에도 주석있음 아마 assert주석 처리해놓았을 거임 그것도 지우셈
