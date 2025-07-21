@@ -19,11 +19,17 @@ private:
 public:
 	//todo :이거 라인 쉐이더 이해하기
 	GLuint GetDebugLineShader() const;
-	void InitDebugLineShader(); // 
+	void InitDebugLineShader(); 
 private:
 	std::vector<Shader*> m_vShdr;
 	std::vector<GameObject*> m_vTransParnetObject;
 	std::vector<GameObject*> m_vOpaqueObject;
+private:
+	GLint m_iMVP_Location;
+	GLint m_iUV_Offset_Location;
+	GLint m_iUV_Scale_Location;
+	GLint m_iHas_texture_location;
+	GLint m_iOut_texture_location;
 public:	
 	inline Shader* GetShader(SHADER_REF _shdrRef) { return m_vShdr[int(_shdrRef)]; }	
 	Camera* m_pCam=nullptr;
@@ -43,4 +49,3 @@ public:
 private:
 	FrameBuffer* m_pFrameBuffer = nullptr;
 };
-

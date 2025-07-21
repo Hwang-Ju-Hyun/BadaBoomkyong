@@ -85,16 +85,34 @@ void RenderManager::BeforeDraw()
 	auto objs = GameObjectManager::GetInstance()->GetAllObjects();
 	for (const auto& obj : objs)
 	{
+		Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
 		for (int i = 0;i < obj->GetModel()->GetMeshes().size();i++)
 		{
 			Material* mat = obj->GetModel()->GetMeshes()[i]->GetMaterial();
-			if (mat->GetHasAlphaChannel())
+			if (mat)
+			{				
+				if (mat->GetHasAlphaChannel())
+				{
+					m_vTransParnetObject.push_back(obj);
+				}
+				else
+				{
+					m_vOpaqueObject.push_back(obj);
+				}
+			}			
+			else if (mat == nullptr && spr)
 			{
-				m_vTransParnetObject.push_back(obj);
-			}
-			else
-			{
-				m_vOpaqueObject.push_back(obj);
+				if (obj->GetModel()->GetModelType() == MODEL_TYPE::PLANE)
+				{
+					if(spr->GetTexture())
+						m_vTransParnetObject.push_back(obj);
+					else
+						m_vOpaqueObject.push_back(obj);
+				}
+				else 
+				{
+					m_vOpaqueObject.push_back(obj);
+				}
 			}
 		}
 	}
@@ -105,97 +123,68 @@ void RenderManager::Draw()
 	auto objs=GameObjectManager::GetInstance()->GetAllObjects();
 	auto shdr_handle_2D = m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->GetShaderProgramHandle();
 	auto shdr_handle_3D= m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->GetShaderProgramHandle();
+		
 	Transform* obj_trs = nullptr;
 	glEnable(GL_DEPTH_TEST);
 	m_pCam->Update();
-	BeforeDraw();
-	for (auto obj : objs)
+
+	BeforeDraw();	
+
+	//1. 불투명 먼저 렌더링
+	for (auto obj : m_vOpaqueObject)
 	{
 		//todo 이거 transform만 active이면 실행되는거 이상함 sprite로 하든가 수정필요함
 		obj_trs = dynamic_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName));
 		assert(obj_trs != nullptr);
+
 		if (obj_trs->GetActive())
 		{
-			auto model = obj->GetModel();
-
-			if (model && !obj->GetIs3D())
+			Model* model = obj->GetModel();
+			bool is3d=obj->GetIs3D();
+			if (model && is3d)
 			{
-				m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->Use();		
-				//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
-				GLint MVP_Location = glGetUniformLocation(shdr_handle_2D, "uMVP_2d");
-				assert(MVP_Location >= 0);
-
-				GLint ColorLocation = glGetUniformLocation(shdr_handle_2D, "uColor_2d");
-				assert(ColorLocation >= 0);
-
-				Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
-				assert(spr != nullptr);
-
-				glm::vec4 color = spr->GetColor();				
-
-				glm::mat4 MVP=GetMVP_ByObject(*obj);
-
-				//셰이더한테 이 4x4 행렬 좀 써줘 라는 함수
-				//GL_FALSE - Column major로 인식해라 			
-				glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
-				glUniform4fv(ColorLocation, 1, glm::value_ptr(color));
-
-				//Draw
-				model->Draw();
-
-				m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->Diuse();
-			}
-			else if (model && obj->GetIs3D())
-			{				
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
 
 				//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
-				GLint MVP_Location = glGetUniformLocation(shdr_handle_3D, "uMVP");
-				assert(MVP_Location >= 0);
-			 									
+				m_iMVP_Location = glGetUniformLocation(shdr_handle_3D, "uMVP");
+				assert(m_iMVP_Location >= 0);
+
 				Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
 				//assert(spr != nullptr);
-				GLint UV_Offset_Location = glGetUniformLocation(shdr_handle_3D, "uUV_Offset");
-				GLint UV_Scale_Location  = glGetUniformLocation(shdr_handle_3D, "uUV_Scale");
+
+				m_iUV_Offset_Location = glGetUniformLocation(shdr_handle_3D, "uUV_Offset");
+				m_iUV_Scale_Location  = glGetUniformLocation(shdr_handle_3D, "uUV_Scale");
 
 				Animator* anim = dynamic_cast<Animator*>(obj->FindComponent(Animator::AnimatorTypeName));
 
-				GLint has_texture_location = glGetUniformLocation(shdr_handle_3D, "uHasTexture");
-				GLint out_texture_location = glGetUniformLocation(shdr_handle_3D, "uOutTexture");
-				
+				m_iHas_texture_location = glGetUniformLocation(shdr_handle_3D, "uHasTexture");
+				m_iOut_texture_location = glGetUniformLocation(shdr_handle_3D, "uOutTexture");
+
 				if (!spr)
 				{
 					for (auto m : model->GetMeshes())
 					{
-						if (!m)						
-							continue;					
+						if (!m)
+							continue;
 						if (m->GetMaterial() && m->GetMaterial()->HasTexture())
 						{
 							GLuint tex_id = m->GetMaterial()->GetTexture()->GetTextureID();
 							glActiveTexture(GL_TEXTURE0);
 							glBindTexture(GL_TEXTURE_2D, tex_id);
-							glUniform1i(out_texture_location, 0);
+							glUniform1i(m_iOut_texture_location, 0);
 							//assert(has_texture_location >= 0 && out_texture_location >= 0);							
-							glUniform1i(has_texture_location, true);							
+							glUniform1i(m_iHas_texture_location, true);
 						}
 						else
 						{
 							glBindTexture(GL_TEXTURE_2D, 0); // <- 바인딩 해제 추가
-							glUniform1i(has_texture_location, false); // <- 반드시 false 세팅
+							glUniform1i(m_iHas_texture_location, false); // <- 반드시 false 세팅
 						}
-						glm::mat4 MVP=GetMVP_ByObject(*obj);
+						glm::mat4 MVP = GetMVP_ByObject(*obj);					
 
-						glm::vec4 color;
-						if (spr)
-							color = spr->GetColor();
-												
-						//todo : 주석처리된거 지우고 충돌체 쉐이더를 통해 그리는거 이것도 쉐이더에서 수정하고 
-						// draw collider에도 주석있음 아마 assert주석 처리해놓았을 거임 그것도 지우셈
-						//GLint IsColliderLocation = glGetUniformLocation(shdr_handle_3D, "uIsCollider");
-						glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
-						//Draw
-						//model->Draw();
-						m->Draw();												
+						glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
+						
+						m->Draw();
 					}
 				}
 				else if (spr)
@@ -205,62 +194,168 @@ void RenderManager::Draw()
 						GLuint tex_id = spr->GetTexture()->GetTextureID();
 						glActiveTexture(GL_TEXTURE0); //반드시 유닛 0 활성화
 						glBindTexture(GL_TEXTURE_2D, tex_id); //텍스처 바인딩
-						glUniform1i(out_texture_location, 0); //셰이더에서 사용할 유닛 지정
-						glUniform1i(has_texture_location, true);
+						glUniform1i(m_iOut_texture_location, 0); //셰이더에서 사용할 유닛 지정
+						glUniform1i(m_iHas_texture_location, true);
 					}
 					else
 					{
-						glUniform1i(has_texture_location, false);
+						glUniform1i(m_iHas_texture_location, false);
 					}
-					glm::mat4 MVP = GetMVP_ByObject(*obj);
-
-					glm::vec4 color;
+					glm::mat4 MVP = GetMVP_ByObject(*obj);			
 
 					if (anim)
 					{
-						glUniform2f(UV_Offset_Location, anim->GetAnimation()->m_fSheet_UV_offset_X, anim->GetAnimation()->m_fSheet_UV_offset_Y);
-						glUniform2f(UV_Scale_Location, anim->GetAnimation()->m_fSheet_UV_Width, anim->GetAnimation()->m_fSheet_UV_Height);
+						glUniform2f(m_iUV_Offset_Location, anim->GetAnimation()->m_fSheet_UV_offset_X, anim->GetAnimation()->m_fSheet_UV_offset_Y);
+						glUniform2f(m_iUV_Scale_Location, anim->GetAnimation()->m_fSheet_UV_Width, anim->GetAnimation()->m_fSheet_UV_Height);
 					}
 					else
 					{
-						glUniform2f(UV_Offset_Location,0,0 );
-						glUniform2f(UV_Scale_Location, 1,1);
+						glUniform2f(m_iUV_Offset_Location, 0, 0);
+						glUniform2f(m_iUV_Scale_Location, 1, 1);
 					}
-
-					if (spr)
-						color = spr->GetColor();
 
 					//todo : 주석처리된거 지우고 충돌체 쉐이더를 통해 그리는거 이것도 쉐이더에서 수정하고 
 					// draw collider에도 주석있음 아마 assert주석 처리해놓았을 거임 그것도 지우셈
 					//GLint IsColliderLocation = glGetUniformLocation(shdr_handle_3D, "uIsCollider");
-					glUniformMatrix4fv(MVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
+					glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
 
 					model->Draw();
 
 					//todo : 주석처리된거 지우고 충돌체 쉐이더를 통해 그리는거 이것도 쉐이더에서 수정하고 
-				    //draw collider에도 주석있음 아마 assert주석 처리해놓았을 거임 그것도 지우셈
+					//draw collider에도 주석있음 아마 assert주석 처리해놓았을 거임 그것도 지우셈
 					Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
 					if (col)
 					{
 						col->DrawCollider();
-					}					
-				} 											
-				//Draw				
-				//last
+					}
+				}		
+				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();			
+			}
+		}
+	}
+
+	//투명
+	for (auto obj : m_vTransParnetObject)
+	{
+		//todo 이거 transform만 active이면 실행되는거 이상함 sprite로 하든가 수정필요함
+		obj_trs = dynamic_cast<Transform*>(obj->FindComponent(Transform::TransformTypeName));
+		assert(obj_trs != nullptr);
+
+		if (obj_trs->GetActive())
+		{
+			Model* model = obj->GetModel();
+			bool is3d = obj->GetIs3D();
+			if (model && is3d)
+			{
+				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
+
+				//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
+				m_iMVP_Location = glGetUniformLocation(shdr_handle_3D, "uMVP");
+				assert(m_iMVP_Location >= 0);
+
+				Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
+				//assert(spr != nullptr);
+
+				m_iUV_Offset_Location = glGetUniformLocation(shdr_handle_3D, "uUV_Offset");
+				m_iUV_Scale_Location = glGetUniformLocation(shdr_handle_3D, "uUV_Scale");
+
+				Animator* anim = dynamic_cast<Animator*>(obj->FindComponent(Animator::AnimatorTypeName));
+
+				m_iHas_texture_location = glGetUniformLocation(shdr_handle_3D, "uHasTexture");
+				m_iOut_texture_location = glGetUniformLocation(shdr_handle_3D, "uOutTexture");
+
+				if (!spr)
+				{
+					for (auto m : model->GetMeshes())
+					{
+						if (!m)
+							continue;
+						if (m->GetMaterial() && m->GetMaterial()->HasTexture())
+						{
+							GLuint tex_id = m->GetMaterial()->GetTexture()->GetTextureID();
+							glActiveTexture(GL_TEXTURE0);
+							glBindTexture(GL_TEXTURE_2D, tex_id);
+							glUniform1i(m_iOut_texture_location, 0);
+							//assert(has_texture_location >= 0 && out_texture_location >= 0);							
+							glUniform1i(m_iHas_texture_location, true);
+						}
+						else
+						{
+							glBindTexture(GL_TEXTURE_2D, 0); // <- 바인딩 해제 추가
+							glUniform1i(m_iHas_texture_location, false); // <- 반드시 false 세팅
+						}
+						glm::mat4 MVP = GetMVP_ByObject(*obj);
+
+						glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
+
+						m->Draw();
+					}
+				}
+				else if (spr)
+				{
+					if (spr->GetTexture() != nullptr)
+					{
+						GLuint tex_id = spr->GetTexture()->GetTextureID();
+						glActiveTexture(GL_TEXTURE0); //반드시 유닛 0 활성화
+						glBindTexture(GL_TEXTURE_2D, tex_id); //텍스처 바인딩
+						glUniform1i(m_iOut_texture_location, 0); //셰이더에서 사용할 유닛 지정
+						glUniform1i(m_iHas_texture_location, true);
+					}
+					else
+					{
+						glUniform1i(m_iHas_texture_location, false);
+					}
+					
+					glm::mat4 MVP = GetMVP_ByObject(*obj);
+
+					if (anim)
+					{
+						glUniform2f(m_iUV_Offset_Location, anim->GetAnimation()->m_fSheet_UV_offset_X, anim->GetAnimation()->m_fSheet_UV_offset_Y);
+						glUniform2f(m_iUV_Scale_Location, anim->GetAnimation()->m_fSheet_UV_Width, anim->GetAnimation()->m_fSheet_UV_Height);
+					}
+					else
+					{
+						glUniform2f(m_iUV_Offset_Location, 0, 0);
+						glUniform2f(m_iUV_Scale_Location, 1, 1);
+					}
+
+					//todo : 주석처리된거 지우고 충돌체 쉐이더를 통해 그리는거 이것도 쉐이더에서 수정하고 
+					// draw collider에도 주석있음 아마 assert주석 처리해놓았을 거임 그것도 지우셈
+					//GLint IsColliderLocation = glGetUniformLocation(shdr_handle_3D, "uIsCollider");
+					glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
+
+					model->Draw();
+
+					//todo : 주석처리된거 지우고 충돌체 쉐이더를 통해 그리는거 이것도 쉐이더에서 수정하고 
+					//draw collider에도 주석있음 아마 assert주석 처리해놓았을 거임 그것도 지우셈
+					Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
+					if (col)
+					{
+						col->DrawCollider();
+					}
+				}
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();
 			}
 		}
-	}	
+	}
+
+
+	
 #ifdef _DEBUG
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 #endif
 	auto handle=Window::GetInstance()->GetWindowHandle();
 	glfwSwapBuffers(handle);
+
+	EndDraw();
 }
 
 void RenderManager::EndDraw()
-{
+{	
+	std::vector<GameObject*> TransParent_temp,Opaque_temp;
+	TransParent_temp.swap(m_vTransParnetObject);
+	Opaque_temp.swap(m_vOpaqueObject);
 }
 
 void RenderManager::Exit()

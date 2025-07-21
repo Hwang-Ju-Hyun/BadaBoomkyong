@@ -12,7 +12,11 @@ Material::~Material()
 
 bool Material::GetHasAlphaChannel()const
 {
-    bool channels=m_pDiffuseMap->GetHasAlphaTexture();
+    bool channels = false;
+    if (m_pDiffuseMap)
+    {
+        channels = m_pDiffuseMap->GetHasAlphaTexture();
+    }    
     if (!channels)
         return false;
     return true;

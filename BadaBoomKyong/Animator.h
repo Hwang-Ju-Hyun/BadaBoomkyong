@@ -48,10 +48,11 @@ public:
 public:
     AnimationSpriteSheet* AddSpriteSheet(std::string _name, AnimationSpriteSheet* _clip);
     void ChangeAnimation(const std::string& _animName);
+    inline const void SetFlipX(){ m_pCurrentAnimation->m_fSheet_UV_Width *= -1; }
 public:
     static BaseRTTI* CreateAnimatiorComponent();
     virtual void LoadFromJson(const json& _str)override;
-    virtual json SaveToJson(const json& _str)override;
+    virtual json SaveToJson(const json& _str)override;    
 public:
     static constexpr const char* AnimatorTypeName = "Animator";
     static constexpr const char* AnimationsTypeName = "Animations";

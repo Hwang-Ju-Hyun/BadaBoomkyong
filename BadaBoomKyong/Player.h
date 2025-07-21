@@ -11,6 +11,7 @@ class BulletFactory;
 class MeleeFactory;
 class Bullet;
 class Melee;
+class Animator;
 
 class Player :
     public MonoBehaviour
@@ -23,12 +24,15 @@ private:
     Sprite* m_pSprite = nullptr;
     Collider* m_pCollider = nullptr;
     RigidBody* m_pRigidBody = nullptr;
+    Animator* m_pAnimator = nullptr;
 private:
     BulletFactory* m_pBulletFactory=nullptr;
     MeleeFactory* m_pMeleeFactory = nullptr;
     Bullet* m_pBullet=nullptr;
     Melee* m_pMelee=nullptr;
 private:
+    //right : postive left : negative
+    int m_bDir = 1;
     float m_fSpeed=0.f;            
     float m_fJumpImpulse = 500.f;    
 public:    

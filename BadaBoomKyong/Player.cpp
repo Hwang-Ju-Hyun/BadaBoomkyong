@@ -18,6 +18,7 @@
 #include "MeleeFactory.h"
 #include "Melee.h"
 #include "PlayerMelee.h"
+#include "Animator.h"
 
 Player::Player(GameObject* _owner)
 	:MonoBehaviour(_owner)	
@@ -26,8 +27,7 @@ Player::Player(GameObject* _owner)
 	m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));	
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	m_pRigidBody= dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
-	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
-
+	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));	
 	assert(m_pTransform && m_pSprite && m_pCollider&&m_pRigidBody);			
 }
 
@@ -37,6 +37,7 @@ Player::~Player()
 
 void Player::Init()
 {		
+	m_pAnimator = dynamic_cast<Animator*>(GetOwner()->FindComponent(Animator::AnimatorTypeName));
 	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
 	m_pMeleeFactory = dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
 	assert(m_pBulletFactory != nullptr&&m_pMeleeFactory!=nullptr);
@@ -75,8 +76,7 @@ void Player::EnterCollision(Collider* _other)
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());
 		SetIsGround(true);
 		jumpPressed = false;
-	}
-		
+	}		
 }
 
 void Player::OnCollision(Collider* _other)
@@ -92,14 +92,29 @@ void Player::ExitCollision(Collider* _other)
 }
 
 void Player::Move() 
-{
+{	
 	auto input = InputManager::GetInstance();
 	glm::vec3 velocity = m_pRigidBody->GetVelocity();
 	velocity.x = 0.f;
 	if (input->GetKetCode(GLFW_KEY_Z) == GLFW_REPEAT)
+	{
+		m_pAnimator->ChangeAnimation()
+		if (m_bDir==1)
+		{
+			m_pAnimator->SetFlipX();
+			m_bDir *= -1;
+		}
 		velocity.x = -m_fSpeed;
+	}
 	if (input->GetKetCode(GLFW_KEY_X) == GLFW_REPEAT)
+	{ 
+		if (m_bDir==-1)
+		{
+			m_pAnimator->SetFlipX();
+			m_bDir *= -1;
+		}
 		velocity.x = m_fSpeed;
+	}
 	m_pRigidBody->SetVelocity(velocity);
 }
 
