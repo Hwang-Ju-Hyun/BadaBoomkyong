@@ -138,24 +138,57 @@ json Collider::SaveToJson(const json& _str)
 #include "Camera.h"
 #include "Monster.h"
 void Collider::DrawCollider()const
-{
+{	
+	if (!m_debugBufferInitialized)
+	{
+		glGenVertexArrays(1, &m_lineVAO);
+		glGenBuffers(1, &m_lineVBO);
 
-	auto shdr=RenderManager::GetInstance()->GetShader(SHADER_REF::THREE_DIMENSIONS);
-	auto shadr_handle_3D = shdr->GetShaderProgramHandle();
+		glBindVertexArray(m_lineVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, m_lineVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * 4, nullptr, GL_DYNAMIC_DRAW);
 
-	GLint IsColliderLocation = glGetUniformLocation(shadr_handle_3D, "uIsCollider");
-	glUniform1i(IsColliderLocation, true); // true
+		glEnableVertexAttribArray(0); // location = 0
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
 
-	GLint DebugColorLocation = glGetUniformLocation(shadr_handle_3D, "uDebugColor");
-	//assert(DebugColorLocation >= 0);
-	
-	Monster* mon = dynamic_cast<Monster*>(GetOwner()->FindComponent<Monster>());
-	glm::vec4 color = { 0.f,1.f,0.f,1.f };
-	mon->m_bCol == true ? color : color = { 1.0f,0.f,0.f,1.f };
-	glUniform4fv(DebugColorLocation, 1, glm::value_ptr(color));
+		glBindVertexArray(0);
+		m_debugBufferInitialized = true;
+	}
 
-	m_pColliderModel->Draw();
-	glUniform1i(IsColliderLocation, false);
-	//shdr->Diuse();
+	// 정점 데이터 계산 (사각형 테두리)
+	glm::vec3 pos = m_vFinalPosition;
+	glm::vec3 halfScale = m_vScale * 0.5f;
+
+	glm::vec3 verts[4] = 
+	{
+		{pos.x - halfScale.x, pos.y - halfScale.y, pos.z},
+		{pos.x + halfScale.x, pos.y - halfScale.y, pos.z},
+		{pos.x + halfScale.x, pos.y + halfScale.y, pos.z},
+		{pos.x - halfScale.x, pos.y + halfScale.y, pos.z}
+	};
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_lineVBO);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(verts), verts);
+
+	// MVP 계산
+	glm::mat4 proj = RenderManager::GetInstance()->GetCamera()->GetProjMatrix();
+	glm::mat4 view = RenderManager::GetInstance()->GetCamera()->GetViewMatrix();
+	glm::mat4 model = glm::mat4(1.0f);
+	glm::mat4 MVP = proj * view * model;
+
+	GLuint shader = RenderManager::GetInstance()->GetDebugLineShader(); // 꼭 이거 만들어야 함!
+	glUseProgram(shader);
+
+	GLint mvpLoc = glGetUniformLocation(shader, "uMVP");
+	glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(MVP));
+
+	GLint colorLoc = glGetUniformLocation(shader, "uColor");
+	glm::vec4 color = { 0.f, 1.f, 0.f, 1.f }; // 기본 초록	
+	glUniform4fv(colorLoc, 1, glm::value_ptr(color));
+
+	glBindVertexArray(m_lineVAO);
+	glLineWidth(5.0f);
+	glDrawArrays(GL_LINE_LOOP, 0, 4);
+	glBindVertexArray(0);
 }
 #endif

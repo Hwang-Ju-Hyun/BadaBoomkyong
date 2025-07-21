@@ -41,9 +41,9 @@ private:
 	std::unordered_map<std::string, BaseComponent*> m_hashComponents;
 public:
 	BaseComponent* AddComponent_and_Get(const std::string& _compName, BaseComponent* _comp);
-	BaseComponent* FindComponent(const std::string& _compName);
+	BaseComponent* FindComponent(const std::string& _compName)const;
 	template<typename T>
-	T* FindComponent()
+	T* FindComponent()const
 	{
 		for (BaseComponent* comp : m_vComponents)
 		{

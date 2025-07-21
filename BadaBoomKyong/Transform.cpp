@@ -167,7 +167,6 @@ json Transform::SaveToJson(const json& _str)
 	return data;	
 }
 
-
 #ifdef _DEBUG
 void Transform::EditInfoFromButton()
 {	

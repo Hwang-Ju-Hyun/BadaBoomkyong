@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "RigidBody.h"
 #include <iostream>
+#include "Collider.h"
 
 GeometryUtil::GeometryUtil(){}
 
@@ -50,13 +51,23 @@ bool GeometryUtil::IsPointInsideTraingle(glm::vec2 _point, Transform* _trs)
 
 void GeometryUtil::HandlePosition_CollisionAABB(GameObject* _groundObj, GameObject* _otherObj)
 {
-    Transform* other_obj_trs = dynamic_cast<Transform*>(_otherObj->FindComponent("Transform"));
-    Transform* ground_obj_trs = dynamic_cast<Transform*>(_groundObj->FindComponent("Transform"));
+    Transform* other_obj_trs = dynamic_cast<Transform*>(_otherObj->FindComponent(Transform::TransformTypeName));
+    Transform* ground_obj_trs = dynamic_cast<Transform*>(_groundObj->FindComponent(Transform::TransformTypeName));        
 
-    glm::vec2 pPos = other_obj_trs->GetPosition();
+    Collider* other_obj_col=dynamic_cast<Collider*>(_otherObj->FindComponent(Collider::ColliderTypeName));
+    Collider* ground_obj_col = dynamic_cast<Collider*>(_groundObj->FindComponent(Collider::ColliderTypeName));
+
+    glm::vec2 pPos = other_obj_col->GetFinalPosition();
+    glm::vec2 gPos = ground_obj_col->GetFinalPosition();
+
+    glm::vec2 pScale = other_obj_col->GetScale();
+    glm::vec2 gScale = ground_obj_col->GetScale();
+
+
+    /*glm::vec2 pPos = other_obj_trs->GetPosition();
     glm::vec2 gPos = ground_obj_trs->GetPosition();
     glm::vec2 pScale = other_obj_trs->GetScale();
-    glm::vec2 gScale = ground_obj_trs->GetScale();
+    glm::vec2 gScale = ground_obj_trs->GetScale();*/
 
     float dx = (pPos.x - gPos.x);
     float px = (pScale.x + gScale.x) * 0.5f - std::abs(dx);

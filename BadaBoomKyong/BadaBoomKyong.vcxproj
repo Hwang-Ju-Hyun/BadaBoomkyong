@@ -315,6 +315,8 @@
     <None Include="IMGUI\imgui.ini" />
     <None Include="json\temp\temp.json" />
     <None Include="json\temp\temp_3D.json" />
+    <None Include="line.frag" />
+    <None Include="line.vert" />
     <None Include="vertex.vert" />
     <None Include="vertex3d.vert" />
   </ItemGroup>

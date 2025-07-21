@@ -773,5 +773,11 @@
     <None Include="json\temp\temp_3D.json">
       <Filter>Json\Object_3D</Filter>
     </None>
+    <None Include="line.vert">
+      <Filter>ShaderFiles\3D</Filter>
+    </None>
+    <None Include="line.frag">
+      <Filter>ShaderFiles\3D</Filter>
+    </None>
   </ItemGroup>
 </Project>

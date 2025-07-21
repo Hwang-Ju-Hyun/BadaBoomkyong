@@ -28,12 +28,7 @@ Player::Player(GameObject* _owner)
 	m_pRigidBody= dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
 	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
 
-	assert(m_pTransform && m_pSprite && m_pCollider&&m_pRigidBody);
-	
-	m_pTransform->SetScale({ 50.f,50.f,0.f });
-	m_pCollider->SetOffsetPosition({ 0.f,0.f,0.f });
-	//todo °íÄ¡¼À ÀÓ½Ã·Î Å©±â ´Ã·ÈÀ½
-	m_pCollider->SetScale({46,92,0});			
+	assert(m_pTransform && m_pSprite && m_pCollider&&m_pRigidBody);			
 }
 
 Player::~Player()

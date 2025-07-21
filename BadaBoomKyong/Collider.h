@@ -58,6 +58,9 @@ public:
     virtual json SaveToJson(const json& _str)override;
 #ifdef _DEBUG
 public:
+    mutable unsigned int m_lineVAO = 0;
+    mutable unsigned int m_lineVBO = 0;
+    mutable bool m_debugBufferInitialized = false;
     void DrawCollider()const;   
 #endif 
 };

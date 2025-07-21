@@ -56,6 +56,7 @@ void Application::Init()
 
     //RenderInit            
     RenderManager::GetInstance()->Init();
+    RenderManager::GetInstance()->InitDebugLineShader();
   
 #ifdef _DEBUG
     //MainEditor
