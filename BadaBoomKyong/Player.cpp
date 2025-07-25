@@ -43,6 +43,12 @@ void Player::Init()
 	assert(m_pBulletFactory != nullptr&&m_pMeleeFactory!=nullptr);
 }
 
+void Player::Awake()
+{
+	m_iCurrentHP = m_iInitHP;
+	m_bIsAlive = true;
+}
+
 void Player::Exit()
 {
 	
@@ -51,11 +57,15 @@ void Player::Exit()
 void Player::Update() 
 {				
 	auto input = InputManager::GetInstance();	
-	m_ePreviousState = m_eCurrentState;
-	Move();	 
-	Jump(); 		
-	Fire();	
-	MeleeAttack();
+	m_ePreviousState = m_eCurrentState;	
+	if (m_bIsAlive)
+	{
+		Move();
+		Jump();
+		Fire();
+		MeleeAttack();
+	}	
+	Death();
 	AnimationHandle();
 }
 
@@ -128,7 +138,7 @@ void Player::Fire()
 }
 
 void Player::MeleeAttack()
-{	
+{
 	auto input = InputManager::GetInstance();
 	if (input->GetMouseBtn(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 	{
@@ -137,24 +147,52 @@ void Player::MeleeAttack()
 		assert(melee_comp != nullptr);
 		if (m_bCanMeleeAttack == false)
 		{
-			EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
-			melee = true;
+			if (std::fabs(m_pRigidBody->GetVelocity().x) > 0 && std::fabs(m_pRigidBody->GetVelocity().y) <= g_epsilon)
+				m_bRunMeleeAttacking = true;
+			else if (std::fabs(m_pRigidBody->GetVelocity().y) > 0)
+				m_bJumpMeleeAttacking = true;
+			else
+				m_bNormalMeleeAttacking = true;
+
 			m_bCanMeleeAttack = true;
+			EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
 		}
 	}	
 }
 
-void Player::AnimationHandle()
+void Player::Death()
 {		
-	if (std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon && m_pRigidBody->GetIsGround())&&melee==false)	
-		m_eCurrentState = PlayerAnimState::IDLE;	
-	else if (GetIsFalling())	
-		m_eCurrentState = PlayerAnimState::FALL;			
-	else if (m_pRigidBody->GetIsGround() && std::fabs(m_pRigidBody->GetVelocity().x) > g_epsilon)
-		m_eCurrentState = PlayerAnimState::RUN;
-	else if(melee)
-		m_eCurrentState = PlayerAnimState::ATTACK;
+	m_iCurrentHP > 0 ? m_bIsAlive = true : m_bIsAlive=false;
 
+	if (!m_bIsAlive)
+	{
+		m_eCurrentState = PlayerAnimState::DEATH;
+		if(m_pAnimator->GetAnimation()->m_bLoopCount==1)
+			EventManager::GetInstance()->SetActiveFalse(GetOwner());
+	}
+}
+#include <iostream>
+void Player::AnimationHandle()
+{			
+	if (m_eCurrentState != PlayerAnimState::DEATH)
+	{		
+		if (m_bNormalMeleeAttacking)
+			m_eCurrentState = PlayerAnimState::ATTACK;		
+		else if (GetIsFalling()&& !m_bJumpMeleeAttacking)
+			m_eCurrentState = PlayerAnimState::FALL;
+		else if (m_pRigidBody->GetIsGround() && std::fabs(m_pRigidBody->GetVelocity().x) > g_epsilon
+			&&!m_bRunMeleeAttacking)
+			m_eCurrentState = PlayerAnimState::RUN;		
+		else if (std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon && m_pRigidBody->GetIsGround()))
+		{
+			m_eCurrentState = PlayerAnimState::IDLE;			
+		}
+		else if (m_bRunMeleeAttacking)
+			m_eCurrentState = PlayerAnimState::RUN_ATTACK;
+		else if(m_bJumpMeleeAttacking)
+			m_eCurrentState = PlayerAnimState::JUMP_ATTACK;		
+	}
+	
 	switch (m_eCurrentState)
 	{
 	case IDLE:		
@@ -173,6 +211,12 @@ void Player::AnimationHandle()
 			m_pAnimator->ChangeAnimation("Attack");
 		break;
 	case RUN_ATTACK:
+		if (m_eCurrentState != m_ePreviousState)
+			m_pAnimator->ChangeAnimation("Run_Attack");
+		break;
+	case JUMP_ATTACK:
+		if (m_eCurrentState != m_ePreviousState)
+			m_pAnimator->ChangeAnimation("Jump_Attack");		
 		break;
 	case HEALING:
 		break;
@@ -180,14 +224,21 @@ void Player::AnimationHandle()
 		m_pAnimator->ChangeAnimation("Fall");		
 		break;
 	case DEATH:
+		if (m_eCurrentState != m_ePreviousState)
+			m_pAnimator->ChangeAnimation("Death");		
 		break;
 	default:
 		break;
 	}
+	std::cout << m_eCurrentState << std::endl;
+	if (m_bRunMeleeAttacking && m_pAnimator->GetAnimation()->m_bLoopCount == 1)
+	{		
+		m_pAnimator->GetAnimation()->m_bLoopCount = 0;
+	}
 }
 
 void Player::Jump()
-{ 	
+{
 	auto input = InputManager::GetInstance();
 	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS && m_pRigidBody->GetIsGround())
 	{
@@ -199,7 +250,7 @@ void Player::Jump()
 		m_pRigidBody->SetVelocity(velocity);
 		m_pRigidBody->SetIsGround(false);
 		m_eCurrentState = PlayerAnimState::JUMP;
-	}	
+	}
 }
 
 BaseRTTI* Player::CreatePlayerComponent()

@@ -58,9 +58,17 @@ void PlayerMelee::Awake()
 
 void PlayerMelee::Update()
 {
-    float dt = TimeManager::GetInstance()->GetDeltaTime();
+    float dt = TimeManager::GetInstance()->GetDeltaTime();   
     if (m_fCurTime <= m_fLifeTime)
-    {
+    {            
+        if (m_pPlayer->GetCurrentState() == PlayerAnimState::IDLE)
+            Exit();
+
+        if (m_pPlayer->GetDir() < 0)
+            m_vOffset = { -35.f,0.f,0.f };
+        else
+            m_vOffset = { 35.f,0.f,0.f };
+
         glm::vec3 player_pos = m_pPlayerTransform->GetPosition();        
 
         glm::vec3 final_pos = player_pos + m_vOffset;
@@ -73,7 +81,9 @@ void PlayerMelee::Update()
         m_fCurTime = 0.f;
         EventManager::GetInstance()->SetActiveFalse(GetOwner());
         m_pPlayer->SetCanMeleeAttack(false);
-        m_pPlayer->melee = false;
+        m_pPlayer->SetNormalMeleeAttacking(false);
+        m_pPlayer->SetRunMeleeAttacking(false);
+        m_pPlayer->SetJumpMeleeAttacking(false);
     }
 }
 
@@ -81,7 +91,10 @@ void PlayerMelee::Exit()
 {
     m_fCurTime = 0.f;
     EventManager::GetInstance()->SetActiveFalse(GetOwner());
-    m_pPlayer->SetCanMeleeAttack(false);    
+    m_pPlayer->SetCanMeleeAttack(false);  
+    m_pPlayer->SetNormalMeleeAttacking(false);
+    m_pPlayer->SetRunMeleeAttacking(false);
+    m_pPlayer->SetJumpMeleeAttacking(false);
 }
 
 void PlayerMelee::EnterCollision(Collider* _col)

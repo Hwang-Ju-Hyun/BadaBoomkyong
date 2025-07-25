@@ -20,6 +20,7 @@ enum PlayerAnimState
     JUMP,
     ATTACK,
     RUN_ATTACK,
+    JUMP_ATTACK,
     HEALING,
     FALL,
     DEATH    
@@ -44,13 +45,29 @@ private:
     Melee* m_pMelee=nullptr;
     PlayerAnimState m_ePreviousState;
     PlayerAnimState m_eCurrentState;
-public:
-    bool melee = false;
+    bool m_bIsGround;
 private:
+    int m_iInitHP = 1;
+    int m_iCurrentHP=1;
+    bool m_bIsAlive = true;
     //right : postive left : negative
     int m_iDir = 1;
     float m_fSpeed=0.f;            
-    float m_fJumpImpulse = 500.f;    
+    float m_fJumpImpulse = 500.f;   
+    bool m_bNormalMeleeAttacking = false;
+    bool m_bRunMeleeAttacking = false;
+    bool m_bJumpMeleeAttacking = false;
+public:
+    inline void AddHP(int _hp) { m_iCurrentHP += _hp; }
+    inline const int GetHP()const { return m_iCurrentHP; }
+    inline void SetIsAlive(bool _alive) { m_bIsAlive = _alive; }
+    inline const bool GetIsAlive()const { return m_bIsAlive; }
+    inline void SetNormalMeleeAttacking(bool _attacking) { m_bNormalMeleeAttacking = _attacking; }
+    inline const bool GetNormalMeleeAttacking()const { return m_bNormalMeleeAttacking; }
+    inline void SetRunMeleeAttacking(bool _attacking) { m_bRunMeleeAttacking = _attacking; }
+    inline const bool GetRunMeleeAttacking()const { return m_bRunMeleeAttacking; }
+    inline void SetJumpMeleeAttacking(bool _attacking) { m_bJumpMeleeAttacking = _attacking; }
+    inline const bool GetJumpMeleeAttacking()const { return m_bJumpMeleeAttacking; }
 public:        
     int m_iCurJumpCount = 0;
 private:
@@ -58,6 +75,7 @@ private:
     bool m_bIsFalling = false;
 public:
     virtual void Init()override;
+    virtual void Awake()override;
     virtual void Update()override;
     virtual void Exit()override;
 public:
@@ -71,6 +89,7 @@ public:
     inline bool GetCanMeleeAttack()const { return m_bCanMeleeAttack; }
     inline const bool GetIsFalling()const { return m_bIsFalling; }
     inline const int GetDir()const { return m_iDir; }
+    inline const int GetCurrentState()const { return m_eCurrentState; }
 public:
     virtual void EnterCollision(Collider* _other)override;
     virtual void OnCollision(Collider* _other)   override;
@@ -81,6 +100,7 @@ private:
     void Move();  
     void Fire();
     void MeleeAttack();    
+    void Death();
 public:
     static constexpr const char* PlayerTypeName = "Player";
     static constexpr const char* SpeedName = "Speed";

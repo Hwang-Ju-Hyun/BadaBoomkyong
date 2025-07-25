@@ -29,12 +29,22 @@ void Animator::Init()
 		m_pCurrentAnimation->m_fSheet_UV_Width = 1.f / m_pCurrentAnimation->m_iSheet_Col;
 		m_pCurrentAnimation->m_fSheet_UV_Height = 1.f / m_pCurrentAnimation->m_iSheet_Row;
 	}
-	
+	m_iCurrentFrameIndex = 0;
+
+	int current_sheet_row = m_iCurrentFrameIndex / m_pCurrentAnimation->m_iSheet_Col;
+	int current_sheet_col = m_iCurrentFrameIndex % m_pCurrentAnimation->m_iSheet_Col;
+
+	m_pCurrentAnimation->m_fSheet_UV_offset_X = m_pCurrentAnimation->m_fSheet_UV_Width * current_sheet_col;
+	m_pCurrentAnimation->m_fSheet_UV_offset_Y = m_pCurrentAnimation->m_fSheet_UV_Height * current_sheet_row;
+
+	m_pCurrentAnimation->m_bLoopCount = 0;
+
 	Animator::g_fAnmationAccTime = 0.f;
 }   
 
 void Animator::Awake()
 {
+	m_pCurrentAnimation->m_bLoopCount = 0;
 }
 
 void Animator::Update()
@@ -57,8 +67,8 @@ void Animator::Update()
 		m_pCurrentAnimation->m_fSheet_UV_offset_Y = m_pCurrentAnimation->m_fSheet_UV_Height * current_sheet_row;
 
 		g_fAnmationAccTime = 0.f;
-	}	
-	if (m_pCurrentAnimation->m_bLoop == false && m_iCurrentFrameIndex == 0)
+	}
+	if (m_pCurrentAnimation->m_bLoop == false && m_iCurrentFrameIndex == m_pCurrentAnimation->m_iSheet_Max-1)
 	{
 		m_pCurrentAnimation->m_bLoopCount++;
 	}			
@@ -83,7 +93,7 @@ void Animator::ChangeAnimation(const std::string& _animName)
 
 	m_pCurrentAnimation= iter->second;
 	spr->SetTexture(iter->second->m_pTexture);
-
+	
 	if (m_pCurrentAnimation)
 	{
 		float sheet_uv_width, sheet_uv_height;
@@ -102,8 +112,7 @@ void Animator::ChangeAnimation(const std::string& _animName)
 	m_pCurrentAnimation->m_fSheet_UV_offset_X = m_pCurrentAnimation->m_fSheet_UV_Width * current_sheet_col;
 	m_pCurrentAnimation->m_fSheet_UV_offset_Y = m_pCurrentAnimation->m_fSheet_UV_Height * current_sheet_row;
 
-	if(m_pCurrentAnimation->m_bLoop)
-		m_pCurrentAnimation->m_bLoopCount = 0;
+	m_pCurrentAnimation->m_bLoopCount = 0;
 
 	Animator::g_fAnmationAccTime = 0.f;
 	
