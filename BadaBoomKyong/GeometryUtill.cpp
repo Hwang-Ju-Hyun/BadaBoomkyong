@@ -63,12 +63,6 @@ void GeometryUtil::HandlePosition_CollisionAABB(GameObject* _groundObj, GameObje
     glm::vec2 pScale = other_obj_col->GetScale();
     glm::vec2 gScale = ground_obj_col->GetScale();
 
-
-    /*glm::vec2 pPos = other_obj_trs->GetPosition();
-    glm::vec2 gPos = ground_obj_trs->GetPosition();
-    glm::vec2 pScale = other_obj_trs->GetScale();
-    glm::vec2 gScale = ground_obj_trs->GetScale();*/
-
     float dx = (pPos.x - gPos.x);
     float px = (pScale.x + gScale.x) * 0.5f - std::abs(dx);
 
@@ -79,7 +73,7 @@ void GeometryUtil::HandlePosition_CollisionAABB(GameObject* _groundObj, GameObje
     {
         other_obj_trs->AddPositionX((dx > 0) ? px : -px);
     }
-    else 
+    else
     {
         other_obj_trs->AddPositionY((dy > 0) ? py : -py);
 
@@ -90,12 +84,14 @@ void GeometryUtil::HandlePosition_CollisionAABB(GameObject* _groundObj, GameObje
         {                
             if (p != nullptr && p->jumpPressed)
             {
-                p->jumpPressed = false;
+                p->jumpPressed = false;                
                 return;
             }                
             glm::vec3 vel = rb->GetVelocity();
             vel.y = 0.f;
             rb->SetVelocity(vel);
+            rb->SetIsGround(true);
+            rb->message = true;
         }            
     }
 }

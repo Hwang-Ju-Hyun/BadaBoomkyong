@@ -18,6 +18,8 @@ private:
 	Collider* m_pCollider  =nullptr;
 	Player* m_pPlayer = nullptr;
 	Transform* m_pPlayerTransform = nullptr;
+private:
+	glm::vec3 m_vOffset;
 public:
 	virtual void Init()  override;
 	virtual void Awake() override;

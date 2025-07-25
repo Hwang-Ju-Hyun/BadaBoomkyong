@@ -22,7 +22,8 @@ public:
     float m_fSheet_UV_offset_Y;
 public:
     float m_fDuration_per_frame = 0.f;
-    bool m_bLoop = false;    
+    bool m_bLoop = false; 
+    int m_bLoopCount = 0;
 };
 
 class Animator :
@@ -45,10 +46,12 @@ public:
     virtual void Awake()override;
     virtual void Update()override;
     virtual void Exit()override;
+private:
+    int m_iFlipX = 1;
 public:
     AnimationSpriteSheet* AddSpriteSheet(std::string _name, AnimationSpriteSheet* _clip);
     void ChangeAnimation(const std::string& _animName);
-    inline const void SetFlipX(){ m_pCurrentAnimation->m_fSheet_UV_Width *= -1; }
+    inline const void TurnOnFlipX() { m_iFlipX *= -1; }
 public:
     static BaseRTTI* CreateAnimatiorComponent();
     virtual void LoadFromJson(const json& _str)override;

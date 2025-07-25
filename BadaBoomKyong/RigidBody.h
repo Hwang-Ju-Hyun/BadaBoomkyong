@@ -12,11 +12,13 @@ public:
     virtual ~RigidBody()override;
 private:
     glm::vec3 m_vVelocity{};
+    glm::vec3 m_vAcceleration{};
     glm::vec3 m_vForce{};
     float m_fMass = 1.0f;
     float m_fGravity = 980.f;
+    float m_fMaxFallSpeed = -800.f;
     bool m_bUseGravity = true;
-    bool m_bIsKinematic = false;
+    bool m_bIsKinematic = false;    
 public:
     void SetVelocity(const glm::vec3& _vel);
     inline void AddForce(const glm::vec3& _force) { m_vForce += _force; }
@@ -31,6 +33,11 @@ public:
     inline const glm::vec3 GetForce() { return m_vForce; }
     inline const bool GetIsKinematic()const { return m_bIsKinematic; }
     inline const float GetGravity()const {return m_fGravity;}
+private:
+    bool m_bIsGround = false;
+public:
+    inline void SetIsGround(bool _ground) { m_bIsGround = _ground; }
+    inline bool GetIsGround()const { return m_bIsGround; }
 public:
     virtual void Init() override;
     virtual void Update() override;
@@ -43,4 +50,8 @@ public:
     static BaseRTTI* CreateRigidBodyComponent();
     virtual void LoadFromJson(const json& _str)override;
     virtual json SaveToJson(const json& _str)override;
+public:
+    //event
+    bool message=false;
+    float jumpforce;
 };

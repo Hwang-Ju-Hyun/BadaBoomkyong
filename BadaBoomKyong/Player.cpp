@@ -49,33 +49,22 @@ void Player::Exit()
 }
 
 void Player::Update() 
-{	
-	Move();
-	 
-	auto input = InputManager::GetInstance();
-	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS && m_bIsGround) 
-	{	
-		Jump(); 		
-	}
-
-	if (input->GetKetCode(GLFW_KEY_J) == GLFW_PRESS)
-	{
-		Fire();
-	}
-
-	if (input->GetMouseBtn(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
-	{
-		MeleeAttack();
-	}
+{				
+	auto input = InputManager::GetInstance();	
+	m_ePreviousState = m_eCurrentState;
+	Move();	 
+	Jump(); 		
+	Fire();	
+	MeleeAttack();
+	AnimationHandle();
 }
 
 void Player::EnterCollision(Collider* _other)
 {		
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
 	{
-		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());
-		SetIsGround(true);
-		jumpPressed = false;
+		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());		
+		jumpPressed = false;			
 	}		
 }
 
@@ -83,12 +72,13 @@ void Player::OnCollision(Collider* _other)
 {		
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
 	{
-		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());				
+		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());		
 	}
 }
 
 void Player::ExitCollision(Collider* _other)
 {	
+	m_pRigidBody->message = false;
 }
 
 void Player::Move() 
@@ -96,56 +86,120 @@ void Player::Move()
 	auto input = InputManager::GetInstance();
 	glm::vec3 velocity = m_pRigidBody->GetVelocity();
 	velocity.x = 0.f;
-	if (input->GetKetCode(GLFW_KEY_Z) == GLFW_REPEAT)
-	{
-		m_pAnimator->ChangeAnimation()
-		if (m_bDir==1)
-		{
-			m_pAnimator->SetFlipX();
-			m_bDir *= -1;
-		}
-		velocity.x = -m_fSpeed;
-	}
 	if (input->GetKetCode(GLFW_KEY_X) == GLFW_REPEAT)
-	{ 
-		if (m_bDir==-1)
+	{
+		if (m_iDir == -1)
 		{
-			m_pAnimator->SetFlipX();
-			m_bDir *= -1;
+			Sprite* sprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
+			if (sprite)
+				sprite->SetIsFlipX(false); // 왼쪽 볼 때 FlipX 켜기
+			m_iDir *= -1;
 		}
 		velocity.x = m_fSpeed;
 	}
+	if (input->GetKetCode(GLFW_KEY_Z) == GLFW_REPEAT)
+	{		
+		if (m_iDir == 1)
+		{
+			Sprite* sprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
+			if (sprite)
+				sprite->SetIsFlipX(true); // 왼쪽 볼 때 FlipX 켜기
+			m_iDir *= -1;
+		}		
+		velocity.x = -m_fSpeed; 
+	}
+				
+	m_pRigidBody->GetVelocity().y < 0 ? m_bIsFalling = true : m_bIsFalling = false;
 	m_pRigidBody->SetVelocity(velocity);
 }
 
 void Player::Fire()
 {
-	Bullet* bullet_comp=m_pBulletFactory->CreateBullet(BULLET_TYPE::PISTOL);
-	m_pBullet = bullet_comp;
-	assert(m_pBullet != nullptr);
+	auto input = InputManager::GetInstance();
+	if (input->GetKetCode(GLFW_KEY_J) == GLFW_PRESS)
+	{
+		Bullet* bullet_comp = m_pBulletFactory->CreateBullet(BULLET_TYPE::PISTOL);
+		m_pBullet = bullet_comp;
+		assert(m_pBullet != nullptr);
 
-	EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
+		EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
+	}
+	
 }
 
 void Player::MeleeAttack()
 {	
-	m_pMelee = m_pMeleeFactory->CreateMelee(GROUP_TYPE::PLAYER);
-	PlayerMelee* melee_comp = dynamic_cast<PlayerMelee*>(m_pMelee);
-	assert(melee_comp != nullptr);
-	if (m_bCanMeleeAttack == false)
+	auto input = InputManager::GetInstance();
+	if (input->GetMouseBtn(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 	{
-		EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
-		m_bCanMeleeAttack = true;
+		m_pMelee = m_pMeleeFactory->CreateMelee(GROUP_TYPE::PLAYER);
+		PlayerMelee* melee_comp = dynamic_cast<PlayerMelee*>(m_pMelee);
+		assert(melee_comp != nullptr);
+		if (m_bCanMeleeAttack == false)
+		{
+			EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
+			melee = true;
+			m_bCanMeleeAttack = true;
+		}
+	}	
+}
+
+void Player::AnimationHandle()
+{		
+	if (std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon && m_pRigidBody->GetIsGround())&&melee==false)	
+		m_eCurrentState = PlayerAnimState::IDLE;	
+	else if (GetIsFalling())	
+		m_eCurrentState = PlayerAnimState::FALL;			
+	else if (m_pRigidBody->GetIsGround() && std::fabs(m_pRigidBody->GetVelocity().x) > g_epsilon)
+		m_eCurrentState = PlayerAnimState::RUN;
+	else if(melee)
+		m_eCurrentState = PlayerAnimState::ATTACK;
+
+	switch (m_eCurrentState)
+	{
+	case IDLE:		
+			m_pAnimator->ChangeAnimation("Idle");						
+		break;
+	case RUN:
+		if (m_eCurrentState != m_ePreviousState)
+			m_pAnimator->ChangeAnimation("Run");			
+		break;
+	case JUMP:
+		if (m_eCurrentState != m_ePreviousState)
+			m_pAnimator->ChangeAnimation("Jump");
+		break;
+	case ATTACK:
+		if (m_eCurrentState != m_ePreviousState)
+			m_pAnimator->ChangeAnimation("Attack");
+		break;
+	case RUN_ATTACK:
+		break;
+	case HEALING:
+		break;
+	case FALL:
+		m_pAnimator->ChangeAnimation("Fall");		
+		break;
+	case DEATH:
+		break;
+	default:
+		break;
 	}
 }
 
+void Player::Jump()
+{ 	
+	auto input = InputManager::GetInstance();
+	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS && m_pRigidBody->GetIsGround())
+	{
+		m_iCurJumpCount++;
+		jumpPressed = true;
 
-void Player::Jump() 
-{ 			
-	m_iCurJumpCount++;
-	m_bIsGround = false;
-	jumpPressed = true;
-	m_pRigidBody->AddImpulse({ 0.f, m_fJumpImpulse, 0.f });	
+		glm::vec3 velocity = m_pRigidBody->GetVelocity();
+		velocity.y = m_fJumpImpulse;
+		m_pRigidBody->SetVelocity(velocity);
+		m_pRigidBody->SetIsGround(false);
+		m_eCurrentState = PlayerAnimState::JUMP;
+	}	
 }
 
 BaseRTTI* Player::CreatePlayerComponent()

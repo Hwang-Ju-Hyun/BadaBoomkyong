@@ -22,10 +22,10 @@ Animator::~Animator()
 void Animator::Init()	
 {				
 	m_pCurrentAnimation = m_mapAnimation.find("Idle")->second;
-	Sprite* spr = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
+	Sprite* spr = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));	
 	spr->SetTexture(m_pCurrentAnimation->m_pTexture);
 	if (m_pCurrentAnimation)
-	{
+	{	
 		m_pCurrentAnimation->m_fSheet_UV_Width = 1.f / m_pCurrentAnimation->m_iSheet_Col;
 		m_pCurrentAnimation->m_fSheet_UV_Height = 1.f / m_pCurrentAnimation->m_iSheet_Row;
 	}
@@ -41,22 +41,27 @@ void Animator::Update()
 {
 	if (!m_pCurrentAnimation)
 		return;
+	if (!m_pCurrentAnimation->m_bLoop&&m_pCurrentAnimation->m_bLoopCount>=1)	
+		return;	
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
-	g_fAnmationAccTime += dt;
+  	g_fAnmationAccTime += dt;
 	if (m_pCurrentAnimation->m_fDuration_per_frame <= g_fAnmationAccTime)
 	{
 		m_iCurrentFrameIndex += 1;
 		m_iCurrentFrameIndex %= m_pCurrentAnimation->m_iSheet_Max;
 
 		int current_sheet_row = m_iCurrentFrameIndex / m_pCurrentAnimation->m_iSheet_Col;
-		int current_sheet_col = m_iCurrentFrameIndex % m_pCurrentAnimation->m_iSheet_Col;
+		int current_sheet_col = m_iCurrentFrameIndex % m_pCurrentAnimation->m_iSheet_Col;	
 
 		m_pCurrentAnimation->m_fSheet_UV_offset_X = m_pCurrentAnimation->m_fSheet_UV_Width * current_sheet_col;
 		m_pCurrentAnimation->m_fSheet_UV_offset_Y = m_pCurrentAnimation->m_fSheet_UV_Height * current_sheet_row;
 
 		g_fAnmationAccTime = 0.f;
-	}
-
+	}	
+	if (m_pCurrentAnimation->m_bLoop == false && m_iCurrentFrameIndex == 0)
+	{
+		m_pCurrentAnimation->m_bLoopCount++;
+	}			
 }
 
 void Animator::Exit()
@@ -71,15 +76,37 @@ AnimationSpriteSheet* Animator::AddSpriteSheet(std::string _name, AnimationSprit
 
 void Animator::ChangeAnimation(const std::string& _animName)
 {
-	if (m_pCurrentAnimation->m_sAnimationName != _animName)
-	{
-		auto iter = m_mapAnimation.find(_animName);
-		
-		Init();
+	auto iter = m_mapAnimation.find(_animName);
+	
+	Sprite* spr = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
+	assert(spr != nullptr);
 
-		if(iter!=m_mapAnimation.end())		
-			m_pCurrentAnimation = iter->second;				
+	m_pCurrentAnimation= iter->second;
+	spr->SetTexture(iter->second->m_pTexture);
+
+	if (m_pCurrentAnimation)
+	{
+		float sheet_uv_width, sheet_uv_height;
+		sheet_uv_width = 1.f / m_pCurrentAnimation->m_iSheet_Col;
+		sheet_uv_height = 1.f / m_pCurrentAnimation->m_iSheet_Row;	
+
+		m_pCurrentAnimation->m_fSheet_UV_Width = sheet_uv_width;
+		m_pCurrentAnimation->m_fSheet_UV_Height = sheet_uv_height;
 	}
+
+	m_iCurrentFrameIndex = 0;
+	
+	int current_sheet_row = m_iCurrentFrameIndex / m_pCurrentAnimation->m_iSheet_Col;
+	int current_sheet_col = m_iCurrentFrameIndex % m_pCurrentAnimation->m_iSheet_Col;
+
+	m_pCurrentAnimation->m_fSheet_UV_offset_X = m_pCurrentAnimation->m_fSheet_UV_Width * current_sheet_col;
+	m_pCurrentAnimation->m_fSheet_UV_offset_Y = m_pCurrentAnimation->m_fSheet_UV_Height * current_sheet_row;
+
+	if(m_pCurrentAnimation->m_bLoop)
+		m_pCurrentAnimation->m_bLoopCount = 0;
+
+	Animator::g_fAnmationAccTime = 0.f;
+	
 }
 
 BaseRTTI* Animator::CreateAnimatiorComponent()

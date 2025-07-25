@@ -304,14 +304,26 @@ void RenderManager::Draw()
 					else
 					{
 						glUniform1i(m_iHas_texture_location, false);
-					}
+		 			}
 					
 					glm::mat4 MVP = GetMVP_ByObject(*obj);
 
 					if (anim)
 					{
-						glUniform2f(m_iUV_Offset_Location, anim->GetAnimation()->m_fSheet_UV_offset_X, anim->GetAnimation()->m_fSheet_UV_offset_Y);
-						glUniform2f(m_iUV_Scale_Location, anim->GetAnimation()->m_fSheet_UV_Width, anim->GetAnimation()->m_fSheet_UV_Height);
+						float uvLeft = anim->GetAnimation()->m_fSheet_UV_offset_X;
+						float uvRight = uvLeft + anim->GetAnimation()->m_fSheet_UV_Width;
+
+						float offsetX = uvLeft;
+						float scaleX = anim->GetAnimation()->m_fSheet_UV_Width;
+
+						if (spr && spr->GetIsFlipX())
+						{
+							offsetX = uvLeft + scaleX;
+							scaleX = -scaleX; // 음수 스케일로 좌우 반전
+						}
+
+						glUniform2f(m_iUV_Offset_Location, offsetX, anim->GetAnimation()->m_fSheet_UV_offset_Y);
+						glUniform2f(m_iUV_Scale_Location, scaleX, anim->GetAnimation()->m_fSheet_UV_Height);
 					}
 					else
 					{

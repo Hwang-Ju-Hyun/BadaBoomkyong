@@ -74,3 +74,5 @@ enum class EVENT_TYPE
 
 	LAST
 };
+
+static const float g_epsilon = 0.001f;

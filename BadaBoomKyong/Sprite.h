@@ -20,6 +20,11 @@ public:
 
     inline void SetTexture(TextureResource* _res) { m_pTextureResource = _res; }
     inline TextureResource* GetTexture()const { return m_pTextureResource; }
+private:
+    bool m_bIsFlipX = false;
+public:
+    inline void SetIsFlipX(bool _flip) { m_bIsFlipX = _flip; }
+    inline const bool GetIsFlipX()const { return m_bIsFlipX; }
 public:
     virtual void Init()override;
     virtual void Update()override;

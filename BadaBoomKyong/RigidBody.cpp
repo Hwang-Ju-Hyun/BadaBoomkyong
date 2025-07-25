@@ -4,6 +4,7 @@
 #include "Serializer.h"
 #include "TimeManager.h"
 #include "Transform.h"
+#include "Player.h"
 
 RigidBody::RigidBody(GameObject* _owner)
 	:MonoBehaviour(_owner)
@@ -24,7 +25,7 @@ void RigidBody::SetVelocity(const glm::vec3& _vel)
 void RigidBody::AddImpulse(const glm::vec3& impulse)
 {
 	if (!m_bIsKinematic)
-		m_vVelocity += impulse ; // 질량 고려
+		jumpforce = impulse.y ; // 질량 고려
 }
 
 void RigidBody::Init()
@@ -36,13 +37,25 @@ void RigidBody::Update()
 {
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
 
-	if (m_bUseGravity)
-		m_vVelocity.y -= m_fGravity * dt;
+	if (!m_bIsKinematic)
+	{		
+		if (m_bIsGround)
+		{
+			m_vVelocity.y = 0.f;			
+		}
+		else
+		{			
+			m_vVelocity.y -= m_fGravity * dt;
+		
+			if (m_vVelocity.y < m_fMaxFallSpeed)
+				m_vVelocity.y = m_fMaxFallSpeed;			
+		}
 
-	Transform* transform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));	
-	if (transform)
-		transform->AddPosition(m_vVelocity * dt);
-	m_vForce = glm::vec3(0.f);
+		
+		Transform* transform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
+		if (transform)
+			transform->AddPosition(m_vVelocity * dt);		
+	}
 }
 
 BaseRTTI* RigidBody::CreateRigidBodyComponent()

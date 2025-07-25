@@ -10,9 +10,10 @@
 
 PlayerMelee::PlayerMelee(GameObject* _owner)
 	:Melee(_owner)
+    ,m_vOffset( 35.f,0.f,0.f)
 {
 	SetName(PlayerMeleeTypeName);
-	m_fLifeTime = 1.f;
+	m_fLifeTime = 0.8f;
 }
 
 PlayerMelee::~PlayerMelee()
@@ -29,6 +30,7 @@ void PlayerMelee::Init()
 
     assert(m_pTransform != nullptr && m_pSprite != nullptr && m_pCollider != nullptr&& m_pPlayer!=nullptr);
 
+    
     GetOwner()->SetActiveAllComps(false);
 }
 
@@ -38,8 +40,16 @@ void PlayerMelee::Awake()
     m_pPlayerTransform = dynamic_cast<Transform*>(player_obj->FindComponent(Transform::TransformTypeName));
     m_pPlayer = dynamic_cast<Player*>(player_obj->FindComponent(Player::PlayerTypeName));
 
-    m_pTransform->SetPosition({ m_pPlayerTransform->GetPosition().x + 35.f,m_pPlayerTransform->GetPosition().y,m_pPlayerTransform->GetPosition().z });
+    glm::vec3 player_pos = m_pPlayerTransform->GetPosition();    
+    
+    if (m_pPlayer->GetDir() < 0)
+        m_vOffset = { -35.f,0.f,0.f };
+    else
+        m_vOffset = { 35.f,0.f,0.f };
+    glm::vec3 final_pos= player_pos + m_vOffset;
 
+    m_pTransform->SetPosition(final_pos);
+     
     m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
     m_pCollider->SetScale(m_pTransform->GetScale());
 
@@ -51,15 +61,19 @@ void PlayerMelee::Update()
     float dt = TimeManager::GetInstance()->GetDeltaTime();
     if (m_fCurTime <= m_fLifeTime)
     {
-        glm::vec3 player_pos = m_pPlayerTransform->GetPosition();
+        glm::vec3 player_pos = m_pPlayerTransform->GetPosition();        
+
+        glm::vec3 final_pos = player_pos + m_vOffset;
+
         m_fCurTime += dt;
-        m_pTransform->SetPosition({ player_pos.x + 35.f,player_pos.y,player_pos.z });
+        m_pTransform->SetPosition(final_pos);        
     }        
     else
     {
         m_fCurTime = 0.f;
         EventManager::GetInstance()->SetActiveFalse(GetOwner());
         m_pPlayer->SetCanMeleeAttack(false);
+        m_pPlayer->melee = false;
     }
 }
 
@@ -67,7 +81,7 @@ void PlayerMelee::Exit()
 {
     m_fCurTime = 0.f;
     EventManager::GetInstance()->SetActiveFalse(GetOwner());
-    m_pPlayer->SetCanMeleeAttack(false);
+    m_pPlayer->SetCanMeleeAttack(false);    
 }
 
 void PlayerMelee::EnterCollision(Collider* _col)
