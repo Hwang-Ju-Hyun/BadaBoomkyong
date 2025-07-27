@@ -43,7 +43,7 @@ void RigidBody::Update()
 		{
 			m_vVelocity.y = 0.f;			
 		}
-		else
+		else 
 		{			
 			m_vVelocity.y -= m_fGravity * dt;
 		

@@ -58,13 +58,15 @@ void Player::Update()
 {				
 	auto input = InputManager::GetInstance();	
 	m_ePreviousState = m_eCurrentState;	
-	if (m_bIsAlive)
+	//todo : 이거 dashable & isalive이런거 함수화 시켜서 movable로 고치든가하자
+	if (m_bIsAlive&&!m_bIsDashing)
 	{
 		Move();
 		Jump();
 		Fire();
 		MeleeAttack();
-	}	
+	}
+	Dash();
 	Death();
 	AnimationHandle();
 }
@@ -160,8 +162,37 @@ void Player::MeleeAttack()
 	}	
 }
 
-void Player::Death()
+void Player::Dash()
+{
+	auto input = InputManager::GetInstance();
+	if (input->GetKetCode(GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+	{
+		m_bDashable = true;
+	}	
+	if (m_bDashable)
+	{
+		float dt = TimeManager::GetInstance()->GetDeltaTime();
+		m_fDashAccTime += dt;
+		if (m_fDashAccTime <= m_fDashDuration)
+		{	
+			m_bIsDashing = true;			
+			m_pRigidBody->SetVelocity({ m_iDir * m_fDashSpeed,0.f,0.f });
+		}
+		else
+		{
+			m_bIsDashing = false;
+			m_bDashable = false;
+			m_fDashAccTime = 0.f;			
+		}
+	}
+}
+
+void Player::Death()   
 {		
+	/*auto input = InputManager::GetInstance();
+	if (input->GetKetCode(GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+		m_iCurrentHP = 0;*/
+
 	m_iCurrentHP > 0 ? m_bIsAlive = true : m_bIsAlive=false;
 
 	if (!m_bIsAlive)
@@ -180,13 +211,14 @@ void Player::AnimationHandle()
 			m_eCurrentState = PlayerAnimState::ATTACK;		
 		else if (GetIsFalling()&& !m_bJumpMeleeAttacking)
 			m_eCurrentState = PlayerAnimState::FALL;
-		else if (m_pRigidBody->GetIsGround() && std::fabs(m_pRigidBody->GetVelocity().x) > g_epsilon
-			&&!m_bRunMeleeAttacking)
+		else if (m_pRigidBody->GetIsGround() && std::fabs(m_pRigidBody->GetVelocity().x) > g_epsilon 
+			&&!m_bRunMeleeAttacking
+			&&!m_bIsDashing)
 			m_eCurrentState = PlayerAnimState::RUN;		
-		else if (std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon && m_pRigidBody->GetIsGround()))
-		{
-			m_eCurrentState = PlayerAnimState::IDLE;			
-		}
+		else if(m_bIsDashing)
+			m_eCurrentState = PlayerAnimState::IDLE_DASH;
+		else if (std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon && m_pRigidBody->GetIsGround()))		
+			m_eCurrentState = PlayerAnimState::IDLE;				
 		else if (m_bRunMeleeAttacking)
 			m_eCurrentState = PlayerAnimState::RUN_ATTACK;
 		else if(m_bJumpMeleeAttacking)
@@ -195,33 +227,40 @@ void Player::AnimationHandle()
 	
 	switch (m_eCurrentState)
 	{
-	case IDLE:		
+	case IDLE:	
+		if (m_eCurrentState != m_ePreviousState)
 			m_pAnimator->ChangeAnimation("Idle");						
 		break;
-	case RUN:
-		if (m_eCurrentState != m_ePreviousState)
-			m_pAnimator->ChangeAnimation("Run");			
-		break;
+	//case RUN:
+	//	if (m_eCurrentState != m_ePreviousState)
+	//		m_pAnimator->ChangeAnimation("Run");			
+	//	break;
 	case JUMP:
 		if (m_eCurrentState != m_ePreviousState)
 			m_pAnimator->ChangeAnimation("Jump");
 		break;
-	case ATTACK:
+	case ATTACK:  
 		if (m_eCurrentState != m_ePreviousState)
-			m_pAnimator->ChangeAnimation("Attack");
+			m_pAnimator->ChangeAnimation("LightAttack");
 		break;
-	case RUN_ATTACK:
-		if (m_eCurrentState != m_ePreviousState)
-			m_pAnimator->ChangeAnimation("Run_Attack");
-		break;
-	case JUMP_ATTACK:
-		if (m_eCurrentState != m_ePreviousState)
-			m_pAnimator->ChangeAnimation("Jump_Attack");		
-		break;
-	case HEALING:
-		break;
+	//case RUN_ATTACK:
+	//	if (m_eCurrentState != m_ePreviousState)
+	//		m_pAnimator->ChangeAnimation("Run_Attack");
+	//	break;
+	//case JUMP_ATTACK:
+	//	if (m_eCurrentState != m_ePreviousState)
+	//		m_pAnimator->ChangeAnimation("Jump_Attack");		
+	//	break;
+	//case IDLE_DASH:
+	//	if (m_eCurrentState != m_ePreviousState)
+	//		m_pAnimator->ChangeAnimation("Idle_Dash");
+	//	break;
+	//case HEALING:
+	//	break;		
 	case FALL:
-		m_pAnimator->ChangeAnimation("Fall");		
+		//todo :이거 착지할때 애니메이션이 끝나는게 아니라 애니메이션 시간 끝나면 걍 애니메이션이 끝남
+		if (m_eCurrentState != m_ePreviousState)
+			m_pAnimator->ChangeAnimation("Fall");		
 		break;
 	case DEATH:
 		if (m_eCurrentState != m_ePreviousState)
@@ -230,7 +269,7 @@ void Player::AnimationHandle()
 	default:
 		break;
 	}
-	std::cout << m_eCurrentState << std::endl;
+	//std::cout << m_eCurrentState << std::endl;
 	if (m_bRunMeleeAttacking && m_pAnimator->GetAnimation()->m_bLoopCount == 1)
 	{		
 		m_pAnimator->GetAnimation()->m_bLoopCount = 0;

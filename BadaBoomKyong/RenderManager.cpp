@@ -117,7 +117,7 @@ void RenderManager::BeforeDraw()
 		}
 	}
 }
-
+#include "Player.h"
 void RenderManager::Draw()
 {			
 	auto objs=GameObjectManager::GetInstance()->GetAllObjects();
@@ -306,8 +306,21 @@ void RenderManager::Draw()
 						glUniform1i(m_iHas_texture_location, false);
 		 			}
 					
+					//todo : 여기좀 지저분함 손좀보셈
 					glm::mat4 MVP = GetMVP_ByObject(*obj);
-
+					glm::mat4 visualOffset;
+					Player* p = dynamic_cast<Player*>(obj->FindComponent(Player::PlayerTypeName));
+					bool dashing = p->GetIsDashing();
+					if (obj->GetName() == "Player")
+					{												
+						if (dashing)
+						{
+							// 텍스처가 오른쪽으로 치우쳐 있을 경우, 살짝 왼쪽으로 당김							
+							float texture_offsetX = -0.5f; // ← 여기서 0.1이 보정값 (시각적 기준 보정)
+							visualOffset = glm::translate(glm::mat4(1.f), glm::vec3(texture_offsetX*p->GetDir(), 0.f, 0.f));
+						}						
+					}					
+					glm::mat4 finalMVP = MVP * visualOffset;					
 					if (anim)
 					{
 						float uvLeft = anim->GetAnimation()->m_fSheet_UV_offset_X;
@@ -331,10 +344,10 @@ void RenderManager::Draw()
 						glUniform2f(m_iUV_Scale_Location, 1, 1);
 					}
 
-					//todo : 주석처리된거 지우고 충돌체 쉐이더를 통해 그리는거 이것도 쉐이더에서 수정하고 
-					// draw collider에도 주석있음 아마 assert주석 처리해놓았을 거임 그것도 지우셈
-					//GLint IsColliderLocation = glGetUniformLocation(shdr_handle_3D, "uIsCollider");
-					glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
+					if(dashing)
+						glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(finalMVP));
+					else
+						glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
 
 					model->Draw();
 

@@ -21,6 +21,8 @@ enum PlayerAnimState
     ATTACK,
     RUN_ATTACK,
     JUMP_ATTACK,
+    IDLE_DASH,
+    RUN_DASH,
     HEALING,
     FALL,
     DEATH    
@@ -57,7 +59,16 @@ private:
     bool m_bNormalMeleeAttacking = false;
     bool m_bRunMeleeAttacking = false;
     bool m_bJumpMeleeAttacking = false;
+    bool m_bDashable = true;
+    float m_fDashSpeed=600.f;
+    float m_fDashDuration=0.4f;
+    float m_fDashAccTime = 0.f;
+    bool m_bIsDashing = false;
 public:
+    inline void SetDashable(bool _dash) { m_bDashable = _dash; }
+    inline const bool GetDashable()const { return m_bDashable; }
+    inline const bool GetIsDashing()const { return m_bIsDashing; }
+
     inline void AddHP(int _hp) { m_iCurrentHP += _hp; }
     inline const int GetHP()const { return m_iCurrentHP; }
     inline void SetIsAlive(bool _alive) { m_bIsAlive = _alive; }
@@ -99,7 +110,8 @@ private:
     void Jump();
     void Move();  
     void Fire();
-    void MeleeAttack();    
+    void MeleeAttack();
+    void Dash();
     void Death();
 public:
     static constexpr const char* PlayerTypeName = "Player";

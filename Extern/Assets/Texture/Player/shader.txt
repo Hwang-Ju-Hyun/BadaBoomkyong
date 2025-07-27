@@ -1,0 +1,15 @@
+if(uHasTexture)	
+		color = texture(uOutTexture,UV);	
+	else
+		color = vec4(0.5,0.0,0.0,1.0);
+
+
+
+
+color = texture(uOutTexture, UV) * vec4(1.0, 1.0, 1.0, 1.0);
+	return;
+
+
+{position={x=-0.776638210 r=-0.776638210 s=-0.776638210 ...} texcoord={x=0.625000000 r=0.625000000 s=...} ...}
+
+{position={x=-2.68670535 r=-2.68670535 s=-2.68670535 ...} texcoord={x=0.00000000 r=0.00000000 s=0.00000000 ...} ...}

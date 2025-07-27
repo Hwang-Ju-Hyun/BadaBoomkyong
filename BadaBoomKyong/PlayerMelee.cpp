@@ -13,7 +13,7 @@ PlayerMelee::PlayerMelee(GameObject* _owner)
     ,m_vOffset( 35.f,0.f,0.f)
 {
 	SetName(PlayerMeleeTypeName);
-	m_fLifeTime = 0.8f;
+	m_fLifeTime = 1.3f;
 }
 
 PlayerMelee::~PlayerMelee()
