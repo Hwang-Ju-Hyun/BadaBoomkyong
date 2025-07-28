@@ -35,8 +35,9 @@ void RigidBody::Init()
 
 void RigidBody::Update()
 {
-	float dt = TimeManager::GetInstance()->GetDeltaTime();
-
+	float dt = TimeManager::GetInstance()->GetDeltaTime();	
+	std::string a= GetOwner()->GetName();
+	a;
 	if (!m_bIsKinematic)
 	{		
 		if (m_bIsGround)

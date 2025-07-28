@@ -22,10 +22,14 @@ public:
 	virtual void OnCollision(Collider* _col)override;
 	virtual void ExitCollision(Collider* _col) override;
 private:
+	Player* m_pPlayer = nullptr;
+	Transform* m_pPlayerTransform = nullptr;
+	SoldierMonster* m_pSoldierMonster = nullptr;
+	Transform* m_pSoldierMonsterTransform = nullptr;
 	Transform* m_pTransform = nullptr;
 	Sprite* m_pSprite = nullptr;
 	Collider* m_pCollider = nullptr;
-	RigidBody* m_pRigidBody = nullptr;
+	RigidBody* m_pRigidBody = nullptr;	
 private:
 	float m_fThrowingForce = 0.f;
 public:

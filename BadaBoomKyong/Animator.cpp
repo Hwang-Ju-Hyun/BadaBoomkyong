@@ -46,17 +46,20 @@ void Animator::Awake()
 {
 	m_pCurrentAnimation->m_bLoopCount = 0;
 }
-
+#include <iostream>
+static int a = 0;
 void Animator::Update()
 {
 	if (!m_pCurrentAnimation)
-		return;
-	if (!m_pCurrentAnimation->m_bLoop&&m_pCurrentAnimation->m_bLoopCount>=1)	
-		return;	
-	float dt = TimeManager::GetInstance()->GetDeltaTime();
-  	g_fAnmationAccTime += dt;
-	if (m_pCurrentAnimation->m_fDuration_per_frame <= g_fAnmationAccTime)
 	{
+		std::cout << "Errror" << std::endl;
+		return;
+	}
+		
+	float dt = TimeManager::GetInstance()->GetDeltaTime();
+  	g_fAnmationAccTime += dt;	
+	if (m_pCurrentAnimation->m_fDuration_per_frame <= g_fAnmationAccTime)
+	{		
 		m_iCurrentFrameIndex += 1;
 		m_iCurrentFrameIndex %= m_pCurrentAnimation->m_iSheet_Max;
 
@@ -64,9 +67,8 @@ void Animator::Update()
 		int current_sheet_col = m_iCurrentFrameIndex % m_pCurrentAnimation->m_iSheet_Col;	
 
 		m_pCurrentAnimation->m_fSheet_UV_offset_X = m_pCurrentAnimation->m_fSheet_UV_Width * current_sheet_col;
-		m_pCurrentAnimation->m_fSheet_UV_offset_Y = m_pCurrentAnimation->m_fSheet_UV_Height * current_sheet_row;
-
-		g_fAnmationAccTime = 0.f;
+		m_pCurrentAnimation->m_fSheet_UV_offset_Y = m_pCurrentAnimation->m_fSheet_UV_Height * current_sheet_row;	
+		g_fAnmationAccTime = 0.f;		
 	}
 	if (m_pCurrentAnimation->m_bLoop == false && m_iCurrentFrameIndex == m_pCurrentAnimation->m_iSheet_Max-1)
 	{

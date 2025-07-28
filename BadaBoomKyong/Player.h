@@ -1,6 +1,7 @@
 #pragma once
 #include "MonoBehaviour.h"
 #include <glm.hpp>
+#include "Anim_StateMachine.h"
 
 class Transform;
 class Sprite;
@@ -14,14 +15,15 @@ class Melee;
 class Animator;
 
 enum PlayerAnimState
-{
+{ 
     IDLE,
-    RUN,
+    TOSPRINT,
+    SPRINTING,
     JUMP,
     ATTACK,
     RUN_ATTACK,
     JUMP_ATTACK,
-    IDLE_DASH,
+    DASH,
     RUN_DASH,
     HEALING,
     FALL,
@@ -40,6 +42,7 @@ private:
     Collider* m_pCollider = nullptr;
     RigidBody* m_pRigidBody = nullptr;
     Animator* m_pAnimator = nullptr;
+    AnimStateMachine<Player>* m_pAnimStateMachine;
 private:
     BulletFactory* m_pBulletFactory=nullptr;
     MeleeFactory* m_pMeleeFactory = nullptr;
@@ -57,14 +60,19 @@ private:
     float m_fSpeed=0.f;            
     float m_fJumpImpulse = 500.f;   
     bool m_bNormalMeleeAttacking = false;
-    bool m_bRunMeleeAttacking = false;
+    bool m_bSprintMeleeAttacking = false;
     bool m_bJumpMeleeAttacking = false;
     bool m_bDashable = true;
     float m_fDashSpeed=600.f;
     float m_fDashDuration=0.4f;
     float m_fDashAccTime = 0.f;
     bool m_bIsDashing = false;
-public:
+    bool m_bIsSprinting = false;
+    bool m_bIsToSprint = false;
+public:    
+    inline Animator* GetAnimator()const { return m_pAnimator; }
+    inline AnimStateMachine<Player>* GetAnimStateMachine()const { return m_pAnimStateMachine; }
+
     inline void SetDashable(bool _dash) { m_bDashable = _dash; }
     inline const bool GetDashable()const { return m_bDashable; }
     inline const bool GetIsDashing()const { return m_bIsDashing; }
@@ -75,8 +83,8 @@ public:
     inline const bool GetIsAlive()const { return m_bIsAlive; }
     inline void SetNormalMeleeAttacking(bool _attacking) { m_bNormalMeleeAttacking = _attacking; }
     inline const bool GetNormalMeleeAttacking()const { return m_bNormalMeleeAttacking; }
-    inline void SetRunMeleeAttacking(bool _attacking) { m_bRunMeleeAttacking = _attacking; }
-    inline const bool GetRunMeleeAttacking()const { return m_bRunMeleeAttacking; }
+    inline void SetRunMeleeAttacking(bool _attacking) { m_bSprintMeleeAttacking = _attacking; }
+    inline const bool GetRunMeleeAttacking()const { return m_bSprintMeleeAttacking; }
     inline void SetJumpMeleeAttacking(bool _attacking) { m_bJumpMeleeAttacking = _attacking; }
     inline const bool GetJumpMeleeAttacking()const { return m_bJumpMeleeAttacking; }
 public:        
@@ -106,6 +114,7 @@ public:
     virtual void OnCollision(Collider* _other)   override;
     virtual void ExitCollision(Collider* _other) override;    
 private:
+    void StateHandler();
     void AnimationHandle();
     void Jump();
     void Move();  

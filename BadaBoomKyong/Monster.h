@@ -42,6 +42,7 @@ public:
     inline void SetMeleeBehaivour(IMeleeBehaviour* _behaviour) { m_pMeleeBehaviour = _behaviour; }
     inline void SetPatrolBehaviour(IPatrolBehaviour* _behaviour) { m_pPatrolBehaviour = _behaviour; }
 
+    inline Player* GetPlayer()const { return m_pPlayer; }
     inline IIdleBehaviour* GetIdleBehavior() { return m_pIdleBehavior; }
     inline IRangedBehaviour* GetRangedBehavior() { return m_pRangedBehavior; }
     inline IMeleeBehaviour* GetMeleeBehaviour() { return m_pMeleeBehaviour; }

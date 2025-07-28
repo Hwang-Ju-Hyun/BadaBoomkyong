@@ -5,12 +5,13 @@ class Transform;
 class Sprite;
 class SoldierMelee;
 class SoldierMonster;
+class Player;
 
 class SoldierMelee :
     public Melee
 {
 public:
-    SoldierMelee(GameObject* _owner);
+    SoldierMelee(GameObject* _owner,GameObject* _attacker=nullptr);
     virtual ~SoldierMelee()override;
 public:
 	virtual void Init()  override;
@@ -26,7 +27,10 @@ private:
 	Sprite* m_pSprite = nullptr;
 	Collider* m_pCollider = nullptr;	
 	SoldierMelee* m_pSoldierMelee = nullptr;
-	SoldierMonster* m_pSoldierMonster = nullptr;	
+	SoldierMonster* m_pSoldierMonster = nullptr;
+private:
+	Player* m_pPlayer = nullptr;
+	Transform* m_pPlayerTransform = nullptr;
 public:
 	virtual void LoadFromJson(const json& _str) override;
 	virtual json SaveToJson(const json& _str) override;

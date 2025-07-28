@@ -223,6 +223,16 @@
   <ItemGroup>
     <ClInclude Include="AI.h" />
     <ClInclude Include="Animator.h" />
+    <ClInclude Include="Anim_DashState.h" />
+    <ClInclude Include="Anim_DeathState.h" />
+    <ClInclude Include="Anim_FallState.h" />
+    <ClInclude Include="Anim_JumpState.h" />
+    <ClInclude Include="Anim_IdleState.h" />
+    <ClInclude Include="Anim_NormalAttackState.h" />
+    <ClInclude Include="Anim_JumpAttackState.h" />
+    <ClInclude Include="Anim_SprintAttackState.h" />
+    <ClInclude Include="Anim_SprintingState.h" />
+    <ClInclude Include="Anim_ToSprintState.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="BaseFactory.h" />
@@ -245,6 +255,7 @@
     <ClInclude Include="GizmoManager.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="IPatrolBehaviour.h" />
+    <ClInclude Include="Anim_IState.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MeleeFactory.h" />
     <ClInclude Include="ICollisionHandler.h" />
@@ -303,6 +314,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage01.h" />
     <ClInclude Include="SoldierGrenade.h" />
+    <ClInclude Include="Anim_StateMachine.h" />
     <ClInclude Include="TextureResource.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TraceState.h" />

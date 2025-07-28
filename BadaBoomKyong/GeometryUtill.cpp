@@ -80,6 +80,10 @@ void GeometryUtil::HandlePosition_CollisionAABB(GameObject* _groundObj, GameObje
         Player* p = dynamic_cast<Player*>(_otherObj->FindComponent(Player::PlayerTypeName));
         RigidBody* rb = dynamic_cast<RigidBody*>(_otherObj->FindComponent(RigidBody::RigidBodyTypeName));
         assert(rb != nullptr);
+        if (_otherObj->GetName() == "SoliderMonster")
+        {
+            int a = 0;
+        }
         if (rb!=nullptr&& dy > 0)
         {                
             if (p != nullptr && p->jumpPressed)

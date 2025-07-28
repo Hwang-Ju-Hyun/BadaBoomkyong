@@ -10,7 +10,7 @@ class PlayerMelee :
     public Melee
 {
 public:
-    PlayerMelee(GameObject* _owner);
+    PlayerMelee(GameObject* _owner,GameObject* _shooter);
     virtual ~PlayerMelee()override;
 private:
 	Transform* m_pTransform=nullptr;

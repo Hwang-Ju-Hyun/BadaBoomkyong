@@ -2,8 +2,9 @@
 #include "GameObjectManager.h"
 #include "GameObject.h"
 
-Melee::Melee(GameObject* _owner)
+Melee::Melee(GameObject* _owner, GameObject* _attacker)
 	:MonoBehaviour(_owner)
+    ,m_pAttacker(_attacker)
 {
     GetOwner()->SetIsSerializable(false);
 }

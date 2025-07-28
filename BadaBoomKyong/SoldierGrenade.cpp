@@ -10,6 +10,7 @@
 #include "Monster.h"
 #include "Bullet.h"
 #include "SoldierMonster.h"
+#include "Player.h"
 
 SoldierGrenade::SoldierGrenade(GameObject* _owner, GameObject* _shooter)
     :Bullet(_owner,_shooter)    
@@ -27,11 +28,11 @@ void SoldierGrenade::Init()
     m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
     m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
     m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
-    m_pRigidBody = dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
+    m_pRigidBody = dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));    
 
     assert(m_pTransform != nullptr && m_pSprite != nullptr && m_pCollider != nullptr && m_pRigidBody != nullptr);    
 
-    GetOwner()->SetActiveAllComps(false);
+    GetOwner()->SetActiveAllComps(false);    
 }
 
 void SoldierGrenade::Awake()
@@ -44,13 +45,26 @@ void SoldierGrenade::Awake()
     m_pRigidBody->SetVelocity({ 0.f,0.f,0.f });
     m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
     m_pCollider->SetScale(m_pTransform->GetScale()); 
+    
+    GameObject* a = GetShooter();
+
+
+    m_pSoldierMonster = dynamic_cast<SoldierMonster*>(GetShooter()->FindComponent(SoldierMonster::SoldierMonsterTypeName));
+    m_pSoldierMonsterTransform = dynamic_cast<Transform*>(m_pSoldierMonster->GetOwner()->FindComponent(Transform::TransformTypeName));
+
+    m_pPlayer = m_pSoldierMonster->GetPlayer();
+    m_pPlayerTransform = dynamic_cast<Transform*>(m_pPlayer->GetOwner()->FindComponent(Transform::TransformTypeName));
 }
 
 void SoldierGrenade::Fire()
 {
-    float impulseX = -100.f;
-    float impulseY = 700.f;
-    m_pRigidBody->AddImpulse({ impulseX,impulseY,0.f });
+    float impulseX = 100.f;
+    float impulseY = 700.f;     
+    float grenade_dir = m_pPlayerTransform->GetPosition().x - m_pSoldierMonsterTransform->GetPosition().x;
+    
+    if (grenade_dir < 0)
+        impulseX = -100.f;
+    m_pRigidBody->SetVelocity({ impulseX,impulseY,0.f });
     m_bCanFire = false;
 }
 

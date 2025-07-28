@@ -94,6 +94,7 @@ void SoldierMonster::MeleeAttack()
 	m_pMelee = m_pMeleeFactory->CreateMelee(GROUP_TYPE::MELEE);
 	SoldierMelee* melee_comp = dynamic_cast<SoldierMelee*>(m_pMelee);
 	assert(m_pMelee != nullptr);
+	m_pMelee->SetAttacker(this->GetOwner());
 	if (m_bCanMeleeAttack == false)
 	{
 		EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
@@ -106,7 +107,7 @@ void SoldierMonster::EnterCollision(Collider* _other)
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
 	{
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());
-		SetIsGround(true);
+		
 	}
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLAYER)
 		m_bCol = true;
@@ -117,7 +118,7 @@ void SoldierMonster::OnCollision(Collider* _other)
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
 	{
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());
-		SetIsGround(true);
+		
 	}
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLAYER)
 		m_bCol = true;

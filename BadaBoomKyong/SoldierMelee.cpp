@@ -7,9 +7,10 @@
 #include "SoldierMonster.h"
 #include "TimeManager.h"
 #include "ComponentManager.h"
+#include "Player.h"
 
-SoldierMelee::SoldierMelee(GameObject* _owner)
-	:Melee(_owner)    
+SoldierMelee::SoldierMelee(GameObject* _owner,GameObject* _attacker)
+	:Melee(_owner, _attacker)
 {
     SetName(SoldierMeleeTypeName);
     m_fLifeTime = 1.f;
@@ -20,13 +21,14 @@ SoldierMelee::~SoldierMelee()
 }
 
 void SoldierMelee::Init()
-{
-    
+{    
     m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
     m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
     m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
     GameObject* mon_obj = GameObjectManager::GetInstance()->FindObject(SoldierMonster::SoldierMonsterTypeName);
     m_pSoldierMonster = dynamic_cast<SoldierMonster*>(mon_obj->FindComponent(SoldierMonster::SoldierMonsterTypeName));
+
+    m_pPlayer = m_pSoldierMonster->GetPlayer();
 
     assert(m_pTransform != nullptr && m_pSprite != nullptr && m_pCollider != nullptr);
 
@@ -35,13 +37,21 @@ void SoldierMelee::Init()
 }
 
 void SoldierMelee::Awake()
-{
-    GameObject* mon_obj = GameObjectManager::GetInstance()->FindObject(SoldierMonster::SoldierMonsterTypeName);
+{    
+    GameObject* mon_obj = GetAttacker();
+    assert(mon_obj != nullptr);
+
     Transform* mon_trs = dynamic_cast<Transform*>(mon_obj->FindComponent(Transform::TransformTypeName));
     m_pSoldierMonster = dynamic_cast<SoldierMonster*>(mon_obj->FindComponent(SoldierMonster::SoldierMonsterTypeName));
 
-    m_pTransform->SetPosition({ mon_trs->GetPosition().x-55.f,mon_trs->GetPosition().y,mon_trs->GetPosition().z});
+    m_pPlayerTransform = dynamic_cast<Transform*>(m_pPlayer->GetOwner()->FindComponent(Transform::TransformTypeName));
 
+    float melee_dir = m_pPlayerTransform->GetPosition().x - mon_trs->GetPosition().x;
+    float offsetX = 55.f;
+    if (melee_dir < 0)
+        offsetX = -55.f;
+
+    m_pTransform->SetPosition({ mon_trs->GetPosition().x + offsetX,mon_trs->GetPosition().y,mon_trs->GetPosition().z});
     m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
     m_pCollider->SetScale(m_pTransform->GetScale());
 

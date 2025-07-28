@@ -164,9 +164,6 @@
     <Filter Include="Component\Custom\Monster">
       <UniqueIdentifier>{6603f99e-feea-4413-a072-bc794d585fde}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Custom\AI">
-      <UniqueIdentifier>{7053d56b-9366-4664-9262-a2ba45573ab7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\EventManager">
       <UniqueIdentifier>{56e832d1-3b7e-4844-8854-f97a4f9cb937}</UniqueIdentifier>
     </Filter>
@@ -181,24 +178,6 @@
     </Filter>
     <Filter Include="Component\Custom\Bullet\Monster">
       <UniqueIdentifier>{d4ab23bf-810e-4fe9-8e9a-61fdf1de5204}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FiniteStateMachine">
-      <UniqueIdentifier>{291109b3-df4d-49c7-a6ea-5389b3053548}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FiniteStateMachine\Idle">
-      <UniqueIdentifier>{99415940-9c29-46f9-adc4-f1045a6d8a59}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FiniteStateMachine\Trace">
-      <UniqueIdentifier>{009cb4ff-1a27-40fd-836c-9398d79aae5c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FiniteStateMachine\Patrol">
-      <UniqueIdentifier>{d547c685-3a08-44ed-806a-e6be1495e67b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FiniteStateMachine\Melee">
-      <UniqueIdentifier>{c696bffb-63b1-43cc-8356-2890de5c95d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FiniteStateMachine\Ranged">
-      <UniqueIdentifier>{4469d03d-80bc-43d1-8cbf-e863554e6795}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\Custom\Monster\Soldier">
       <UniqueIdentifier>{d8a4c8bc-d7d9-4636-abc6-ae63eba4a969}</UniqueIdentifier>
@@ -251,8 +230,68 @@
     <Filter Include="Graphics\Materials">
       <UniqueIdentifier>{a9829d66-ce17-49bb-b644-ee726438d554}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Default\Animation">
+    <Filter Include="AI">
+      <UniqueIdentifier>{7053d56b-9366-4664-9262-a2ba45573ab7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\FiniteStateMachine">
+      <UniqueIdentifier>{291109b3-df4d-49c7-a6ea-5389b3053548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\FiniteStateMachine\Idle">
+      <UniqueIdentifier>{99415940-9c29-46f9-adc4-f1045a6d8a59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\FiniteStateMachine\Trace">
+      <UniqueIdentifier>{009cb4ff-1a27-40fd-836c-9398d79aae5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\FiniteStateMachine\Patrol">
+      <UniqueIdentifier>{d547c685-3a08-44ed-806a-e6be1495e67b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\FiniteStateMachine\Melee">
+      <UniqueIdentifier>{c696bffb-63b1-43cc-8356-2890de5c95d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\FiniteStateMachine\Ranged">
+      <UniqueIdentifier>{4469d03d-80bc-43d1-8cbf-e863554e6795}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation">
       <UniqueIdentifier>{2af79aca-fcd7-46c3-877c-43d69a42b799}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine">
+      <UniqueIdentifier>{a97ea663-ee6c-4699-a884-40b3e6b3fb26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Idle">
+      <UniqueIdentifier>{de2274d4-d976-4ca4-8197-ec15851f6ca8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Sprint">
+      <UniqueIdentifier>{cc8d9bc1-bab0-466f-b4b5-39fec422945f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Attack">
+      <UniqueIdentifier>{f00bb427-a1a1-4543-955d-32067b4f062d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Jump">
+      <UniqueIdentifier>{692ed897-6092-4327-903b-c34880579170}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Death">
+      <UniqueIdentifier>{31e3926d-fda9-4774-a08f-a2e5283a30a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Fall">
+      <UniqueIdentifier>{8a968451-b265-43c7-bfd5-6cdc8fb27112}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Attack\NormalAttack">
+      <UniqueIdentifier>{424a2439-a36c-44c9-8138-ea04febc5ccd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Attack\SprintAttack">
+      <UniqueIdentifier>{70f01b55-2508-42b4-a27e-cae6d2cf235f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Sprint\ToSprint">
+      <UniqueIdentifier>{7107259c-c9c9-4f9c-b11b-f283e01582e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Sprint\Sprinting">
+      <UniqueIdentifier>{56739e6d-93e7-4b2b-a034-eab5f5806b21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Dash">
+      <UniqueIdentifier>{71cacfa9-19dc-4d16-ba49-8c311a75c3bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Attack\JumpAttack">
+      <UniqueIdentifier>{b6b38eae-59a8-49f6-a703-8a241b663700}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -413,22 +452,22 @@
       <Filter>Component\Custom\Monster</Filter>
     </ClCompile>
     <ClCompile Include="AI.cpp">
-      <Filter>Component\Custom\AI</Filter>
+      <Filter>AI</Filter>
     </ClCompile>
     <ClCompile Include="BaseState.cpp">
-      <Filter>FiniteStateMachine</Filter>
+      <Filter>AI\FiniteStateMachine</Filter>
     </ClCompile>
     <ClCompile Include="IdleState.cpp">
-      <Filter>FiniteStateMachine\Idle</Filter>
+      <Filter>AI\FiniteStateMachine\Idle</Filter>
     </ClCompile>
     <ClCompile Include="TraceState.cpp">
-      <Filter>FiniteStateMachine\Trace</Filter>
+      <Filter>AI\FiniteStateMachine\Trace</Filter>
     </ClCompile>
     <ClCompile Include="RangedState.cpp">
-      <Filter>FiniteStateMachine\Ranged</Filter>
+      <Filter>AI\FiniteStateMachine\Ranged</Filter>
     </ClCompile>
     <ClCompile Include="MeleeState.cpp">
-      <Filter>FiniteStateMachine\Melee</Filter>
+      <Filter>AI\FiniteStateMachine\Melee</Filter>
     </ClCompile>
     <ClCompile Include="SoldierGrenade.cpp">
       <Filter>Component\Custom\Bullet\Monster\SoldierGrenade</Filter>
@@ -461,7 +500,7 @@
       <Filter>Component\Custom\Melee\Monster\SoldierMelee</Filter>
     </ClCompile>
     <ClCompile Include="PatrolState.cpp">
-      <Filter>FiniteStateMachine\Patrol</Filter>
+      <Filter>AI\FiniteStateMachine\Patrol</Filter>
     </ClCompile>
     <ClCompile Include="PATROL_SoliderMonster.cpp">
       <Filter>Component\Custom\Monster\Soldier\State\PATROL</Filter>
@@ -485,7 +524,7 @@
       <Filter>Graphics\Materials</Filter>
     </ClCompile>
     <ClCompile Include="Animator.cpp">
-      <Filter>Component\Default\Animation</Filter>
+      <Filter>Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -661,22 +700,22 @@
       <Filter>Component\Custom\Monster</Filter>
     </ClInclude>
     <ClInclude Include="AI.h">
-      <Filter>Component\Custom\AI</Filter>
+      <Filter>AI</Filter>
     </ClInclude>
     <ClInclude Include="BaseState.h">
-      <Filter>FiniteStateMachine</Filter>
+      <Filter>AI\FiniteStateMachine</Filter>
     </ClInclude>
     <ClInclude Include="IdleState.h">
-      <Filter>FiniteStateMachine\Idle</Filter>
+      <Filter>AI\FiniteStateMachine\Idle</Filter>
     </ClInclude>
     <ClInclude Include="TraceState.h">
-      <Filter>FiniteStateMachine\Trace</Filter>
+      <Filter>AI\FiniteStateMachine\Trace</Filter>
     </ClInclude>
     <ClInclude Include="RangedState.h">
-      <Filter>FiniteStateMachine\Ranged</Filter>
+      <Filter>AI\FiniteStateMachine\Ranged</Filter>
     </ClInclude>
     <ClInclude Include="MeleeState.h">
-      <Filter>FiniteStateMachine\Melee</Filter>
+      <Filter>AI\FiniteStateMachine\Melee</Filter>
     </ClInclude>
     <ClInclude Include="SoldierGrenade.h">
       <Filter>Component\Custom\Bullet\Monster\SoldierGrenade</Filter>
@@ -691,16 +730,16 @@
       <Filter>Component\Custom\Monster\Soldier</Filter>
     </ClInclude>
     <ClInclude Include="IRangedBehaviour.h">
-      <Filter>FiniteStateMachine\Ranged</Filter>
+      <Filter>AI\FiniteStateMachine\Ranged</Filter>
     </ClInclude>
     <ClInclude Include="IMeleeBehaviour.h">
-      <Filter>FiniteStateMachine\Melee</Filter>
+      <Filter>AI\FiniteStateMachine\Melee</Filter>
     </ClInclude>
     <ClInclude Include="IIdleBehaviour.h">
-      <Filter>FiniteStateMachine\Idle</Filter>
+      <Filter>AI\FiniteStateMachine\Idle</Filter>
     </ClInclude>
     <ClInclude Include="ITraceBehaviour.h">
-      <Filter>FiniteStateMachine\Trace</Filter>
+      <Filter>AI\FiniteStateMachine\Trace</Filter>
     </ClInclude>
     <ClInclude Include="IDLE_SoliderMonster.h">
       <Filter>Component\Custom\Monster\Soldier\State\IDLE</Filter>
@@ -721,10 +760,10 @@
       <Filter>Component\Custom\Melee\Monster\SoldierMelee</Filter>
     </ClInclude>
     <ClInclude Include="PatrolState.h">
-      <Filter>FiniteStateMachine\Patrol</Filter>
+      <Filter>AI\FiniteStateMachine\Patrol</Filter>
     </ClInclude>
     <ClInclude Include="IPatrolBehaviour.h">
-      <Filter>FiniteStateMachine\Patrol</Filter>
+      <Filter>AI\FiniteStateMachine\Patrol</Filter>
     </ClInclude>
     <ClInclude Include="PATROL_SoliderMonster.h">
       <Filter>Component\Custom\Monster\Soldier\State\PATROL</Filter>
@@ -748,7 +787,43 @@
       <Filter>Graphics\Materials</Filter>
     </ClInclude>
     <ClInclude Include="Animator.h">
-      <Filter>Component\Default\Animation</Filter>
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_IState.h">
+      <Filter>Animation\FiniteStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_StateMachine.h">
+      <Filter>Animation\FiniteStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_IdleState.h">
+      <Filter>Animation\FiniteStateMachine\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_JumpState.h">
+      <Filter>Animation\FiniteStateMachine\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_FallState.h">
+      <Filter>Animation\FiniteStateMachine\Fall</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_DeathState.h">
+      <Filter>Animation\FiniteStateMachine\Death</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_NormalAttackState.h">
+      <Filter>Animation\FiniteStateMachine\Attack\NormalAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_ToSprintState.h">
+      <Filter>Animation\FiniteStateMachine\Sprint\ToSprint</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_SprintingState.h">
+      <Filter>Animation\FiniteStateMachine\Sprint\Sprinting</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_DashState.h">
+      <Filter>Animation\FiniteStateMachine\Dash</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_JumpAttackState.h">
+      <Filter>Animation\FiniteStateMachine\Attack\JumpAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_SprintAttackState.h">
+      <Filter>Animation\FiniteStateMachine\Attack\SprintAttack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

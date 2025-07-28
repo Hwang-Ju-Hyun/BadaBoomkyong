@@ -8,8 +8,8 @@
 #include "TimeManager.h"
 #include "EventManager.h"
 
-PlayerMelee::PlayerMelee(GameObject* _owner)
-	:Melee(_owner)
+PlayerMelee::PlayerMelee(GameObject* _owner, GameObject* _shooter)
+	:Melee(_owner,_shooter)   
     ,m_vOffset( 35.f,0.f,0.f)
 {
 	SetName(PlayerMeleeTypeName);
@@ -27,7 +27,7 @@ void PlayerMelee::Init()
     m_pCollider  = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
     GameObject* player_obj = GameObjectManager::GetInstance()->FindObject(Player::PlayerTypeName);
     m_pPlayer = dynamic_cast<Player*>(player_obj->FindComponent(Player::PlayerTypeName));
-
+    
     assert(m_pTransform != nullptr && m_pSprite != nullptr && m_pCollider != nullptr&& m_pPlayer!=nullptr);
 
     
