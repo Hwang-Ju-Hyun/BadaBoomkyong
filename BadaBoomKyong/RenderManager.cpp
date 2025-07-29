@@ -310,7 +310,9 @@ void RenderManager::Draw()
 					glm::mat4 MVP = GetMVP_ByObject(*obj);
 					glm::mat4 visualOffset;
 					Player* p = dynamic_cast<Player*>(obj->FindComponent(Player::PlayerTypeName));
-					bool dashing = p->GetIsDashing();
+					bool dashing=false;
+					if(p)
+						dashing= p->GetIsDashing();
 					if (obj->GetName() == "Player")
 					{												
 						if (dashing)

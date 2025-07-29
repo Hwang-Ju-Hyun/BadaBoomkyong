@@ -31,7 +31,7 @@ ResourceManager::SELECT_EXTENSION ResourceManager::GetExtension(const std::strin
 
 BaseResource* ResourceManager::GetAndLoad(const std::string& _resName, const std::string& _path)
 {
-	auto iter = m_mapResource.find(_resName);
+	auto iter = m_mapResource.find({ _resName,_path });
 	if (iter == m_mapResource.end())
 	{
 		std::string ext = _path.substr(_path.find_last_of(".") + 1);
@@ -43,13 +43,13 @@ BaseResource* ResourceManager::GetAndLoad(const std::string& _resName, const std
 			resource = new TextureResource(_resName);
 			resource = dynamic_cast<BaseResource*>(resource);
 			assert(resource != nullptr);
-			m_mapResource.insert(std::make_pair(_resName, resource));
+			m_mapResource.insert(std::make_pair(std::make_pair( _resName,_path ), resource));
 			break;
 		case ResourceManager::jpg:
 			resource = new TextureResource(_resName);
 			resource = dynamic_cast<BaseResource*>(resource);
 			assert(resource != nullptr);
-			m_mapResource.insert(std::make_pair(_resName, resource));
+			m_mapResource.insert(std::make_pair(std::make_pair(_resName,_path), resource));
 			break;
 		case ResourceManager::wav:
 			break;
@@ -67,9 +67,9 @@ BaseResource* ResourceManager::GetAndLoad(const std::string& _resName, const std
 		return iter->second;
 }
 
-BaseResource* ResourceManager::FindResource(const std::string& _resName)
+BaseResource* ResourceManager::FindResource(const std::string& _resName, const std::string& _path)
 {
-	auto iter=m_mapResource.find(_resName);
+	auto iter = m_mapResource.find({ _resName,_path });
 	if (iter != m_mapResource.end())
 		return iter->second;
     return nullptr;
