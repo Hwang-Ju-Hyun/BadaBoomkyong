@@ -16,6 +16,8 @@ class SoldierMonster :
 public:
     SoldierMonster(GameObject* _owner);
     virtual ~SoldierMonster()override;
+private:
+    Sprite* m_pSprite = nullptr;
 //Range
 private:    
     BulletFactory* m_pBulletFactory = nullptr;
@@ -39,8 +41,13 @@ public:
     inline glm::vec3 GetRangedMoveAtkRange()const { return m_vRangedMoveAtkRange; }
     inline glm::vec3 GetMeleeAtckRange()const { return m_vMeleeAtkRange; }
 private:
+    //moveDirection은 스텝이 뒤로가고 앞으로가고이고
+    //그냥 direction은 오른쪽을 바라보느냐 왼쪽을 바라보냐임
+    int m_iMoveDirection = 1;            //Postive : Right | Negative : Left 
     float m_fDirection = 1.f;          //Postive : Right | Negative : Left 
 public:
+    inline void SetMoveDirection(int _dir) { m_iMoveDirection = _dir; }
+    inline int GetMoveDirection()const { return m_iMoveDirection; }
     inline void SetDirection(float _dir) { m_fDirection = _dir; }
     inline float GetDirection()const { return m_fDirection; }
 public:

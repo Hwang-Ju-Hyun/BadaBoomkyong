@@ -25,7 +25,7 @@ public:
 public:
 	BaseResource* GetAndLoad(const std::string& _resName, const std::string& _path);
 	BaseResource* FindResource(const std::string& _resName,const std::string& _path);
-	inline void AddResource(const std::string& _resName, BaseResource* _res) { m_mapResource.insert({ _resName,_res }); }
+	inline void AddResource(const std::string& _resName,const std::string& _path, BaseResource* _res) { m_mapResource.insert(std::make_pair(std::make_pair( _resName,_path),_res)); }
 public:
 	void RemoveAllRes();
 };

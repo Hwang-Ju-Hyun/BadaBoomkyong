@@ -406,7 +406,7 @@ void ModelManager::LoadMaterials(const aiScene* _scene,const std::string& _fileP
 				}
 				//m_pCustomModel->GetMeshes()[i]->SetMaterial(mat);
 				TextureResource* texture = new TextureResource(texPath);
-				ResourceManager::GetInstance()->AddResource(textureName,texture);
+				ResourceManager::GetInstance()->AddResource(textureName,texPath,texture);
 				mat->SetTexture(texture);
 
 				BaseResource* tex = ResourceManager::GetInstance()->GetAndLoad(textureName, texPath);

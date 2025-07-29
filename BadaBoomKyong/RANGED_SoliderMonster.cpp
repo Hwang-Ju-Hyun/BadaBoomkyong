@@ -25,18 +25,18 @@ void RANGED_SoliderMonster::MoveSideBySide_Attack()
 	{					
 		Transform* mon_trs = dynamic_cast<Transform*>(m_pSoliderMonster->GetOwner()->FindComponent(Transform::TransformTypeName));
 		float move_speed = m_pSoliderMonster->GetSpeed();
-		float pos = move_speed * m_pSoliderMonster->GetDirection();
+		float move_scala = move_speed *m_pSoliderMonster->GetMoveDirection();
 		if (std::fabs(m_fStepSum) <= m_pSoliderMonster->GetRangedMoveAtkRange().x)
-		{
-			mon_trs->AddPositionX(pos);
+		{			 
+			mon_trs->AddPositionX(move_scala);
 		}
 		else //범위를 넘어가면
 		{
-			//방향 봐꾸기
-			m_pSoliderMonster->SetDirection(m_pSoliderMonster->GetDirection() * -1);
+			//방향 봐꾸기			
+			m_pSoliderMonster->SetMoveDirection(m_pSoliderMonster->GetMoveDirection() * -1);
 			m_fStepSum = 0.f;
 			m_pSoliderMonster->Fire();
 		}
-		m_fStepSum += pos;
+		m_fStepSum += move_scala;
 	}
 }

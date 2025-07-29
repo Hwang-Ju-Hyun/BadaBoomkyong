@@ -51,6 +51,9 @@ void SoldierMonster::Init()
 	assert(m_pMeleeFactory != nullptr);
 	m_pGrenadePool = static_cast<ObjectPool<SoldierGrenade, 30>*>(ObjectPoolManager::GetInstance()->GetPool<SoldierGrenade, 30>());
 	ObjectPoolManager::GetInstance()->ReigistPool<SoldierGrenade, 30>();
+
+	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
+	assert(m_pSprite != nullptr);
 }
 
 void SoldierMonster::Update()
@@ -60,7 +63,22 @@ void SoldierMonster::Update()
 	m_vPosition = m_pTransform->GetPosition();
 	m_vPlayerPosition = m_pPlayerTransform->GetPosition();
 
-	float dist = math->DistanceBetweenPoints(m_vPosition, m_vPlayerPosition);
+	float dist = math->DistanceBetweenPoints(m_vPosition, m_vPlayerPosition);	
+
+	float dir = m_vPlayerPosition.x - m_vPosition.x;
+	dir > 0 ? m_fDirection = 1 : m_fDirection = -1;
+
+	if (dir<0)//왼쪽 볼때
+	{		
+		if (m_pSprite)
+			m_pSprite->SetIsFlipX(true); // 왼쪽 볼 때 FlipX 켜기		
+	}
+	else//오른쪽 볼때
+	{		
+		if (m_pSprite)
+			m_pSprite->SetIsFlipX(false);
+	}
+	
 	if (dist <= m_fDetectRange)
 	{
 		if (dist <= m_vMeleeAtkRange.x)

@@ -60,11 +60,9 @@ void SoldierGrenade::Fire()
 {
     float impulseX = 100.f;
     float impulseY = 700.f;     
-    float grenade_dir = m_pPlayerTransform->GetPosition().x - m_pSoldierMonsterTransform->GetPosition().x;
     
-    if (grenade_dir < 0)
-        impulseX = -100.f;
-    m_pRigidBody->SetVelocity({ impulseX,impulseY,0.f });
+    float dir = m_pSoldierMonster->GetDirection();  
+    m_pRigidBody->SetVelocity({ dir*impulseX,impulseY,0.f });
     m_bCanFire = false;
 }
 

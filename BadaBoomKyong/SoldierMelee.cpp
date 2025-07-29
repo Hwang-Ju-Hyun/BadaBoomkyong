@@ -48,10 +48,10 @@ void SoldierMelee::Awake()
 
     float melee_dir = m_pPlayerTransform->GetPosition().x - mon_trs->GetPosition().x;
     float offsetX = 55.f;
-    if (melee_dir < 0)
-        offsetX = -55.f;
 
-    m_pTransform->SetPosition({ mon_trs->GetPosition().x + offsetX,mon_trs->GetPosition().y,mon_trs->GetPosition().z});
+    float dir = m_pSoldierMonster->GetDirection();
+
+    m_pTransform->SetPosition({ mon_trs->GetPosition().x + dir*offsetX,mon_trs->GetPosition().y,mon_trs->GetPosition().z});
     m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
     m_pCollider->SetScale(m_pTransform->GetScale());
 
