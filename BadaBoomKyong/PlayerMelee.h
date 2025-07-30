@@ -5,6 +5,7 @@ class Transform;
 class Sprite;
 class Collider;
 class Player;
+class Monster;
 
 class PlayerMelee :
     public Melee
@@ -18,6 +19,7 @@ private:
 	Collider* m_pCollider  =nullptr;
 	Player* m_pPlayer = nullptr;
 	Transform* m_pPlayerTransform = nullptr;
+	Monster* m_pMonster = nullptr;
 private:
 	glm::vec3 m_vOffset;
 public:

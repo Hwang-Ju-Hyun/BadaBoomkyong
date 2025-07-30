@@ -48,4 +48,6 @@ public:
 	inline Camera* GetCamera()const { return m_pCam; }
 private:
 	FrameBuffer* m_pFrameBuffer = nullptr;
+public:
+	Shader* debugLineShader = nullptr;
 };

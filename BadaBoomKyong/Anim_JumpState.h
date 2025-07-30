@@ -22,18 +22,19 @@ public:
 
     virtual void Update(T* _owner) override 
     {
+        AnimStateMachine<Player>* machine = _owner->GetAnimStateMachine();
         if constexpr (std::is_same<T, Player>::value) 
         {
             switch (_owner->GetCurrentState()) 
             {
             case PlayerAnimState::FALL:
-                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimFallState<T>());
+                machine->ChangeAnimState(PlayerAnimState::FALL);
                 break;
             case PlayerAnimState::JUMP_ATTACK:
-                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimJumpAttackState<T>());
+                machine->ChangeAnimState(PlayerAnimState::JUMP_ATTACK);
                 break;
             case PlayerAnimState::DEATH:
-                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimDeathState<T>());
+                machine->ChangeAnimState(PlayerAnimState::DEATH);
                 break;
             }
         }

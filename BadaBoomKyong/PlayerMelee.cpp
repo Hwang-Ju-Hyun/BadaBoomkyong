@@ -7,6 +7,7 @@
 #include "GameObject.h"
 #include "TimeManager.h"
 #include "EventManager.h"
+#include "Monster.h"
 
 PlayerMelee::PlayerMelee(GameObject* _owner, GameObject* _shooter)
 	:Melee(_owner,_shooter)   
@@ -98,11 +99,18 @@ void PlayerMelee::Exit()
 }
 
 void PlayerMelee::EnterCollision(Collider* _col)
-{
+{    
+    m_pMonster = _col->GetOwner()->FindComponent<Monster>();    
+    if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::MONSTER)
+    {
+        if (m_pMonster)
+            m_pMonster->SetCurrentHP(-100);
+    }
 }
 
 void PlayerMelee::OnCollision(Collider* _col)
-{
+{    
+    
 }
 
 void PlayerMelee::ExitCollision(Collider* _col)

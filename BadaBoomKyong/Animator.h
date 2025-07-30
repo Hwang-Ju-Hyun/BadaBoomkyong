@@ -38,8 +38,7 @@ private:
 public:
     inline void SetAnimation(AnimationSpriteSheet* _anim) { m_pCurrentAnimation = _anim; }
     inline AnimationSpriteSheet* GetAnimation()const { return m_pCurrentAnimation; }
-private:
-    static float g_fAnmationAccTime;
+private:    
     int m_iCurrentFrameIndex = 0;
 public:
     virtual void Init()override;    
@@ -69,4 +68,6 @@ public:
     static constexpr const char* AnimationLoopTypeName = "Loop";
 public:
     virtual void EditInfoFromButton()override;
+public:
+    float m_fAnmationAccTime = 0.f;
 };

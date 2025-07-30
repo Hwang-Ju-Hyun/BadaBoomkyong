@@ -39,10 +39,25 @@ SoldierMonster::SoldierMonster(GameObject* _owner)
 	this->SetRangedBehaviour(new RANGED_SoliderMonster);
 	this->SetMeleeBehaivour(new MELEE_SoldierMonster);
 	assert(m_pAI != nullptr);
+
+	m_pAnimStateMachine = new AnimStateMachine<Monster>(this);
+
+	
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::IDLE), new AnimIdleState<Monster>());
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::NORMAL_ATTACK), new AnimNormalAttackState<Monster>());
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::RANGE_ATTACK), new AnimRangeAttackState<Monster>());
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DEATH), new AnimDeathState<Monster>());
+
+	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::IDLE));
 }
 
 SoldierMonster::~SoldierMonster()
 {
+	if (m_pAnimStateMachine)
+	{
+		delete m_pAnimStateMachine;
+		m_pAnimStateMachine = nullptr;
+	}	
 }
 
 void SoldierMonster::Init()
@@ -57,12 +72,13 @@ void SoldierMonster::Init()
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	assert(m_pSprite != nullptr);
 
-	m_pAnimStateMachine = new AnimStateMachine<Monster>(this);	
-	m_pAnimStateMachine->ChangeAnimState(new AnimIdleState<Monster>());
+	
 }
 
 void SoldierMonster::Update()
-{	
+{		
+		
+
 	//인지범위
 	auto math = MathUtil::GetInstance();
 	m_vPosition = m_pTransform->GetPosition();
@@ -102,7 +118,12 @@ void SoldierMonster::Update()
 		m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
 		m_eCurrentState = MonsterAnimState::IDLE;
 	}		
+
+	GetCurrentHP() < 0 ? SetIsAlive(false) : SetIsAlive(true);
 	
+	if (!GetIsAlive())	
+		m_eCurrentState = MonsterAnimState::DEATH;			
+
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();
 }

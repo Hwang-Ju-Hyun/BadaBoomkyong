@@ -26,25 +26,26 @@ public:
     {
         if constexpr (std::is_same<T, Player>::value) 
         {
+            AnimStateMachine<Player>* machine = _owner->GetAnimStateMachine();
             switch (_owner->GetCurrentState()) 
-            {
+            {                
             case PlayerAnimState::JUMP:
-                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimJumpState<T>());
+                machine->ChangeAnimState(PlayerAnimState::JUMP);
                 break;
             case PlayerAnimState::FALL:
-                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimFallState<T>());
+                machine->ChangeAnimState(PlayerAnimState::FALL);
                 break;
             case PlayerAnimState::TOSPRINT:
-                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimToSprintState<T>());
+                machine->ChangeAnimState(PlayerAnimState::TOSPRINT);
                 break;
             case PlayerAnimState::DASH:
-                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimDashState<T>());
+                machine->ChangeAnimState(PlayerAnimState::DASH);
                 break;
             case PlayerAnimState::ATTACK:
-                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimNormalAttackState<T>());
+                machine->ChangeAnimState(PlayerAnimState::ATTACK);
                 break;
             case PlayerAnimState::DEATH:
-                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimDeathState<T>());
+                machine->ChangeAnimState(PlayerAnimState::DEATH);
                 break;
             }
         }
@@ -54,12 +55,13 @@ public:
                 switch (_owner->GetCurrentState())
             {           
             case MonsterAnimState::RANGE_ATTACK:
-                machine->ChangeAnimState(new AnimRangeAttackState<T>());
+                machine->ChangeAnimState(int(MonsterAnimState::RANGE_ATTACK));
                 break;
             case MonsterAnimState::NORMAL_ATTACK:
-                machine->ChangeAnimState(new AnimNormalAttackState<T>());
+                machine->ChangeAnimState(int(MonsterAnimState::NORMAL_ATTACK));
                 break;
             case MonsterAnimState::DEATH:
+                machine->ChangeAnimState(int(MonsterAnimState::DEATH));
                 break;            
             }
         }

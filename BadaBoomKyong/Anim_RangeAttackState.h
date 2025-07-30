@@ -19,15 +19,19 @@ public:
 
     virtual void Update(T* _owner) override
     {
+        AnimStateMachine<Monster>* machine = _owner->GetAnimStateMachine();
         if constexpr (std::is_same<T, Monster>::value)
         {
             switch (_owner->GetCurrentState())
             {
             case MonsterAnimState::IDLE:
-                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimIdleState<T>());
+                machine->ChangeAnimState(int(MonsterAnimState::IDLE));
                 break;
             case MonsterAnimState::NORMAL_ATTACK:
-                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimNormalAttackState<T>());
+                machine->ChangeAnimState(int(MonsterAnimState::NORMAL_ATTACK));
+                break;
+            case MonsterAnimState::DEATH:
+                machine->ChangeAnimState(int(MonsterAnimState::DEATH));
                 break;
             }
         }

@@ -7,8 +7,6 @@
 #include "ResourceManager.h"
 #include "Sprite.h"
 
-float Animator::g_fAnmationAccTime = 0.f;
-
 Animator::Animator(GameObject* _owner)
 	:BaseComponent(_owner)
 {			
@@ -17,6 +15,11 @@ Animator::Animator(GameObject* _owner)
 
 Animator::~Animator()
 {
+	for (auto iter = m_mapAnimation.begin();iter != m_mapAnimation.end();iter++)
+	{
+		delete iter->second;
+		iter->second = nullptr;
+	}
 }
 
 void Animator::Init()	
@@ -39,7 +42,7 @@ void Animator::Init()
 
 	m_pCurrentAnimation->m_bLoopCount = 0;
 
-	Animator::g_fAnmationAccTime = 0.f;
+	
 }   
 
 void Animator::Awake()
@@ -58,9 +61,9 @@ void Animator::Update()
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
 	if (m_pCurrentAnimation->m_sAnimationName == "LightAttack")
 		int a = 0;
-  	g_fAnmationAccTime += dt;	
+  	m_fAnmationAccTime += dt;	
 		
-	if (m_pCurrentAnimation->m_fDuration_per_frame <= g_fAnmationAccTime)
+	if (m_pCurrentAnimation->m_fDuration_per_frame <= m_fAnmationAccTime)
 	{		
    
 		m_iCurrentFrameIndex += 1;
@@ -71,7 +74,7 @@ void Animator::Update()
 
 		m_pCurrentAnimation->m_fSheet_UV_offset_X = m_pCurrentAnimation->m_fSheet_UV_Width * current_sheet_col;
 		m_pCurrentAnimation->m_fSheet_UV_offset_Y = m_pCurrentAnimation->m_fSheet_UV_Height * current_sheet_row;	
-		g_fAnmationAccTime = 0.f;		
+		m_fAnmationAccTime = 0.f;		
 	}
 	if (m_pCurrentAnimation->m_bLoop == false && m_iCurrentFrameIndex == m_pCurrentAnimation->m_iSheet_Max-1)
 	{
@@ -119,7 +122,7 @@ void Animator::ChangeAnimation(const std::string& _animName)
 
 	m_pCurrentAnimation->m_bLoopCount = 0;
 
-	Animator::g_fAnmationAccTime = 0.f;
+	
 	
 }
 

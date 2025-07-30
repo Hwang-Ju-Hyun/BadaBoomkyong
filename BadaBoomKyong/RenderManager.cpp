@@ -35,7 +35,8 @@ RenderManager::RenderManager()
 
 RenderManager::~RenderManager()
 {
-
+	delete debugLineShader;
+	debugLineShader = nullptr;
 }
 
 GLuint RenderManager::GetDebugLineShader() const
@@ -45,7 +46,7 @@ GLuint RenderManager::GetDebugLineShader() const
 
 void RenderManager::InitDebugLineShader()
 {
-	Shader* debugLineShader = new Shader();
+	debugLineShader = new Shader();
 	debugLineShader->CreateShaderProgramFromFiles("line.vert", "line.frag");
 	m_debugLineShader = debugLineShader;
 }

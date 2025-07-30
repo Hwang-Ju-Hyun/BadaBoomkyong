@@ -73,12 +73,20 @@ public:
 protected:
     float m_fSpeed = 0.f;
     float m_fJumpImpulse = 500.f;
-    bool m_bIsGround = false;    
-public:
+    bool m_bIsGround = false;
+
+    int m_iCurrentHP = 1;
+    int m_iInitHP = 1;
+    bool m_bIsAlive = true;
+public:    
     inline void SetIsGround(bool _ground) { m_bIsGround = _ground; }
     inline bool GetIsGround()const { return m_bIsGround; }
     inline void SetSpeed(float _speed) { m_fSpeed = _speed; }
     inline float GetSpeed()const { return m_fSpeed; }    
+    inline void SetCurrentHP(int _hp) { m_iCurrentHP = _hp; }
+    inline int GetCurrentHP()const { return m_iCurrentHP; }
+    inline void SetIsAlive(bool _alive) { m_bIsAlive = _alive; }
+    inline bool GetIsAlive()const { return m_bIsAlive; }
 public:
     bool m_bCol=false;
 public:

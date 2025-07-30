@@ -21,6 +21,11 @@
 #include "Animator.h"
 #include "Anim_IdleState.h"
 
+class AnimIdelState;
+template<typename T>
+class AnimFallState;
+
+
 Player::Player(GameObject* _owner)
 	:MonoBehaviour(_owner)		
 {
@@ -30,22 +35,42 @@ Player::Player(GameObject* _owner)
 	m_pRigidBody= dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
 	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));	
 	assert(m_pTransform && m_pSprite && m_pCollider&&m_pRigidBody);			
+
+	m_pAnimator = dynamic_cast<Animator*>(GetOwner()->FindComponent(Animator::AnimatorTypeName));
+
+	m_pAnimStateMachine = new AnimStateMachine<Player>(this);	
 	
+	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::IDLE),     new AnimIdleState<Player>());
+	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::TOSPRINT), new AnimToSprintState<Player>());
+	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::SPRINTING),new AnimSprintingState<Player>());
+	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::DASH),     new AnimDashState<Player>());
+	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::JUMP), new AnimJumpState<Player>());
+	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::FALL), new AnimFallState<Player>());
+	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::ATTACK), new AnimNormalAttackState<Player>());
+	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::RUN_ATTACK), new AnimSprintAttackState<Player>());
+	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::JUMP_ATTACK), new AnimJumpAttackState<Player>());
+	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::DEATH), new AnimDeathState<Player>());
+		
+
+	m_pAnimStateMachine->ChangeAnimState(PlayerAnimState::IDLE);
 }
 
 Player::~Player()
 {
+	if (m_pAnimStateMachine)
+	{
+		delete m_pAnimStateMachine;
+		m_pAnimStateMachine = nullptr;
+	}
+		
 }
 
 void Player::Init()
 {		
-	m_pAnimator = dynamic_cast<Animator*>(GetOwner()->FindComponent(Animator::AnimatorTypeName));
+	
 	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
 	m_pMeleeFactory = dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
 	assert(m_pBulletFactory != nullptr&&m_pMeleeFactory!=nullptr);
-
-	m_pAnimStateMachine = new AnimStateMachine<Player>(this);
-	m_pAnimStateMachine->ChangeAnimState(new AnimIdleState<Player>());
 }
 
 void Player::Awake()
@@ -84,7 +109,8 @@ void Player::EnterCollision(Collider* _other)
 	{
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());		
 		jumpPressed = false;			
-	}		
+	}	
+	
 }
 
 void Player::OnCollision(Collider* _other)
