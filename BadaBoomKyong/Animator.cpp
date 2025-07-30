@@ -54,12 +54,15 @@ void Animator::Update()
 	{
 		std::cout << "Errror" << std::endl;
 		return;
-	}
-		
+	}	
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
+	if (m_pCurrentAnimation->m_sAnimationName == "LightAttack")
+		int a = 0;
   	g_fAnmationAccTime += dt;	
+		
 	if (m_pCurrentAnimation->m_fDuration_per_frame <= g_fAnmationAccTime)
 	{		
+   
 		m_iCurrentFrameIndex += 1;
 		m_iCurrentFrameIndex %= m_pCurrentAnimation->m_iSheet_Max;
 

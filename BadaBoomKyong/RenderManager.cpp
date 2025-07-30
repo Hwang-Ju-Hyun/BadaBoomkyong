@@ -293,6 +293,8 @@ void RenderManager::Draw()
 				}
 				else if (spr)
 				{
+					if (obj->GetName() == "SoldierMonster" && obj->GetID() == 0)
+						int a = 0;
 					if (spr->GetTexture() != nullptr)
 					{
 						GLuint tex_id = spr->GetTexture()->GetTextureID();

@@ -293,6 +293,9 @@
     <Filter Include="Animation\FiniteStateMachine\Attack\JumpAttack">
       <UniqueIdentifier>{b6b38eae-59a8-49f6-a703-8a241b663700}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Attack\RangeAttack">
+      <UniqueIdentifier>{9fbb1b72-0315-4091-a093-ec75d09b3f42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -824,6 +827,9 @@
     </ClInclude>
     <ClInclude Include="Anim_SprintAttackState.h">
       <Filter>Animation\FiniteStateMachine\Attack\SprintAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_RangeAttackState.h">
+      <Filter>Animation\FiniteStateMachine\Attack\RangeAttack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

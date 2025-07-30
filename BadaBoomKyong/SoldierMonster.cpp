@@ -22,6 +22,8 @@
 #include "MeleeFactory.h"
 #include "Melee.h"
 #include "SoldierMelee.h"
+#include "Anim_StateMachine.h"
+#include "Anim_IdleState.h"
 
 SoldierMonster::SoldierMonster(GameObject* _owner)
     :Monster(_owner)	
@@ -54,10 +56,13 @@ void SoldierMonster::Init()
 
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	assert(m_pSprite != nullptr);
+
+	m_pAnimStateMachine = new AnimStateMachine<Monster>(this);	
+	m_pAnimStateMachine->ChangeAnimState(new AnimIdleState<Monster>());
 }
 
 void SoldierMonster::Update()
-{
+{	
 	//인지범위
 	auto math = MathUtil::GetInstance();
 	m_vPosition = m_pTransform->GetPosition();
@@ -82,12 +87,24 @@ void SoldierMonster::Update()
 	if (dist <= m_fDetectRange)
 	{
 		if (dist <= m_vMeleeAtkRange.x)
+		{
 			m_pAI->ChangeState(MONSTER_STATE::MELEE_ATTACK_STATE);
+			m_eCurrentState = MonsterAnimState::NORMAL_ATTACK;
+		}			
 		else
+		{
 			m_pAI->ChangeState(MONSTER_STATE::RANGE_ATTACK_STATE);
+			m_eCurrentState = MonsterAnimState::RANGE_ATTACK;
+		}
 	}		
-	else	
-		m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);	
+	else
+	{
+		m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
+		m_eCurrentState = MonsterAnimState::IDLE;
+	}		
+	
+	if (m_pAnimStateMachine)
+		m_pAnimStateMachine->Update();
 }
 
 void SoldierMonster::Exit()

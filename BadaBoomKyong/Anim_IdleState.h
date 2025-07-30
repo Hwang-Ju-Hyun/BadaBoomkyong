@@ -7,6 +7,8 @@
 #include "Anim_ToSprintState.h"
 #include "Anim_DashState.h"
 #include "Player.h"  
+#include "Monster.h"
+#include "Anim_RangeAttackState.h"
 
 template<typename T>
 class AnimIdleState : public AnimIState<T>
@@ -44,6 +46,21 @@ public:
             case PlayerAnimState::DEATH:
                 _owner->GetAnimStateMachine()->ChangeAnimState(new AnimDeathState<T>());
                 break;
+            }
+        }
+        else if constexpr (std::is_same<T, Monster>::value)
+        {
+            AnimStateMachine<Monster>* machine = _owner->GetAnimStateMachine();
+                switch (_owner->GetCurrentState())
+            {           
+            case MonsterAnimState::RANGE_ATTACK:
+                machine->ChangeAnimState(new AnimRangeAttackState<T>());
+                break;
+            case MonsterAnimState::NORMAL_ATTACK:
+                machine->ChangeAnimState(new AnimNormalAttackState<T>());
+                break;
+            case MonsterAnimState::DEATH:
+                break;            
             }
         }
     }

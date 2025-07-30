@@ -26,7 +26,8 @@ Monster::Monster(GameObject* _owner)
 	GameObject* player_obj = GameObjectManager::GetInstance()->FindObject(Player::PlayerTypeName);
 	m_pPlayer = dynamic_cast<Player*>(player_obj->FindComponent(Player::PlayerTypeName));
 	m_pAI = dynamic_cast<AI*>(GetOwner()->FindComponent(AI::AITypeName));
-	assert(m_pTransform && m_pSprite && m_pRigidBody && m_pCollider && m_pPlayer&&m_pAI);
+	m_pAnimator = dynamic_cast<Animator*>(GetOwner()->FindComponent(Animator::AnimatorTypeName));
+	assert(m_pTransform && m_pSprite && m_pRigidBody && m_pCollider && m_pPlayer&&m_pAI&&m_pAnimator);
 
 	//Player Data Get
 	m_pPlayerTransform = dynamic_cast<Transform*>(m_pPlayer->GetOwner()->FindComponent(Transform::TransformTypeName));

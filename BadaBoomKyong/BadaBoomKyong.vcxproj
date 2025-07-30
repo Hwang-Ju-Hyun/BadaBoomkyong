@@ -230,6 +230,7 @@
     <ClInclude Include="Anim_IdleState.h" />
     <ClInclude Include="Anim_NormalAttackState.h" />
     <ClInclude Include="Anim_JumpAttackState.h" />
+    <ClInclude Include="Anim_RangeAttackState.h" />
     <ClInclude Include="Anim_SprintAttackState.h" />
     <ClInclude Include="Anim_SprintingState.h" />
     <ClInclude Include="Anim_ToSprintState.h" />

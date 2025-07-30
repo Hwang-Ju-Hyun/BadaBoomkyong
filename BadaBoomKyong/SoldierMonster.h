@@ -10,14 +10,13 @@ class GameObject;
 class Melee;
 class MeleeFactory;
 
+
 class SoldierMonster :
     public Monster
 {
 public:
     SoldierMonster(GameObject* _owner);
-    virtual ~SoldierMonster()override;
-private:
-    Sprite* m_pSprite = nullptr;
+    virtual ~SoldierMonster()override;        
 //Range
 private:    
     BulletFactory* m_pBulletFactory = nullptr;
@@ -32,7 +31,7 @@ private:
     static constexpr const char* SoldierMonsterMeleeObjTypeName = "SoldierMonsterMeleeObject";
 public:
     inline BulletFactory* GetBulletFactory()const { return m_pBulletFactory; };
-private:
+private:  
     float m_fDetectRange = 0.f;
     glm::vec3 m_vRangedMoveAtkRange = {};
     glm::vec3 m_vMeleeAtkRange = {};
