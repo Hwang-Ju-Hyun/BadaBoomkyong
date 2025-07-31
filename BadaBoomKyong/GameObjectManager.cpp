@@ -26,14 +26,23 @@ GameObjectManager::~GameObjectManager()
 
 void GameObjectManager::Exit()
 {
-	for (auto obj : m_vGameObjects)
-	{
-		delete obj;
-	}
+	DeleteAllObject();
 	m_vGameObjects.clear();
+
+	for (auto iter = m_mapGameObject.begin();iter != m_mapGameObject.end();iter++)
+	{
+		if (iter->second)
+		{
+			delete iter->second;
+			iter->second = nullptr;
+		}
+	}	
+	m_mapGameObject.clear();
 
 	std::vector<GameObject*>temp = m_vGameObjects;
 	temp.swap(m_vGameObjects);
+	std::map<std::pair<std::string, size_t>, GameObject*>map_temp = m_mapGameObject;
+	map_temp.swap(m_mapGameObject);
 }
 
 size_t GameObjectManager::AssignObjectID(GameObject* _obj)

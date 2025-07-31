@@ -76,9 +76,7 @@ void SoldierMonster::Init()
 }
 
 void SoldierMonster::Update()
-{		
-		
-
+{		 		
 	//인지범위
 	auto math = MathUtil::GetInstance();
 	m_vPosition = m_pTransform->GetPosition();

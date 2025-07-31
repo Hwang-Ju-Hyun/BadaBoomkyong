@@ -296,6 +296,9 @@
     <Filter Include="Animation\FiniteStateMachine\Attack\RangeAttack">
       <UniqueIdentifier>{9fbb1b72-0315-4091-a093-ec75d09b3f42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\Stage02">
+      <UniqueIdentifier>{e993590b-585b-481f-9238-e47f7c3c1778}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -528,6 +531,9 @@
     </ClCompile>
     <ClCompile Include="Animator.cpp">
       <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage02.cpp">
+      <Filter>Level\Stage02</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -831,6 +837,9 @@
     <ClInclude Include="Anim_RangeAttackState.h">
       <Filter>Animation\FiniteStateMachine\Attack\RangeAttack</Filter>
     </ClInclude>
+    <ClInclude Include="Stage02.h">
+      <Filter>Level\Stage02</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="IMGUI\imgui.ini">
@@ -848,10 +857,10 @@
     <None Include="fragment3d.frag">
       <Filter>ShaderFiles\3D</Filter>
     </None>
-    <None Include="json\temp\temp.json">
+    <None Include="json\temp\Stage01_2D.json">
       <Filter>Json\Object_2D</Filter>
     </None>
-    <None Include="json\temp\temp_3D.json">
+    <None Include="json\temp\Stage01_3D.json">
       <Filter>Json\Object_3D</Filter>
     </None>
     <None Include="line.vert">

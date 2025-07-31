@@ -214,6 +214,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage01.cpp" />
     <ClCompile Include="SoldierGrenade.cpp" />
+    <ClCompile Include="Stage02.cpp" />
     <ClCompile Include="TextureResource.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TraceState.cpp" />
@@ -316,6 +317,7 @@
     <ClInclude Include="Stage01.h" />
     <ClInclude Include="SoldierGrenade.h" />
     <ClInclude Include="Anim_StateMachine.h" />
+    <ClInclude Include="Stage02.h" />
     <ClInclude Include="TextureResource.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TraceState.h" />
@@ -326,8 +328,8 @@
     <None Include="fragment.frag" />
     <None Include="fragment3d.frag" />
     <None Include="IMGUI\imgui.ini" />
-    <None Include="json\temp\temp.json" />
-    <None Include="json\temp\temp_3D.json" />
+    <None Include="json\temp\Stage01_2D.json" />
+    <None Include="json\temp\Stage01_3D.json" />
     <None Include="line.frag" />
     <None Include="line.vert" />
     <None Include="vertex.vert" />
