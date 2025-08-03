@@ -33,5 +33,6 @@ private:
 	void ObjectPannelDraw();	
 	void DrawGizmo();
 	void UpdateEditorCameraControls();
+	static bool init_edit;
 };
 #endif

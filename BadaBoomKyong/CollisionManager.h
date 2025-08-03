@@ -24,7 +24,7 @@ public:
 private:
 	//이전 프레임 col정보 key : colision id
 	std::map<unsigned long long, bool> m_mapColInfo;
-	std::array<size_t, (size_t)GROUP_TYPE::LAST> m_arrCheckCollision;
+	std::array<size_t, (size_t)GROUP_TYPE::LAST> m_arrCheckCollision;	
 public:
 	void Init();
 	void Update();

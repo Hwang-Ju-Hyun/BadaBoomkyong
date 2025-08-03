@@ -19,6 +19,11 @@ void EventManager::Update()
 	m_vecEvent.clear();
 }
 
+void EventManager::Exit()
+{
+	m_vecEvent.clear();
+}
+
 void EventManager::Excute(const EVENT& _eve)
 {
 	EVENT_TYPE type = _eve.event;

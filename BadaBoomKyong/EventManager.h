@@ -20,6 +20,7 @@ private:
 public:
 	void Update();
 	inline void AddEvent(EVENT _eve) { m_vecEvent.push_back(_eve);}
+	void Exit();
 private:
 	void Excute(const EVENT& _eve);
 public:

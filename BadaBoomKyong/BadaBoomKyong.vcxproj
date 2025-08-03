@@ -328,8 +328,10 @@
     <None Include="fragment.frag" />
     <None Include="fragment3d.frag" />
     <None Include="IMGUI\imgui.ini" />
-    <None Include="json\temp\Stage01_2D.json" />
-    <None Include="json\temp\Stage01_3D.json" />
+    <None Include="json\Level\Stage01\Stage01_2D.json" />
+    <None Include="json\Level\Stage01\Stage01_3D.json" />
+    <None Include="json\Level\Stage02\Stage02_2D.json" />
+    <None Include="json\Level\Stage02\Stage02_3D.json" />
     <None Include="line.frag" />
     <None Include="line.vert" />
     <None Include="vertex.vert" />

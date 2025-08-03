@@ -1,4 +1,4 @@
-[  
+[
   {
     "Name": "Player",
     "ID": 0,
@@ -8,9 +8,9 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            137.9014892578125,
-            16.520286560058594,
-            365.0
+            220.74803161621094,
+            156.45106506347656,
+            -555.0
           ],
           "Sca": [
             64.0,
@@ -33,8 +33,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "Idle",
-          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Idle/Idle.png"
+          "TextureName": "JumpAttack",
+          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/AirAttack/FX/JumpAttack.png"
         }
       },
       {
@@ -194,7 +194,7 @@
         "CompData": {
           "Pos": [
             667.3302001953125,
-            6.520286560058594,
+            -178.01849365234375,
             365.0
           ],
           "Sca": [
@@ -304,8 +304,7 @@
           "StateList": [
             0,
             2,
-            3,
-            4
+            3
           ]
         }
       },
@@ -330,7 +329,7 @@
     ],
     "Model": 4,
     "Group": 3
-  }, 
+  },
   {
     "Name": "customModelObj1",
     "ID": 0,
@@ -341,13 +340,13 @@
         "CompData": {
           "Pos": [
             4.000296115875244,
-            28.01848793029785,
-            -478.6493835449219
+            -228.01849365234375,
+            -561.6494140625
           ],
           "Sca": [
-            271.0415954589844,
-            189.6937713623047,
-            196.90554809570313
+            50.0,
+            50.0,
+            50.0
           ],
           "Rot": [
             0.0,
@@ -365,15 +364,15 @@
             0.0
           ],
           "Scale": [
+            1200.0,
             50.0,
-            50.0,
-            450.0
+            50.0
           ]
         }
       }
     ],
     "Model": 6,
     "ModelPath": "../Extern/Assets/Model/background/scene.gltf",
-    "Group": 3
+    "Group": 4
   }
 ]

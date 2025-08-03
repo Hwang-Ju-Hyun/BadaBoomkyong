@@ -24,6 +24,25 @@ public:
     float m_fDuration_per_frame = 0.f;
     bool m_bLoop = false; 
     int m_bLoopCount = 0;
+
+    // 복사 생성자: 깊은 복사(단, 텍스처는 공유해도 괜찮음)
+    AnimationSpriteSheet(const AnimationSpriteSheet& other)
+    {
+        m_sAnimationName = other.m_sAnimationName;
+        m_pTexture = other.m_pTexture; // 텍스처는 공유해도 됨
+        m_iSheet_Max = other.m_iSheet_Max;
+        m_iSheet_Row = other.m_iSheet_Row;
+        m_iSheet_Col = other.m_iSheet_Col;
+        m_fDuration_per_frame = other.m_fDuration_per_frame;
+        m_bLoop = other.m_bLoop;
+        m_bLoopCount = other.m_bLoopCount;
+        m_fSheet_UV_Width = other.m_fSheet_UV_Width;
+        m_fSheet_UV_Height = other.m_fSheet_UV_Height;
+        m_fSheet_UV_offset_X = other.m_fSheet_UV_offset_X;
+        m_fSheet_UV_offset_Y = other.m_fSheet_UV_offset_Y;
+    }
+
+    AnimationSpriteSheet() = default;
 };
 
 class Animator :

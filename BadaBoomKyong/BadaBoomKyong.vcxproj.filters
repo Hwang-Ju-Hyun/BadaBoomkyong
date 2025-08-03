@@ -131,12 +131,6 @@
     <Filter Include="ShaderFiles\3D">
       <UniqueIdentifier>{a9e264ac-fc82-4de1-8974-71d59e9a11f3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Json\Object_2D">
-      <UniqueIdentifier>{5a48f277-50f0-4a77-9bb6-7c2a7bea2cbb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Json\Object_3D">
-      <UniqueIdentifier>{389fa36d-48d7-4539-a0ae-cb54fabaecf6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="IMGUI\Gizmo">
       <UniqueIdentifier>{b4606360-0e3f-4332-a3f8-348c1bb0470c}</UniqueIdentifier>
     </Filter>
@@ -298,6 +292,12 @@
     </Filter>
     <Filter Include="Level\Stage02">
       <UniqueIdentifier>{e993590b-585b-481f-9238-e47f7c3c1778}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json\Stage01">
+      <UniqueIdentifier>{5a48f277-50f0-4a77-9bb6-7c2a7bea2cbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json\Stage02">
+      <UniqueIdentifier>{389fa36d-48d7-4539-a0ae-cb54fabaecf6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -857,17 +857,23 @@
     <None Include="fragment3d.frag">
       <Filter>ShaderFiles\3D</Filter>
     </None>
-    <None Include="json\temp\Stage01_2D.json">
-      <Filter>Json\Object_2D</Filter>
-    </None>
-    <None Include="json\temp\Stage01_3D.json">
-      <Filter>Json\Object_3D</Filter>
-    </None>
     <None Include="line.vert">
       <Filter>ShaderFiles\3D</Filter>
     </None>
     <None Include="line.frag">
       <Filter>ShaderFiles\3D</Filter>
+    </None>
+    <None Include="json\Level\Stage01\Stage01_2D.json">
+      <Filter>Json\Stage01</Filter>
+    </None>
+    <None Include="json\Level\Stage01\Stage01_3D.json">
+      <Filter>Json\Stage01</Filter>
+    </None>
+    <None Include="json\Level\Stage02\Stage02_2D.json">
+      <Filter>Json\Stage02</Filter>
+    </None>
+    <None Include="json\Level\Stage02\Stage02_3D.json">
+      <Filter>Json\Stage02</Filter>
     </None>
   </ItemGroup>
 </Project>

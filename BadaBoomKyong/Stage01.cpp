@@ -39,7 +39,7 @@ void Stage01::Init()
 static int a = 0;
 void Stage01::Update()
 {				
-	if (++a % 100)
+	if ((++a % 100)== 0)
 	{		
 		GameStateManager::GetInstance()->ChangeLevel(lvl_2);
 	}
@@ -55,10 +55,21 @@ void Stage01::Exit()
 	Serializer::GetInstance()->SaveJson_Object("json/Level/Stage01/Stage01_3D.json",true);
 	Serializer::GetInstance()->SaveJson_Object("json/Level/Stage01/Stage01_2D.json", false);
 	ComponentManager::GetInstance()->Exit();
+	
+	FactoryManager::GetInstance()->Exit();
+	ObjectPoolManager::GetInstance()->Exit();
+
 	GameObjectManager::GetInstance()->Exit();
 	ResourceManager::GetInstance()->RemoveAllRes();
 	ModelManager::GetInstance()->Exit();
-	FactoryManager::GetInstance()->Exit();
-	ObjectPoolManager::GetInstance()->Exit();
+	
 	RenderManager::GetInstance()->Exit();
+	EventManager::GetInstance()->Exit();
+
+#ifdef _DEBUG
+	// Cleanup
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+#endif // DEBUG
 }

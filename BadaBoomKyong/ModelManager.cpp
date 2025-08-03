@@ -340,6 +340,7 @@ void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
 		mva.normals = normals;
 
 		vertices.push_back(mva);
+		int a = 0;
 	}
 
 	// indices 채워주기

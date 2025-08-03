@@ -1,0 +1,11 @@
+Model Information:
+* title:	Egyptian Tomb
+* source:	https://sketchfab.com/3d-models/egyptian-tomb-c05ea22cba5847febb7309f7289c1ec6
+* author:	Bianca.Popa (https://sketchfab.com/Bianca.Popa)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Egyptian Tomb" (https://sketchfab.com/3d-models/egyptian-tomb-c05ea22cba5847febb7309f7289c1ec6) by Bianca.Popa (https://sketchfab.com/Bianca.Popa) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

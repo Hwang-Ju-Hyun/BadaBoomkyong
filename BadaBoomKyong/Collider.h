@@ -62,5 +62,6 @@ public:
     mutable unsigned int m_lineVBO = 0;
     mutable bool m_debugBufferInitialized = false;
     void DrawCollider()const;   
+    virtual void EditInfoFromButton()override;
 #endif 
 };

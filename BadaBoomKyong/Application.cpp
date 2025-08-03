@@ -19,6 +19,7 @@
 #include "ObjectPoolManager.h"
 #include "EventManager.h"
 #include "ResourceManager.h"
+#include "Stage02.h"
 
 Application::Application(){}
 
@@ -49,7 +50,6 @@ void Application::Init()
 
     //ComponentInit
     ComponentManager::GetInstance()->Init();       
-
     
     //InputManager
     InputManager::GetInstance()->Init();                
@@ -64,6 +64,7 @@ void Application::Init()
 #endif    
 }
 #include <iostream>
+#include "GameStateManager.h"
 void Application::Update()
 {    
     glClearColor(0.f,0.f, 0.f, 1.0f);

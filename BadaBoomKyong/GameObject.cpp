@@ -84,5 +84,8 @@ void GameObject::DeleteComponent(const std::string& _compName){}
 void GameObject::SetActiveAllComps(bool _active)
 {
 	for (BaseComponent* comp : m_vComponents)
-		comp->SetActive(_active);
+	{
+		if(comp)
+			comp->SetActive(_active);
+	}
 }

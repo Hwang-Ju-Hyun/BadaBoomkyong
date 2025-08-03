@@ -20,7 +20,10 @@ BulletFactory::BulletFactory()
 
 BulletFactory::~BulletFactory()
 {
-
+	/*for (int i = 0;i < 30;i++)
+	{
+		delete m_pBulletPool->m_arrPool[i];
+	}*/	
 }
 
 void BulletFactory::Init()

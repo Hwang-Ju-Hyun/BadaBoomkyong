@@ -67,6 +67,7 @@ void CollisionManager::CheckCollision(GROUP_TYPE _left, GROUP_TYPE _right)
 }
 
 #include "Player.h"
+#include "RigidBody.h"
 
 void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 {
@@ -135,6 +136,13 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 					left_col->ExitCollision(right_col);
 					right_col->ExitCollision(left_col);
 				}
+				RigidBody* lrb=dynamic_cast<RigidBody*>(left_col->GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
+				RigidBody* rrb = dynamic_cast<RigidBody*>(right_col->GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
+				if(lrb)
+					lrb->SetIsGround(false);
+				else if(rrb)
+					rrb->SetIsGround(false);
+
 				iter->second = false;
 			}
 		}
@@ -142,8 +150,8 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 }
 
 bool CollisionManager::IsOverLapAABB(float _left1, float _right1, float _top1, float _bot1, float _left2, float _right2, float _top2, float _bot2)
-{
-	if (_right1 > _left2 && _left1 < _right2 && _bot1<_top2 && _top1>_bot2)
+{	
+	if (_right1 > _left2 - g_epsilon && _left1 < _right2 + g_epsilon && _bot1<_top2 + g_epsilon && _top1>_bot2 - g_epsilon)
 		return true;
 	return false;
 }
@@ -171,5 +179,7 @@ bool CollisionManager::IsCollisionAABB(Collider* _leftCol, Collider* _rightCol)
 }
 
 void CollisionManager::Reset()
-{	
+{				
+	for (int i = 0;i<int(GROUP_TYPE::LAST);i++)
+		m_arrCheckCollision[i] = 0;
 }

@@ -30,13 +30,11 @@ public:
     {
         if constexpr (std::is_same<T, Monster>::value)
         {
-            _owner->GetAnimator()->ChangeAnimation("NormalAttack_1");
-            std::cout << "NormalATK Entered" << std::endl;
+            _owner->GetAnimator()->ChangeAnimation("NormalAttack_1");            
         }            
         else if constexpr (std::is_same<T, Player>::value)
         {
-            _owner->GetAnimator()->ChangeAnimation("LightAttack");
-            std::cout << "LightATK Entered" << std::endl;
+            _owner->GetAnimator()->ChangeAnimation("LightAttack");           
         }
             
     }

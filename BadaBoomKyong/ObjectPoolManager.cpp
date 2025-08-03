@@ -1,4 +1,5 @@
 #include "ObjectPoolManager.h"
+#include "GameObject.h"
 
 ObjectPoolManager::ObjectPoolManager(){}
 

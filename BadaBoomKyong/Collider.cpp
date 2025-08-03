@@ -158,7 +158,8 @@ void Collider::DrawCollider()const
 	// 정점 데이터 계산 (사각형 테두리)
 	glm::vec3 pos = m_vFinalPosition;
 	glm::vec3 halfScale = m_vScale * 0.5f;
-
+	auto a= GetOwner();
+	a;
 	glm::vec3 verts[4] = 
 	{
 		{pos.x - halfScale.x, pos.y - halfScale.y, pos.z},
@@ -190,5 +191,11 @@ void Collider::DrawCollider()const
 	glLineWidth(5.0f);
 	glDrawArrays(GL_LINE_LOOP, 0, 4);
 	glBindVertexArray(0);
+}
+void Collider::EditInfoFromButton()
+{
+	bool is3d = GetOwner()->GetIs3D();
+	ImGui::InputFloat3("Pos", &(m_vOffsetPosition[0]));
+	ImGui::InputFloat3("Scale", &(m_vScale[0]));	
 }
 #endif

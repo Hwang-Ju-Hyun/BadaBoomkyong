@@ -15,7 +15,7 @@
 #include "ModelManager.h"
 #include "FactoryManager.h"
 #include "MainEditor.h"
-
+#include "RenderManager.h"
 Stage02::Stage02(const std::string& _name)
 	:BaseLevel(_name)
 {
@@ -26,23 +26,25 @@ Stage02::~Stage02()
 }
 
 void Stage02::Init()
-{
+{	
 	ModelManager::GetInstance()->Init();
-
+	
 	Serializer::GetInstance()->LoadJson_Object("json/Level/Stage02/Stage02_3D.json");
-	//Serializer::GetInstance()->LoadJson_Object("json/temp/temp.json");		
-	  //FactoryManager    
+
+	//FactoryManager    
 	FactoryManager::GetInstance()->Init();
 	//ComponentInit
 	ComponentManager::GetInstance()->Init();
 	
-	MainEditor::GetInstance()->Init();
 
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MELEE, GROUP_TYPE::MONSTER);
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PLATFORM);
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MONSTER, GROUP_TYPE::PLATFORM);
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLATFORM);
+	 //InputManager
+	InputManager::GetInstance()->Init();
+
+	//RenderInit            
+	RenderManager::GetInstance()->Init();
+	RenderManager::GetInstance()->InitDebugLineShader();	
+
+	MainEditor::GetInstance()->Init();
 }
 
 void Stage02::Update()

@@ -66,8 +66,7 @@ Player::~Player()
 }
 
 void Player::Init()
-{		
-	
+{			
 	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
 	m_pMeleeFactory = dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
 	assert(m_pBulletFactory != nullptr&&m_pMeleeFactory!=nullptr);
@@ -123,7 +122,7 @@ void Player::OnCollision(Collider* _other)
 
 void Player::ExitCollision(Collider* _other)
 {	
-	m_pRigidBody->message = false;
+	m_pRigidBody->message = false;	
 }
 
 void Player::Move() 
@@ -131,6 +130,7 @@ void Player::Move()
 	auto input = InputManager::GetInstance();
 	glm::vec3 velocity = m_pRigidBody->GetVelocity();
 	velocity.x = 0.f;
+	std::cout << std::boolalpha<< m_pRigidBody->GetIsGround() << std::endl;
 	if (input->GetKetCode(GLFW_KEY_X) == GLFW_REPEAT)
 	{
 		if (m_iDir == -1)

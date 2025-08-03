@@ -63,9 +63,9 @@ SoldierMonster::~SoldierMonster()
 void SoldierMonster::Init()
 {	
 	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
-	assert(m_pBulletFactory != nullptr);
+	//assert(m_pBulletFactory != nullptr);
 	m_pMeleeFactory =dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
-	assert(m_pMeleeFactory != nullptr);
+	//assert(m_pMeleeFactory != nullptr);
 	m_pGrenadePool = static_cast<ObjectPool<SoldierGrenade, 30>*>(ObjectPoolManager::GetInstance()->GetPool<SoldierGrenade, 30>());
 	ObjectPoolManager::GetInstance()->ReigistPool<SoldierGrenade, 30>();
 
@@ -107,8 +107,9 @@ void SoldierMonster::Update()
 		}			
 		else
 		{
-			m_pAI->ChangeState(MONSTER_STATE::RANGE_ATTACK_STATE);
-			m_eCurrentState = MonsterAnimState::RANGE_ATTACK;
+			//todo: ÀÌ°Å ÁÖ¼® Çª¼À
+			//m_pAI->ChangeState(MONSTER_STATE::RANGE_ATTACK_STATE);
+			//m_eCurrentState = MonsterAnimState::RANGE_ATTACK;
 		}
 	}		
 	else

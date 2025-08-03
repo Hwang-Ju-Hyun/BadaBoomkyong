@@ -20,11 +20,15 @@ Animator::~Animator()
 		delete iter->second;
 		iter->second = nullptr;
 	}
+	m_pCurrentAnimation = nullptr;
 }
+#include <iostream>
 
 void Animator::Init()	
 {				
-	m_pCurrentAnimation = m_mapAnimation.find("Idle")->second;
+	auto original = m_mapAnimation.find("Idle")->second;
+	m_pCurrentAnimation = new AnimationSpriteSheet(*original); // 복사	
+
 	Sprite* spr = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));	
 	spr->SetTexture(m_pCurrentAnimation->m_pTexture);
 	if (m_pCurrentAnimation)
@@ -99,7 +103,10 @@ void Animator::ChangeAnimation(const std::string& _animName)
 	Sprite* spr = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	assert(spr != nullptr);
 
-	m_pCurrentAnimation= iter->second;
+	// 깊은 복사된 새로운 시트를 만들고 현재 애니메이션으로 설정
+	AnimationSpriteSheet* cloned = new AnimationSpriteSheet(*iter->second);
+	m_pCurrentAnimation = cloned;	
+
 	spr->SetTexture(iter->second->m_pTexture);
 	
 	if (m_pCurrentAnimation)

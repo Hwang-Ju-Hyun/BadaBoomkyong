@@ -27,16 +27,7 @@ GameObjectManager::~GameObjectManager()
 void GameObjectManager::Exit()
 {
 	DeleteAllObject();
-	m_vGameObjects.clear();
-
-	for (auto iter = m_mapGameObject.begin();iter != m_mapGameObject.end();iter++)
-	{
-		if (iter->second)
-		{
-			delete iter->second;
-			iter->second = nullptr;
-		}
-	}	
+	m_vGameObjects.clear();		
 	m_mapGameObject.clear();
 
 	std::vector<GameObject*>temp = m_vGameObjects;

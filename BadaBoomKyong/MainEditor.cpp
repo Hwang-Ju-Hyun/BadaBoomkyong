@@ -14,27 +14,30 @@
 #include "Camera.h"
 #include "GeometryUtill.h"
 #include "FrameBuffer.h"
+#include "GameStateManager.h"
+#include "BaseLevel.h"
 
 #ifdef _DEBUG
 MainEditor::MainEditor(){}
 MainEditor::~MainEditor(){}
 
+bool MainEditor::init_edit = false;
 void MainEditor::Init()
 {
 	//ImGui Init
-	{
-		IMGUI_CHECKVERSION();
-		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-		io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls	
-		ImGui::StyleColorsClassic();
 
-		// Setup Platform/Renderer backends
-		auto window_handle = Window::GetInstance()->GetWindowHandle();
-		ImGui_ImplGlfw_InitForOpenGL(window_handle, true);          // Second param install_callback=true will install GLFW callbacks and chain to existing ones.
-		ImGui_ImplOpenGL3_Init();
-	}		
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls	
+	ImGui::StyleColorsClassic();
+
+	// Setup Platform/Renderer backends
+	auto window_handle = Window::GetInstance()->GetWindowHandle();
+	ImGui_ImplGlfw_InitForOpenGL(window_handle, true);          // Second param install_callback=true will install GLFW callbacks and chain to existing ones.
+	ImGui_ImplOpenGL3_Init();
+	init_edit = true;
 
 	m_pCam=RenderManager::GetInstance()->GetCamera();
 
@@ -94,7 +97,7 @@ void MainEditor::DeletObjectModal()
 }
 
 void MainEditor::TopMenuBarDraw()
-{	
+{
 	const char* CreateObject_PopUp_Title = "CreateObject";
 	static size_t Selected_ModelType=-1;
 	static char objectNameBuffer[128] = "NewObject";
@@ -125,7 +128,11 @@ void MainEditor::TopMenuBarDraw()
 		}
 		if (ImGui::MenuItem("SAVE"))
 		{
-			Serializer::GetInstance()->SaveJson_Object("json/Level/Stage01/Stage01_3D.json",true);
+			BaseLevel* cur_level = GameStateManager::GetInstance()->GetCurrentLevel();
+			if(cur_level->GetName()=="Stage01")
+				Serializer::GetInstance()->SaveJson_Object("json/Level/Stage01/Stage01_3D.json",true);
+			else if(cur_level->GetName()=="Stage02")
+				Serializer::GetInstance()->SaveJson_Object("json/Level/Stage02/Stage02_3D.json", true);
 			//Serializer::GetInstance()->SaveJson_Object("json/temp/temp.json",false);
 		}				
 		ImGui::EndMainMenuBar();
