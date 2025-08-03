@@ -29,6 +29,7 @@
 #include "Material.h"
 #include "GameStateManager.h"
 #include "BaseLevel.h"
+#include "Collider.h"
 RenderManager::RenderManager()
 {
 
@@ -191,13 +192,13 @@ void RenderManager::Draw()
 						glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
 
 						m->Draw();
-
+#ifdef _DEBUG
 						Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
 						if (col)
 						{
 							col->DrawCollider();
 						}
-
+#endif
 					}
 				}
 				else if (spr)
@@ -234,12 +235,13 @@ void RenderManager::Draw()
 					glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
 
 					model->Draw();
-
+#ifdef _DEBUG
 					Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
 					if (col)
 					{
 						col->DrawCollider();
 					}
+#endif
 				}
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();
 			}
@@ -301,12 +303,13 @@ void RenderManager::Draw()
 						glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
 
 						m->Draw();
-
+#ifdef _DEBUG
 						Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
 						if (col)
 						{
 							col->DrawCollider();
 						}
+#endif
 					}
 				}
 				else if (spr)
@@ -375,11 +378,13 @@ void RenderManager::Draw()
 
 					//todo : 주석처리된거 지우고 충돌체 쉐이더를 통해 그리는거 이것도 쉐이더에서 수정하고 
 					//draw collider에도 주석있음 아마 assert주석 처리해놓았을 거임 그것도 지우셈
+#ifdef _DEBUG
 					Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
 					if (col)
 					{
 						col->DrawCollider();
 					}
+#endif
 				}				
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();
 			}

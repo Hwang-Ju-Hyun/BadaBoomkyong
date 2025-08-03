@@ -85,8 +85,10 @@ public:
     static constexpr const char* AnimationTexturePathTypeName = "TexturePath";
     static constexpr const char* AnimationDurationTypeName = "Duration";
     static constexpr const char* AnimationLoopTypeName = "Loop";
+#ifdef _DEBUG
 public:
     virtual void EditInfoFromButton()override;
+#endif
 public:
     float m_fAnmationAccTime = 0.f;
 };

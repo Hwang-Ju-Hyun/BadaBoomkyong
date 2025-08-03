@@ -108,8 +108,8 @@ void SoldierMonster::Update()
 		else
 		{
 			//todo: ÀÌ°Å ÁÖ¼® Çª¼À
-			//m_pAI->ChangeState(MONSTER_STATE::RANGE_ATTACK_STATE);
-			//m_eCurrentState = MonsterAnimState::RANGE_ATTACK;
+			m_pAI->ChangeState(MONSTER_STATE::RANGE_ATTACK_STATE);
+			m_eCurrentState = MonsterAnimState::RANGE_ATTACK;
 		}
 	}		
 	else

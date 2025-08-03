@@ -26,7 +26,7 @@ Transform::~Transform()
 std::vector<glm::vec3> Transform::GeteEachVertexPosition()
 {
 	//todo 이거 함수 자체를 지우던가 getvertices를 손보던가
-	std::vector<Mesh::VertexAttribute> attr/*= GetOwner()->GetModel()->GetVertices()*/;	
+	std::vector<Mesh::VertexAttribute> attr;	
 	std::vector<glm::vec3> pos;	
 	for (int i = 0;i < attr.size();i++)
 	{
