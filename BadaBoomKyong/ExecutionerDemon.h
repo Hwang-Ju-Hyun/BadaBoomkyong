@@ -63,7 +63,7 @@ public:
     virtual void OnCollision(Collider* _other)   override;
     virtual void ExitCollision(Collider* _other) override;
 public:
-    static constexpr const char* ExecutionerDemonTypeName = "SoldierMonster";
+    static constexpr const char* ExecutionerDemonTypeName = "ExecutionerDemon";
     static constexpr const char* DetectRangeName = "DetectRange";
     static constexpr const char* RangedMoveAtkRangeName = "RangedMoveAtkRange";
     static constexpr const char* MeleeAtkRangeName = "MeleeAtkRange";

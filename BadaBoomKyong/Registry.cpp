@@ -13,6 +13,8 @@
 #include "Pistol.h"
 #include "SoldierMonster.h"
 #include "Animator.h"
+#include "ExecutionerDemon.h"
+#include "ExecutionerDemonFireBall.h"
 
 Registry::Registry()
 {
@@ -27,6 +29,8 @@ Registry::Registry()
     m_mapRTTI.insert({ AI::AITypeName,&AI::CreateAIComponent });
     m_mapRTTI.insert({ SoldierMonster::SoldierMonsterTypeName,&SoldierMonster::CreateSoliderMonsterComponent });
     m_mapRTTI.insert({ SoldierGrenade::SoldierMonsterGrenadeTypaName,&SoldierGrenade::CreateThrowingWeaponComponent });
+    m_mapRTTI.insert({ ExecutionerDemon::ExecutionerDemonTypeName,&ExecutionerDemon::CreateExecutionerDemonComponent });
+    m_mapRTTI.insert({ ExecutionerDemonFireBall::ExecutionerDemonFireBallTypaName,&ExecutionerDemonFireBall::CreateFireBallComponent});
     m_mapRTTI.insert({ Pistol::PistolTypeName,&Pistol::CreatePistolComponent });
 }
 

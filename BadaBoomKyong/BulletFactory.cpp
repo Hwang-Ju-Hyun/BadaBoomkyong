@@ -49,7 +49,7 @@ void BulletFactory::Init()
 
 
 	//SOLDIER GRENADE
-	auto obj_mgr = GameObjectManager::GetInstance();
+	/*auto obj_mgr = GameObjectManager::GetInstance();
 	GameObject* sm_obj = obj_mgr->FindObject(SoldierMonster::SoldierMonsterTypeName);
 	int grenade_obj_count = obj_mgr->GetObjectNumber(SoldierMonster::SoldierMonsterTypeName);
 
@@ -68,7 +68,7 @@ void BulletFactory::Init()
 		Collider* grn_col = dynamic_cast<Collider*>(grn_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(grn_obj)));
 		grn_obj->SetActiveAllComps(false);
 		m_pMonsterGrenadePool->m_arrPool[j] = grn_obj;
-	}	
+	}	*/
 }
 
 Bullet* BulletFactory::CreateBullet(BULLET_TYPE _type)

@@ -15,6 +15,7 @@
 #include "Anim_IdleState.h"
 #include "ObjectPool.h"
 #include "ExecutionerDemonFireBall.h"
+#include "Serializer.h"
 
 
 ExecutionerDemon::ExecutionerDemon(GameObject* _owner)
@@ -131,9 +132,45 @@ BaseRTTI* ExecutionerDemon::CreateExecutionerDemonComponent()
 
 void ExecutionerDemon::LoadFromJson(const json& _str)
 {
+	auto iter_compData = _str.find(CompDataName);
+	if (iter_compData != _str.end())
+	{
+		auto speed = iter_compData->find(SpeedName);
+		m_fSpeed = speed->begin().value();
+
+		auto jump = iter_compData->find(JumpForceName);
+		m_fJumpImpulse = jump->begin().value();
+
+		auto detect_ran = iter_compData->find(DetectRangeName);
+		m_fDetectRange = detect_ran->begin().value();
+
+		auto ranged_move_ran = iter_compData->find(RangedMoveAtkRangeName);
+		m_vRangedMoveAtkRange.x = ranged_move_ran->begin().value();
+		m_vRangedMoveAtkRange.y = (ranged_move_ran->begin() + 1).value();
+		m_vRangedMoveAtkRange.z = (ranged_move_ran->begin() + 2).value();
+
+		auto melee_ran = iter_compData->find(MeleeAtkRangeName);
+		m_vMeleeAtkRange.x = melee_ran->begin().value();
+		m_vMeleeAtkRange.y = (melee_ran->begin() + 1).value();
+		m_vMeleeAtkRange.z = (melee_ran->begin() + 2).value();
+	}
 }
 
 json ExecutionerDemon::SaveToJson(const json& _str)
 {
-	return json();
+	json data;
+
+	auto serializer = Serializer::GetInstance();
+	data[serializer->ComponentTypeNameInJson] = ExecutionerDemonTypeName;
+
+	json compData;
+	compData[SpeedName] = m_fSpeed;
+	compData[JumpForceName] = m_fJumpImpulse;
+	compData[DetectRangeName] = m_fDetectRange;
+	compData[RangedMoveAtkRangeName] = { m_vRangedMoveAtkRange.x,m_vRangedMoveAtkRange.y,m_vRangedMoveAtkRange.z };
+	compData[MeleeAtkRangeName] = { m_vMeleeAtkRange.x,m_vMeleeAtkRange.y,m_vMeleeAtkRange.z };
+
+	data[CompDataName] = compData;
+
+	return data;
 }

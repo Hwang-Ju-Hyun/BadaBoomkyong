@@ -20,11 +20,11 @@ MeleeFactory::~MeleeFactory()
 void MeleeFactory::Init()
 {	
 	//todo : GameObject»ý¼ºÇÒ‹š MeleeTypeNameÀÌ°Å ¾Æ´Ô °íÄ¡¼À
-	m_pSoldierMeleeObject = new GameObject(Melee::MeleeTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::MELEE);
+	/*m_pSoldierMeleeObject = new GameObject(Melee::MeleeTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::MELEE);
 	m_pSoldierMelee = dynamic_cast<SoldierMelee*>(m_pSoldierMeleeObject->AddComponent_and_Get(Melee::MeleeTypeName, new SoldierMelee(m_pSoldierMeleeObject,nullptr)));
 	Transform* trs = dynamic_cast<Transform*>(m_pSoldierMeleeObject->AddComponent_and_Get(Transform::TransformTypeName, new Transform(m_pSoldierMeleeObject)));
 	Sprite* spr = dynamic_cast<Sprite*>(m_pSoldierMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pSoldierMeleeObject)));
-	Collider* col = dynamic_cast<Collider*>(m_pSoldierMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pSoldierMeleeObject)));
+	Collider* col = dynamic_cast<Collider*>(m_pSoldierMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pSoldierMeleeObject)));*/
 
 	m_pPlayerMeleeObject =new GameObject(Melee::MeleeTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::MELEE);
 	GameObject* player_obj = GameObjectManager::GetInstance()->FindObject("Player");

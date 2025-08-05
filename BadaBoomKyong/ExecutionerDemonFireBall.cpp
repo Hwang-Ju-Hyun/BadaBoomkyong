@@ -96,3 +96,8 @@ json ExecutionerDemonFireBall::SaveToJson(const json& _str)
 {
     return json();
 }
+
+BaseRTTI* ExecutionerDemonFireBall::CreateFireBallComponent()
+{
+    return nullptr;
+}

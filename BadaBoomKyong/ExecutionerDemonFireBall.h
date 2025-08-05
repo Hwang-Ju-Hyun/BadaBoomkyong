@@ -42,7 +42,7 @@ public:
 public:
 	virtual void LoadFromJson(const json& _str) override;
 	virtual json SaveToJson(const json& _str) override;
-	static BaseRTTI* CreateThrowingWeaponComponent();
+	static BaseRTTI* CreateFireBallComponent();
 private:
 	bool m_bCanFire = false;
 };
