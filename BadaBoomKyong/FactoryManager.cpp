@@ -4,6 +4,7 @@
 #include "ObjectPoolManager.h"
 #include "Bullet.h"
 #include "MeleeFactory.h"
+#include "GameStateManager.h"
 
 FactoryManager::FactoryManager()
 {
@@ -17,10 +18,11 @@ FactoryManager::~FactoryManager()
 
 void FactoryManager::Init()
 {					
-	InsertFactory(BulletFactory::BulletFactoryTypeName, new BulletFactory);	
-	InsertFactory(MeleeFactory::MeleeFactoryTypeName, new MeleeFactory);
+	STAGE_TYPE stage_type = GameStateManager::GetInstance()->GetStageType();
+	InsertFactory(BulletFactory::BulletFactoryTypeName, new BulletFactory(stage_type));	
+	InsertFactory(MeleeFactory::MeleeFactoryTypeName, new MeleeFactory(stage_type));
 	for (auto iter = m_hashFactories.begin();iter != m_hashFactories.end();iter++)
-	{
+	{		
 		iter->second->Init();
 	}
 }

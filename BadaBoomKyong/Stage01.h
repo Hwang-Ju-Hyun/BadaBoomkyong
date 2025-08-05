@@ -11,7 +11,7 @@ class Stage01
 	:public BaseLevel
 {
 public:
-	Stage01(const std::string& _name);
+	Stage01(STAGE_TYPE _stageType, const std::string& _name);
 	virtual ~Stage01() override;
 public:
 	virtual void Init()	override;

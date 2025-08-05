@@ -1,6 +1,7 @@
 #include "BaseLevel.h"
 
-BaseLevel::BaseLevel(const std::string& _name) 
+BaseLevel::BaseLevel(STAGE_TYPE _stageType, const std::string& _name)
+	:m_eStageType(_stageType)
 {
 	SetName(_name);
 }

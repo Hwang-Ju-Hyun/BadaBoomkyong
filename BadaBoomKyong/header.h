@@ -22,12 +22,7 @@ enum class GROUP_TYPE
 	MONSTER = 3,
 	PLATFORM =4,
 	MELEE=5,
-	LAST
-};
-
-enum class STAGE_TYPE
-{
-	STAGE_01=0,
+	
 	LAST
 };
 
@@ -46,6 +41,14 @@ enum class BULLET_TYPE
 	SOLDIER_PISTOL,
 	SOLDIER_BOMB,
 	BULLET_LAST
+};
+
+enum class STAGE_TYPE
+{
+	STAGE_TEST=0,
+	STAGE_01=1,
+	STAGE_02,
+	STAGE_03
 };
 
 enum class MONSTER_STATE

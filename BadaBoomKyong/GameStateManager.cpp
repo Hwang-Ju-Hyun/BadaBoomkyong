@@ -43,5 +43,6 @@ void GameStateManager::ChangeLevel(BaseLevel* _lvl)
 		m_pPreviousLevel = m_pCurrentLevel;
 	}
 	m_pCurrentLevel = _lvl;
+	m_eCurrentStageType = _lvl->GetStageType();
 	m_pCurrentLevel->Init();
 }

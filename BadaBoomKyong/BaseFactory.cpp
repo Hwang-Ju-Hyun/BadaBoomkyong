@@ -1,7 +1,8 @@
 #include "BaseFactory.h"
 #include "Bullet.h"
 
-BaseFactory::BaseFactory()
+BaseFactory::BaseFactory(STAGE_TYPE _stage)
+	:m_eCurrentStage(_stage)
 {
 }
 
@@ -25,4 +26,20 @@ Bullet* BaseFactory::CreateBullet(BULLET_TYPE _type)
 GameObject* BaseFactory::CreatePoolObject()
 {
 	return nullptr;
+}
+
+void BaseFactory::InitStage01()
+{
+}
+
+void BaseFactory::InitStage02()
+{
+}
+
+void BaseFactory::InitStage03()
+{
+}
+
+void BaseFactory::InitStageTest()
+{
 }

@@ -12,12 +12,13 @@ class BulletPool;
 class GameObject;
 class Bullet;
 class SoldierGrenade;
+class ExecutionerDemonFireBall;
 
 class BulletFactory
 	:public BaseFactory
 {
 public:
-	BulletFactory();
+	BulletFactory(STAGE_TYPE _stage);
 	virtual ~BulletFactory();
 public:
 	virtual void Init()override;
@@ -27,6 +28,12 @@ public:
 private:
 	ObjectPool<Pistol,30>* m_pBulletPool;
 	ObjectPool<SoldierGrenade, 30>* m_pMonsterGrenadePool;
+	ObjectPool<ExecutionerDemonFireBall, 30>* m_pExecutionerDemonFireBallPool;
+private:
+	virtual void InitStage01()  override;
+	virtual void InitStage02()  override;
+	virtual void InitStage03()  override;
+	virtual void InitStageTest()override;
 public:
 	static constexpr const char* BulletFactoryTypeName = "BulletFactory";
 };

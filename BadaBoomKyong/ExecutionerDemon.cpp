@@ -16,7 +16,8 @@
 #include "ObjectPool.h"
 #include "ExecutionerDemonFireBall.h"
 #include "Serializer.h"
-
+#include "MathUtil.h"
+#include "Transform.h"
 
 ExecutionerDemon::ExecutionerDemon(GameObject* _owner)
 	:Monster(_owner)
@@ -66,6 +67,41 @@ void ExecutionerDemon::Init()
 
 void ExecutionerDemon::Update()
 {
+	//인지범위
+	auto math = MathUtil::GetInstance();
+	m_vPosition = m_pTransform->GetPosition();
+	m_vPlayerPosition = m_pPlayerTransform->GetPosition();
+
+	float dist = math->DistanceBetweenPoints(m_vPosition, m_vPlayerPosition);
+
+	float dir = m_vPlayerPosition.x - m_vPosition.x;
+	dir > 0 ? m_fDirection = 1 : m_fDirection = -1;
+
+	if (dir < 0)//왼쪽 볼때
+	{
+		if (m_pSprite)
+			m_pSprite->SetIsFlipX(true); // 왼쪽 볼 때 FlipX 켜기		
+	}
+	else//오른쪽 볼때
+	{
+		if (m_pSprite)
+			m_pSprite->SetIsFlipX(false);
+	}
+
+	if (dist <= m_fDetectRange)
+	{
+		if (dist <= m_vMeleeAtkRange.x)
+		{
+			m_pAI->ChangeState(MONSTER_STATE::MELEE_ATTACK_STATE);
+			m_eCurrentState = MonsterAnimState::NORMAL_ATTACK;
+		}	
+	}
+	else
+	{
+		m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
+		m_eCurrentState = MonsterAnimState::IDLE;
+	}
+
 	GetCurrentHP() < 0 ? SetIsAlive(false) : SetIsAlive(true);
 
 	if (!GetIsAlive())
@@ -88,7 +124,7 @@ void ExecutionerDemon::Fire()
 
 void ExecutionerDemon::MeleeAttack()
 {
-	m_pMelee = m_pMeleeFactory->CreateMelee(GROUP_TYPE::MELEE);
+	m_pMelee = m_pMeleeFactory->CreateMelee(GetName());
 	ExecutionerDemonMelee* melee_comp = dynamic_cast<ExecutionerDemonMelee*>(m_pMelee);
 	assert(m_pMelee != nullptr);
 	m_pMelee->SetAttacker(this->GetOwner());

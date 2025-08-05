@@ -2,8 +2,8 @@
 #include "CollisionManager.h"
 #include "Serializer.h"
 
-StageTest::StageTest(const std::string& _name)
-	:BaseLevel(_name)
+StageTest::StageTest(STAGE_TYPE _stageType,const std::string& _name)
+	:BaseLevel(_stageType,_name)
 {
 }
 

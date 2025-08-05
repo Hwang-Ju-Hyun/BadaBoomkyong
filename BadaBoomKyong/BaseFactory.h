@@ -7,7 +7,7 @@ class Bullet;
 class BaseFactory	
 {
 public:
-	BaseFactory();
+	BaseFactory(STAGE_TYPE _stage);
 	virtual ~BaseFactory();
 public:
 	virtual void Init();
@@ -15,4 +15,11 @@ public:
 public:
 	virtual Bullet* CreateBullet(BULLET_TYPE _type);
 	virtual GameObject* CreatePoolObject();
+protected:
+	STAGE_TYPE m_eCurrentStage;
+protected:
+	virtual void InitStage01();
+	virtual void InitStage02();
+	virtual void InitStage03();
+	virtual void InitStageTest();
 };

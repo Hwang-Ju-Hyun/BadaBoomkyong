@@ -4,7 +4,7 @@ class StageTest :
     public BaseLevel
 {
 public:
-	StageTest(const std::string& _name);
+	StageTest(STAGE_TYPE _stageType,const std::string& _name);
 	virtual ~StageTest() override;
 public:
 	virtual void Init()	override;

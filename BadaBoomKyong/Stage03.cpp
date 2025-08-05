@@ -10,8 +10,8 @@
 #include "ObjectPoolManager.h"
 #include "ResourceManager.h"
 
-Stage03::Stage03(const std::string& _name)
-	:BaseLevel(_name)
+Stage03::Stage03(STAGE_TYPE _stageType,const std::string& _name)
+	:BaseLevel(_stageType,_name)
 {
 }
 

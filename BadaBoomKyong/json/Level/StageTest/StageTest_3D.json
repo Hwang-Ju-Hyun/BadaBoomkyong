@@ -8,9 +8,9 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            506.20166015625,
-            -40778.2578125,
-            0.0
+            306.20166015625,
+            5008.2578125,
+            2000.0
           ],
           "Sca": [
             64.0,
@@ -193,13 +193,13 @@
                 "Type": "Transform",
                 "CompData": {
                     "Pos": [
-                        670.8302001953125,
-                        -49923.859375,
-                        0.0
+                        200.8302001953125,
+                        5000.859375,
+                        2000.0
                     ],
                     "Sca": [
-                        50.0,
-                        50.0,
+                        150.0,
+                        150.0,
                         450.0
                     ],
                     "Rot": [
@@ -264,7 +264,27 @@
                             "Col": 8,
                             "Duration": 0.10000000149011612,
                             "Loop": true
-                        }                        
+                        },
+                        {
+                            "Name": "NormalAttack_1",
+                            "TextureName": "NormalAttack_1",
+                            "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/NormalAttack_1.png",
+                            "Max": 28,
+                            "Row": 1,
+                            "Col": 28,
+                            "Duration": 0.10000000149011612,
+                            "Loop": true
+                        },
+                        {
+                            "Name": "Death",
+                            "TextureName": "Death",
+                            "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Death.png",
+                            "Max": 29,
+                            "Row": 1,
+                            "Col": 29,
+                            "Duration": 0.10000000149011612,
+                            "Loop": true
+                        }
                     ]
                 }
             },

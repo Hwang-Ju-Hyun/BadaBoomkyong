@@ -15,10 +15,10 @@
 #include "Stage02.h"
 #include "GameStateManager.h"
 
-Stage01::Stage01(const std::string& _name)
-	:BaseLevel(_name)
+Stage01::Stage01(STAGE_TYPE _stageType, const std::string& _name)
+	:BaseLevel(_stageType,_name)
 {
-	lvl_2 = new Stage02("Stage02");
+	lvl_2 = new Stage02(STAGE_TYPE::STAGE_02,"Stage02");
 }
 
 Stage01::~Stage01()
