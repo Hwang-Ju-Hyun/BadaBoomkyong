@@ -1,18 +1,7 @@
 #pragma once
 #pragma once
 #include "Anim_IState.h"
-
-template<typename T>
-class AnimIdleState;  // Forward declaration
-
-template<typename T>
-class AnimJumpState;  // Forward declaration
-
-template<typename T>
-class AnimFallState;  // Forward declaration
-
-template<typename T>
-class AnimDeathState;  // Forward declaration
+#include "Player.h"
 
 template<typename T>
 class AnimJumpAttackState : public AnimIState<T>

@@ -5,6 +5,8 @@
 
 class GameObject;
 
+class Stage03;
+
 class Stage02
 	:public BaseLevel
 {
@@ -15,6 +17,6 @@ public:
 	virtual void Init()	override;
 	virtual void Update()override;
 	virtual void Exit()	override;
-	GameObject* temp = nullptr;
+	Stage03* lvl_3 = nullptr;
 };
 

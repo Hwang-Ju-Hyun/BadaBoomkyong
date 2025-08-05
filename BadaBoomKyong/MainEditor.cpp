@@ -133,6 +133,8 @@ void MainEditor::TopMenuBarDraw()
 				Serializer::GetInstance()->SaveJson_Object("json/Level/Stage01/Stage01_3D.json",true);
 			else if(cur_level->GetName()=="Stage02")
 				Serializer::GetInstance()->SaveJson_Object("json/Level/Stage02/Stage02_3D.json", true);
+			else if(cur_level->GetName()=="StageTest")
+				Serializer::GetInstance()->SaveJson_Object("json/Level/StageTest/StageTest_3D.json", true);
 			//Serializer::GetInstance()->SaveJson_Object("json/temp/temp.json",false);
 		}				
 		ImGui::EndMainMenuBar();

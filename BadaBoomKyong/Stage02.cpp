@@ -16,9 +16,15 @@
 #include "FactoryManager.h"
 #include "MainEditor.h"
 #include "RenderManager.h"
+#include "ObjectPoolManager.h"
+#include "ResourceManager.h"
+#include "Stage03.h"
+#include "GameStateManager.h"
+
 Stage02::Stage02(const std::string& _name)
 	:BaseLevel(_name)
 {
+	lvl_3 = new Stage03("Stage03");
 }
 
 Stage02::~Stage02()
@@ -36,7 +42,6 @@ void Stage02::Init()
 	//ComponentInit
 	ComponentManager::GetInstance()->Init();
 	
-
 	 //InputManager
 	InputManager::GetInstance()->Init();
 
@@ -48,8 +53,14 @@ void Stage02::Init()
 #endif
 }
 
+static int a = 0;
+
 void Stage02::Update()
 {
+	if ((++a % 100) == 0)
+	{
+		GameStateManager::GetInstance()->ChangeLevel(lvl_3);
+	}
 }
 
 void Stage02::Exit()
@@ -57,5 +68,21 @@ void Stage02::Exit()
 	Serializer::GetInstance()->SaveJson_Object("json/Level/Stage02/Stage02_3D.json", true);
 	Serializer::GetInstance()->SaveJson_Object("json/Level/Stage02/Stage02_2D.json", false);
 	ComponentManager::GetInstance()->Exit();
-	GameObjectManager::GetInstance()->DeleteAllObject();
+
+	FactoryManager::GetInstance()->Exit();
+	ObjectPoolManager::GetInstance()->Exit();
+
+	GameObjectManager::GetInstance()->Exit();
+	ResourceManager::GetInstance()->RemoveAllRes();
+	ModelManager::GetInstance()->Exit();
+
+	RenderManager::GetInstance()->Exit();
+	EventManager::GetInstance()->Exit();
+
+#ifdef _DEBUG
+	// Cleanup
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+#endif // DEBUG
 }

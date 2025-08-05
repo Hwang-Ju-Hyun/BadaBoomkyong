@@ -1,875 +1,571 @@
 [
-  {
-    "Name": "WALL_BACK",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            -3364.042724609375,
-            -70.19921875,
-            -1634.1363525390625
-          ],
-          "Sca": [
-            2106.37841796875,
-            1126.0050048828125,
-            146.1338348388672
-          ],
-          "Rot": [
-            0.0,
-            -0.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-          "RGBA": [
-            1.0,
-            1.0,
-            1.0,
-            1.0
-          ],
-          "TextureName": "floor_texture_baseColor",
-          "TexturePath": "../Extern/Assets/Texture/tile/floor_texture_baseColor.png"
-        }
-      }
-    ],
-    "Model": 5,
-    "Group": 2
-  },
-  {
-    "Name": "WALL_LEFT",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            -1671.55322265625,
-            -58.78499984741211,
-            -142.91709899902344
-          ],
-          "Sca": [
-            2828.854736328125,
-            1126.0050048828125,
-            99.9999771118164
-          ],
-          "Rot": [
-            0.0,
-            -89.9999771118164,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-          "RGBA": [
-            1.0,
-            1.0,
-            1.0,
-            1.0
-          ],
-          "TextureName": "floor_texture_baseColor",
-          "TexturePath": "../Extern/Assets/Texture/tile/floor_texture_baseColor.png"
-        }
-      }
-    ],
-    "Model": 5,
-    "Group": 2
-  },
-  {
-    "Name": "WALL_RIGHT",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            1910.83447265625,
-            -58.78499984741211,
-            -157.60513305664063
-          ],
-          "Sca": [
-            2828.85498046875,
-            1126.0050048828125,
-            100.0
-          ],
-          "Rot": [
-            0.0,
-            -89.9999771118164,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-          "RGBA": [
-            0.8088235259056091,
-            0.0,
-            0.0,
-            1.0
-          ]
-        }
-      }
-    ],
-    "Model": 5,
-    "Group": 2
-  },
-  {
-    "Name": "WallCeiling",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            -3387.106689453125,
-            493.180419921875,
-            -261.9732666015625
-          ],
-          "Sca": [
-            2228.046630859375,
-            3051.082275390625,
-            99.99970245361328
-          ],
-          "Rot": [
-            -89.9999771118164,
-            -0.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-          "RGBA": [
-            1.0,
-            1.0,
-            1.0,
-            1.0
-          ]
-        }
-      }
-    ],
-    "Model": 5,
-    "Group": 2
-  },
-  {
-    "Name": "WallBottom",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            186.87539672851563,
-            -660.728759765625,
-            -130.6442413330078
-          ],
-          "Sca": [
-            1936.50830078125,
-            2822.057861328125,
-            140.00933837890625
-          ],
-          "Rot": [
-            89.9999771118164,
-            -0.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-          "RGBA": [
-            1.0,
-            1.0,
-            1.0,
-            1.0
-          ]
-        }
-      }
-    ],
-    "Model": 5,
-    "Group": 2
-  },
-  {
-    "Name": "Platform",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            151.0,
-            -69.62152862548828,
-            364.0910949707031
-          ],
-          "Sca": [
-            1600.0,
-            102.28359985351563,
-            99.99996948242188
-          ],
-          "Rot": [
-            -2.911634683609009,
-            -0.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-          "RGBA": [
-            1.0,
-            1.0,
-            1.0,
-            1.0
-          ]
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            50.0,
-            102.28363037109375,
-            0.0
-          ]
-        }
-      }
-    ],
-    "Model": 5,
-    "Group": 4
-  },
-  {
-    "Name": "Player",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            140.62298583984375,
-            -82831.65625,
-            365.0
-          ],
-          "Sca": [
-            64.0,
-            64.0,
-            0.0
-          ],
-          "Rot": [
-            0.0,
-            -0.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-          "RGBA": [
-            1.0,
-            1.0,
-            1.0,
-            1.0
-          ],
-          "TextureName": "Fall",
-          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Fall/Fall.png"
-        }
-      },
-      {
-        "Type": "RigidBody",
-        "CompData": {
-          "Kinematic": [
-            false
-          ],
-          "Gravity": [
-            980.0
-          ],
-          "Mass": [
-            1.0
-          ]
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            40.0,
-            70.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Animator",
-        "CompData": {
-          "Animations": [
+    {
+        "Name": "Player",
+        "ID": 0,
+        "Is3D": true,
+        "Components": [
             {
-              "Name": "Dash",
-              "TextureName": "Dash",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Dash/Full/Fx/Dash.png",
-              "Max": 8,
-              "Row": 1,
-              "Col": 8,
-              "Duration": 0.10000000149011612,
-              "Loop": false
+                "Type": "Transform",
+                "CompData": {
+                    "Pos": [
+                        26.69561767578125,
+                        8000.0,
+                        0.0
+                    ],
+                    "Sca": [
+                        64.0,
+                        64.0,
+                        0.0
+                    ],
+                    "Rot": [
+                        0.0,
+                        -0.0,
+                        0.0
+                    ]
+                }
             },
             {
-              "Name": "Death",
-              "TextureName": "Death",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Death/Death.png",
-              "Max": 25,
-              "Row": 1,
-              "Col": 25,
-              "Duration": 0.10000000149011612,
-              "Loop": false
+                "Type": "Sprite",
+                "CompData": {
+                    "RGBA": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "TextureName": "JumpAttack",
+                    "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/AirAttack/FX/JumpAttack.png"
+                }
             },
             {
-              "Name": "Fall",
-              "TextureName": "Fall",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Fall/Fall.png",
-              "Max": 6,
-              "Row": 1,
-              "Col": 6,
-              "Duration": 0.10000000149011612,
-              "Loop": true
+                "Type": "RigidBody",
+                "CompData": {
+                    "Kinematic": [
+                        false
+                    ],
+                    "Gravity": [
+                        980.0
+                    ],
+                    "Mass": [
+                        1.0
+                    ]
+                }
             },
             {
-              "Name": "Idle",
-              "TextureName": "Idle",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Idle/Idle.png",
-              "Max": 6,
-              "Row": 1,
-              "Col": 6,
-              "Duration": 0.10000000149011612,
-              "Loop": true
+                "Type": "Collider",
+                "CompData": {
+                    "Offset_Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        40.0,
+                        70.0,
+                        0.0
+                    ]
+                }
             },
             {
-              "Name": "Jump",
-              "TextureName": "Jump",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Jump/Jump.png",
-              "Max": 8,
-              "Row": 1,
-              "Col": 8,
-              "Duration": 0.10000000149011612,
-              "Loop": true
+                "Type": "Animator",
+                "CompData": {
+                    "Animations": [
+                        {
+                            "Name": "Dash",
+                            "TextureName": "Dash",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Dash/Full/Fx/Dash.png",
+                            "Max": 8,
+                            "Row": 1,
+                            "Col": 8,
+                            "Duration": 0.10000000149011612,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "Death",
+                            "TextureName": "Death",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Death/Death.png",
+                            "Max": 25,
+                            "Row": 1,
+                            "Col": 25,
+                            "Duration": 0.10000000149011612,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "Fall",
+                            "TextureName": "Fall",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Fall/Fall.png",
+                            "Max": 6,
+                            "Row": 1,
+                            "Col": 6,
+                            "Duration": 0.10000000149011612,
+                            "Loop": true
+                        },
+                        {
+                            "Name": "Idle",
+                            "TextureName": "Idle",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Idle/Idle.png",
+                            "Max": 6,
+                            "Row": 1,
+                            "Col": 6,
+                            "Duration": 0.10000000149011612,
+                            "Loop": true
+                        },
+                        {
+                            "Name": "Jump",
+                            "TextureName": "Jump",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Jump/Jump.png",
+                            "Max": 8,
+                            "Row": 1,
+                            "Col": 8,
+                            "Duration": 0.10000000149011612,
+                            "Loop": true
+                        },
+                        {
+                            "Name": "JumpAttack",
+                            "TextureName": "JumpAttack",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/AirAttack/FX/JumpAttack.png",
+                            "Max": 17,
+                            "Row": 1,
+                            "Col": 17,
+                            "Duration": 0.05000000074505806,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "LightAttack",
+                            "TextureName": "LightAttack",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/LightAttack/LightAttack.png",
+                            "Max": 13,
+                            "Row": 1,
+                            "Col": 13,
+                            "Duration": 0.10000000149011612,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "SprintAttack",
+                            "TextureName": "SprintAttack",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/SprintAttack/SprintAttack.png",
+                            "Max": 12,
+                            "Row": 1,
+                            "Col": 12,
+                            "Duration": 0.10000000149011612,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "Sprinting",
+                            "TextureName": "Sprinting",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Run/Sprint/Loop/FX/Sprinting.png",
+                            "Max": 8,
+                            "Row": 1,
+                            "Col": 8,
+                            "Duration": 0.10000000149011612,
+                            "Loop": true
+                        },
+                        {
+                            "Name": "ToSprint",
+                            "TextureName": "ToSprint",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Run/Sprint/ToSprint/ToSprint.png",
+                            "Max": 6,
+                            "Row": 1,
+                            "Col": 6,
+                            "Duration": 0.10000000149011612,
+                            "Loop": false
+                        }
+                    ]
+                }
             },
             {
-              "Name": "JumpAttack",
-              "TextureName": "JumpAttack",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/AirAttack/FX/JumpAttack.png",
-              "Max": 17,
-              "Row": 1,
-              "Col": 17,
-              "Duration": 0.05000000074505806,
-              "Loop": false
-            },
-            {
-              "Name": "LightAttack",
-              "TextureName": "LightAttack",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/LightAttack/LightAttack.png",
-              "Max": 13,
-              "Row": 1,
-              "Col": 13,
-              "Duration": 0.10000000149011612,
-              "Loop": false
-            },
-            {
-              "Name": "SprintAttack",
-              "TextureName": "SprintAttack",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/SprintAttack/SprintAttack.png",
-              "Max": 12,
-              "Row": 1,
-              "Col": 12,
-              "Duration": 0.10000000149011612,
-              "Loop": false
-            },
-            {
-              "Name": "Sprinting",
-              "TextureName": "Sprinting",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Run/Sprint/Loop/FX/Sprinting.png",
-              "Max": 8,
-              "Row": 1,
-              "Col": 8,
-              "Duration": 0.10000000149011612,
-              "Loop": true
-            },
-            {
-              "Name": "ToSprint",
-              "TextureName": "ToSprint",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Run/Sprint/ToSprint/ToSprint.png",
-              "Max": 6,
-              "Row": 1,
-              "Col": 6,
-              "Duration": 0.10000000149011612,
-              "Loop": false
+                "Type": "Player",
+                "CompData": {
+                    "Speed": 200.0,
+                    "JumpForce": 800.0
+                }
             }
-          ]
-        }
-      },
-      {
-        "Type": "Player",
-        "CompData": {
-          "Speed": 200.0,
-          "JumpForce": 800.0
-        }
-      }
-    ],
-    "Model": 4,
-    "Group": 1
-  },
-  {
-    "Name": "SoldierMonster",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            667.3302001953125,
-            -191163.0,
-            365.0
-          ],
-          "Sca": [
-            50.0,
-            50.0,
-            450.0
-          ],
-          "Rot": [
-            0.0,
-            -0.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-          "RGBA": [
-            1.0,
-            1.0,
-            1.0,
-            1.0
-          ],
-          "TextureName": "Idle",
-          "TexturePath": "../Extern/Assets/Texture/NormalMonster/001/Sprites/Idle.png"
-        }
-      },
-      {
-        "Type": "RigidBody",
-        "CompData": {
-          "Kinematic": [
-            false
-          ],
-          "Gravity": [
-            980.0
-          ],
-          "Mass": [
-            1.0
-          ]
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            50.0,
-            50.0,
-            450.0
-          ]
-        }
-      },
-      {
-        "Type": "Animator",
-        "CompData": {
-          "Animations": [
+        ],
+        "Model": 4,
+        "Group": 1
+    },
+    {
+        "Name": "SoldierMonster",
+        "ID": 0,
+        "Is3D": true,
+        "Components": [
             {
-              "Name": "Death",
-              "TextureName": "Death",
-              "TexturePath": "../Extern/Assets/Texture/NormalMonster/001/Sprites/Death.png",
-              "Max": 7,
-              "Row": 1,
-              "Col": 7,
-              "Duration": 0.10000000149011612,
-              "Loop": false
+                "Type": "Transform",
+                "CompData": {
+                    "Pos": [
+                        670.8302001953125,
+                        65.0,
+                        0.0
+                    ],
+                    "Sca": [
+                        50.0,
+                        50.0,
+                        450.0
+                    ],
+                    "Rot": [
+                        0.0,
+                        -0.0,
+                        0.0
+                    ]
+                }
             },
             {
-              "Name": "Idle",
-              "TextureName": "Idle",
-              "TexturePath": "../Extern/Assets/Texture/NormalMonster/001/Sprites/Idle.png",
-              "Max": 8,
-              "Row": 1,
-              "Col": 8,
-              "Duration": 0.10000000149011612,
-              "Loop": true
+                "Type": "Sprite",
+                "CompData": {
+                    "RGBA": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "TextureName": "Idle",
+                    "TexturePath": "../Extern/Assets/Texture/NormalMonster/001/Sprites/Idle.png"
+                }
             },
             {
-              "Name": "NormalAttack_1",
-              "TextureName": "NormalAttack_1",
-              "TexturePath": "../Extern/Assets/Texture/NormalMonster/001/Sprites/NormalAttack_1.png",
-              "Max": 10,
-              "Row": 1,
-              "Col": 10,
-              "Duration": 0.10000000149011612,
-              "Loop": false
+                "Type": "RigidBody",
+                "CompData": {
+                    "Kinematic": [
+                        false
+                    ],
+                    "Gravity": [
+                        980.0
+                    ],
+                    "Mass": [
+                        1.0
+                    ]
+                }
             },
             {
-              "Name": "RangeAttack",
-              "TextureName": "RangeAttack",
-              "TexturePath": "../Extern/Assets/Texture/NormalMonster/001/Sprites/RangeAttack.png",
-              "Max": 13,
-              "Row": 1,
-              "Col": 13,
-              "Duration": 0.05000000074505806,
-              "Loop": false
+                "Type": "Collider",
+                "CompData": {
+                    "Offset_Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        50.0,
+                        50.0,
+                        450.0
+                    ]
+                }
+            },
+            {
+                "Type": "Animator",
+                "CompData": {
+                    "Animations": [
+                        {
+                            "Name": "Death",
+                            "TextureName": "Death",
+                            "TexturePath": "../Extern/Assets/Texture/NormalMonster/001/Sprites/Death.png",
+                            "Max": 7,
+                            "Row": 1,
+                            "Col": 7,
+                            "Duration": 0.10000000149011612,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "Idle",
+                            "TextureName": "Idle",
+                            "TexturePath": "../Extern/Assets/Texture/NormalMonster/001/Sprites/Idle.png",
+                            "Max": 8,
+                            "Row": 1,
+                            "Col": 8,
+                            "Duration": 0.10000000149011612,
+                            "Loop": true
+                        },
+                        {
+                            "Name": "NormalAttack_1",
+                            "TextureName": "NormalAttack_1",
+                            "TexturePath": "../Extern/Assets/Texture/NormalMonster/001/Sprites/NormalAttack_1.png",
+                            "Max": 10,
+                            "Row": 1,
+                            "Col": 10,
+                            "Duration": 0.10000000149011612,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "RangeAttack",
+                            "TextureName": "RangeAttack",
+                            "TexturePath": "../Extern/Assets/Texture/NormalMonster/001/Sprites/RangeAttack.png",
+                            "Max": 13,
+                            "Row": 1,
+                            "Col": 13,
+                            "Duration": 0.05000000074505806,
+                            "Loop": false
+                        }
+                    ]
+                }
+            },
+            {
+                "Type": "AI",
+                "CompData": {
+                    "StateList": [
+                        0,
+                        2,
+                        3,
+                        4
+                    ]
+                }
+            },
+            {
+                "Type": "SoldierMonster",
+                "CompData": {
+                    "Speed": 0.5,
+                    "JumpForce": 500.0,
+                    "DetectRange": 500.0,
+                    "RangedMoveAtkRange": [
+                        50.0,
+                        500.0,
+                        0.0
+                    ],
+                    "MeleeAtkRange": [
+                        200.0,
+                        500.0,
+                        0.0
+                    ]
+                }
             }
-          ]
-        }
-      },
-      {
-        "Type": "AI",
-        "CompData": {
-          "StateList": [
-            0,
-            2,
-            3,
-            4
-          ]
-        }
-      },
-      {
-        "Type": "SoldierMonster",
-        "CompData": {
-          "Speed": 0.5,
-          "JumpForce": 500.0,
-          "DetectRange": 500.0,
-          "RangedMoveAtkRange": [
-            50.0,
-            500.0,
-            0.0
-          ],
-          "MeleeAtkRange": [
-            200.0,
-            500.0,
-            0.0
-          ]
-        }
-      }
-    ],
-    "Model": 4,
-    "Group": 3
-  },
-  {
-    "Name": "SoldierMonster",
-    "ID": 1,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            -405.57049560546875,
-            -191163.0,
-            365.0
-          ],
-          "Sca": [
-            50.0,
-            50.0,
-            450.0
-          ],
-          "Rot": [
-            0.0,
-            -0.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-          "RGBA": [
-            1.0,
-            1.0,
-            1.0,
-            1.0
-          ],
-          "TextureName": "Idle",
-          "TexturePath": "../Extern/Assets/Texture/NormalMonster/002/Sprites/Idle.png"
-        }
-      },
-      {
-        "Type": "RigidBody",
-        "CompData": {
-          "Kinematic": [
-            false
-          ],
-          "Gravity": [
-            980.0
-          ],
-          "Mass": [
-            1.0
-          ]
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            50.0,
-            50.0,
-            450.0
-          ]
-        }
-      },
-      {
-        "Type": "Animator",
-        "CompData": {
-          "Animations": [
+        ],
+        "Model": 4,
+        "Group": 3
+    },
+    {
+        "Name": "SoldierMonster",
+        "ID": 1,
+        "Is3D": true,
+        "Components": [
             {
-              "Name": "Death",
-              "TextureName": "Death",
-              "TexturePath": "../Extern/Assets/Texture/NormalMonster/002/Sprites/Death.png",
-              "Max": 7,
-              "Row": 1,
-              "Col": 7,
-              "Duration": 0.10000000149011612,
-              "Loop": false
+                "Type": "Transform",
+                "CompData": {
+                    "Pos": [
+                        -384.07049560546875,
+                        65.0,
+                        0.0
+                    ],
+                    "Sca": [
+                        50.0,
+                        50.0,
+                        450.0
+                    ],
+                    "Rot": [
+                        0.0,
+                        -0.0,
+                        0.0
+                    ]
+                }
             },
             {
-              "Name": "Idle",
-              "TextureName": "Idle",
-              "TexturePath": "../Extern/Assets/Texture/NormalMonster/002/Sprites/Idle.png",
-              "Max": 8,
-              "Row": 1,
-              "Col": 8,
-              "Duration": 0.10000000149011612,
-              "Loop": true
+                "Type": "Sprite",
+                "CompData": {
+                    "RGBA": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "TextureName": "RangeAttack",
+                    "TexturePath": "../Extern/Assets/Texture/NormalMonster/002/Sprites/RangeAttack.png"
+                }
             },
             {
-              "Name": "NormalAttack_1",
-              "TextureName": "NormalAttack_1",
-              "TexturePath": "../Extern/Assets/Texture/NormalMonster/002/Sprites/NormalAttack_2.png",
-              "Max": 12,
-              "Row": 1,
-              "Col": 12,
-              "Duration": 0.07999999821186066,
-              "Loop": false
+                "Type": "RigidBody",
+                "CompData": {
+                    "Kinematic": [
+                        false
+                    ],
+                    "Gravity": [
+                        980.0
+                    ],
+                    "Mass": [
+                        1.0
+                    ]
+                }
             },
             {
-              "Name": "RangeAttack",
-              "TextureName": "RangeAttack",
-              "TexturePath": "../Extern/Assets/Texture/NormalMonster/002/Sprites/RangeAttack.png",
-              "Max": 13,
-              "Row": 1,
-              "Col": 13,
-              "Duration": 0.10000000149011612,
-              "Loop": false
+                "Type": "Collider",
+                "CompData": {
+                    "Offset_Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        50.0,
+                        50.0,
+                        450.0
+                    ]
+                }
+            },
+            {
+                "Type": "Animator",
+                "CompData": {
+                    "Animations": [
+                        {
+                            "Name": "Death",
+                            "TextureName": "Death",
+                            "TexturePath": "../Extern/Assets/Texture/NormalMonster/002/Sprites/Death.png",
+                            "Max": 7,
+                            "Row": 1,
+                            "Col": 7,
+                            "Duration": 0.10000000149011612,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "Idle",
+                            "TextureName": "Idle",
+                            "TexturePath": "../Extern/Assets/Texture/NormalMonster/002/Sprites/Idle.png",
+                            "Max": 8,
+                            "Row": 1,
+                            "Col": 8,
+                            "Duration": 0.10000000149011612,
+                            "Loop": true
+                        },
+                        {
+                            "Name": "NormalAttack_1",
+                            "TextureName": "NormalAttack_1",
+                            "TexturePath": "../Extern/Assets/Texture/NormalMonster/002/Sprites/NormalAttack_2.png",
+                            "Max": 12,
+                            "Row": 1,
+                            "Col": 12,
+                            "Duration": 0.07999999821186066,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "RangeAttack",
+                            "TextureName": "RangeAttack",
+                            "TexturePath": "../Extern/Assets/Texture/NormalMonster/002/Sprites/RangeAttack.png",
+                            "Max": 13,
+                            "Row": 1,
+                            "Col": 13,
+                            "Duration": 0.10000000149011612,
+                            "Loop": false
+                        }
+                    ]
+                }
+            },
+            {
+                "Type": "AI",
+                "CompData": {
+                    "StateList": [
+                        0,
+                        2,
+                        3,
+                        4
+                    ]
+                }
+            },
+            {
+                "Type": "SoldierMonster",
+                "CompData": {
+                    "Speed": 0.5,
+                    "JumpForce": 500.0,
+                    "DetectRange": 500.0,
+                    "RangedMoveAtkRange": [
+                        50.0,
+                        500.0,
+                        0.0
+                    ],
+                    "MeleeAtkRange": [
+                        200.0,
+                        500.0,
+                        0.0
+                    ]
+                }
             }
-          ]
-        }
-      },
-      {
-        "Type": "AI",
-        "CompData": {
-          "StateList": [
-            0,
-            2,
-            3,
-            4
-          ]
-        }
-      },
-      {
-        "Type": "SoldierMonster",
-        "CompData": {
-          "Speed": 0.5,
-          "JumpForce": 500.0,
-          "DetectRange": 500.0,
-          "RangedMoveAtkRange": [
-            50.0,
-            500.0,
-            0.0
-          ],
-          "MeleeAtkRange": [
-            200.0,
-            500.0,
-            0.0
-          ]
-        }
-      }
-    ],
-    "Model": 4,
-    "Group": 3
-  },
-  {
-    "Name": "customModelObj1",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            -2521.655517578125,
-            28.01848793029785,
-            -478.6502990722656
-          ],
-          "Sca": [
-            271.0415954589844,
-            189.6937713623047,
-            196.90554809570313
-          ],
-          "Rot": [
-            0.0,
-            89.9999771118164,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            50.0,
-            50.0,
-            450.0
-          ]
-        }
-      }
-    ],
-    "Model": 6,
-    "ModelPath": "../Extern/Assets/Model/mask/scene.gltf",
-    "Group": 3
-  },
-  {
-    "Name": "customModelObj2",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            2385.808349609375,
-            28.01848793029785,
-            -301.4977111816406
-          ],
-          "Sca": [
-            1.0,
-            0.9999995827674866,
-            0.9999998211860657
-          ],
-          "Rot": [
-            0.0,
-            -0.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            50.0,
-            50.0,
-            450.0
-          ]
-        }
-      }
-    ],
-    "Model": 6,
-    "ModelPath": "../Extern/Assets/Model/car/scene.gltf",
-    "Group": 3
-  },
-  {
-    "Name": "customModelObj3",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            1813.5462646484375,
-            28.01848793029785,
-            -301.4977111816406
-          ],
-          "Sca": [
-            1.0,
-            0.9999995827674866,
-            0.9999998211860657
-          ],
-          "Rot": [
-            0.0,
-            -0.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            50.0,
-            50.0,
-            450.0
-          ]
-        }
-      }
-    ],
-    "Model": 6,
-    "ModelPath": "../Extern/Assets/Model/background/scene.gltf",
-    "Group": 3
-  }
+        ],
+        "Model": 4,
+        "Group": 3
+    },
+    {
+        "Name": "customModelObj1",
+        "ID": 0,
+        "Is3D": true,
+        "Components": [
+            {
+                "Type": "Transform",
+                "CompData": {
+                    "Pos": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Sca": [
+                        910.304443359375,
+                        189.6937713623047,
+                        1226.3511962890625
+                    ],
+                    "Rot": [
+                        0.0,
+                        89.9999771118164,
+                        0.0
+                    ]
+                }
+            },
+            {
+                "Type": "Collider",
+                "CompData": {
+                    "Offset_Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        2000.0,
+                        80.0,
+                        450.0
+                    ]
+                }
+            }
+        ],
+        "Model": 6,
+        "ModelPath": "../Extern/Assets/Model/Desert/DesertLand/scene.gltf",
+        "Group": 4
+    },
+    {
+        "Name": "customModelObj2",
+        "ID": 0,
+        "Is3D": true,
+        "Components": [
+            {
+                "Type": "Transform",
+                "CompData": {
+                    "Pos": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Sca": [
+                        910.304443359375,
+                        189.6937713623047,
+                        1226.3511962890625
+                    ],
+                    "Rot": [
+                        0.0,
+                        89.9999771118164,
+                        0.0
+                    ]
+                }
+            },
+            {
+                "Type": "Collider",
+                "CompData": {
+                    "Offset_Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        2000.0,
+                        80.0,
+                        450.0
+                    ]
+                }
+            }
+        ],
+        "Model": 6,
+        "ModelPath": "../Extern/Assets/Model/Desert/DesertStructure/scene.gltf",
+        "Group": 4
+    }
 ]

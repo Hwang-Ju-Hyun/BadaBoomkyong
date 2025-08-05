@@ -13,6 +13,7 @@
 #include "RigidBody.h"
 #include <iostream>
 #include "Stage02.h"
+#include "GameStateManager.h"
 
 Stage01::Stage01(const std::string& _name)
 	:BaseLevel(_name)
@@ -35,14 +36,11 @@ void Stage01::Init()
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MONSTER, GROUP_TYPE::PLATFORM);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLATFORM);
 }
-#include "GameStateManager.h"
+
 static int a = 0;
 void Stage01::Update()
 {				
-	if ((++a % 100)== 0)
-	{		
-		GameStateManager::GetInstance()->ChangeLevel(lvl_2);
-	}
+	
 }
 
 #include "ObjectPoolManager.h"

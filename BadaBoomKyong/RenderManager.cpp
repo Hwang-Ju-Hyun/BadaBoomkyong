@@ -131,7 +131,7 @@ void RenderManager::Draw()
 	glEnable(GL_DEPTH_TEST);
 	m_pCam->Update();
 
-	BeforeDraw();	
+	BeforeDraw();
 
 	//1. 불투명 먼저 렌더링
 	for (auto obj : m_vOpaqueObject)
@@ -411,10 +411,11 @@ void RenderManager::EndDraw()
 
 void RenderManager::Exit()
 {
-	if(m_pCam)
-		delete m_pCam;	
-	delete m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)];
-	delete m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)];
+	EndDraw();
+	if (m_pCam)	
+		delete m_pCam;		
+	m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->Diuse();
+	m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();
 }
 
 const glm::mat4 RenderManager::GetMVP_ByObject(const GameObject& _obj)

@@ -129,8 +129,7 @@ void Player::Move()
 {	
 	auto input = InputManager::GetInstance();
 	glm::vec3 velocity = m_pRigidBody->GetVelocity();
-	velocity.x = 0.f;
-	std::cout << std::boolalpha<< m_pRigidBody->GetIsGround() << std::endl;
+	velocity.x = 0.f;	
 	if (input->GetKetCode(GLFW_KEY_X) == GLFW_REPEAT)
 	{
 		if (m_iDir == -1)

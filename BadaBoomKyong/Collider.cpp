@@ -158,8 +158,7 @@ void Collider::DrawCollider()const
 	// 정점 데이터 계산 (사각형 테두리)
 	glm::vec3 pos = m_vFinalPosition;
 	glm::vec3 halfScale = m_vScale * 0.5f;
-	auto a= GetOwner();
-	a;
+	
 	glm::vec3 verts[4] = 
 	{
 		{pos.x - halfScale.x, pos.y - halfScale.y, pos.z},

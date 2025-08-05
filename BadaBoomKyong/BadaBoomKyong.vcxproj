@@ -157,6 +157,9 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="ExecutionerDemon.cpp" />
+    <ClCompile Include="ExecutionerDemonFireBall.cpp" />
+    <ClCompile Include="ExecutionerDemonMelee.cpp" />
     <ClCompile Include="FactoryManager.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -164,6 +167,7 @@
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="GeometryUtill.cpp" />
     <ClCompile Include="GizmoManager.cpp" />
+    <ClCompile Include="IDLE_ExecutionerDemon.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MeleeFactory.cpp" />
     <ClCompile Include="ICollisionHandler.cpp" />
@@ -188,6 +192,7 @@
     <ClCompile Include="MathUtil.cpp" />
     <ClCompile Include="Melee.cpp" />
     <ClCompile Include="MeleeState.cpp" />
+    <ClCompile Include="MELEE_ExecutionerDemon.cpp" />
     <ClCompile Include="MELEE_SoldierMonster.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -215,6 +220,8 @@
     <ClCompile Include="Stage01.cpp" />
     <ClCompile Include="SoldierGrenade.cpp" />
     <ClCompile Include="Stage02.cpp" />
+    <ClCompile Include="Stage03.cpp" />
+    <ClCompile Include="StageTest.cpp" />
     <ClCompile Include="TextureResource.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TraceState.cpp" />
@@ -248,6 +255,9 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="ExecutionerDemon.h" />
+    <ClInclude Include="ExecutionerDemonFireBall.h" />
+    <ClInclude Include="ExecutionerDemonMelee.h" />
     <ClInclude Include="FactoryManager.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GameObject.h" />
@@ -256,6 +266,7 @@
     <ClInclude Include="GeometryUtill.h" />
     <ClInclude Include="GizmoManager.h" />
     <ClInclude Include="header.h" />
+    <ClInclude Include="IDLE_ExecutionerDemon.h" />
     <ClInclude Include="IPatrolBehaviour.h" />
     <ClInclude Include="Anim_IState.h" />
     <ClInclude Include="Material.h" />
@@ -288,6 +299,7 @@
     <ClInclude Include="MathUtil.h" />
     <ClInclude Include="Melee.h" />
     <ClInclude Include="MeleeState.h" />
+    <ClInclude Include="MELEE_ExecutionerDemon.h" />
     <ClInclude Include="MELEE_SoldierMonster.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
@@ -318,6 +330,8 @@
     <ClInclude Include="SoldierGrenade.h" />
     <ClInclude Include="Anim_StateMachine.h" />
     <ClInclude Include="Stage02.h" />
+    <ClInclude Include="Stage03.h" />
+    <ClInclude Include="StageTest.h" />
     <ClInclude Include="TextureResource.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TraceState.h" />
@@ -332,6 +346,10 @@
     <None Include="json\Level\Stage01\Stage01_3D.json" />
     <None Include="json\Level\Stage02\Stage02_2D.json" />
     <None Include="json\Level\Stage02\Stage02_3D.json" />
+    <None Include="json\Level\Stage03\Stage03_2D.json" />
+    <None Include="json\Level\Stage03\Stage03_3D.json" />
+    <None Include="json\Level\StageTest\StageTest_2D.json" />
+    <None Include="json\Level\StageTest\StageTest_3D.json" />
     <None Include="line.frag" />
     <None Include="line.vert" />
     <None Include="vertex.vert" />

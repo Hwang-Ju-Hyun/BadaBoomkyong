@@ -20,7 +20,7 @@
 #include "EventManager.h"
 #include "ResourceManager.h"
 #include "Stage02.h"
-
+#include "StageTest.h"
 Application::Application(){}
 
 Application::~Application(){}
@@ -43,7 +43,7 @@ void Application::Init()
     ModelManager::GetInstance()->Init();                        
 
     //GameStateManager    
-    GameStateManager::GetInstance()->ChangeLevel(new Stage01("Stage01"));
+    GameStateManager::GetInstance()->ChangeLevel(new StageTest("StageTest"));
 
     //FactoryManager    
     FactoryManager::GetInstance()->Init();
