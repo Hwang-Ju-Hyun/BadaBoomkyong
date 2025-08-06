@@ -20,6 +20,7 @@ AI::~AI()
 #include "TraceState.h"
 #include "RangedState.h"
 #include "MeleeState.h"
+#include "PatrolState.h"
 //todo at .h
 void AI::InsertState(MONSTER_STATE _state)
 {
@@ -29,7 +30,8 @@ void AI::InsertState(MONSTER_STATE _state)
 	case MONSTER_STATE::IDLE_STATE:
 		state = new IdleState;
 		break;
-	case MONSTER_STATE::PATROL_STATE:		
+	case MONSTER_STATE::PATROL_STATE:
+		state = new PatrolState;
 		break;
 	case MONSTER_STATE::TRACE_STATE:
 		state = new TraceState;

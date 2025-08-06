@@ -24,6 +24,7 @@ enum class MonsterAnimState
     IDLE,
     RANGE_ATTACK,
     NORMAL_ATTACK,
+    WALK,
     DEATH
 };
 
@@ -54,6 +55,12 @@ protected:
     IRangedBehaviour* m_pRangedBehavior;
     IMeleeBehaviour*  m_pMeleeBehaviour;
     IPatrolBehaviour* m_pPatrolBehaviour;
+protected:
+    float m_fDirection = 1.f;          //Postive : Right | Negative : Left 
+public:
+    inline void SetDirection(float _dir) { m_fDirection = _dir; }
+    inline float GetDirection()const { return m_fDirection; }
+    void UpdateSpriteFlipX();
 public:
     inline void SetIdleBehaviour(IIdleBehaviour* _behaviour) { m_pIdleBehavior = _behaviour; }
     inline void SetRangedBehaviour(IRangedBehaviour* _behaviour) { m_pRangedBehavior = _behaviour; }

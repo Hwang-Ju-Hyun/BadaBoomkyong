@@ -11,5 +11,8 @@ public:
 	//TODo:
 	float DegreeToRadian(float _degree);
 	float DistanceBetweenPoints(glm::vec3 _point1, glm::vec3 _point2);
+public:
+	int GetRandomNumber(int _min, int _max);
+	float GetRandomNumber(float _min, float _max);
 };
 

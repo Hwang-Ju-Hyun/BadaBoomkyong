@@ -42,3 +42,17 @@ Monster::Monster(GameObject* _owner)
 Monster::~Monster()
 {
 }
+
+void Monster::UpdateSpriteFlipX()
+{
+	if (m_fDirection < 0)//왼쪽 볼때
+	{
+		if (m_pSprite)
+			m_pSprite->SetIsFlipX(true); // 왼쪽 볼 때 FlipX 켜기	
+	}
+	else//오른쪽 볼때
+	{
+		if (m_pSprite)
+			m_pSprite->SetIsFlipX(false);
+	}
+}

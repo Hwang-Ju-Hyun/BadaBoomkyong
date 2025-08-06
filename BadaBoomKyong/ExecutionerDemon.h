@@ -16,8 +16,8 @@ class ExecutionerDemon :
 public:
     ExecutionerDemon(GameObject* _owner);
     virtual ~ExecutionerDemon()override;
-    //Range
 private:
+    //Range
     BulletFactory* m_pBulletFactory = nullptr;
     ObjectPool<ExecutionerDemonFireBall, 30>* m_pFireBallPool = nullptr;
     Bullet* m_pBullet = nullptr;
@@ -41,23 +41,25 @@ public:
 private:
     //moveDirection은 스텝이 뒤로가고 앞으로가고이고
     //그냥 direction은 오른쪽을 바라보느냐 왼쪽을 바라보냐임
-    int m_iMoveDirection = 1;            //Postive : Right | Negative : Left 
-    float m_fDirection = 1.f;          //Postive : Right | Negative : Left 
+    int m_iMoveDirection = 1;            //Postive : Right | Negative : Left    
 public:
     inline void SetMoveDirection(int _dir) { m_iMoveDirection = _dir; }
-    inline int GetMoveDirection()const { return m_iMoveDirection; }
-    inline void SetDirection(float _dir) { m_fDirection = _dir; }
-    inline float GetDirection()const { return m_fDirection; }
+    inline int GetMoveDirection()const { return m_iMoveDirection; }  
 public:
     virtual void Init()override;
     virtual void Update()override;
     virtual void Exit()override;
 public:
     void Fire();
-    void MeleeAttack();
+    void MeleeAttack();    
     MeleeFactory* m_pMeleeFactory = nullptr;
     Melee* m_pMelee = nullptr;
     bool m_bCanMeleeAttack = false;
+public:
+    void Patrol();
+    float m_fAccPatrolDistance=0.f;
+    bool m_bIsPatrolMoveDone = true;
+    float m_fPatrolRandDistance = 0.f;
 public:
     virtual void EnterCollision(Collider* _other)override;
     virtual void OnCollision(Collider* _other)   override;

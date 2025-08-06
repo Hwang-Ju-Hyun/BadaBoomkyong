@@ -329,6 +329,12 @@
     <Filter Include="Component\Custom\Melee\Monster\ExecutionerDemonMelee">
       <UniqueIdentifier>{315cc1cd-240b-4d30-84ef-a86e2b01702a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Custom\Monster\ExecutionerDemon\AI_State\PATROL">
+      <UniqueIdentifier>{35425141-d491-47bd-a900-23c7cd29d90e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Walk">
+      <UniqueIdentifier>{a229f9de-abc4-4c2a-a62e-62efeaf9d79c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -585,6 +591,9 @@
     </ClCompile>
     <ClCompile Include="ExecutionerDemonMelee.cpp">
       <Filter>Component\Custom\Melee\Monster\ExecutionerDemonMelee</Filter>
+    </ClCompile>
+    <ClCompile Include="PATROL_ExecutionerDemon.cpp">
+      <Filter>Component\Custom\Monster\ExecutionerDemon\AI_State\PATROL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -911,6 +920,12 @@
     </ClInclude>
     <ClInclude Include="ExecutionerDemonMelee.h">
       <Filter>Component\Custom\Melee\Monster\ExecutionerDemonMelee</Filter>
+    </ClInclude>
+    <ClInclude Include="PATROL_ExecutionerDemon.h">
+      <Filter>Component\Custom\Monster\ExecutionerDemon\AI_State\PATROL</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_WalkState.h">
+      <Filter>Animation\FiniteStateMachine\Walk</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

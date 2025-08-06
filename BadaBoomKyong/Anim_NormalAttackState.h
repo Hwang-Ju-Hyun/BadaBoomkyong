@@ -45,13 +45,16 @@ public:
             switch (_owner->GetCurrentState())
             {
             case MonsterAnimState::IDLE:
-                machine->ChangeAnimState(int(MonsterAnimState::IDLE));
+                machine->ChangeAnimState(static_cast<int>(MonsterAnimState::IDLE));
                 break;
             case MonsterAnimState::RANGE_ATTACK:
-                machine->ChangeAnimState(int(MonsterAnimState::RANGE_ATTACK));
+                machine->ChangeAnimState(static_cast<int>(MonsterAnimState::RANGE_ATTACK));
+                break;
+            case MonsterAnimState::WALK:
+                machine->ChangeAnimState(static_cast<int>(MonsterAnimState::WALK));
                 break;
             case MonsterAnimState::DEATH:
-                machine->ChangeAnimState(int(MonsterAnimState::DEATH));
+                machine->ChangeAnimState(static_cast<int>(MonsterAnimState::DEATH));
                 break;
             }
         }

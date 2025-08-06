@@ -201,6 +201,7 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="ObjectPoolManager.cpp" />
     <ClCompile Include="PatrolState.cpp" />
+    <ClCompile Include="PATROL_ExecutionerDemon.cpp" />
     <ClCompile Include="PATROL_SoliderMonster.cpp" />
     <ClCompile Include="Pistol.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -231,6 +232,7 @@
   <ItemGroup>
     <ClInclude Include="AI.h" />
     <ClInclude Include="Animator.h" />
+    <ClInclude Include="Anim_WalkState.h" />
     <ClInclude Include="Anim_DashState.h" />
     <ClInclude Include="Anim_DeathState.h" />
     <ClInclude Include="Anim_FallState.h" />
@@ -309,6 +311,7 @@
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectPoolManager.h" />
     <ClInclude Include="PatrolState.h" />
+    <ClInclude Include="PATROL_ExecutionerDemon.h" />
     <ClInclude Include="PATROL_SoliderMonster.h" />
     <ClInclude Include="Pistol.h" />
     <ClInclude Include="Player.h" />

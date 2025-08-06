@@ -42,13 +42,10 @@ public:
 private:
     //moveDirection은 스텝이 뒤로가고 앞으로가고이고
     //그냥 direction은 오른쪽을 바라보느냐 왼쪽을 바라보냐임
-    int m_iMoveDirection = 1;            //Postive : Right | Negative : Left 
-    float m_fDirection = 1.f;          //Postive : Right | Negative : Left 
+    int m_iMoveDirection = 1;            //Postive : Right | Negative : Left     
 public:
     inline void SetMoveDirection(int _dir) { m_iMoveDirection = _dir; }
-    inline int GetMoveDirection()const { return m_iMoveDirection; }
-    inline void SetDirection(float _dir) { m_fDirection = _dir; }
-    inline float GetDirection()const { return m_fDirection; }
+    inline int GetMoveDirection()const { return m_iMoveDirection; }    
 public:
     virtual void Init()override;
     virtual void Update()override;

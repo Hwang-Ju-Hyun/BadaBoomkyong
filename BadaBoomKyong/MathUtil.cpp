@@ -1,4 +1,5 @@
 #include "MathUtil.h"
+#include <random>
 
 MathUtil::MathUtil(){}
 MathUtil::~MathUtil() {}
@@ -16,4 +17,18 @@ float MathUtil::DegreeToRadian(float _degree)
 float MathUtil::DistanceBetweenPoints(glm::vec3 _point1, glm::vec3 _point2)
 {
 	return std::sqrt(std::pow(_point2.x - _point1.x, 2) + std::pow(_point2.y - _point1.y, 2) + std::pow(_point2.z - _point1.z, 2));	
+}
+
+int MathUtil::GetRandomNumber(int _min, int _max)
+{
+	std::random_device rd;
+	std::uniform_int_distribution<int> distribution(_min, _max);
+	return distribution(rd);
+}
+
+float MathUtil::GetRandomNumber(float _min, float _max)
+{
+	std::random_device rd;
+	std::uniform_real_distribution<float> distribution(_min, _max);
+	return distribution(rd);
 }

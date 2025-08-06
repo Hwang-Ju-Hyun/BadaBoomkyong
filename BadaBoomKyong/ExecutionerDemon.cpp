@@ -18,6 +18,12 @@
 #include "Serializer.h"
 #include "MathUtil.h"
 #include "Transform.h"
+#include "MathUtil.h"
+#include "TimeManager.h"
+#include "PATROL_ExecutionerDemon.h"
+#include "BaseState.h"
+#include "Anim_WalkState.h"
+
 
 ExecutionerDemon::ExecutionerDemon(GameObject* _owner)
 	:Monster(_owner)
@@ -31,16 +37,18 @@ ExecutionerDemon::ExecutionerDemon(GameObject* _owner)
 
 	this->SetIdleBehaviour(new IDLE_ExecutionerDemon);
 	this->SetMeleeBehaivour(new MELEE_ExecutionerDemon);
+	this->SetPatrolBehaviour(new PATROL_ExecutionerDemon);
+
 	assert(m_pAI != nullptr);
 
 	m_pAnimStateMachine = new AnimStateMachine<Monster>(this);
 
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::IDLE), new AnimIdleState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::NORMAL_ATTACK), new AnimNormalAttackState<Monster>());
-	//m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::RANGE_ATTACK), new AnimRangeAttackState<Monster>());
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::WALK), new AnimWalkState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DEATH), new AnimDeathState<Monster>());
 
-	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::IDLE));
+	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::WALK));	
 }
 
 ExecutionerDemon::~ExecutionerDemon()
@@ -66,7 +74,7 @@ void ExecutionerDemon::Init()
 }
 
 void ExecutionerDemon::Update()
-{
+{	
 	//인지범위
 	auto math = MathUtil::GetInstance();
 	m_vPosition = m_pTransform->GetPosition();
@@ -74,20 +82,11 @@ void ExecutionerDemon::Update()
 
 	float dist = math->DistanceBetweenPoints(m_vPosition, m_vPlayerPosition);
 
-	float dir = m_vPlayerPosition.x - m_vPosition.x;
-	dir > 0 ? m_fDirection = 1 : m_fDirection = -1;
-
-	if (dir < 0)//왼쪽 볼때
-	{
-		if (m_pSprite)
-			m_pSprite->SetIsFlipX(true); // 왼쪽 볼 때 FlipX 켜기		
-	}
-	else//오른쪽 볼때
-	{
-		if (m_pSprite)
-			m_pSprite->SetIsFlipX(false);
-	}
-
+	if (m_pAI->GetCurrentState()->GetType() != MONSTER_STATE::PATROL_STATE)
+	{		
+		float dir = m_vPlayerPosition.x - m_vPosition.x;
+		dir > 0 ? m_fDirection = 1 : m_fDirection = -1;		
+	}		
 	if (dist <= m_fDetectRange)
 	{
 		if (dist <= m_vMeleeAtkRange.x)
@@ -98,17 +97,19 @@ void ExecutionerDemon::Update()
 	}
 	else
 	{
-		m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
-		m_eCurrentState = MonsterAnimState::IDLE;
+		m_pAI->ChangeState(MONSTER_STATE::PATROL_STATE);
+		m_eCurrentState = MonsterAnimState::WALK;		
 	}
-
-	GetCurrentHP() < 0 ? SetIsAlive(false) : SetIsAlive(true);
+	auto hp = GetCurrentHP();
+	 hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
 
 	if (!GetIsAlive())
 		m_eCurrentState = MonsterAnimState::DEATH;
 
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();
+
+	UpdateSpriteFlipX();
 }
 
 void ExecutionerDemon::Exit()
@@ -133,6 +134,33 @@ void ExecutionerDemon::MeleeAttack()
 		EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
 		m_bCanMeleeAttack = true;
 	}
+}
+
+void ExecutionerDemon::Patrol()
+{
+	auto mu = MathUtil::GetInstance();
+	float dt = TimeManager::GetInstance()->GetDeltaTime();	
+	
+	if (m_bIsPatrolMoveDone)
+	{
+		m_fPatrolRandDistance = mu->GetRandomNumber(50.f, 100.f);
+		//dir(0) = left    |     dir(1) = right
+		int dir = mu->GetRandomNumber(0, 1);
+		dir > 0 ? m_fDirection = 1 : m_fDirection = -1;
+		m_bIsPatrolMoveDone = false;
+	}
+	else
+	{
+		float move_scala = m_fSpeed * dt;
+		m_fAccPatrolDistance += move_scala;
+		m_pTransform->AddPositionX(move_scala * m_fDirection);
+
+		if (m_fAccPatrolDistance >= m_fPatrolRandDistance)
+		{
+			m_fAccPatrolDistance = 0.f;
+			m_bIsPatrolMoveDone = true;
+		}
+	}			
 }
 
 void ExecutionerDemon::EnterCollision(Collider* _other)
