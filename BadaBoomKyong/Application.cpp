@@ -43,7 +43,7 @@ void Application::Init()
     ModelManager::GetInstance()->Init();                        
 
     //GameStateManager    
-    GameStateManager::GetInstance()->ChangeLevel(new StageTest(STAGE_TYPE::STAGE_TEST,"StageTest"));
+    GameStateManager::GetInstance()->ChangeLevel(new Stage01(STAGE_TYPE::STAGE_01,"Stage01"));
 
     //FactoryManager    
     FactoryManager::GetInstance()->Init();

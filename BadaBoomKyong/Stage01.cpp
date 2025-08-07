@@ -37,7 +37,6 @@ void Stage01::Init()
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLATFORM);
 }
 
-static int a = 0;
 void Stage01::Update()
 {				
 	

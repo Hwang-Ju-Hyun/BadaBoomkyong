@@ -31,6 +31,10 @@ Collider::Collider(GameObject* _owner)
 
 	m_pColliderModel = ModelManager::GetInstance()->FindModel(MODEL_TYPE::RECTANGLE);
 	assert(m_pColliderModel != nullptr);
+
+	glm::vec3 owner_pos = m_pOwnerTransform->GetPosition();
+	m_vFinalPosition = owner_pos + m_vOffsetPosition;
+	m_pColliderTransform->SetPosition(m_vFinalPosition);
 }
 
 Collider::~Collider()
@@ -43,9 +47,8 @@ void Collider::Init()
 
 void Collider::Update()
 {
-	glm::vec3 owner_pos=m_pOwnerTransform->GetPosition();
-	m_vFinalPosition = owner_pos + m_vOffsetPosition;	
-	m_pColliderTransform->SetPosition(m_vFinalPosition);
+	
+	
 }
 
 void Collider::Exit()
@@ -196,5 +199,17 @@ void Collider::EditInfoFromButton()
 	bool is3d = GetOwner()->GetIs3D();
 	ImGui::InputFloat3("Pos", &(m_vOffsetPosition[0]));
 	ImGui::InputFloat3("Scale", &(m_vScale[0]));	
+
+
+	if (GetOwner()->GetName() == "customModelObj2")
+	{
+		int a = 0;
+	}
+	glm::vec3 owner_pos = m_pOwnerTransform->GetPosition();
+	m_vFinalPosition = owner_pos + m_vOffsetPosition;
+	m_pColliderTransform->SetPosition(m_vFinalPosition);
+	m_pOwnerTransform->GetPosition();
+	int a = 0;
+
 }
 #endif
