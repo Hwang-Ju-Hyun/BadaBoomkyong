@@ -41,7 +41,7 @@ void ExecutionerDemonMelee::Awake()
 {
     GameObject* mon_obj = GetAttacker();
     assert(mon_obj != nullptr);
-
+    m_pPlayer = m_pExecutionerDemon->GetPlayer();
     Transform* mon_trs = dynamic_cast<Transform*>(mon_obj->FindComponent(Transform::TransformTypeName));
     m_pExecutionerDemon = dynamic_cast<ExecutionerDemon*>(mon_obj->FindComponent(ExecutionerDemon::ExecutionerDemonTypeName));
 
@@ -80,15 +80,28 @@ void ExecutionerDemonMelee::Exit()
 }
 
 void ExecutionerDemonMelee::EnterCollision(Collider* _col)
-{
+{    
+    m_pPlayer = _col->GetOwner()->FindComponent<Player>();
+    if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::PLAYER)
+    {        
+        if (m_pPlayer)
+        {
+            m_pPlayer->MinusCurrentHP(1);
+            if (m_pPlayer->GetIsAlive())
+            {
+                m_pPlayer->SetIsHurting(true);
+            }
+        }
+    }
 }
 
 void ExecutionerDemonMelee::OnCollision(Collider* _col)
-{
+{    
 }
 
 void ExecutionerDemonMelee::ExitCollision(Collider* _col)
 {
+    int a = 0;
 }
 
 void ExecutionerDemonMelee::LoadFromJson(const json& _str)

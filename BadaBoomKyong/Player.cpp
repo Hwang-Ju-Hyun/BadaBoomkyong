@@ -20,6 +20,7 @@
 #include "PlayerMelee.h"
 #include "Animator.h"
 #include "Anim_IdleState.h"
+#include "Anim_HurtState.h"
 
 class AnimIdelState;
 template<typename T>
@@ -49,6 +50,7 @@ Player::Player(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::ATTACK), new AnimNormalAttackState<Player>());
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::RUN_ATTACK), new AnimSprintAttackState<Player>());
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::JUMP_ATTACK), new AnimJumpAttackState<Player>());
+	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::HURT), new AnimHurtState<Player>());
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::DEATH), new AnimDeathState<Player>());
 		
 
@@ -100,6 +102,7 @@ void Player::Update()
 	if(m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();
 	StateHandler();
+	std::cout << m_pRigidBody->GetVelocity().x << " , "<<m_pRigidBody->GetVelocity().y << std::endl;
 }
 
 void Player::EnterCollision(Collider* _other)
@@ -229,11 +232,14 @@ void Player::Death()
 
 	if (!m_bIsAlive)
 	{
+		m_bIsHurting = false;
 		m_eCurrentState = PlayerAnimState::DEATH;
 		if(m_pAnimator->GetAnimation()->m_bLoopCount==1)
 			EventManager::GetInstance()->SetActiveFalse(GetOwner());
 	}
 }
+
+
 
 static int a = 0;
 void Player::StateHandler()
@@ -242,138 +248,68 @@ void Player::StateHandler()
 		std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon ? m_bIsSprinting = false : m_bIsSprinting = true;
 
 	m_pRigidBody->GetVelocity().y < 0 ? m_bIsFalling = true : m_bIsFalling = false;
-	if (m_bIsFalling)
-		m_eCurrentState = PlayerAnimState::FALL;
 
-	if (std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon
-		&& m_pRigidBody->GetIsGround()))
+	if (m_bIsHurting == false)
 	{
-		m_bJumpMeleeAttacking = false;
-		m_eCurrentState = PlayerAnimState::IDLE;
-	}
-		
-
-	if (m_pRigidBody->GetIsGround() && std::fabs(m_pRigidBody->GetVelocity().x) > g_epsilon
-		&& (!m_bSprintMeleeAttacking && !m_bIsDashing))
-	{
-		if (!m_bIsSprinting)
-		{
-			m_eCurrentState = PlayerAnimState::TOSPRINT;
-		}
-		if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
-		{
-			m_bIsSprinting = true;
-			m_eCurrentState = PlayerAnimState::SPRINTING;
-		}
-	}
-
-	if (m_bNormalMeleeAttacking)
-		m_eCurrentState = PlayerAnimState::ATTACK;
-
-	if (m_bIsDashing)
-	{
-		m_eCurrentState = PlayerAnimState::DASH;
-	}
-
-	if (m_bJumpMeleeAttacking)
-	{
-		if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
-			m_bJumpMeleeAttacking = false;
-		else
-			m_eCurrentState = PlayerAnimState::JUMP_ATTACK;	
-	}
-
-	if (m_bSprintMeleeAttacking)
-		m_eCurrentState = PlayerAnimState::RUN_ATTACK;
-}
-
-void Player::AnimationHandle()
-{			
-	if (m_eCurrentState != PlayerAnimState::DEATH)
-	{		
-		if (m_bNormalMeleeAttacking)
-			m_eCurrentState = PlayerAnimState::ATTACK;		
-		else if (GetIsFalling()&& !m_bJumpMeleeAttacking)
+		if (m_bIsFalling)
 			m_eCurrentState = PlayerAnimState::FALL;
-		else if (m_pRigidBody->GetIsGround() && std::fabs(m_pRigidBody->GetVelocity().x) > g_epsilon
+
+		if (std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon
+			&& m_pRigidBody->GetIsGround()))
+		{
+			m_bJumpMeleeAttacking = false;
+			m_eCurrentState = PlayerAnimState::IDLE;
+		}
+
+		if (m_bJumpMeleeAttacking)
+		{
+			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+				m_bJumpMeleeAttacking = false;
+			else
+				m_eCurrentState = PlayerAnimState::JUMP_ATTACK;
+		}
+
+		if (m_pRigidBody->GetIsGround() && std::fabs(m_pRigidBody->GetVelocity().x) > g_epsilon
 			&& (!m_bSprintMeleeAttacking && !m_bIsDashing))
 		{
 			if (!m_bIsSprinting)
 			{
-				m_eCurrentState = PlayerAnimState::TOSPRINT;				
+				m_eCurrentState = PlayerAnimState::TOSPRINT;
 			}
 			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
 			{
 				m_bIsSprinting = true;
 				m_eCurrentState = PlayerAnimState::SPRINTING;
 			}
-		}	
-		else if (m_bIsSprinting)		
-			m_eCurrentState = PlayerAnimState::SPRINTING;		
-		else if(m_bIsDashing)
-			m_eCurrentState = PlayerAnimState::DASH;
-		else if (std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon 
-			&& m_pRigidBody->GetIsGround()))		
-			m_eCurrentState = PlayerAnimState::IDLE;				
-		else if (m_bSprintMeleeAttacking)
-			m_eCurrentState = PlayerAnimState::RUN_ATTACK;
-		else if(m_bJumpMeleeAttacking)
-			m_eCurrentState = PlayerAnimState::JUMP_ATTACK;		
-	}	
+		}
 
-	switch (m_eCurrentState)
-	{
-	case TOSPRINT:		
-		if (m_eCurrentState != m_ePreviousState)
-			m_pAnimator->ChangeAnimation("ToSprint");		
-		break;
-	case SPRINTING:
-		if (m_eCurrentState != m_ePreviousState && m_bIsSprinting)
-			m_pAnimator->ChangeAnimation("Sprinting");			
-		break;
-	case JUMP:
-		if (m_eCurrentState != m_ePreviousState)
-			m_pAnimator->ChangeAnimation("Jump");
-		break;
-	case ATTACK:  
-		if (m_eCurrentState != m_ePreviousState)
-			m_pAnimator->ChangeAnimation("LightAttack");
-		break;
-	case RUN_ATTACK:
-		if (m_eCurrentState != m_ePreviousState)
-			m_pAnimator->ChangeAnimation("SprintAttack");
-		break;
-	case JUMP_ATTACK:
-		if (m_eCurrentState != m_ePreviousState)
-			m_pAnimator->ChangeAnimation("JumpAttack");		
-		break;
-	case DASH:
-		if (m_eCurrentState != m_ePreviousState)
-			m_pAnimator->ChangeAnimation("Dash");
-		break;
-	//case HEALING:
-	//	break;		
-	case FALL:
-		//todo :이거 착지할때 애니메이션이 끝나는게 아니라 애니메이션 시간 끝나면 걍 애니메이션이 끝남
-		if (m_eCurrentState != m_ePreviousState)
-			m_pAnimator->ChangeAnimation("Fall");		
-		break;
-	case DEATH:
-		if (m_eCurrentState != m_ePreviousState)
-			m_pAnimator->ChangeAnimation("Death");		
-		break;
-	case IDLE:
-		if (m_eCurrentState != m_ePreviousState)
-			m_pAnimator->ChangeAnimation("Idle");
-		break;
-	default:
-		break;
+		if (m_bNormalMeleeAttacking)
+			m_eCurrentState = PlayerAnimState::ATTACK;
+
+		if (m_bIsDashing)
+			m_eCurrentState = PlayerAnimState::DASH;
+
+		if (m_bSprintMeleeAttacking)
+			m_eCurrentState = PlayerAnimState::RUN_ATTACK;
 	}
-	if (m_bSprintMeleeAttacking && m_pAnimator->GetAnimation()->m_bLoopCount == 1)
-	{		
-		m_pAnimator->GetAnimation()->m_bLoopCount = 0;
-	}	
+	
+
+	if (m_bIsHurting)	
+		m_eCurrentState = PlayerAnimState::HURT;	
+
+	
+	if (m_bIsHurting)
+	{
+		if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+		{
+			m_pAnimator->GetAnimation()->m_bLoopCount = 0;
+			m_bIsHurting = false;
+		}
+	}
+
+	
 }
+
 
 void Player::Jump()
 {

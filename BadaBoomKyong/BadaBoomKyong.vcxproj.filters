@@ -98,9 +98,6 @@
     <Filter Include="Manager\CollisionManager">
       <UniqueIdentifier>{3405b47f-6ed7-4f3a-8bf7-4e8d356a2226}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Json">
-      <UniqueIdentifier>{9d8f479c-a500-45c9-9e55-eda855921d6e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Default">
       <UniqueIdentifier>{178ba916-a5e5-4f39-8bf6-8ee57a9a1098}</UniqueIdentifier>
     </Filter>
@@ -278,23 +275,11 @@
     <Filter Include="Level\Stage02">
       <UniqueIdentifier>{e993590b-585b-481f-9238-e47f7c3c1778}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Json\Stage01">
-      <UniqueIdentifier>{5a48f277-50f0-4a77-9bb6-7c2a7bea2cbb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Json\Stage02">
-      <UniqueIdentifier>{389fa36d-48d7-4539-a0ae-cb54fabaecf6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\Stage03">
       <UniqueIdentifier>{8ee69c0e-19bc-43f2-b6e5-74f112add0db}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Json\Stage03">
-      <UniqueIdentifier>{479121bd-d331-4fa2-a5f3-60256815fc98}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\StageTest">
       <UniqueIdentifier>{bdc42052-d7b3-40f0-933e-be59969e3169}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Json\StageTest">
-      <UniqueIdentifier>{d2530daa-2ef3-4df1-aae9-f4ce72305da3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\Custom\Monster\ExecutionerDemon">
       <UniqueIdentifier>{1265b43a-dc55-48bb-a4c7-68d521d042de}</UniqueIdentifier>
@@ -334,6 +319,24 @@
     </Filter>
     <Filter Include="Animation\FiniteStateMachine\Walk">
       <UniqueIdentifier>{a229f9de-abc4-4c2a-a62e-62efeaf9d79c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Hurt">
+      <UniqueIdentifier>{f6889f32-a4ce-4832-b447-d41f0cf2baef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json">
+      <UniqueIdentifier>{9d8f479c-a500-45c9-9e55-eda855921d6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json\Stage01">
+      <UniqueIdentifier>{5a48f277-50f0-4a77-9bb6-7c2a7bea2cbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json\Stage02">
+      <UniqueIdentifier>{389fa36d-48d7-4539-a0ae-cb54fabaecf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json\Stage03">
+      <UniqueIdentifier>{479121bd-d331-4fa2-a5f3-60256815fc98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json\StageTest">
+      <UniqueIdentifier>{d2530daa-2ef3-4df1-aae9-f4ce72305da3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -926,6 +929,9 @@
     </ClInclude>
     <ClInclude Include="Anim_WalkState.h">
       <Filter>Animation\FiniteStateMachine\Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_HurtState.h">
+      <Filter>Animation\FiniteStateMachine\Hurt</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

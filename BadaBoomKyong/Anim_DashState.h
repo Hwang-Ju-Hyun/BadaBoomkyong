@@ -1,6 +1,6 @@
 #pragma once
 #include "Anim_IState.h"
-
+#include "Anim_HurtState.h"
 template<typename T>
 class AnimIdleState;  // Forward declaration
 template<typename T>
@@ -26,6 +26,9 @@ public:
             {
             case PlayerAnimState::IDLE:
                 _owner->GetAnimStateMachine()->ChangeAnimState(new AnimIdleState<T>());
+                break;
+            case PlayerAnimState::HURT:
+                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimHurtState<T>());
                 break;
             case PlayerAnimState::DEATH:
                 _owner->GetAnimStateMachine()->ChangeAnimState(new AnimDeathState<T>());

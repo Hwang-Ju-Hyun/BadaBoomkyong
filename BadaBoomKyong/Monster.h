@@ -25,6 +25,7 @@ enum class MonsterAnimState
     RANGE_ATTACK,
     NORMAL_ATTACK,
     WALK,
+    HURT,
     DEATH
 };
 
@@ -43,8 +44,7 @@ protected:
     AnimStateMachine<Monster>* m_pAnimStateMachine;
     Animator* m_pAnimator;
     MonsterAnimState m_eCurrentState;
-
-
+    //Player
     Player* m_pPlayer;
     Transform* m_pPlayerTransform = nullptr;
 protected:
@@ -61,6 +61,11 @@ public:
     inline void SetDirection(float _dir) { m_fDirection = _dir; }
     inline float GetDirection()const { return m_fDirection; }
     void UpdateSpriteFlipX();
+private:
+    bool m_bIsHurting = false;
+public:
+    void SetIsHurting(bool _hurt) { m_bIsHurting = _hurt; }
+    bool GetIsHurting()const { return m_bIsHurting; }
 public:
     inline void SetIdleBehaviour(IIdleBehaviour* _behaviour) { m_pIdleBehavior = _behaviour; }
     inline void SetRangedBehaviour(IRangedBehaviour* _behaviour) { m_pRangedBehavior = _behaviour; }
@@ -82,8 +87,8 @@ protected:
     float m_fJumpImpulse = 500.f;
     bool m_bIsGround = false;
 
-    int m_iCurrentHP = 1;
-    int m_iInitHP = 1;
+    int m_iCurrentHP = 10;
+    int m_iInitHP = 10;
     bool m_bIsAlive = true;
 public:    
     inline void SetIsGround(bool _ground) { m_bIsGround = _ground; }
@@ -91,6 +96,7 @@ public:
     inline void SetSpeed(float _speed) { m_fSpeed = _speed; }
     inline float GetSpeed()const { return m_fSpeed; }    
     inline void SetCurrentHP(int _hp) { m_iCurrentHP = _hp; }
+    inline void MinusCurrentHp(int _hp) { m_iCurrentHP -= _hp; }
     inline int GetCurrentHP()const { return m_iCurrentHP; }
     inline void SetIsAlive(bool _alive) { m_bIsAlive = _alive; }
     inline bool GetIsAlive()const { return m_bIsAlive; }

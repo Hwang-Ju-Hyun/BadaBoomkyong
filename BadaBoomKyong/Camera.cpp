@@ -3,6 +3,7 @@
 #include <ext/matrix_clip_space.hpp>
 #include <gtc/matrix_transform.hpp>
 #include "InputManager.h"
+#include "MathUtil.h"
 
 Camera::Camera()
 {
@@ -45,4 +46,10 @@ void Camera::Update()
 
 void Camera::Exit()
 {
+}
+
+void Camera::Shake(float _duration, float _magnitude)
+{
+	int rand_num=MathUtil::GetInstance()->GetRandomNumber(-100, 100);
+
 }

@@ -25,21 +25,22 @@ Collider::Collider(GameObject* _owner)
 	m_pOwnerTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
 	assert(m_pOwnerTransform != nullptr);
 	
-	m_pColliderTransform= dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
+	m_pColliderTransform = new Transform(GetOwner());
 	m_pColliderSpirte = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	assert(m_pColliderTransform != nullptr /*&& m_pColliderSpirte != nullptr*/);
 
 	m_pColliderModel = ModelManager::GetInstance()->FindModel(MODEL_TYPE::RECTANGLE);
 	assert(m_pColliderModel != nullptr);
-
-	glm::vec3 owner_pos = m_pOwnerTransform->GetPosition();
-	m_vFinalPosition = owner_pos + m_vOffsetPosition;
-	m_pColliderTransform->SetPosition(m_vFinalPosition);
 }
 
 Collider::~Collider()
 {
-}
+	if (m_pColliderTransform)
+	{
+		delete m_pColliderTransform;
+		m_pColliderTransform = nullptr;
+	}	
+} 
 
 void Collider::Init()
 {	
@@ -47,8 +48,9 @@ void Collider::Init()
 
 void Collider::Update()
 {
-	
-	
+	glm::vec3 owner_pos = m_pOwnerTransform->GetPosition();
+	m_vFinalPosition = owner_pos + m_vOffsetPosition;
+	m_pColliderTransform->SetPosition(m_vFinalPosition);	
 }
 
 void Collider::Exit()
@@ -103,15 +105,16 @@ BaseRTTI* Collider::CreateCollideComponent()
 }
 
 void Collider::LoadFromJson(const json& _str)
-{
-	auto iter_compData = _str.find(CompDataName);
+{	
+	auto iter_compData = _str.find(CompDataName);	
 	if (iter_compData != _str.end())
 	{
 		auto offset_pos = iter_compData->find(OffsetTypeName);
 		m_vOffsetPosition.x = offset_pos->begin().value();
 		m_vOffsetPosition.y = (offset_pos->begin() + 1).value();
 		m_vOffsetPosition.z = (offset_pos->begin() + 2).value();
-
+		if (m_vOffsetPosition.y < 0.f)
+			int a = 0;
 		auto sca = iter_compData->find(ScaleTypeName);
 		m_vScale.x = sca->begin().value();
 		m_vScale.y = (sca->begin() + 1).value();
@@ -198,18 +201,8 @@ void Collider::EditInfoFromButton()
 {
 	bool is3d = GetOwner()->GetIs3D();
 	ImGui::InputFloat3("Pos", &(m_vOffsetPosition[0]));
-	ImGui::InputFloat3("Scale", &(m_vScale[0]));	
-
-
-	if (GetOwner()->GetName() == "customModelObj2")
-	{
-		int a = 0;
-	}
-	glm::vec3 owner_pos = m_pOwnerTransform->GetPosition();
-	m_vFinalPosition = owner_pos + m_vOffsetPosition;
-	m_pColliderTransform->SetPosition(m_vFinalPosition);
-	m_pOwnerTransform->GetPosition();
-	int a = 0;
+	ImGui::InputFloat3("Scale", &(m_vScale[0]));		
+		
 
 }
 #endif

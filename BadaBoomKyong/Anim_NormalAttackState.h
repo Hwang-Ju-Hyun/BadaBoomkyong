@@ -35,6 +35,9 @@ public:
             case PlayerAnimState::IDLE:
                 machine->ChangeAnimState(PlayerAnimState::IDLE);
                 break;
+            case PlayerAnimState::HURT:
+                machine->ChangeAnimState(PlayerAnimState::HURT);
+                break;
             case PlayerAnimState::DEATH:
                 machine->ChangeAnimState(PlayerAnimState::DEATH);
                 break;
@@ -49,6 +52,9 @@ public:
                 break;
             case MonsterAnimState::RANGE_ATTACK:
                 machine->ChangeAnimState(static_cast<int>(MonsterAnimState::RANGE_ATTACK));
+                break;
+            case MonsterAnimState::HURT:
+                machine->ChangeAnimState(static_cast<int>(MonsterAnimState::HURT));
                 break;
             case MonsterAnimState::WALK:
                 machine->ChangeAnimState(static_cast<int>(MonsterAnimState::WALK));

@@ -103,7 +103,10 @@ void PlayerMelee::EnterCollision(Collider* _col)
     if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::MONSTER)
     {
         if (m_pMonster)
-            m_pMonster->SetCurrentHP(-100);
+        {
+            m_pMonster->MinusCurrentHp(1);
+            m_pMonster->SetIsHurting(true);
+        }            
     }
 }
 

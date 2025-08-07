@@ -9,6 +9,7 @@
 #include "Player.h"  
 #include "Monster.h"
 #include "Anim_RangeAttackState.h"
+#include "Anim_HurtState.h"
 
 template<typename T>
 class AnimIdleState : public AnimIState<T>
@@ -41,6 +42,9 @@ public:
             case PlayerAnimState::DASH:
                 machine->ChangeAnimState(PlayerAnimState::DASH);
                 break;
+            case PlayerAnimState::HURT:
+                machine->ChangeAnimState(PlayerAnimState::HURT);
+                break;
             case PlayerAnimState::ATTACK:
                 machine->ChangeAnimState(PlayerAnimState::ATTACK);
                 break;
@@ -52,13 +56,16 @@ public:
         else if constexpr (std::is_same<T, Monster>::value)
         {
             AnimStateMachine<Monster>* machine = _owner->GetAnimStateMachine();
-                switch (_owner->GetCurrentState())
+            switch (_owner->GetCurrentState())
             {           
             case MonsterAnimState::RANGE_ATTACK:
                 machine->ChangeAnimState(int(MonsterAnimState::RANGE_ATTACK));
                 break;
             case MonsterAnimState::NORMAL_ATTACK:
                 machine->ChangeAnimState(int(MonsterAnimState::NORMAL_ATTACK));
+                break;
+            case MonsterAnimState::HURT:
+                machine->ChangeAnimState(int(MonsterAnimState::HURT));
                 break;
             case MonsterAnimState::DEATH:
                 machine->ChangeAnimState(int(MonsterAnimState::DEATH));

@@ -267,7 +267,7 @@ Model* ModelManager::LoadModel(const std::string& _filePath)
 		aiProcess_RemoveRedundantMaterials |
 		aiProcess_SortByPType |
 		aiProcess_PreTransformVertices // glTF에서 node transform 적용 시 유용
-	);
+	); 
 
 	m_pCustomModel = new Model(model_name, MODEL_TYPE::CUSTOM_MODEL, _filePath);
 

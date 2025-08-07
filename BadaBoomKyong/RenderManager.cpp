@@ -122,11 +122,11 @@ void RenderManager::BeforeDraw()
 }
 #include "Player.h"
 void RenderManager::Draw()
-{			
+{				
 	auto objs=GameObjectManager::GetInstance()->GetAllObjects();
 	auto shdr_handle_2D = m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->GetShaderProgramHandle();
 	auto shdr_handle_3D= m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->GetShaderProgramHandle();
-		
+
 	Transform* obj_trs = nullptr;
 	glEnable(GL_DEPTH_TEST);
 	m_pCam->Update();
@@ -160,6 +160,7 @@ void RenderManager::Draw()
 
 				m_iHas_texture_location = glGetUniformLocation(shdr_handle_3D, "uHasTexture");
 				m_iOut_texture_location = glGetUniformLocation(shdr_handle_3D, "uOutTexture");
+				m_iHurtEffect_location = glGetUniformLocation(shdr_handle_3D, "uHurtEffect");
 
 				if (!spr)
 				{
@@ -373,6 +374,13 @@ void RenderManager::Draw()
 						glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(finalMVP));
 					else
 						glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
+					
+					if (p&&p->GetIsHurting())					
+						glUniform1i(m_iHurtEffect_location, true);					
+					else					
+						glUniform1i(m_iHurtEffect_location, false);										
+
+
 
 					model->Draw();
 

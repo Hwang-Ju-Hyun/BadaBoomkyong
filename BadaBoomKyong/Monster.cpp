@@ -35,8 +35,7 @@ Monster::Monster(GameObject* _owner)
 	assert(m_pPlayerTransform);
 	
 	//Basic Init 
-	m_vPosition = m_pTransform->GetPosition();
-	m_pCollider->SetScale({ m_pTransform->GetScale() });		
+	m_vPosition = m_pTransform->GetPosition();	
 }
 
 Monster::~Monster()

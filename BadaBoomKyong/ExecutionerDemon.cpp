@@ -22,8 +22,8 @@
 #include "TimeManager.h"
 #include "PATROL_ExecutionerDemon.h"
 #include "BaseState.h"
+#include "Anim_HurtState.h"
 #include "Anim_WalkState.h"
-
 
 ExecutionerDemon::ExecutionerDemon(GameObject* _owner)
 	:Monster(_owner)
@@ -46,6 +46,7 @@ ExecutionerDemon::ExecutionerDemon(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::IDLE), new AnimIdleState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::NORMAL_ATTACK), new AnimNormalAttackState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::WALK), new AnimWalkState<Monster>());
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::HURT), new AnimHurtState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DEATH), new AnimDeathState<Monster>());
 
 	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::WALK));	
@@ -102,6 +103,18 @@ void ExecutionerDemon::Update()
 	}
 	auto hp = GetCurrentHP();
 	 hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
+
+	 if (GetIsHurting())
+		 m_eCurrentState = MonsterAnimState::HURT;
+
+	 if (GetIsHurting())
+	 {
+		 if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+		 {
+			 m_pAnimator->GetAnimation()->m_bLoopCount = 0;
+			 SetIsHurting(false);
+		 }
+	 }
 
 	if (!GetIsAlive())
 		m_eCurrentState = MonsterAnimState::DEATH;

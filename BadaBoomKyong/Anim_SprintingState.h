@@ -34,6 +34,9 @@ public:
             case PlayerAnimState::DASH:
                 machine->ChangeAnimState(PlayerAnimState::DASH);
                 break;
+            case PlayerAnimState::HURT:
+                machine->ChangeAnimState(PlayerAnimState::HURT);
+                break;
             case  PlayerAnimState::RUN_ATTACK:
                 machine->ChangeAnimState(PlayerAnimState::RUN_ATTACK);
                 break;

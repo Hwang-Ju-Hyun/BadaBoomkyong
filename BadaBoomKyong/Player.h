@@ -27,6 +27,7 @@ enum PlayerAnimState
     DASH,
     RUN_DASH,
     HEALING,
+    HURT,
     FALL,
     DEATH    
 };
@@ -53,7 +54,7 @@ private:
     PlayerAnimState m_eCurrentState;
     bool m_bIsGround;
 private:
-    int m_iInitHP = 1;
+    int m_iInitHP = 5;
     int m_iCurrentHP=1;
     bool m_bIsAlive = true;
     //right : postive left : negative
@@ -79,6 +80,7 @@ public:
     inline const bool GetIsDashing()const { return m_bIsDashing; }
 
     inline void AddHP(int _hp) { m_iCurrentHP += _hp; }
+    inline void MinusCurrentHP(int _hp) { m_iCurrentHP -= _hp; }
     inline const int GetHP()const { return m_iCurrentHP; }
     inline void SetIsAlive(bool _alive) { m_bIsAlive = _alive; }
     inline const bool GetIsAlive()const { return m_bIsAlive; }
@@ -115,14 +117,18 @@ public:
     virtual void OnCollision(Collider* _other)   override;
     virtual void ExitCollision(Collider* _other) override;    
 private:
-    void StateHandler();
-    void AnimationHandle();
+    void StateHandler();    
     void Jump();
     void Move();  
     void Fire();
     void MeleeAttack();
     void Dash();
-    void Death();
+    void Death();    
+private:
+    bool m_bIsHurting = false;
+public:
+    void SetIsHurting(bool _hurt) { m_bIsHurting = _hurt; }
+    bool GetIsHurting()const { return m_bIsHurting; }
 public:
     static constexpr const char* PlayerTypeName = "Player";
     static constexpr const char* SpeedName = "Speed";

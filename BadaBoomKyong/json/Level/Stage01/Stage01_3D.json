@@ -8,9 +8,9 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            26.69561767578125,
-            -19189.271484375,
-            0.0
+            71.20611572265625,
+            25.000001907348633,
+            -50.0
           ],
           "Sca": [
             64.0,
@@ -33,8 +33,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "Death",
-          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Death/Death.png"
+          "TextureName": "LightAttack",
+          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/LightAttack/LightAttack.png"
         }
       },
       {
@@ -99,6 +99,16 @@
               "Col": 6,
               "Duration": 0.10000000149011612,
               "Loop": true
+            },
+            {
+              "Name": "Hurt",
+              "TextureName": "Hurt",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Hurt/FX/Hurt.png",
+              "Max": 6,
+              "Row": 1,
+              "Col": 6,
+              "Duration": 0.05000000074505806,
+              "Loop": false
             },
             {
               "Name": "Idle",
@@ -194,7 +204,7 @@
         "CompData": {
           "Pos": [
             670.8302001953125,
-            -109651.9765625,
+            -457252.0,
             0.0
           ],
           "Sca": [
@@ -341,7 +351,7 @@
         "CompData": {
           "Pos": [
             -384.07049560546875,
-            -109651.9765625,
+            -457252.0,
             0.0
           ],
           "Sca": [
@@ -487,9 +497,9 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            387.7614440917969,
-            -104716.2890625,
-            2000.0
+            -605.81591796875,
+            40.0,
+            -50.0
           ],
           "Sca": [
             150.0,
@@ -512,8 +522,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "Idle",
-          "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Idle.png"
+          "TextureName": "Walk",
+          "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Walk.png"
         }
       },
       {
@@ -535,12 +545,12 @@
         "CompData": {
           "Offset_Position": [
             0.0,
-            0.0,
+            -10.0,
             0.0
           ],
           "Scale": [
-            150.0,
-            150.0,
+            40.0,
+            80.0,
             450.0
           ]
         }
@@ -557,6 +567,16 @@
               "Row": 1,
               "Col": 29,
               "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "Hurt",
+              "TextureName": "Hurt",
+              "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Hurt.png",
+              "Max": 5,
+              "Row": 1,
+              "Col": 5,
+              "Duration": 0.05000000074505806,
               "Loop": false
             },
             {
@@ -623,94 +643,7 @@
     ],
     "Model": 4,
     "Group": 3
-  },
-  {
-    "Name": "customModelObj1",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            0.0008789271814748645,
-            277.18463134765625,
-            -2457.656982421875
-          ],
-          "Sca": [
-            910.304443359375,
-            1909.671875,
-            3989.185791015625
-          ],
-          "Rot": [
-            0.0,
-            89.9999771118164,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-          "RGBA": [
-            1.0,
-            1.0,
-            1.0,
-            1.0
-          ],
-          "TextureName": "floor_texture_baseColor",
-          "TexturePath": "../Extern/Assets/Texture/background/Desert_Afternoon_4.jpg"
-        }
-      }
-    ],
-    "Model": 5,
-    "Group": 4
-  },
-  {
-    "Name": "customModelObj2",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            1.3110368854540866e-05,
-            -1.4252700805664063,
-            -36.65938949584961
-          ],
-          "Sca": [
-            910.304443359375,
-            189.6937713623047,
-            767.138671875
-          ],
-          "Rot": [
-            0.0,
-            89.9999771118164,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            0.0,
-            0.0,
-            0.0
-          ]
-        }
-      }
-    ],
-    "Model": 6,
-    "ModelPath": "../Extern/Assets/Model/Desert/DesertStructure/scene.gltf",
-    "Group": 4
-  },
+  }, 
   {
     "Name": "Platfrom",
     "ID": 0,
@@ -721,7 +654,7 @@
         "CompData": {
           "Pos": [
             2.0385818061186e-05,
-            6307.34765625,
+            -100.0,
             -57.00162124633789
           ],
           "Sca": [
@@ -741,7 +674,7 @@
         "CompData": {
           "Offset_Position": [
             0.0,
-            0.0,
+            50.0,
             0.0
           ],
           "Scale": [

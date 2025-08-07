@@ -136,12 +136,12 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 					left_col->ExitCollision(right_col);
 					right_col->ExitCollision(left_col);
 				}
-				RigidBody* lrb=dynamic_cast<RigidBody*>(left_col->GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
+				/*RigidBody* lrb=dynamic_cast<RigidBody*>(left_col->GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
 				RigidBody* rrb = dynamic_cast<RigidBody*>(right_col->GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
 				if(lrb)
 					lrb->SetIsGround(false);
 				else if(rrb)
-					rrb->SetIsGround(false);
+					rrb->SetIsGround(false);*/
 
 				iter->second = false;
 			}

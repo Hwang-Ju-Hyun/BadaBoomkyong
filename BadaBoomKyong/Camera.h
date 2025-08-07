@@ -42,5 +42,7 @@ public:
 public:
 	float yaw = -90.0f;     //ÁÂ¿ì
 	float pitch = 0.0f;		//»óÇÏ
+public:
+	void Shake(float _duration,float _magnitude);
 };
 

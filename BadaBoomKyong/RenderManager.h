@@ -30,6 +30,7 @@ private:
 	GLint m_iUV_Scale_Location;
 	GLint m_iHas_texture_location;
 	GLint m_iOut_texture_location;
+	GLint m_iHurtEffect_location;
 public:	
 	inline Shader* GetShader(SHADER_REF _shdrRef) { return m_vShdr[int(_shdrRef)]; }	
 	Camera* m_pCam=nullptr;
