@@ -315,7 +315,7 @@ void RenderManager::Draw()
 				}
 				else if (spr)
 				{
-					if (obj->GetName() == "SoldierMonster" && obj->GetID() == 0)
+					if (obj->GetName() == "CurseDemon" && obj->GetID() == 0)
 						int a = 0;
 					if (spr->GetTexture() != nullptr)
 					{

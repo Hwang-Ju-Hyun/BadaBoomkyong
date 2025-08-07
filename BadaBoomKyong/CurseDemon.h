@@ -3,7 +3,7 @@
 #include "ObjectPool.h"
 
 class BulletFactory;
-class SoldierGrenade;
+class CurseDemonBullet;
 class Bullet;
 class Transform;
 class GameObject;
@@ -11,16 +11,16 @@ class Melee;
 class MeleeFactory;
 
 
-class SoldierMonster :
+class CurseDemon :
     public Monster
 {
 public:
-    SoldierMonster(GameObject* _owner);
-    virtual ~SoldierMonster()override;        
+    CurseDemon(GameObject* _owner);
+    virtual ~CurseDemon()override;        
 //Range
 private:    
     BulletFactory* m_pBulletFactory = nullptr;
-    ObjectPool<SoldierGrenade, 30>* m_pGrenadePool = nullptr;
+    ObjectPool<CurseDemonBullet, 30>* m_pGrenadePool = nullptr;
     Bullet* m_pBullet=nullptr;
 private:
     //Melee Object
@@ -28,7 +28,7 @@ private:
     Collider*  m_pMeleeCol = nullptr;
     Sprite* m_pMeleeSpr = nullptr;
     Transform* m_pMeleeTrs = nullptr;
-    static constexpr const char* SoldierMonsterMeleeObjTypeName = "SoldierMonsterMeleeObject";
+    static constexpr const char* CurseDemonMeleeObjTypeName = "CurseDemonMeleeObject";
 public:
     inline BulletFactory* GetBulletFactory()const { return m_pBulletFactory; };
 private:  
@@ -61,12 +61,12 @@ public:
     virtual void OnCollision(Collider* _other)   override;
     virtual void ExitCollision(Collider* _other) override;
 public:
-    static constexpr const char* SoldierMonsterTypeName = "SoldierMonster";      
+    static constexpr const char* CurseDemonTypeName = "CurseDemon";
     static constexpr const char* DetectRangeName = "DetectRange";
     static constexpr const char* RangedMoveAtkRangeName = "RangedMoveAtkRange";
     static constexpr const char* MeleeAtkRangeName = "MeleeAtkRange";
 public:
-    static BaseRTTI* CreateSoliderMonsterComponent();
+    static BaseRTTI* CreateCurseDemonComponent();
     virtual void LoadFromJson(const json& _str)override;
     virtual json SaveToJson(const json& _str)override;
 };

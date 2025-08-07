@@ -1,4 +1,4 @@
-#include "SoldierGrenade.h"
+#include "CurseDemonBullet.h"
 #include "Transform.h"
 #include "Sprite.h"
 #include "Collider.h"
@@ -9,22 +9,22 @@
 #include "EventManager.h"
 #include "Monster.h"
 #include "Bullet.h"
-#include "SoldierMonster.h"
+#include "CurseDemon.h"
 #include "Player.h"
 
-SoldierGrenade::SoldierGrenade(GameObject* _owner, GameObject* _shooter)
+CurseDemonBullet::CurseDemonBullet(GameObject* _owner, GameObject* _shooter)
     :Bullet(_owner,_shooter)    
 {
     GetOwner()->SetIsSerializable(false);
 }
 
-SoldierGrenade::~SoldierGrenade()
+CurseDemonBullet::~CurseDemonBullet()
 {
 }
 
-void SoldierGrenade::Init()
+void CurseDemonBullet::Init()
 {
-    SetName(SoldierMonsterGrenadeTypaName);
+    SetName(CurseDemonBulletTypaName);
     m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
     m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
     m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
@@ -35,11 +35,11 @@ void SoldierGrenade::Init()
     GetOwner()->SetActiveAllComps(false);    
 }
 
-void SoldierGrenade::Awake()
+void CurseDemonBullet::Awake()
 { 
-    GameObject* mon_obj = GameObjectManager::GetInstance()->FindObject(SoldierMonster::SoldierMonsterTypeName);
+    GameObject* mon_obj = GameObjectManager::GetInstance()->FindObject(CurseDemon::CurseDemonTypeName);
     Transform* mon_trs = dynamic_cast<Transform*>(GetShooter()->FindComponent(Transform::TransformTypeName));
-    SoldierMonster* mon_comp = dynamic_cast<SoldierMonster*>(mon_obj->FindComponent(SoldierMonster::SoldierMonsterTypeName));
+    CurseDemon* mon_comp = dynamic_cast<CurseDemon*>(mon_obj->FindComponent(CurseDemon::CurseDemonTypeName));
 
     m_pTransform->SetPosition({ mon_trs->GetPosition() });
     m_pRigidBody->SetVelocity({ 0.f,0.f,0.f });
@@ -49,35 +49,35 @@ void SoldierGrenade::Awake()
     GameObject* a = GetShooter();
 
 
-    m_pSoldierMonster = dynamic_cast<SoldierMonster*>(GetShooter()->FindComponent(SoldierMonster::SoldierMonsterTypeName));
-    m_pSoldierMonsterTransform = dynamic_cast<Transform*>(m_pSoldierMonster->GetOwner()->FindComponent(Transform::TransformTypeName));
+    m_pCurseDemon = dynamic_cast<CurseDemon*>(GetShooter()->FindComponent(CurseDemon::CurseDemonTypeName));
+    m_pCurseDemonTransform = dynamic_cast<Transform*>(m_pCurseDemon->GetOwner()->FindComponent(Transform::TransformTypeName));
 
-    m_pPlayer = m_pSoldierMonster->GetPlayer();
+    m_pPlayer = m_pCurseDemon->GetPlayer();
     m_pPlayerTransform = dynamic_cast<Transform*>(m_pPlayer->GetOwner()->FindComponent(Transform::TransformTypeName));
 }
 
-void SoldierGrenade::Fire()
+void CurseDemonBullet::Fire()
 {
     float impulseX = 100.f;
     float impulseY = 700.f;     
     
-    float dir = m_pSoldierMonster->GetDirection();  
+    float dir = m_pCurseDemon->GetDirection();  
     m_pRigidBody->SetVelocity({ dir*impulseX,impulseY,0.f });
     m_bCanFire = false;
 }
 
 
-void SoldierGrenade::Update()
+void CurseDemonBullet::Update()
 {    
     if(m_bCanFire)
         Fire();
 }
 
-void SoldierGrenade::Exit()
+void CurseDemonBullet::Exit()
 {
 }
 
-void SoldierGrenade::EnterCollision(Collider* _col)
+void CurseDemonBullet::EnterCollision(Collider* _col)
 {
     if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
     {
@@ -85,40 +85,40 @@ void SoldierGrenade::EnterCollision(Collider* _col)
     }
 }
 
-void SoldierGrenade::OnCollision(Collider* _col)
+void CurseDemonBullet::OnCollision(Collider* _col)
 {
 }
 
-void SoldierGrenade::ExitCollision(Collider* _col)
+void CurseDemonBullet::ExitCollision(Collider* _col)
 {
 }
 
-void SoldierGrenade::LoadFromJson(const json& _str)
+void CurseDemonBullet::LoadFromJson(const json& _str)
 {
     auto iter_compData = _str.find(CompDataName);
     if (iter_compData != _str.end())
     {     
-        auto throwing_impulse = iter_compData->find(SoldierMonsterGrenadeImpulseTypeName);
+        auto throwing_impulse = iter_compData->find(CurseDemonBulletImpulseTypeName);
         m_fThrowingForce = throwing_impulse->begin().value();
     }
 }
 
-json SoldierGrenade::SaveToJson(const json& _str)
+json CurseDemonBullet::SaveToJson(const json& _str)
 {
     json data;
 
     auto serializer = Serializer::GetInstance();
-    data[serializer->ComponentTypeNameInJson] = SoldierMonsterGrenadeTypaName;
+    data[serializer->ComponentTypeNameInJson] = CurseDemonBulletTypaName;
 
     json compData;
-    compData[SoldierMonsterGrenadeImpulseTypeName] = m_fThrowingForce;
+    compData[CurseDemonBulletImpulseTypeName] = m_fThrowingForce;
 
     data[CompDataName] = compData;
 
     return data;    
 }
 
-BaseRTTI* SoldierGrenade::CreateThrowingWeaponComponent()
+BaseRTTI* CurseDemonBullet::CreateCurseDemonBulletComponent()
 {
    /* GameObject* last_obj = GameObjectManager::GetInstance()->GetLastObject();
     BaseRTTI* comp = last_obj->AddComponent_and_Get(SoldierMonsterGrenadeTypaName, new SoldierGrenade(last_obj));

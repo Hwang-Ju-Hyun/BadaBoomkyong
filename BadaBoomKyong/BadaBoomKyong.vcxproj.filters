@@ -170,9 +170,6 @@
     <Filter Include="Component\Custom\Bullet\Monster">
       <UniqueIdentifier>{d4ab23bf-810e-4fe9-8e9a-61fdf1de5204}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Custom\Monster\Soldier">
-      <UniqueIdentifier>{d8a4c8bc-d7d9-4636-abc6-ae63eba4a969}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Custom\Melee">
       <UniqueIdentifier>{010fe2ac-4568-4ae6-ab5f-d108de9a20f2}</UniqueIdentifier>
     </Filter>
@@ -184,12 +181,6 @@
     </Filter>
     <Filter Include="Component\Custom\Melee\Player">
       <UniqueIdentifier>{d0247e73-ae41-4d17-8b96-542af5e0122a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Custom\Melee\Monster\SoldierMelee">
-      <UniqueIdentifier>{06281e8e-a4ac-495a-be73-af6843ed835e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Custom\Bullet\Monster\SoldierGrenade">
-      <UniqueIdentifier>{ca189c89-96ba-41ae-a056-3503368717f7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{2ed29f3f-69b5-4323-a4ab-9fe66e99bb4b}</UniqueIdentifier>
@@ -287,21 +278,6 @@
     <Filter Include="Component\Custom\Bullet\Monster\ExecutionerDemonFireBall">
       <UniqueIdentifier>{fecf5a4a-8205-47d1-8929-49cb58e0c116}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Custom\Monster\Soldier\AI_State">
-      <UniqueIdentifier>{af4db368-554a-4585-9ebe-066529926f9e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Custom\Monster\Soldier\AI_State\IDLE">
-      <UniqueIdentifier>{e5825eda-b2ea-4b29-8e23-4331810def86}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Custom\Monster\Soldier\AI_State\RANGED">
-      <UniqueIdentifier>{cf4f7bfe-bc10-4ceb-9b88-6872f7fd5908}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Custom\Monster\Soldier\AI_State\MELEE">
-      <UniqueIdentifier>{0e832c55-419c-436d-b4c4-08b73eb8930d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Custom\Monster\Soldier\AI_State\PATROL">
-      <UniqueIdentifier>{66f75b8c-d5f0-4c9b-a4a2-0660d4bc36a1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Custom\Monster\ExecutionerDemon\AI_State">
       <UniqueIdentifier>{5f92724e-8c2c-4ef0-879e-ed5a9e79f91f}</UniqueIdentifier>
     </Filter>
@@ -337,6 +313,30 @@
     </Filter>
     <Filter Include="Json\StageTest">
       <UniqueIdentifier>{d2530daa-2ef3-4df1-aae9-f4ce72305da3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Melee\Monster\CurseDemonMelee">
+      <UniqueIdentifier>{06281e8e-a4ac-495a-be73-af6843ed835e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Monster\CurseDemonMelee">
+      <UniqueIdentifier>{ca189c89-96ba-41ae-a056-3503368717f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\CurseDemon">
+      <UniqueIdentifier>{d8a4c8bc-d7d9-4636-abc6-ae63eba4a969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\CurseDemon\AI_State">
+      <UniqueIdentifier>{af4db368-554a-4585-9ebe-066529926f9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\CurseDemon\AI_State\IDLE">
+      <UniqueIdentifier>{e5825eda-b2ea-4b29-8e23-4331810def86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\CurseDemon\AI_State\RANGED">
+      <UniqueIdentifier>{cf4f7bfe-bc10-4ceb-9b88-6872f7fd5908}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\CurseDemon\AI_State\MELEE">
+      <UniqueIdentifier>{0e832c55-419c-436d-b4c4-08b73eb8930d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\CurseDemon\AI_State\PATROL">
+      <UniqueIdentifier>{66f75b8c-d5f0-4c9b-a4a2-0660d4bc36a1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -514,8 +514,8 @@
     <ClCompile Include="MeleeState.cpp">
       <Filter>AI\FiniteStateMachine\Melee</Filter>
     </ClCompile>
-    <ClCompile Include="SoldierGrenade.cpp">
-      <Filter>Component\Custom\Bullet\Monster\SoldierGrenade</Filter>
+    <ClCompile Include="CurseDemonBullet.cpp">
+      <Filter>Component\Custom\Bullet\Monster\CurseDemonMelee</Filter>
     </ClCompile>
     <ClCompile Include="EventManager.cpp">
       <Filter>Manager\EventManager</Filter>
@@ -523,17 +523,17 @@
     <ClCompile Include="Pistol.cpp">
       <Filter>Component\Custom\Bullet\Player\Pistol</Filter>
     </ClCompile>
-    <ClCompile Include="IDLE_SoliderMonster.cpp">
-      <Filter>Component\Custom\Monster\Soldier\AI_State\IDLE</Filter>
+    <ClCompile Include="IDLE_CurseDemon.cpp">
+      <Filter>Component\Custom\Monster\CurseDemon\AI_State\IDLE</Filter>
     </ClCompile>
-    <ClCompile Include="SoldierMonster.cpp">
-      <Filter>Component\Custom\Monster\Soldier</Filter>
+    <ClCompile Include="CurseDemon.cpp">
+      <Filter>Component\Custom\Monster\CurseDemon</Filter>
     </ClCompile>
-    <ClCompile Include="RANGED_SoliderMonster.cpp">
-      <Filter>Component\Custom\Monster\Soldier\AI_State\RANGED</Filter>
+    <ClCompile Include="RANGED_CurseDemon.cpp">
+      <Filter>Component\Custom\Monster\CurseDemon\AI_State\RANGED</Filter>
     </ClCompile>
-    <ClCompile Include="MELEE_SoldierMonster.cpp">
-      <Filter>Component\Custom\Monster\Soldier\AI_State\MELEE</Filter>
+    <ClCompile Include="MELEE_CurseDemon.cpp">
+      <Filter>Component\Custom\Monster\CurseDemon\AI_State\MELEE</Filter>
     </ClCompile>
     <ClCompile Include="Melee.cpp">
       <Filter>Component\Custom\Melee</Filter>
@@ -541,14 +541,14 @@
     <ClCompile Include="MeleeFactory.cpp">
       <Filter>Factory\HitBoxFactory</Filter>
     </ClCompile>
-    <ClCompile Include="SoldierMelee.cpp">
-      <Filter>Component\Custom\Melee\Monster\SoldierMelee</Filter>
+    <ClCompile Include="CurseDemonMelee.cpp">
+      <Filter>Component\Custom\Melee\Monster\CurseDemonMelee</Filter>
     </ClCompile>
     <ClCompile Include="PatrolState.cpp">
       <Filter>AI\FiniteStateMachine\Patrol</Filter>
     </ClCompile>
-    <ClCompile Include="PATROL_SoliderMonster.cpp">
-      <Filter>Component\Custom\Monster\Soldier\AI_State\PATROL</Filter>
+    <ClCompile Include="PATROL_CurseDemon.cpp">
+      <Filter>Component\Custom\Monster\CurseDemon\AI_State\PATROL</Filter>
     </ClCompile>
     <ClCompile Include="Resource.cpp">
       <Filter>Resource</Filter>
@@ -789,8 +789,8 @@
     <ClInclude Include="MeleeState.h">
       <Filter>AI\FiniteStateMachine\Melee</Filter>
     </ClInclude>
-    <ClInclude Include="SoldierGrenade.h">
-      <Filter>Component\Custom\Bullet\Monster\SoldierGrenade</Filter>
+    <ClInclude Include="CurseDemonBullet.h">
+      <Filter>Component\Custom\Bullet\Monster\CurseDemonMelee</Filter>
     </ClInclude>
     <ClInclude Include="EventManager.h">
       <Filter>Manager\EventManager</Filter>
@@ -798,8 +798,8 @@
     <ClInclude Include="Pistol.h">
       <Filter>Component\Custom\Bullet\Player\Pistol</Filter>
     </ClInclude>
-    <ClInclude Include="SoldierMonster.h">
-      <Filter>Component\Custom\Monster\Soldier</Filter>
+    <ClInclude Include="CurseDemon.h">
+      <Filter>Component\Custom\Monster\CurseDemon</Filter>
     </ClInclude>
     <ClInclude Include="IRangedBehaviour.h">
       <Filter>AI\FiniteStateMachine\Ranged</Filter>
@@ -813,14 +813,14 @@
     <ClInclude Include="ITraceBehaviour.h">
       <Filter>AI\FiniteStateMachine\Trace</Filter>
     </ClInclude>
-    <ClInclude Include="IDLE_SoliderMonster.h">
-      <Filter>Component\Custom\Monster\Soldier\AI_State\IDLE</Filter>
+    <ClInclude Include="IDLE_CurseDemon.h">
+      <Filter>Component\Custom\Monster\CurseDemon\AI_State\IDLE</Filter>
     </ClInclude>
-    <ClInclude Include="RANGED_SoliderMonster.h">
-      <Filter>Component\Custom\Monster\Soldier\AI_State\RANGED</Filter>
+    <ClInclude Include="RANGED_CurseDemon.h">
+      <Filter>Component\Custom\Monster\CurseDemon\AI_State\RANGED</Filter>
     </ClInclude>
-    <ClInclude Include="MELEE_SoldierMonster.h">
-      <Filter>Component\Custom\Monster\Soldier\AI_State\MELEE</Filter>
+    <ClInclude Include="MELEE_CurseDemon.h">
+      <Filter>Component\Custom\Monster\CurseDemon\AI_State\MELEE</Filter>
     </ClInclude>
     <ClInclude Include="Melee.h">
       <Filter>Component\Custom\Melee</Filter>
@@ -828,8 +828,8 @@
     <ClInclude Include="MeleeFactory.h">
       <Filter>Factory\HitBoxFactory</Filter>
     </ClInclude>
-    <ClInclude Include="SoldierMelee.h">
-      <Filter>Component\Custom\Melee\Monster\SoldierMelee</Filter>
+    <ClInclude Include="CurseDemonMelee.h">
+      <Filter>Component\Custom\Melee\Monster\CurseDemonMelee</Filter>
     </ClInclude>
     <ClInclude Include="PatrolState.h">
       <Filter>AI\FiniteStateMachine\Patrol</Filter>
@@ -837,8 +837,8 @@
     <ClInclude Include="IPatrolBehaviour.h">
       <Filter>AI\FiniteStateMachine\Patrol</Filter>
     </ClInclude>
-    <ClInclude Include="PATROL_SoliderMonster.h">
-      <Filter>Component\Custom\Monster\Soldier\AI_State\PATROL</Filter>
+    <ClInclude Include="PATROL_CurseDemon.h">
+      <Filter>Component\Custom\Monster\CurseDemon\AI_State\PATROL</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Resource</Filter>

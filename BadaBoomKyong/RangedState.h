@@ -5,7 +5,7 @@
 #include "IRangedBehaviour.h"
 
 class Monster;
-class SoldierGrenade;
+class CurseDemonBullet;
 class BulletFactory;
 
 class RangedState :

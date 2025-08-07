@@ -3,7 +3,7 @@
 #include <string>
 
 class Melee;
-class SoldierMelee;
+class CurseDemonMelee;
 class GameObject;
 class PlayerMelee;
 class ExecutionerDemon;
@@ -22,8 +22,8 @@ public:
     Melee* CreateMelee(const std::string& _name);
     virtual void Exit()override;
 private:
-    GameObject* m_pSoldierMeleeObject = nullptr;
-    SoldierMelee*m_pSoldierMelee = nullptr;
+    GameObject* m_pCurseDemonMeleeObject = nullptr;
+    CurseDemonMelee*m_pCurseDemonMelee = nullptr;
     
     GameObject* m_pPlayerMeleeObject = nullptr;
     PlayerMelee* m_pPlayerMelee = nullptr;

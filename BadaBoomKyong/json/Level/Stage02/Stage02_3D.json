@@ -185,7 +185,7 @@
     "Group": 1
   },
   {
-    "Name": "SoldierMonster",
+    "Name": "CurseDemon",
     "ID": 0,
     "Is3D": true,
     "Components": [
@@ -310,7 +310,7 @@
         }
       },
       {
-        "Type": "SoldierMonster",
+        "Type": "CurseDemon",
         "CompData": {
           "Speed": 0.5,
           "JumpForce": 500.0,

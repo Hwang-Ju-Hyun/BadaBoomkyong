@@ -9,9 +9,9 @@
 #include "BulletFactory.h"
 #include "Monster.h"
 #include "AI.h"
-#include "SoldierGrenade.h"
+#include "CurseDemonBullet.h"
 #include "Pistol.h"
-#include "SoldierMonster.h"
+#include "CurseDemon.h"
 #include "Animator.h"
 #include "ExecutionerDemon.h"
 #include "ExecutionerDemonFireBall.h"
@@ -27,8 +27,8 @@ Registry::Registry()
     //m_mapRTTI.insert({ Bullet::BulletTypeName,&Bullet::CreateBulletComponent });
     //m_mapRTTI.insert({ Monster::MonsterTypeName,&Monster::CreateMonsterComponent });
     m_mapRTTI.insert({ AI::AITypeName,&AI::CreateAIComponent });
-    m_mapRTTI.insert({ SoldierMonster::SoldierMonsterTypeName,&SoldierMonster::CreateSoliderMonsterComponent });
-    m_mapRTTI.insert({ SoldierGrenade::SoldierMonsterGrenadeTypaName,&SoldierGrenade::CreateThrowingWeaponComponent });
+    m_mapRTTI.insert({ CurseDemon::CurseDemonTypeName,&CurseDemon::CreateCurseDemonComponent });
+    m_mapRTTI.insert({ CurseDemonBullet::CurseDemonBulletTypaName,&CurseDemonBullet::CreateCurseDemonBulletComponent });
     m_mapRTTI.insert({ ExecutionerDemon::ExecutionerDemonTypeName,&ExecutionerDemon::CreateExecutionerDemonComponent });
     m_mapRTTI.insert({ ExecutionerDemonFireBall::ExecutionerDemonFireBallTypaName,&ExecutionerDemonFireBall::CreateFireBallComponent});
     m_mapRTTI.insert({ Pistol::PistolTypeName,&Pistol::CreatePistolComponent });

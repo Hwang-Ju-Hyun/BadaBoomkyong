@@ -4,14 +4,14 @@
 class Transform;
 class Sprite;
 class RigidBody;
-class SoldierMonster;
+class CurseDemon;
 
-class SoldierGrenade :
+class CurseDemonBullet :
 	public Bullet
 {
 public:
-    SoldierGrenade(GameObject* _owner, GameObject* _shooter);
-    virtual ~SoldierGrenade()override;
+    CurseDemonBullet(GameObject* _owner, GameObject* _shooter);
+    virtual ~CurseDemonBullet()override;
 public:
 	virtual void Init()  override;
 	virtual void Awake() override;
@@ -24,8 +24,8 @@ public:
 private:
 	Player* m_pPlayer = nullptr;
 	Transform* m_pPlayerTransform = nullptr;
-	SoldierMonster* m_pSoldierMonster = nullptr;
-	Transform* m_pSoldierMonsterTransform = nullptr;
+	CurseDemon* m_pCurseDemon = nullptr;
+	Transform* m_pCurseDemonTransform = nullptr;
 	Transform* m_pTransform = nullptr;
 	Sprite* m_pSprite = nullptr;
 	Collider* m_pCollider = nullptr;
@@ -33,8 +33,8 @@ private:
 private:
 	float m_fThrowingForce = 0.f;
 public:
-	static constexpr const char* SoldierMonsterGrenadeTypaName = "SoliderMonsterGrenade";
-	static constexpr const char* SoldierMonsterGrenadeImpulseTypeName = "SoldierMonsterGrenadeImpulse";
+	static constexpr const char* CurseDemonBulletTypaName = "CurseDemonBullet";
+	static constexpr const char* CurseDemonBulletImpulseTypeName = "CurseDemonBulletImpulse";
 public:
 	virtual void Fire() override;
 	inline void SetCanFire(bool _able) { m_bCanFire = _able; }
@@ -42,7 +42,7 @@ public:
 public:
 	virtual void LoadFromJson(const json& _str) override;
 	virtual json SaveToJson(const json& _str) override;
-	static BaseRTTI* CreateThrowingWeaponComponent();
+	static BaseRTTI* CreateCurseDemonBulletComponent();
 private:
 	bool m_bCanFire=false;
 };

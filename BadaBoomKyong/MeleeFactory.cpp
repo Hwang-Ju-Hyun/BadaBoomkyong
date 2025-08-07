@@ -4,7 +4,7 @@
 #include "Transform.h"
 #include "Sprite.h"
 #include "Collider.h"
-#include "SoldierMelee.h"
+#include "CurseDemonMelee.h"
 #include "PlayerMelee.h"
 #include "GameObjectManager.h"
 #include "Player.h"
@@ -49,7 +49,7 @@ Melee* MeleeFactory::CreateMelee(GROUP_TYPE _type)
 	{
 	case GROUP_TYPE::MELEE : 
 	{	
-		melee_comp = m_pSoldierMelee;
+		melee_comp = m_pCurseDemonMelee;
 	}
 		break;
 	case GROUP_TYPE::PLAYER:
@@ -76,11 +76,11 @@ void MeleeFactory::Exit()
 void MeleeFactory::InitStage01()
 {
 	//todo : GameObject»ý¼ºÇÒ‹š MeleeTypeNameÀÌ°Å ¾Æ´Ô °íÄ¡¼À
-	m_pSoldierMeleeObject = new GameObject(Melee::MeleeTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::MELEE);
-	m_pSoldierMelee = dynamic_cast<SoldierMelee*>(m_pSoldierMeleeObject->AddComponent_and_Get(Melee::MeleeTypeName, new SoldierMelee(m_pSoldierMeleeObject, nullptr)));
-	Transform* trs = dynamic_cast<Transform*>(m_pSoldierMeleeObject->AddComponent_and_Get(Transform::TransformTypeName, new Transform(m_pSoldierMeleeObject)));
-	Sprite* spr = dynamic_cast<Sprite*>(m_pSoldierMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pSoldierMeleeObject)));
-	Collider* col = dynamic_cast<Collider*>(m_pSoldierMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pSoldierMeleeObject)));
+	m_pCurseDemonMeleeObject = new GameObject(Melee::MeleeTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::MELEE);
+	m_pCurseDemonMelee = dynamic_cast<CurseDemonMelee*>(m_pCurseDemonMeleeObject->AddComponent_and_Get(Melee::MeleeTypeName, new CurseDemonMelee(m_pCurseDemonMeleeObject, nullptr)));
+	Transform* trs = dynamic_cast<Transform*>(m_pCurseDemonMeleeObject->AddComponent_and_Get(Transform::TransformTypeName, new Transform(m_pCurseDemonMeleeObject)));
+	Sprite* spr = dynamic_cast<Sprite*>(m_pCurseDemonMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pCurseDemonMeleeObject)));
+	Collider* col = dynamic_cast<Collider*>(m_pCurseDemonMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pCurseDemonMeleeObject)));
 
 	m_pPlayerMeleeObject = new GameObject(Melee::MeleeTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::MELEE);
 	GameObject* player_obj = GameObjectManager::GetInstance()->FindObject("Player");

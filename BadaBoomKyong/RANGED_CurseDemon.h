@@ -2,14 +2,14 @@
 #include "IRangedBehaviour.h"
 
 class Bullet;
-class SoldierMonster;
+class CurseDemon;
 
 
-class RANGED_SoliderMonster :
+class RANGED_CurseDemon :
     public IRangedBehaviour
 {
 private:
-    SoldierMonster* m_pSoliderMonster = nullptr;   
+    CurseDemon* m_pCurseDemon = nullptr;   
     virtual void Init(Monster* _mon)override;
     virtual void DoRangedBehaviour(Monster* _mon)override;
 public:    

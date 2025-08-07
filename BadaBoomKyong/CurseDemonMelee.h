@@ -3,16 +3,16 @@
 
 class Transform;
 class Sprite;
-class SoldierMelee;
-class SoldierMonster;
+class CurseDemonMelee;
+class CurseDemon;
 class Player;
 
-class SoldierMelee :
+class CurseDemonMelee :
     public Melee
 {
 public:
-    SoldierMelee(GameObject* _owner,GameObject* _attacker=nullptr);
-    virtual ~SoldierMelee()override;
+    CurseDemonMelee(GameObject* _owner,GameObject* _attacker=nullptr);
+    virtual ~CurseDemonMelee()override;
 public:
 	virtual void Init()  override;
 	virtual void Awake() override;
@@ -26,14 +26,14 @@ private:
 	Transform* m_pTransform = nullptr;
 	Sprite* m_pSprite = nullptr;
 	Collider* m_pCollider = nullptr;	
-	SoldierMelee* m_pSoldierMelee = nullptr;
-	SoldierMonster* m_pSoldierMonster = nullptr;
+	CurseDemonMelee* m_pCurseDemonMelee = nullptr;
+	CurseDemon* m_pCurseDemon = nullptr;
 private:
 	Player* m_pPlayer = nullptr;
 	Transform* m_pPlayerTransform = nullptr;
 public:
 	virtual void LoadFromJson(const json& _str) override;
 	virtual json SaveToJson(const json& _str) override;
-	static constexpr const char* SoldierMeleeTypeName = "SoldierMelee";
+	static constexpr const char* CurseDemonMeleeTypeName = "CurseDemonMelee";
 };
 

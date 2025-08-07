@@ -1,4 +1,4 @@
-#include "SoldierMonster.h"
+#include "CurseDemon.h"
 #include "GameObjectManager.h"
 #include "GameObject.h"
 #include "Serializer.h"
@@ -15,29 +15,29 @@
 #include "FactoryManager.h"
 #include "BulletFactory.h"
 #include "ObjectPoolManager.h"
-#include "SoldierGrenade.h"
-#include "IDLE_SoliderMonster.h"
-#include "RANGED_SoliderMonster.h"
-#include "MELEE_SoldierMonster.h"
+#include "CurseDemonBullet.h"
+#include "IDLE_CurseDemon.h"
+#include "RANGED_CurseDemon.h"
+#include "MELEE_CurseDemon.h"
 #include "MeleeFactory.h"
 #include "Melee.h"
-#include "SoldierMelee.h"
+#include "CurseDemonMelee.h"
 #include "Anim_StateMachine.h"
 #include "Anim_IdleState.h"
 
-SoldierMonster::SoldierMonster(GameObject* _owner)
+CurseDemon::CurseDemon(GameObject* _owner)
     :Monster(_owner)	
 {	
-	SetName(SoldierMonsterTypeName);
+	SetName(CurseDemonTypeName);
 
 	m_fDirection = -1.f;		
 	m_pAI->RegistryMonster(this);
 	m_pAI->SetOwner(_owner);
 	m_pAI->SetCurState(MONSTER_STATE::IDLE_STATE);
 
-	this->SetIdleBehaviour(new IDLE_SoliderMonster);
-	this->SetRangedBehaviour(new RANGED_SoliderMonster);
-	this->SetMeleeBehaivour(new MELEE_SoldierMonster);
+	this->SetIdleBehaviour(new IDLE_CurseDemon);
+	this->SetRangedBehaviour(new RANGED_CurseDemon);
+	this->SetMeleeBehaivour(new MELEE_CurseDemon);
 	assert(m_pAI != nullptr);
 
 	m_pAnimStateMachine = new AnimStateMachine<Monster>(this);
@@ -51,7 +51,7 @@ SoldierMonster::SoldierMonster(GameObject* _owner)
 	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::IDLE));
 }
 
-SoldierMonster::~SoldierMonster()
+CurseDemon::~CurseDemon()
 {
 	if (m_pAnimStateMachine)
 	{
@@ -60,14 +60,14 @@ SoldierMonster::~SoldierMonster()
 	}	
 }
 
-void SoldierMonster::Init()
+void CurseDemon::Init()
 {	
 	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
 	//assert(m_pBulletFactory != nullptr);
 	m_pMeleeFactory =dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
 	//assert(m_pMeleeFactory != nullptr);
-	m_pGrenadePool = static_cast<ObjectPool<SoldierGrenade, 30>*>(ObjectPoolManager::GetInstance()->GetPool<SoldierGrenade, 30>());
-	ObjectPoolManager::GetInstance()->ReigistPool<SoldierGrenade, 30>();
+	m_pGrenadePool = static_cast<ObjectPool<CurseDemonBullet, 30>*>(ObjectPoolManager::GetInstance()->GetPool<CurseDemonBullet, 30>());
+	ObjectPoolManager::GetInstance()->ReigistPool<CurseDemonBullet, 30>();
 
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	assert(m_pSprite != nullptr);
@@ -75,7 +75,7 @@ void SoldierMonster::Init()
 	
 }
 
-void SoldierMonster::Update()
+void CurseDemon::Update()
 {		 		
 	//인지범위
 	auto math = MathUtil::GetInstance();
@@ -127,27 +127,27 @@ void SoldierMonster::Update()
 		m_pAnimStateMachine->Update();
 }
 
-void SoldierMonster::Exit()
+void CurseDemon::Exit()
 {
 	delete m_pIdleBehavior;
 	delete m_pRangedBehavior;
 	delete m_pMeleeBehaviour;
 }
 
-void SoldierMonster::Fire()
+void CurseDemon::Fire()
 {
 	m_pBullet = GetBulletFactory()->CreateBullet(BULLET_TYPE::SOLDIER_BOMB);
-	SoldierGrenade* grn_comp = dynamic_cast<SoldierGrenade*>(m_pBullet->GetOwner()->FindComponent(SoldierGrenade::SoldierMonsterGrenadeTypaName));
+	CurseDemonBullet* grn_comp = dynamic_cast<CurseDemonBullet*>(m_pBullet->GetOwner()->FindComponent(CurseDemonBullet::CurseDemonBulletTypaName));
 	grn_comp->SetShooter(this->GetOwner());
 
 	EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
 	grn_comp->SetCanFire(true);
 }
 
-void SoldierMonster::MeleeAttack()
+void CurseDemon::MeleeAttack()
 {
 	m_pMelee = m_pMeleeFactory->CreateMelee(GROUP_TYPE::MELEE);
-	SoldierMelee* melee_comp = dynamic_cast<SoldierMelee*>(m_pMelee);
+	CurseDemonMelee* melee_comp = dynamic_cast<CurseDemonMelee*>(m_pMelee);
 	assert(m_pMelee != nullptr);
 	m_pMelee->SetAttacker(this->GetOwner());
 	if (m_bCanMeleeAttack == false)
@@ -157,7 +157,7 @@ void SoldierMonster::MeleeAttack()
 	}
 }
 
-void SoldierMonster::EnterCollision(Collider* _other)
+void CurseDemon::EnterCollision(Collider* _other)
 {
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
 	{
@@ -168,7 +168,7 @@ void SoldierMonster::EnterCollision(Collider* _other)
 		m_bCol = true;
 }
 
-void SoldierMonster::OnCollision(Collider* _other)
+void CurseDemon::OnCollision(Collider* _other)
 {
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
 	{
@@ -179,22 +179,22 @@ void SoldierMonster::OnCollision(Collider* _other)
 		m_bCol = true;
 }
 
-void SoldierMonster::ExitCollision(Collider* _other)
+void CurseDemon::ExitCollision(Collider* _other)
 {
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLAYER)
 		m_bCol = false;
 }
 
-BaseRTTI* SoldierMonster::CreateSoliderMonsterComponent()
+BaseRTTI* CurseDemon::CreateCurseDemonComponent()
 {
 	GameObject* last_obj = GameObjectManager::GetInstance()->GetLastObject();
-	BaseRTTI* comp = last_obj->AddComponent_and_Get(SoldierMonsterTypeName, new SoldierMonster(last_obj));
+	BaseRTTI* comp = last_obj->AddComponent_and_Get(CurseDemonTypeName, new CurseDemon(last_obj));
 	if (comp != nullptr)
 		return comp;
 	return nullptr;
 }
 
-void SoldierMonster::LoadFromJson(const json& _str)
+void CurseDemon::LoadFromJson(const json& _str)
 {
 	auto iter_compData = _str.find(CompDataName);
 	if (iter_compData != _str.end())
@@ -220,12 +220,12 @@ void SoldierMonster::LoadFromJson(const json& _str)
 	}
 }
 
-json SoldierMonster::SaveToJson(const json& _str)
+json CurseDemon::SaveToJson(const json& _str)
 {
 	json data;
 
 	auto serializer = Serializer::GetInstance();
-	data[serializer->ComponentTypeNameInJson] = SoldierMonsterTypeName;
+	data[serializer->ComponentTypeNameInJson] = CurseDemonTypeName;
 
 	json compData;
 	compData[SpeedName] = m_fSpeed;

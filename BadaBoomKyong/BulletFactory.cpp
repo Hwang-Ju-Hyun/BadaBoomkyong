@@ -6,12 +6,12 @@
 #include "Collider.h"
 #include "ObjectPool.h"
 #include "ObjectPoolManager.h"
-#include "SoldierGrenade.h"
+#include "CurseDemonBullet.h"
 #include "RigidBody.h"
 #include "Pistol.h"
 #include "GameObject.h"
 #include "GameObjectManager.h"
-#include "SoldierMonster.h"
+#include "CurseDemon.h"
 #include "Player.h"
 #include "ExecutionerDemon.h"
 #include "ExecutionerDemonFireBall.h"
@@ -65,7 +65,7 @@ Bullet* BulletFactory::CreateBullet(BULLET_TYPE _type)
 	case BULLET_TYPE::SOLDIER_PISTOL:
 		break;
 	case BULLET_TYPE::SOLDIER_BOMB:
-		bullet_comp = m_pMonsterGrenadePool->GetPool()->FindComponent<SoldierGrenade>();
+		bullet_comp = m_pMonsterGrenadePool->GetPool()->FindComponent<CurseDemonBullet>();
 	default:
 		break;
 	}
@@ -96,18 +96,18 @@ void BulletFactory::InitStage01()
 
 	//SOLDIER GRENADE
 	auto obj_mgr = GameObjectManager::GetInstance();
-	GameObject* sm_obj = obj_mgr->FindObject(SoldierMonster::SoldierMonsterTypeName);
-	int grenade_obj_count = obj_mgr->GetObjectNumber(SoldierMonster::SoldierMonsterTypeName);
+	GameObject* sm_obj = obj_mgr->FindObject(CurseDemon::CurseDemonTypeName);
+	int grenade_obj_count = obj_mgr->GetObjectNumber(CurseDemon::CurseDemonTypeName);
 
-	ObjectPoolManager::GetInstance()->ReigistPool<SoldierGrenade, 30>();
+	ObjectPoolManager::GetInstance()->ReigistPool<CurseDemonBullet, 30>();
 
-	m_pMonsterGrenadePool = static_cast<ObjectPool<SoldierGrenade, 30>*>(ObjectPoolManager::GetInstance()->GetPool<SoldierGrenade, 30>());
+	m_pMonsterGrenadePool = static_cast<ObjectPool<CurseDemonBullet, 30>*>(ObjectPoolManager::GetInstance()->GetPool<CurseDemonBullet, 30>());
 
 	for (int j = 0;j < 30; j++)
 	{
-		SoldierGrenade* grn_comp = nullptr;
-		GameObject* grn_obj = new GameObject(SoldierGrenade::SoldierMonsterGrenadeTypaName, MODEL_TYPE::PLANE, GROUP_TYPE::BULLET);
-		grn_comp = dynamic_cast<SoldierGrenade*>(grn_obj->AddComponent_and_Get(SoldierGrenade::SoldierMonsterGrenadeTypaName, new SoldierGrenade(grn_obj, sm_obj)));
+		CurseDemonBullet* grn_comp = nullptr;
+		GameObject* grn_obj = new GameObject(CurseDemonBullet::CurseDemonBulletTypaName, MODEL_TYPE::PLANE, GROUP_TYPE::BULLET);
+		grn_comp = dynamic_cast<CurseDemonBullet*>(grn_obj->AddComponent_and_Get(CurseDemonBullet::CurseDemonBulletTypaName, new CurseDemonBullet(grn_obj, sm_obj)));
 		Transform* grn_trs = dynamic_cast<Transform*>(grn_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(grn_obj)));
 		Sprite* grn_spr = dynamic_cast<Sprite*>(grn_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(grn_obj)));
 		RigidBody* grn_rig = dynamic_cast<RigidBody*>(grn_obj->AddComponent_and_Get(RigidBody::RigidBodyTypeName, new RigidBody(grn_obj)));

@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include <iostream>
 #include "Transform.h"
-#include "SoldierGrenade.h"
+#include "CurseDemonBullet.h"
 #include "ObjectPoolManager.h"
 #include "ObjectPool.h"
 #include "EventManager.h"

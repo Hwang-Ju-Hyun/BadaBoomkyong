@@ -1,13 +1,13 @@
 #pragma once
 #include "IMeleeBehaviour.h"
 
-class SoldierMonster;
+class CurseDemon;
 
-class MELEE_SoldierMonster :
+class MELEE_CurseDemon :
     public IMeleeBehaviour
 {
 private:
-    SoldierMonster* m_pSoliderMonster = nullptr;
+    CurseDemon* m_pCurseDemon = nullptr;
 public:
     virtual void Init(Monster* _mon)override;
     virtual void DoMeleeBehaviour(Monster* _mon)override;    

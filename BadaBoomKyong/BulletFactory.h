@@ -11,7 +11,7 @@ class Pistol;
 class BulletPool;
 class GameObject;
 class Bullet;
-class SoldierGrenade;
+class CurseDemonBullet;
 class ExecutionerDemonFireBall;
 
 class BulletFactory
@@ -27,7 +27,7 @@ public:
 	virtual void Exit()override;
 private:
 	ObjectPool<Pistol,30>* m_pBulletPool;
-	ObjectPool<SoldierGrenade, 30>* m_pMonsterGrenadePool;
+	ObjectPool<CurseDemonBullet, 30>* m_pMonsterGrenadePool;
 	ObjectPool<ExecutionerDemonFireBall, 30>* m_pExecutionerDemonFireBallPool;
 private:
 	virtual void InitStage01()  override;

@@ -1,13 +1,13 @@
 #pragma once
 #include "IPatrolBehaviour.h"
 
-class SoldierMonster;
+class CurseDemon;
 
-class PATROL_SoliderMonster :
+class PATROL_CurseDemon :
     public IPatrolBehaviour
 {
 private:
-    SoldierMonster* m_pSoldierMonster = nullptr;
+    CurseDemon* m_pCurseDemon = nullptr;
     virtual void Init(Monster* _mon)override;
     virtual void DoPatrolBehaviour(Monster* _mon)override;
 };
