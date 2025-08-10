@@ -168,6 +168,7 @@
     <ClCompile Include="GeometryUtill.cpp" />
     <ClCompile Include="GizmoManager.cpp" />
     <ClCompile Include="IDLE_ExecutionerDemon.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MeleeFactory.cpp" />
     <ClCompile Include="ICollisionHandler.cpp" />
@@ -272,6 +273,7 @@
     <ClInclude Include="IDLE_ExecutionerDemon.h" />
     <ClInclude Include="IPatrolBehaviour.h" />
     <ClInclude Include="Anim_IState.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MeleeFactory.h" />
     <ClInclude Include="ICollisionHandler.h" />

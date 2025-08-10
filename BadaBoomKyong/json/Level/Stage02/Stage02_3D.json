@@ -331,49 +331,49 @@
     "Model": 4,
     "Group": 3
   },
-  {
-    "Name": "customModelObj1",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            4.000296115875244,
-            -228.01849365234375,
-            -561.6494140625
-          ],
-          "Sca": [
-            50.0,
-            50.0,
-            50.0
-          ],
-          "Rot": [
-            0.0,
-            89.9999771118164,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            1200.0,
-            50.0,
-            50.0
-          ]
-        }
-      }
-    ],
-    "Model": 6,
-    "ModelPath": "../Extern/Assets/Model/background/scene.gltf",
-    "Group": 4
-  }
+    {
+        "Name": "customModelObj1",
+        "ID": 0,
+        "Is3D": true,
+        "Components": [
+            {
+                "Type": "Transform",
+                "CompData": {
+                    "Pos": [
+                        4.000296115875244,
+                        -228.01849365234375,
+                        -561.6494140625
+                    ],
+                    "Sca": [
+                        50.0,
+                        50.0,
+                        50.0
+                    ],
+                    "Rot": [
+                        0.0,
+                        89.9999771118164,
+                        0.0
+                    ]
+                }
+            },
+            {
+                "Type": "Collider",
+                "CompData": {
+                    "Offset_Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1200.0,
+                        50.0,
+                        50.0
+                    ]
+                }
+            }
+        ],
+        "Model": 6,
+        "ModelPath": "../Extern/Assets/Model/stone/Fbx/FinalUntitled.glb",
+        "Group": 4
+    }
 ]

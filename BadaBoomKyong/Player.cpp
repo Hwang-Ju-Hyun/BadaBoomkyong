@@ -101,8 +101,7 @@ void Player::Update()
 	Death();
 	if(m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();
-	StateHandler();
-	std::cout << m_pRigidBody->GetVelocity().x << " , "<<m_pRigidBody->GetVelocity().y << std::endl;
+	StateHandler();	
 }
 
 void Player::EnterCollision(Collider* _other)

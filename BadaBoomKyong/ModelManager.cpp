@@ -258,16 +258,29 @@ Model* ModelManager::LoadModel(const std::string& _filePath)
 
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(_filePath,
-		aiProcess_Triangulate |
-		aiProcess_JoinIdenticalVertices |
+		aiProcess_Triangulate |		
 		aiProcess_FlipUVs |
+		aiProcess_JoinIdenticalVertices|
 		aiProcess_GenSmoothNormals |
 		aiProcess_CalcTangentSpace | // (Normal mapping 사용 시 필요)
 		aiProcess_ImproveCacheLocality |
 		aiProcess_RemoveRedundantMaterials |
-		aiProcess_SortByPType |
-		aiProcess_PreTransformVertices // glTF에서 node transform 적용 시 유용
-	); 
+		aiProcess_SortByPType 		|
+		aiProcess_GenSmoothNormals
+	);
+
+	if (!scene || !scene->HasMeshes())
+	{
+		std::cout << "Assimp failed to load file: " << importer.GetErrorString() << std::endl;
+		return nullptr;
+	}
+	
+	for (size_t i = 0; i < scene->mNumMeshes; ++i) {
+		aiMesh* mesh = scene->mMeshes[i];
+		if (!mesh->HasNormals()) {
+			std::cout << "Mesh " << i << " has no normals!" << std::endl;
+		}
+	}
 
 	m_pCustomModel = new Model(model_name, MODEL_TYPE::CUSTOM_MODEL, _filePath);
 
@@ -291,11 +304,16 @@ void ModelManager::ClearModel()
 
 void ModelManager::LoadNode(aiNode* _node, const aiScene* _scene)
 {	
+
 	for (size_t i = 0; i < _node->mNumMeshes; i++)
 	{
+		unsigned int meshIndex = _node->mMeshes[i];
+		aiMesh* mesh = _scene->mMeshes[meshIndex];
+		LoadMesh(mesh, _scene);
+		//ProcessMesh(mesh, scene);
 		// node->mMeshes[i] : 메시 자체가 아니고, 메시의 ID를 의미한다.
 		// 실제 메시는 scene에 저장되어있기 때문에 이렇게 참조하게 된다.
-		LoadMesh(_scene->mMeshes[_node->mMeshes[i]], _scene);
+		//LoadMesh(_scene->mMeshes[_node->mMeshes[i]], _scene);
 	}
 
 	// 자식 노드들을 재귀호출을 통해 순회하며 메시를 쭉 로드한다.
@@ -353,6 +371,12 @@ void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
 		}
 	}	
 
+	/*if (_mesh->mMaterialIndex >= 0)
+	{
+		aiMaterial* material = _scene->mMaterials[_mesh->mMaterialIndex];
+		LoadMaterials(material, myMesh);
+	}*/
+
 	//todo 이거 정리하셈
 	GLenum type = GL_TRIANGLES;	
 	std::string name = m_pCustomModel->GetName() + std::to_string(g_mesh_cnt++);
@@ -382,23 +406,28 @@ void ModelManager::LoadMaterials(const aiScene* _scene,const std::string& _fileP
 	{
 		aiMaterial* material = _scene->mMaterials[i];
 
-		m_vTextureList[i] = nullptr;				
-
+		m_vTextureList[i] = nullptr;						
 		// 텍스쳐가 존재하는 지 먼저 확인
-		if (material->GetTextureCount(aiTextureType_BASE_COLOR))
+		if (material->GetTextureCount(aiTextureType_DIFFUSE))
 		{			
 			aiString texturePath;
 			// 텍스쳐 경로를 가져오는 데 성공했다면
-			if (material->GetTexture(aiTextureType_BASE_COLOR, 0, &texturePath) == aiReturn_SUCCESS)
+			if (material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath) == aiReturn_SUCCESS)
 			{
 				//todo : 요거 변수이름 너무 중복되는거 많음 리펙토링 할 때 이거 좀 고치셈
-				std::string pathStr = texturePath.C_Str();								
+				std::string pathStr = texturePath.C_Str();	
 				int idx = pathStr.find_last_of("/");
-				std::string textureName = (idx != std::string::npos) ? pathStr.substr(idx + 1) : pathStr;				
+				std::string textureName = (idx != std::string::npos) ? pathStr.substr(idx + 1) : pathStr;
 				int file_path_idx = _filePath.find_last_of("/");
 
 				std::string texture_path = (file_path_idx != std::string::npos) ? _filePath.substr(0, file_path_idx + 1) : _filePath;
 				std::string texPath = texture_path + textureName;
+
+				if (pathStr[0] == '*')
+				{
+					int a = 0;
+				}
+
 				
 				Material* mat = new Material;
 

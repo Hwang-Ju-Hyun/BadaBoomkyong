@@ -43,10 +43,7 @@ void CurseDemonMelee::Awake()
 
     Transform* mon_trs = dynamic_cast<Transform*>(mon_obj->FindComponent(Transform::TransformTypeName));
     m_pCurseDemon = dynamic_cast<CurseDemon*>(mon_obj->FindComponent(CurseDemon::CurseDemonTypeName));
-
-    m_pPlayerTransform = dynamic_cast<Transform*>(m_pPlayer->GetOwner()->FindComponent(Transform::TransformTypeName));
-
-    float melee_dir = m_pPlayerTransform->GetPosition().x - mon_trs->GetPosition().x;
+ 
     float offsetX = 55.f;
 
     float dir = m_pCurseDemon->GetDirection();
@@ -80,6 +77,18 @@ void CurseDemonMelee::Exit()
 
 void CurseDemonMelee::EnterCollision(Collider* _col)
 {
+    m_pPlayer = _col->GetOwner()->FindComponent<Player>();
+    if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::PLAYER)
+    {
+        if (m_pPlayer)
+        {
+            m_pPlayer->MinusCurrentHP(1);
+            if (m_pPlayer->GetIsAlive())
+            {
+                m_pPlayer->SetIsHurting(true);
+            }
+        }
+    }
 }
 
 void CurseDemonMelee::OnCollision(Collider* _col)

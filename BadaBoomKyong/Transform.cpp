@@ -38,7 +38,6 @@ std::vector<glm::vec3> Transform::GeteEachVertexPosition()
 
 glm::mat4 Transform::GetModelToWorld_Matrix()
 {
-
 	return m_mModeltoWorld_3D;
 }
 

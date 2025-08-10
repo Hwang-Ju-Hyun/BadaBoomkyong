@@ -30,6 +30,8 @@
 #include "GameStateManager.h"
 #include "BaseLevel.h"
 #include "Collider.h"
+#include "CurseDemon.h"
+
 RenderManager::RenderManager()
 {
 
@@ -117,6 +119,10 @@ void RenderManager::BeforeDraw()
 					m_vOpaqueObject.push_back(obj);
 				}
 			}
+			else if(obj->GetName()=="customModelObj1")
+			{
+				m_vOpaqueObject.push_back(obj);
+			}
 		}
 	}
 }
@@ -151,6 +157,11 @@ void RenderManager::Draw()
 				m_iMVP_Location = glGetUniformLocation(shdr_handle_3D, "uMVP");
 				assert(m_iMVP_Location >= 0);
 
+				m_iM2W_Location = glGetUniformLocation(shdr_handle_3D, "uM2W");
+				assert(m_iM2W_Location >= 0);
+				glm::mat4 m2w = obj_trs->GetModelToWorld_Matrix();
+				glUniformMatrix4fv(m_iM2W_Location, 1, GL_FALSE, glm::value_ptr(m2w));
+
 				Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
 
 				m_iUV_Offset_Location = glGetUniformLocation(shdr_handle_3D, "uUV_Offset");
@@ -159,8 +170,9 @@ void RenderManager::Draw()
 				Animator* anim = dynamic_cast<Animator*>(obj->FindComponent(Animator::AnimatorTypeName));
 
 				m_iHas_texture_location = glGetUniformLocation(shdr_handle_3D, "uHasTexture");
-				m_iOut_texture_location = glGetUniformLocation(shdr_handle_3D, "uOutTexture");
+				m_iOut_texture_location = glGetUniformLocation(shdr_handle_3D, "uOutTexture");				
 				m_iHurtEffect_location = glGetUniformLocation(shdr_handle_3D, "uHurtEffect");
+				glUniform1i(m_iHurtEffect_location, false);				
 
 				if (!spr)
 				{
@@ -278,6 +290,7 @@ void RenderManager::Draw()
 
 				m_iHas_texture_location = glGetUniformLocation(shdr_handle_3D, "uHasTexture");
 				m_iOut_texture_location = glGetUniformLocation(shdr_handle_3D, "uOutTexture");
+				m_iHurtEffect_location = glGetUniformLocation(shdr_handle_3D, "uHurtEffect");
 
 				if (!spr)
 				{
@@ -314,9 +327,7 @@ void RenderManager::Draw()
 					}
 				}
 				else if (spr)
-				{
-					if (obj->GetName() == "CurseDemon" && obj->GetID() == 0)
-						int a = 0;
+				{					
 					if (spr->GetTexture() != nullptr)
 					{
 						GLuint tex_id = spr->GetTexture()->GetTextureID();
@@ -334,6 +345,8 @@ void RenderManager::Draw()
 					glm::mat4 MVP = GetMVP_ByObject(*obj);
 					glm::mat4 visualOffset;
 					Player* p = dynamic_cast<Player*>(obj->FindComponent(Player::PlayerTypeName));
+					Monster* mon = dynamic_cast<Monster*>(obj->FindComponent<Monster>());
+					//CurseDemon* mon = dynamic_cast<CurseDemon*>(obj->FindComponent<CurseDemon>());
 					bool dashing=false;
 					if(p)
 						dashing= p->GetIsDashing();
@@ -374,13 +387,16 @@ void RenderManager::Draw()
 						glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(finalMVP));
 					else
 						glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
-					
+										
 					if (p&&p->GetIsHurting())					
 						glUniform1i(m_iHurtEffect_location, true);					
 					else					
-						glUniform1i(m_iHurtEffect_location, false);										
+						glUniform1i(m_iHurtEffect_location, false);					
 
-
+					if (mon && mon->GetIsHurting())					
+						glUniform1i(m_iHurtEffect_location, true);
+					else
+						glUniform1i(m_iHurtEffect_location, false);
 
 					model->Draw();
 

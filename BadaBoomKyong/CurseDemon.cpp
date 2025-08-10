@@ -46,6 +46,7 @@ CurseDemon::CurseDemon(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::IDLE), new AnimIdleState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::NORMAL_ATTACK), new AnimNormalAttackState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::RANGE_ATTACK), new AnimRangeAttackState<Monster>());
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::HURT), new AnimHurtState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DEATH), new AnimDeathState<Monster>());
 
 	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::IDLE));
@@ -70,13 +71,11 @@ void CurseDemon::Init()
 	ObjectPoolManager::GetInstance()->ReigistPool<CurseDemonBullet, 30>();
 
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
-	assert(m_pSprite != nullptr);
-
-	
+	assert(m_pSprite != nullptr);	
 }
 
 void CurseDemon::Update()
-{		 		
+{		 			
 	//인지범위
 	auto math = MathUtil::GetInstance();
 	m_vPosition = m_pTransform->GetPosition();
@@ -117,8 +116,20 @@ void CurseDemon::Update()
 		m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
 		m_eCurrentState = MonsterAnimState::IDLE;
 	}		
+	auto hp = GetCurrentHP();
+	hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
 
-	GetCurrentHP() < 0 ? SetIsAlive(false) : SetIsAlive(true);
+	if (GetIsHurting())
+		m_eCurrentState = MonsterAnimState::HURT;	
+
+	if (GetIsHurting())
+	{
+		if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+		{
+			m_pAnimator->GetAnimation()->m_bLoopCount = 0;
+			SetIsHurting(false);
+		}
+	}
 	
 	if (!GetIsAlive())	
 		m_eCurrentState = MonsterAnimState::DEATH;			
@@ -136,7 +147,7 @@ void CurseDemon::Exit()
 
 void CurseDemon::Fire()
 {
-	m_pBullet = GetBulletFactory()->CreateBullet(BULLET_TYPE::SOLDIER_BOMB);
+	m_pBullet = GetBulletFactory()->CreateBullet(BULLET_TYPE::CURSEDEMON_FIREBALL);
 	CurseDemonBullet* grn_comp = dynamic_cast<CurseDemonBullet*>(m_pBullet->GetOwner()->FindComponent(CurseDemonBullet::CurseDemonBulletTypaName));
 	grn_comp->SetShooter(this->GetOwner());
 

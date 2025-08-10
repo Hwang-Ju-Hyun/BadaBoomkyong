@@ -61,10 +61,8 @@ Bullet* BulletFactory::CreateBullet(BULLET_TYPE _type)
 	case BULLET_TYPE::MACHINE_GUN:
 		break;
 	case BULLET_TYPE::BULLET_LAST:
-		break;
-	case BULLET_TYPE::SOLDIER_PISTOL:
-		break;
-	case BULLET_TYPE::SOLDIER_BOMB:
+		break;	
+	case BULLET_TYPE::CURSEDEMON_FIREBALL:
 		bullet_comp = m_pMonsterGrenadePool->GetPool()->FindComponent<CurseDemonBullet>();
 	default:
 		break;
