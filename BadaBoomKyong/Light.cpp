@@ -66,6 +66,9 @@ void Light::LoadFromJson(const json& _str)
 		m_vSpecular.x = specular->begin().value();
 		m_vSpecular.y = (specular->begin()+1).value();
 		m_vSpecular.z = (specular->begin()+2).value();		
+
+		auto cutoff = iter_compData->find(CutoffAngleTypeName);
+		m_fCutoffAngle = cutoff->begin().value();
 	}
 }
 
@@ -82,7 +85,7 @@ json Light::SaveToJson(const json& _str)
 	compData[AmbientTypeName] = { m_vAmbient.x,m_vAmbient.y,m_vAmbient.z };
 	compData[DiffuseTypeName] = { m_vDiffuse.x,m_vDiffuse.y,m_vDiffuse.z };
 	compData[SpecularTypeName] = { m_vSpecular.x,m_vSpecular.y,m_vSpecular.z };	
-
+	compData[CutoffAngleTypeName] = { m_fCutoffAngle };
 	data[CompDataName] = compData;
 
 	return data;

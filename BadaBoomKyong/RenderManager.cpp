@@ -31,10 +31,10 @@
 #include "BaseLevel.h"
 #include "Collider.h"
 #include "CurseDemon.h"
+#include "Light.h"
 
 RenderManager::RenderManager()
-{
-
+{	
 }
 
 RenderManager::~RenderManager()
@@ -73,6 +73,13 @@ void RenderManager::Init()
 	m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->CreateShaderProgramFromFiles(vsFile_3D, fsFile_3D);
 
 	m_pCam = new Camera;
+	
+
+	//todo : 이거 곧 light manager로 옮기셈
+	GameObject* light_obj = GameObjectManager::GetInstance()->FindObject("LightTemp");
+	m_pLight = dynamic_cast<Light*>(light_obj->FindComponent(Light::LightTypeName));
+	assert(m_pLight != nullptr);
+
 	glEnable(GL_CULL_FACE);// 컬링 기능 활성화
 	glCullFace(GL_BACK); // 뒷면 제거
 	glFrontFace(GL_CCW); // 반시계 방향을 앞면으로 간주
@@ -159,11 +166,59 @@ void RenderManager::Draw()
 
 				m_iM2W_Location = glGetUniformLocation(shdr_handle_3D, "uM2W");
 				assert(m_iM2W_Location >= 0);
-				glm::mat4 m2w = obj_trs->GetModelToWorld_Matrix();
+				glm::mat4 m2w = obj_trs->GetModelToWorld_Matrix();				
 				glUniformMatrix4fv(m_iM2W_Location, 1, GL_FALSE, glm::value_ptr(m2w));
+				
+
+				//LIGHT
+				GLint light_num = 1;
+				m_iLightNumber = glGetUniformLocation(shdr_handle_3D, "uLightNumber");			
+				glUniform1i(m_iLightNumber, light_num);
+				m_iLightColorOn = glGetUniformLocation(shdr_handle_3D, "uLightColorOn");
+				glUniform3f(glGetUniformLocation(shdr_handle_3D,"uCameraPosition"),m_pCam->GetCamPosition().x, m_pCam->GetCamPosition().y, m_pCam->GetCamPosition().z);
+				
+				obj->GetName() == "LightTemp" ? glUniform1i(m_iLightColorOn, true) : glUniform1i(m_iLightColorOn, false);
+				
+				for (int i = 0;i < light_num;i++)
+				{
+					const std::string type = "uLight[" + std::to_string(i) + "].type";
+					glUniform1i(glGetUniformLocation(shdr_handle_3D, type.c_str()),static_cast<int>(m_pLight->GetType()));
+
+					const std::string position = "uLight[" + std::to_string(i) + "].position";
+					const Transform* light_trs = dynamic_cast<Transform*>(m_pLight->GetOwner()->FindComponent(Transform::TransformTypeName));
+					const glm::vec3 light_pos = light_trs->GetPosition();
+					glUniform3f(glGetUniformLocation(shdr_handle_3D, position.c_str()), light_pos.x, light_pos.y, light_pos.z);
+
+					const std::string ambient = "uLight[" + std::to_string(i) + "].ambient";
+					glUniform3f(glGetUniformLocation(shdr_handle_3D, ambient.c_str()), m_pLight->GetAmbient().x, m_pLight->GetAmbient().y, m_pLight->GetAmbient().z);					
+
+					const std::string diffuse = "uLight[" + std::to_string(i) + "].diffuse";
+					glUniform3f(glGetUniformLocation(shdr_handle_3D, diffuse.c_str()), m_pLight->GetDiffuse().x, m_pLight->GetDiffuse().y, m_pLight->GetDiffuse().z);
+
+					const std::string specular = "uLight[" + std::to_string(i) + "].specular";
+					glUniform3f(glGetUniformLocation(shdr_handle_3D, specular.c_str()), m_pLight->GetSpecular().x, m_pLight->GetSpecular().y, m_pLight->GetSpecular().z);
+
+					const std::string direction = "uLight[" + std::to_string(i) + "].direction";
+					glUniform3f(glGetUniformLocation(shdr_handle_3D, direction.c_str()), m_pLight->GetDirection().x, m_pLight->GetDirection().y, m_pLight->GetDirection().z);
+
+					const std::string cufotff_angle = "uLight[" + std::to_string(i) + "].cutoffangle";
+					glUniform1f(glGetUniformLocation(shdr_handle_3D, cufotff_angle.c_str()),m_pLight->GetCutoffAngle());
+				}
+
+				for (int i = 0;i < model->GetMeshes().size();i++)
+				{
+					Material* mat = model->GetMeshes()[i]->GetMaterial();
+					if (mat)
+					{												
+						glUniform3f(glGetUniformLocation(shdr_handle_3D, "uMp_Ambient"), mat->GetAmbient().x, mat->GetAmbient().y, mat->GetAmbient().z);
+						glUniform3f(glGetUniformLocation(shdr_handle_3D, "uMp_Diffuse"), mat->GetDiffuse().x, mat->GetDiffuse().y, mat->GetDiffuse().z);
+						glUniform3f(glGetUniformLocation(shdr_handle_3D, "uMp_Specular"), mat->GetSpecular().x, mat->GetSpecular().y, mat->GetSpecular().z);
+						glUniform1f(glGetUniformLocation(shdr_handle_3D, "uShininess"), mat->GetShininess());
+					}
+				}
+
 
 				Sprite* spr = dynamic_cast<Sprite*>(obj->FindComponent(Sprite::SpriteTypeName));
-
 				m_iUV_Offset_Location = glGetUniformLocation(shdr_handle_3D, "uUV_Offset");
 				m_iUV_Scale_Location = glGetUniformLocation(shdr_handle_3D, "uUV_Scale");
 

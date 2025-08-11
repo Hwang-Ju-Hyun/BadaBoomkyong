@@ -8,6 +8,7 @@ class Shader;
 class Camera;
 class FrameBuffer;
 class GameObject;
+class Light;
 
 class RenderManager
 {
@@ -32,9 +33,13 @@ private:
 	GLint m_iOut_texture_location;
 	GLint m_iHurtEffect_location;
 	GLint m_iM2W_Location;
+	GLint m_iLightNumber;
+	GLint m_iLightColorOn;
+	GLint m_iCamreaPosition;
 public:	
 	inline Shader* GetShader(SHADER_REF _shdrRef) { return m_vShdr[int(_shdrRef)]; }	
 	Camera* m_pCam=nullptr;
+	Light* m_pLight=nullptr;	
 public:
 	void Init();
 	void BeforeDraw();
