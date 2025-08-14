@@ -29,6 +29,9 @@ public:
             case PlayerAnimState::IDLE:
                 machine->ChangeAnimState(int(PlayerAnimState::IDLE));
                 break;
+            case PlayerAnimState::TOSPRINT:
+                machine->ChangeAnimState(int(PlayerAnimState::TOSPRINT));
+                break;
             case PlayerAnimState::JUMP_ATTACK:
                 machine->ChangeAnimState(int(PlayerAnimState::JUMP_ATTACK));
                 break;

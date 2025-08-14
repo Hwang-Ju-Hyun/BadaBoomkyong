@@ -92,8 +92,7 @@ void ExecutionerDemon::Update()
 	{
 		if (dist <= m_vMeleeAtkRange.x)
 		{
-			m_pAI->ChangeState(MONSTER_STATE::MELEE_ATTACK_STATE);
-			m_eCurrentState = MonsterAnimState::NORMAL_ATTACK;
+			m_pAI->ChangeState(MONSTER_STATE::MELEE_ATTACK_STATE);			
 		}	
 	}
 	else
@@ -104,8 +103,22 @@ void ExecutionerDemon::Update()
 	auto hp = GetCurrentHP();
 	 hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
 
+	 if (m_eCurrentState == MonsterAnimState::NORMAL_ATTACK)
+	 {
+		 if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+		 {
+			 m_bMeleeAtkDone = true;
+			 m_pAnimator->GetAnimation()->m_bLoopCount = 0;
+		 }
+	 }
+
+
 	 if (GetIsHurting())
+	 {
+		 float Knockback_dir = -m_fDirection;
+		 m_pTransform->AddPositionX(0.5f * Knockback_dir);
 		 m_eCurrentState = MonsterAnimState::HURT;
+	 }		 
 
 	 if (GetIsHurting())
 	 {
@@ -142,10 +155,16 @@ void ExecutionerDemon::MeleeAttack()
 	ExecutionerDemonMelee* melee_comp = dynamic_cast<ExecutionerDemonMelee*>(m_pMelee);
 	assert(m_pMelee != nullptr);
 	m_pMelee->SetAttacker(this->GetOwner());
+	float dt = TimeManager::GetInstance()->GetDeltaTime();
+
 	if (m_bCanMeleeAttack == false)
 	{
+		m_fOffsetTimeAcc += dt;
+		if (m_fOffsetTime > m_fOffsetTimeAcc)
+			return;
 		EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
 		m_bCanMeleeAttack = true;
+		m_fOffsetTimeAcc = 0.f;
 	}
 }
 
@@ -221,6 +240,9 @@ void ExecutionerDemon::LoadFromJson(const json& _str)
 		auto detect_ran = iter_compData->find(DetectRangeName);
 		m_fDetectRange = detect_ran->begin().value();
 
+		auto meleeAtk_CoolTime = iter_compData->find(MeleeAtkCoolTimeName);
+		m_fMeleeAtkCoolTime = meleeAtk_CoolTime->begin().value();
+
 		auto ranged_move_ran = iter_compData->find(RangedMoveAtkRangeName);
 		m_vRangedMoveAtkRange.x = ranged_move_ran->begin().value();
 		m_vRangedMoveAtkRange.y = (ranged_move_ran->begin() + 1).value();
@@ -244,6 +266,7 @@ json ExecutionerDemon::SaveToJson(const json& _str)
 	compData[SpeedName] = m_fSpeed;
 	compData[JumpForceName] = m_fJumpImpulse;
 	compData[DetectRangeName] = m_fDetectRange;
+	compData[MeleeAtkCoolTimeName] = m_fMeleeAtkCoolTime;
 	compData[RangedMoveAtkRangeName] = { m_vRangedMoveAtkRange.x,m_vRangedMoveAtkRange.y,m_vRangedMoveAtkRange.z };
 	compData[MeleeAtkRangeName] = { m_vMeleeAtkRange.x,m_vMeleeAtkRange.y,m_vMeleeAtkRange.z };
 

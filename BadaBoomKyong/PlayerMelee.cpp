@@ -11,7 +11,7 @@
 
 PlayerMelee::PlayerMelee(GameObject* _owner, GameObject* _shooter)
 	:Melee(_owner,_shooter)   
-    ,m_vOffset( 35.f,0.f,0.f)
+    ,m_vOffset( 45.f,0.f,0.f)
 {
 	SetName(PlayerMeleeTypeName);
 	m_fLifeTime = 1.3f;
@@ -43,9 +43,9 @@ void PlayerMelee::Awake()
     glm::vec3 player_pos = m_pPlayerTransform->GetPosition();    
     
     if (m_pPlayer->GetDir() < 0)
-        m_vOffset = { -35.f,0.f,0.f };
+        m_vOffset = { -45.f,0.f,0.f };
     else
-        m_vOffset = { 35.f,0.f,0.f };
+        m_vOffset = { 45.f,0.f,0.f };
     glm::vec3 final_pos= player_pos + m_vOffset;
 
     m_pTransform->SetPosition(final_pos);

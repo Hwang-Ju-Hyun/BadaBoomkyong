@@ -197,7 +197,7 @@ void Player::MeleeAttack()
 			m_bCanMeleeAttack = true;
 			EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
 		}
-	}	
+	}
 }
 
 void Player::Dash()
@@ -255,7 +255,9 @@ void Player::StateHandler()
 	if (m_bIsHurting == false)
 	{
 		if (m_bIsFalling)
-			m_eCurrentState = PlayerAnimState::FALL;
+		{
+			m_eCurrentState = PlayerAnimState::FALL;			
+		}
 
 		if (std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon
 			&& m_pRigidBody->GetIsGround()))
@@ -287,13 +289,36 @@ void Player::StateHandler()
 		}
 
 		if (m_bNormalMeleeAttacking)
+		{
 			m_eCurrentState = PlayerAnimState::ATTACK;
+			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+			{
+				m_pAnimator->GetAnimation()->m_bLoopCount = 0;
+				m_bNormalMeleeAttacking = false;
+			}
+		}
+			
 
 		if (m_bIsDashing)
+		{
 			m_eCurrentState = PlayerAnimState::DASH;
+			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+			{
+				m_pAnimator->GetAnimation()->m_bLoopCount = 0;
+				m_bIsDashing= false;
+			}
+		}
+			
 
 		if (m_bSprintMeleeAttacking)
+		{
 			m_eCurrentState = PlayerAnimState::RUN_ATTACK;
+			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+			{
+				m_pAnimator->GetAnimation()->m_bLoopCount = 0;
+				m_bSprintMeleeAttacking = false;
+			}
+		}
 	}
 	
 

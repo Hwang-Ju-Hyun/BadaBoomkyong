@@ -8,7 +8,7 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            1118.934814453125,
+            1151.658935546875,
             -230.86221313476563,
             0.0
           ],
@@ -204,7 +204,7 @@
         "CompData": {
           "Pos": [
             200.0,
-            -178.36221313476563,
+            -17754.001953125,
             0.0
           ],
           "Sca": [
@@ -312,7 +312,7 @@
               "Max": 22,
               "Row": 1,
               "Col": 22,
-              "Duration": 0.055000000074505806,
+              "Duration": 0.054999999701976776,
               "Loop": false
             }
           ]
@@ -363,7 +363,7 @@
         "CompData": {
           "Pos": [
             -491.0813903808594,
-            -14604.6669921875,
+            -32180.271484375,
             0.0
           ],
           "Sca": [
@@ -471,7 +471,7 @@
               "Max": 22,
               "Row": 1,
               "Col": 22,
-              "Duration": 0.0500000149011612,
+              "Duration": 0.050000015646219254,
               "Loop": false
             }
           ]
@@ -521,8 +521,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            1236.67041015625,
-            -14619.6669921875,
+            1263.1722412109375,
+            -193.36221313476563,
             0.0
           ],
           "Sca": [
@@ -546,8 +546,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "Idle",
-          "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Idle.png"
+          "TextureName": "NormalAttack_1",
+          "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/NormalAttack_1.png"
         }
       },
       {
@@ -621,7 +621,7 @@
               "Row": 1,
               "Col": 28,
               "Duration": 0.10000000149011612,
-              "Loop": true
+              "Loop": false
             },
             {
               "Name": "Walk",
@@ -652,6 +652,7 @@
           "Speed": 100.0,
           "JumpForce": 500.0,
           "DetectRange": 500.0,
+          "MeleeAtkCoolTime": 5.0,
           "RangedMoveAtkRange": [
             50.0,
             500.0,

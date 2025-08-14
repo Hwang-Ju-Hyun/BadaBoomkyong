@@ -14,7 +14,7 @@ ExecutionerDemonMelee::ExecutionerDemonMelee(GameObject* _owner, GameObject* _at
 	:Melee(_owner, _attacker)
 {
 	SetName(ExecutionerDemonMeleeTypeName);
-	m_fLifeTime = 1.f;
+	m_fLifeTime = 2.f;
 }
 
 ExecutionerDemonMelee::~ExecutionerDemonMelee()

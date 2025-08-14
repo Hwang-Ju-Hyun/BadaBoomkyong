@@ -55,11 +55,16 @@ public:
     MeleeFactory* m_pMeleeFactory = nullptr;
     Melee* m_pMelee = nullptr;
     bool m_bCanMeleeAttack = false;
+    float m_fMeleeCoolTimeAcc = 0.f;
+    bool m_bMeleeAtkDone = false;
 public:
     void Patrol();
     float m_fAccPatrolDistance=0.f;
     bool m_bIsPatrolMoveDone = true;
     float m_fPatrolRandDistance = 0.f;
+private:
+    float m_fOffsetTimeAcc = 0.f;
+    float m_fOffsetTime = 0.8f;
 public:
     virtual void EnterCollision(Collider* _other)override;
     virtual void OnCollision(Collider* _other)   override;
