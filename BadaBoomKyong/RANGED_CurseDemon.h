@@ -16,5 +16,6 @@ public:
     void MoveSideBySide_Attack();
     float m_fStepSum = 0.f;
     Bullet* m_pBullet = nullptr;
+    bool movable = true;
 };
 

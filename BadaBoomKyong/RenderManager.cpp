@@ -146,6 +146,9 @@ void RenderManager::Draw()
 
 	BeforeDraw();
 
+	m_iLightAffect_location= glGetUniformLocation(shdr_handle_3D, "uLightAffect");
+	
+
 	//1. 불투명 먼저 렌더링
 	for (auto obj : m_vOpaqueObject)
 	{
@@ -169,14 +172,15 @@ void RenderManager::Draw()
 				glm::mat4 m2w = obj_trs->GetModelToWorld_Matrix();				
 				glUniformMatrix4fv(m_iM2W_Location, 1, GL_FALSE, glm::value_ptr(m2w));
 				
-
 				//LIGHT
 				GLint light_num = 1;
 				m_iLightNumber = glGetUniformLocation(shdr_handle_3D, "uLightNumber");			
 				glUniform1i(m_iLightNumber, light_num);
 				m_iLightColorOn = glGetUniformLocation(shdr_handle_3D, "uLightColorOn");
 				glUniform3f(glGetUniformLocation(shdr_handle_3D,"uCameraPosition"),m_pCam->GetCamPosition().x, m_pCam->GetCamPosition().y, m_pCam->GetCamPosition().z);
-				
+				glUniform1i(m_iLightAffect_location, true);
+
+
 				obj->GetName() == "LightTemp" ? glUniform1i(m_iLightColorOn, true) : glUniform1i(m_iLightColorOn, false);
 				
 				for (int i = 0;i < light_num;i++)
@@ -347,6 +351,8 @@ void RenderManager::Draw()
 				m_iOut_texture_location = glGetUniformLocation(shdr_handle_3D, "uOutTexture");
 				m_iHurtEffect_location = glGetUniformLocation(shdr_handle_3D, "uHurtEffect");
 
+				glUniform1i(m_iLightAffect_location, false);
+
 				if (!spr)
 				{
 					for (auto m : model->GetMeshes())
@@ -398,13 +404,17 @@ void RenderManager::Draw()
 					
 					//todo : 여기좀 지저분함 손좀보셈
 					glm::mat4 MVP = GetMVP_ByObject(*obj);
-					glm::mat4 visualOffset;
+					glm::mat4 visualOffset;		
 					Player* p = dynamic_cast<Player*>(obj->FindComponent(Player::PlayerTypeName));
-					Monster* mon = dynamic_cast<Monster*>(obj->FindComponent<Monster>());
+					Monster* mon = dynamic_cast<Monster*>(obj->FindComponent<Monster>());					
+					
 					//CurseDemon* mon = dynamic_cast<CurseDemon*>(obj->FindComponent<CurseDemon>());
 					bool dashing=false;
+					bool moving = false;					
 					if(p)
 						dashing= p->GetIsDashing();
+					if (p)
+						moving = p->GetIsMoving();					
 					if (obj->GetName() == "Player")
 					{												
 						if (dashing)
@@ -412,7 +422,17 @@ void RenderManager::Draw()
 							// 텍스처가 오른쪽으로 치우쳐 있을 경우, 살짝 왼쪽으로 당김							
 							float texture_offsetX = -0.5f; // ← 여기서 0.1이 보정값 (시각적 기준 보정)
 							visualOffset = glm::translate(glm::mat4(1.f), glm::vec3(texture_offsetX*p->GetDir(), 0.f, 0.f));
-						}						
+						}
+						if (moving)
+						{
+							float texture_offsetY = 0.15f; // ← 여기서 0.1이 보정값 (시각적 기준 보정)
+							visualOffset = glm::translate(glm::mat4(1.f), glm::vec3( 0.f, texture_offsetY, 0.f));
+						}		
+						if (p->m_bCanMeleeAttack)
+						{
+							float texture_offsetX = 0.15f; // ← 여기서 0.1이 보정값 (시각적 기준 보정)
+							visualOffset = glm::translate(glm::mat4(1.f), glm::vec3(texture_offsetX * p->GetDir(), 0.f, 0.f));
+						}
 					}					 
 					glm::mat4 finalMVP = MVP * visualOffset;					
 					if (anim)
@@ -438,7 +458,7 @@ void RenderManager::Draw()
 						glUniform2f(m_iUV_Scale_Location, 1, 1);
 					}
 
-					if(dashing)
+					if(dashing||moving||(p&&p->m_bCanMeleeAttack))
 						glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(finalMVP));
 					else
 						glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));

@@ -72,7 +72,7 @@ public:
     inline void SetMeleeBehaivour(IMeleeBehaviour* _behaviour) { m_pMeleeBehaviour = _behaviour; }
     inline void SetPatrolBehaviour(IPatrolBehaviour* _behaviour) { m_pPatrolBehaviour = _behaviour; }
     inline void SetAnimator(Animator* _anim) { m_pAnimator = _anim; }
-
+    inline void SetAnimCurrentState(MonsterAnimState _eState) { m_eCurrentState = _eState; }
     inline Player* GetPlayer()const { return m_pPlayer; }
     inline IIdleBehaviour* GetIdleBehavior() { return m_pIdleBehavior; }
     inline IRangedBehaviour* GetRangedBehavior() { return m_pRangedBehavior; }
@@ -90,7 +90,10 @@ protected:
     int m_iCurrentHP = 10;
     int m_iInitHP = 10;
     bool m_bIsAlive = true;
-public:    
+
+    float m_fMeleeAtkCoolTime = 0.f;
+    float m_fRangeAtkCoolTime = 0.f;
+public:        
     inline void SetIsGround(bool _ground) { m_bIsGround = _ground; }
     inline bool GetIsGround()const { return m_bIsGround; }
     inline void SetSpeed(float _speed) { m_fSpeed = _speed; }
@@ -100,9 +103,15 @@ public:
     inline int GetCurrentHP()const { return m_iCurrentHP; }
     inline void SetIsAlive(bool _alive) { m_bIsAlive = _alive; }
     inline bool GetIsAlive()const { return m_bIsAlive; }
+    inline void SetMeleeAtkCoolTime(float _time) { m_fMeleeAtkCoolTime = _time; }
+    inline float GetMeleeAtkCoolTime()const { return m_fMeleeAtkCoolTime; }
+    inline void SetRangeAtkCoolTime(float _time) { m_fRangeAtkCoolTime = _time; }
+    inline float GetRangeAtkCoolTime()const { return m_fRangeAtkCoolTime; }
 public:
     bool m_bCol=false;
 public:
     static constexpr const char* SpeedName = "Speed";    
     static constexpr const char* JumpForceName = "JumpForce";
+    static constexpr const char* MeleeAtkCoolTimeName = "MeleeAtkCoolTime";
+    static constexpr const char* RangeAtkCoolTimeName = "RangeAtkCoolTime";
 };

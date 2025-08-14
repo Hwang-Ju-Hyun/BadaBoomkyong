@@ -92,7 +92,10 @@ void Player::Update()
 	//todo : 이거 dashable & isalive이런거 함수화 시켜서 movable로 고치든가하자
 	if (m_bIsAlive&&!m_bIsDashing)
 	{
-		Move();
+		if (m_bCanMeleeAttack == false)
+		{
+			Move();
+		}		
 		Jump();
 		Fire();
 		MeleeAttack();
@@ -156,6 +159,7 @@ void Player::Move()
 	}
 	
 	m_pRigidBody->SetVelocity(velocity);
+	std::fabs(velocity.x) > 0 ? m_bIsMoving = true:m_bIsMoving=false;
 }
 
 void Player::Fire()
@@ -293,8 +297,12 @@ void Player::StateHandler()
 	}
 	
 
-	if (m_bIsHurting)	
+	if (m_bIsHurting)
+	{
+		m_pTransform->AddPositionX(-m_iDir * 1.0f);
 		m_eCurrentState = PlayerAnimState::HURT;	
+	}
+		
 
 	
 	if (m_bIsHurting)

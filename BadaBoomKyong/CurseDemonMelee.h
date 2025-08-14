@@ -22,6 +22,9 @@ public:
 	virtual void EnterCollision(Collider* _col)override;
 	virtual void OnCollision(Collider* _col)override;
 	virtual void ExitCollision(Collider* _col) override;
+public:
+	bool m_bMeleeAtkDone = false;
+
 private:
 	Transform* m_pTransform = nullptr;
 	Sprite* m_pSprite = nullptr;

@@ -27,8 +27,7 @@ private:
     GameObject* m_pMeleeObj = nullptr;
     Collider*  m_pMeleeCol = nullptr;
     Sprite* m_pMeleeSpr = nullptr;
-    Transform* m_pMeleeTrs = nullptr;
-    static constexpr const char* CurseDemonMeleeObjTypeName = "CurseDemonMeleeObject";
+    Transform* m_pMeleeTrs = nullptr;    
 public:
     inline BulletFactory* GetBulletFactory()const { return m_pBulletFactory; };
 private:  
@@ -56,11 +55,17 @@ public:
     MeleeFactory* m_pMeleeFactory = nullptr;
     Melee* m_pMelee = nullptr;
     bool m_bCanMeleeAttack = false;
+    float m_fMeleeCoolTimeAcc = 0.f;
+    bool m_bMeleeAtkDone = false;
+private:
+    float m_fOffsetTimeAcc = 0.f;
+    float m_fOffsetTime = 1.f;
 public:
     virtual void EnterCollision(Collider* _other)override;
     virtual void OnCollision(Collider* _other)   override;
     virtual void ExitCollision(Collider* _other) override;
 public:
+    static constexpr const char* CurseDemonMeleeObjTypeName = "CurseDemonMeleeObject";
     static constexpr const char* CurseDemonTypeName = "CurseDemon";
     static constexpr const char* DetectRangeName = "DetectRange";
     static constexpr const char* RangedMoveAtkRangeName = "RangedMoveAtkRange";

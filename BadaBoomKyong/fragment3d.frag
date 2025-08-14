@@ -11,6 +11,8 @@ uniform bool uHasTexture;
 uniform sampler2D uOutTexture;
 uniform bool uHurtEffect;
 uniform vec3 uCameraPosition;
+uniform bool uLightAffect;
+
 
 struct Light
 {
@@ -31,7 +33,7 @@ uniform float uShininess;
 
 uniform int uLightNumber;
 uniform Light uLight[1];
-uniform int uLightColorOn;
+uniform bool uLightColorOn;
 
 void main()
 {    
@@ -81,18 +83,17 @@ void main()
         vec3 ambient = vec3(1.0f,1.0f,1.0f)* uLight[i].ambient;
 
         //Diffuse
-        vec3 diffuse= vec3(1.0f,1.0f,1.0f)*max(dot(normalize(WorldNormal),light_dir),0.0);  
-       
+        vec3 diffuse= vec3(1.0f,1.0f,1.0f)*max(dot(normalize(WorldNormal),light_dir),0.0);         
 
         //Specular
         vec3 reflectDir=reflect(-light_dir,WorldNormal);
         //todo 마지막 값 uniform 샤이니 값으로 변경하셈
-        float spec = pow(max(dot(viewDir, reflectDir), 0.0), 302.f);
+        float spec = pow(max(dot(viewDir, reflectDir), 0.0), 3002.f);
         
         //todo 요것도 vec3(1.0) uMp_Specular로 봐꾸셈
         vec3 specular = vec3(1.0f,1.0f,1.0f) * uLight[i].specular * spec;
 
-        Phong+=(specular+ambient+diffuse)*vec3(UV,0);
+        Phong+=(specular+ambient+diffuse);
     }
 
     if(uLightColorOn)
@@ -103,21 +104,24 @@ void main()
         
     if (uHasTexture)
     {
-        vec4 texColor = texture(uOutTexture, UV);
+        vec4 texColor = texture(uOutTexture, UV);        
         if(uHurtEffect)
         {
             if(texColor.a<1.f)               
                 color = texColor;
-            else                
+            else
                 color=vec4(1.0,1.0,1.0,1.0);
         }
         else
         {        
-            color = vec4(Phong,1.0);
-        }        
+            if(uLightAffect)
+                color = vec4(Phong,1.0)*texColor;
+            else
+               color = texColor;
+         }
     }    
     else
     {
-        color = vec4(Phong, 1.0); // UV 색상 디버깅용
+        color = vec4(UV,0.0,1.0); // UV 색상 디버깅용
     }
 }

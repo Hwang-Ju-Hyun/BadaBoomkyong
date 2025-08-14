@@ -54,6 +54,8 @@ void Animator::Awake()
 	m_pCurrentAnimation->m_bLoopCount = 0;
 }
 #include <iostream>
+#include "CurseDemon.h"
+
 static int a = 0;
 void Animator::Update()
 {
@@ -61,7 +63,14 @@ void Animator::Update()
 	{
 		std::cout << "Errror" << std::endl;
 		return;
-	}	
+	}
+
+	if (m_pCurrentAnimation->m_bLoop == false && m_pCurrentAnimation->m_bLoopCount >= 1)
+	{
+		m_pCurrentAnimation->m_bLoopCount = 0;
+	}
+
+
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
 	if (m_pCurrentAnimation->m_sAnimationName == "LightAttack")
 		int a = 0;
@@ -82,6 +91,16 @@ void Animator::Update()
 	}
 	if (m_pCurrentAnimation->m_bLoop == false && m_iCurrentFrameIndex == m_pCurrentAnimation->m_iSheet_Max-1)
 	{
+		//todo ÀÌ°ÅÁö¿ì¼À
+		if (GetOwner()->GetName() == "CurseDemon" && GetOwner()->GetID() == 0)
+		{
+			CurseDemon* demon = dynamic_cast<CurseDemon*>(GetOwner()->FindComponent<CurseDemon>());
+			if (demon->GetCurrentState() == MonsterAnimState::RANGE_ATTACK)
+			{
+				int a = 0;
+				//std::cout << m_pCurrentAnimation->m_bLoopCount << std::endl;
+			}
+		}			
 		m_pCurrentAnimation->m_bLoopCount++;
 	}			
 }

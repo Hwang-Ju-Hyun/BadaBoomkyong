@@ -105,7 +105,7 @@ void PlayerMelee::EnterCollision(Collider* _col)
         if (m_pMonster)
         {
             m_pMonster->MinusCurrentHp(1);
-            m_pMonster->SetIsHurting(true);
+            m_pMonster->SetIsHurting(true);            
         }            
     }
 }

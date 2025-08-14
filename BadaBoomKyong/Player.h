@@ -53,6 +53,7 @@ private:
     PlayerAnimState m_ePreviousState;
     PlayerAnimState m_eCurrentState;
     bool m_bIsGround;
+    bool m_bIsMoving;
 private:
     int m_iInitHP = 5;
     int m_iCurrentHP=1;
@@ -90,10 +91,11 @@ public:
     inline const bool GetRunMeleeAttacking()const { return m_bSprintMeleeAttacking; }
     inline void SetJumpMeleeAttacking(bool _attacking) { m_bJumpMeleeAttacking = _attacking; }
     inline const bool GetJumpMeleeAttacking()const { return m_bJumpMeleeAttacking; }
+    inline const bool GetIsMoving()const { return m_bIsMoving; }
 public:        
     int m_iCurJumpCount = 0;
-private:
     bool m_bCanMeleeAttack = false;
+private:
     bool m_bIsFalling = false;
 public:
     virtual void Init()override;

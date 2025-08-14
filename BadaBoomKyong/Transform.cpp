@@ -10,6 +10,7 @@
 #include <gtc/matrix_transform.hpp>
 #include <gtx/quaternion.hpp>
 #include "Mesh.h"
+#include "Player.h"
 
 Transform::Transform(GameObject* _owner)
 	:MonoBehaviour(_owner)
@@ -51,9 +52,10 @@ void Transform::Update()
 	{		
 		glm::mat4 translate = glm::mat4(1.0f);
 		glm::mat4 scale = glm::mat4(1.0f);
+						
 		
-		translate = glm::translate(translate, m_vPosition);
 		scale = glm::scale(scale, m_vScale);
+		translate = glm::translate(translate, m_vPosition);
 
 		if(m_vRotation.x > 360.f)
 			m_vRotation.x = 0.f;
@@ -65,6 +67,15 @@ void Transform::Update()
 		if (GetOwner()->GetName() == "Player")
 		{
 			const GameObject* owner = GetOwner();
+
+			Player* player = dynamic_cast<Player*>(owner->FindComponent<Player>());
+
+			float attackScale = 1.0f;
+			if (player&&player->m_bCanMeleeAttack)
+			{
+				attackScale = 1.2f; // 공격 시 1.2배 확대
+			}
+
 			Camera* cam = RenderManager::GetInstance()->GetCamera();
 			glm::vec3 cam_pos = cam->GetCamPosition();
 			glm::vec3 obj_pos = m_vPosition;
@@ -78,6 +89,10 @@ void Transform::Update()
 			billboard[0] = glm::vec4(right, 0.0f);
 			billboard[1] = glm::vec4(up, 0.0f);
 			billboard[2] = glm::vec4(dir, 0.0f);
+
+			glm::mat4 scale = glm::scale(glm::mat4(1.0f), m_vScale * attackScale);
+			glm::mat4 translate = glm::translate(glm::mat4(1.0f), m_vPosition);
+
 			m_mModeltoWorld_3D = translate * billboard * scale;
 			return;
 		}

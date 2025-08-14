@@ -24,6 +24,7 @@
 #include "CurseDemonMelee.h"
 #include "Anim_StateMachine.h"
 #include "Anim_IdleState.h"
+#include "TimeManager.h"
 
 CurseDemon::CurseDemon(GameObject* _owner)
     :Monster(_owner)	
@@ -102,13 +103,13 @@ void CurseDemon::Update()
 		if (dist <= m_vMeleeAtkRange.x)
 		{
 			m_pAI->ChangeState(MONSTER_STATE::MELEE_ATTACK_STATE);
-			m_eCurrentState = MonsterAnimState::NORMAL_ATTACK;
+			//m_eCurrentState = MonsterAnimState::NORMAL_ATTACK;
 		}			
 		else
 		{
 			//todo: ÀÌ°Å ÁÖ¼® Çª¼À
 			m_pAI->ChangeState(MONSTER_STATE::RANGE_ATTACK_STATE);
-			m_eCurrentState = MonsterAnimState::RANGE_ATTACK;
+			
 		}
 	}		
 	else
@@ -118,9 +119,24 @@ void CurseDemon::Update()
 	}		
 	auto hp = GetCurrentHP();
 	hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
+	
 
+	//ÇÇ°Ý½Ã
 	if (GetIsHurting())
-		m_eCurrentState = MonsterAnimState::HURT;	
+	{
+		float Knockback_dir = -m_fDirection;
+		m_pTransform->AddPositionX(0.5f * Knockback_dir);
+		m_eCurrentState = MonsterAnimState::HURT;
+	}
+	
+	if (m_eCurrentState == MonsterAnimState::NORMAL_ATTACK)
+	{
+		if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+		{
+			m_bMeleeAtkDone = true;
+			m_pAnimator->GetAnimation()->m_bLoopCount = 0;
+		}		
+	}
 
 	if (GetIsHurting())
 	{
@@ -161,10 +177,16 @@ void CurseDemon::MeleeAttack()
 	CurseDemonMelee* melee_comp = dynamic_cast<CurseDemonMelee*>(m_pMelee);
 	assert(m_pMelee != nullptr);
 	m_pMelee->SetAttacker(this->GetOwner());
+	float dt = TimeManager::GetInstance()->GetDeltaTime();
+	
 	if (m_bCanMeleeAttack == false)
-	{
+	{		
+		m_fOffsetTimeAcc += dt;
+		if (m_fOffsetTime > m_fOffsetTimeAcc)
+			return;
 		EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
 		m_bCanMeleeAttack = true;
+		m_fOffsetTimeAcc = 0.f;
 	}
 }
 
@@ -219,6 +241,12 @@ void CurseDemon::LoadFromJson(const json& _str)
 		auto detect_ran = iter_compData->find(DetectRangeName);
 		m_fDetectRange = detect_ran->begin().value();
 
+		auto meleeAtk_CoolTime = iter_compData->find(MeleeAtkCoolTimeName);
+		m_fMeleeAtkCoolTime = meleeAtk_CoolTime->begin().value();
+
+		auto rangeAtk_CoolTime = iter_compData->find(RangeAtkCoolTimeName);
+		m_fRangeAtkCoolTime = rangeAtk_CoolTime->begin().value();
+
 		auto ranged_move_ran = iter_compData->find(RangedMoveAtkRangeName);
 		m_vRangedMoveAtkRange.x = ranged_move_ran->begin().value();
 		m_vRangedMoveAtkRange.y = (ranged_move_ran->begin() + 1).value();
@@ -242,6 +270,8 @@ json CurseDemon::SaveToJson(const json& _str)
 	compData[SpeedName] = m_fSpeed;
 	compData[JumpForceName] = m_fJumpImpulse;
 	compData[DetectRangeName] = m_fDetectRange;
+	compData[MeleeAtkCoolTimeName] = m_fMeleeAtkCoolTime;	
+	compData[RangeAtkCoolTimeName] = m_fRangeAtkCoolTime;
 	compData[RangedMoveAtkRangeName] = { m_vRangedMoveAtkRange.x,m_vRangedMoveAtkRange.y,m_vRangedMoveAtkRange.z };
 	compData[MeleeAtkRangeName] = { m_vMeleeAtkRange.x,m_vMeleeAtkRange.y,m_vMeleeAtkRange.z };
 

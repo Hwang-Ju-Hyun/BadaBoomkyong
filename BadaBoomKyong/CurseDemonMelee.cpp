@@ -37,13 +37,13 @@ void CurseDemonMelee::Init()
 }
 
 void CurseDemonMelee::Awake()
-{    
+{             
     GameObject* mon_obj = GetAttacker();
     assert(mon_obj != nullptr);
 
     Transform* mon_trs = dynamic_cast<Transform*>(mon_obj->FindComponent(Transform::TransformTypeName));
     m_pCurseDemon = dynamic_cast<CurseDemon*>(mon_obj->FindComponent(CurseDemon::CurseDemonTypeName));
- 
+    
     float offsetX = 55.f;
 
     float dir = m_pCurseDemon->GetDirection();
@@ -58,21 +58,26 @@ void CurseDemonMelee::Awake()
 void CurseDemonMelee::Update()
 {
     float dt = TimeManager::GetInstance()->GetDeltaTime();
-    if (m_fCurTime <= m_fLifeTime)    
-        m_fCurTime += dt;
+    
+    if (m_fCurTime <= m_fLifeTime)
+    {
+        m_fCurTime += dt;        
+    }        
     else
     {
         m_fCurTime = 0.f;
-        EventManager::GetInstance()->SetActiveFalse(GetOwner());        
+        EventManager::GetInstance()->SetActiveFalse(GetOwner());
         m_pCurseDemon->m_bCanMeleeAttack = false;
+        //m_pCurseDemon->m_bMeleeAtkDone = true;
     }
+
 }
 
 void CurseDemonMelee::Exit()
 {
     m_fCurTime = 0.f;
     EventManager::GetInstance()->SetActiveFalse(GetOwner());
-    m_pCurseDemon->m_bCanMeleeAttack = false;
+    m_pCurseDemon->m_bCanMeleeAttack = false;    
 }
 
 void CurseDemonMelee::EnterCollision(Collider* _col)
