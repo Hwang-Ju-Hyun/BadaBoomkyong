@@ -92,7 +92,7 @@ void ExecutionerDemon::Update()
 	{
 		if (dist <= m_vMeleeAtkRange.x)
 		{
-			m_pAI->ChangeState(MONSTER_STATE::MELEE_ATTACK_STATE);			
+			m_pAI->ChangeState(MONSTER_STATE::MELEE_ATTACK_STATE);
 		}	
 	}
 	else
@@ -117,7 +117,8 @@ void ExecutionerDemon::Update()
 	 {
 		 float Knockback_dir = -m_fDirection;
 		 m_pTransform->AddPositionX(0.5f * Knockback_dir);
-		 m_eCurrentState = MonsterAnimState::HURT;
+		 m_eCurrentState = MonsterAnimState::HURT;		 
+		 m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
 	 }		 
 
 	 if (GetIsHurting())

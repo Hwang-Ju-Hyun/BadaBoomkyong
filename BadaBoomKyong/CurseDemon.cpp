@@ -127,6 +127,7 @@ void CurseDemon::Update()
 		float Knockback_dir = -m_fDirection;
 		m_pTransform->AddPositionX(0.5f * Knockback_dir);
 		m_eCurrentState = MonsterAnimState::HURT;
+		m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
 	}
 	
 	if (m_eCurrentState == MonsterAnimState::NORMAL_ATTACK)

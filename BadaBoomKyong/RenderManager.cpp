@@ -320,6 +320,8 @@ void RenderManager::Draw()
 		}
 	}
 
+	// 투명 객체 렌더링 전
+	glDepthMask(GL_FALSE); // 깊이 기록 끄기
 	//투명
 	for (auto obj : m_vTransParnetObject)
 	{
@@ -489,7 +491,7 @@ void RenderManager::Draw()
 			}
 		}
 	}
-
+	glDepthMask(GL_TRUE); // 다시 켜기
 #ifdef _DEBUG
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
