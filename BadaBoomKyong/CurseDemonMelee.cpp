@@ -74,9 +74,7 @@ void CurseDemonMelee::Update()
 }
 
 void CurseDemonMelee::Exit()
-{
-    m_fCurTime = 0.f;
-    EventManager::GetInstance()->SetActiveFalse(GetOwner());
+{    
     m_pCurseDemon->m_bCanMeleeAttack = false;    
 }
 

@@ -104,8 +104,10 @@ void PlayerMelee::EnterCollision(Collider* _col)
     {
         if (m_pMonster)
         {
+            std::cout << "col" << std::endl;
             m_pMonster->MinusCurrentHp(1);
-            m_pMonster->SetIsHurting(true);            
+            m_pMonster->SetIsHurting(true); 
+           
         }            
     }
 }
@@ -117,6 +119,8 @@ void PlayerMelee::OnCollision(Collider* _col)
 
 void PlayerMelee::ExitCollision(Collider* _col)
 {
+    
+    std::cout << "exit" << std::endl;
 }
 
 void PlayerMelee::LoadFromJson(const json& _str)

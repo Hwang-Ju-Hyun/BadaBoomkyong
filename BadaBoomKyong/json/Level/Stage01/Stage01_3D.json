@@ -269,9 +269,9 @@
               "Name": "Death",
               "TextureName": "Death",
               "TexturePath": "../Extern/Assets/Texture/CurseDemon/Death.png",
-              "Max": 22,
+              "Max": 24,
               "Row": 1,
-              "Col": 22,
+              "Col": 24,
               "Duration": 0.10000000149011612,
               "Loop": false
             },
@@ -428,9 +428,9 @@
               "Name": "Death",
               "TextureName": "Death",
               "TexturePath": "../Extern/Assets/Texture/CurseDemon/Death.png",
-              "Max": 22,
+              "Max": 24,
               "Row": 1,
-              "Col": 22,
+              "Col": 24,
               "Duration": 0.10000000149011612,
               "Loop": false
             },

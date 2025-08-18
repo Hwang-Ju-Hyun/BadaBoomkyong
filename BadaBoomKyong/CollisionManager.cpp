@@ -68,6 +68,8 @@ void CollisionManager::CheckCollision(GROUP_TYPE _left, GROUP_TYPE _right)
 
 #include "Player.h"
 #include "RigidBody.h"
+#include "Melee.h"
+#include "CurseDemon.h"
 
 void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 {
@@ -97,23 +99,42 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 			if (vecLeft[i]->GetGroupType() == vecRight[j]->GetGroupType())
 				continue;
 
+			Melee* melee_comp_r = dynamic_cast<Melee*>(vecRight[j]->FindComponent(Melee::MeleeTypeName));
+			CurseDemon* demon_comp_l = dynamic_cast<CurseDemon*>(vecLeft[i]->FindComponent(CurseDemon::CurseDemonTypeName));
+
+			if (melee_comp_r&& demon_comp_l)
+			{
+				if (melee_comp_r->GetName() == "PlayerMelee"&& demon_comp_l->GetOwner()->GetName() == CurseDemon::CurseDemonTypeName)
+				{
+					int a = 0;
+				}				
+			}
+						
 			Collider* left_col = static_cast<Collider*>(vecLeft[i]->FindComponent(Collider::ColliderTypeName));
 			Collider* right_col = static_cast<Collider*>(vecRight[j]->FindComponent(Collider::ColliderTypeName));
 
-			if (!left_col->GetActive() || !right_col->GetActive())
-				continue;			
-
 			COLLISION_ID id;
-			id.LEFT  = left_col->GetID();
+			id.LEFT = left_col->GetID();
 			id.RIGHT = right_col->GetID();
 			auto iter = m_mapColInfo.find(id.ID);
 
-			if (iter==m_mapColInfo.end())
+			if (iter == m_mapColInfo.end())
 			{
 				m_mapColInfo.insert(std::make_pair(id.ID, false));
 				iter = m_mapColInfo.find(id.ID);
 			};
-			
+
+			if (!left_col->GetActive() || !right_col->GetActive())
+			{
+				if (iter->second)
+				{
+					left_col->ExitCollision(right_col);
+					right_col->ExitCollision(left_col);
+					iter->second = false;					
+				}					
+				continue;
+			}
+						
 			if (IsCollisionAABB(left_col, right_col))
 			{
 				//이전에도 충돌함
@@ -124,6 +145,13 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 				}			
 				else //첨 충돌함 이전 충돌 x
 				{
+					if (melee_comp_r && demon_comp_l)
+					{
+						if (melee_comp_r->GetName() == "PlayerMelee" && demon_comp_l->GetOwner()->GetName() == CurseDemon::CurseDemonTypeName)
+						{
+							int a = 0;
+						}
+					}
 					left_col->EnterCollision(right_col);
 					right_col->EnterCollision(left_col);
 				}

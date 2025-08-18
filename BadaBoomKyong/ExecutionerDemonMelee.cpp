@@ -27,6 +27,7 @@ void ExecutionerDemonMelee::Init()
     m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
     m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
     GameObject* mon_obj = GameObjectManager::GetInstance()->FindObject(ExecutionerDemon::ExecutionerDemonTypeName);
+   
     //todo 일단 이거 필요없어보임
     m_pExecutionerDemon = dynamic_cast<ExecutionerDemon*>(mon_obj->FindComponent(ExecutionerDemon::ExecutionerDemonTypeName));
 

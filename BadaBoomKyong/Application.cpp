@@ -45,7 +45,6 @@ void Application::Init()
     //GameStateManager    
     GameStateManager::GetInstance()->ChangeLevel(new Stage01(STAGE_TYPE::STAGE_01,"Stage01"));
 
-    //FactoryManager    
     FactoryManager::GetInstance()->Init();
 
 
