@@ -59,6 +59,14 @@ void CurseDemonMelee::Update()
 {
     float dt = TimeManager::GetInstance()->GetDeltaTime();
     
+    if (m_pCurseDemon->GetCurrentState() == MonsterAnimState::HURT)
+    {
+        m_fCurTime = 0.f;
+        EventManager::GetInstance()->SetActiveFalse(GetOwner());
+        m_pCurseDemon->m_bCanMeleeAttack = false;
+        return;
+    }
+
     if (m_fCurTime <= m_fLifeTime)
     {
         m_fCurTime += dt;        

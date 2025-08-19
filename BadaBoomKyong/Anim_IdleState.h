@@ -45,8 +45,8 @@ public:
             case PlayerAnimState::HURT:
                 machine->ChangeAnimState(PlayerAnimState::HURT);
                 break;
-            case PlayerAnimState::ATTACK:
-                machine->ChangeAnimState(PlayerAnimState::ATTACK);
+            case PlayerAnimState::COMBO_ATTACK_1:
+                machine->ChangeAnimState(PlayerAnimState::COMBO_ATTACK_1);
                 break;
             case PlayerAnimState::DEATH:
                 machine->ChangeAnimState(PlayerAnimState::DEATH);
@@ -74,5 +74,8 @@ public:
         }
     }
 
-    virtual void Exit(T* _owner) override {}
+    virtual void Exit(T* _owner) override 
+    {
+        
+    }
 };

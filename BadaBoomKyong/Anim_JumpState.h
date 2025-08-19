@@ -33,6 +33,9 @@ public:
             case PlayerAnimState::JUMP_ATTACK:
                 machine->ChangeAnimState(PlayerAnimState::JUMP_ATTACK);
                 break;
+            case PlayerAnimState::HURT:
+                machine->ChangeAnimState(PlayerAnimState::HURT);
+                break;
             case PlayerAnimState::DEATH:
                 machine->ChangeAnimState(PlayerAnimState::DEATH);
                 break;

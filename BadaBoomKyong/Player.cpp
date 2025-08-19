@@ -21,6 +21,9 @@
 #include "Animator.h"
 #include "Anim_IdleState.h"
 #include "Anim_HurtState.h"
+#include "Anim_NormalAttackState_2.h"
+#include "Anim_NormalAttackState_3.h"
+#include <functional>
 
 class AnimIdelState;
 template<typename T>
@@ -47,14 +50,22 @@ Player::Player(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::DASH),     new AnimDashState<Player>());
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::JUMP), new AnimJumpState<Player>());
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::FALL), new AnimFallState<Player>());
-	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::ATTACK), new AnimNormalAttackState<Player>());
+	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::COMBO_ATTACK_1), new AnimNormalAttackState<Player>());
+	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::COMBO_ATTACK_2), new AnimNormalAttackState_2<Player>());
+	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::COMBO_ATTACK_3), new AnimNormalAttackState_3<Player>());
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::RUN_ATTACK), new AnimSprintAttackState<Player>());
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::JUMP_ATTACK), new AnimJumpAttackState<Player>());
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::HURT), new AnimHurtState<Player>());
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::DEATH), new AnimDeathState<Player>());
-		
-
+			
 	m_pAnimStateMachine->ChangeAnimState(PlayerAnimState::IDLE);
+	
+	//todo 바인드 이거 ㅈ나게 ㅈ같음 그리고 AddComboIndex했을때 반환이 int가 사실아님! 씨발! Chatgpt CollisionManager 코드 분석 맨끝줄에 설명있음
+	//todo 이거 지금은 주석되어있는데 중요한 문법들 많아서 시간있을때 참고해서 공부해보셈
+	//AnimationSpriteSheet* anim_clip = m_pAnimator->GetSpriteSheet("ComboAtk_1");
+	//anim_clip->m_vecAnimEvent.push_back({ 9, std::bind(&Player::AddComboIndex,this) });
+	//anim_clip->m_vecAnimEvent.push_back({ 15,std::bind(&Player::AddComboIndex,this) });
+	//anim_clip->m_vecAnimEvent.push_back({ 24,std::bind(&Player::AddComboIndex,this) });
 }
 
 Player::~Player()
@@ -63,8 +74,7 @@ Player::~Player()
 	{
 		delete m_pAnimStateMachine;
 		m_pAnimStateMachine = nullptr;
-	}
-		
+	}		
 }
 
 void Player::Init()
@@ -102,9 +112,13 @@ void Player::Update()
 	}
 	Dash();
 	Death();
-	if(m_pAnimStateMachine)
-		m_pAnimStateMachine->Update();
+	ComboUpdate();	
 	StateHandler();	
+	
+	if (m_pAnimStateMachine)
+		m_pAnimStateMachine->Update();
+
+	std::cout << m_eCurrentState << std::endl;
 }
 
 void Player::EnterCollision(Collider* _other)
@@ -172,32 +186,43 @@ void Player::Fire()
 		assert(m_pBullet != nullptr);
 
 		EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
-	}
-	
+	}	
 }
 
 void Player::MeleeAttack()
 {
 	auto input = InputManager::GetInstance();
+
 	if (input->GetMouseBtn(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
-	{
+	{						
 		m_pMelee = m_pMeleeFactory->CreateMelee(GROUP_TYPE::PLAYER);
 		PlayerMelee* melee_comp = dynamic_cast<PlayerMelee*>(m_pMelee);
 		assert(melee_comp != nullptr);
-		if (m_bCanMeleeAttack == false)
-		{
-			if (std::fabs(m_pRigidBody->GetVelocity().x) > 0 && std::fabs(m_pRigidBody->GetVelocity().y) <= g_epsilon)
-				m_bSprintMeleeAttacking = true;
-			else if (std::fabs(m_pRigidBody->GetVelocity().y) > 0&&
-				m_pAnimator->GetAnimation()->m_bLoopCount < 1)
-				m_bJumpMeleeAttacking = true;
-			else
-				m_bNormalMeleeAttacking = true;
 
-			m_bCanMeleeAttack = true;
-			EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
+		if (std::fabs(m_pRigidBody->GetVelocity().x) > 0 && std::fabs(m_pRigidBody->GetVelocity().y) <= g_epsilon)
+			m_bSprintMeleeAttacking = true;
+		else if (std::fabs(m_pRigidBody->GetVelocity().y) > 0 &&
+			m_pAnimator->GetAnimation()->m_bLoopCount < 1)
+			m_bJumpMeleeAttacking = true;
+		else
+			m_bNormalMeleeAttacking = true;
+
+
+		//콤보 로직 <- 근데 이거 다시 짜보자 공부 좀 하고...
+
+		if (!m_bInNormalCombo) // 밀리어택 중이 아닐때
+		{
+			StartComboStep(ComboStep::COMBO_1);     // 1타 시작
+			std::cout << "combo 1 start" << std::endl;
 		}
-	}
+		else //밀리어택중이었는데 또 입력이 들어오면
+		{
+			m_bComboQueue = true;               // 다음 단계 예약(즉시 전환 X)
+			std::cout << "queue in" << std::endl;
+		}
+		m_bCanMeleeAttack = true;
+		EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
+	}	
 }
 
 void Player::Dash()
@@ -243,8 +268,26 @@ void Player::Death()
 }
 
 
+float Player::m_fComboAccTime = 0.f;
+void Player::ComboUpdate()
+{		
+	float dt = TimeManager::GetInstance()->GetDeltaTime();			
 
-static int a = 0;
+	// === 기본 콤보 진행 ===
+	if (!m_bInNormalCombo) return;
+
+	if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+	{
+		// 바로 다음 단계로 진행하거나 종료
+		if (m_bComboQueue && m_eComboStep != ComboStep::COMBO_3)
+		{
+			AdvanceCombo();
+			return;
+		}
+		EndCombo();
+	}
+}
+
 void Player::StateHandler()
 {
 	if (m_bIsSprinting)
@@ -259,11 +302,30 @@ void Player::StateHandler()
 			m_eCurrentState = PlayerAnimState::FALL;			
 		}
 
+
+		if (m_bInNormalCombo)
+		{
+			switch (m_eComboStep)
+			{
+			case ComboStep::COMBO_1:   m_eCurrentState = PlayerAnimState::COMBO_ATTACK_1; break;
+			case ComboStep::COMBO_2:   m_eCurrentState = PlayerAnimState::COMBO_ATTACK_2; break;
+			case ComboStep::COMBO_3: m_eCurrentState = PlayerAnimState::COMBO_ATTACK_3; break;
+			default:
+				break;
+			}
+			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+			{
+				m_pAnimator->GetAnimation()->m_bLoopCount = 0;
+				m_bNormalMeleeAttacking = false;
+			}
+			return; // 다른 상태로 덮어쓰지 않게 조기 리턴			
+		}
+
 		if (std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon
 			&& m_pRigidBody->GetIsGround()))
 		{
 			m_bJumpMeleeAttacking = false;
-			m_eCurrentState = PlayerAnimState::IDLE;
+			m_eCurrentState = PlayerAnimState::IDLE;			
 		}
 
 		if (m_bJumpMeleeAttacking)
@@ -288,15 +350,7 @@ void Player::StateHandler()
 			}
 		}
 
-		if (m_bNormalMeleeAttacking)
-		{
-			m_eCurrentState = PlayerAnimState::ATTACK;
-			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
-			{
-				m_pAnimator->GetAnimation()->m_bLoopCount = 0;
-				m_bNormalMeleeAttacking = false;
-			}
-		}
+		
 			
 
 		if (m_bIsDashing)
@@ -322,14 +376,12 @@ void Player::StateHandler()
 	}
 	
 
-	if (m_bIsHurting)
+	if (m_bIsHurting&&m_bIsAlive)
 	{
 		m_pTransform->AddPositionX(-m_iDir * 1.0f);
 		m_eCurrentState = PlayerAnimState::HURT;	
 	}
-		
-
-	
+			
 	if (m_bIsHurting)
 	{
 		if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
@@ -341,7 +393,6 @@ void Player::StateHandler()
 
 	
 }
-
 
 void Player::Jump()
 {
@@ -357,6 +408,76 @@ void Player::Jump()
 		m_pRigidBody->SetIsGround(false);
 		m_eCurrentState = PlayerAnimState::JUMP;
 	}
+}
+
+const char* Player::GetComboClipName(ComboStep _step) const
+{
+	switch (_step)
+	{
+	case ComboStep::COMBO_1:   return "ComboAtk_1";
+	case ComboStep::COMBO_2:   return "ComboAtk_2";
+	case ComboStep::COMBO_3: return "ComboAtk_3";
+	default:               return nullptr;
+	}
+}
+
+void Player::StartComboStep(ComboStep step)
+{
+	if (step == ComboStep::NONE) 
+		return;
+
+	m_eComboStep = step;
+	m_bInNormalCombo = true;
+	m_bCanMeleeAttack = true;     // 이동 잠깐 묶고(기존 Move() 가 이 값으로 체크)
+	m_bComboQueue = false;
+	m_fComboAccTime = 0.0f;	
+
+	//애니메이션 강제전환
+	switch (step)
+	{
+	case ComboStep::COMBO_1:
+		m_pAnimStateMachine->ChangeAnimState(PlayerAnimState::COMBO_ATTACK_1);
+		break;
+	case ComboStep::COMBO_2:
+	{
+		
+		m_pAnimStateMachine->ChangeAnimState(PlayerAnimState::COMBO_ATTACK_2);
+		break;
+	}		
+	case ComboStep::COMBO_3:
+	{
+		m_bCanMeleeAttack = true;
+		EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
+		m_pAnimStateMachine->ChangeAnimState(PlayerAnimState::COMBO_ATTACK_3);
+		break;
+	}		
+	default: 
+		break;
+	}
+}
+
+void Player::AdvanceCombo()
+{
+	if (!m_bInNormalCombo) 
+		return;
+	
+	if (m_eComboStep == ComboStep::COMBO_1)      
+		StartComboStep(ComboStep::COMBO_2);
+	else if (m_eComboStep == ComboStep::COMBO_2)  
+		StartComboStep(ComboStep::COMBO_3);
+	else  
+		EndCombo(); // 이미 마지막이면 종료
+}
+
+void Player::EndCombo()
+{
+
+	m_bInNormalCombo = false;
+	m_bComboQueue = false;
+	m_eComboStep = ComboStep::NONE;
+	m_iComboIndex = 0;
+	m_bCanMeleeAttack = false; // 이동 다시 허용
+	m_eCurrentState = PlayerAnimState::IDLE;
 }
 
 BaseRTTI* Player::CreatePlayerComponent()

@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <functional>
 
 class GameObject;
 class TextureResource;
@@ -24,7 +25,7 @@ public:
     float m_fDuration_per_frame = 0.f;
     bool m_bLoop = false; 
     int m_bLoopCount = 0;
-
+public:
     // 복사 생성자: 깊은 복사(단, 텍스처는 공유해도 괜찮음)
     AnimationSpriteSheet(const AnimationSpriteSheet& other)
     {
@@ -68,6 +69,7 @@ private:
     int m_iFlipX = 1;
 public:
     AnimationSpriteSheet* AddSpriteSheet(std::string _name, AnimationSpriteSheet* _clip);
+    AnimationSpriteSheet* GetSpriteSheet(std::string _name);
     void ChangeAnimation(const std::string& _animName);
     inline const void TurnOnFlipX() { m_iFlipX *= -1; }
 public:

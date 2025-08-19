@@ -25,6 +25,24 @@ public:
             case PlayerAnimState::IDLE:
                 player_machine->ChangeAnimState(static_cast<int>(PlayerAnimState::IDLE));
                 break;
+            case PlayerAnimState::TOSPRINT:
+                player_machine->ChangeAnimState(static_cast<int>(PlayerAnimState::TOSPRINT));
+                break;
+            case PlayerAnimState::SPRINTING:
+                player_machine->ChangeAnimState(static_cast<int>(PlayerAnimState::SPRINTING));
+                break;
+            case PlayerAnimState::DASH:
+                player_machine->ChangeAnimState(static_cast<int>(PlayerAnimState::DASH));
+                break;
+            case PlayerAnimState::RUN_DASH:
+                player_machine->ChangeAnimState(static_cast<int>(PlayerAnimState::RUN_DASH));
+                break;
+            case PlayerAnimState::JUMP:
+                player_machine->ChangeAnimState(static_cast<int>(PlayerAnimState::JUMP));
+                break;
+            case PlayerAnimState::FALL:
+                player_machine->ChangeAnimState(static_cast<int>(PlayerAnimState::FALL));
+                break;
             }
         }        
         if constexpr (std::is_same<T, Monster>::value)

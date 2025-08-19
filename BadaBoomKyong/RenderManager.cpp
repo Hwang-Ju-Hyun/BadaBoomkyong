@@ -424,16 +424,17 @@ void RenderManager::Draw()
 							// 텍스처가 오른쪽으로 치우쳐 있을 경우, 살짝 왼쪽으로 당김							
 							float texture_offsetX = -0.5f; // ← 여기서 0.1이 보정값 (시각적 기준 보정)
 							visualOffset = glm::translate(glm::mat4(1.f), glm::vec3(texture_offsetX*p->GetDir(), 0.f, 0.f));
-						}
+		 				}
 						if (moving)
 						{
 							float texture_offsetY = 0.15f; // ← 여기서 0.1이 보정값 (시각적 기준 보정)
 							visualOffset = glm::translate(glm::mat4(1.f), glm::vec3( 0.f, texture_offsetY, 0.f));
-						}		
-						if (p->m_bCanMeleeAttack)
+						}								
+						if (p->m_bInNormalCombo)
 						{
-							float texture_offsetX = 0.15f; // ← 여기서 0.1이 보정값 (시각적 기준 보정)
-							visualOffset = glm::translate(glm::mat4(1.f), glm::vec3(texture_offsetX * p->GetDir(), 0.f, 0.f));
+							float texture_offsetX = 0.15f;
+							float texture_offsetY = 0.2f; // ← 여기서 0.1이 보정값 (시각적 기준 보정)
+							visualOffset = glm::translate(glm::mat4(1.f), glm::vec3(texture_offsetX, texture_offsetY, 0.f));
 						}
 					}					 
 					glm::mat4 finalMVP = MVP * visualOffset;					

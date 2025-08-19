@@ -3,7 +3,8 @@
 #include "Anim_IState.h"
 #include "Player.h"
 #include "Monster.h"
-
+#include "EventManager.h"
+#include "PlayerMelee.h"
 
 template<typename T>
 class AnimNormalAttackState : public AnimIState<T>
@@ -20,7 +21,7 @@ public:
         }            
         else if constexpr (std::is_same<T, Player>::value)
         {
-            _owner->GetAnimator()->ChangeAnimation("LightAttack");           
+            _owner->GetAnimator()->ChangeAnimation("ComboAtk_1");           
         }
             
     }
@@ -34,6 +35,9 @@ public:
             {    
             case PlayerAnimState::IDLE:
                 machine->ChangeAnimState(PlayerAnimState::IDLE);
+                break;
+            case PlayerAnimState::COMBO_ATTACK_2:
+                machine->ChangeAnimState(PlayerAnimState::COMBO_ATTACK_2);
                 break;
             case PlayerAnimState::HURT:
                 machine->ChangeAnimState(PlayerAnimState::HURT);
@@ -66,5 +70,16 @@ public:
         }
     }
 
-    virtual void Exit(T* _owner) override {}
+    virtual void Exit(T* _owner) override 
+    {
+        if constexpr (std::is_same<T, Player>::value)
+        {
+            PlayerMelee* melee = dynamic_cast<PlayerMelee*>(_owner->GetMelee());
+            if (melee)
+            {
+                EventManager::GetInstance()->SetActiveFalse(melee->GetOwner());
+            }            
+        }
+        std::cout << "combo1 exit" << std::endl;
+    }
 };

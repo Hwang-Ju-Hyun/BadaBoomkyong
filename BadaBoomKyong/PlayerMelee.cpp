@@ -54,6 +54,7 @@ void PlayerMelee::Awake()
     m_pCollider->SetScale(m_pTransform->GetScale());
 
     m_fCurTime = 0.f;
+    m_bIsMeleeAttacking = true;
 }
 
 void PlayerMelee::Update()
@@ -62,7 +63,11 @@ void PlayerMelee::Update()
     if (m_fCurTime <= m_fLifeTime)
     {            
         if (m_pPlayer->GetCurrentState() == PlayerAnimState::IDLE)
+        {
             Exit();
+            return;
+        }
+            
 
         if (m_pPlayer->GetDir() < 0)
             m_vOffset = { -35.f,0.f,0.f };
@@ -74,22 +79,26 @@ void PlayerMelee::Update()
         glm::vec3 final_pos = player_pos + m_vOffset;
 
         m_fCurTime += dt;
-        m_pTransform->SetPosition(final_pos);        
+        m_pTransform->SetPosition(final_pos);      
+        m_bIsMeleeAttacking = true;
     }        
     else
     {
         m_fCurTime = 0.f;
         EventManager::GetInstance()->SetActiveFalse(GetOwner());
+        m_bIsMeleeAttacking = false;
         m_pPlayer->SetCanMeleeAttack(false);
         m_pPlayer->SetNormalMeleeAttacking(false);
         m_pPlayer->SetRunMeleeAttacking(false);
         m_pPlayer->SetJumpMeleeAttacking(false);
     }
+
 }
 
 void PlayerMelee::Exit()
 {
     m_fCurTime = 0.f;
+    m_bIsMeleeAttacking = false;
     EventManager::GetInstance()->SetActiveFalse(GetOwner());
     m_pPlayer->SetCanMeleeAttack(false);  
     m_pPlayer->SetNormalMeleeAttacking(false);
@@ -106,8 +115,7 @@ void PlayerMelee::EnterCollision(Collider* _col)
         {
             std::cout << "col" << std::endl;
             m_pMonster->MinusCurrentHp(1);
-            m_pMonster->SetIsHurting(true); 
-           
+            m_pMonster->SetIsHurting(true);            
         }            
     }
 }
@@ -118,9 +126,7 @@ void PlayerMelee::OnCollision(Collider* _col)
 }
 
 void PlayerMelee::ExitCollision(Collider* _col)
-{
-    
-    std::cout << "exit" << std::endl;
+{    
 }
 
 void PlayerMelee::LoadFromJson(const json& _str)

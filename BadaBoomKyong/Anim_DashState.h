@@ -30,6 +30,12 @@ public:
             case PlayerAnimState::HURT:
                 _owner->GetAnimStateMachine()->ChangeAnimState(new AnimHurtState<T>());
                 break;
+            case PlayerAnimState::TOSPRINT:
+                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimToSprintState<T>());
+                break;
+            case PlayerAnimState::SPRINTING:
+                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimSprintingState<T>());
+                break;
             case PlayerAnimState::DEATH:
                 _owner->GetAnimStateMachine()->ChangeAnimState(new AnimDeathState<T>());
                 break;

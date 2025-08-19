@@ -63,6 +63,15 @@ void ExecutionerDemonMelee::Awake()
 void ExecutionerDemonMelee::Update()
 {
     float dt = TimeManager::GetInstance()->GetDeltaTime();
+
+    if (m_pExecutionerDemon->GetCurrentState() == MonsterAnimState::HURT)
+    {
+        m_fCurTime = 0.f;
+        EventManager::GetInstance()->SetActiveFalse(GetOwner());
+        m_pExecutionerDemon->m_bCanMeleeAttack = false;
+        return;
+    }
+
     if (m_fCurTime <= m_fLifeTime)
         m_fCurTime += dt;
     else

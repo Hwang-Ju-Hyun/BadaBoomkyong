@@ -33,8 +33,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "LightAttack",
-          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/LightAttack/LightAttack.png"
+          "TextureName": "ComboAtk",
+          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk.png"
         }
       },
       {
@@ -141,14 +141,34 @@
               "Loop": false
             },
             {
-              "Name": "LightAttack",
-              "TextureName": "LightAttack",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/LightAttack/LightAttack.png",
-              "Max": 13,
-              "Row": 1,
-              "Col": 13,
-              "Duration": 0.10000000149011612,
-              "Loop": false
+                "Name": "ComboAtk_1",
+                "TextureName": "ComboAtk_1",
+                "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_1.png",
+                "Max": 10,
+                "Row": 1,
+                "Col": 10,
+                "Duration": 0.10000000149011612,
+                "Loop": false
+            },
+            {
+                "Name": "ComboAtk_2",
+                "TextureName": "ComboAtk_2",
+                "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_2.png",
+                "Max": 7,
+                "Row": 1,
+                "Col": 7,
+                "Duration": 0.100000149011612,
+                "Loop": false
+            },            
+            {
+                "Name": "ComboAtk_3",
+                "TextureName": "ComboAtk_3",
+                "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_3.png",
+                "Max": 14,
+                "Row": 1,
+                "Col": 14,
+                "Duration": 0.150000000149011612,
+                "Loop": false
             },
             {
               "Name": "SprintAttack",
@@ -269,9 +289,9 @@
               "Name": "Death",
               "TextureName": "Death",
               "TexturePath": "../Extern/Assets/Texture/CurseDemon/Death.png",
-              "Max": 24,
+              "Max": 23,
               "Row": 1,
-              "Col": 24,
+              "Col": 23,
               "Duration": 0.10000000149011612,
               "Loop": false
             },
@@ -428,9 +448,9 @@
               "Name": "Death",
               "TextureName": "Death",
               "TexturePath": "../Extern/Assets/Texture/CurseDemon/Death.png",
-              "Max": 24,
+              "Max": 23,
               "Row": 1,
-              "Col": 24,
+              "Col": 23,
               "Duration": 0.10000000149011612,
               "Loop": false
             },

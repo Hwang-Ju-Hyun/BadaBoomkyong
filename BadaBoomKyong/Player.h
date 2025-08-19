@@ -21,7 +21,9 @@ enum PlayerAnimState
     TOSPRINT,
     SPRINTING,
     JUMP,
-    ATTACK,
+    COMBO_ATTACK_1,
+    COMBO_ATTACK_2,
+    COMBO_ATTACK_3,
     RUN_ATTACK,
     JUMP_ATTACK,
     DASH,
@@ -30,6 +32,14 @@ enum PlayerAnimState
     HURT,
     FALL,
     DEATH    
+};
+
+enum class ComboStep
+{
+    NONE=0,
+    COMBO_1,
+    COMBO_2,
+    COMBO_3
 };
 
 class Player :
@@ -55,6 +65,14 @@ private:
     bool m_bIsGround;
     bool m_bIsMoving;
 private:
+    ComboStep m_eComboStep = ComboStep::NONE;
+    bool m_bComboQueue = false;
+public:
+    bool m_bInNormalCombo = false;
+    float m_fComboMaxTimeOut = 1.f;
+    static float m_fComboAccTime;
+    int m_iComboIndex = 0;
+private:
     int m_iInitHP = 5;
     int m_iCurrentHP=1;
     bool m_bIsAlive = true;
@@ -78,8 +96,8 @@ public:
 
     inline void SetDashable(bool _dash) { m_bDashable = _dash; }
     inline const bool GetDashable()const { return m_bDashable; }
-    inline const bool GetIsDashing()const { return m_bIsDashing; }
-
+    inline const bool GetIsDashing()const { return m_bIsDashing; }    
+    inline Melee* GetMelee()const { return m_pMelee; }
     inline void AddHP(int _hp) { m_iCurrentHP += _hp; }
     inline void MinusCurrentHP(int _hp) { m_iCurrentHP -= _hp; }
     inline const int GetHP()const { return m_iCurrentHP; }
@@ -92,6 +110,7 @@ public:
     inline void SetJumpMeleeAttacking(bool _attacking) { m_bJumpMeleeAttacking = _attacking; }
     inline const bool GetJumpMeleeAttacking()const { return m_bJumpMeleeAttacking; }
     inline const bool GetIsMoving()const { return m_bIsMoving; }
+   
 public:        
     int m_iCurJumpCount = 0;
     bool m_bCanMeleeAttack = false;
@@ -126,6 +145,7 @@ private:
     void MeleeAttack();
     void Dash();
     void Death();    
+    void ComboUpdate();
 private:
     bool m_bIsHurting = false;
 public:
@@ -135,6 +155,11 @@ public:
     static constexpr const char* PlayerTypeName = "Player";
     static constexpr const char* SpeedName = "Speed";
     static constexpr const char* JumpForceName = "JumpForce";
+private:
+    const char* GetComboClipName(ComboStep _step)const;
+    void StartComboStep(ComboStep step);
+    void AdvanceCombo();
+    void EndCombo();
 public:
     static BaseRTTI* CreatePlayerComponent();
     virtual void LoadFromJson(const json& _str)override;

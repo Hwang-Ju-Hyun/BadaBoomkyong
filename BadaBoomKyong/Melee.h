@@ -15,6 +15,10 @@ public:
     float m_fCurTime = 0.f;
 private:
     GameObject* m_pAttacker = nullptr;
+protected:
+    bool m_bIsMeleeAttacking = false;
+public:
+    inline const bool GetIsMeleeAttacking()const { return m_bIsMeleeAttacking; }
 public:
     inline void SetAttacker(GameObject* _attakcer) { m_pAttacker = _attakcer; }
     inline GameObject* GetAttacker()const { return m_pAttacker; }

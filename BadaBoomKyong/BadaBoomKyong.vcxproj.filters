@@ -951,6 +951,12 @@
     <ClInclude Include="LightManager.h">
       <Filter>Manager\LightManager</Filter>
     </ClInclude>
+    <ClInclude Include="Anim_NormalAttackState_2.h">
+      <Filter>Animation\FiniteStateMachine\Attack\NormalAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_NormalAttackState_3.h">
+      <Filter>Animation\FiniteStateMachine\Attack\NormalAttack</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="IMGUI\imgui.ini">

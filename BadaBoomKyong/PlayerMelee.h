@@ -22,6 +22,7 @@ private:
 	Monster* m_pMonster = nullptr;
 private:
 	glm::vec3 m_vOffset;
+	
 public:
 	virtual void Init()  override;
 	virtual void Awake() override;

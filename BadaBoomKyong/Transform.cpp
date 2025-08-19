@@ -73,7 +73,7 @@ void Transform::Update()
 			float attackScale = 1.0f;
 			if (player&&player->m_bCanMeleeAttack)
 			{
-				attackScale = 1.2f; // 공격 시 1.2배 확대
+				attackScale = 1.3f; // 공격 시 1.2배 확대
 			}
 
 			Camera* cam = RenderManager::GetInstance()->GetCamera();

@@ -56,7 +56,7 @@ void Animator::Awake()
 #include <iostream>
 #include "CurseDemon.h"
 
-static int a = 0;
+
 void Animator::Update()
 {
 	if (!m_pCurrentAnimation)
@@ -72,16 +72,13 @@ void Animator::Update()
 
 
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
-	if (m_pCurrentAnimation->m_sAnimationName == "LightAttack")
-		int a = 0;
   	m_fAnmationAccTime += dt;	
 		
 	if (m_pCurrentAnimation->m_fDuration_per_frame <= m_fAnmationAccTime)
-	{		
-   
+	{		   
 		m_iCurrentFrameIndex += 1;
 		m_iCurrentFrameIndex %= m_pCurrentAnimation->m_iSheet_Max;
-
+		
 		int current_sheet_row = m_iCurrentFrameIndex / m_pCurrentAnimation->m_iSheet_Col;
 		int current_sheet_col = m_iCurrentFrameIndex % m_pCurrentAnimation->m_iSheet_Col;	
 
@@ -89,18 +86,9 @@ void Animator::Update()
 		m_pCurrentAnimation->m_fSheet_UV_offset_Y = m_pCurrentAnimation->m_fSheet_UV_Height * current_sheet_row;	
 		m_fAnmationAccTime = 0.f;		
 	}
+
 	if (m_pCurrentAnimation->m_bLoop == false && m_iCurrentFrameIndex == m_pCurrentAnimation->m_iSheet_Max-1)
-	{
-		//todo 이거지우셈
-		if (GetOwner()->GetName() == "CurseDemon" && GetOwner()->GetID() == 0)
-		{
-			CurseDemon* demon = dynamic_cast<CurseDemon*>(GetOwner()->FindComponent<CurseDemon>());
-			if (demon->GetCurrentState() == MonsterAnimState::RANGE_ATTACK)
-			{
-				int a = 0;
-				//std::cout << m_pCurrentAnimation->m_bLoopCount << std::endl;
-			}
-		}			
+	{				
 		m_pCurrentAnimation->m_bLoopCount++;
 	}			
 }
@@ -115,6 +103,11 @@ AnimationSpriteSheet* Animator::AddSpriteSheet(std::string _name, AnimationSprit
 	return m_mapAnimation.find(_name)->second;
 }
 
+AnimationSpriteSheet* Animator::GetSpriteSheet(std::string _name)
+{
+	return m_mapAnimation.find(_name)->second;
+}
+
 void Animator::ChangeAnimation(const std::string& _animName)
 {
 	auto iter = m_mapAnimation.find(_animName);
@@ -122,9 +115,11 @@ void Animator::ChangeAnimation(const std::string& _animName)
 	Sprite* spr = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	assert(spr != nullptr);
 
-	// 깊은 복사된 새로운 시트를 만들고 현재 애니메이션으로 설정
-	AnimationSpriteSheet* cloned = new AnimationSpriteSheet(*iter->second);
-	m_pCurrentAnimation = cloned;	
+	m_pCurrentAnimation = iter->second;
+
+	//// 깊은 복사된 새로운 시트를 만들고 현재 애니메이션으로 설정
+	//AnimationSpriteSheet* cloned = new AnimationSpriteSheet(*iter->second);
+	//m_pCurrentAnimation = cloned;	
 
 	spr->SetTexture(iter->second->m_pTexture);
 	
@@ -146,10 +141,7 @@ void Animator::ChangeAnimation(const std::string& _animName)
 	m_pCurrentAnimation->m_fSheet_UV_offset_X = m_pCurrentAnimation->m_fSheet_UV_Width * current_sheet_col;
 	m_pCurrentAnimation->m_fSheet_UV_offset_Y = m_pCurrentAnimation->m_fSheet_UV_Height * current_sheet_row;
 
-	m_pCurrentAnimation->m_bLoopCount = 0;
-
-	
-	
+	m_pCurrentAnimation->m_bLoopCount = 0;		
 }
 
 BaseRTTI* Animator::CreateAnimatiorComponent()
