@@ -306,6 +306,7 @@ void RenderManager::Draw()
 
 					glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
 
+					
 					model->Draw();
 #ifdef _DEBUG
 					Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
@@ -314,11 +315,92 @@ void RenderManager::Draw()
 						col->DrawCollider();
 					}
 #endif
+					
 				}
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();
 			}
 		}
 	}
+
+	{
+		GameObject* skyboxObj = GameObjectManager::GetInstance()->FindObject("background");
+		if (skyboxObj)
+		{
+			// 상태 설정
+			glDepthFunc(GL_LEQUAL);
+			glDepthMask(GL_FALSE);
+			// 선택 1: 내부 면 보이도록 앞면 컬링
+			glCullFace(GL_FRONT);
+			// 선택 2: 아예 컬링 끄고 싶으면 위 한 줄 대신 다음 라인 사용
+			// glDisable(GL_CULL_FACE);
+
+			// 셰이더
+			auto shdrHandle3D = m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->GetShaderProgramHandle();
+			m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
+
+			// 유니폼 로케이션
+			GLint uMVP = glGetUniformLocation(shdrHandle3D, "uMVP");
+			GLint uM2W = glGetUniformLocation(shdrHandle3D, "uM2W");
+			GLint uHasTx = glGetUniformLocation(shdrHandle3D, "uHasTexture");
+			GLint uOutTx = glGetUniformLocation(shdrHandle3D, "uOutTexture");
+			GLint uUVOff = glGetUniformLocation(shdrHandle3D, "uUV_Offset");
+			GLint uUVScl = glGetUniformLocation(shdrHandle3D, "uUV_Scale");
+			GLint uLightAffect = glGetUniformLocation(shdrHandle3D, "uLightAffect");
+
+			// 카메라 위치에 고정 + 크게 스케일
+			glm::vec3 camPos = m_pCam->GetCamPosition();
+			glm::mat4 m2w = glm::translate(glm::mat4(1.f), camPos) * glm::scale(glm::mat4(1.f), glm::vec3(1000.f));
+			glm::mat4 proj = m_pCam->GetProjMatrix();
+			glm::mat4 viewNoTrans = glm::mat4(glm::mat3(m_pCam->GetViewMatrix())); // translation 제거
+			glm::mat4 MVP = proj * viewNoTrans * m2w;
+
+			glUniformMatrix4fv(uM2W, 1, GL_FALSE, glm::value_ptr(m2w));
+			glUniformMatrix4fv(uMVP, 1, GL_FALSE, glm::value_ptr(MVP));
+
+			// 스카이박스는 라이팅 끔
+			if (uLightAffect >= 0) glUniform1i(uLightAffect, false);
+
+			// 텍스처(일반 2D) 바인딩
+			Model* skyModel = skyboxObj->GetModel();
+			if (skyModel)
+			{
+				// 메시마다 머티리얼/텍스처 다를 수 있으면 메시 드로우 전에 세팅
+				// (간단히 한 장만 쓴다고 가정)
+				bool boundTex = false;
+				for (auto m : skyModel->GetMeshes())
+				{
+					if (!m) continue;
+					auto mat = m->GetMaterial();
+					if (mat && mat->HasTexture())
+					{
+						GLuint tex = mat->GetTexture()->GetTextureID();
+						glActiveTexture(GL_TEXTURE0);
+						glBindTexture(GL_TEXTURE_2D, tex);
+						if (uOutTx >= 0) glUniform1i(uOutTx, 0);
+						if (uHasTx >= 0) glUniform1i(uHasTx, true);
+						boundTex = true;
+					}
+					else
+					{
+						if (uHasTx >= 0) glUniform1i(uHasTx, false);
+					}
+					if (uUVOff >= 0) glUniform2f(uUVOff, 0.f, 0.f);
+					if (uUVScl >= 0) glUniform2f(uUVScl, 1.f, 1.f);
+
+					m->Draw();
+				}
+			}
+
+			// 상태 복원
+			glCullFace(GL_BACK);
+			glDepthMask(GL_TRUE);
+			glDepthFunc(GL_LESS);
+			// 컬링 원복
+			//glEnable(GL_CULL_FACE); // (처음에 켜놨다면 유지)
+			m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();
+		}
+}
+
 
 	// 투명 객체 렌더링 전
 	glDepthMask(GL_FALSE); // 깊이 기록 끄기
@@ -430,11 +512,13 @@ void RenderManager::Draw()
 							float texture_offsetY = 0.15f; // ← 여기서 0.1이 보정값 (시각적 기준 보정)
 							visualOffset = glm::translate(glm::mat4(1.f), glm::vec3( 0.f, texture_offsetY, 0.f));
 						}								
-						if (p->m_bInNormalCombo)
+						if (p->GetCurrentState()==PlayerAnimState::COMBO_ATTACK_1||
+							p->GetCurrentState() == PlayerAnimState::COMBO_ATTACK_2||
+							p->GetCurrentState() == PlayerAnimState::COMBO_ATTACK_3)
 						{
 							float texture_offsetX = 0.15f;
 							float texture_offsetY = 0.2f; // ← 여기서 0.1이 보정값 (시각적 기준 보정)
-							visualOffset = glm::translate(glm::mat4(1.f), glm::vec3(texture_offsetX, texture_offsetY, 0.f));
+							visualOffset = glm::translate(glm::mat4(1.f), glm::vec3(texture_offsetX * p->GetDir(), texture_offsetY, 0.f));
 						}
 					}					 
 					glm::mat4 finalMVP = MVP * visualOffset;					
@@ -461,7 +545,9 @@ void RenderManager::Draw()
 						glUniform2f(m_iUV_Scale_Location, 1, 1);
 					}
 
-					if(dashing||moving||(p&&p->m_bCanMeleeAttack))
+					if(dashing||moving||(p!=nullptr&&(p->GetCurrentState() == PlayerAnimState::COMBO_ATTACK_1 ||
+						p->GetCurrentState() == PlayerAnimState::COMBO_ATTACK_2 ||
+						p->GetCurrentState() == PlayerAnimState::COMBO_ATTACK_3)))
 						glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(finalMVP));
 					else
 						glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
@@ -486,8 +572,9 @@ void RenderManager::Draw()
 					{
 						col->DrawCollider();
 					}
-#endif
-				}				
+#endif					
+				}
+				
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();
 			}
 		}

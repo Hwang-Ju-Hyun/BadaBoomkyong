@@ -42,6 +42,9 @@ public:
             case PlayerAnimState::DASH:
                 machine->ChangeAnimState(PlayerAnimState::DASH);
                 break;
+            case PlayerAnimState::JUMP:
+                machine->ChangeAnimState(PlayerAnimState::JUMP);
+                break;
             case PlayerAnimState::DEATH:
                 machine->ChangeAnimState(PlayerAnimState::DEATH);
                 break;

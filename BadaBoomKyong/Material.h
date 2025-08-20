@@ -14,7 +14,7 @@ private:
 	glm::vec3 m_vAmbient;  // 주변광 반사율
 	glm::vec3 m_vDiffuse;  // 난반사 반사율
 	glm::vec3 m_vSpecular; // 정반사 반사율
-	float m_fShininess = 32.0f;           // 반짝임 정도
+	float m_fShininess = 102.0f;           // 반짝임 정도
 public:
 	inline bool HasTexture()const { return m_pDiffuseMap!=nullptr; }
 	inline TextureResource* GetTexture()const { return m_pDiffuseMap; }

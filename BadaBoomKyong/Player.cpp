@@ -117,7 +117,7 @@ void Player::Update()
 	
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();
-
+	
 	std::cout << m_eCurrentState << std::endl;
 }
 
@@ -173,7 +173,7 @@ void Player::Move()
 	}
 	
 	m_pRigidBody->SetVelocity(velocity);
-	std::fabs(velocity.x) > 0 ? m_bIsMoving = true:m_bIsMoving=false;
+	std::fabs(velocity.x) > 0 ? m_bIsMoving = true:m_bIsMoving=false;	
 }
 
 void Player::Fire()
@@ -205,21 +205,21 @@ void Player::MeleeAttack()
 			m_pAnimator->GetAnimation()->m_bLoopCount < 1)
 			m_bJumpMeleeAttacking = true;
 		else
-			m_bNormalMeleeAttacking = true;
-
-
-		//콤보 로직 <- 근데 이거 다시 짜보자 공부 좀 하고...
-
-		if (!m_bInNormalCombo) // 밀리어택 중이 아닐때
+			m_bNormalMeleeAttacking = true;		
+		
+		if (!m_bJumpMeleeAttacking)
 		{
-			StartComboStep(ComboStep::COMBO_1);     // 1타 시작
-			std::cout << "combo 1 start" << std::endl;
+			//콤보 로직 <- 근데 이거 다시 짜보자 공부 좀 하고...
+			if (!m_bInNormalCombo) // 밀리어택 중이 아닐때
+			{
+				StartComboStep(ComboStep::COMBO_1);     // 1타 시작				
+			}
+			else //밀리어택중이었는데 또 입력이 들어오면
+			{
+				m_bComboQueue = true;               // 다음 단계 예약(즉시 전환 X)		
+			}
 		}
-		else //밀리어택중이었는데 또 입력이 들어오면
-		{
-			m_bComboQueue = true;               // 다음 단계 예약(즉시 전환 X)
-			std::cout << "queue in" << std::endl;
-		}
+		
 		m_bCanMeleeAttack = true;
 		EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
 	}	
@@ -302,7 +302,31 @@ void Player::StateHandler()
 			m_eCurrentState = PlayerAnimState::FALL;			
 		}
 
+		if (m_pRigidBody->GetIsGround() && std::fabs(m_pRigidBody->GetVelocity().x) > g_epsilon
+			&& (!m_bSprintMeleeAttacking && !m_bIsDashing))
+		{
+			if (!m_bIsSprinting)
+			{
+				m_eCurrentState = PlayerAnimState::TOSPRINT;
+			}
+			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+			{
+				m_bIsSprinting = true;
+				m_eCurrentState = PlayerAnimState::SPRINTING;
+			}			
+		}
 
+		if (m_bJumpMeleeAttacking)
+		{
+			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+				m_bJumpMeleeAttacking = false;
+			else
+			{
+				m_eCurrentState = PlayerAnimState::JUMP_ATTACK;				
+			}									
+		}
+
+		
 		if (m_bInNormalCombo)
 		{
 			switch (m_eComboStep)
@@ -326,31 +350,7 @@ void Player::StateHandler()
 		{
 			m_bJumpMeleeAttacking = false;
 			m_eCurrentState = PlayerAnimState::IDLE;			
-		}
-
-		if (m_bJumpMeleeAttacking)
-		{
-			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
-				m_bJumpMeleeAttacking = false;
-			else
-				m_eCurrentState = PlayerAnimState::JUMP_ATTACK;
-		}
-
-		if (m_pRigidBody->GetIsGround() && std::fabs(m_pRigidBody->GetVelocity().x) > g_epsilon
-			&& (!m_bSprintMeleeAttacking && !m_bIsDashing))
-		{
-			if (!m_bIsSprinting)
-			{
-				m_eCurrentState = PlayerAnimState::TOSPRINT;
-			}
-			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
-			{
-				m_bIsSprinting = true;
-				m_eCurrentState = PlayerAnimState::SPRINTING;
-			}
-		}
-
-		
+		}						
 			
 
 		if (m_bIsDashing)

@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include "Anim_IState.h"
 #include "Player.h"
 #include "Monster.h"
@@ -22,7 +21,7 @@ public:
             {
                 _owner->m_bCanMeleeAttack = true;
                 EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
-                m_pMelee->SetLifeTime(2.5f);
+                //m_pMelee->SetLifeTime(2.5f);
                 _owner->GetAnimator()->ChangeAnimation("ComboAtk_3");
             }
         }

@@ -32,6 +32,9 @@ public:
             case PlayerAnimState::TOSPRINT:
                 machine->ChangeAnimState(int(PlayerAnimState::TOSPRINT));
                 break;
+            case PlayerAnimState::SPRINTING:
+                machine->ChangeAnimState(int(PlayerAnimState::SPRINTING));
+                break;
             case PlayerAnimState::JUMP_ATTACK:
                 machine->ChangeAnimState(int(PlayerAnimState::JUMP_ATTACK));
                 break;

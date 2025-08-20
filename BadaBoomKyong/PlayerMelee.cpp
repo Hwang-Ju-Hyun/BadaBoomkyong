@@ -14,7 +14,7 @@ PlayerMelee::PlayerMelee(GameObject* _owner, GameObject* _shooter)
     ,m_vOffset( 45.f,0.f,0.f)
 {
 	SetName(PlayerMeleeTypeName);
-	m_fLifeTime = 1.3f;
+	m_fLifeTime = 0.3f;
 }
 
 PlayerMelee::~PlayerMelee()
@@ -52,7 +52,7 @@ void PlayerMelee::Awake()
      
     m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
     m_pCollider->SetScale(m_pTransform->GetScale());
-
+    m_fLifeTime = 0.3f;
     m_fCurTime = 0.f;
     m_bIsMeleeAttacking = true;
 }
@@ -85,6 +85,7 @@ void PlayerMelee::Update()
     else
     {
         m_fCurTime = 0.f;
+        m_fLifeTime = 0.f;
         EventManager::GetInstance()->SetActiveFalse(GetOwner());
         m_bIsMeleeAttacking = false;
         m_pPlayer->SetCanMeleeAttack(false);
@@ -97,6 +98,7 @@ void PlayerMelee::Update()
 
 void PlayerMelee::Exit()
 {
+    std::cout << "Exit" << std::endl;
     m_fCurTime = 0.f;
     m_bIsMeleeAttacking = false;
     EventManager::GetInstance()->SetActiveFalse(GetOwner());
@@ -113,7 +115,7 @@ void PlayerMelee::EnterCollision(Collider* _col)
     {
         if (m_pMonster)
         {
-            std::cout << "col" << std::endl;
+            std::cout << "Enter col" << std::endl;
             m_pMonster->MinusCurrentHp(1);
             m_pMonster->SetIsHurting(true);            
         }            
@@ -122,7 +124,7 @@ void PlayerMelee::EnterCollision(Collider* _col)
 
 void PlayerMelee::OnCollision(Collider* _col)
 {    
-    
+    std::cout << "OnCol" << std::endl;
 }
 
 void PlayerMelee::ExitCollision(Collider* _col)

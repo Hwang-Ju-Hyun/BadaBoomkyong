@@ -77,7 +77,7 @@ public:
             PlayerMelee* melee = dynamic_cast<PlayerMelee*>(_owner->GetMelee());
             if (melee)
             {
-                EventManager::GetInstance()->SetActiveFalse(melee->GetOwner());
+                melee->Exit();
             }            
         }
         std::cout << "combo1 exit" << std::endl;

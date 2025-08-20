@@ -9,7 +9,7 @@
         "CompData": {
           "Pos": [
             1151.658935546875,
-            -230.86221313476563,
+            -10743.8203125,
             0.0
           ],
           "Sca": [
@@ -33,8 +33,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "ComboAtk",
-          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk.png"
+          "TextureName": "JumpAttack",
+          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/AirAttack/FX/JumpAttack.png"
         }
       },
       {
@@ -70,6 +70,36 @@
         "Type": "Animator",
         "CompData": {
           "Animations": [
+            {
+              "Name": "ComboAtk_1",
+              "TextureName": "ComboAtk_1",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_1.png",
+              "Max": 10,
+              "Row": 1,
+              "Col": 10,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "ComboAtk_2",
+              "TextureName": "ComboAtk_2",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_2.png",
+              "Max": 7,
+              "Row": 1,
+              "Col": 7,
+              "Duration": 0.10000015050172806,
+              "Loop": false
+            },
+            {
+              "Name": "ComboAtk_3",
+              "TextureName": "ComboAtk_3",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_3.png",
+              "Max": 14,
+              "Row": 1,
+              "Col": 14,
+              "Duration": 0.15000000596046448,
+              "Loop": false
+            },
             {
               "Name": "Dash",
               "TextureName": "Dash",
@@ -141,36 +171,6 @@
               "Loop": false
             },
             {
-                "Name": "ComboAtk_1",
-                "TextureName": "ComboAtk_1",
-                "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_1.png",
-                "Max": 10,
-                "Row": 1,
-                "Col": 10,
-                "Duration": 0.10000000149011612,
-                "Loop": false
-            },
-            {
-                "Name": "ComboAtk_2",
-                "TextureName": "ComboAtk_2",
-                "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_2.png",
-                "Max": 7,
-                "Row": 1,
-                "Col": 7,
-                "Duration": 0.100000149011612,
-                "Loop": false
-            },            
-            {
-                "Name": "ComboAtk_3",
-                "TextureName": "ComboAtk_3",
-                "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_3.png",
-                "Max": 14,
-                "Row": 1,
-                "Col": 14,
-                "Duration": 0.150000000149011612,
-                "Loop": false
-            },
-            {
               "Name": "SprintAttack",
               "TextureName": "SprintAttack",
               "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/SprintAttack/SprintAttack.png",
@@ -224,7 +224,7 @@
         "CompData": {
           "Pos": [
             200.0,
-            -17754.001953125,
+            -28266.9609375,
             0.0
           ],
           "Sca": [
@@ -383,7 +383,7 @@
         "CompData": {
           "Pos": [
             -491.0813903808594,
-            -32180.271484375,
+            -42693.265625,
             0.0
           ],
           "Sca": [
@@ -542,7 +542,7 @@
         "CompData": {
           "Pos": [
             1263.1722412109375,
-            -193.36221313476563,
+            -10706.3203125,
             0.0
           ],
           "Sca": [
@@ -566,8 +566,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "NormalAttack_1",
-          "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/NormalAttack_1.png"
+          "TextureName": "Idle",
+          "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Idle.png"
         }
       },
       {
@@ -780,9 +780,9 @@
             0.0
           ],
           "Ambient": [
-            0.10000000149011612,
-            0.10000000149011612,
-            0.10000000149011612
+            0.30000000149011612,
+            0.30000000149011612,
+            0.30000000149011612
           ],
           "Diffuse": [
             0.0,
@@ -836,7 +836,9 @@
             1.0,
             1.0,
             1.0
-          ]
+          ],
+          "TextureName": "desertland",
+          "TexturePath": "../Extern/Assets/Texture/desertland.png"
         }
       },
       {
@@ -857,5 +859,46 @@
     ],
     "Model": 5,
     "Group": 4
+  },
+  {
+    "Name": "background",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Sca": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Rot": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Sprite",
+        "CompData": {
+          "RGBA": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/skybox/skybox.obj",
+    "Group": 0
   }
 ]
