@@ -39,7 +39,7 @@ private:
 private:
 	void PlaneInit();
 	void CubeInit();
-
+	void SkyBoxInit();
 public:
 	Model* LoadModel(const std::string& _filePath); // 모델을 메모리에 올린다.	
 	void ClearModel(); // 메모리에서 내린다.	

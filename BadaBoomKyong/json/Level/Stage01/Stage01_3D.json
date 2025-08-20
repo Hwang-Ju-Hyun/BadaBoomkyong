@@ -895,10 +895,23 @@
             1.0
           ]
         }
+      },
+      {
+        "Type": "SkyBox",
+        "CompData": {
+            "SkyBoxName": "skyBox",
+            "SkyBoxFacesPath": [
+                "../Extern/Assets/Texture/skybox/px.png",
+                "../Extern/Assets/Texture/skybox/nx.png",
+                "../Extern/Assets/Texture/skybox/py.png",
+                "../Extern/Assets/Texture/skybox/ny.png",
+                "../Extern/Assets/Texture/skybox/pz.png",
+                "../Extern/Assets/Texture/skybox/nz.png"
+            ]
+        }
       }
     ],
-    "Model": 6,
-    "ModelPath": "../Extern/Assets/Model/skybox/skybox.obj",
+    "Model": 7,    
     "Group": 0
   }
 ]

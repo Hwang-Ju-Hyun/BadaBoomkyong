@@ -26,7 +26,10 @@ void TextureResource::Load(const std::string& _path)
     {
         std::cout << "Failed to load texture: " << stbi_failure_reason() << std::endl;
     }
-    glGenTextures(1, &m_iTextureID);    //텍스처 ID 생성 (텍스처 하나 만든다고 보면 됌)    
+    glGenTextures(1, &m_iTextureID);    //텍스처 ID 생성 (텍스처 하나 만든다고 보면 됌) 
+
+    
+
     glBindTexture(GL_TEXTURE_2D, m_iTextureID);//활성화
     
     // 텍스처 wrapping/filtering 옵션 설정(현재 바인딩된 텍스처 객체에 대해)

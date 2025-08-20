@@ -48,6 +48,7 @@ void ModelManager::Init()
 	RectangleInit();
 	PlaneInit();
 	CubeInit();
+	SkyBoxInit();
 }
 
 void ModelManager::Exit()
@@ -167,6 +168,7 @@ void ModelManager::CubeInit()
 	std::vector<Mesh::VertexAttribute> vertices =
 	{
 		// Front face
+
 		{{-0.5f, -0.5f,  0.5f}, {0.f, 1.f}, {0.f, 0.f, 1.f}}, // 0
 		{{ 0.5f, -0.5f,  0.5f}, {1.f, 1.f}, {0.f, 0.f, 1.f}}, // 1
 		{{ 0.5f,  0.5f,  0.5f}, {1.f, 0.f}, {0.f, 0.f, 1.f}}, // 2
@@ -227,6 +229,73 @@ void ModelManager::CubeInit()
 	
 	assert(model != nullptr);
 	model->AddMesh(mesh);	
+}
+
+void ModelManager::SkyBoxInit()
+{
+	std::string name = "SkyBox";
+	std::vector<Mesh::VertexAttribute> vertices =
+	{
+		// Back face
+		{{-1.0f,  1.0f, -1.0f}, {}, {}},
+		{{-1.0f, -1.0f, -1.0f}, {}, {}},
+		{{ 1.0f, -1.0f, -1.0f}, {}, {}},
+		{{ 1.0f, -1.0f, -1.0f}, {}, {}},
+		{{ 1.0f,  1.0f, -1.0f}, {}, {}},
+		{{-1.0f,  1.0f, -1.0f}, {}, {}},
+
+		// Left face
+		{{-1.0f, -1.0f,  1.0f}, {}, {}},
+		{{-1.0f, -1.0f, -1.0f}, {}, {}},
+		{{-1.0f,  1.0f, -1.0f}, {}, {}},
+		{{-1.0f,  1.0f, -1.0f}, {}, {}},
+		{{-1.0f,  1.0f,  1.0f}, {}, {}},
+		{{-1.0f, -1.0f,  1.0f}, {}, {}},
+
+		// Right face
+		{{ 1.0f, -1.0f, -1.0f}, {}, {}},
+		{{ 1.0f, -1.0f,  1.0f}, {}, {}},
+		{{ 1.0f,  1.0f,  1.0f}, {}, {}},
+		{{ 1.0f,  1.0f,  1.0f}, {}, {}},
+		{{ 1.0f,  1.0f, -1.0f}, {}, {}},
+		{{ 1.0f, -1.0f, -1.0f}, {}, {}},
+
+		// Front face
+		{{-1.0f, -1.0f,  1.0f}, {}, {}},
+		{{-1.0f,  1.0f,  1.0f}, {}, {}},
+		{{ 1.0f,  1.0f,  1.0f}, {}, {}},
+		{{ 1.0f,  1.0f,  1.0f}, {}, {}},
+		{{ 1.0f, -1.0f,  1.0f}, {}, {}},
+		{{-1.0f, -1.0f,  1.0f}, {}, {}},
+
+		// Top face
+		{{-1.0f,  1.0f, -1.0f}, {}, {}},
+		{{ 1.0f,  1.0f, -1.0f}, {}, {}},
+		{{ 1.0f,  1.0f,  1.0f}, {}, {}},
+		{{ 1.0f,  1.0f,  1.0f}, {}, {}},
+		{{-1.0f,  1.0f,  1.0f}, {}, {}},
+		{{-1.0f,  1.0f, -1.0f}, {}, {}},
+
+		// Bottom face
+		{{-1.0f, -1.0f, -1.0f}, {}, {}},
+		{{-1.0f, -1.0f,  1.0f}, {}, {}},
+		{{ 1.0f, -1.0f, -1.0f}, {}, {}},
+		{{ 1.0f, -1.0f, -1.0f}, {}, {}},
+		{{-1.0f, -1.0f,  1.0f}, {}, {}},
+		{{ 1.0f, -1.0f,  1.0f}, {}, {}}
+	};
+
+	// 인덱스 필요 없음
+	std::vector<unsigned int> indices;
+	
+	GLenum type = GL_TRIANGLES;
+	Mesh* mesh = new Mesh(MODEL_TYPE::SKY_BOX, type, std::move(vertices), std::move(indices));
+	assert(mesh != nullptr);
+
+	Model* model = new Model(name, MODEL_TYPE::SKY_BOX);
+
+	assert(model != nullptr);
+	model->AddMesh(mesh);
 }
 
 #include <iostream>

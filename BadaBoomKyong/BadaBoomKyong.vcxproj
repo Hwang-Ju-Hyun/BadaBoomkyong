@@ -156,6 +156,7 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
+    <ClCompile Include="CubeMapResource.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="ExecutionerDemon.cpp" />
     <ClCompile Include="ExecutionerDemonFireBall.cpp" />
@@ -219,6 +220,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="CurseDemonMelee.cpp" />
     <ClCompile Include="CurseDemon.cpp" />
+    <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage01.cpp" />
     <ClCompile Include="CurseDemonBullet.cpp" />
@@ -261,6 +263,7 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="CubeMapResource.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="ExecutionerDemon.h" />
     <ClInclude Include="ExecutionerDemonFireBall.h" />
@@ -335,6 +338,7 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="CurseDemonMelee.h" />
     <ClInclude Include="CurseDemon.h" />
+    <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage01.h" />
     <ClInclude Include="CurseDemonBullet.h" />
@@ -349,6 +353,7 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="fragmenetSkyBox.frag" />
     <None Include="fragment.frag" />
     <None Include="fragment3d.frag" />
     <None Include="IMGUI\imgui.ini" />
@@ -364,6 +369,7 @@
     <None Include="line.vert" />
     <None Include="vertex.vert" />
     <None Include="vertex3d.vert" />
+    <None Include="vertexSkyBox.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

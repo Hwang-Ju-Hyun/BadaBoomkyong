@@ -11,6 +11,7 @@ enum MODEL_TYPE
 	PLANE=4,
 	CUBE=5,
 	CUSTOM_MODEL=6,
+	SKY_BOX=7,
 	LAST
 };
 
@@ -30,7 +31,9 @@ enum class SHADER_REF
 {
 	TWO_DIMENSIONS = 0,
 	THREE_DIMENSIONS = 1,
+	SKYBOX,
 	SHADER_REF_LAST
+	
 };
 
 enum class BULLET_TYPE

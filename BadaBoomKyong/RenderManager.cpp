@@ -32,6 +32,9 @@
 #include "Collider.h"
 #include "CurseDemon.h"
 #include "Light.h"
+#include "CubeMapResource.h"
+#include "SkyBox.h"
+
 
 RenderManager::RenderManager()
 {	
@@ -63,6 +66,9 @@ void RenderManager::Init()
 	const char* vsFile_3D = "vertex3d.vert";
 	const char* fsFile_3D = "fragment3d.frag";
 
+	const char* vsFile_SkyBox = "vertexSkyBox.vert";
+	const char* fsFile_SkyBox= "fragmenetSkyBox.frag";
+
 	for (int i = 0;i<int(SHADER_REF::SHADER_REF_LAST);i++)
 	{
 		Shader* shdr = new Shader;
@@ -71,7 +77,7 @@ void RenderManager::Init()
 
 	m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->CreateShaderProgramFromFiles(vsFile_2D, fsFile_2D);
 	m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->CreateShaderProgramFromFiles(vsFile_3D, fsFile_3D);
-
+	m_vShdr[int(SHADER_REF::SKYBOX)]->CreateShaderProgramFromFiles(vsFile_SkyBox, fsFile_SkyBox);
 	m_pCam = new Camera;
 	
 
@@ -138,8 +144,8 @@ void RenderManager::Draw()
 {				
 	auto objs=GameObjectManager::GetInstance()->GetAllObjects();
 	auto shdr_handle_2D = m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->GetShaderProgramHandle();
-	auto shdr_handle_3D= m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->GetShaderProgramHandle();
-
+	auto shdr_handle_3D=  m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->GetShaderProgramHandle();
+	auto shdr_handle_skybox = m_vShdr[int(SHADER_REF::SKYBOX)]->GetShaderProgramHandle();
 	Transform* obj_trs = nullptr;
 	glEnable(GL_DEPTH_TEST);
 	m_pCam->Update();
@@ -322,85 +328,17 @@ void RenderManager::Draw()
 		}
 	}
 
-	{
-		GameObject* skyboxObj = GameObjectManager::GetInstance()->FindObject("background");
-		if (skyboxObj)
-		{
-			// 상태 설정
-			glDepthFunc(GL_LEQUAL);
-			glDepthMask(GL_FALSE);
-			// 선택 1: 내부 면 보이도록 앞면 컬링
-			glCullFace(GL_FRONT);
-			// 선택 2: 아예 컬링 끄고 싶으면 위 한 줄 대신 다음 라인 사용
-			// glDisable(GL_CULL_FACE);
-
-			// 셰이더
-			auto shdrHandle3D = m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->GetShaderProgramHandle();
-			m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
-
-			// 유니폼 로케이션
-			GLint uMVP = glGetUniformLocation(shdrHandle3D, "uMVP");
-			GLint uM2W = glGetUniformLocation(shdrHandle3D, "uM2W");
-			GLint uHasTx = glGetUniformLocation(shdrHandle3D, "uHasTexture");
-			GLint uOutTx = glGetUniformLocation(shdrHandle3D, "uOutTexture");
-			GLint uUVOff = glGetUniformLocation(shdrHandle3D, "uUV_Offset");
-			GLint uUVScl = glGetUniformLocation(shdrHandle3D, "uUV_Scale");
-			GLint uLightAffect = glGetUniformLocation(shdrHandle3D, "uLightAffect");
-
-			// 카메라 위치에 고정 + 크게 스케일
-			glm::vec3 camPos = m_pCam->GetCamPosition();
-			glm::mat4 m2w = glm::translate(glm::mat4(1.f), camPos) * glm::scale(glm::mat4(1.f), glm::vec3(1000.f));
-			glm::mat4 proj = m_pCam->GetProjMatrix();
-			glm::mat4 viewNoTrans = glm::mat4(glm::mat3(m_pCam->GetViewMatrix())); // translation 제거
-			glm::mat4 MVP = proj * viewNoTrans * m2w;
-
-			glUniformMatrix4fv(uM2W, 1, GL_FALSE, glm::value_ptr(m2w));
-			glUniformMatrix4fv(uMVP, 1, GL_FALSE, glm::value_ptr(MVP));
-
-			// 스카이박스는 라이팅 끔
-			if (uLightAffect >= 0) glUniform1i(uLightAffect, false);
-
-			// 텍스처(일반 2D) 바인딩
-			Model* skyModel = skyboxObj->GetModel();
-			if (skyModel)
-			{
-				// 메시마다 머티리얼/텍스처 다를 수 있으면 메시 드로우 전에 세팅
-				// (간단히 한 장만 쓴다고 가정)
-				bool boundTex = false;
-				for (auto m : skyModel->GetMeshes())
-				{
-					if (!m) continue;
-					auto mat = m->GetMaterial();
-					if (mat && mat->HasTexture())
-					{
-						GLuint tex = mat->GetTexture()->GetTextureID();
-						glActiveTexture(GL_TEXTURE0);
-						glBindTexture(GL_TEXTURE_2D, tex);
-						if (uOutTx >= 0) glUniform1i(uOutTx, 0);
-						if (uHasTx >= 0) glUniform1i(uHasTx, true);
-						boundTex = true;
-					}
-					else
-					{
-						if (uHasTx >= 0) glUniform1i(uHasTx, false);
-					}
-					if (uUVOff >= 0) glUniform2f(uUVOff, 0.f, 0.f);
-					if (uUVScl >= 0) glUniform2f(uUVScl, 1.f, 1.f);
-
-					m->Draw();
-				}
-			}
-
-			// 상태 복원
-			glCullFace(GL_BACK);
-			glDepthMask(GL_TRUE);
-			glDepthFunc(GL_LESS);
-			// 컬링 원복
-			//glEnable(GL_CULL_FACE); // (처음에 켜놨다면 유지)
-			m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();
-		}
-}
-
+	//==========
+	//==========
+	//==skybox==
+	//==========
+	//==========
+	DrawSkyBox(m_pCam);
+	//==========
+	//==========
+	//==skybox==
+	//==========
+	//==========
 
 	// 투명 객체 렌더링 전
 	glDepthMask(GL_FALSE); // 깊이 기록 끄기
@@ -605,6 +543,57 @@ void RenderManager::Exit()
 		delete m_pCam;		
 	m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->Diuse();
 	m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();
+}
+
+void RenderManager::DrawSkyBox(Camera* _cam)
+{
+	auto skyboxObj = GameObjectManager::GetInstance()->FindObject("background");
+	if (!skyboxObj) return;
+
+	SkyBox* skyboxComp = skyboxObj->FindComponent<SkyBox>();
+	if (!skyboxComp) return;
+
+	CubeMapResource* cubemap = skyboxComp->GetCubeMapResource();
+	if (!cubemap) 
+		return;
+
+	GLuint cubemapTex = cubemap->GetTextureID();
+
+	// 상태 세팅
+	glDepthFunc(GL_LEQUAL);
+	glDepthMask(GL_FALSE);
+	glCullFace(GL_FRONT); // 내부면 보이게	
+	glDisable(GL_CULL_FACE); // 원한다면 그냥 끄기
+	//glEnable(GL_CULL_FACE);
+
+	// 셰이더 바인딩
+	Shader* skyShader = m_vShdr[int(SHADER_REF::SKYBOX)];
+	skyShader->Use();
+
+	// View matrix (translation 제거)
+	glm::mat4 view = glm::mat4(glm::mat3(_cam->GetViewMatrix()));
+	glm::mat4 proj = _cam->GetProjMatrix();
+	glm::mat4 VP = proj * view;
+
+	// 유니폼 세팅
+	GLint uVP = glGetUniformLocation(skyShader->GetShaderProgramHandle(), "uVP");
+	glUniformMatrix4fv(uVP, 1, GL_FALSE, glm::value_ptr(VP));
+
+	// 큐브맵 바인딩
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTex);
+	GLint uSkybox = glGetUniformLocation(skyShader->GetShaderProgramHandle(), "skybox");
+	glUniform1i(uSkybox, 0);
+
+	// 큐브 메쉬 드로우 (단순 큐브 VAO 준비해두기)
+	skyboxObj->GetModel()->Draw();	
+
+	// 상태 복원
+	glCullFace(GL_BACK);
+	glDepthMask(GL_TRUE);
+	glDepthFunc(GL_LESS);
+	skyShader->Diuse();
+
 }
 
 const glm::mat4 RenderManager::GetMVP_ByObject(const GameObject& _obj)

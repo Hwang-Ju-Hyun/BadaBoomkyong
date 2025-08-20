@@ -1,4 +1,5 @@
 #include "ResourceManager.h"
+#include "CubeMapResource.h"
 #include "TextureResource.h"
 #include <cassert>
 
@@ -65,6 +66,21 @@ BaseResource* ResourceManager::GetAndLoad(const std::string& _resName, const std
 	}
 	else
 		return iter->second;
+}
+
+BaseResource* ResourceManager::GetAndLoadCubeMap(const std::string& _resName, const std::vector<std::string>& _path)
+{
+	auto iter = m_mapResource.find({ _resName,_path[0] });
+	if (iter == m_mapResource.end())
+	{
+		BaseResource* resource = nullptr;
+		resource = new CubeMapResource(_resName);
+		resource->LoadCubeMap(_path);
+		assert(resource != nullptr);
+		m_mapResource.insert(std::make_pair(std::make_pair(_resName, _path[0]), resource));
+		return resource;
+	}
+	return iter->second;
 }
 
 BaseResource* ResourceManager::FindResource(const std::string& _resName, const std::string& _path)

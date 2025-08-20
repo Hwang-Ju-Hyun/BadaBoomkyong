@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 
 class BaseResource
 {
@@ -21,6 +22,6 @@ public:
 	inline const std::string& GetResourcePath()const			{ return m_sResourcePath; }
 public:
 	virtual void Load(const std::string& _path) = 0;
+	virtual void LoadCubeMap(const std::vector<std::string>& _faces) {}
 	virtual void UnLoad() = 0;
 };
-

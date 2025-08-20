@@ -48,6 +48,8 @@ public:
 	void EndDraw();
 	void Exit();
 private:
+	void DrawSkyBox(Camera* _cam);
+private:
 	void RenderOpaqueObject();
 	void RenderTransParentObject();
 public:

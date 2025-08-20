@@ -187,7 +187,7 @@ void MainEditor::ObjectPannelDraw()
 			for (auto iter = comps.begin(); iter != comps.end(); ++iter)
 			{
 				BaseComponent* comp = iter->second;
-				if (ImGui::TreeNode(comp->GetName().c_str()))
+				if (comp!=nullptr&&ImGui::TreeNode(comp->GetName().c_str()))
 				{
 					comp->EditInfoFromButton();
 					ImGui::TreePop();

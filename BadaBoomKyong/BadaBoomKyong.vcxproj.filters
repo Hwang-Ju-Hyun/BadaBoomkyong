@@ -344,6 +344,15 @@
     <Filter Include="Manager\LightManager">
       <UniqueIdentifier>{c6d00f7d-3cd2-49c0-8a54-f63a7f0f81c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\CubeMap">
+      <UniqueIdentifier>{e3cd354d-876c-4fd4-a2bd-6b445a8c145f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Default\SkyBox">
+      <UniqueIdentifier>{18932aa6-1080-4d90-bbdf-252590a8b029}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderFiles\Skybox">
+      <UniqueIdentifier>{c761fdbd-6e64-4195-85d1-0eaaddf3eee0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -609,6 +618,12 @@
     </ClCompile>
     <ClCompile Include="LightManager.cpp">
       <Filter>Manager\LightManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeMapResource.cpp">
+      <Filter>Resource\CubeMap</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>Component\Default\SkyBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -957,6 +972,12 @@
     <ClInclude Include="Anim_NormalAttackState_3.h">
       <Filter>Animation\FiniteStateMachine\Attack\NormalAttack</Filter>
     </ClInclude>
+    <ClInclude Include="CubeMapResource.h">
+      <Filter>Resource\CubeMap</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>Component\Default\SkyBox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="IMGUI\imgui.ini">
@@ -1003,6 +1024,12 @@
     </None>
     <None Include="json\Level\StageTest\StageTest_3D.json">
       <Filter>Json\StageTest</Filter>
+    </None>
+    <None Include="vertexSkyBox.vert">
+      <Filter>ShaderFiles\Skybox</Filter>
+    </None>
+    <None Include="fragmenetSkyBox.frag">
+      <Filter>ShaderFiles\Skybox</Filter>
     </None>
   </ItemGroup>
 </Project>
