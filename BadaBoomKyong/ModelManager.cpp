@@ -371,74 +371,66 @@ void ModelManager::ClearModel()
 {
 }
 
-void ModelManager::LoadNode(aiNode* _node, const aiScene* _scene)
-{	
+void ModelManager::LoadNode(aiNode* node, const aiScene* scene, const aiMatrix4x4& parentTransform)
+{
+	// 현재 노드 변환행렬과 부모행렬 곱하기
+	aiMatrix4x4 globalTransform = parentTransform * node->mTransformation;
 
-	for (size_t i = 0; i < _node->mNumMeshes; i++)
-	{
-		unsigned int meshIndex = _node->mMeshes[i];
-		aiMesh* mesh = _scene->mMeshes[meshIndex];
-		LoadMesh(mesh, _scene);
-		//ProcessMesh(mesh, scene);
-		// node->mMeshes[i] : 메시 자체가 아니고, 메시의 ID를 의미한다.
-		// 실제 메시는 scene에 저장되어있기 때문에 이렇게 참조하게 된다.
-		//LoadMesh(_scene->mMeshes[_node->mMeshes[i]], _scene);
+	// 이 노드가 가진 모든 메시 처리
+	for (unsigned int i = 0; i < node->mNumMeshes; i++) {
+		unsigned int meshIndex = node->mMeshes[i];
+		aiMesh* mesh = scene->mMeshes[meshIndex];
+		LoadMesh(mesh, scene, globalTransform);
 	}
 
-	// 자식 노드들을 재귀호출을 통해 순회하며 메시를 쭉 로드한다.
-	for (size_t i = 0; i < _node->mNumChildren; i++)
-	{
-		LoadNode(_node->mChildren[i], _scene);
+	// 자식 노드 재귀 처리
+	for (unsigned int i = 0; i < node->mNumChildren; i++) {
+		LoadNode(node->mChildren[i], scene, globalTransform);
 	}
 }
 
 #include "Material.h"
 // 실제로 VBO, IBO로 쏴줄 정보들을 구성한다.
-void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
+void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene, const aiMatrix4x4& transform)
 {
 	std::vector<Mesh::VertexAttribute> vertices;
-	std::vector<unsigned int> indices;
-	
-	for (size_t i = 0; i < _mesh->mNumVertices; i++)
-	{		
-		// position				
-		glm::vec3 pos;
-		pos={ _mesh->mVertices[i].x,_mesh->mVertices[i].y,_mesh->mVertices[i].z };		
+    std::vector<unsigned int> indices;
 
-		// texture
-		glm::vec2 texture;
-		if (_mesh->mTextureCoords[0])
-		{
-			texture={ _mesh->mTextureCoords[0][i].x ,_mesh->mTextureCoords[0][i].y };
-		}
-		else // 존재하지 않을 경우 그냥 0을 넣어주기
-		{
-			texture={ 0.f,0.f };			
-		}
+    for (size_t i = 0; i < _mesh->mNumVertices; i++)
+    {
+        // aiVector3D에 변환 적용
+        aiVector3D aiPos = _mesh->mVertices[i];
+        aiPos *= transform; // aiMatrix4x4 곱셈
 
-		// normal (aiProcess_GenSmoothNormals를 적용했기 때문에 없을 수가 없다.)
-		glm::vec3 normals;
-		if (_mesh->HasNormals())
-			normals = { _mesh->mNormals[i].x ,_mesh->mNormals[i].y,_mesh->mNormals[i].z };		
+        glm::vec3 pos(aiPos.x, aiPos.y, aiPos.z);
 
-		Mesh::VertexAttribute mva;
-		mva.position = pos;
-		mva.texcoord = texture;
-		mva.normals = normals;
+        glm::vec2 texcoord{0.f, 0.f};
+        if (_mesh->mTextureCoords[0])
+            texcoord = { _mesh->mTextureCoords[0][i].x, _mesh->mTextureCoords[0][i].y };
 
-		vertices.push_back(mva);
-		int a = 0;
-	}
+        glm::vec3 normals{0.f, 0.f, 0.f};
+        if (_mesh->HasNormals())
+        {
+            aiVector3D aiNormal = _mesh->mNormals[i];
+            aiNormal *= transform; // 노말도 transform 적용
+            normals = { aiNormal.x, aiNormal.y, aiNormal.z };
+        }
 
-	// indices 채워주기
-	for (size_t i = 0; i < _mesh->mNumFaces; i++)
-	{
-		aiFace face = _mesh->mFaces[i];
-		for (size_t j = 0; j < face.mNumIndices; j++)
-		{
-			indices.push_back(face.mIndices[j]);
-		}
-	}	
+        Mesh::VertexAttribute vertex;
+        vertex.position = pos;
+        vertex.texcoord = texcoord;
+        vertex.normals = normals;
+        vertices.push_back(vertex);
+    }
+
+    // 인덱스 채우기
+    for (size_t i = 0; i < _mesh->mNumFaces; i++)
+    {
+        aiFace face = _mesh->mFaces[i];
+        for (size_t j = 0; j < face.mNumIndices; j++)
+            indices.push_back(face.mIndices[j]);
+    }
+
 
 	/*if (_mesh->mMaterialIndex >= 0)
 	{

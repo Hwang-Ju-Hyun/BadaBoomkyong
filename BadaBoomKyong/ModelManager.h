@@ -45,9 +45,9 @@ public:
 	void ClearModel(); // 메모리에서 내린다.	
 private:
 	// 재귀호출되며 노드를 순회하기 위한 함수
-	void LoadNode(aiNode* _node, const aiScene* _scene);
+	void LoadNode(aiNode* _node, const aiScene* _scene ,const aiMatrix4x4& parentTransform = aiMatrix4x4());
 	// 실제 메시 오브젝트를 참조하여 버텍스 정보를 로드한다.
-	void LoadMesh(aiMesh* _mesh, const aiScene* _scene);
+	void LoadMesh(aiMesh* _mesh, const aiScene* _scene, const aiMatrix4x4& transform);
 	// 텍스쳐를 로드한다.
 	void LoadMaterials(const aiScene* _scene,const std::string& _filePath);
 public:
