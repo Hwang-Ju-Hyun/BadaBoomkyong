@@ -136,6 +136,10 @@ void RenderManager::BeforeDraw()
 			{
 				m_vOpaqueObject.push_back(obj);
 			}
+			else if (obj->GetName() == "NewObject1")
+			{				
+				m_vOpaqueObject.push_back(obj);
+			}
 		}
 	}
 }

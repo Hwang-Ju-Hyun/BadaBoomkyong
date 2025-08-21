@@ -468,57 +468,51 @@ void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene)
 void ModelManager::LoadMaterials(const aiScene* _scene,const std::string& _filePath)
 {			
 	const std::string name = m_pCustomModel->GetName();
-	m_vTextureList.resize(_scene->mNumMaterials);
-	Material* mat = nullptr;
-	
-	for (size_t i = 0; i < _scene->mNumMaterials; i++)
-	{
-		aiMaterial* material = _scene->mMaterials[i];
 
-		m_vTextureList[i] = nullptr;						
-		// 텍스쳐가 존재하는 지 먼저 확인
-		if (material->GetTextureCount(aiTextureType_DIFFUSE))
-		{			
+	// 모델이 가진 모든 Mesh 순회
+	for (size_t i = 0; i < _scene->mNumMeshes; i++)
+	{
+		aiMesh* mesh = _scene->mMeshes[i];
+		int matIndex = mesh->mMaterialIndex; // 이 Mesh가 참조하는 Material Index
+
+		if (matIndex < 0 || matIndex >= (int)_scene->mNumMaterials)
+			continue;
+
+		aiMaterial* material = _scene->mMaterials[matIndex];
+		Material* mat = new Material;
+
+		// ─────────────────────────────
+		// Diffuse 텍스처 로드
+		// ─────────────────────────────
+		if (material->GetTextureCount(aiTextureType_DIFFUSE) > 0)
+		{
 			aiString texturePath;
-			// 텍스쳐 경로를 가져오는 데 성공했다면
 			if (material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath) == aiReturn_SUCCESS)
 			{
-				//todo : 요거 변수이름 너무 중복되는거 많음 리펙토링 할 때 이거 좀 고치셈
-				std::string pathStr = texturePath.C_Str();	
-				int idx = pathStr.find_last_of("/");
+				std::string pathStr = texturePath.C_Str();
+				int idx = pathStr.find_last_of("/\\"); // 윈도우/리눅스 경로 둘 다 고려
 				std::string textureName = (idx != std::string::npos) ? pathStr.substr(idx + 1) : pathStr;
-				int file_path_idx = _filePath.find_last_of("/");
 
+				int file_path_idx = _filePath.find_last_of("/\\");
 				std::string texture_path = (file_path_idx != std::string::npos) ? _filePath.substr(0, file_path_idx + 1) : _filePath;
 				std::string texPath = texture_path + textureName;
 
-				if (pathStr[0] == '*')
-				{
-					int a = 0;
-				}
-
-				
-				Material* mat = new Material;
-
-				if (i < m_pCustomModel->GetMeshes().size()) {
-					m_pCustomModel->GetMeshes()[i]->SetMaterial(mat);
-				}
-				//m_pCustomModel->GetMeshes()[i]->SetMaterial(mat);
-				TextureResource* texture = new TextureResource(texPath);
-				ResourceManager::GetInstance()->AddResource(textureName,texPath,texture);
-				mat->SetTexture(texture);
-
-				BaseResource* tex = ResourceManager::GetInstance()->GetAndLoad(textureName, texPath);
+				// ResourceManager 통해서 로드 & 캐싱
+				BaseResource* tex = ResourceManager::GetInstance()->GetAndLoad(textureName,texPath);
 				TextureResource* texture_res = dynamic_cast<TextureResource*>(tex);
-				texture_res->Load(texPath);
-				//m_vTextureList[i] = new TextureResource(texPath);
-				//m_vTextureList[i]->Load(texPath.c_str());
-			}		
-		}		
-		// textureList에 텍스쳐를 담는데 실패했다면
-		if (!m_vTextureList[i])
+				if (texture_res)
+				{
+					mat->SetTexture(texture_res);
+				}
+			}
+		}
+
+		// ─────────────────────────────
+		// Mesh에 Material 연결
+		// ─────────────────────────────
+		if (i < m_pCustomModel->GetMeshes().size())
 		{
-			std::cout << "Load Texture failed" << std::endl;
+			m_pCustomModel->GetMeshes()[i]->SetMaterial(mat);
 		}
 	}
 }
