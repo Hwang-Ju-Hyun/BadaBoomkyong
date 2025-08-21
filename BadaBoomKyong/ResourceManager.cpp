@@ -16,6 +16,10 @@ ResourceManager::SELECT_EXTENSION ResourceManager::GetExtension(const std::strin
 	{
 		return SELECT_EXTENSION::jpg;
 	}
+	else if (_extension == "jpeg")
+	{
+		return SELECT_EXTENSION::jpeg;
+	}
 	else if (_extension == "wav")
 	{
 		return SELECT_EXTENSION::wav;
@@ -30,24 +34,24 @@ ResourceManager::SELECT_EXTENSION ResourceManager::GetExtension(const std::strin
 	}	
 }
 
-BaseResource* ResourceManager::GetAndLoad(const std::string& _resName, const std::string& _path)
+BaseResource* ResourceManager::GetAndLoad(const std::string& _resName,const std::string& _path)
 {
 	auto iter = m_mapResource.find({ _resName,_path });
 	if (iter == m_mapResource.end())
 	{
 		std::string ext = _path.substr(_path.find_last_of(".") + 1);
 		SELECT_EXTENSION extension = GetExtension(ext);
-		BaseResource* resource = nullptr;
+		BaseResource* resource = nullptr;						
 		switch (extension)
 		{
 		case ResourceManager::png:
 			resource = new TextureResource(_resName);
 			resource = dynamic_cast<BaseResource*>(resource);
 			assert(resource != nullptr);
-			m_mapResource.insert(std::make_pair(std::make_pair( _resName,_path ), resource));
+			m_mapResource.insert(std::make_pair(std::make_pair(_resName, _path), resource));					
 			break;
 		case ResourceManager::jpg:
-			resource = new TextureResource(_resName);
+			resource = new TextureResource(_resName); 
 			resource = dynamic_cast<BaseResource*>(resource);
 			assert(resource != nullptr);
 			m_mapResource.insert(std::make_pair(std::make_pair(_resName,_path), resource));
@@ -57,6 +61,12 @@ BaseResource* ResourceManager::GetAndLoad(const std::string& _resName, const std
 		case ResourceManager::mp3:
 			break;
 		case ResourceManager::ttf:
+			break;
+		case ResourceManager::jpeg:
+			resource = new TextureResource(_resName);
+			resource = dynamic_cast<BaseResource*>(resource);
+			assert(resource != nullptr);
+			m_mapResource.insert(std::make_pair(std::make_pair(_resName, _path), resource));
 			break;
 		default:
 			break;
@@ -79,7 +89,7 @@ BaseResource* ResourceManager::GetAndLoadCubeMap(const std::string& _resName, co
 		assert(resource != nullptr);
 		m_mapResource.insert(std::make_pair(std::make_pair(_resName, _path[0]), resource));
 		return resource;
-	}
+	} 
 	return iter->second;
 }
 

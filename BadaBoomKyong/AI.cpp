@@ -94,6 +94,7 @@ void AI::Exit()
 		if (iter->second != nullptr)
 		{
 			delete iter->second;;
+			iter->second = nullptr;
 		}
 	}
 	std::map<MONSTER_STATE, BaseState*> temp;

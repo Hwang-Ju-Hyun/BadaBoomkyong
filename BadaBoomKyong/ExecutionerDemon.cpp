@@ -53,11 +53,25 @@ ExecutionerDemon::ExecutionerDemon(GameObject* _owner)
 }
 
 ExecutionerDemon::~ExecutionerDemon()
-{
-	if (m_pAnimStateMachine)
+{	
+	/*if (m_pIdleBehavior)
 	{
-		delete m_pAnimStateMachine;
-		m_pAnimStateMachine = nullptr;
+		delete m_pIdleBehavior;
+		m_pIdleBehavior = nullptr;
+	}
+	if (m_pMeleeBehaviour)
+	{
+		delete m_pMeleeBehaviour;
+		m_pMeleeBehaviour = nullptr;
+	}
+	if (m_pPatrolBehaviour)
+	{
+		delete m_pPatrolBehaviour;
+		m_pPatrolBehaviour = nullptr;
+	}*/if (m_pPatrolBehaviour)
+	{
+		delete m_pPatrolBehaviour;
+		m_pPatrolBehaviour = nullptr;
 	}
 }
 

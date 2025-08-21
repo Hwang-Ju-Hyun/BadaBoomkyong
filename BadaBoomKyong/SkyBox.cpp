@@ -38,9 +38,14 @@ void SkyBox::LoadFromJson(const json& _str)
 			std::vector<std::string> faces;
 			for (const auto& stateValue : *pathFaces_list)
 			{				
-				faces.push_back(stateValue.get<std::string>());				
+				faces.push_back(stateValue.get<std::string>());								
 			}			
 			m_pCubeMapResource = dynamic_cast<CubeMapResource*>(ResourceManager::GetInstance()->GetAndLoadCubeMap(cubemap_name.value(),faces));
+			assert(m_pCubeMapResource!=nullptr);
+			for (auto face : faces)
+			{
+				m_pCubeMapResource->AddFace(face);
+			}
 		}
 	}
 }
@@ -52,7 +57,7 @@ json SkyBox::SaveToJson(const json& _str)
 	data[serial->ComponentTypeNameInJson] = SkyBoxTypeName;
 
 	json compData;
-	compData[SkyBoxName] = { m_pCubeMapResource->GetResourceName()};
+	compData[SkyBoxName] = m_pCubeMapResource->GetResourceName();
 
 	int i = 0;
 	const std::vector<std::string>* faces = m_pCubeMapResource->GetFacesCubeMap();
@@ -60,8 +65,7 @@ json SkyBox::SaveToJson(const json& _str)
 	{
 		compData[SkyBoxFacesPathName][i] = (std::string)*iter;
 		i++;
-	}
-	compData[SkyBoxFacesPathName] = m_pCubeMapResource->GetResourcePath();
+	}	
 
 	data[CompDataName] = compData;
 	return data;

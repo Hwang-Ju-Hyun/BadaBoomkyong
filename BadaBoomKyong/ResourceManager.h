@@ -16,10 +16,11 @@ private:
 	enum SELECT_EXTENSION
 	{
 		png,
-		jpg,
+		jpg,		
 		wav,
 		mp3,
-		ttf
+		ttf,
+		jpeg
 	};
 public:
 	enum SELECT_EXTENSION GetExtension(const std::string& _extension)const;

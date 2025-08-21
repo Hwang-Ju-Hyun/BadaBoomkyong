@@ -18,7 +18,7 @@
 Stage01::Stage01(STAGE_TYPE _stageType, const std::string& _name)
 	:BaseLevel(_stageType,_name)
 {
-	lvl_2 = new Stage02(STAGE_TYPE::STAGE_02,"Stage02");
+	//lvl_2 = new Stage02(STAGE_TYPE::STAGE_02,"Stage02");
 }
 
 Stage01::~Stage01()
@@ -64,10 +64,5 @@ void Stage01::Exit()
 	RenderManager::GetInstance()->Exit();
 	EventManager::GetInstance()->Exit();
 
-#ifdef _DEBUG
-	// Cleanup
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
-#endif // DEBUG
+
 }

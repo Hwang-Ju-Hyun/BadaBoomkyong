@@ -7,7 +7,7 @@
 CubeMapResource::CubeMapResource(const std::string& _name)
 	:BaseResource(_name)
 {
-	SetResourceName("CubeMap");
+	
 }
  
 CubeMapResource::~CubeMapResource()

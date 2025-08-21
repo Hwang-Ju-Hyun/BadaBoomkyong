@@ -55,11 +55,22 @@ CurseDemon::CurseDemon(GameObject* _owner)
 
 CurseDemon::~CurseDemon()
 {
-	if (m_pAnimStateMachine)
+	/*if (m_pIdleBehavior)
 	{
-		delete m_pAnimStateMachine;
-		m_pAnimStateMachine = nullptr;
-	}	
+		delete m_pIdleBehavior;
+		m_pIdleBehavior = nullptr;
+	}
+	if (m_pRangedBehavior)
+	{
+		delete m_pRangedBehavior;
+		m_pRangedBehavior = nullptr;
+	}
+	if (m_pMeleeBehaviour)
+	{
+		delete m_pMeleeBehaviour;
+		m_pMeleeBehaviour = nullptr;
+	}*/
+
 }
 
 void CurseDemon::Init()

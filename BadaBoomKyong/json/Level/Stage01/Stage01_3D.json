@@ -8,8 +8,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            1151.658935546875,
-            -10743.8203125,
+            -161.11141967773438,
+            -55244.09375,
             0.0
           ],
           "Sca": [
@@ -33,8 +33,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "JumpAttack",
-          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/AirAttack/FX/JumpAttack.png"
+          "TextureName": "Fall",
+          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Fall/Fall.png"
         }
       },
       {
@@ -224,7 +224,7 @@
         "CompData": {
           "Pos": [
             200.0,
-            -28266.9609375,
+            -377359.21875,
             0.0
           ],
           "Sca": [
@@ -383,7 +383,7 @@
         "CompData": {
           "Pos": [
             -491.0813903808594,
-            -42693.265625,
+            -391786.15625,
             0.0
           ],
           "Sca": [
@@ -541,8 +541,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            1263.1722412109375,
-            -10706.3203125,
+            3169.06201171875,
+            -359798.84375,
             0.0
           ],
           "Sca": [
@@ -689,51 +689,51 @@
     "Model": 4,
     "Group": 3
   },
-    {
-        "Name": "customModelObj1",
-        "ID": 0,
-        "Is3D": true,
-        "Components": [
-            {
-                "Type": "Transform",
-                "CompData": {
-                    "Pos": [
-                        -464.5813903808594,
-                        -228.01849365234375,
-                        -1100.20068359375
-                    ],
-                    "Sca": [
-                        50.0,
-                        50.0,
-                        50.0
-                    ],
-                    "Rot": [
-                        0.0,
-                        89.9999771118164,
-                        0.0
-                    ]
-                }
-            },
-            {
-                "Type": "Collider",
-                "CompData": {
-                    "Offset_Position": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                }
-            }
-        ],
-        "Model": 6,
-        "ModelPath": "../Extern/Assets/Model/stone/Fbx/Untitled.fbx",
-        "Group": 4
-    },
+  {
+    "Name": "customModelObj1",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -430.6334533691406,
+            -257.8441467285156,
+            -308.9230651855469
+          ],
+          "Sca": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "Rot": [
+            179.99989318847656,
+            -60.38958740234375,
+            179.99989318847656
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stone/Fbx/Untitled.fbx",
+    "Group": 4
+  },
   {
     "Name": "LightTemp",
     "ID": 0,
@@ -780,9 +780,9 @@
             0.0
           ],
           "Ambient": [
-            0.30000000149011612,
-            0.30000000149011612,
-            0.30000000149011612
+            0.30000001192092896,
+            0.30000001192092896,
+            0.30000001192092896
           ],
           "Diffuse": [
             0.0,
@@ -817,7 +817,7 @@
             0.0
           ],
           "Sca": [
-            2927.003173828125,
+            5000.0,
             49.999996185302734,
             3854.703125
           ],
@@ -860,88 +860,148 @@
     "Model": 5,
     "Group": 4
   },
-    {
-        "Name": "background",
-        "ID": 0,
-        "Is3D": true,
-        "Components": [
-            {
-                "Type": "Transform",
-                "CompData": {
-                    "Pos": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Sca": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rot": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                }
-            },
-            {
-                "Type": "Sprite",
-                "CompData": {
-                    "RGBA": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                }
-            },
-            {
-                "Type": "SkyBox",
-                "CompData": {
-                    "SkyBoxName": "skyBox",
-                    "SkyBoxFacesPath": [
-                        "../Extern/Assets/Texture/skybox/px.png",
-                        "../Extern/Assets/Texture/skybox/nx.png",
-                        "../Extern/Assets/Texture/skybox/py.png",
-                        "../Extern/Assets/Texture/skybox/ny.png",
-                        "../Extern/Assets/Texture/skybox/pz.png",
-                        "../Extern/Assets/Texture/skybox/nz.png"
-                    ]
-                }
-            }
-        ],
-        "Model": 7,
-        "Group": 0
-    },
-    {
-        "Name": "NewObject1",
-        "ID": 0,
-        "Is3D": true,
-        "Components": [
-            {
-                "Type": "Transform",
-                "CompData": {
-                    "Pos": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Sca": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rot": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                }
-            }            
-        ],
-        "Model": 6,
-        "ModelPath": "../Extern/Assets/Model/stone/Fbx/Stone_desert_big_2.fbx",
-        "Group": 0
-    }
+  {
+    "Name": "background",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Sca": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Rot": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Sprite",
+        "CompData": {
+          "RGBA": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      },
+      {
+        "Type": "SkyBox",
+        "CompData": {
+          "SkyBoxName": "skyBox",
+          "SkyBoxFacesPath": [
+            "../Extern/Assets/Texture/skybox/px.png",
+            "../Extern/Assets/Texture/skybox/nx.png",
+            "../Extern/Assets/Texture/skybox/py.png",
+            "../Extern/Assets/Texture/skybox/ny.png",
+            "../Extern/Assets/Texture/skybox/pz.png",
+            "../Extern/Assets/Texture/skybox/nz.png"
+          ]
+        }
+      }
+    ],
+    "Model": 7,
+    "Group": 0
+  },
+  {
+    "Name": "NewObject1",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -37.717376708984375,
+            -272.3287353515625,
+            78.81275177001953
+          ],
+          "Sca": [
+            0.7128234505653381,
+            0.5,
+            0.3389657735824585
+          ],
+          "Rot": [
+            179.99989318847656,
+            68.55936431884766,
+            179.99989318847656
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stone/Fbx/Stone_desert_big_2.fbx",
+    "Group": 0
+  },
+  {
+    "Name": "NewObject2",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -454.8782958984375,
+            -176.3235321044922,
+            -176.8577423095703
+          ],
+          "Sca": [
+            100.0,
+            99.99998474121094,
+            99.99998474121094
+          ],
+          "Rot": [
+            -85.84986877441406,
+            -0.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/tree/palm_tree/plamTree1.fbx",
+    "Group": 0
+  },
+  {
+    "Name": "NewObject2",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -454.8782958984375,
+            -176.3235321044922,
+            -176.8577423095703
+          ],
+          "Sca": [
+            100.0,
+            99.99998474121094,
+            99.99998474121094
+          ],
+          "Rot": [
+            -85.84986877441406,
+            -0.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/house/stylized-desert-house/Untitled.fbx",
+    "Group": 0
+  } 
 ]

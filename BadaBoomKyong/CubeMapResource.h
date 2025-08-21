@@ -13,7 +13,7 @@ private:
 public:
     inline const std::vector<std::string>* GetFacesCubeMap() const { return &m_vecFacesCubemap; }
 public:
-    inline const std::string AddFace(const std::string& _path) { m_vecFacesCubemap.push_back(_path); }
+    inline const void AddFace(const std::string& _path) { m_vecFacesCubemap.push_back(_path); }
 private:
     int m_iWidth = 0;
     int m_iHeight = 0;

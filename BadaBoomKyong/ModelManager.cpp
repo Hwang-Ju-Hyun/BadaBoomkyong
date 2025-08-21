@@ -481,31 +481,68 @@ void ModelManager::LoadMaterials(const aiScene* _scene,const std::string& _fileP
 		aiMaterial* material = _scene->mMaterials[matIndex];
 		Material* mat = new Material;
 
-		// ─────────────────────────────
-		// Diffuse 텍스처 로드
-		// ─────────────────────────────
-		if (material->GetTextureCount(aiTextureType_DIFFUSE) > 0)
-		{
-			aiString texturePath;
-			if (material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath) == aiReturn_SUCCESS)
-			{
-				std::string pathStr = texturePath.C_Str();
-				int idx = pathStr.find_last_of("/\\"); // 윈도우/리눅스 경로 둘 다 고려
-				std::string textureName = (idx != std::string::npos) ? pathStr.substr(idx + 1) : pathStr;
-
-				int file_path_idx = _filePath.find_last_of("/\\");
-				std::string texture_path = (file_path_idx != std::string::npos) ? _filePath.substr(0, file_path_idx + 1) : _filePath;
-				std::string texPath = texture_path + textureName;
-
-				// ResourceManager 통해서 로드 & 캐싱
-				BaseResource* tex = ResourceManager::GetInstance()->GetAndLoad(textureName,texPath);
-				TextureResource* texture_res = dynamic_cast<TextureResource*>(tex);
-				if (texture_res)
+		aiTextureType typesToCheck[] = {
+		aiTextureType_DIFFUSE,
+		aiTextureType_BASE_COLOR,
+		aiTextureType_AMBIENT,  // 일부 FBX는 ambient에 들어감
+		aiTextureType_UNKNOWN   // FBX 임베디드 텍스처가 여기로 오는 경우도 있음
+		};
+		if (_scene->HasTextures()) {
+			for (unsigned int i = 0; i < _scene->mNumTextures; i++) {
+				aiTexture* tex = _scene->mTextures[i];
+				std::cout << "Embedded texture: " << tex->mWidth << "x" << tex->mHeight << std::endl;
+			}
+		}
+		for (auto type : typesToCheck) {
+			if (material->GetTextureCount(type) > 0) {
+				aiString texturePath;
+				if (material->GetTexture(type, 0, &texturePath) == aiReturn_SUCCESS)
 				{
-					mat->SetTexture(texture_res);
+					std::string pathStr = texturePath.C_Str();
+					std::cout << "Found texture at type=" << type << " : " << pathStr << std::endl;
+					
+					int idx = pathStr.find_last_of("/\\"); // 윈도우/리눅스 경로 둘 다 고려
+					std::string textureName = (idx != std::string::npos) ? pathStr.substr(idx + 1) : pathStr;
+
+					int file_path_idx = _filePath.find_last_of("/\\");
+					std::string texture_path = (file_path_idx != std::string::npos) ? _filePath.substr(0, file_path_idx + 1) : _filePath;
+					std::string texPath = texture_path + textureName;
+
+					// ResourceManager 통해서 로드 & 캐싱
+					BaseResource* tex = ResourceManager::GetInstance()->GetAndLoad(textureName, texPath);
+					TextureResource* texture_res = dynamic_cast<TextureResource*>(tex);
+					if (texture_res)
+					{
+						mat->SetTexture(texture_res);
+					}
 				}
 			}
 		}
+		//// ─────────────────────────────
+		//// Diffuse 텍스처 로드
+		//// ─────────────────────────────
+		//if (material->GetTextureCount(aiTextureType_DIFFUSE) > 0)
+		//{
+		//	aiString texturePath;
+		//	if (material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath) == aiReturn_SUCCESS)
+		//	{
+		//		std::string pathStr = texturePath.C_Str();
+		//		int idx = pathStr.find_last_of("/\\"); // 윈도우/리눅스 경로 둘 다 고려
+		//		std::string textureName = (idx != std::string::npos) ? pathStr.substr(idx + 1) : pathStr;
+
+		//		int file_path_idx = _filePath.find_last_of("/\\");
+		//		std::string texture_path = (file_path_idx != std::string::npos) ? _filePath.substr(0, file_path_idx + 1) : _filePath;
+		//		std::string texPath = texture_path + textureName;
+
+		//		// ResourceManager 통해서 로드 & 캐싱
+		//		BaseResource* tex = ResourceManager::GetInstance()->GetAndLoad(textureName,texPath);
+		//		TextureResource* texture_res = dynamic_cast<TextureResource*>(tex);
+		//		if (texture_res)
+		//		{
+		//			mat->SetTexture(texture_res);
+		//		}
+		//	}
+		//}
 
 		// ─────────────────────────────
 		// Mesh에 Material 연결

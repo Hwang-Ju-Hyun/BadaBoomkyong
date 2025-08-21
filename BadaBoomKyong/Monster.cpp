@@ -40,6 +40,12 @@ Monster::Monster(GameObject* _owner)
 
 Monster::~Monster()
 {
+	if (m_pAnimStateMachine)
+	{
+		delete m_pAnimStateMachine;
+		m_pAnimStateMachine = nullptr;
+	}
+	
 }
 
 void Monster::UpdateSpriteFlipX()

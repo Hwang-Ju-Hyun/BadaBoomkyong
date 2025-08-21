@@ -17,8 +17,11 @@ Animator::~Animator()
 {
 	for (auto iter = m_mapAnimation.begin();iter != m_mapAnimation.end();iter++)
 	{
-		delete iter->second;
-		iter->second = nullptr;
+		if (iter->second)
+		{
+			delete iter->second;
+			iter->second = nullptr;
+		}		
 	}
 	m_pCurrentAnimation = nullptr;
 }
@@ -26,8 +29,9 @@ Animator::~Animator()
 
 void Animator::Init()	
 {				
-	auto original = m_mapAnimation.find("Idle")->second;
-	m_pCurrentAnimation = new AnimationSpriteSheet(*original); // 복사	
+	m_pCurrentAnimation = m_mapAnimation.find("Idle")->second;
+	 //= new AnimationSpriteSheet(*original); // 복사	
+
 
 	Sprite* spr = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));	
 	spr->SetTexture(m_pCurrentAnimation->m_pTexture);
@@ -94,7 +98,7 @@ void Animator::Update()
 }
 
 void Animator::Exit()
-{
+{	
 }
 
 AnimationSpriteSheet* Animator::AddSpriteSheet(std::string _name, AnimationSpriteSheet* _clip)

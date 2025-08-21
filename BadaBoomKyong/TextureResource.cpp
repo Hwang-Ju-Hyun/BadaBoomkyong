@@ -25,6 +25,7 @@ void TextureResource::Load(const std::string& _path)
     if (!m_cData)
     {
         std::cout << "Failed to load texture: " << stbi_failure_reason() << std::endl;
+        //assert(fals);
     }
     glGenTextures(1, &m_iTextureID);    //텍스처 ID 생성 (텍스처 하나 만든다고 보면 됌) 
 
