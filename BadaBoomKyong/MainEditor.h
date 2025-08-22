@@ -23,7 +23,7 @@ public:
 private:
 	GameObject* m_pSelectedObjByPannel=nullptr;	
 	Transform* m_pTransform_SelectedObj = nullptr;
-	Camera* m_pCam = nullptr;				
+	Camera* m_pCam = nullptr;					
 public:
 	void Init();
 	void Update();	

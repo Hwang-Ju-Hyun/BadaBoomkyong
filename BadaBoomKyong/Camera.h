@@ -1,6 +1,9 @@
 #pragma once
 #include <glm.hpp>
 
+class Player;
+class Transform;
+
 class Camera
 {
 public:
@@ -24,6 +27,9 @@ public:
 	void Init();	
 	void Update();
 	void Exit();
+	//int cam_mode_switch = -1;
+	Player* m_pPlayer = nullptr;
+	Transform* m_pPlayerTransform = nullptr;
 public:
 	inline void AddPositionX(float _val) { m_vCamPos.x += _val;m_vCamTarget.x += _val; }
 	inline void AddPositionY(float _val) { m_vCamPos.y += _val;m_vCamTarget.y += _val; }
@@ -44,5 +50,8 @@ public:
 	float pitch = 0.0f;		//ªÛ«œ
 public:
 	void Shake(float _duration,float _magnitude);
+public:
+	//negative editor postive player
+	int m_camMode;
 };
 

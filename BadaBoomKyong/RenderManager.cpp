@@ -80,6 +80,7 @@ void RenderManager::Init()
 	m_vShdr[int(SHADER_REF::SKYBOX)]->CreateShaderProgramFromFiles(vsFile_SkyBox, fsFile_SkyBox);
 	m_pCam = new Camera;
 	
+	m_pCam->Init();
 
 	//todo : ÀÌ°Å °ð light manager·Î ¿Å±â¼À
 	GameObject* light_obj = GameObjectManager::GetInstance()->FindObject("LightTemp");

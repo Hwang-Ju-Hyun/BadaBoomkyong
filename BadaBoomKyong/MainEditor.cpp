@@ -283,7 +283,7 @@ void MainEditor::UpdateEditorCameraControls()
 		// pitch 제한
 		//if (m_pCam->pitch > 89.0f) m_pCam->pitch = 89.0f;
 		//if (m_pCam->pitch < -89.0f) m_pCam->pitch = -89.0f;
-	
+
 
 		// 이동 WASD (카메라 기준 방향으로 이동)
 		glm::vec3 moveDir{ 0.0f };

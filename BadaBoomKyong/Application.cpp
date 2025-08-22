@@ -52,7 +52,7 @@ void Application::Init()
     ComponentManager::GetInstance()->Init();       
     
     //InputManager
-    InputManager::GetInstance()->Init();                
+    InputManager::GetInstance()->Init();                    
 
     //RenderInit            
     RenderManager::GetInstance()->Init();
