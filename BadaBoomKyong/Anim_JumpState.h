@@ -36,6 +36,9 @@ public:
             case PlayerAnimState::HURT:
                 machine->ChangeAnimState(PlayerAnimState::HURT);
                 break;
+            case PlayerAnimState::DASH:
+                machine->ChangeAnimState(PlayerAnimState::DASH);
+                break;
             case PlayerAnimState::DEATH:
                 machine->ChangeAnimState(PlayerAnimState::DEATH);
                 break;

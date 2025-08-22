@@ -10,6 +10,7 @@
 #include "Monster.h"
 #include "Anim_RangeAttackState.h"
 #include "Anim_HurtState.h"
+#include "Anim_LandState.h"
 
 template<typename T>
 class AnimIdleState : public AnimIState<T>

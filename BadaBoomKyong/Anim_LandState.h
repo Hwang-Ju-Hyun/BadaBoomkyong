@@ -1,6 +1,5 @@
 #pragma once
 #include "Anim_IState.h"
-#include "Anim_JumpAttackState.h"
 
 template<typename T>
 class AnimIdleState;  // Forward declaration
@@ -8,22 +7,22 @@ template<typename T>
 class AnimDeathState;
 
 template<typename T>
-class AnimFallState : public AnimIState<T>
+class AnimLandState : public AnimIState<T>
 {
 public:
-    AnimFallState() {}
-    virtual ~AnimFallState() override {}
+    AnimLandState() {}
+    virtual ~AnimLandState() override {}
 public:
-    virtual void Enter(T* _owner) override 
+    virtual void Enter(T* _owner) override
     {
-        _owner->GetAnimator()->ChangeAnimation("Fall");
+        _owner->GetAnimator()->ChangeAnimation("Land");
     }
 
-    virtual void Update(T* _owner) override 
+    virtual void Update(T* _owner) override
     {
         AnimStateMachine<Player>* machine = _owner->GetAnimStateMachine();
-        if constexpr (std::is_same<T, Player>::value) 
-        {            
+        if constexpr (std::is_same<T, Player>::value)
+        {
             switch (_owner->GetCurrentState())
             {
             case PlayerAnimState::IDLE:
@@ -41,18 +40,17 @@ public:
             case PlayerAnimState::DASH:
                 machine->ChangeAnimState(int(PlayerAnimState::DASH));
                 break;
+            case PlayerAnimState::COMBO_ATTACK_1:
+                machine->ChangeAnimState(int(PlayerAnimState::COMBO_ATTACK_1));
+                break;
             case PlayerAnimState::DEATH:
                 machine->ChangeAnimState(int(PlayerAnimState::DEATH));
                 break;
-            case PlayerAnimState::LAND:
-                machine->ChangeAnimState(int(PlayerAnimState::LAND));
-                break;
-            }           
+            }
         }
     }
 
-    virtual void Exit(T* _owner) override 
-    {
-        std::cout << "Fall Exit" << std::endl;
+    virtual void Exit(T* _owner) override
+    {        
     }
 };

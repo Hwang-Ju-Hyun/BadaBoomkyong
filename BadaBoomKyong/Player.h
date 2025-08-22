@@ -31,6 +31,7 @@ enum PlayerAnimState
     HEALING,
     HURT,
     FALL,
+    LAND,
     DEATH    
 };
 
@@ -64,6 +65,7 @@ private:
     PlayerAnimState m_eCurrentState;
     bool m_bIsGround;
     bool m_bIsMoving;
+    bool m_bHasLanded;
 private:
     ComboStep m_eComboStep = ComboStep::NONE;
     bool m_bComboQueue = false;

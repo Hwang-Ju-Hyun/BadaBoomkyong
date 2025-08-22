@@ -236,6 +236,7 @@
   <ItemGroup>
     <ClInclude Include="AI.h" />
     <ClInclude Include="Animator.h" />
+    <ClInclude Include="Anim_LandState.h" />
     <ClInclude Include="Anim_HurtState.h" />
     <ClInclude Include="Anim_NormalAttackState_2.h" />
     <ClInclude Include="Anim_NormalAttackState_3.h" />

@@ -978,6 +978,9 @@
     <ClInclude Include="SkyBox.h">
       <Filter>Component\Default\SkyBox</Filter>
     </ClInclude>
+    <ClInclude Include="Anim_LandState.h">
+      <Filter>Animation\FiniteStateMachine\Fall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="IMGUI\imgui.ini">

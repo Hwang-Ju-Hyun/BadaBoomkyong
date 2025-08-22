@@ -72,9 +72,8 @@ void Animator::Update()
 	if (m_pCurrentAnimation->m_bLoop == false && m_pCurrentAnimation->m_bLoopCount >= 1)
 	{
 		m_pCurrentAnimation->m_bLoopCount = 0;
-	}
-
-
+	}	
+	
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
   	m_fAnmationAccTime += dt;	
 		

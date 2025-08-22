@@ -124,11 +124,21 @@
               "Name": "Fall",
               "TextureName": "Fall",
               "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Fall/Fall.png",
-              "Max": 6,
+              "Max": 6, 
               "Row": 1,
               "Col": 6,
               "Duration": 0.10000000149011612,
               "Loop": true
+            },
+            {
+              "Name": "Land",
+              "TextureName": "Land",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Land/FX/Land(FX).png",
+              "Max": 5,
+              "Row": 1,
+              "Col": 5,
+              "Duration": 0.10000000149011612,
+              "Loop": false
             },
             {
               "Name": "Hurt",

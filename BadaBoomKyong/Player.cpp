@@ -57,7 +57,8 @@ Player::Player(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::JUMP_ATTACK), new AnimJumpAttackState<Player>());
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::HURT), new AnimHurtState<Player>());
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::DEATH), new AnimDeathState<Player>());
-			
+	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::LAND), new AnimLandState<Player>());
+
 	m_pAnimStateMachine->ChangeAnimState(PlayerAnimState::IDLE);
 	
 	//todo 바인드 이거 ㅈ나게 ㅈ같음 그리고 AddComboIndex했을때 반환이 int가 사실아님! 씨발! Chatgpt CollisionManager 코드 분석 맨끝줄에 설명있음
@@ -118,7 +119,7 @@ void Player::Update()
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();
 	
-	std::cout << m_eCurrentState << std::endl;
+	//std::cout << m_eCurrentState << std::endl;
 }
 
 void Player::EnterCollision(Collider* _other)
@@ -297,24 +298,22 @@ void Player::StateHandler()
 
 	if (m_bIsHurting == false)
 	{
-		if (m_bIsFalling)
-		{
-			m_eCurrentState = PlayerAnimState::FALL;			
-		}
-
 		if (m_pRigidBody->GetIsGround() && std::fabs(m_pRigidBody->GetVelocity().x) > g_epsilon
 			&& (!m_bSprintMeleeAttacking && !m_bIsDashing))
-		{
-			if (!m_bIsSprinting)
-			{
-				m_eCurrentState = PlayerAnimState::TOSPRINT;
-			}
+		{						
+			m_eCurrentState = PlayerAnimState::TOSPRINT;			
 			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
 			{
 				m_bIsSprinting = true;
-				m_eCurrentState = PlayerAnimState::SPRINTING;
-			}			
+				m_eCurrentState = PlayerAnimState::SPRINTING;				
+			}
+		}		
+		if (m_bIsFalling)
+		{
+			m_eCurrentState = PlayerAnimState::FALL;
+		
 		}
+		
 
 		if (m_bJumpMeleeAttacking)
 		{
@@ -391,7 +390,7 @@ void Player::StateHandler()
 		}
 	}
 
-	
+	std::cout << GetCurrentState() << std::endl;
 }
 
 void Player::Jump()
