@@ -37,6 +37,9 @@ private:
 	GLint m_iLightColorOn;
 	GLint m_iCamreaPosition;
 	GLint m_iLightAffect_location;
+	GLint m_iFogColor_location;
+	GLint m_iFogStart_location;
+	GLint m_iFogEnd_location;
 public:	
 	inline Shader* GetShader(SHADER_REF _shdrRef) { return m_vShdr[int(_shdrRef)]; }	
 	Camera* m_pCam=nullptr;

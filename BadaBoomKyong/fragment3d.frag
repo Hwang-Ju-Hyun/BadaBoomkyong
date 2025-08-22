@@ -14,6 +14,12 @@ uniform vec3 uCameraPosition;
 uniform bool uLightAffect;
 
 
+// ---- Fog 관련 uniform 추가 ----
+uniform vec3  uFogColor;   // 안개 색 (예: vec3(0.9, 0.85, 0.7))
+uniform float uFogStart;  // 안개 시작 거리
+uniform float uFogEnd;    // 안개 끝나는 거리
+
+
 struct Light
 {
     int type;
@@ -110,18 +116,32 @@ void main()
             if(texColor.a<1.f)               
                 color = texColor;
             else
-                color=vec4(1.0,1.0,1.0,1.0);
+                color=vec4(1.0,1.0,1.0,1.0);            
         }
         else
         {        
             if(uLightAffect)
                 color = vec4(Phong,1.0)*texColor;
             else
-               color = texColor;
-         }
+            {
+                color = texColor;
+                return;
+            }               
+         }         
     }    
     else
     {
         color = vec4(UV,0.0,1.0); // UV 색상 디버깅용
     }
+
+
+      // ---- Fog 처리 ----
+    float distanceToCamera = length(uCameraPosition - WorldPosition);
+
+    // 선형 Fog factor 계산
+    float fogFactor = (uFogEnd - distanceToCamera) / (uFogEnd - uFogStart);
+    fogFactor = clamp(fogFactor, 0.0, 1.0);
+
+    // Fog 적용 (안개색과 픽셀색 혼합)
+    color.rgb = mix(uFogColor, color.rgb, fogFactor);
 }

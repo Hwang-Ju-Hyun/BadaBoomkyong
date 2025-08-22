@@ -287,7 +287,7 @@ void MainEditor::UpdateEditorCameraControls()
 
 		// 이동 WASD (카메라 기준 방향으로 이동)
 		glm::vec3 moveDir{ 0.0f };
-		float speed = 5.f;
+		float speed = 25.f;
 		if (input->GetKetCode(GLFW_KEY_W) == GLFW_REPEAT)
 			moveDir += m_pCam->m_vCamFront;
 		if (input->GetKetCode(GLFW_KEY_S) == GLFW_REPEAT)

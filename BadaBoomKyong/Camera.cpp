@@ -39,6 +39,11 @@ void Camera::Init()
 
 void Camera::Update()
 {	
+	auto input = InputManager::GetInstance();
+	if (input->GetKetCode(GLFW_KEY_1) == GLFW_PRESS)
+	{
+		m_camMode *= -1;
+	}
 	if (m_camMode > 0)
 	{
 		//구면좌표계 -> 데카르트 좌표계(직교 좌표계) 
@@ -57,11 +62,12 @@ void Camera::Update()
 	}	
 	else
 	{
+		m_vCamUp = { 0.f,1.f,0.f };
 		// 플레이어 위치
 		glm::vec3 playerPos = m_pPlayerTransform->GetPosition();
 
 		// 플레이어 중심 기준 카메라 오프셋 (뒤/위쪽으로 약간 떨어지게)
-		glm::vec3 offset = glm::vec3(0.0f, 300.0f, 800.0f);
+		glm::vec3 offset = glm::vec3(0.0f, 0.0f, 800.0f);
 
 		// 카메라 위치 = 플레이어 위치 + 오프셋
 		m_vCamPos = playerPos + offset;

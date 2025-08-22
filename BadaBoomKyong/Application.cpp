@@ -37,7 +37,7 @@ void Application::Init()
 
     //GLEW Init
     GLenum iGlewInit_Err = glewInit(); 
-    assert(iGlewInit_Err == GLEW_OK);                
+    assert(iGlewInit_Err == GLEW_OK);
 
     //ModelInit
     ModelManager::GetInstance()->Init();                        

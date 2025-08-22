@@ -35,6 +35,9 @@
 #include "CubeMapResource.h"
 #include "SkyBox.h"
 
+//temp 지우셈
+#include "MathUtil.h"
+
 
 RenderManager::RenderManager()
 {	
@@ -159,6 +162,9 @@ void RenderManager::Draw()
 
 	m_iLightAffect_location= glGetUniformLocation(shdr_handle_3D, "uLightAffect");
 	
+	
+	
+
 
 	//1. 불투명 먼저 렌더링
 	for (auto obj : m_vOpaqueObject)
@@ -174,6 +180,9 @@ void RenderManager::Draw()
 			if (model && is3d)
 			{
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
+
+				
+
 
 				m_iMVP_Location = glGetUniformLocation(shdr_handle_3D, "uMVP");
 				assert(m_iMVP_Location >= 0);
@@ -309,7 +318,7 @@ void RenderManager::Draw()
 						glUniform2f(m_iUV_Offset_Location, anim->GetAnimation()->m_fSheet_UV_offset_X, anim->GetAnimation()->m_fSheet_UV_offset_Y);
 						glUniform2f(m_iUV_Scale_Location, anim->GetAnimation()->m_fSheet_UV_Width, anim->GetAnimation()->m_fSheet_UV_Height);
 					}
-					else
+			 		else
 					{
 						glUniform2f(m_iUV_Offset_Location, 0, 0);
 						glUniform2f(m_iUV_Scale_Location, 1, 1);
@@ -317,8 +326,27 @@ void RenderManager::Draw()
 
 					glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
 
-					
+					//===========
+					//===========
+					//====FOG====
+					//===========
+					//===========
+					m_iFogColor_location = glGetUniformLocation(shdr_handle_3D, "uFogColor");
+					m_iFogStart_location = glGetUniformLocation(shdr_handle_3D, "uFogStart");
+					m_iFogEnd_location = glGetUniformLocation(shdr_handle_3D, "uFogEnd");
+					assert(m_iFogColor_location >= 0);
+					glUniform3f(m_iFogColor_location, 0.5f, 0.5f, 0.2f);
+					glUniform1f(m_iFogStart_location, 1500.f);
+					glUniform1f(m_iFogEnd_location, 1800.f);
+					//===========
+					//===========
+					//====FOG====
+					//===========
+					//===========
+
 					model->Draw();
+
+
 #ifdef _DEBUG
 					Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
 					if (col)
@@ -345,6 +373,11 @@ void RenderManager::Draw()
 	//==========
 	//==========
 
+
+	
+
+
+
 	// 투명 객체 렌더링 전
 	glDepthMask(GL_FALSE); // 깊이 기록 끄기
 	//투명
@@ -361,6 +394,9 @@ void RenderManager::Draw()
 			if (model && is3d)
 			{
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
+
+				
+
 
 				//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
 				m_iMVP_Location = glGetUniformLocation(shdr_handle_3D, "uMVP");
@@ -433,8 +469,9 @@ void RenderManager::Draw()
 					glm::mat4 MVP = GetMVP_ByObject(*obj);
 					glm::mat4 visualOffset;		
 					Player* p = dynamic_cast<Player*>(obj->FindComponent(Player::PlayerTypeName));
-					Monster* mon = dynamic_cast<Monster*>(obj->FindComponent<Monster>());					
-					
+					Monster* mon = dynamic_cast<Monster*>(obj->FindComponent<Monster>());											
+
+
 					//CurseDemon* mon = dynamic_cast<CurseDemon*>(obj->FindComponent<CurseDemon>());
 					bool dashing=false;
 					bool moving = false;					
@@ -521,8 +558,11 @@ void RenderManager::Draw()
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();
 			}
 		}
+
+	
 	}
 	glDepthMask(GL_TRUE); // 다시 켜기
+	
 #ifdef _DEBUG
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
