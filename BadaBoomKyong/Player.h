@@ -162,6 +162,7 @@ private:
     void StartComboStep(ComboStep step);
     void AdvanceCombo();
     void EndCombo();
+private:
 public:
     static BaseRTTI* CreatePlayerComponent();
     virtual void LoadFromJson(const json& _str)override;

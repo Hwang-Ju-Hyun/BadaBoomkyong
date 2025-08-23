@@ -335,7 +335,7 @@ void RenderManager::Draw()
 					m_iFogStart_location = glGetUniformLocation(shdr_handle_3D, "uFogStart");
 					m_iFogEnd_location = glGetUniformLocation(shdr_handle_3D, "uFogEnd");
 					assert(m_iFogColor_location >= 0);
-					glUniform3f(m_iFogColor_location, 0.5f, 0.5f, 0.2f);
+					glUniform3f(m_iFogColor_location, 0.76, 0.65, 0.50);
 					glUniform1f(m_iFogStart_location, 1500.f);
 					glUniform1f(m_iFogEnd_location, 1800.f);
 					//===========

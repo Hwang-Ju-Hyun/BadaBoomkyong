@@ -32,15 +32,30 @@ public:
         if constexpr (std::is_same<T, Player>::value)
         {
             switch (_owner->GetCurrentState())
-            {    
-            case PlayerAnimState::IDLE:
-                machine->ChangeAnimState(PlayerAnimState::IDLE);
-                break;
+            {             
             case PlayerAnimState::COMBO_ATTACK_2:
                 machine->ChangeAnimState(PlayerAnimState::COMBO_ATTACK_2);
                 break;
+            case PlayerAnimState::IDLE:
+                machine->ChangeAnimState(PlayerAnimState::IDLE);
+                break;
             case PlayerAnimState::HURT:
                 machine->ChangeAnimState(PlayerAnimState::HURT);
+                break;
+            case PlayerAnimState::TOSPRINT:
+                machine->ChangeAnimState(PlayerAnimState::TOSPRINT);
+                break;
+            case PlayerAnimState::SPRINTING:
+                machine->ChangeAnimState(PlayerAnimState::SPRINTING);
+                break;
+            case PlayerAnimState::JUMP:
+                machine->ChangeAnimState(PlayerAnimState::JUMP);
+                break;
+            case PlayerAnimState::FALL:
+                machine->ChangeAnimState(PlayerAnimState::FALL);
+                break;
+            case PlayerAnimState::DASH:
+                machine->ChangeAnimState(PlayerAnimState::DASH);
                 break;
             case PlayerAnimState::DEATH:
                 machine->ChangeAnimState(PlayerAnimState::DEATH);

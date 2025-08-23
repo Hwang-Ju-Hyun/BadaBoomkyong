@@ -40,6 +40,21 @@ public:
             case PlayerAnimState::HURT:
                 machine->ChangeAnimState(PlayerAnimState::HURT);
                 break;
+            case PlayerAnimState::TOSPRINT:
+                machine->ChangeAnimState(PlayerAnimState::TOSPRINT);
+                break;
+            case PlayerAnimState::SPRINTING:
+                machine->ChangeAnimState(PlayerAnimState::SPRINTING);
+                break;
+            case PlayerAnimState::JUMP:
+                machine->ChangeAnimState(PlayerAnimState::JUMP);
+                break;
+            case PlayerAnimState::FALL:
+                machine->ChangeAnimState(PlayerAnimState::FALL);
+                break;
+            case PlayerAnimState::DASH:
+                machine->ChangeAnimState(PlayerAnimState::DASH);
+                break;
             case PlayerAnimState::DEATH:
                 machine->ChangeAnimState(PlayerAnimState::DEATH);
                 break;

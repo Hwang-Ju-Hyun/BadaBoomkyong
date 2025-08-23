@@ -8,7 +8,7 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            303.1201171875,
+            1432.71533203125,
             -230.86221313476563,
             0.0
           ],
@@ -33,8 +33,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "ComboAtk_1",
-          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_1.png"
+          "TextureName": "Idle",
+          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Idle/Idle.png"
         }
       },
       {
@@ -77,7 +77,7 @@
               "Max": 10,
               "Row": 1,
               "Col": 10,
-              "Duration": 0.10000000149011612,
+              "Duration": 0.07000000149011612,
               "Loop": false
             },
             {
@@ -87,7 +87,7 @@
               "Max": 7,
               "Row": 1,
               "Col": 7,
-              "Duration": 0.10000015050172806,
+              "Duration": 0.07000015050172806,
               "Loop": false
             },
             {
@@ -97,7 +97,7 @@
               "Max": 14,
               "Row": 1,
               "Col": 14,
-              "Duration": 0.15000000596046448,
+              "Duration": 0.07000000596046448,
               "Loop": false
             },
             {
@@ -124,21 +124,11 @@
               "Name": "Fall",
               "TextureName": "Fall",
               "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Fall/Fall.png",
-              "Max": 6, 
+              "Max": 6,
               "Row": 1,
               "Col": 6,
               "Duration": 0.10000000149011612,
               "Loop": true
-            },
-            {
-              "Name": "Land",
-              "TextureName": "Land",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Land/FX/Land(FX).png",
-              "Max": 5,
-              "Row": 1,
-              "Col": 5,
-              "Duration": 0.10000000149011612,
-              "Loop": false
             },
             {
               "Name": "Hurt",
@@ -178,6 +168,16 @@
               "Row": 1,
               "Col": 17,
               "Duration": 0.05000000074505806,
+              "Loop": false
+            },
+            {
+              "Name": "Land",
+              "TextureName": "Land",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Land/FX/Land(FX).png",
+              "Max": 5,
+              "Row": 1,
+              "Col": 5,
+              "Duration": 0.10000000149011612,
               "Loop": false
             },
             {
@@ -234,7 +234,7 @@
         "CompData": {
           "Pos": [
             200.0,
-            -1226432.125,
+            -1261900.625,
             0.0
           ],
           "Sca": [
@@ -393,7 +393,7 @@
         "CompData": {
           "Pos": [
             -491.0813903808594,
-            -1240861.375,
+            -1276329.875,
             0.0
           ],
           "Sca": [
@@ -551,8 +551,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            1802.7545166015625,
-            -1208873.375,
+            1640.5269775390625,
+            -1244341.875,
             0.0
           ],
           "Sca": [
@@ -667,7 +667,7 @@
         }
       },
       {
-        "Type": "AI", 
+        "Type": "AI",
         "CompData": {
           "StateList": [
             0,

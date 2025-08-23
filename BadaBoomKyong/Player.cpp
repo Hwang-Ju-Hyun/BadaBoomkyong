@@ -360,9 +360,7 @@ void Player::StateHandler()
 				m_pAnimator->GetAnimation()->m_bLoopCount = 0;
 				m_bIsDashing= false;
 			}
-		}
-			
-
+		}			
 		if (m_bSprintMeleeAttacking)
 		{
 			m_eCurrentState = PlayerAnimState::RUN_ATTACK;
