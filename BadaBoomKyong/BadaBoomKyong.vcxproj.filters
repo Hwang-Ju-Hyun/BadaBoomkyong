@@ -353,6 +353,15 @@
     <Filter Include="ShaderFiles\Skybox">
       <UniqueIdentifier>{c761fdbd-6e64-4195-85d1-0eaaddf3eee0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Skill">
+      <UniqueIdentifier>{fd6c47bb-92e4-43cb-b1d2-c668c5e765a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle">
+      <UniqueIdentifier>{afd0a247-b6f1-4ddf-84fa-1a2a8a32e33a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderFiles\Particle">
+      <UniqueIdentifier>{9a41a20e-c8b4-4713-a5fb-20682c625c09}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -624,6 +633,9 @@
     </ClCompile>
     <ClCompile Include="SkyBox.cpp">
       <Filter>Component\Default\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -981,6 +993,12 @@
     <ClInclude Include="Anim_LandState.h">
       <Filter>Animation\FiniteStateMachine\Fall</Filter>
     </ClInclude>
+    <ClInclude Include="Anim_HolySlash.h">
+      <Filter>Animation\FiniteStateMachine\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="IMGUI\imgui.ini">
@@ -1033,6 +1051,12 @@
     </None>
     <None Include="fragmenetSkyBox.frag">
       <Filter>ShaderFiles\Skybox</Filter>
+    </None>
+    <None Include="Particles.vert">
+      <Filter>ShaderFiles\Particle</Filter>
+    </None>
+    <None Include="Particles.frag">
+      <Filter>ShaderFiles\Particle</Filter>
     </None>
   </ItemGroup>
 </Project>

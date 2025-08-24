@@ -136,8 +136,7 @@ void Animator::ChangeAnimation(const std::string& _animName)
 		m_pCurrentAnimation->m_fSheet_UV_Height = sheet_uv_height;
 	}
 
-	m_iCurrentFrameIndex = 0;
-	
+	m_iCurrentFrameIndex = 0; 
 	int current_sheet_row = m_iCurrentFrameIndex / m_pCurrentAnimation->m_iSheet_Col;
 	int current_sheet_col = m_iCurrentFrameIndex % m_pCurrentAnimation->m_iSheet_Col;
 

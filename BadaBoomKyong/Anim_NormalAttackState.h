@@ -86,15 +86,6 @@ public:
     }
 
     virtual void Exit(T* _owner) override 
-    {
-        if constexpr (std::is_same<T, Player>::value)
-        {
-            PlayerMelee* melee = dynamic_cast<PlayerMelee*>(_owner->GetMelee());
-            if (melee)
-            {
-                melee->Exit();
-            }            
-        }
-        std::cout << "combo1 exit" << std::endl;
+    {    
     }
 };

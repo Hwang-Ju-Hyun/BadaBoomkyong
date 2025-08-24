@@ -64,39 +64,6 @@ void Transform::Update()
 		if (m_vRotation.z > 360.f)
 			m_vRotation.z = 0.f;
 
-		if (GetOwner()->GetName() == "Player")
-		{
-			const GameObject* owner = GetOwner();
-
-			Player* player = dynamic_cast<Player*>(owner->FindComponent<Player>());
-
-			float attackScale = 1.0f;
-			if (player&&player->m_bCanMeleeAttack)
-			{
-				attackScale = 1.3f; // 공격 시 1.2배 확대
-			}
-
-			Camera* cam = RenderManager::GetInstance()->GetCamera();
-			glm::vec3 cam_pos = cam->GetCamPosition();
-			glm::vec3 obj_pos = m_vPosition;
-
-			glm::vec3 dir = glm::normalize(cam_pos - obj_pos);
-			dir.y = 0.0f; // cylindrical billboard (수직은 고정)
-			glm::vec3 right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), dir));
-			glm::vec3 up = glm::cross(dir, right);
-
-			glm::mat4 billboard = glm::mat4(1.0f);
-			billboard[0] = glm::vec4(right, 0.0f);
-			billboard[1] = glm::vec4(up, 0.0f);
-			billboard[2] = glm::vec4(dir, 0.0f);
-
-			glm::mat4 scale = glm::scale(glm::mat4(1.0f), m_vScale * attackScale);
-			glm::mat4 translate = glm::translate(glm::mat4(1.0f), m_vPosition);
-
-			m_mModeltoWorld_3D = translate * billboard * scale;
-			return;
-		}
-
 		// Convert Euler angles to quaternion		
 		glm::quat quatRotation = glm::quat(glm::radians(m_vRotation));
 

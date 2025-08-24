@@ -34,6 +34,7 @@
 #include "Light.h"
 #include "CubeMapResource.h"
 #include "SkyBox.h"
+#include "ParticleSystem.h"
 
 //temp 지우셈
 #include "MathUtil.h"
@@ -72,6 +73,9 @@ void RenderManager::Init()
 	const char* vsFile_SkyBox = "vertexSkyBox.vert";
 	const char* fsFile_SkyBox= "fragmenetSkyBox.frag";
 
+	const char* vsFile_Particle = "Particles.vert";
+	const char* fsFile_Particle = "Particles.frag";
+
 	for (int i = 0;i<int(SHADER_REF::SHADER_REF_LAST);i++)
 	{
 		Shader* shdr = new Shader;
@@ -81,6 +85,10 @@ void RenderManager::Init()
 	m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->CreateShaderProgramFromFiles(vsFile_2D, fsFile_2D);
 	m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->CreateShaderProgramFromFiles(vsFile_3D, fsFile_3D);
 	m_vShdr[int(SHADER_REF::SKYBOX)]->CreateShaderProgramFromFiles(vsFile_SkyBox, fsFile_SkyBox);
+	m_vShdr[int(SHADER_REF::PARTICLES)]->CreateShaderProgramFromFiles(vsFile_Particle, fsFile_Particle);
+
+	m_pParticleSystem = new ParticleSystem;
+
 	m_pCam = new Camera;
 	
 	m_pCam->Init();
@@ -154,6 +162,8 @@ void RenderManager::Draw()
 	auto shdr_handle_2D = m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->GetShaderProgramHandle();
 	auto shdr_handle_3D=  m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->GetShaderProgramHandle();
 	auto shdr_handle_skybox = m_vShdr[int(SHADER_REF::SKYBOX)]->GetShaderProgramHandle();
+	auto shdr_handle_particle= m_vShdr[int(SHADER_REF::PARTICLES)]->GetShaderProgramHandle();
+
 	Transform* obj_trs = nullptr;
 	glEnable(GL_DEPTH_TEST);
 	m_pCam->Update();
@@ -161,10 +171,7 @@ void RenderManager::Draw()
 	BeforeDraw();
 
 	m_iLightAffect_location= glGetUniformLocation(shdr_handle_3D, "uLightAffect");
-	
-	
-	
-
+			
 
 	//1. 불투명 먼저 렌더링
 	for (auto obj : m_vOpaqueObject)
@@ -373,9 +380,16 @@ void RenderManager::Draw()
 	//==========
 	//==========
 
-
 	
-
+	//============
+	//============
+	//==Particle==
+	//============
+	//============
+	m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Use();
+	m_pParticleSystem->m_iParticleTransform_loaction = glGetUniformLocation(shdr_handle_particle, "Transform");
+	m_pParticleSystem->Update();
+	m_pParticleSystem->Render();
 
 
 	// 투명 객체 렌더링 전
@@ -394,10 +408,7 @@ void RenderManager::Draw()
 			if (model && is3d)
 			{
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
-
 				
-
-
 				//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
 				m_iMVP_Location = glGetUniformLocation(shdr_handle_3D, "uMVP");
 				assert(m_iMVP_Location >= 0);
@@ -464,43 +475,14 @@ void RenderManager::Draw()
 					{
 						glUniform1i(m_iHas_texture_location, false);
 		 			}
-					
+					 
 					//todo : 여기좀 지저분함 손좀보셈
 					glm::mat4 MVP = GetMVP_ByObject(*obj);
 					glm::mat4 visualOffset;		
 					Player* p = dynamic_cast<Player*>(obj->FindComponent(Player::PlayerTypeName));
 					Monster* mon = dynamic_cast<Monster*>(obj->FindComponent<Monster>());											
 
-
-					//CurseDemon* mon = dynamic_cast<CurseDemon*>(obj->FindComponent<CurseDemon>());
-					bool dashing=false;
-					bool moving = false;					
-					if(p)
-						dashing= p->GetIsDashing();
-					if (p)
-						moving = p->GetIsMoving();					
-					if (obj->GetName() == "Player")
-					{												
-						if (dashing)
-						{
-							// 텍스처가 오른쪽으로 치우쳐 있을 경우, 살짝 왼쪽으로 당김							
-							float texture_offsetX = -0.5f; // ← 여기서 0.1이 보정값 (시각적 기준 보정)
-							visualOffset = glm::translate(glm::mat4(1.f), glm::vec3(texture_offsetX*p->GetDir(), 0.f, 0.f));
-		 				}
-						if (moving)
-						{
-							float texture_offsetY = 0.15f; // ← 여기서 0.1이 보정값 (시각적 기준 보정)
-							visualOffset = glm::translate(glm::mat4(1.f), glm::vec3( 0.f, texture_offsetY, 0.f));
-						}								
-						if (p->GetCurrentState()==PlayerAnimState::COMBO_ATTACK_1||
-							p->GetCurrentState() == PlayerAnimState::COMBO_ATTACK_2||
-							p->GetCurrentState() == PlayerAnimState::COMBO_ATTACK_3)
-						{
-							float texture_offsetX = 0.15f;
-							float texture_offsetY = 0.2f; // ← 여기서 0.1이 보정값 (시각적 기준 보정)
-							visualOffset = glm::translate(glm::mat4(1.f), glm::vec3(texture_offsetX * p->GetDir(), texture_offsetY, 0.f));
-						}
-					}					 
+						 
 					glm::mat4 finalMVP = MVP * visualOffset;					
 					if (anim)
 					{
@@ -525,13 +507,8 @@ void RenderManager::Draw()
 						glUniform2f(m_iUV_Scale_Location, 1, 1);
 					}
 
-					if(dashing||moving||(p!=nullptr&&(p->GetCurrentState() == PlayerAnimState::COMBO_ATTACK_1 ||
-						p->GetCurrentState() == PlayerAnimState::COMBO_ATTACK_2 ||
-						p->GetCurrentState() == PlayerAnimState::COMBO_ATTACK_3)))
-						glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(finalMVP));
-					else
-						glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
-										
+
+					glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
 					if (p&&p->GetIsHurting())					
 						glUniform1i(m_iHurtEffect_location, true);					
 					else					
@@ -542,6 +519,7 @@ void RenderManager::Draw()
 					else
 						glUniform1i(m_iHurtEffect_location, false);
 
+					
 					model->Draw();
 
 					//todo : 주석처리된거 지우고 충돌체 쉐이더를 통해 그리는거 이것도 쉐이더에서 수정하고 

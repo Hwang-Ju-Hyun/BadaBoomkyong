@@ -74,9 +74,9 @@
               "Name": "ComboAtk_1",
               "TextureName": "ComboAtk_1",
               "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_1.png",
-              "Max": 10,
+              "Max": 9,
               "Row": 1,
-              "Col": 10,
+              "Col": 9,
               "Duration": 0.07000000149011612,
               "Loop": false
             },
@@ -84,9 +84,9 @@
               "Name": "ComboAtk_2",
               "TextureName": "ComboAtk_2",
               "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_2.png",
-              "Max": 7,
+              "Max": 6,
               "Row": 1,
-              "Col": 7,
+              "Col": 6,
               "Duration": 0.07000015050172806,
               "Loop": false
             },
@@ -97,6 +97,16 @@
               "Max": 14,
               "Row": 1,
               "Col": 14,
+              "Duration": 0.07000000596046448,
+              "Loop": false
+            },
+            {
+              "Name": "HolySlash",
+              "TextureName": "HolySlash",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Casts/HolySlash/Full/Glow/HolySlash.png",
+              "Max": 28,
+              "Row": 1,
+              "Col": 28,
               "Duration": 0.07000000596046448,
               "Loop": false
             },

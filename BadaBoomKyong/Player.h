@@ -24,6 +24,7 @@ enum PlayerAnimState
     COMBO_ATTACK_1,
     COMBO_ATTACK_2,
     COMBO_ATTACK_3,
+    HOLY_SLASH,
     RUN_ATTACK,
     JUMP_ATTACK,
     DASH,
@@ -66,6 +67,7 @@ private:
     bool m_bIsGround;
     bool m_bIsMoving;
     bool m_bHasLanded;
+    bool m_bHolySlashing = false;
 private:
     ComboStep m_eComboStep = ComboStep::NONE;
     bool m_bComboQueue = false;
@@ -163,6 +165,7 @@ private:
     void AdvanceCombo();
     void EndCombo();
 private:
+    void HolySlash();
 public:
     static BaseRTTI* CreatePlayerComponent();
     virtual void LoadFromJson(const json& _str)override;

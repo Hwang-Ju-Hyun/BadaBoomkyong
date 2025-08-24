@@ -4,6 +4,7 @@
 #include "header.h"
 #include <vector>
 
+class ParticleSystem;
 class Shader;
 class Camera;
 class FrameBuffer;
@@ -43,7 +44,7 @@ private:
 public:	
 	inline Shader* GetShader(SHADER_REF _shdrRef) { return m_vShdr[int(_shdrRef)]; }	
 	Camera* m_pCam=nullptr;
-	Light* m_pLight=nullptr;	
+	Light* m_pLight=nullptr;		
 public:
 	void Init();
 	void BeforeDraw();
@@ -63,4 +64,7 @@ private:
 	FrameBuffer* m_pFrameBuffer = nullptr;
 public:
 	Shader* debugLineShader = nullptr;
+public:
+	//todo : 얘 삭제하셈 파티클 실험중임
+	ParticleSystem* m_pParticleSystem = nullptr;
 };

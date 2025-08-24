@@ -49,6 +49,9 @@ public:
             case PlayerAnimState::COMBO_ATTACK_1:
                 machine->ChangeAnimState(PlayerAnimState::COMBO_ATTACK_1);
                 break;
+            case PlayerAnimState::HOLY_SLASH:
+                machine->ChangeAnimState(PlayerAnimState::HOLY_SLASH);
+                break;
             case PlayerAnimState::DEATH:
                 machine->ChangeAnimState(PlayerAnimState::DEATH);
                 break;

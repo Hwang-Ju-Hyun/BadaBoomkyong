@@ -23,6 +23,7 @@
 #include "Anim_HurtState.h"
 #include "Anim_NormalAttackState_2.h"
 #include "Anim_NormalAttackState_3.h"
+#include "Anim_HolySlash.h"
 #include <functional>
 
 class AnimIdelState;
@@ -58,7 +59,7 @@ Player::Player(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::HURT), new AnimHurtState<Player>());
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::DEATH), new AnimDeathState<Player>());
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::LAND), new AnimLandState<Player>());
-
+	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::HOLY_SLASH), new AnimHolySlash<Player>());
 	m_pAnimStateMachine->ChangeAnimState(PlayerAnimState::IDLE);
 	
 	//todo 바인드 이거 ㅈ나게 ㅈ같음 그리고 AddComboIndex했을때 반환이 int가 사실아님! 씨발! Chatgpt CollisionManager 코드 분석 맨끝줄에 설명있음
@@ -110,6 +111,7 @@ void Player::Update()
 		Jump();
 		Fire();
 		MeleeAttack();
+		HolySlash();
 	}
 	Dash();
 	Death();
@@ -310,8 +312,7 @@ void Player::StateHandler()
 		}		
 		if (m_bIsFalling)
 		{
-			m_eCurrentState = PlayerAnimState::FALL;
-		
+			m_eCurrentState = PlayerAnimState::FALL;		
 		}
 		
 
@@ -345,12 +346,21 @@ void Player::StateHandler()
 		}
 
 		if (std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon
-			&& m_pRigidBody->GetIsGround()))
+			&& m_pRigidBody->GetIsGround())&&!m_bHolySlashing)
 		{
 			m_bJumpMeleeAttacking = false;
 			m_eCurrentState = PlayerAnimState::IDLE;			
 		}						
-			
+		
+
+		if (m_bHolySlashing)
+		{
+			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+			{
+				m_pAnimator->GetAnimation()->m_bLoopCount = 0;;
+				m_bHolySlashing = false;
+			}
+		}
 
 		if (m_bIsDashing)
 		{
@@ -427,7 +437,7 @@ void Player::StartComboStep(ComboStep step)
 	m_bInNormalCombo = true;
 	m_bCanMeleeAttack = true;     // 이동 잠깐 묶고(기존 Move() 가 이 값으로 체크)
 	m_bComboQueue = false;
-	m_fComboAccTime = 0.0f;	
+	m_fComboAccTime = 0.0f;		
 
 	//애니메이션 강제전환
 	switch (step)
@@ -475,6 +485,16 @@ void Player::EndCombo()
 	m_iComboIndex = 0;
 	m_bCanMeleeAttack = false; // 이동 다시 허용
 	m_eCurrentState = PlayerAnimState::IDLE;
+}
+
+void Player::HolySlash()
+{
+	auto input = InputManager::GetInstance();
+	if (input->GetKetCode(GLFW_KEY_Q) == GLFW_PRESS)
+	{
+		m_eCurrentState = PlayerAnimState::HOLY_SLASH;
+		m_bHolySlashing = true;
+	}
 }
 
 BaseRTTI* Player::CreatePlayerComponent()

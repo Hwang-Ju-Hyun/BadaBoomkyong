@@ -203,6 +203,7 @@
     <ClCompile Include="MonoBehaviour.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="ObjectPoolManager.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PatrolState.cpp" />
     <ClCompile Include="PATROL_ExecutionerDemon.cpp" />
     <ClCompile Include="PATROL_CurseDemon.cpp" />
@@ -277,6 +278,7 @@
     <ClInclude Include="GeometryUtill.h" />
     <ClInclude Include="GizmoManager.h" />
     <ClInclude Include="header.h" />
+    <ClInclude Include="Anim_HolySlash.h" />
     <ClInclude Include="IDLE_ExecutionerDemon.h" />
     <ClInclude Include="IPatrolBehaviour.h" />
     <ClInclude Include="Anim_IState.h" />
@@ -321,6 +323,7 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectPoolManager.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PatrolState.h" />
     <ClInclude Include="PATROL_ExecutionerDemon.h" />
     <ClInclude Include="PATROL_CurseDemon.h" />
@@ -368,6 +371,8 @@
     <None Include="json\Level\StageTest\StageTest_3D.json" />
     <None Include="line.frag" />
     <None Include="line.vert" />
+    <None Include="Particles.frag" />
+    <None Include="Particles.vert" />
     <None Include="vertex.vert" />
     <None Include="vertex3d.vert" />
     <None Include="vertexSkyBox.vert" />
