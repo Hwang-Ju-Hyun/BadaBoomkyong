@@ -14,6 +14,8 @@ class MeleeFactory;
 class Bullet;
 class Melee;
 class Animator;
+class HolySlashParticle;
+class ParticleSystem;
 
 enum PlayerAnimState
 { 
@@ -67,6 +69,7 @@ private:
     bool m_bIsGround;
     bool m_bIsMoving;
     bool m_bHasLanded;
+public:
     bool m_bHolySlashing = false;
 private:
     ComboStep m_eComboStep = ComboStep::NONE;
@@ -164,8 +167,10 @@ private:
     void StartComboStep(ComboStep step);
     void AdvanceCombo();
     void EndCombo();
-private:
     void HolySlash();
+public:
+    HolySlashParticle* m_pHolySlashParticle;
+    ParticleSystem* m_pPs;
 public:
     static BaseRTTI* CreatePlayerComponent();
     virtual void LoadFromJson(const json& _str)override;

@@ -52,7 +52,6 @@ public:
     }
 
     virtual void Exit(T* _owner) override 
-    {
-        std::cout << "Fall Exit" << std::endl;
+    {        
     }
 };

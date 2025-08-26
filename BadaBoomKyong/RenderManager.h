@@ -3,8 +3,8 @@
 #include "Singleton.h"
 #include "header.h"
 #include <vector>
+#include "ParticleSystem.h"
 
-class ParticleSystem;
 class Shader;
 class Camera;
 class FrameBuffer;
@@ -67,4 +67,5 @@ public:
 public:
 	//todo : 얘 삭제하셈 파티클 실험중임
 	ParticleSystem* m_pParticleSystem = nullptr;
+	ParticleProps m_Particle;
 };

@@ -168,6 +168,7 @@
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="GeometryUtill.cpp" />
     <ClCompile Include="GizmoManager.cpp" />
+    <ClCompile Include="HolySlashParticle.cpp" />
     <ClCompile Include="IDLE_ExecutionerDemon.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
@@ -279,6 +280,7 @@
     <ClInclude Include="GizmoManager.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="Anim_HolySlash.h" />
+    <ClInclude Include="HolySlashParticle.h" />
     <ClInclude Include="IDLE_ExecutionerDemon.h" />
     <ClInclude Include="IPatrolBehaviour.h" />
     <ClInclude Include="Anim_IState.h" />

@@ -1,4 +1,5 @@
 #include <GL/glew.h>
+#include "ParticleSystem.h"
 #include "RenderManager.h"
 #include "ModelManager.h"
 #include "Model.h"
@@ -34,9 +35,9 @@
 #include "Light.h"
 #include "CubeMapResource.h"
 #include "SkyBox.h"
-#include "ParticleSystem.h"
 
 //temp Áö¿ì¼À
+#include "InputManager.h"
 #include "MathUtil.h"
 
 
@@ -61,7 +62,7 @@ void RenderManager::InitDebugLineShader()
 	debugLineShader->CreateShaderProgramFromFiles("line.vert", "line.frag");
 	m_debugLineShader = debugLineShader;
 }
-
+static float x = 0.f;
 void RenderManager::Init()
 {
 	const char* vsFile_2D = "vertex.vert";
@@ -88,10 +89,13 @@ void RenderManager::Init()
 	m_vShdr[int(SHADER_REF::PARTICLES)]->CreateShaderProgramFromFiles(vsFile_Particle, fsFile_Particle);
 
 	m_pParticleSystem = new ParticleSystem;
+	
+	
 
 	m_pCam = new Camera;
 	
 	m_pCam->Init();
+	m_pParticleSystem->Init();
 
 	//todo : ÀÌ°Å °ð light manager·Î ¿Å±â¼À
 	GameObject* light_obj = GameObjectManager::GetInstance()->FindObject("LightTemp");
@@ -186,10 +190,7 @@ void RenderManager::Draw()
 			bool is3d = obj->GetIs3D();
 			if (model && is3d)
 			{
-				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
-
-				
-
+				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();				
 
 				m_iMVP_Location = glGetUniformLocation(shdr_handle_3D, "uMVP");
 				assert(m_iMVP_Location >= 0);
@@ -380,16 +381,38 @@ void RenderManager::Draw()
 	//==========
 	//==========
 
+
+
+	for (auto obj : objs)
+	{
+		Player* p = dynamic_cast<Player*>(obj->FindComponent<Player>());
+		//============
+		//============
+		//==Particle==
+		//============
+		//============	
+		if (p && p->m_bHolySlashing)
+		{
+			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Use();
+			p->m_pPs->m_iParticleTransform_location = glGetUniformLocation(shdr_handle_particle, "u_MVP_Particle");
+			assert(p->m_pPs->m_iParticleTransform_location >= 0);
+			p->m_pPs->m_iParticleShaderColor_location = glGetUniformLocation(shdr_handle_particle, "u_Color");
+			assert(p->m_pPs->m_iParticleShaderColor_location >= 0);
+
+			p->m_pPs->Update();
+			p->m_pPs->Render();
+			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Diuse();
+		}
+		//============
+		//============
+		//==Particle==
+		//============
+		//============
+	}
 	
-	//============
-	//============
-	//==Particle==
-	//============
-	//============
-	m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Use();
-	m_pParticleSystem->m_iParticleTransform_loaction = glGetUniformLocation(shdr_handle_particle, "Transform");
-	m_pParticleSystem->Update();
-	m_pParticleSystem->Render();
+
+	
+	
 
 
 	// Åõ¸í °´Ã¼ ·»´õ¸µ Àü
@@ -517,8 +540,7 @@ void RenderManager::Draw()
 					if (mon && mon->GetIsHurting())					
 						glUniform1i(m_iHurtEffect_location, true);
 					else
-						glUniform1i(m_iHurtEffect_location, false);
-
+						glUniform1i(m_iHurtEffect_location, false);					
 					
 					model->Draw();
 

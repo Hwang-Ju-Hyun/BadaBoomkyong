@@ -97,8 +97,7 @@ void PlayerMelee::Update()
 }
 
 void PlayerMelee::Exit()
-{
-    std::cout << "Exit" << std::endl;
+{  
     m_fCurTime = 0.f;
     m_bIsMeleeAttacking = false;
     EventManager::GetInstance()->SetActiveFalse(GetOwner());
@@ -114,8 +113,7 @@ void PlayerMelee::EnterCollision(Collider* _col)
     if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::MONSTER)
     {
         if (m_pMonster)
-        {
-            std::cout << "Enter col" << std::endl;
+        {            
             m_pMonster->MinusCurrentHp(1);
             m_pMonster->SetIsHurting(true);            
         }            
@@ -124,7 +122,7 @@ void PlayerMelee::EnterCollision(Collider* _col)
 
 void PlayerMelee::OnCollision(Collider* _col)
 {    
-    std::cout << "OnCol" << std::endl;
+   
 }
 
 void PlayerMelee::ExitCollision(Collider* _col)

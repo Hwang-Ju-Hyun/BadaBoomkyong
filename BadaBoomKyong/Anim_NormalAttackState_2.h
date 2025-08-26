@@ -74,7 +74,6 @@ public:
             {
                 EventManager::GetInstance()->SetActiveFalse(m_pMelee->GetOwner());
             }
-        }
-        std::cout << "combo2 exit" << std::endl;
+        }        
     }
 };

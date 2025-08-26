@@ -25,6 +25,8 @@
 #include "Anim_NormalAttackState_3.h"
 #include "Anim_HolySlash.h"
 #include <functional>
+#include "HolySlashParticle.h"
+#include "ParticleSystem.h"
 
 class AnimIdelState;
 template<typename T>
@@ -62,6 +64,8 @@ Player::Player(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(PlayerAnimState::HOLY_SLASH), new AnimHolySlash<Player>());
 	m_pAnimStateMachine->ChangeAnimState(PlayerAnimState::IDLE);
 	
+	m_pPs = new ParticleSystem;
+	m_pHolySlashParticle = new HolySlashParticle(m_pPs);
 	//todo 바인드 이거 ㅈ나게 ㅈ같음 그리고 AddComboIndex했을때 반환이 int가 사실아님! 씨발! Chatgpt CollisionManager 코드 분석 맨끝줄에 설명있음
 	//todo 이거 지금은 주석되어있는데 중요한 문법들 많아서 시간있을때 참고해서 공부해보셈
 	//AnimationSpriteSheet* anim_clip = m_pAnimator->GetSpriteSheet("ComboAtk_1");
@@ -77,6 +81,10 @@ Player::~Player()
 		delete m_pAnimStateMachine;
 		m_pAnimStateMachine = nullptr;
 	}		
+	if(m_pHolySlashParticle)
+		delete m_pHolySlashParticle;
+	if(m_pPs)
+		delete m_pPs;
 }
 
 void Player::Init()
@@ -397,8 +405,6 @@ void Player::StateHandler()
 			m_bIsHurting = false;
 		}
 	}
-
-	std::cout << GetCurrentState() << std::endl;
 }
 
 void Player::Jump()
@@ -494,6 +500,7 @@ void Player::HolySlash()
 	{
 		m_eCurrentState = PlayerAnimState::HOLY_SLASH;
 		m_bHolySlashing = true;
+		m_pHolySlashParticle->CreateParticles(5);
 	}
 }
 

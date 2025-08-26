@@ -362,6 +362,12 @@
     <Filter Include="ShaderFiles\Particle">
       <UniqueIdentifier>{9a41a20e-c8b4-4713-a5fb-20682c625c09}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particle\HolySlash">
+      <UniqueIdentifier>{01e50fc9-46d6-42de-843a-4796d508ca70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ParticleSystemManager">
+      <UniqueIdentifier>{d37448d7-2ac7-498c-affc-51bcba70858a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -636,6 +642,9 @@
     </ClCompile>
     <ClCompile Include="ParticleSystem.cpp">
       <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="HolySlashParticle.cpp">
+      <Filter>Particle\HolySlash</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -998,6 +1007,9 @@
     </ClInclude>
     <ClInclude Include="ParticleSystem.h">
       <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="HolySlashParticle.h">
+      <Filter>Particle\HolySlash</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
