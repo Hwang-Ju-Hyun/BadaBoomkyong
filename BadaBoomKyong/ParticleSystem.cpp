@@ -13,7 +13,7 @@
 
 ParticleSystem::ParticleSystem()
 {
-	m_vecParticlePool.resize(5);
+	m_vecParticlePool.resize(400);
 }
 
 ParticleSystem::~ParticleSystem()
@@ -69,9 +69,9 @@ void ParticleSystem::Update()
 			m_vecParticlePool[i].m_bActive = false;
 			continue;
 		}				
-		m_vecParticlePool[i].m_fLifeTimeRemaining -= dt;
-		//m_vecParticlePool[i].m_vPosition += m_vecParticlePool[i].m_vVelocity * dt;
-		//rotation 넣고 싶으면 넣으셈
+		m_vecParticlePool[i].m_fLifeTimeRemaining -= dt;		
+		//todo : 매니저에서 역할하도록 하셈
+				
 	}
 }
 
@@ -136,4 +136,9 @@ void ParticleSystem::Emit(const ParticleProps& _particleProps)
 	particle.m_fSizeEnd =           _particleProps.m_fSizeEnd;
 
 	m_uiPoolIndex = (m_uiPoolIndex + 1) % m_vecParticlePool.size();
+}
+
+void ParticleSystem::SetParticlePoolSize(int _size)
+{
+	m_vecParticlePool.resize(_size);
 }

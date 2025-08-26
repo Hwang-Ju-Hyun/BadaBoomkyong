@@ -298,8 +298,9 @@ void MainEditor::UpdateEditorCameraControls()
 			moveDir += m_pCam->m_vCamRight;
 		if (input->GetKetCode(GLFW_KEY_E) == GLFW_REPEAT)
 			moveDir += m_pCam->m_vCamUp;
-		if (input->GetKetCode(GLFW_KEY_Q) == GLFW_REPEAT)
-			moveDir -= m_pCam->m_vCamUp;
+		//todo : ÇÊ¿ä½Ã ÁÖ¼®Çª¼À
+		/*if (input->GetKetCode(GLFW_KEY_Q) == GLFW_REPEAT)
+			moveDir -= m_pCam->m_vCamUp;*/
 
 		if (glm::length(moveDir) > 0.0f)
 		{

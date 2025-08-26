@@ -80,4 +80,11 @@ enum class EVENT_TYPE
 	LAST
 };
 
+enum class ParticleEffectType
+{
+	HOLY_SLASH=0,
+	LAST
+};
+
+
 static const float g_epsilon = 0.001f;

@@ -646,6 +646,9 @@
     <ClCompile Include="HolySlashParticle.cpp">
       <Filter>Particle\HolySlash</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleSystemManager.cpp">
+      <Filter>Manager\ParticleSystemManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -1010,6 +1013,9 @@
     </ClInclude>
     <ClInclude Include="HolySlashParticle.h">
       <Filter>Particle\HolySlash</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystemManager.h">
+      <Filter>Manager\ParticleSystemManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

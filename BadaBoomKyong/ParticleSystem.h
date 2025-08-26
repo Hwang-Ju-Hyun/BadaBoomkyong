@@ -54,5 +54,7 @@ public:
 	int m_iParticleShaderColor_location;
 	int m_iParticleShaderMVP;
 	Camera* cam = nullptr;
+public:
+	void SetParticlePoolSize(int _size);
 };
 

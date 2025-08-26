@@ -205,6 +205,7 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="ObjectPoolManager.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="ParticleSystemManager.cpp" />
     <ClCompile Include="PatrolState.cpp" />
     <ClCompile Include="PATROL_ExecutionerDemon.cpp" />
     <ClCompile Include="PATROL_CurseDemon.cpp" />
@@ -326,6 +327,7 @@
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectPoolManager.h" />
     <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="ParticleSystemManager.h" />
     <ClInclude Include="PatrolState.h" />
     <ClInclude Include="PATROL_ExecutionerDemon.h" />
     <ClInclude Include="PATROL_CurseDemon.h" />
