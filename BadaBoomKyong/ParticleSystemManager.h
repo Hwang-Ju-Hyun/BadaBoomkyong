@@ -8,8 +8,7 @@ class ParticleSystem;
 class ParticleSystemManager
 {
 public:
-	ParticleSystemManager();
-	~ParticleSystemManager();
+	SINGLETON(ParticleSystemManager);	
 public:
 	void Init();
 	void Update();

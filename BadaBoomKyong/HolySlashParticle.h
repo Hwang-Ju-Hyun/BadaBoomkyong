@@ -13,6 +13,7 @@ public:
 	HolySlashParticle(ParticleSystem* _ps,GameObject* _owner=nullptr);
 	~HolySlashParticle();
 public:
+	void Init();
 	void CreateParticles(int _emitNum);
 private:
 	Player* m_pPlayer;

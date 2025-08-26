@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Transform.h"
 #include "MathUtil.h"
+#include "ParticleSystemManager.h"
 
 HolySlashParticle::HolySlashParticle(ParticleSystem* _ps, GameObject* _owner)
 	:m_pParticleSystem(_ps)
@@ -16,12 +17,24 @@ HolySlashParticle::HolySlashParticle(ParticleSystem* _ps, GameObject* _owner)
 	m_pParticleSystem->SetParticlePoolSize(m_iParticle_num);
 
 	m_pPlayer = dynamic_cast<Player*>(_owner->FindComponent<Player>());
-	m_pPlayerTransform= dynamic_cast<Transform*>(_owner->FindComponent<Transform>());
+	m_pPlayerTransform = dynamic_cast<Transform*>(_owner->FindComponent<Transform>());
+
+	ParticleSystemManager::GetInstance()->RegistParticlePool(ParticleEffectType::HOLY_SLASH, m_pParticleSystem);		
+}
+
+HolySlashParticle::~HolySlashParticle()
+{
+	delete m_pParticleProps;
+}
+
+void HolySlashParticle::Init()
+{
+	
 	glm::vec3 player_pos = m_pPlayerTransform->GetPosition();
-	auto rand = MathUtil::GetInstance();	
+	auto rand = MathUtil::GetInstance();
 
 	for (int i = 0;i < m_iParticle_num;i++)
-	{		
+	{
 		float max_radius = 200.f;
 		float degree_radian_1 = rand->GetRandomNumber(0.f, 360.f);
 		float degree_radian_2 = rand->GetRandomNumber(0.f, 360.f);
@@ -36,7 +49,7 @@ HolySlashParticle::HolySlashParticle(ParticleSystem* _ps, GameObject* _owner)
 		m_pParticleProps->m_vVelocityVariation = { 3.0f, 1.0f,0.f };
 
 
-		float theta = rand->GetRandomNumber(0.f, 3.141592f/1.5f); // 0~¥ð
+		float theta = rand->GetRandomNumber(0.f, 3.141592f / 1.5f); // 0~¥ð
 		float phi = rand->GetRandomNumber(0.f, 2.0f * 3.141592f); // 0~360µµ
 
 		m_pParticleProps->m_vPosition.x = player_pos.x + distance * std::sin(theta) * std::cos(phi);
@@ -45,12 +58,6 @@ HolySlashParticle::HolySlashParticle(ParticleSystem* _ps, GameObject* _owner)
 
 		m_vecParticlePros.push_back(*m_pParticleProps);
 	}
-	
-}
-
-HolySlashParticle::~HolySlashParticle()
-{
-	delete m_pParticleProps;
 }
 
 void HolySlashParticle::CreateParticles(int _emitNum)
