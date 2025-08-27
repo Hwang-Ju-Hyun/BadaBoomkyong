@@ -155,6 +155,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="ColorOverLifeTime.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="CubeMapResource.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -212,6 +213,7 @@
     <ClCompile Include="Pistol.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerMelee.cpp" />
+    <ClCompile Include="PositionOverLifeTime.cpp" />
     <ClCompile Include="RangedState.cpp" />
     <ClCompile Include="RANGED_CurseDemon.cpp" />
     <ClCompile Include="Registry.cpp" />
@@ -223,6 +225,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="CurseDemonMelee.cpp" />
     <ClCompile Include="CurseDemon.cpp" />
+    <ClCompile Include="SizeOverLifeTime.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage01.cpp" />
@@ -266,6 +269,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="ColorOverLifeTime.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="CubeMapResource.h" />
     <ClInclude Include="EventManager.h" />
@@ -283,6 +287,7 @@
     <ClInclude Include="Anim_HolySlash.h" />
     <ClInclude Include="HolySlashParticle.h" />
     <ClInclude Include="IDLE_ExecutionerDemon.h" />
+    <ClInclude Include="IParticleBehavior.h" />
     <ClInclude Include="IPatrolBehaviour.h" />
     <ClInclude Include="Anim_IState.h" />
     <ClInclude Include="Light.h" />
@@ -334,6 +339,7 @@
     <ClInclude Include="Pistol.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerMelee.h" />
+    <ClInclude Include="PositionOverLifeTime.h" />
     <ClInclude Include="RangedState.h" />
     <ClInclude Include="RANGED_CurseDemon.h" />
     <ClInclude Include="Registry.h" />
@@ -346,6 +352,7 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="CurseDemonMelee.h" />
     <ClInclude Include="CurseDemon.h" />
+    <ClInclude Include="SizeOverLifeTime.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage01.h" />

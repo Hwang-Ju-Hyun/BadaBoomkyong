@@ -368,6 +368,18 @@
     <Filter Include="Manager\ParticleSystemManager">
       <UniqueIdentifier>{d37448d7-2ac7-498c-affc-51bcba70858a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particle\Behaviour">
+      <UniqueIdentifier>{c0329a2b-2d4f-4824-a075-7481d065c826}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\Behaviour\Color">
+      <UniqueIdentifier>{d64418bc-ac18-48ae-978f-666751d42e9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\Behaviour\Size">
+      <UniqueIdentifier>{848f74d8-001c-4e5c-b241-3a98a0152718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\Behaviour\Position">
+      <UniqueIdentifier>{ac5d8d0e-b472-4e31-bd04-10e30e822afd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -640,14 +652,23 @@
     <ClCompile Include="SkyBox.cpp">
       <Filter>Component\Default\SkyBox</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleSystem.cpp">
-      <Filter>Particle</Filter>
-    </ClCompile>
     <ClCompile Include="HolySlashParticle.cpp">
       <Filter>Particle\HolySlash</Filter>
     </ClCompile>
     <ClCompile Include="ParticleSystemManager.cpp">
       <Filter>Manager\ParticleSystemManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorOverLifeTime.cpp">
+      <Filter>Particle\Behaviour\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="SizeOverLifeTime.cpp">
+      <Filter>Particle\Behaviour\Size</Filter>
+    </ClCompile>
+    <ClCompile Include="PositionOverLifeTime.cpp">
+      <Filter>Particle\Behaviour\Position</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1016,6 +1037,18 @@
     </ClInclude>
     <ClInclude Include="ParticleSystemManager.h">
       <Filter>Manager\ParticleSystemManager</Filter>
+    </ClInclude>
+    <ClInclude Include="IParticleBehavior.h">
+      <Filter>Particle\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorOverLifeTime.h">
+      <Filter>Particle\Behaviour\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="SizeOverLifeTime.h">
+      <Filter>Particle\Behaviour\Size</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionOverLifeTime.h">
+      <Filter>Particle\Behaviour\Position</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

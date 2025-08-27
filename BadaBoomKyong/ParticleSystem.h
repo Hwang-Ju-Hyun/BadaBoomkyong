@@ -1,17 +1,34 @@
 #pragma once
 #include <glm.hpp>
 #include <vector>
+#include "IParticleBehavior.h"
 
 class Camera;
+class IParticleBehavior;
 
-//파티클을 생성할 때 주는 설정값(템플릿)
-struct ParticleProps
+
+
+
+
+//실제로 풀(pool) 안에서 돌고 있는 개별 파티클 객체
+struct Particle 
 {
 	glm::vec3 m_vPosition;
-	glm::vec3 m_vVelocity, m_vVelocityVariation;
-	glm::vec4 m_vColorBegin, m_vColorEnd;
-	float m_fSizeBegin, m_fSizeEnd, m_fSizeVariation;
-	float m_fLifeTime = 10.0f;
+	glm::vec3 m_vVelocity;
+	float m_fRotation;
+	glm::vec4 m_vColor;
+	float m_fSize;
+	float m_fLifeTime;
+	float m_fLifeRemaining;
+	bool m_bActive = false;
+
+	IParticleBehavior* behaviors[4]; // Behavior 포인터 배열
+	int behaviorCount = 0;
+
+	//behavior position용 변수
+	glm::vec3 m_vPositionStart, m_vPositionEnd;
+	float m_fAngleOffset; // 파티클별 초기 각도
+	glm::vec3 m_vRandomDir;
 };
 
 
@@ -26,20 +43,8 @@ public:
 	void Render();
 	void Exit();
 public:
-	void Emit(const ParticleProps& _particleProps);
+	void Emit(const Particle& _particle, IParticleBehavior** behaviors, int _count);
 private:
-	//실제로 풀(pool) 안에서 돌고 있는 개별 파티클 객체
-	struct Particle
-	{
-		glm::vec3 m_vPosition;
-		glm::vec3 m_vVelocity;
-		float m_fRotation;
-		glm::vec4 m_vColorBegin, m_vColorEnd;
-		float m_fSizeBegin, m_fSizeEnd;
-		float m_fLifeTime = 10.0f;
-		float m_fLifeTimeRemaining;
-		bool m_bActive=false;
-	};
 	
 	unsigned int m_uiPoolIndex = 0;
 

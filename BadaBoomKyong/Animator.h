@@ -58,6 +58,7 @@ private:
 public:
     inline void SetAnimation(AnimationSpriteSheet* _anim) { m_pCurrentAnimation = _anim; }
     inline AnimationSpriteSheet* GetAnimation()const { return m_pCurrentAnimation; }
+    inline const int GetCurrentFrameIndex()const { return m_iCurrentFrameIndex; }
 private:    
     int m_iCurrentFrameIndex = 0;
 public:

@@ -67,5 +67,5 @@ public:
 public:
 	//todo : 얘 삭제하셈 파티클 실험중임
 	ParticleSystem* m_pParticleSystem = nullptr;
-	ParticleProps m_Particle;
+
 };

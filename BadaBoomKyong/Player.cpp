@@ -504,6 +504,18 @@ void Player::HolySlash()
 		m_bHolySlashing = true;
 		m_pHolySlashParticle->CreateParticles(m_pHolySlashParticle->GetEmitSize());
 	}
+
+	if (m_bHolySlashing)
+	{
+		if (m_pAnimator->GetCurrentFrameIndex() == 20)
+		{
+			Bullet* bullet_comp = m_pBulletFactory->CreateBullet(BULLET_TYPE::PISTOL);
+			m_pBullet = bullet_comp;
+			assert(m_pBullet != nullptr);
+
+			EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
+		}
+	}
 }
 
 BaseRTTI* Player::CreatePlayerComponent()

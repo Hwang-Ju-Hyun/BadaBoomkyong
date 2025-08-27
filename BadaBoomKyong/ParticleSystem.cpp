@@ -10,6 +10,7 @@
 #include "MathUtil.h"
 #include "RenderManager.h"
 #include "Camera.h"
+#include "glm.hpp"
 
 ParticleSystem::ParticleSystem()
 {
@@ -64,14 +65,19 @@ void ParticleSystem::Update()
 		{			
 			continue;
 		}
-		if (m_vecParticlePool[i].m_fLifeTimeRemaining <= 0.1f)
+		if (m_vecParticlePool[i].m_fLifeRemaining <= 0.1f)
 		{		
 			m_vecParticlePool[i].m_bActive = false;
 			continue;
 		}				
-		m_vecParticlePool[i].m_fLifeTimeRemaining -= dt;		
-		//todo : 매니저에서 역할하도록 하셈
-				
+		for (int j = 0;j < m_vecParticlePool[i].behaviorCount;j++)
+		{
+			if (m_vecParticlePool[i].behaviors[j])
+			{
+				m_vecParticlePool[i].behaviors[j]->Update(m_vecParticlePool[i], dt);
+			}			
+		}
+		m_vecParticlePool[i].m_fLifeRemaining -= dt;			
 	}
 }
 
@@ -82,21 +88,28 @@ void ParticleSystem::Render()
 		if (!m_vecParticlePool[i].m_bActive)
 		{			
 			continue;
-		}					
-		cam= RenderManager::GetInstance()->GetCamera();
-		// Fade away particles
-		float life = m_vecParticlePool[i].m_fLifeTimeRemaining / m_vecParticlePool[i].m_fLifeTime;
-		glm::vec4 color = glm::lerp(m_vecParticlePool[i].m_vColorEnd, m_vecParticlePool[i].m_vColorBegin, life);
-		color.a = color.a * life;
+		}
 
-		float size = glm::lerp(m_vecParticlePool[i].m_fSizeEnd, m_vecParticlePool[i].m_fSizeBegin, life);
+		cam= RenderManager::GetInstance()->GetCamera();		
+		
+		glUniform4fv(m_iParticleShaderColor_location, 1, glm::value_ptr(m_vecParticlePool[i].m_vColor));
 
 		glm::mat4 translate = glm::translate(glm::mat4(1.0f), m_vecParticlePool[i].m_vPosition);
-		glm::mat4 scale = glm::scale(glm::mat4(1.0f), { size,size,1.f });
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), { m_vecParticlePool[i].m_fSize,m_vecParticlePool[i].m_fSize,1.f });
 		glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f), m_vecParticlePool[i].m_fRotation, glm::vec3(0, 0, 1));
-				
-		glUniform4fv(m_iParticleShaderColor_location, 1, glm::value_ptr(color));
-		glm::mat4 m2w = translate * rotateZ * scale;
+		
+		glm::vec3 cam_pos= cam->GetCamPosition();
+
+		glm::vec3 dir = glm::normalize(cam_pos - m_vecParticlePool[i].m_vPosition);
+		dir.y = 0.0f; // cylindrical billboard 
+		glm::vec3 right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), dir));
+		glm::vec3 up = glm::cross(dir, right);
+		glm::mat4 billboard = glm::mat4(1.0f);
+		billboard[0] = glm::vec4(right, 0.0f);
+		billboard[1] = glm::vec4(up, 0.0f);
+		billboard[2] = glm::vec4(dir, 0.0f);
+
+		glm::mat4 m2w = translate * billboard * scale;
 		glm::mat4 proj = cam->GetProjMatrix();
 		glm::mat4 view = cam->GetViewMatrix();
 		glUniformMatrix4fv(m_iParticleTransform_location, 1, GL_FALSE, glm::value_ptr(proj * view * m2w));
@@ -111,29 +124,18 @@ void ParticleSystem::Exit()
 }
 
 
-void ParticleSystem::Emit(const ParticleProps& _particleProps)
+void ParticleSystem::Emit(const Particle& _particle, IParticleBehavior** behaviors, int _count)
 {
-	Particle& particle = m_vecParticlePool[m_uiPoolIndex];
-	particle.m_bActive = true;	
-	particle.m_fRotation = 1.f;
-	
-	particle.m_vPosition.x = _particleProps.m_vPosition.x;
-	particle.m_vPosition.y = _particleProps.m_vPosition.y;
-	particle.m_vPosition.z = _particleProps.m_vPosition.z;
-	
-	//// Velocity
-	//particle.m_vVelocity = _particleProps.m_vVelocity;
-	//particle.m_vVelocity.x += _particleProps.m_vVelocityVariation.x * rand_num ;
-	//particle.m_vVelocity.y += _particleProps.m_vVelocityVariation.y * rand_num ;
+	Particle& p = m_vecParticlePool[m_uiPoolIndex];
+	p = _particle;       // 초기값 복사
+	p.m_bActive = true;
 
-	// Color
-	particle.m_vColorBegin =        _particleProps.m_vColorBegin;
-	particle.m_vColorEnd =          _particleProps.m_vColorEnd;			 
-	float rand_num_life = MathUtil::GetInstance()->GetRandomNumber(1.f, 3.f);
-	particle.m_fLifeTime =          _particleProps.m_fLifeTime;
-	particle.m_fLifeTimeRemaining = _particleProps.m_fLifeTime;
-	particle.m_fSizeBegin =         _particleProps.m_fSizeBegin;
-	particle.m_fSizeEnd =           _particleProps.m_fSizeEnd;
+	// Behavior 연결
+	p.behaviorCount = _count;
+	for (int i = 0; i < _count; i++)
+	{
+		p.behaviors[i] = behaviors[i];
+	}
 
 	m_uiPoolIndex = (m_uiPoolIndex + 1) % m_vecParticlePool.size();
 }

@@ -381,8 +381,7 @@ void RenderManager::Draw()
 	//==========
 	//==========
 
-
-
+	
 	for (auto obj : objs)
 	{
 		Player* p = dynamic_cast<Player*>(obj->FindComponent<Player>());
@@ -393,6 +392,7 @@ void RenderManager::Draw()
 		//============	
 		if (p && p->m_bHolySlashing)
 		{
+			//glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Use();
 			p->m_pPs->m_iParticleTransform_location = glGetUniformLocation(shdr_handle_particle, "u_MVP_Particle");
 			assert(p->m_pPs->m_iParticleTransform_location >= 0);

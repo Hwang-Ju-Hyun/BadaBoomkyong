@@ -71,6 +71,27 @@ void Transform::Update()
 		glm::mat4 rotationMatrix = glm::toMat4(quatRotation);		
 
 		m_mModeltoWorld_3D = translate * rotationMatrix * scale;
+
+		if (GetOwner()->GetName() == "Player")
+		{
+			const GameObject* owner = GetOwner();
+			Camera* cam = RenderManager::GetInstance()->GetCamera();
+			glm::vec3 cam_pos = cam->GetCamPosition();
+			glm::vec3 obj_pos = m_vPosition;
+
+			glm::vec3 dir = glm::normalize(cam_pos - obj_pos);
+			dir.y = 0.0f; // cylindrical billboard 
+			glm::vec3 right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), dir));
+			glm::vec3 up = glm::cross(dir, right);
+
+			glm::mat4 billboard = glm::mat4(1.0f);
+			billboard[0] = glm::vec4(right, 0.0f);
+			billboard[1] = glm::vec4(up, 0.0f);
+			billboard[2] = glm::vec4(dir, 0.0f);
+
+			m_mModeltoWorld_3D = translate * billboard * scale;
+			return;
+		}
 	}
 	else
 	{				
