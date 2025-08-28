@@ -26,7 +26,7 @@ Stage01::~Stage01()
 }
 
 void Stage01::Init()
-{
+{	
 	Serializer::GetInstance()->LoadJson_Object("json/Level/Stage01/Stage01_3D.json");
 	//Serializer::GetInstance()->LoadJson_Object("json/temp/temp.json");		
 	

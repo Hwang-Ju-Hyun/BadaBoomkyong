@@ -380,6 +380,7 @@
     <None Include="json\Level\Stage03\Stage03_3D.json" />
     <None Include="json\Level\StageTest\StageTest_2D.json" />
     <None Include="json\Level\StageTest\StageTest_3D.json" />
+    <None Include="json\Prefab\Player\Slash\Slash_Prefab.json" />
     <None Include="line.frag" />
     <None Include="line.vert" />
     <None Include="Particles.frag" />

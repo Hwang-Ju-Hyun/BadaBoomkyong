@@ -12,6 +12,7 @@ class Serializer
 public:
 	SINGLETON(Serializer);
 public:
+	GameObject* LoadPrefab(const std::string& _path);
 	GameObject* LoadJson_Object(const std::string& _path);
 	void SaveJson_Object(const std::string& _path,bool _is3d);
 	GameObject* CreateObjectFromJson(json _item);

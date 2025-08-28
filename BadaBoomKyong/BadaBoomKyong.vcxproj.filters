@@ -380,6 +380,9 @@
     <Filter Include="Particle\Behaviour\Position">
       <UniqueIdentifier>{ac5d8d0e-b472-4e31-bd04-10e30e822afd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Json\Prefab">
+      <UniqueIdentifier>{54e0ae77-a6e0-4ec1-8cde-069d33c7d12b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -1108,6 +1111,9 @@
     </None>
     <None Include="Particles.frag">
       <Filter>ShaderFiles\Particle</Filter>
+    </None>
+    <None Include="json\Prefab\Player\Slash\Slash_Prefab.json">
+      <Filter>Json\Prefab</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -15,23 +15,27 @@ Serializer::Serializer() {}
 
 Serializer::~Serializer(){}
 
+GameObject* Serializer::LoadPrefab(const std::string& _path)
+{	
+	return LoadJson_Object(_path);
+}
+
 GameObject* Serializer::LoadJson_Object(const std::string& _path)
 {
-	std::fstream file;	
+	std::fstream file;
 	file.open(_path, std::fstream::in);
 	ASSERT_MSG(file.is_open(), ("Can't open file : " + _path).c_str());
-	
+
 	json js_all_data;
 	file >> js_all_data;
-	file.close();
-	
-	
+	file.close();	
+	GameObject* obj = nullptr;
 	for (auto& item : js_all_data)
-	{
-		CreateObjectFromJson(item);
+	{		
+		obj = CreateObjectFromJson(item);
 	}
 
-	return nullptr;
+	return obj;
 }
 
 GameObject* Serializer::CreateObjectFromJson(json _item)

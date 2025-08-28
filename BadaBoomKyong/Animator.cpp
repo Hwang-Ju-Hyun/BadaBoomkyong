@@ -80,8 +80,8 @@ void Animator::Update()
 	if (m_pCurrentAnimation->m_fDuration_per_frame <= m_fAnmationAccTime)
 	{		   
 		m_iCurrentFrameIndex += 1;
-		m_iCurrentFrameIndex %= m_pCurrentAnimation->m_iSheet_Max;
-		
+		m_iCurrentFrameIndex %= m_pCurrentAnimation->m_iSheet_Max;	
+
 		int current_sheet_row = m_iCurrentFrameIndex / m_pCurrentAnimation->m_iSheet_Col;
 		int current_sheet_col = m_iCurrentFrameIndex % m_pCurrentAnimation->m_iSheet_Col;	
 

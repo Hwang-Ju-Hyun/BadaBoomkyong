@@ -8,13 +8,13 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            1432.71533203125,
-            -230.86221313476563,
+            2157.324951171875,
+            306.4505920410156,
             0.0
           ],
           "Sca": [
-            100.0,
-            100.0,
+            300.0,
+            300.0,
             0.0
           ],
           "Rot": [
@@ -33,8 +33,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "Idle",
-          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Idle/Idle.png"
+          "TextureName": "ComboAtk_1",
+          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_1.png"
         }
       },
       {
@@ -56,12 +56,12 @@
         "CompData": {
           "Offset_Position": [
             0.0,
-            0.0,
+            10.0,
             0.0
           ],
           "Scale": [
             40.0,
-            75.0,
+            65.0,
             0.0
           ]
         }
@@ -77,7 +77,7 @@
               "Max": 9,
               "Row": 1,
               "Col": 9,
-              "Duration": 0.07000000149011612,
+              "Duration": 0.7000000029802322,
               "Loop": false
             },
             {
@@ -87,7 +87,7 @@
               "Max": 6,
               "Row": 1,
               "Col": 6,
-              "Duration": 0.07000015050172806,
+              "Duration": 0.7000014930963516,
               "Loop": false
             },
             {
@@ -97,17 +97,7 @@
               "Max": 14,
               "Row": 1,
               "Col": 14,
-              "Duration": 0.07000000596046448,
-              "Loop": false
-            },
-            {
-              "Name": "HolySlash",
-              "TextureName": "HolySlash",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Casts/HolySlash/Full/Glow/HolySlash.png",
-              "Max": 28,
-              "Row": 1,
-              "Col": 28,
-              "Duration": 0.07000000596046448,
+              "Duration": 0.07000000774860382,
               "Loop": false
             },
             {
@@ -139,6 +129,16 @@
               "Col": 6,
               "Duration": 0.10000000149011612,
               "Loop": true
+            },
+            {
+              "Name": "HolySlash",
+              "TextureName": "HolySlash",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Casts/HolySlash/Full/Glow/HolySlash.png",
+              "Max": 28,
+              "Row": 1,
+              "Col": 28,
+              "Duration": 0.07000000774860382,
+              "Loop": false
             },
             {
               "Name": "Hurt",
@@ -243,8 +243,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            200.0,
-            -1261900.625,
+            1300.0,
+            5.0,
             0.0
           ],
           "Sca": [
@@ -268,8 +268,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "Idle",
-          "TexturePath": "../Extern/Assets/Texture/CurseDemon/Idle.png"
+          "TextureName": "Death",
+          "TexturePath": "../Extern/Assets/Texture/CurseDemon/Death.png"
         }
       },
       {
@@ -402,8 +402,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            -491.0813903808594,
-            -1276329.875,
+            1649.583251953125,
+            298.4891357421875,
             0.0
           ],
           "Sca": [
@@ -427,8 +427,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "Idle",
-          "TexturePath": "../Extern/Assets/Texture/CurseDemon/Idle.png"
+          "TextureName": "Death",
+          "TexturePath": "../Extern/Assets/Texture/CurseDemon/Death.png"
         }
       },
       {
@@ -561,8 +561,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            1640.5269775390625,
-            -1244341.875,
+            1551.60498046875,
+            283.4891357421875,
             0.0
           ],
           "Sca": [
@@ -586,8 +586,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "Idle",
-          "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Idle.png"
+          "TextureName": "Death",
+          "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Death.png"
         }
       },
       {
@@ -718,14 +718,14 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            -123.32673645019531,
-            -265.6669006347656,
-            181.690185546875
+            -249.9727020263672,
+            -265.66680908203125,
+            260.6317138671875
           ],
           "Sca": [
-            1.0,
-            1.0,
-            1.0
+            1.9368358850479126,
+            1.7143194675445557,
+            2.0681633949279785
           ],
           "Rot": [
             179.99989318847656,
@@ -817,7 +817,7 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            163.51611328125,
+            164.53306579589844,
             -293.3622131347656,
             -8.609443664550781
           ],
@@ -855,7 +855,7 @@
             0.0
           ],
           "Scale": [
-            3000.0,
+            5000.0,
             50.0,
             50.0
           ]
@@ -928,14 +928,14 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            3.323887348175049,
-            -277.9078369140625,
-            62.69524002075195
+            19.615631103515625,
+            -277.9075927734375,
+            62.989532470703125
           ],
           "Sca": [
             0.7128234505653381,
             0.5,
-            0.3389657735824585
+            0.4299744665622711
           ],
           "Rot": [
             179.99989318847656,
@@ -980,37 +980,7 @@
     "Group": 0
   },
   {
-    "Name": "NewObject2",
-    "ID": 1,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            -516.849609375,
-            -176.32359313964844,
-            -1054.85791015625
-          ],
-          "Sca": [
-            0.9999998211860657,
-            1.1913816928863525,
-            1.3785966634750366
-          ],
-          "Rot": [
-            0.0,
-            -89.9999771118164,
-            0.0
-          ]
-        }
-      }
-    ],
-    "Model": 6,
-    "ModelPath": "../Extern/Assets/Model/house/stylized-desert-house/house1.fbx",
-    "Group": 0
-  },
-  {
-    "Name": "NewObject3",
+    "Name": "house0",
     "ID": 0,
     "Is3D": true,
     "Components": [
@@ -1018,26 +988,71 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            507.5891418457031,
-            -268.28118896484375,
-            10.250251770019531
+            1273.39111328125,
+            -176.32373046875,
+            -10.215463638305664
           ],
           "Sca": [
-            0.8439992070198059,
-            0.6787095665931702,
-            0.7002600431442261
+            0.999998927116394,
+            1.1913816928863525,
+            1.3785969018936157
           ],
           "Rot": [
-            -179.9996337890625,
-            -45.64763641357422,
+            -179.99989318847656,
+            -87.73168182373047,
             -179.99989318847656
           ]
         }
       }
     ],
     "Model": 6,
-    "ModelPath": "../Extern/Assets/Model/stone/fbx/Stone_desert_mid9fbx.fbx",
-    "Group": 0
+    "ModelPath": "../Extern/Assets/Model/house/stylized-desert-house/house1.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "stone_small_6",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            1045.8665771484375,
+            -280.3576354980469,
+            -24.857032775878906
+          ],
+          "Sca": [
+            1.790974736213684,
+            2.283392906188965,
+            1.3108702898025513
+          ],
+          "Rot": [
+            -179.9996337890625,
+            -45.64762496948242,
+            -179.99989318847656
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            -100.0,
+            90.0,
+            24.0
+          ],
+          "Scale": [
+            274.0,
+            120.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stone/Fbx/stone_small_6.fbx",
+    "Group": 4
   },
   {
     "Name": "NewObject4",
@@ -1078,19 +1093,19 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            -837.7378540039063,
-            -336.8981628417969,
-            -265.6961364746094
+            1561.7021484375,
+            -698.2020874023438,
+            -2734.006591796875
           ],
           "Sca": [
-            1.842077374458313,
-            1.5851260423660278,
-            0.9999999403953552
+            6.826581954956055,
+            8.065468788146973,
+            7.2653374671936035
           ],
           "Rot": [
-            0.00021480058785527945,
-            35.58982849121094,
-            0.00012497557327151299
+            179.99949645996094,
+            -14.02490520477295,
+            179.99949645996094
           ]
         }
       }
@@ -1158,5 +1173,390 @@
     "Model": 6,
     "ModelPath": "../Extern/Assets/Model/middle/Untitled.fbx",
     "Group": 0
+  },
+  {
+    "Name": "tree",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -1110.1341552734375,
+            -139.45545959472656,
+            -597.0603637695313
+          ],
+          "Sca": [
+            1.2204606533050537,
+            1.8961215019226074,
+            1.978309988975525
+          ],
+          "Rot": [
+            8.999985694885254,
+            -0.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/tree/palm_tree/plamTree1.fbx",
+    "Group": 0
+  },
+  {
+    "Name": "tree",
+    "ID": 1,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -769.3143310546875,
+            -132.86325073242188,
+            522.885986328125
+          ],
+          "Sca": [
+            0.983934223651886,
+            1.5903148651123047,
+            1.4345728158950806
+          ],
+          "Rot": [
+            0.0,
+            89.9999771118164,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/tree/palm_tree/plamTree1.fbx",
+    "Group": 0
+  },
+  {
+    "Name": "stone_mid_4",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            2494.63330078125,
+            246.45059204101563,
+            151.26248168945313
+          ],
+          "Sca": [
+            1.9093092679977417,
+            1.5883874893188477,
+            1.2441679239273071
+          ],
+          "Rot": [
+            179.99989318847656,
+            -60.38958740234375,
+            179.99989318847656
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            40.0,
+            75.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stone/Fbx/stone_mid_4.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "Stone_big_9",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            1982.498291015625,
+            -541.5108642578125,
+            38.882389068603516
+          ],
+          "Sca": [
+            1.6029280424118042,
+            0.6966218948364258,
+            0.8967183828353882
+          ],
+          "Rot": [
+            179.999755859375,
+            3.698683738708496,
+            179.99974060058594
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            100.0,
+            650.0,
+            0.0
+          ],
+          "Scale": [
+            1390.0,
+            200.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stone/Fbx/Stone_big_9.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "House1",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            1209.9229736328125,
+            -326.55950927734375,
+            -634.5035400390625
+          ],
+          "Sca": [
+            1.2839831113815308,
+            1.0005069971084595,
+            1.204253077507019
+          ],
+          "Rot": [
+            0.0,
+            -38.849586486816406,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Desert/desert-house-diorama/HOUSE_1.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "stone_mid_8",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -1351.9022216796875,
+            -326.559814453125,
+            -382.6246032714844
+          ],
+          "Sca": [
+            1.0672380924224854,
+            3.309746503829956,
+            2.531096935272217
+          ],
+          "Rot": [
+            0.0,
+            -10.27419662475586,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stone/Fbx/stone_mid_8.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "rip1",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -380.59869384765625,
+            -234.3250274658203,
+            -465.5760192871094
+          ],
+          "Sca": [
+            0.3041761815547943,
+            0.28083673119544983,
+            0.17673876881599426
+          ],
+          "Rot": [
+            36.733394622802734,
+            -19.596446990966797,
+            81.93244171142578
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stuff/grave/rip1.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "tree2",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -363.1471862792969,
+            -53.61762619018555,
+            -1705.520263671875
+          ],
+          "Sca": [
+            3.906240701675415,
+            4.021004676818848,
+            5.616568565368652
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stuff/desert/tree2.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "skull",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -907.2295532226563,
+            -178.9438018798828,
+            -69.45730590820313
+          ],
+          "Sca": [
+            1.9505784511566162,
+            1.5834792852401733,
+            1.6576706171035767
+          ],
+          "Rot": [
+            -179.99989318847656,
+            -54.80579376220703,
+            179.99989318847656
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stuff/desert/skull.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "stone_big_3",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -1468.5535888671875,
+            -290.2106018066406,
+            -250.41558837890625
+          ],
+          "Sca": [
+            1.3682137727737427,
+            1.0337680578231812,
+            0.9223790764808655
+          ],
+          "Rot": [
+            -179.99923706054688,
+            -79.69788360595703,
+            179.99923706054688
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stone/Fbx/stone_big_3.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "House0Collider",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Sprite",
+        "CompData": {
+          "RGBA": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            1249.1549072265625,
+            -85.32125854492188,
+            0.0
+          ],
+          "Sca": [
+            219.53700256347656,
+            203.68490600585938,
+            75.37211608886719
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            400.0,
+            230.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 5,
+    "Group": 4
   }
 ]

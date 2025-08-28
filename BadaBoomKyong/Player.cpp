@@ -232,9 +232,19 @@ void Player::MeleeAttack()
 				m_bComboQueue = true;               // 다음 단계 예약(즉시 전환 X)		
 			}
 		}
-		
-		m_bCanMeleeAttack = true;
-		EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
+		if (m_pAnimator->GetAnimation()->m_sAnimationName == "ComboAtk_3")
+		{
+			if (m_pAnimator->GetCurrentFrameIndex() == 5)
+			{
+				m_bCanMeleeAttack = true;
+				EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
+			}
+		}
+		else
+		{
+			m_bCanMeleeAttack = true;
+			EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
+		}		
 	}	
 }
 
@@ -445,25 +455,27 @@ void Player::StartComboStep(ComboStep step)
 	m_bInNormalCombo = true;
 	m_bCanMeleeAttack = true;     // 이동 잠깐 묶고(기존 Move() 가 이 값으로 체크)
 	m_bComboQueue = false;
-	m_fComboAccTime = 0.0f;		
+	m_fComboAccTime = 0.0f;	
+
+	//EventManager::GetInstance()->SetActiveFalse(m_pMelee->GetOwner());
 
 	//애니메이션 강제전환
 	switch (step)
 	{
-	case ComboStep::COMBO_1:
+	case ComboStep::COMBO_1:	
 		m_pAnimStateMachine->ChangeAnimState(PlayerAnimState::COMBO_ATTACK_1);
 		break;
 	case ComboStep::COMBO_2:
-	{
-		
+	{						
 		m_pAnimStateMachine->ChangeAnimState(PlayerAnimState::COMBO_ATTACK_2);
 		break;
 	}		
 	case ComboStep::COMBO_3:
 	{
 		m_bCanMeleeAttack = true;
-		EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
-		m_pAnimStateMachine->ChangeAnimState(PlayerAnimState::COMBO_ATTACK_3);
+		
+		m_pAnimStateMachine->ChangeAnimState(PlayerAnimState::COMBO_ATTACK_3);		
+		
 		break;
 	}		
 	default: 
@@ -476,12 +488,15 @@ void Player::AdvanceCombo()
 	if (!m_bInNormalCombo) 
 		return;
 	
-	if (m_eComboStep == ComboStep::COMBO_1)      
+	if (m_eComboStep == ComboStep::COMBO_1)
+	{	
 		StartComboStep(ComboStep::COMBO_2);
-	else if (m_eComboStep == ComboStep::COMBO_2)  
+	}		
+	else if (m_eComboStep == ComboStep::COMBO_2)
 		StartComboStep(ComboStep::COMBO_3);
 	else  
 		EndCombo(); // 이미 마지막이면 종료
+	
 }
 
 void Player::EndCombo()
@@ -494,26 +509,37 @@ void Player::EndCombo()
 	m_bCanMeleeAttack = false; // 이동 다시 허용
 	m_eCurrentState = PlayerAnimState::IDLE;
 }
+static int a = 0;
 
 void Player::HolySlash()
 {
-	auto input = InputManager::GetInstance();
+	auto input = InputManager::GetInstance();	
 	if (input->GetKetCode(GLFW_KEY_Q) == GLFW_PRESS)
 	{
 		m_eCurrentState = PlayerAnimState::HOLY_SLASH;
 		m_bHolySlashing = true;
-		m_pHolySlashParticle->CreateParticles(m_pHolySlashParticle->GetEmitSize());
-	}
-
+		m_pHolySlashParticle->CreateParticles(m_pHolySlashParticle->GetEmitSize());		
+	}	
 	if (m_bHolySlashing)
-	{
-		if (m_pAnimator->GetCurrentFrameIndex() == 20)
+	{		
+		if (m_pAnimator->GetAnimation()->m_sAnimationName=="HolySlash" 
+			&& m_pAnimator->GetCurrentFrameIndex() == 20
+			&& m_bHolySlashFlag == false)
 		{
 			Bullet* bullet_comp = m_pBulletFactory->CreateBullet(BULLET_TYPE::PISTOL);
 			m_pBullet = bullet_comp;
-			assert(m_pBullet != nullptr);
-
-			EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
+			assert(m_pBullet != nullptr);			
+						
+			EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());			
+			m_bHolySlashFlag = true;
+		}
+		else if (m_pAnimator->GetCurrentFrameIndex() == 20 && m_bHolySlashFlag == true)
+		{
+			m_bHolySlashFlag = true;
+		}
+		else
+		{
+			m_bHolySlashFlag = false;
 		}
 	}
 }

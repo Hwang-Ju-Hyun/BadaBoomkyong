@@ -30,7 +30,7 @@ public:
     virtual void OnCollision(Collider* _col)override;
     virtual void ExitCollision(Collider* _col) override;
 public:
-    virtual void LoadFromJson(const json& _str) override {};
+    virtual void LoadFromJson(const json& _str) override;
     virtual json SaveToJson(const json& _str) override { return nullptr; };
     static BaseRTTI* CreatePistolComponent();
     static constexpr const char* PistolTypeName = "Pistol";

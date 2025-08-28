@@ -103,6 +103,7 @@ void MainEditor::TopMenuBarDraw()
 	static char objectNameBuffer[128] = "NewObject";
 	static bool ShowCreateObjectWindow = false;
 	static bool Is3D = false;
+	
 	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::Button("Create Object"))
@@ -119,7 +120,15 @@ void MainEditor::TopMenuBarDraw()
 				{					
 					Selected_ModelType = static_cast<size_t>(m->GetModelType());
 					ShowCreateObjectWindow = true;
-					Selected_ModelType >= 4 ? Is3D = true : Is3D = false;
+					Selected_ModelType >= 4 ? Is3D = true : Is3D = false;	
+					if (Selected_ModelType == MODEL_TYPE::CUSTOM_MODEL)
+					{
+						custom_model_path = m->GetPath();
+					}
+					else
+					{
+						custom_model_path= "Not CustomModel";
+					}
 					ImGui::CloseCurrentPopup();
 					break;
 				}
@@ -151,8 +160,18 @@ void MainEditor::TopMenuBarDraw()
 			if (ImGui::Button("Create"))
 			{			
 				GameObject* obj=new GameObject(objectNameBuffer, MODEL_TYPE(Selected_ModelType));
-				Transform* trs= static_cast<Transform*>(obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(obj)));
-				Sprite* spr= static_cast<Sprite*>(obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(obj)));
+				
+				if (Selected_ModelType == MODEL_TYPE::CUSTOM_MODEL)
+				{
+					auto model_mgr = ModelManager::GetInstance();
+					Model* custom_model = model_mgr->LoadModel(custom_model_path);
+					obj->SetModel(custom_model);
+				}
+				else
+				{
+					Sprite* spr = static_cast<Sprite*>(obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(obj)));
+				}
+				Transform* trs= static_cast<Transform*>(obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(obj)));				
 
 				ShowCreateObjectWindow = false;
 				ImGui::CloseCurrentPopup();

@@ -11,10 +11,10 @@
 
 PlayerMelee::PlayerMelee(GameObject* _owner, GameObject* _shooter)
 	:Melee(_owner,_shooter)   
-    ,m_vOffset( 45.f,0.f,0.f)
+    ,m_vOffset( 45.f,0.f,0.f) 
 {
 	SetName(PlayerMeleeTypeName);
-	m_fLifeTime = 0.3f;
+	m_fLifeTime = 1.4f;
 }
 
 PlayerMelee::~PlayerMelee()
@@ -43,16 +43,16 @@ void PlayerMelee::Awake()
     glm::vec3 player_pos = m_pPlayerTransform->GetPosition();    
     
     if (m_pPlayer->GetDir() < 0)
-        m_vOffset = { -45.f,0.f,0.f };
+        m_vOffset = { -55.f,0.f,0.f };
     else
-        m_vOffset = { 45.f,0.f,0.f };
+        m_vOffset = { 55.f,0.f,0.f };
     glm::vec3 final_pos= player_pos + m_vOffset;
 
     m_pTransform->SetPosition(final_pos);
      
-    m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
+    m_pTransform->SetScale(glm::vec3{ 40.f,40.f,30.f });
     m_pCollider->SetScale(m_pTransform->GetScale());
-    m_fLifeTime = 0.3f;
+    
     m_fCurTime = 0.f;
     m_bIsMeleeAttacking = true;
 }
@@ -70,9 +70,9 @@ void PlayerMelee::Update()
             
 
         if (m_pPlayer->GetDir() < 0)
-            m_vOffset = { -35.f,0.f,0.f };
+            m_vOffset = { -55.f,0.f,0.f };
         else
-            m_vOffset = { 35.f,0.f,0.f };
+            m_vOffset = { 55.f,0.f,0.f };
 
         glm::vec3 player_pos = m_pPlayerTransform->GetPosition();        
 

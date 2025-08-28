@@ -11,6 +11,8 @@
 #include <ImGuizmo.h>
 
 #include <vector>
+#include <string>
+
 class BaseComponent;
 class GameObject;
 class Camera;
@@ -34,5 +36,6 @@ private:
 	void DrawGizmo();
 	void UpdateEditorCameraControls();
 	static bool init_edit;
+	std::string custom_model_path = "Not CustomModel";
 };
 #endif

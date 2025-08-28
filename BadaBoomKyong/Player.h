@@ -179,4 +179,8 @@ public:
     //temp :sholud delete
     bool jumpPressed = false;
     int m_iMaxJumpCount = 1;
+
+private:
+    bool m_bHolySlashFlag = false;
+    float m_fMeleeDelayAccTime = 0.f;
 };

@@ -15,6 +15,7 @@
 #include "Player.h"
 #include "ExecutionerDemon.h"
 #include "ExecutionerDemonFireBall.h"
+#include "Serializer.h"
 
 BulletFactory::BulletFactory(STAGE_TYPE _stage)
 	:BaseFactory(_stage)
@@ -80,14 +81,19 @@ void BulletFactory::InitStage01()
 	GameObject* player_obj = GameObjectManager::GetInstance()->FindObject(Player::PlayerTypeName);
 	Player* player_comp = player_obj->FindComponent<Player>();
 	assert(player_comp != nullptr);
+
 	for (int i = 0;i < 30; i++)
 	{
-		Pistol* bullet_comp = nullptr;
-		GameObject* bullet_obj = new GameObject(Pistol::PistolTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::BULLET);
-		bullet_comp = dynamic_cast<Pistol*>(bullet_obj->AddComponent_and_Get(Pistol::PistolTypeName, new Pistol(bullet_obj, player_obj)));
-		Transform* trs = dynamic_cast<Transform*>(bullet_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(bullet_obj)));
-		Sprite* spr = dynamic_cast<Sprite*>(bullet_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(bullet_obj)));
-		Collider* col = dynamic_cast<Collider*>(bullet_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(bullet_obj)));
+		Pistol* bullet_comp = nullptr;		
+		GameObject* bullet_obj = Serializer::GetInstance()->LoadPrefab("json/Prefab/Player/Slash/Slash_Prefab.json");
+		bullet_comp = dynamic_cast<Pistol*>(bullet_obj->FindComponent<Pistol>());
+		assert(bullet_comp != nullptr);
+		bullet_comp->SetName(Pistol::PistolTypeName);
+		bullet_comp->SetShooter(player_obj);
+		//bullet_comp = dynamic_cast<Pistol*>(bullet_obj->AddComponent_and_Get(Pistol::PistolTypeName, new Pistol(bullet_obj, player_obj)));
+		//Transform* trs = dynamic_cast<Transform*>(bullet_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(bullet_obj)));
+		//Sprite* spr = dynamic_cast<Sprite*>(bullet_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(bullet_obj)));
+		//Collider* col = dynamic_cast<Collider*>(bullet_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(bullet_obj)));
 		bullet_obj->SetActiveAllComps(false);
 		m_pBulletPool->m_arrPool[i] = bullet_obj;
 	}
@@ -140,6 +146,10 @@ void BulletFactory::InitStageTest()
 		Sprite* spr = dynamic_cast<Sprite*>(bullet_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(bullet_obj)));
 		Collider* col = dynamic_cast<Collider*>(bullet_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(bullet_obj)));
 		bullet_obj->SetActiveAllComps(false);
+
+
+
+
 		m_pBulletPool->m_arrPool[i] = bullet_obj;
 	}
 

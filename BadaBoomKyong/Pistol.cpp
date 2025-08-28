@@ -11,7 +11,7 @@ Pistol::Pistol(GameObject* _owner,GameObject* _shooter)
 	:Bullet(_owner,_shooter)
 	, m_fSpeed(1.5f)
 {
-	GetOwner()->SetIsSerializable(false);
+
 }
 
 Pistol::~Pistol()
@@ -36,9 +36,9 @@ void Pistol::Awake()
 	//shooter is equal player
 	Transform* shooter_trs = GetShooter()->FindComponent<Transform>();
 	glm::vec3 shooter_pos = shooter_trs->GetPosition();
-
+	shooter_pos.y += 30.f;
 	m_pTransform->SetPosition(shooter_pos);
-	m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
+	m_pTransform->SetScale(glm::vec3{ 50.f,50.f,10.f });
 	m_pCollider->SetScale(m_pTransform->GetScale());
 }
 
@@ -61,6 +61,7 @@ void Pistol::EnterCollision(Collider* _col)
 {
 	if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
 	{
+		std::cout << _col->GetOwner()->GetName() << std::endl;
 		EventManager::GetInstance()->SetActiveFalse(GetOwner());
 	}
 }
@@ -73,11 +74,21 @@ void Pistol::ExitCollision(Collider* _col)
 {
 }
 
+void Pistol::LoadFromJson(const json& _str)
+{
+	auto iter_compData = _str.find(CompDataName);
+	if (iter_compData != _str.end())
+	{
+		auto speed = iter_compData->find("Speed");
+		m_fSpeed = speed->begin().value();		
+	}
+}
+
 BaseRTTI* Pistol::CreatePistolComponent()
 {
-	/*GameObject* last_obj = GameObjectManager::GetInstance()->GetLastObject();
-	BaseRTTI* comp = last_obj->AddComponent_and_Get(PistolTypeName, new Pistol(last_obj));
+	GameObject* last_obj = GameObjectManager::GetInstance()->GetLastObject();
+	BaseRTTI* comp = last_obj->AddComponent_and_Get(PistolTypeName, new Pistol(last_obj,nullptr));
 	if (comp != nullptr)
-		return comp;*/
+		return comp;
 	return nullptr;
 }
