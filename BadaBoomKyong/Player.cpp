@@ -205,10 +205,9 @@ void Player::Fire()
 void Player::MeleeAttack()
 {
 	auto input = InputManager::GetInstance();
-
+	m_pMelee = m_pMeleeFactory->CreateMelee(GROUP_TYPE::PLAYER);
 	if (input->GetMouseBtn(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
-	{						
-		m_pMelee = m_pMeleeFactory->CreateMelee(GROUP_TYPE::PLAYER);
+	{								
 		PlayerMelee* melee_comp = dynamic_cast<PlayerMelee*>(m_pMelee);
 		assert(melee_comp != nullptr);
 
@@ -231,21 +230,29 @@ void Player::MeleeAttack()
 			{
 				m_bComboQueue = true;               // 다음 단계 예약(즉시 전환 X)		
 			}
-		}
-		if (m_pAnimator->GetAnimation()->m_sAnimationName == "ComboAtk_3")
-		{
-			if (m_pAnimator->GetCurrentFrameIndex() == 5)
-			{
-				m_bCanMeleeAttack = true;
-				EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
-			}
-		}
-		else
+		}		
+	}		
+	if (m_pAnimator->GetAnimation()->m_sAnimationName == "ComboAtk_3")
+	{
+		if (m_pAnimator->GetCurrentFrameIndex() == 4)
 		{
 			m_bCanMeleeAttack = true;
 			EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
+		}
+	}
+	else
+	{
+		if (m_bInNormalCombo&&m_pAnimator->GetCurrentFrameIndex()==2)
+		{
+			m_bCanMeleeAttack = true;
+			//std::cout << m_pAnimator->GetAnimation()->m_sAnimationName << std::endl;
+			EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
 		}		
-	}	
+	}
+	if (m_bInNormalCombo && m_pAnimator->GetCurrentFrameIndex() == m_pAnimator->GetAnimation()->m_iSheet_Max - 3)
+	{
+		EventManager::GetInstance()->SetActiveFalse(m_pMelee->GetOwner());
+	}
 }
 
 void Player::Dash()
@@ -361,6 +368,12 @@ void Player::StateHandler()
 			{
 				m_pAnimator->GetAnimation()->m_bLoopCount = 0;
 				m_bNormalMeleeAttacking = false;
+				m_pMelee->SetIsMeleeAttacking(false);
+			}
+			else if(m_pAnimator->GetCurrentFrameIndex()>=2)
+			{
+				m_pMelee->SetIsMeleeAttacking(true);
+
 			}
 			return; // 다른 상태로 덮어쓰지 않게 조기 리턴			
 		}

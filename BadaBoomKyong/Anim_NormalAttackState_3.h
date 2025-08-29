@@ -13,18 +13,8 @@ public:
     PlayerMelee* m_pMelee;
 public:
     virtual void Enter(T* _owner) override
-    {
-        if constexpr (std::is_same<T, Player>::value)
-        {
-            m_pMelee = dynamic_cast<PlayerMelee*>(_owner->GetMelee());
-            if (m_pMelee)
-            {
-                _owner->m_bCanMeleeAttack = true;
-                EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
-                //m_pMelee->SetLifeTime(2.5f);
-                _owner->GetAnimator()->ChangeAnimation("ComboAtk_3");
-            }
-        }
+    {        
+        _owner->GetAnimator()->ChangeAnimation("ComboAtk_3");
     }
 
     virtual void Update(T* _owner) override

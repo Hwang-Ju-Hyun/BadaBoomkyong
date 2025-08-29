@@ -15,7 +15,7 @@ public:
 public:
     virtual void Enter(T* _owner) override
     {        
-        if constexpr (std::is_same<T, Player>::value)
+        /*if constexpr (std::is_same<T, Player>::value)
         {
             m_pMelee= dynamic_cast<PlayerMelee*>(_owner->GetMelee());
             if (m_pMelee)
@@ -24,7 +24,8 @@ public:
                 EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
                 _owner->GetAnimator()->ChangeAnimation("ComboAtk_2");
             }                        
-        }
+        }*/
+        _owner->GetAnimator()->ChangeAnimation("ComboAtk_2");
     }
 
     virtual void Update(T* _owner) override

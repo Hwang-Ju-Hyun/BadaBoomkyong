@@ -14,7 +14,7 @@ PlayerMelee::PlayerMelee(GameObject* _owner, GameObject* _shooter)
     ,m_vOffset( 45.f,0.f,0.f) 
 {
 	SetName(PlayerMeleeTypeName);
-	m_fLifeTime = 1.4f;
+	m_fLifeTime = 1.2f;
 }
 
 PlayerMelee::~PlayerMelee()
@@ -53,21 +53,20 @@ void PlayerMelee::Awake()
     m_pTransform->SetScale(glm::vec3{ 40.f,40.f,30.f });
     m_pCollider->SetScale(m_pTransform->GetScale());
     
-    m_fCurTime = 0.f;
-    m_bIsMeleeAttacking = true;
+    m_fCurTime = 0.f;    
 }
 
 void PlayerMelee::Update()
 {
     float dt = TimeManager::GetInstance()->GetDeltaTime();   
+    m_fCurTime += dt;
     if (m_fCurTime <= m_fLifeTime)
     {            
         if (m_pPlayer->GetCurrentState() == PlayerAnimState::IDLE)
         {
             Exit();
             return;
-        }
-            
+        }            
 
         if (m_pPlayer->GetDir() < 0)
             m_vOffset = { -55.f,0.f,0.f };
@@ -78,16 +77,13 @@ void PlayerMelee::Update()
 
         glm::vec3 final_pos = player_pos + m_vOffset;
 
-        m_fCurTime += dt;
-        m_pTransform->SetPosition(final_pos);      
-        m_bIsMeleeAttacking = true;
+        
+        m_pTransform->SetPosition(final_pos);              
     }        
     else
-    {
-        m_fCurTime = 0.f;
-        m_fLifeTime = 0.f;
+    {        
+        m_fCurTime = 0.f;        
         EventManager::GetInstance()->SetActiveFalse(GetOwner());
-        m_bIsMeleeAttacking = false;
         m_pPlayer->SetCanMeleeAttack(false);
         m_pPlayer->SetNormalMeleeAttacking(false);
         m_pPlayer->SetRunMeleeAttacking(false);

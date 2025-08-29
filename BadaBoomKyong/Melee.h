@@ -18,6 +18,7 @@ private:
 protected:
     bool m_bIsMeleeAttacking = false;
 public:
+    inline void SetIsMeleeAttacking(bool _isAttacking) { m_bIsMeleeAttacking = _isAttacking; }
     inline const bool GetIsMeleeAttacking()const { return m_bIsMeleeAttacking; }
 public:
     inline void SetAttacker(GameObject* _attakcer) { m_pAttacker = _attakcer; }
