@@ -383,6 +383,12 @@
     <Filter Include="Json\Prefab">
       <UniqueIdentifier>{54e0ae77-a6e0-4ec1-8cde-069d33c7d12b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Ray">
+      <UniqueIdentifier>{65483198-3656-4780-bccb-37816a38e906}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Default\Collider\Ray">
+      <UniqueIdentifier>{c3862e12-890d-41c6-b4be-c66f469c90de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -1052,6 +1058,9 @@
     </ClInclude>
     <ClInclude Include="PositionOverLifeTime.h">
       <Filter>Particle\Behaviour\Position</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>Component\Default\Collider\Ray</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

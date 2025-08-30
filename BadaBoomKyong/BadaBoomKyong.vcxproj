@@ -342,6 +342,7 @@
     <ClInclude Include="PositionOverLifeTime.h" />
     <ClInclude Include="RangedState.h" />
     <ClInclude Include="RANGED_CurseDemon.h" />
+    <ClInclude Include="Ray.h" />
     <ClInclude Include="Registry.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="Resource.h" />

@@ -6,6 +6,7 @@
 #include "ICollisionHandler.h"
 #include <cassert>
 #include <iostream>
+#include "Ray.h"
 
 CollisionManager::CollisionManager()
 {
@@ -100,15 +101,7 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 				continue;
 
 			Melee* melee_comp_r = dynamic_cast<Melee*>(vecRight[j]->FindComponent(Melee::MeleeTypeName));
-			CurseDemon* demon_comp_l = dynamic_cast<CurseDemon*>(vecLeft[i]->FindComponent(CurseDemon::CurseDemonTypeName));
-
-			if (melee_comp_r&& demon_comp_l)
-			{
-				if (melee_comp_r->GetName() == "PlayerMelee"&& demon_comp_l->GetOwner()->GetName() == CurseDemon::CurseDemonTypeName)
-				{
-					int a = 0;
-				}				
-			}
+			CurseDemon* demon_comp_l = dynamic_cast<CurseDemon*>(vecLeft[i]->FindComponent(CurseDemon::CurseDemonTypeName));		
 						
 			Collider* left_col = static_cast<Collider*>(vecLeft[i]->FindComponent(Collider::ColliderTypeName));
 			Collider* right_col = static_cast<Collider*>(vecRight[j]->FindComponent(Collider::ColliderTypeName));
@@ -144,14 +137,7 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 					right_col->OnCollision(left_col);
 				}			
 				else //첨 충돌함 이전 충돌 x
-				{
-					if (melee_comp_r && demon_comp_l)
-					{
-						if (melee_comp_r->GetName() == "PlayerMelee" && demon_comp_l->GetOwner()->GetName() == CurseDemon::CurseDemonTypeName)
-						{
-							int a = 0;
-						}
-					}
+				{					
 					left_col->EnterCollision(right_col);
 					right_col->EnterCollision(left_col);
 				}
@@ -163,18 +149,78 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 				{
 					left_col->ExitCollision(right_col);
 					right_col->ExitCollision(left_col);
-				}
-				/*RigidBody* lrb=dynamic_cast<RigidBody*>(left_col->GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
-				RigidBody* rrb = dynamic_cast<RigidBody*>(right_col->GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
-				if(lrb)
-					lrb->SetIsGround(false);
-				else if(rrb)
-					rrb->SetIsGround(false);*/
-
+				}				
 				iter->second = false;
-			}
+			}			
 		}
+	}	
+}
+
+bool CollisionManager::IsIntersectRayAABB(const Ray& _ray, Collider* _col, RayCastHit& _out)
+{ 
+	// AABB(월드) 얻기
+	glm::vec3 c = _col->GetFinalPosition();      // 박스 중심(월드)
+	glm::vec3 s = _col->GetScale();              // 박스 크기(폭,높이[,깊이])
+	glm::vec2 half = { s.x * 0.5f, s.y * 0.5f };
+	glm::vec2 min = { c.x - half.x, c.y - half.y };
+	glm::vec2 max = { c.x + half.x, c.y + half.y };
+
+	// dir 정규화 (2D)
+	glm::vec2 o = { _ray.m_vPosition.x,  _ray.m_vPosition.y };
+	glm::vec2 d = { _ray.m_vDirection.x, _ray.m_vDirection.y };
+
+	float dLen = glm::length(d);
+	if (dLen == 0.0f) return false;
+	d /= dLen; // 이후 t는 월드 거리 단위가 됨
+
+	const float INF = std::numeric_limits<float>::infinity();
+	const float EPS = 1e-8f;
+
+	float txmin, txmax;
+	if (std::fabs(d.x) > EPS) {
+		txmin = (min.x - o.x) / d.x;
+		txmax = (max.x - o.x) / d.x;
+		if (txmin > txmax) std::swap(txmin, txmax);
 	}
+	else {
+		// x축 평행: x가 범위 밖이면 교차 불가
+		if (o.x < min.x || o.x > max.x) return false;
+		txmin = -INF; txmax = INF;
+	}
+
+	float tymin, tymax;
+	if (std::fabs(d.y) > EPS) {
+		tymin = (min.y - o.y) / d.y;
+		tymax = (max.y - o.y) / d.y;
+		if (tymin > tymax) std::swap(tymin, tymax);
+	}
+	else {
+		if (o.y < min.y || o.y > max.y) return false;
+		tymin = -INF; tymax = INF;
+	}
+
+	// 구간 겹침 판정
+	if (txmin > tymax || tymin > txmax) return false;
+
+	float tEnter = std::max(txmin, tymin);
+	float tExit = std::min(txmax, tymax);
+
+	if (tExit < 0.0f) return false;          // 전체가 뒤쪽
+	float t = (tEnter >= 0.0f) ? tEnter : tExit; // 내부 시작이면 tExit 사용
+
+	_out.m_bIsHit = true;
+	_out.m_fDistance = t;
+	_out.m_vPoint = glm::vec3(o + d * t, _ray.m_vPosition.z);
+	_out.m_pHitGameObject = _col->GetOwner();
+
+	//// (선택) 히트 노멀 추정: 어떤 슬랩이 tEnter를 만들었는지로 결정
+	//if (std::fabs(t - txmin) < 1e-4f) {
+	//	_out.m_vNormal = (d.x > 0.0f) ? glm::vec3(-1, 0, 0) : glm::vec3(1, 0, 0);
+	//}
+	//else {
+	//	_out.m_vNormal = (d.y > 0.0f) ? glm::vec3(0, -1, 0) : glm::vec3(0, 1, 0);
+	//}
+	return true;
 }
 
 bool CollisionManager::IsOverLapAABB(float _left1, float _right1, float _top1, float _bot1, float _left2, float _right2, float _top2, float _bot2)
@@ -210,4 +256,33 @@ void CollisionManager::Reset()
 {				
 	for (int i = 0;i<int(GROUP_TYPE::LAST);i++)
 		m_arrCheckCollision[i] = 0;
+}
+
+bool CollisionManager::RayCast(const Ray& _ray, float _maxDistance, RayCastHit& _outHit, const GROUP_TYPE _target)
+{
+	float closest_dist = _maxDistance;
+	bool hasHit = false;
+
+	for (const auto obj : GameObjectManager::GetInstance()->GetAllObjects()) 
+	{
+		Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
+		if (col==nullptr) 
+			continue;		
+		if (col->GetOwner()->GetGroupType() != _target)
+			continue;
+		if(col->GetOwner()->GetModelType()==RECTANGLE)
+			continue;
+
+		RayCastHit tempHit;	
+		if (IsIntersectRayAABB(_ray, col, tempHit)) 
+		{
+			if (tempHit.m_fDistance < closest_dist) 
+			{
+				closest_dist = tempHit.m_fDistance;
+				_outHit = tempHit;
+				hasHit = true;
+			}
+		}
+	}
+	return hasHit;
 }

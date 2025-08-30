@@ -67,7 +67,7 @@ void Camera::Update()
 		glm::vec3 playerPos = m_pPlayerTransform->GetPosition();
 
 		// 플레이어 중심 기준 카메라 오프셋 (뒤/위쪽으로 약간 떨어지게)
-		glm::vec3 offset = glm::vec3(0.0f, 0.0f, 800.0f);
+		glm::vec3 offset = glm::vec3(0.0f, 50.0f, 500.0f);
 
 		// 카메라 위치 = 플레이어 위치 + 오프셋
 		m_vCamPos = playerPos + offset;

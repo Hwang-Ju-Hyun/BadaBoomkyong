@@ -27,6 +27,7 @@
 #include <functional>
 #include "HolySlashParticle.h"
 #include "ParticleSystem.h"
+#include "CollisionManager.h"
 
 class AnimIdelState;
 template<typename T>
@@ -65,9 +66,8 @@ Player::Player(GameObject* _owner)
 	m_pAnimStateMachine->ChangeAnimState(PlayerAnimState::IDLE);
 	
 	m_pPs = new ParticleSystem;
-	m_pHolySlashParticle = new HolySlashParticle(m_pPs,this->GetOwner());
-	
-	
+	m_pHolySlashParticle = new HolySlashParticle(m_pPs,this->GetOwner());			
+
 	//todo 바인드 이거 ㅈ나게 ㅈ같음 그리고 AddComboIndex했을때 반환이 int가 사실아님! 씨발! Chatgpt CollisionManager 코드 분석 맨끝줄에 설명있음
 	//todo 이거 지금은 주석되어있는데 중요한 문법들 많아서 시간있을때 참고해서 공부해보셈
 	//AnimationSpriteSheet* anim_clip = m_pAnimator->GetSpriteSheet("ComboAtk_1");
@@ -114,10 +114,10 @@ void Player::Update()
 	//todo : 이거 dashable & isalive이런거 함수화 시켜서 movable로 고치든가하자
 	if (m_bIsAlive&&!m_bIsDashing)
 	{
-		if (m_bCanMeleeAttack == false)
-		{
-			Move();
-		}		
+		/*if (m_bCanMeleeAttack == false)
+		{			
+		}*/
+		Move();
 		Jump();
 		Fire();
 		MeleeAttack();
@@ -154,7 +154,10 @@ void Player::OnCollision(Collider* _other)
 
 void Player::ExitCollision(Collider* _other)
 {	
-	m_pRigidBody->message = false;	
+	if (m_pRigidBody->GetIsGround())
+	{
+		m_pRigidBody->SetIsGround(false);		
+	}	
 }
 
 void Player::Move() 
@@ -186,7 +189,18 @@ void Player::Move()
 	}
 	
 	m_pRigidBody->SetVelocity(velocity);
-	std::fabs(velocity.x) > 0 ? m_bIsMoving = true:m_bIsMoving=false;	
+	std::fabs(velocity.x) > 0 ? m_bIsMoving = true:m_bIsMoving=false;
+
+	glm::vec3 player_pos = m_pTransform->GetPosition();
+	glm::vec3 dir = { 0.1f,-1.f,0.f };
+	m_ray = { player_pos,dir };
+
+	if (CollisionManager::GetInstance()->RayCast(m_ray, 10.F, m_rayHit, GROUP_TYPE::PLATFORM))
+	{
+		std::cout << "ground" << std::endl;
+		m_pRigidBody->SetIsGround(true);
+		std::cout << m_rayHit.m_pHitGameObject->GetName()<< m_rayHit.m_pHitGameObject->GetID() << std::endl;
+	}		
 }
 
 void Player::Fire()
@@ -230,7 +244,7 @@ void Player::MeleeAttack()
 			{
 				m_bComboQueue = true;               // 다음 단계 예약(즉시 전환 X)		
 			}
-		}		
+		}			
 	}		
 	if (m_pAnimator->GetAnimation()->m_sAnimationName == "ComboAtk_3")
 	{
@@ -242,17 +256,18 @@ void Player::MeleeAttack()
 	}
 	else
 	{
-		if (m_bInNormalCombo&&m_pAnimator->GetCurrentFrameIndex()==2)
+		if ((m_bJumpMeleeAttacking||m_bInNormalCombo)&&m_pAnimator->GetCurrentFrameIndex()==2)
 		{
 			m_bCanMeleeAttack = true;
 			//std::cout << m_pAnimator->GetAnimation()->m_sAnimationName << std::endl;
 			EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
 		}		
 	}
-	if (m_bInNormalCombo && m_pAnimator->GetCurrentFrameIndex() == m_pAnimator->GetAnimation()->m_iSheet_Max - 3)
+	if ((m_bJumpMeleeAttacking || m_bInNormalCombo) && m_pAnimator->GetCurrentFrameIndex() == m_pAnimator->GetAnimation()->m_iSheet_Max - 3)
 	{
 		EventManager::GetInstance()->SetActiveFalse(m_pMelee->GetOwner());
 	}
+	
 }
 
 void Player::Dash()

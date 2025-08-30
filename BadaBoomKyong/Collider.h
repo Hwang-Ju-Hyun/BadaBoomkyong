@@ -36,6 +36,8 @@ public:
     inline void SetOffsetPosition(const glm::vec3& _offset) { m_vOffsetPosition = _offset; }
     inline void SetScale(const glm::vec3& _scale) { m_vScale = _scale; }        
     inline void SetColModel(Model* _model) { m_pColliderModel = _model; }
+    glm::vec3 GetColModelMin_AABB();
+    glm::vec3 GetColModelMax_AABB();
     void SetColliderModelType(MODEL_TYPE _modelType);
 
     inline glm::vec3 GetOffsetPosition()const { return m_vOffsetPosition; }

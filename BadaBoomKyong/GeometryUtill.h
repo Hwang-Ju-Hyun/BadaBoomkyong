@@ -19,4 +19,5 @@ public:
 	bool CollisionFromRight= false;
 	bool CollisionFromBottom=false;
 	bool CollisionFromTop=false;
+	
 };

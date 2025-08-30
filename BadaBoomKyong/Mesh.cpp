@@ -1,6 +1,8 @@
 #include <GL/glew.h>
 #include "Mesh.h"
 #include "Material.h"
+#include "ModelManager.h"
+#include "Model.h"
 
 Mesh::Mesh(MODEL_TYPE _modelType, GLenum _primitiveType, std::vector<VertexAttribute>&& _vertices, std::vector<unsigned int>&& _indices)
 	:m_eModelType(_modelType),
@@ -23,6 +25,11 @@ Mesh::~Mesh()
 		glDeleteBuffers(1, &VBO);
 	}
 	DeleteMaterial();
+}
+
+glm::vec3 Mesh::GetRectangleMin()
+{	
+	return glm::vec3();
 }
 
 void Mesh::Draw()

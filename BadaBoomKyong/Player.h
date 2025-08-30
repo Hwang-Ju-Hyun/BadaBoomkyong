@@ -2,7 +2,7 @@
 #include "MonoBehaviour.h"
 #include <glm.hpp>
 #include "Anim_StateMachine.h"
-
+#include "Ray.h"
 
 class Transform;
 class Sprite;
@@ -60,6 +60,8 @@ private:
     Animator* m_pAnimator = nullptr;
     AnimStateMachine<Player>* m_pAnimStateMachine;
 private:
+    Ray m_ray;
+    RayCastHit m_rayHit;
     BulletFactory* m_pBulletFactory=nullptr;
     MeleeFactory* m_pMeleeFactory = nullptr;
     Bullet* m_pBullet=nullptr;

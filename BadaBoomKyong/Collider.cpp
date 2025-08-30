@@ -13,6 +13,7 @@
 #include "Shader.h"
 #include "RenderManager.h"
 #include "ICollisionHandler.h"
+#include "Mesh.h"
 
 unsigned long long Collider::g_iNextID = 0;
 
@@ -55,6 +56,49 @@ void Collider::Update()
 
 void Collider::Exit()
 {
+}
+
+glm::vec3 Collider::GetColModelMin_AABB()
+{
+	if (m_pColliderTransform == nullptr)
+		assert(false);
+	if (GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM || GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
+	{
+		glm::vec3 a;
+		if (GetOwner()->GetName() == "stone_small_6")
+		{
+			a = m_pColliderTransform->GetPosition();
+			int b = 0;
+		}
+		glm::vec3 lPos = GetFinalPosition();		
+		glm::vec3 lScale = GetScale();		
+
+		float lColLeft = lPos.x - lScale.x / 2.f;
+		float lColRight = lPos.x + lScale.x / 2.f;
+		float lColTop = lPos.y + lScale.y / 2.f;
+		float lColBot = lPos.y - lScale.y / 2.f;		
+
+		return glm::vec3({ lPos.x - (lScale.x / 2.f),lPos.y - (lScale.y / 2.f),0.f });;
+	}
+}
+
+glm::vec3 Collider::GetColModelMax_AABB()
+{
+	if (m_pColliderTransform == nullptr)
+		assert(false);
+	
+	if (GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM || GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
+	{
+		glm::vec3 lPos = GetFinalPosition();
+		glm::vec3 lScale = GetScale();
+
+		float lColLeft = lPos.x - lScale.x / 2.f;
+		float lColRight = lPos.x + lScale.x / 2.f;
+		float lColTop = lPos.y + lScale.y / 2.f;
+		float lColBot = lPos.y - lScale.y / 2.f;
+
+		return glm::vec3({ lPos.x + (lScale.x / 2.f),lPos.y + (lScale.y / 2.f),0.f });;
+	}
 }
 
 void Collider::SetColliderModelType(MODEL_TYPE _modelType)
@@ -113,8 +157,7 @@ void Collider::LoadFromJson(const json& _str)
 		m_vOffsetPosition.x = offset_pos->begin().value();
 		m_vOffsetPosition.y = (offset_pos->begin() + 1).value();
 		m_vOffsetPosition.z = (offset_pos->begin() + 2).value();
-		if (m_vOffsetPosition.y < 0.f)
-			int a = 0;
+
 		auto sca = iter_compData->find(ScaleTypeName);
 		m_vScale.x = sca->begin().value();
 		m_vScale.y = (sca->begin() + 1).value();

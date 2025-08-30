@@ -48,5 +48,6 @@ public:
 	inline size_t GetPositionCnt_of_VBO()const { return m_vVertices.size(); }
 	inline std::vector<VertexAttribute> GetVertices()const { return m_vVertices; }
 public:
+	glm::vec3 GetRectangleMin();
 	void Draw();
 };

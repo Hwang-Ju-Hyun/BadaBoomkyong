@@ -18,7 +18,8 @@ private:
     float m_fGravity = 980.f;
     float m_fMaxFallSpeed = -800.f;
     bool m_bUseGravity = true;
-    bool m_bIsKinematic = false;    
+    bool m_bIsKinematic = false; 
+
 public:
     void SetVelocity(const glm::vec3& _vel);
     inline void AddForce(const glm::vec3& _force) { m_vForce += _force; }
@@ -38,6 +39,7 @@ private:
 public:
     inline void SetIsGround(bool _ground) { m_bIsGround = _ground; }
     inline bool GetIsGround()const { return m_bIsGround; }
+    bool m_bIsCollision = false;
 public:
     virtual void Init() override;
     virtual void Update() override;
@@ -51,7 +53,6 @@ public:
     virtual void LoadFromJson(const json& _str)override;
     virtual json SaveToJson(const json& _str)override;
 public:
-    //event
-    bool message=false;
     float jumpforce;
+    bool GroundMessage = false;
 };
