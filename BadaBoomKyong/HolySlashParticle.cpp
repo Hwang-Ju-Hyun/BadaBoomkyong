@@ -12,7 +12,7 @@ HolySlashParticle::HolySlashParticle(ParticleSystem* _ps, GameObject* _owner)
 	: m_pParticleSystem(_ps)
 	, m_iParticle_PoolSize(1000)
 	, m_iEmit_size(500)
-	, m_ColorOverLifeTime(glm::vec4{ 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f },
+	, m_ColorOverLifeTime(glm::vec4{ 48 / 255.0f, 12 / 255.0f, 254 / 255.0f, 1.0f },
 		/*glm::vec4{ 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f }*/
 		 glm::vec4{255.f,0.f, 0.f, 1.0f })
 	, m_SizeOverLifeTime(5.f, 1.f)

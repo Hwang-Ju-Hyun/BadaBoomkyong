@@ -6,6 +6,7 @@
 #include "GameObjectManager.h"
 #include "Player.h"
 #include "EventManager.h"
+#include "Monster.h"
 
 Pistol::Pistol(GameObject* _owner,GameObject* _shooter)
 	:Bullet(_owner,_shooter)
@@ -61,8 +62,17 @@ void Pistol::EnterCollision(Collider* _col)
 {
 	if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
 	{
-		std::cout << _col->GetOwner()->GetName() << std::endl;
+		//std::cout << _col->GetOwner()->GetName() << std::endl;
 		EventManager::GetInstance()->SetActiveFalse(GetOwner());
+	}
+	m_pMonster = _col->GetOwner()->FindComponent<Monster>();
+	if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::MONSTER)
+	{
+		if (m_pMonster)
+		{
+			m_pMonster->MinusCurrentHp(100);
+			m_pMonster->SetIsHurting(true);
+		}
 	}
 }
 

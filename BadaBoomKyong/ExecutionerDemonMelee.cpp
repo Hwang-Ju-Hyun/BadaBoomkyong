@@ -64,7 +64,7 @@ void ExecutionerDemonMelee::Update()
 {
     float dt = TimeManager::GetInstance()->GetDeltaTime();
 
-    if (m_pExecutionerDemon->GetCurrentState() == MonsterAnimState::HURT)
+    if (m_pExecutionerDemon->GetCurrentState() == MonsterAnimState::HURT|| m_pExecutionerDemon->GetCurrentState() == MonsterAnimState::DEATH)
     {
         m_fCurTime = 0.f;
         EventManager::GetInstance()->SetActiveFalse(GetOwner());

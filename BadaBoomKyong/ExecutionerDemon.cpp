@@ -91,58 +91,65 @@ void ExecutionerDemon::Init()
 void ExecutionerDemon::Update()
 {	
 	//인지범위
-	auto math = MathUtil::GetInstance();
-	m_vPosition = m_pTransform->GetPosition();
-	m_vPlayerPosition = m_pPlayerTransform->GetPosition();
-
-	float dist = math->DistanceBetweenPoints(m_vPosition, m_vPlayerPosition);
-
-	if (m_pAI->GetCurrentState()->GetType() != MONSTER_STATE::PATROL_STATE)
-	{		
-		float dir = m_vPlayerPosition.x - m_vPosition.x;
-		dir > 0 ? m_fDirection = 1 : m_fDirection = -1;		
-	}		
-	if (dist <= m_fDetectRange)
+	if (GetIsAlive())
 	{
-		if (dist <= m_vMeleeAtkRange.x)
+		UpdateSpriteFlipX();
+
+		auto math = MathUtil::GetInstance();
+		m_vPosition = m_pTransform->GetPosition();
+		m_vPlayerPosition = m_pPlayerTransform->GetPosition();
+
+		float dist = math->DistanceBetweenPoints(m_vPosition, m_vPlayerPosition);
+
+		if (m_pAI->GetCurrentState()->GetType() != MONSTER_STATE::PATROL_STATE)
 		{
-			m_pAI->ChangeState(MONSTER_STATE::MELEE_ATTACK_STATE);
-		}	
+			float dir = m_vPlayerPosition.x - m_vPosition.x;
+			dir > 0 ? m_fDirection = 1 : m_fDirection = -1;
+		}
+		if (dist <= m_fDetectRange)
+		{
+			if (dist <= m_vMeleeAtkRange.x)
+			{
+				m_pAI->ChangeState(MONSTER_STATE::MELEE_ATTACK_STATE);
+			}
+		}
+		else
+		{
+			m_pAI->ChangeState(MONSTER_STATE::PATROL_STATE);
+			m_eCurrentState = MonsterAnimState::WALK;
+		}
+
+
+		if (m_eCurrentState == MonsterAnimState::NORMAL_ATTACK)
+		{
+			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+			{
+				m_bMeleeAtkDone = true;
+				m_pAnimator->GetAnimation()->m_bLoopCount = 0;
+			}
+		}
+
+
+		if (GetIsHurting())
+		{
+			float Knockback_dir = -m_fDirection;
+			m_pTransform->AddPositionX(0.5f * Knockback_dir);
+			m_eCurrentState = MonsterAnimState::HURT;
+			m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
+		}
+
+		if (GetIsHurting())
+		{
+			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+			{
+				m_pAnimator->GetAnimation()->m_bLoopCount = 0;
+				SetIsHurting(false);
+			}
+		}
 	}
-	else
-	{
-		m_pAI->ChangeState(MONSTER_STATE::PATROL_STATE);
-		m_eCurrentState = MonsterAnimState::WALK;		
-	}
-	auto hp = GetCurrentHP();
+	
+	 auto hp = GetCurrentHP();
 	 hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
-
-	 if (m_eCurrentState == MonsterAnimState::NORMAL_ATTACK)
-	 {
-		 if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
-		 {
-			 m_bMeleeAtkDone = true;
-			 m_pAnimator->GetAnimation()->m_bLoopCount = 0;
-		 }
-	 }
-
-
-	 if (GetIsHurting())
-	 {
-		 float Knockback_dir = -m_fDirection;
-		 m_pTransform->AddPositionX(0.5f * Knockback_dir);
-		 m_eCurrentState = MonsterAnimState::HURT;		 
-		 m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
-	 }		 
-
-	 if (GetIsHurting())
-	 {
-		 if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
-		 {
-			 m_pAnimator->GetAnimation()->m_bLoopCount = 0;
-			 SetIsHurting(false);
-		 }
-	 }
 
 	if (!GetIsAlive())
 		m_eCurrentState = MonsterAnimState::DEATH;
@@ -150,7 +157,7 @@ void ExecutionerDemon::Update()
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();
 
-	UpdateSpriteFlipX();
+	
 }
 
 void ExecutionerDemon::Exit()

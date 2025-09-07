@@ -197,9 +197,9 @@ void Player::Move()
 
 	if (CollisionManager::GetInstance()->RayCast(m_ray, 10.F, m_rayHit, GROUP_TYPE::PLATFORM))
 	{
-		std::cout << "ground" << std::endl;
+		//std::cout << "ground" << std::endl;
 		m_pRigidBody->SetIsGround(true);
-		std::cout << m_rayHit.m_pHitGameObject->GetName()<< m_rayHit.m_pHitGameObject->GetID() << std::endl;
+		//std::cout << m_rayHit.m_pHitGameObject->GetName()<< m_rayHit.m_pHitGameObject->GetID() << std::endl;
 	}		
 }
 

@@ -2,6 +2,7 @@
 #include "Bullet.h"
 
 class Player;
+class Monster;
 
 class Pistol :
     public Bullet
@@ -14,6 +15,7 @@ public:
     virtual void Awake() override;
     virtual void Update()override;
     virtual void Exit()  override;
+
 public:
     virtual void Fire()override;
 private:
@@ -22,6 +24,7 @@ private:
     Collider* m_pCollider = nullptr;
 private:
     Player* m_pPlayer = nullptr;
+    Monster* m_pMonster = nullptr;
     Transform* m_pPlayerTrs = nullptr;
 private:
     float m_fSpeed = 0.f;
