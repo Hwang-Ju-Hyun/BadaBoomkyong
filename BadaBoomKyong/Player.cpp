@@ -129,9 +129,7 @@ void Player::Update()
 	StateHandler();	
 	
 	if (m_pAnimStateMachine)
-		m_pAnimStateMachine->Update();
-	
-	//std::cout << m_eCurrentState << std::endl;
+		m_pAnimStateMachine->Update();		
 }
 
 void Player::EnterCollision(Collider* _other)
@@ -141,6 +139,7 @@ void Player::EnterCollision(Collider* _other)
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());		
 		jumpPressed = false;			
 	}	
+	std::cout << "enter" << std::endl;
 	
 }
 
@@ -150,14 +149,16 @@ void Player::OnCollision(Collider* _other)
 	{
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());		
 	}
+	std::cout << "on" << std::endl;
 }
 
 void Player::ExitCollision(Collider* _other)
 {	
 	if (m_pRigidBody->GetIsGround())
 	{
-		m_pRigidBody->SetIsGround(false);		
+		m_pRigidBody->SetIsGround(false);				
 	}	
+	std::cout << "exit col" << std::endl;
 }
 
 void Player::Move() 
@@ -190,19 +191,18 @@ void Player::Move()
 	
 	m_pRigidBody->SetVelocity(velocity);
 	std::fabs(velocity.x) > 0 ? m_bIsMoving = true:m_bIsMoving=false;
+	
 
-	glm::vec3 player_pos = m_pTransform->GetPosition();	
 	glm::vec3 dir = glm::normalize(glm::vec3{ 0.1f,-1.f,0.f });
 	m_ray = { m_pCollider->GetFinalPosition(),dir };
-
-	if (CollisionManager::GetInstance()->RayCast(m_ray, 35.f, m_rayHit, GROUP_TYPE::PLATFORM))
-	{
-		std::cout << "ground" << std::endl;
+	if (CollisionManager::GetInstance()->RayCast(m_ray, m_pCollider->GetScale().y, m_rayHit, GROUP_TYPE::PLATFORM))
+	{		
 		m_pRigidBody->SetIsGround(true);
-		//std::cout << m_rayHit.m_pHitGameObject->GetName()<< m_rayHit.m_pHitGameObject->GetID() << std::endl;
 	}
-	std::cout << m_pRigidBody->GetVelocity().y << std::endl;
-	std::cout << m_pCollider->GetFinalPosition().x << " , " << m_pCollider->GetFinalPosition().y << " , " << m_pCollider->GetFinalPosition().z << std::endl;
+	else
+	{
+		m_pRigidBody->SetIsGround(false);
+	}
 }
 
 void Player::Fire()
