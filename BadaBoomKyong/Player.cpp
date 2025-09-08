@@ -191,16 +191,18 @@ void Player::Move()
 	m_pRigidBody->SetVelocity(velocity);
 	std::fabs(velocity.x) > 0 ? m_bIsMoving = true:m_bIsMoving=false;
 
-	glm::vec3 player_pos = m_pTransform->GetPosition();
-	glm::vec3 dir = { 0.1f,-1.f,0.f };
-	m_ray = { player_pos,dir };
+	glm::vec3 player_pos = m_pTransform->GetPosition();	
+	glm::vec3 dir = glm::normalize(glm::vec3{ 0.1f,-1.f,0.f });
+	m_ray = { m_pCollider->GetFinalPosition(),dir };
 
-	if (CollisionManager::GetInstance()->RayCast(m_ray, 10.F, m_rayHit, GROUP_TYPE::PLATFORM))
+	if (CollisionManager::GetInstance()->RayCast(m_ray, 35.f, m_rayHit, GROUP_TYPE::PLATFORM))
 	{
-		//std::cout << "ground" << std::endl;
+		std::cout << "ground" << std::endl;
 		m_pRigidBody->SetIsGround(true);
 		//std::cout << m_rayHit.m_pHitGameObject->GetName()<< m_rayHit.m_pHitGameObject->GetID() << std::endl;
-	}		
+	}
+	std::cout << m_pRigidBody->GetVelocity().y << std::endl;
+	std::cout << m_pCollider->GetFinalPosition().x << " , " << m_pCollider->GetFinalPosition().y << " , " << m_pCollider->GetFinalPosition().z << std::endl;
 }
 
 void Player::Fire()

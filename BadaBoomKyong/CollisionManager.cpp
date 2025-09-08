@@ -158,6 +158,8 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 
 bool CollisionManager::IsIntersectRayAABB(const Ray& _ray, Collider* _col, RayCastHit& _out)
 { 
+	if (_col->GetOwner()->GetName() == "Player")
+		int a = 0;
 	// AABB(월드) 얻기
 	glm::vec3 c = _col->GetFinalPosition();      // 박스 중심(월드)
 	glm::vec3 s = _col->GetScale();              // 박스 크기(폭,높이[,깊이])
@@ -265,6 +267,8 @@ bool CollisionManager::RayCast(const Ray& _ray, float _maxDistance, RayCastHit& 
 
 	for (const auto obj : GameObjectManager::GetInstance()->GetAllObjects()) 
 	{
+		if (obj->GetName() == "NewObject")
+			int a = 0;
 		Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
 		if (col==nullptr) 
 			continue;		

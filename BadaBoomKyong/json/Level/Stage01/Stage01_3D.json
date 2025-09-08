@@ -8,12 +8,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-<<<<<<< Updated upstream
             -536.21484375,
-=======
             70.6247787475586,
->>>>>>> Stashed changes
-            -245.86221313476563,
             0.0
           ],
           "Sca": [
@@ -247,12 +243,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            1300.0,
-<<<<<<< Updated upstream
-            -83436.7890625,
-=======
-            -89774.4296875,
->>>>>>> Stashed changes
+            1300.0,            
+            5000.4296875,
             0.0
           ],
           "Sca": [
@@ -410,12 +402,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            1649.583251953125,
-<<<<<<< Updated upstream
-            -83143.3046875,
-=======
-            -89480.9609375,
->>>>>>> Stashed changes
+            1649.583251953125,            
+            5480.9609375,
             0.0
           ],
           "Sca": [
@@ -573,12 +561,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-<<<<<<< Updated upstream
             -900.0,
-=======
-            143.5012664794922,
->>>>>>> Stashed changes
-            -193.36221313476563,
+            143.5012664794922,            
             0.0
           ],
           "Sca": [

@@ -51,7 +51,6 @@ void RigidBody::Update()
 			if (m_vVelocity.y < m_fMaxFallSpeed)
 				m_vVelocity.y = m_fMaxFallSpeed;			
 		}
-
 		
 		Transform* transform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
 		if (transform)
