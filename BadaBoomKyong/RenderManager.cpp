@@ -48,7 +48,7 @@ RenderManager::RenderManager()
 RenderManager::~RenderManager()
 {
 	delete debugLineShader;
-	debugLineShader = nullptr;
+	debugLineShader = nullptr;	
 }
 
 GLuint RenderManager::GetDebugLineShader() const
@@ -98,7 +98,7 @@ void RenderManager::Init()
 	m_pParticleSystem->Init();
 
 	//todo : ÀÌ°Å °ð light manager·Î ¿Å±â¼À
-	GameObject* light_obj = GameObjectManager::GetInstance()->FindObject("LightTemp");
+	GameObject* light_obj = GameObjectManager::GetInstance()->FindObject("Light");
 	m_pLight = dynamic_cast<Light*>(light_obj->FindComponent(Light::LightTypeName));
 	assert(m_pLight != nullptr);
 
@@ -209,7 +209,7 @@ void RenderManager::Draw()
 				glUniform1i(m_iLightAffect_location, true);
 
 
-				obj->GetName() == "LightTemp" ? glUniform1i(m_iLightColorOn, true) : glUniform1i(m_iLightColorOn, false);
+				obj->GetName() == "Light" ? glUniform1i(m_iLightColorOn, true) : glUniform1i(m_iLightColorOn, false);
 				
 				for (int i = 0;i < light_num;i++)
 				{
@@ -598,6 +598,12 @@ void RenderManager::Exit()
 	{
 		delete m_pCam;
 		m_pCam = nullptr;
+	}
+
+	if (m_pParticleSystem)
+	{
+		delete m_pParticleSystem;
+		m_pParticleSystem = nullptr;
 	}
 }
 

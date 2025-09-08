@@ -123,6 +123,7 @@ void BulletFactory::InitStage01()
 
 void BulletFactory::InitStage02()
 {
+	InitStage01();
 }
 
 void BulletFactory::InitStage03()

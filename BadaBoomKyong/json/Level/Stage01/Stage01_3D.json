@@ -8,8 +8,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            -536.21484375,
-            70.6247787475586,
+            1943.7977294921875,
+            -26700.865234375,
             0.0
           ],
           "Sca": [
@@ -33,8 +33,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "ComboAtk_3",
-          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_3.png"
+          "TextureName": "Fall",
+          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Fall/Fall.png"
         }
       },
       {
@@ -243,8 +243,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            1300.0,            
-            5000.4296875,
+            1192.0,
+            -286266.25,
             0.0
           ],
           "Sca": [
@@ -402,8 +402,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            1649.583251953125,            
-            5480.9609375,
+            2000.0,
+            -288385.84375,
             0.0
           ],
           "Sca": [
@@ -561,8 +561,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            -900.0,
-            143.5012664794922,            
+            1842.7586669921875,
+            -286579.3125,
             0.0
           ],
           "Sca": [
@@ -586,8 +586,165 @@
             1.0,
             1.0
           ],
-          "TextureName": "NormalAttack_1",
-          "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/NormalAttack_1.png"
+          "TextureName": "Idle",
+          "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Idle.png"
+        }
+      },
+      {
+        "Type": "RigidBody",
+        "CompData": {
+          "Kinematic": [
+            false
+          ],
+          "Gravity": [
+            980.0
+          ],
+          "Mass": [
+            1.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            -20.0,
+            0.0
+          ],
+          "Scale": [
+            40.0,
+            110.0,
+            450.0
+          ]
+        }
+      },
+      {
+        "Type": "Animator",
+        "CompData": {
+          "Animations": [
+            {
+              "Name": "Death",
+              "TextureName": "Death",
+              "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Death.png",
+              "Max": 29,
+              "Row": 1,
+              "Col": 29,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "Hurt",
+              "TextureName": "Hurt",
+              "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Hurt.png",
+              "Max": 5,
+              "Row": 1,
+              "Col": 5,
+              "Duration": 0.15000002086162567,
+              "Loop": false
+            },
+            {
+              "Name": "Idle",
+              "TextureName": "Idle",
+              "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Idle.png",
+              "Max": 8,
+              "Row": 1,
+              "Col": 8,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            },
+            {
+              "Name": "NormalAttack_1",
+              "TextureName": "NormalAttack_1",
+              "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/NormalAttack_1.png",
+              "Max": 28,
+              "Row": 1,
+              "Col": 28,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "Walk",
+              "TextureName": "Walk",
+              "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Walk.png",
+              "Max": 10,
+              "Row": 1,
+              "Col": 10,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            }
+          ]
+        }
+      },
+      {
+        "Type": "AI",
+        "CompData": {
+          "StateList": [
+            0,
+            1,
+            3
+          ]
+        }
+      },
+      {
+        "Type": "ExecutionerDemon",
+        "CompData": {
+          "Speed": 100.0,
+          "JumpForce": 500.0,
+          "DetectRange": 500.0,
+          "MeleeAtkCoolTime": 1.0,
+          "RangedMoveAtkRange": [
+            50.0,
+            500.0,
+            0.0
+          ],
+          "MeleeAtkRange": [
+            200.0,
+            500.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 4,
+    "Group": 3
+  },
+  {
+    "Name": "ExecutionerDemon",
+    "ID": 1,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            1670.6322021484375,
+            -288410.84375,
+            0.0
+          ],
+          "Sca": [
+            250.0,
+            250.0,
+            450.0
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Sprite",
+        "CompData": {
+          "RGBA": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "TextureName": "Idle",
+          "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Idle.png"
         }
       },
       {
@@ -740,7 +897,7 @@
     "Group": 4
   },
   {
-    "Name": "LightTemp",
+    "Name": "Light",
     "ID": 0,
     "Is3D": true,
     "Components": [
@@ -958,9 +1115,9 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            -1110.1341552734375,
-            -139.45545959472656,
-            -597.0603637695313
+            -1064.4754638671875,
+            -143.34393310546875,
+            -572.5099487304688
           ],
           "Sca": [
             1.2204606533050537,
@@ -1123,9 +1280,9 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            -879.215087890625,
+            -869.9425659179688,
             303.2225341796875,
-            -2352.56005859375
+            -2350.50048828125
           ],
           "Sca": [
             9.221506118774414,
@@ -1183,9 +1340,9 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            -1110.1341552734375,
-            -139.45545959472656,
-            -597.0603637695313
+            722.7803955078125,
+            -102.33995056152344,
+            352.6260070800781
           ],
           "Sca": [
             1.2204606533050537,
@@ -1243,19 +1400,19 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            2494.63330078125,
-            246.45059204101563,
-            151.26248168945313
+            2942.075439453125,
+            -346.9952697753906,
+            -1797.82373046875
           ],
           "Sca": [
-            1.9093092679977417,
-            1.5883874893188477,
-            1.2441679239273071
+            8.415043830871582,
+            6.072601795196533,
+            6.430843830108643
           ],
           "Rot": [
-            179.99989318847656,
-            -60.38958740234375,
-            179.99989318847656
+            8.068784518400207e-05,
+            32.79523849487305,
+            -0.0001416621234966442
           ]
         }
       },
@@ -1268,8 +1425,8 @@
             0.0
           ],
           "Scale": [
-            40.0,
-            75.0,
+            0.0,
+            0.0,
             0.0
           ]
         }
@@ -1423,18 +1580,18 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            -363.1471862792969,
-            -53.61762619018555,
-            -1705.520263671875
+            219.34217834472656,
+            -49.98185729980469,
+            -1268.466064453125
           ],
           "Sca": [
-            3.906240701675415,
-            4.021004676818848,
-            5.616568565368652
+            3.9062418937683105,
+            4.021003723144531,
+            5.616565227508545
           ],
           "Rot": [
             0.0,
-            -0.0,
+            -19.685047149658203,
             0.0
           ]
         }
@@ -1483,9 +1640,9 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            -1468.5535888671875,
+            -1442.5821533203125,
             -290.2106018066406,
-            -250.41558837890625
+            -245.6948699951172
           ],
           "Sca": [
             1.3682137727737427,
@@ -1498,10 +1655,55 @@
             179.99923706054688
           ]
         }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            100.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            10.0,
+            1000.0,
+            500.0
+          ]
+        }
       }
     ],
     "Model": 6,
     "ModelPath": "../Extern/Assets/Model/stone/Fbx/stone_big_3.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "stone_mid_14",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            718.9089965820313,
+            -290.2109069824219,
+            -457.7385559082031
+          ],
+          "Sca": [
+            0.9361536502838135,
+            0.9075820446014404,
+            1.0171608924865723
+          ],
+          "Rot": [
+            -0.0001842961646616459,
+            -44.19257736206055,
+            0.00012147563393227756
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stone/Fbx/stone_mid_14.fbx",
     "Group": 4
   },
   {

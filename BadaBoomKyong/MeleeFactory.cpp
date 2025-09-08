@@ -101,6 +101,7 @@ void MeleeFactory::InitStage01()
 
 void MeleeFactory::InitStage02()
 {
+	InitStage01();
 }
 
 void MeleeFactory::InitStage03()

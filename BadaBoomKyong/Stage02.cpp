@@ -33,24 +33,16 @@ Stage02::~Stage02()
 
 void Stage02::Init()
 {	
-	ModelManager::GetInstance()->Init();
-	
 	Serializer::GetInstance()->LoadJson_Object("json/Level/Stage02/Stage02_3D.json");
+	//Serializer::GetInstance()->LoadJson_Object("json/temp/temp.json");		
 
-	//FactoryManager    
-	FactoryManager::GetInstance()->Init();
-	//ComponentInit
-	ComponentManager::GetInstance()->Init();
-	
-	 //InputManager
-	InputManager::GetInstance()->Init();
-
-	//RenderInit            
-	RenderManager::GetInstance()->Init();
-	RenderManager::GetInstance()->InitDebugLineShader();	
-#ifdef _DEBUG
-	MainEditor::GetInstance()->Init();
-#endif
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::MONSTER);
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MELEE, GROUP_TYPE::MONSTER);
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MELEE, GROUP_TYPE::PLAYER);
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PLATFORM);
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MONSTER, GROUP_TYPE::PLATFORM);
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLATFORM);
 }
 
 void Stage02::Update()
@@ -74,10 +66,4 @@ void Stage02::Exit()
 	RenderManager::GetInstance()->Exit();
 	EventManager::GetInstance()->Exit();
 
-#ifdef _DEBUG
-	// Cleanup
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
-#endif // DEBUG
 }

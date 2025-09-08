@@ -90,3 +90,26 @@ json Light::SaveToJson(const json& _str)
 
 	return data;
 }
+
+void Light::EditInfoFromButton()
+{	
+	// LightType 선택용 문자열 배열
+	const char* lightTypes[] = { "Point", "Directional", "Spot" };
+	int currentType = static_cast<int>(m_eType);
+
+	if (ImGui::Combo("Light Type", &currentType, lightTypes, IM_ARRAYSIZE(lightTypes)))
+	{
+		m_eType = static_cast<LightType>(currentType);
+	}
+
+	// 색상/강도 값 입력
+	ImGui::InputFloat3("Ambient", &(m_vAmbient[0]));
+	ImGui::InputFloat3("Diffuse", &(m_vDiffuse[0]));
+	ImGui::InputFloat3("Specular", &(m_vSpecular[0]));
+
+	// Spot light일 때만 Cutoff Angle 표시
+	if (m_eType == LightType::SPOT_LIGHT)
+	{
+		ImGui::InputFloat("Cutoff Angle", &m_fCutoffAngle);
+	}
+}

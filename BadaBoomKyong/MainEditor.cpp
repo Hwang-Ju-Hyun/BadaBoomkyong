@@ -53,6 +53,7 @@ void MainEditor::Update()
 	ImGui::NewFrame();		
 
 	ObjectPannelDraw();	
+	LightPannelDraw();
 	TopMenuBarDraw();
 	DeletObjectModal();
 	
@@ -195,6 +196,10 @@ void MainEditor::ObjectPannelDraw()
 
 	for (int i = 0;i < all_objs.size();i++)
 	{		
+		if (all_objs[i]->GetName() == "Light")
+		{
+			continue;
+		}
 		if (ImGui::Button((all_objs[i]->GetName() + std::to_string(all_objs[i]->GetID())).c_str()))
 		{
 			m_pSelectedObjByPannel = all_objs[i];
@@ -216,6 +221,40 @@ void MainEditor::ObjectPannelDraw()
 		}
 	}
 	ImGui::End();	
+}
+
+void MainEditor::LightPannelDraw()
+{
+	auto obj_mgr = GameObjectManager::GetInstance();
+	auto all_objs = obj_mgr->GetAllObjects();
+	ImGui::Begin("Light List");
+	for (int i = 0;i < all_objs.size();i++)
+	{
+		if (all_objs[i]->GetName() != "Light")
+		{
+			continue;
+		}
+		if (ImGui::Button((all_objs[i]->GetName() + std::to_string(all_objs[i]->GetID())).c_str()))
+		{
+			m_pSelectedObjByPannel = all_objs[i];
+			m_pTransform_SelectedObj = dynamic_cast<Transform*>(m_pSelectedObjByPannel->FindComponent(Transform::TransformTypeName));
+		}
+		if (m_pSelectedObjByPannel == all_objs[i])
+		{
+			std::unordered_map<std::string, BaseComponent*> comps = all_objs[i]->GetAllComponentsOfObj_Hash();
+			for (auto iter = comps.begin(); iter != comps.end(); ++iter)
+			{
+				BaseComponent* comp = iter->second;
+				if (comp != nullptr && ImGui::TreeNode(comp->GetName().c_str()))
+				{
+					comp->EditInfoFromButton();
+					ImGui::TreePop();
+				}
+			}
+			ImGui::Separator();
+		}
+	}
+	ImGui::End();
 }
 
 //Chat GPT ¾´ ÇÔ¼ö

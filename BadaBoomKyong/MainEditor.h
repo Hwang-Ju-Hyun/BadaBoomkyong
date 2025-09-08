@@ -33,6 +33,7 @@ private:
 	void DeletObjectModal();
 	void TopMenuBarDraw();
 	void ObjectPannelDraw();	
+	void LightPannelDraw();
 	void DrawGizmo();
 	void UpdateEditorCameraControls();
 	static bool init_edit;

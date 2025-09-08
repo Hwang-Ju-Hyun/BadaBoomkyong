@@ -138,8 +138,7 @@ void Player::EnterCollision(Collider* _other)
 	{
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());		
 		jumpPressed = false;			
-	}	
-	std::cout << "enter" << std::endl;
+	}		
 	
 }
 
@@ -148,8 +147,7 @@ void Player::OnCollision(Collider* _other)
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
 	{
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());		
-	}
-	std::cout << "on" << std::endl;
+	}	
 }
 
 void Player::ExitCollision(Collider* _other)
@@ -157,8 +155,7 @@ void Player::ExitCollision(Collider* _other)
 	if (m_pRigidBody->GetIsGround())
 	{
 		m_pRigidBody->SetIsGround(false);				
-	}	
-	std::cout << "exit col" << std::endl;
+	}		
 }
 
 void Player::Move() 
@@ -195,7 +192,7 @@ void Player::Move()
 
 	glm::vec3 dir = glm::normalize(glm::vec3{ 0.1f,-1.f,0.f });
 	m_ray = { m_pCollider->GetFinalPosition(),dir };
-	if (CollisionManager::GetInstance()->RayCast(m_ray, m_pCollider->GetScale().y, m_rayHit, GROUP_TYPE::PLATFORM))
+	if (CollisionManager::GetInstance()->RayCast(m_ray, m_pCollider->GetScale().y-15.f, m_rayHit, GROUP_TYPE::PLATFORM))
 	{		
 		m_pRigidBody->SetIsGround(true);
 	}
