@@ -104,12 +104,6 @@
     <Filter Include="Component\Default\RigidBody">
       <UniqueIdentifier>{3109bb1b-d4e5-4e54-8488-77b0c83fbacd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Default\Collider">
-      <UniqueIdentifier>{37ddfb3f-1071-45b8-9018-8d9d8ee5ca11}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Default\Collider\Interface">
-      <UniqueIdentifier>{d79bfbcb-5d5b-4ae2-8b84-5372cc13c636}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Default\Sprite">
       <UniqueIdentifier>{6d2d22d1-cc67-4541-b86f-bf055e544dcd}</UniqueIdentifier>
     </Filter>
@@ -386,8 +380,14 @@
     <Filter Include="Ray">
       <UniqueIdentifier>{65483198-3656-4780-bccb-37816a38e906}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Default\Collider">
+      <UniqueIdentifier>{37ddfb3f-1071-45b8-9018-8d9d8ee5ca11}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Component\Default\Collider\Ray">
       <UniqueIdentifier>{c3862e12-890d-41c6-b4be-c66f469c90de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Default\Collider\Interface">
+      <UniqueIdentifier>{d79bfbcb-5d5b-4ae2-8b84-5372cc13c636}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

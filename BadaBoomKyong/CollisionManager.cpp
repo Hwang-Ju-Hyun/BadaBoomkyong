@@ -78,7 +78,7 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 	auto all_obj = GameObjectManager::GetInstance()->GetAllObjects();	
 	
 	for (auto obj : all_obj)
-	{		
+	{				
 		if (obj->GetGroupType() == _left)
 		{
 			Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
@@ -146,7 +146,7 @@ void CollisionManager::CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 			else
 			{
 				if (iter->second)
-				{
+				{					
 					left_col->ExitCollision(right_col);
 					right_col->ExitCollision(left_col);
 				}				
