@@ -8,8 +8,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            -247.68470764160156,
-            6.0,
+            -250.17416381835938,
+            5.0,
             0.0
           ],
           "Sca": [
@@ -33,8 +33,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "Fall",
-          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Fall/Fall.png"
+          "TextureName": "JumpAttack",
+          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/AirAttack/FX/JumpAttack.png"
         }
       },
       {
@@ -244,7 +244,7 @@
         "CompData": {
           "Pos": [
             1192.0,
-            -590365.0625,
+            -711140.625,
             0.0
           ],
           "Sca": [
@@ -402,8 +402,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            494.6165771484375,
-            -590678.1875,
+            451.03839111328125,
+            -711453.75,
             0.0
           ],
           "Sca": [

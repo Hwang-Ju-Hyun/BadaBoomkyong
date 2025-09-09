@@ -33,8 +33,7 @@ Stage02::~Stage02()
 
 void Stage02::Init()
 {	
-	Serializer::GetInstance()->LoadJson_Object("json/Level/Stage02/Stage02_3D.json");
-	//Serializer::GetInstance()->LoadJson_Object("json/temp/temp.json");		
+	Serializer::GetInstance()->LoadJson_Object("json/Level/Stage02/Stage02_3D.json");	
 
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::MONSTER);
@@ -55,10 +54,11 @@ void Stage02::Exit()
 {
 	Serializer::GetInstance()->SaveJson_Object("json/Level/Stage02/Stage02_3D.json", true);
 	Serializer::GetInstance()->SaveJson_Object("json/Level/Stage02/Stage02_2D.json", false);
+	
 	ComponentManager::GetInstance()->Exit();
 
-	//FactoryManager::GetInstance()->Exit();
-	//ObjectPoolManager::GetInstance()->Exit();
+	FactoryManager::GetInstance()->Exit();
+	ObjectPoolManager::GetInstance()->Exit();
 
 	GameObjectManager::GetInstance()->Exit();
 
@@ -67,5 +67,12 @@ void Stage02::Exit()
 
 	//RenderManager::GetInstance()->Exit();
 	EventManager::GetInstance()->Exit();
+
+#ifdef _DEBUG
+	// Cleanup
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+#endif // DEBUG
 
 }

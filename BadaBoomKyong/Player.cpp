@@ -76,7 +76,7 @@ Player::Player(GameObject* _owner)
 	//AnimationSpriteSheet* anim_clip = m_pAnimator->GetSpriteSheet("ComboAtk_1");
 	//anim_clip->m_vecAnimEvent.push_back({ 9, std::bind(&Player::AddComboIndex,this) });
 	//anim_clip->m_vecAnimEvent.push_back({ 15,std::bind(&Player::AddComboIndex,this) });
-	//anim_clip->m_vecAnimEvent.push_back({ 24,std::bind(&Player::AddComboIndex,this) });
+	//anim_clip->m_vecAnimEvent.push_back({ 24,std::bind(&Player::AddComboIndex,this) });	
 }
 
 Player::~Player()
@@ -94,15 +94,13 @@ Player::~Player()
 
 void Player::Init()
 {			
-	
-}
-
-void Player::Awake()
-{
 	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
 	m_pMeleeFactory = dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
 	assert(m_pBulletFactory != nullptr && m_pMeleeFactory != nullptr);
+}
 
+void Player::Awake()
+{	
 	m_iCurrentHP = m_iInitHP;
 	m_bIsAlive = true;
 }

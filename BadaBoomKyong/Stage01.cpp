@@ -14,6 +14,14 @@
 #include <iostream>
 #include "Stage02.h"
 #include "GameStateManager.h"
+#include "RenderManager.h"
+#include "ObjectPoolManager.h"
+#include "ResourceManager.h"
+#include "ModelManager.h"
+#include "FactoryManager.h"
+#include "RenderManager.h"
+#include "MainEditor.h"
+
 
 Stage01::Stage01(STAGE_TYPE _stageType, const std::string& _name)
 	:BaseLevel(_stageType,_name)
@@ -26,18 +34,25 @@ Stage01::~Stage01()
 }
 
 void Stage01::Init()
-{	
+{			
 	Serializer::GetInstance()->LoadJson_Object("json/Level/Stage01/Stage01_3D.json");
 	//Serializer::GetInstance()->LoadJson_Object("json/temp/temp.json");		
 	
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::MONSTER);
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MELEE, GROUP_TYPE::MONSTER);
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MELEE, GROUP_TYPE::PLAYER);
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PLATFORM);
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MONSTER, GROUP_TYPE::PLATFORM);
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLATFORM);
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PORTAL);
+	
+	FactoryManager::GetInstance()->Init();
+
+	//ComponentInit
+	ComponentManager::GetInstance()->Init();	
+
+	//RenderInit            
+	RenderManager::GetInstance()->Init();
+	RenderManager::GetInstance()->InitDebugLineShader();
+
+
+#ifdef _DEBUG
+	//MainEditor
+	MainEditor::GetInstance()->Init();
+#endif   
 }
 
 void Stage01::Update()
@@ -45,11 +60,7 @@ void Stage01::Update()
 	
 }
 
-#include "ObjectPoolManager.h"
-#include "ResourceManager.h"
-#include "ModelManager.h"
-#include "FactoryManager.h"
-#include "RenderManager.h"
+
 void Stage01::Exit()
 {	
 	Serializer::GetInstance()->SaveJson_Object("json/Level/Stage01/Stage01_3D.json",true);
