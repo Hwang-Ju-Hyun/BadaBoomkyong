@@ -3,6 +3,7 @@
 #include "header.h"
 #include <vector>
 
+class BaseLevel;
 class GameObject;
 
 struct EVENT
@@ -23,7 +24,8 @@ public:
 	void Exit();
 private:
 	void Excute(const EVENT& _eve);
-public:
+public:	
+	void LevelChange(BaseLevel* _lvl);
 	static void SetActiveTrue(GameObject* _obj);
 	static void SetActiveFalse(GameObject* _obj);
 };

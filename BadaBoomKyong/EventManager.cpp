@@ -1,5 +1,8 @@
 #include "EventManager.h"
 #include "GameObject.h"
+#include "GameStateManager.h"
+#include "BaseLevel.h"
+
 EventManager::EventManager()
 {
 
@@ -35,7 +38,11 @@ void EventManager::Excute(const EVENT& _eve)
 	case EVENT_TYPE::DELETE_OBJECT:
 		break;
 	case EVENT_TYPE::LEVEL_CHANGE:
+	{
+		BaseLevel* lvl = reinterpret_cast<BaseLevel*>(_eve.lParam);
+		GameStateManager::GetInstance()->ChangeLevel(lvl);
 		break;
+	}		
 	case EVENT_TYPE::ACTIVE_TRUE:		
 	{
 		GameObject* obj = reinterpret_cast<GameObject*>(_eve.lParam);
@@ -47,12 +54,21 @@ void EventManager::Excute(const EVENT& _eve)
 		GameObject* obj = reinterpret_cast<GameObject*>(_eve.lParam);
 		obj->SetActiveAllComps(false);
 		break;
-	}
+	}	
 	case EVENT_TYPE::LAST:
 		break;
 	default:
 		break;
 	}
+}
+
+void EventManager::LevelChange(BaseLevel* _lvl)
+{
+	EVENT eve = {};
+	eve.event = EVENT_TYPE::LEVEL_CHANGE;
+	eve.lParam = size_t(_lvl);
+
+	EventManager::GetInstance()->AddEvent(eve);
 }
 
 void EventManager::SetActiveTrue(GameObject* _obj)
@@ -72,3 +88,5 @@ void EventManager::SetActiveFalse(GameObject* _obj)
 
 	EventManager::GetInstance()->AddEvent(eve);
 }
+
+

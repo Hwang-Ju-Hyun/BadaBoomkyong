@@ -43,6 +43,7 @@ void Stage02::Init()
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PLATFORM);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MONSTER, GROUP_TYPE::PLATFORM);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLATFORM);
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PORTAL);
 }
 
 void Stage02::Update()
@@ -56,14 +57,15 @@ void Stage02::Exit()
 	Serializer::GetInstance()->SaveJson_Object("json/Level/Stage02/Stage02_2D.json", false);
 	ComponentManager::GetInstance()->Exit();
 
-	FactoryManager::GetInstance()->Exit();
-	ObjectPoolManager::GetInstance()->Exit();
+	//FactoryManager::GetInstance()->Exit();
+	//ObjectPoolManager::GetInstance()->Exit();
 
 	GameObjectManager::GetInstance()->Exit();
-	ResourceManager::GetInstance()->RemoveAllRes();
-	ModelManager::GetInstance()->Exit();
 
-	RenderManager::GetInstance()->Exit();
+	ResourceManager::GetInstance()->RemoveAllRes();
+	//ModelManager::GetInstance()->Exit();
+
+	//RenderManager::GetInstance()->Exit();
 	EventManager::GetInstance()->Exit();
 
 }

@@ -28,6 +28,9 @@
 #include "HolySlashParticle.h"
 #include "ParticleSystem.h"
 #include "CollisionManager.h"
+#include "GameStateManager.h"
+#include "BaseLevel.h"
+#include "Stage01.h"
 
 class AnimIdelState;
 template<typename T>
@@ -91,13 +94,15 @@ Player::~Player()
 
 void Player::Init()
 {			
-	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
-	m_pMeleeFactory = dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
-	assert(m_pBulletFactory != nullptr&&m_pMeleeFactory!=nullptr);
+	
 }
 
 void Player::Awake()
 {
+	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
+	m_pMeleeFactory = dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
+	assert(m_pBulletFactory != nullptr && m_pMeleeFactory != nullptr);
+
 	m_iCurrentHP = m_iInitHP;
 	m_bIsAlive = true;
 }
@@ -139,6 +144,13 @@ void Player::EnterCollision(Collider* _other)
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());		
 		jumpPressed = false;			
 	}		
+	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PORTAL)
+	{
+		if (GameStateManager::GetInstance()->GetCurrentLevel()->GetStageType() == STAGE_TYPE::STAGE_02)
+		{			
+			EventManager::GetInstance()->LevelChange(new Stage01(STAGE_TYPE::STAGE_01, "Stage01"));
+		}		
+	}
 	
 }
 
