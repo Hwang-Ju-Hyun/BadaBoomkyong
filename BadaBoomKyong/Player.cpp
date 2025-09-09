@@ -30,7 +30,7 @@
 #include "CollisionManager.h"
 #include "GameStateManager.h"
 #include "BaseLevel.h"
-#include "Stage01.h"
+#include "Stage02.h"
 
 class AnimIdelState;
 template<typename T>
@@ -106,8 +106,7 @@ void Player::Awake()
 }
 
 void Player::Exit()
-{
-	
+{	
 }
 
 void Player::Update() 
@@ -144,9 +143,9 @@ void Player::EnterCollision(Collider* _other)
 	}		
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PORTAL)
 	{
-		if (GameStateManager::GetInstance()->GetCurrentLevel()->GetStageType() == STAGE_TYPE::STAGE_02)
+		if (GameStateManager::GetInstance()->GetCurrentLevel()->GetStageType() == STAGE_TYPE::STAGE_01)
 		{			
-			EventManager::GetInstance()->LevelChange(new Stage01(STAGE_TYPE::STAGE_01, "Stage01"));
+			EventManager::GetInstance()->LevelChange(new Stage02(STAGE_TYPE::STAGE_02, "Stage02"));
 		}		
 	}
 	

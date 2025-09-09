@@ -47,8 +47,7 @@ RenderManager::RenderManager()
 
 RenderManager::~RenderManager()
 {
-	delete debugLineShader;
-	debugLineShader = nullptr;	
+
 }
 
 GLuint RenderManager::GetDebugLineShader() const
@@ -62,6 +61,7 @@ void RenderManager::InitDebugLineShader()
 	debugLineShader->CreateShaderProgramFromFiles("line.vert", "line.frag");
 	m_debugLineShader = debugLineShader;
 }
+
 static float x = 0.f;
 void RenderManager::Init()
 {
@@ -605,6 +605,13 @@ void RenderManager::Exit()
 		delete m_pParticleSystem;
 		m_pParticleSystem = nullptr;
 	}
+
+	std::vector<Shader*> temp;
+
+	delete debugLineShader;
+	debugLineShader = nullptr;
+
+	temp.swap(m_vShdr);
 }
 
 void RenderManager::DrawSkyBox(Camera* _cam)

@@ -21,7 +21,7 @@ void GameStateManager::Update()
 void GameStateManager::Exit()
 {
 	assert(m_pCurrentLevel != nullptr);
-	m_pCurrentLevel->Exit();
+	m_pCurrentLevel->Exit();	
 }
 
 void GameStateManager::ChangeLevel(BaseLevel* _lvl)
@@ -29,6 +29,8 @@ void GameStateManager::ChangeLevel(BaseLevel* _lvl)
 	if (_lvl == nullptr)
 	{
 		Exit();
+		if (m_pPreviousLevel)
+			delete m_pPreviousLevel;
 		delete m_pCurrentLevel;
 		return;
 	}
