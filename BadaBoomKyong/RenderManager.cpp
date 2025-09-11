@@ -334,24 +334,14 @@ void RenderManager::Draw()
 
 					glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
 
-					//===========
-					//===========
-					//====FOG====
-					//===========
-					//===========
-					m_iFogColor_location = glGetUniformLocation(shdr_handle_3D, "uFogColor");
-					m_iFogStart_location = glGetUniformLocation(shdr_handle_3D, "uFogStart");
-					m_iFogEnd_location = glGetUniformLocation(shdr_handle_3D, "uFogEnd");
-					assert(m_iFogColor_location >= 0);
-					glUniform3f(m_iFogColor_location, 0.76, 0.65, 0.50);
-					glUniform1f(m_iFogStart_location, 1650.f);
-					glUniform1f(m_iFogEnd_location, 2000.f);
-					//===========
-					//===========
-					//====FOG====
-					//===========
-					//===========
+					bool IsFogOn = true;
+					if (GameStateManager::GetInstance()->GetCurrentLevel()->GetStageType() == STAGE_TYPE::STAGE_01)
+						IsFogOn = true;
+					else
+						IsFogOn = false;
 
+					DrawFog(shdr_handle_3D, IsFogOn);
+							
 					model->Draw();
 
 
@@ -612,6 +602,29 @@ void RenderManager::Exit()
 	debugLineShader = nullptr;
 
 	temp.swap(m_vShdr);
+}
+
+void RenderManager::DrawFog(GLint _shdrHandle, bool _fogOn)
+{			
+	m_iFogOn_location = glGetUniformLocation(_shdrHandle, "uFogOn");
+	if(_fogOn)
+	{
+		glUniform1i(m_iFogOn_location, true);
+		m_iFogColor_location = glGetUniformLocation(_shdrHandle, "uFogColor");
+		m_iFogStart_location = glGetUniformLocation(_shdrHandle, "uFogStart");
+		m_iFogEnd_location = glGetUniformLocation(_shdrHandle, "uFogEnd");
+		assert(m_iFogColor_location >= 0);
+
+
+
+		glUniform3f(m_iFogColor_location, 0.76, 0.65, 0.50);
+		glUniform1f(m_iFogStart_location, 1650.f);
+		glUniform1f(m_iFogEnd_location, 2000.f);
+	}
+	else
+	{
+		glUniform1i(m_iFogOn_location, false);
+	}
 }
 
 void RenderManager::DrawSkyBox(Camera* _cam)

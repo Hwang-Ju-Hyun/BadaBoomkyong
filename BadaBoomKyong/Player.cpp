@@ -145,7 +145,8 @@ void Player::EnterCollision(Collider* _other)
 	{
 		if (GameStateManager::GetInstance()->GetCurrentLevel()->GetStageType() == STAGE_TYPE::STAGE_01)
 		{			
-			EventManager::GetInstance()->LevelChange(new Stage02(STAGE_TYPE::STAGE_02, "Stage02"));
+			BaseLevel* lvl_2 = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_02);
+			EventManager::GetInstance()->LevelChange(lvl_2);
 		}		
 	}
 	

@@ -41,6 +41,7 @@ private:
 	GLint m_iFogColor_location;
 	GLint m_iFogStart_location;
 	GLint m_iFogEnd_location;
+	GLint m_iFogOn_location;
 public:	
 	inline Shader* GetShader(SHADER_REF _shdrRef) { return m_vShdr[int(_shdrRef)]; }	
 	Camera* m_pCam=nullptr;
@@ -52,6 +53,7 @@ public:
 	void EndDraw();
 	void Exit();
 private:
+	void DrawFog(GLint _shdrHandle,bool _fogOn);
 	void DrawSkyBox(Camera* _cam);
 private:
 	void RenderOpaqueObject();

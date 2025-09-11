@@ -16,6 +16,7 @@
 #include "FrameBuffer.h"
 #include "GameStateManager.h"
 #include "BaseLevel.h"
+#include "EventManager.h"
 
 #ifdef _DEBUG
 MainEditor::MainEditor(){}
@@ -139,14 +140,39 @@ void MainEditor::TopMenuBarDraw()
 		if (ImGui::MenuItem("SAVE"))
 		{
 			BaseLevel* cur_level = GameStateManager::GetInstance()->GetCurrentLevel();
-			if(cur_level->GetName()=="Stage01")
-				Serializer::GetInstance()->SaveJson_Object("json/Level/Stage01/Stage01_3D.json",true);
-			else if(cur_level->GetName()=="Stage02")
+			if (cur_level->GetName() == "Stage01")
+				Serializer::GetInstance()->SaveJson_Object("json/Level/Stage01/Stage01_3D.json", true);
+			else if (cur_level->GetName() == "Stage02")
 				Serializer::GetInstance()->SaveJson_Object("json/Level/Stage02/Stage02_3D.json", true);
-			else if(cur_level->GetName()=="StageTest")
+			else if (cur_level->GetName() == "StageTest")
 				Serializer::GetInstance()->SaveJson_Object("json/Level/StageTest/StageTest_3D.json", true);
 			//Serializer::GetInstance()->SaveJson_Object("json/temp/temp.json",false);
-		}				
+		}
+		if (ImGui::BeginMenu("Load Level"))
+		{
+			if (ImGui::TreeNode("Change Level"))
+			{
+				auto cur_level = GameStateManager::GetInstance()->GetCurrentLevel();
+				if (ImGui::Button("Stage01_Lvl"))
+				{
+					if (cur_level->GetName() != "Stage01_Lvl")
+					{
+						BaseLevel* lvl_1 = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_01);
+						EventManager::GetInstance()->LevelChange(lvl_1);
+					}
+				}
+				if (ImGui::Button("Stage02_Lvl"))
+				{
+					if (cur_level->GetName() != "Stage01_Lv2")
+					{
+						BaseLevel* lvl_2 = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_02);
+						EventManager::GetInstance()->LevelChange(lvl_2);
+					}
+				}
+				ImGui::TreePop();
+			}
+			ImGui::EndMenu();
+		}
 		ImGui::EndMainMenuBar();
 	}
 

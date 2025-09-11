@@ -48,7 +48,7 @@ void Stage02::Init()
 #ifdef _DEBUG
 	//MainEditor
 	MainEditor::GetInstance()->Init();
-#endif   
+#endif
 }
 
 void Stage02::Update()
@@ -79,6 +79,5 @@ void Stage02::Exit()
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
-#endif // DEBUG
-
+#endif // DEBUG	
 }

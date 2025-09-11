@@ -163,6 +163,7 @@
     <ClCompile Include="ExecutionerDemonFireBall.cpp" />
     <ClCompile Include="ExecutionerDemonMelee.cpp" />
     <ClCompile Include="FactoryManager.cpp" />
+    <ClCompile Include="FlyingDemon.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="GizmoManager.cpp" />
     <ClCompile Include="HolySlashParticle.cpp" />
     <ClCompile Include="IDLE_ExecutionerDemon.cpp" />
+    <ClCompile Include="IDLE_FlyingDemon.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -199,6 +201,7 @@
     <ClCompile Include="MeleeState.cpp" />
     <ClCompile Include="MELEE_ExecutionerDemon.cpp" />
     <ClCompile Include="MELEE_CurseDemon.cpp" />
+    <ClCompile Include="MELEE_FlyingDemon.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelManager.cpp" />
@@ -210,6 +213,7 @@
     <ClCompile Include="PatrolState.cpp" />
     <ClCompile Include="PATROL_ExecutionerDemon.cpp" />
     <ClCompile Include="PATROL_CurseDemon.cpp" />
+    <ClCompile Include="PATROL_FlyingDemon.cpp" />
     <ClCompile Include="Pistol.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerMelee.cpp" />
@@ -277,6 +281,7 @@
     <ClInclude Include="ExecutionerDemonFireBall.h" />
     <ClInclude Include="ExecutionerDemonMelee.h" />
     <ClInclude Include="FactoryManager.h" />
+    <ClInclude Include="FlyingDemon.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
@@ -287,6 +292,7 @@
     <ClInclude Include="Anim_HolySlash.h" />
     <ClInclude Include="HolySlashParticle.h" />
     <ClInclude Include="IDLE_ExecutionerDemon.h" />
+    <ClInclude Include="IDLE_FlyingDemon.h" />
     <ClInclude Include="IParticleBehavior.h" />
     <ClInclude Include="IPatrolBehaviour.h" />
     <ClInclude Include="Anim_IState.h" />
@@ -324,6 +330,7 @@
     <ClInclude Include="MeleeState.h" />
     <ClInclude Include="MELEE_ExecutionerDemon.h" />
     <ClInclude Include="MELEE_CurseDemon.h" />
+    <ClInclude Include="MELEE_FlyingDemon.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelManager.h" />
@@ -336,6 +343,7 @@
     <ClInclude Include="PatrolState.h" />
     <ClInclude Include="PATROL_ExecutionerDemon.h" />
     <ClInclude Include="PATROL_CurseDemon.h" />
+    <ClInclude Include="PATROL_FlyingDemon.h" />
     <ClInclude Include="Pistol.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerMelee.h" />

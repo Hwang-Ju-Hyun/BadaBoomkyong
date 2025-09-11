@@ -21,6 +21,7 @@
 #include "ResourceManager.h"
 #include "Stage02.h"
 #include "StageTest.h"
+
 Application::Application(){}
 
 Application::~Application(){}
@@ -43,7 +44,8 @@ void Application::Init()
     ModelManager::GetInstance()->Init();                        
 
     //GameStateManager    
-    GameStateManager::GetInstance()->ChangeLevel(new Stage01(STAGE_TYPE::STAGE_01,"Stage01"));
+    BaseLevel* lvl_01=GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_01);
+    GameStateManager::GetInstance()->ChangeLevel(lvl_01);
 
     FactoryManager::GetInstance()->Init();
 

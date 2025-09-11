@@ -377,9 +377,6 @@
     <Filter Include="Json\Prefab">
       <UniqueIdentifier>{54e0ae77-a6e0-4ec1-8cde-069d33c7d12b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Ray">
-      <UniqueIdentifier>{65483198-3656-4780-bccb-37816a38e906}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Default\Collider">
       <UniqueIdentifier>{37ddfb3f-1071-45b8-9018-8d9d8ee5ca11}</UniqueIdentifier>
     </Filter>
@@ -388,6 +385,21 @@
     </Filter>
     <Filter Include="Component\Default\Collider\Interface">
       <UniqueIdentifier>{d79bfbcb-5d5b-4ae2-8b84-5372cc13c636}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\FlyingDemon">
+      <UniqueIdentifier>{0b126637-f101-4091-a605-b5d0b2f0cc1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\FlyingDemon\AI_State">
+      <UniqueIdentifier>{060c1153-f805-4857-8cd8-703505fbe465}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\FlyingDemon\AI_State\IDLE">
+      <UniqueIdentifier>{82b68e29-bbed-4292-b10c-b3a232ade20e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\FlyingDemon\AI_State\MELEE">
+      <UniqueIdentifier>{408c4858-64b7-4740-b112-64b6bf272067}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\FlyingDemon\AI_State\PATROL">
+      <UniqueIdentifier>{2aebe277-2ddf-4b75-aaef-58a4d3a67ee4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -678,6 +690,18 @@
     </ClCompile>
     <ClCompile Include="PositionOverLifeTime.cpp">
       <Filter>Particle\Behaviour\Position</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingDemon.cpp">
+      <Filter>Component\Custom\Monster\FlyingDemon</Filter>
+    </ClCompile>
+    <ClCompile Include="IDLE_FlyingDemon.cpp">
+      <Filter>Component\Custom\Monster\FlyingDemon\AI_State\IDLE</Filter>
+    </ClCompile>
+    <ClCompile Include="MELEE_FlyingDemon.cpp">
+      <Filter>Component\Custom\Monster\FlyingDemon\AI_State\MELEE</Filter>
+    </ClCompile>
+    <ClCompile Include="PATROL_FlyingDemon.cpp">
+      <Filter>Component\Custom\Monster\FlyingDemon\AI_State\PATROL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1061,6 +1085,18 @@
     </ClInclude>
     <ClInclude Include="Ray.h">
       <Filter>Component\Default\Collider\Ray</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingDemon.h">
+      <Filter>Component\Custom\Monster\FlyingDemon</Filter>
+    </ClInclude>
+    <ClInclude Include="IDLE_FlyingDemon.h">
+      <Filter>Component\Custom\Monster\FlyingDemon\AI_State\IDLE</Filter>
+    </ClInclude>
+    <ClInclude Include="MELEE_FlyingDemon.h">
+      <Filter>Component\Custom\Monster\FlyingDemon\AI_State\MELEE</Filter>
+    </ClInclude>
+    <ClInclude Include="PATROL_FlyingDemon.h">
+      <Filter>Component\Custom\Monster\FlyingDemon\AI_State\PATROL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
