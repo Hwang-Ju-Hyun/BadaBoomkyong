@@ -16,6 +16,8 @@
 #include "ExecutionerDemon.h"
 #include "ExecutionerDemonFireBall.h"
 #include "Serializer.h"
+#include "FlyingDemon.h"
+#include "FlyingDemonFireBall.h"
 
 BulletFactory::BulletFactory(STAGE_TYPE _stage)
 	:BaseFactory(_stage)
@@ -123,7 +125,27 @@ void BulletFactory::InitStage01()
 
 void BulletFactory::InitStage02()
 {
-	InitStage01();
+	//InitStage01();
+	auto obj_mgr = GameObjectManager::GetInstance();
+	GameObject* fd_obj = obj_mgr->FindObject(FlyingDemon::FlyingDemonTypeName);
+	int fireball_obj_count = obj_mgr->GetObjectNumber(FlyingDemon::FlyingDemonTypeName);
+
+	ObjectPoolManager::GetInstance()->ReigistPool<FlyingDemonFireBall, 30>();
+
+	m_pFlyingDemonFireBallPool = static_cast<ObjectPool<FlyingDemonFireBall, 30>*>(ObjectPoolManager::GetInstance()->GetPool<FlyingDemonFireBall, 30>());
+
+	for (int j = 0;j < 30; j++)
+	{
+		FlyingDemonFireBall* frireball_comp = nullptr;
+		GameObject* fireball_obj = new GameObject(FlyingDemonFireBall::FlyingDemonFireBallTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::BULLET);
+		frireball_comp = dynamic_cast<FlyingDemonFireBall*>(fireball_obj->AddComponent_and_Get(FlyingDemonFireBall::FlyingDemonFireBallTypeName, new FlyingDemonFireBall(fireball_obj, fd_obj)));
+		Transform* fb_trs = dynamic_cast<Transform*>(fireball_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(fireball_obj)));
+		Sprite* fb_spr = dynamic_cast<Sprite*>(fireball_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(fireball_obj)));
+		RigidBody* fb_rig = dynamic_cast<RigidBody*>(fireball_obj->AddComponent_and_Get(RigidBody::RigidBodyTypeName, new RigidBody(fireball_obj)));
+		Collider* fb_col = dynamic_cast<Collider*>(fireball_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(fireball_obj)));
+		fireball_obj->SetActiveAllComps(false);
+		m_pFlyingDemonFireBallPool->m_arrPool[j] = fireball_obj;
+	}
 }
 
 void BulletFactory::InitStage03()

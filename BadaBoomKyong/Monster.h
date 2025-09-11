@@ -26,6 +26,8 @@ enum class MonsterAnimState
     NORMAL_ATTACK,
     WALK,
     HURT,
+    TAKE_OFF,
+    FLYING,
     DEATH
 };
 

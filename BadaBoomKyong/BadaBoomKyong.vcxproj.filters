@@ -401,6 +401,18 @@
     <Filter Include="Component\Custom\Monster\FlyingDemon\AI_State\PATROL">
       <UniqueIdentifier>{2aebe277-2ddf-4b75-aaef-58a4d3a67ee4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Custom\Bullet\Monster\FlyingDemonFireBall">
+      <UniqueIdentifier>{688a3a9c-0070-4d2a-a494-2158b8e2071e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Melee\Monster\FlyingDemonMelee">
+      <UniqueIdentifier>{76c11547-96c8-4876-ac9a-75b09c2eb718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Takeoff">
+      <UniqueIdentifier>{3df8273d-d092-4587-930b-dc836d2076f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Flying">
+      <UniqueIdentifier>{47c0fd5a-a36b-44df-9400-f836e99500ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -702,6 +714,12 @@
     </ClCompile>
     <ClCompile Include="PATROL_FlyingDemon.cpp">
       <Filter>Component\Custom\Monster\FlyingDemon\AI_State\PATROL</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingDemonFireBall.cpp">
+      <Filter>Component\Custom\Bullet\Monster\FlyingDemonFireBall</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingDemonMelee.cpp">
+      <Filter>Component\Custom\Melee\Monster\FlyingDemonMelee</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1097,6 +1115,18 @@
     </ClInclude>
     <ClInclude Include="PATROL_FlyingDemon.h">
       <Filter>Component\Custom\Monster\FlyingDemon\AI_State\PATROL</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingDemonFireBall.h">
+      <Filter>Component\Custom\Bullet\Monster\FlyingDemonFireBall</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingDemonMelee.h">
+      <Filter>Component\Custom\Melee\Monster\FlyingDemonMelee</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_TakeOffState.h">
+      <Filter>Animation\FiniteStateMachine\Takeoff</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_FlyingState.h">
+      <Filter>Animation\FiniteStateMachine\Flying</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

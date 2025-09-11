@@ -208,7 +208,7 @@ void ExecutionerDemon::Patrol()
 		float move_scala = m_fSpeed * dt;
 		m_fAccPatrolDistance += move_scala;
 		m_pTransform->AddPositionX(move_scala * m_fDirection);
-
+ds
 		if (m_fAccPatrolDistance >= m_fPatrolRandDistance)
 		{
 			m_fAccPatrolDistance = 0.f;

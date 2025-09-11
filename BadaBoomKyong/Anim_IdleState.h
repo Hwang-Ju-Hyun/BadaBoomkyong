@@ -73,9 +73,14 @@ public:
                 break;
             case MonsterAnimState::DEATH:
                 machine->ChangeAnimState(int(MonsterAnimState::DEATH));
-                break;            
+                break;    
+
+            //Flying demon
+            case MonsterAnimState::TAKE_OFF:
+                machine->ChangeAnimState(int(MonsterAnimState::TAKE_OFF));
+                break;
             }
-        }
+        }        
     }
 
     virtual void Exit(T* _owner) override 

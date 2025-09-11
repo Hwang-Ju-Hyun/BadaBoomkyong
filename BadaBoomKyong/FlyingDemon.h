@@ -25,6 +25,7 @@ private:
     //Melee Object
     GameObject* m_pMeleeObj = nullptr;
     Collider* m_pMeleeCol = nullptr;
+    RigidBody* m_pRigidBody = nullptr;
     Sprite* m_pMeleeSpr = nullptr;
     Transform* m_pMeleeTrs = nullptr;
     static constexpr const char* FlyingDemonMeleeObjTypeName = "FlyingDemonMeleeObject";
@@ -58,6 +59,7 @@ public:
     float m_fMeleeCoolTimeAcc = 0.f;
     bool m_bMeleeAtkDone = false;
 public:
+    bool DetectPlayer();
     void Patrol();
     float m_fAccPatrolDistance = 0.f;
     bool m_bIsPatrolMoveDone = true;
@@ -78,5 +80,7 @@ public:
     static BaseRTTI* CreateFlyingDemonComponent();
     virtual void LoadFromJson(const json& _str)override;
     virtual json SaveToJson(const json& _str)override;
+public:
+    static bool Goup;
 };
 

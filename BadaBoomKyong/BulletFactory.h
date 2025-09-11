@@ -13,6 +13,7 @@ class GameObject;
 class Bullet;
 class CurseDemonBullet;
 class ExecutionerDemonFireBall;
+class FlyingDemonFireBall;
 
 class BulletFactory
 	:public BaseFactory
@@ -29,6 +30,7 @@ private:
 	ObjectPool<Pistol,30>* m_pBulletPool;
 	ObjectPool<CurseDemonBullet, 30>* m_pMonsterGrenadePool;
 	ObjectPool<ExecutionerDemonFireBall, 30>* m_pExecutionerDemonFireBallPool;
+	ObjectPool<FlyingDemonFireBall, 30>* m_pFlyingDemonFireBallPool;
 private:
 	virtual void InitStage01()  override;
 	virtual void InitStage02()  override;

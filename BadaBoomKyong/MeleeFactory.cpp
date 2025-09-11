@@ -9,6 +9,8 @@
 #include "GameObjectManager.h"
 #include "Player.h"
 #include "ExecutionerDemonMelee.h"
+#include "FlyingDemon.h"
+#include "FlyingDemonMelee.h"
 
 MeleeFactory::MeleeFactory(STAGE_TYPE _stage)
 	:BaseFactory(_stage)
@@ -101,7 +103,24 @@ void MeleeFactory::InitStage01()
 
 void MeleeFactory::InitStage02()
 {
-	InitStage01();
+	//InitStage01();
+
+	m_pPlayerMeleeObject = new GameObject(Melee::MeleeTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::MELEE);
+	GameObject* player_obj = GameObjectManager::GetInstance()->FindObject("Player");
+	Player* player_comp = dynamic_cast<Player*>(player_obj->FindComponent(Player::PlayerTypeName));
+	assert(player_comp != nullptr);
+	m_pPlayerMelee = dynamic_cast<PlayerMelee*>(m_pPlayerMeleeObject->AddComponent_and_Get(Melee::MeleeTypeName, new PlayerMelee(m_pPlayerMeleeObject, player_obj)));
+	Transform* player_trs = dynamic_cast<Transform*>(m_pPlayerMeleeObject->AddComponent_and_Get(Transform::TransformTypeName, new Transform(m_pPlayerMeleeObject)));
+	Sprite* player_spr = dynamic_cast<Sprite*>(m_pPlayerMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pPlayerMeleeObject)));
+	Collider* player_col = dynamic_cast<Collider*>(m_pPlayerMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pPlayerMeleeObject)));
+
+
+	m_pFlyingDemonMeleeObject = new GameObject(Melee::MeleeTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::MELEE);
+	m_pFlyingDemonMelee = dynamic_cast<FlyingDemonMelee*>(m_pFlyingDemonMeleeObject->AddComponent_and_Get(Melee::MeleeTypeName, new FlyingDemonMelee(m_pFlyingDemonMeleeObject, nullptr)));
+	Transform* demon_trs = dynamic_cast<Transform*>(m_pFlyingDemonMeleeObject->AddComponent_and_Get(Transform::TransformTypeName, new Transform(m_pFlyingDemonMeleeObject)));
+	Sprite* demon_spr = dynamic_cast<Sprite*>(m_pFlyingDemonMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pFlyingDemonMeleeObject)));
+	Collider* demon_col = dynamic_cast<Collider*>(m_pFlyingDemonMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pFlyingDemonMeleeObject)));
+
 }
 
 void MeleeFactory::InitStage03()

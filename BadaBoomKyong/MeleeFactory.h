@@ -8,7 +8,8 @@ class GameObject;
 class PlayerMelee;
 class ExecutionerDemon;
 class ExecutionerDemonMelee;
-
+class FlyingDemon;
+class FlyingDemonMelee;
 
 class MeleeFactory :
     public BaseFactory
@@ -30,6 +31,9 @@ private:
 
     GameObject* m_pExecutionerDemonMeleeObject = nullptr;
     ExecutionerDemonMelee* m_pExecutionerDemonMelee = nullptr;
+
+    GameObject* m_pFlyingDemonMeleeObject = nullptr;
+    FlyingDemonMelee* m_pFlyingDemonMelee = nullptr;
 
 private:
     virtual void InitStage01()  override;

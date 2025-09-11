@@ -164,6 +164,8 @@
     <ClCompile Include="ExecutionerDemonMelee.cpp" />
     <ClCompile Include="FactoryManager.cpp" />
     <ClCompile Include="FlyingDemon.cpp" />
+    <ClCompile Include="FlyingDemonFireBall.cpp" />
+    <ClCompile Include="FlyingDemonMelee.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
@@ -246,6 +248,8 @@
   <ItemGroup>
     <ClInclude Include="AI.h" />
     <ClInclude Include="Animator.h" />
+    <ClInclude Include="Anim_FlyingState.h" />
+    <ClInclude Include="Anim_TakeOffState.h" />
     <ClInclude Include="Anim_LandState.h" />
     <ClInclude Include="Anim_HurtState.h" />
     <ClInclude Include="Anim_NormalAttackState_2.h" />
@@ -282,6 +286,8 @@
     <ClInclude Include="ExecutionerDemonMelee.h" />
     <ClInclude Include="FactoryManager.h" />
     <ClInclude Include="FlyingDemon.h" />
+    <ClInclude Include="FlyingDemonFireBall.h" />
+    <ClInclude Include="FlyingDemonMelee.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />

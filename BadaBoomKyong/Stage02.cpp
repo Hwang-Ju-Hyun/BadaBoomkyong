@@ -34,20 +34,27 @@ Stage02::~Stage02()
 void Stage02::Init()
 {	
 	Serializer::GetInstance()->LoadJson_Object("json/Level/Stage02/Stage02_3D.json");		
-
-	FactoryManager::GetInstance()->Init();
-
-	//ComponentInit
-	ComponentManager::GetInstance()->Init();
-
-	//RenderInit            
-	RenderManager::GetInstance()->Init();
-	RenderManager::GetInstance()->InitDebugLineShader();
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::MONSTER);
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MELEE, GROUP_TYPE::MONSTER);
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MELEE, GROUP_TYPE::PLAYER);
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PLATFORM);
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MONSTER, GROUP_TYPE::PLATFORM);
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLATFORM);
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PORTAL);
+	//FactoryManager::GetInstance()->Init();
+	//
+	////ComponentInit
+	//ComponentManager::GetInstance()->Init();
+	//
+	////RenderInit            
+	//RenderManager::GetInstance()->Init();
+	//RenderManager::GetInstance()->InitDebugLineShader();
 
 
 #ifdef _DEBUG
 	//MainEditor
-	MainEditor::GetInstance()->Init();
+	//MainEditor::GetInstance()->Init();
 #endif
 }
 
