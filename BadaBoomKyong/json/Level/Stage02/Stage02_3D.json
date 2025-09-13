@@ -8,8 +8,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            1519.898681640625,
-            299.21875,
+            50.84515380859375,
+            575.5035400390625,
             0.0
           ],
           "Sca": [
@@ -33,8 +33,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "Idle",
-          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Idle/Idle.png"
+          "TextureName": "ComboAtk_1",
+          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_1.png"
         }
       },
       {
@@ -268,8 +268,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "Flying",
-          "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Flying.png"
+          "TextureName": "Idle",
+          "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Idle.png"
         }
       },
       {
@@ -559,9 +559,9 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            -399.9327087402344,
-            207.36456298828125,
-            66.48466491699219
+            -231.2869415283203,
+            207.3642578125,
+            -1607.3037109375
           ],
           "Sca": [
             0.7128239274024963,
@@ -574,10 +574,250 @@
             0.0
           ]
         }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            0.0,
+            0.0,
+            450.0
+          ]
+        }
       }
     ],
     "Model": 6,
     "ModelPath": "../Extern/Assets/Model/tower1.fbx",
-    "Group": 0
+    "Group": 4
+  },
+  {
+    "Name": "TALL1",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -139.58160400390625,
+            207.36447143554688,
+            -1441.8023681640625
+          ],
+          "Sca": [
+            0.7128239274024963,
+            0.5,
+            0.7413750290870667
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            -40.0,
+            0.0
+          ],
+          "Scale": [
+            50.0,
+            100.0,
+            450.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Platform/Tall1.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "Wall_Angled",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -442.86090087890625,
+            207.36456298828125,
+            -167.69805908203125
+          ],
+          "Sca": [
+            0.7128239274024963,
+            0.5,
+            0.7413750290870667
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            400.0,
+            230.0,
+            100.0
+          ],
+          "Scale": [
+            800.0,
+            200.0,
+            450.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Platform/wall_Angled1.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "Wall_Angled",
+    "ID": 1,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            402.194580078125,
+            207.36468505859375,
+            -168.41368103027344
+          ],
+          "Sca": [
+            0.7128239274024963,
+            0.5,
+            0.7413750290870667
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            400.0,
+            230.0,
+            100.0
+          ],
+          "Scale": [
+            800.0,
+            200.0,
+            450.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Platform/wall_Angled1.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "Wall_Angled",
+    "ID": 2,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -1268.1112060546875,
+            207.36456298828125,
+            -166.91806030273438
+          ],
+          "Sca": [
+            0.7128239274024963,
+            0.5,
+            0.7413750290870667
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            400.0,
+            230.0,
+            100.0
+          ],
+          "Scale": [
+            800.0,
+            200.0,
+            450.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Platform/wall_Angled1.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "Wall_Block",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -3450.482666015625,
+            207.36444091796875,
+            -1355.3819580078125
+          ],
+          "Sca": [
+            0.7128239274024963,
+            0.5,
+            0.7413750290870667
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            -40.0,
+            0.0
+          ],
+          "Scale": [
+            50.0,
+            100.0,
+            450.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Platform/wall_Block1.fbx",
+    "Group": 4
   }
 ]
