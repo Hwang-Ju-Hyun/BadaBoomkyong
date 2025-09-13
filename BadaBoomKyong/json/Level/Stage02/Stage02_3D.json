@@ -8,8 +8,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            790.5228271484375,
-            793.46392822265625,
+            1519.898681640625,
+            299.21875,
             0.0
           ],
           "Sca": [
@@ -33,8 +33,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "ComboAtk_1",
-          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_1.png"
+          "TextureName": "Idle",
+          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Idle/Idle.png"
         }
       },
       {
@@ -243,9 +243,9 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            1192.0,
-            850.0,
-            0.0
+            -243019328.0,
+            -2417.76513671875,
+            206.7150421142578
           ],
           "Sca": [
             250.0,
@@ -268,8 +268,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "Idle",
-          "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Idle.png"
+          "TextureName": "Flying",
+          "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Flying.png"
         }
       },
       {
@@ -279,7 +279,7 @@
             false
           ],
           "Gravity": [
-            980.0
+            0.0
           ],
           "Mass": [
             1.0
@@ -306,26 +306,6 @@
         "CompData": {
           "Animations": [
             {
-                "Name": "Idle",
-                "TextureName": "Idle",
-                "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Idle.png",
-                "Max": 8,
-                "Row": 1,
-                "Col": 8,
-                "Duration": 0.10000000149011612,
-                "Loop": true
-            },
-            {
-              "Name": "TakeOff",
-              "TextureName": "TakeOff",
-              "TexturePath": "../Extern/Assets/Texture/FlyingDemon/TakeOff.png",
-              "Max": 5,
-              "Row": 1,
-              "Col": 5,
-              "Duration": 0.08000000149011612,
-              "Loop": false
-            },
-            {
               "Name": "Flying",
               "TextureName": "Flying",
               "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Flying.png",
@@ -334,6 +314,26 @@
               "Col": 8,
               "Duration": 0.10000000149011612,
               "Loop": true
+            },
+            {
+              "Name": "Idle",
+              "TextureName": "Idle",
+              "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Idle.png",
+              "Max": 8,
+              "Row": 1,
+              "Col": 8,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            },
+            {
+              "Name": "TakeOff",
+              "TextureName": "TakeOff",
+              "TexturePath": "../Extern/Assets/Texture/FlyingDemon/TakeOff.png",
+              "Max": 5,
+              "Row": 1,
+              "Col": 5,
+              "Duration": 0.07999999821186066,
+              "Loop": false
             }
           ]
         }
@@ -343,7 +343,7 @@
         "CompData": {
           "StateList": [
             0,
-            1            
+            1
           ]
         }
       },
@@ -548,6 +548,36 @@
       }
     ],
     "Model": 7,
+    "Group": 0
+  },
+  {
+    "Name": "big1",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -399.9327087402344,
+            207.36456298828125,
+            66.48466491699219
+          ],
+          "Sca": [
+            0.7128239274024963,
+            0.5,
+            0.7413750290870667
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/tower1.fbx",
     "Group": 0
   }
 ]

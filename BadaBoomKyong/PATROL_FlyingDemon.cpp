@@ -28,29 +28,30 @@ void PATROL_FlyingDemon::Init(Monster* _mon)
 bool PATROL_FlyingDemon::Jump = false;
 
 void PATROL_FlyingDemon::DoPatrolBehaviour(Monster* _mon)
-{	
-	if (Jump == false)
-	{		
-		glm::vec3 velocity = m_pRigidBody->GetVelocity();
-		velocity.y = 399.f;
-		m_pRigidBody->SetVelocity(velocity);
-
-		Jump = true;
-	}
-	if (m_pRigidBody->GetVelocity().y <= g_epsilon&& m_pFlyingDemon->GetCurrentState() != MonsterAnimState::FLYING)
+{						
+	if (m_pRigidBody->GetVelocity().y<=30.f&&Jump==false)
 	{		
 		m_pRigidBody->SetGravity(0.f);
-		m_pRigidBody->SetVelocity({ m_pRigidBody->GetVelocity().x,0.f,m_pRigidBody->GetVelocity().z });
-		m_pFlyingDemon->SetAnimCurrentState(MonsterAnimState::FLYING);
+		m_pRigidBody->SetVelocity({ m_pRigidBody->GetVelocity().x,0.f,m_pRigidBody->GetVelocity().z });		
+		Jump = true;
 	}
-	else 
-	{		
-		m_fAccDegree += TimeManager::GetInstance()->GetDeltaTime();		
-		const float PI = 3.141592;
-		glm::vec3  a = { m_fAccDegree , std::cos(m_fAccDegree),std::sin(m_fAccDegree)};
-		m_pTransform->AddPosition(a);
-		if (m_fAccDegree >= 360)
-			m_fAccDegree = 0.f;
+	else
+	{	
+		static float m_fAccX = 0.f;
+		m_fAccDegree += TimeManager::GetInstance()->GetDeltaTime();
+		float speed = 20.f;
+		float depthZ = 10.f;//ÁøÆø ZÃà ±íÀÌ		
+		m_pTransform->AddPositionZ(std::sin(m_fAccDegree*2) * depthZ *speed*TimeManager::GetInstance()->GetDeltaTime());
 
+		static float m_fAccY = 0.f;
+		m_fAccY += TimeManager::GetInstance()->GetDeltaTime();
+		m_pTransform->AddPositionY(std::sin(m_fAccY)*1* speed * TimeManager::GetInstance()->GetDeltaTime());
+
+		m_fAccX += TimeManager::GetInstance()->GetDeltaTime();
+		m_pTransform->AddPositionX(-m_fAccX);
+
+		
+		if (m_fAccDegree > 6.28318f) // 2¥ð
+			m_fAccDegree = 0.f;
 	}
 }

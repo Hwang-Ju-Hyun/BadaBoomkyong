@@ -96,6 +96,7 @@ protected:
     float m_fMeleeAtkCoolTime = 0.f;
     float m_fRangeAtkCoolTime = 0.f;
 public:        
+    const std::string GetCurrentAnimState();
     inline void SetIsGround(bool _ground) { m_bIsGround = _ground; }
     inline bool GetIsGround()const { return m_bIsGround; }
     inline void SetSpeed(float _speed) { m_fSpeed = _speed; }

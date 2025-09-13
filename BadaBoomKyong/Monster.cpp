@@ -61,3 +61,29 @@ void Monster::UpdateSpriteFlipX()
 			m_pSprite->SetIsFlipX(false);
 	}
 }
+
+const std::string Monster::GetCurrentAnimState()
+{
+
+	switch (m_eCurrentState)
+	{
+	case MonsterAnimState::IDLE:
+		return "Idle";		
+	case MonsterAnimState::RANGE_ATTACK:
+		return "RangeAttack";
+	case MonsterAnimState::NORMAL_ATTACK:
+		return "NormalAttack";
+	case MonsterAnimState::WALK:
+		return "Walk";
+	case MonsterAnimState::HURT:
+		return "Hurt";
+	case MonsterAnimState::TAKE_OFF:
+		return "TakeOff";
+	case MonsterAnimState::FLYING:
+		return "Flying";
+	case MonsterAnimState::DEATH:
+		return "Death";
+	default:
+		break;
+	}
+}

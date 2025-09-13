@@ -20,6 +20,7 @@
 #include "GeometryUtill.h"
 #include "MeleeFactory.h"
 #include "FactoryManager.h"
+#include "RigidBody.h"
 #include "FlyingDemonFireBall.h"
 #include "Anim_TakeOffState.h"
 #include "Anim_FlyingState.h"
@@ -68,6 +69,8 @@ void FlyingDemon::Init()
 
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	assert(m_pSprite != nullptr);
+
+	m_pRigidBody= dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
 }
 
 void FlyingDemon::Update()
@@ -75,21 +78,26 @@ void FlyingDemon::Update()
 	if (GetIsAlive())
 	{
 		UpdateSpriteFlipX();
-
-		if (DetectPlayer())
+		m_vPosition = m_pTransform->GetPosition();
+		std::cout << GetCurrentAnimState() << std::endl;
+		if (DetectPlayer()&&Goup==false)
 		{
 			Goup = true;
+			m_eCurrentState = MonsterAnimState::TAKE_OFF;
+			glm::vec3 velocity = m_pRigidBody->GetVelocity();
+			velocity.y = 399.f;
+			m_pRigidBody->SetVelocity(velocity);
 		}
 		if (Goup)
 		{
 			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1 && GetCurrentState() == MonsterAnimState::TAKE_OFF)
 			{
 				m_pAI->ChangeState(MONSTER_STATE::PATROL_STATE);
-
+				SetAnimCurrentState(MonsterAnimState::FLYING);				
 			}
 		}
-
 	}
+
 
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();
@@ -114,12 +122,7 @@ bool FlyingDemon::DetectPlayer()
 	
 	float dist = math->DistanceBetweenPoints(player_pos, m_vPosition);
 
-	if (std::fabs(dist) <= 300.f)
-	{
-		m_eCurrentState = MonsterAnimState::TAKE_OFF;
-		return true;
-	}
-	return false;
+	return std::fabs(dist) <= 300.f;	
 }
 
 void FlyingDemon::Patrol()
