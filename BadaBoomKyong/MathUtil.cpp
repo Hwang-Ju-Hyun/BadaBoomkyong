@@ -19,6 +19,11 @@ float MathUtil::DistanceBetweenPoints(glm::vec3 _point1, glm::vec3 _point2)
 	return std::sqrt(std::pow(_point2.x - _point1.x, 2) + std::pow(_point2.y - _point1.y, 2) + std::pow(_point2.z - _point1.z, 2));	
 }
 
+float MathUtil::DistanceBetweenXY(glm::vec3 _point1, glm::vec3 _point2)
+{
+	return std::sqrt(std::pow(_point2.x - _point1.x, 2) + std::pow(_point2.y - _point1.y, 2));
+}
+
 int MathUtil::GetRandomNumber(int _min, int _max)
 {
 	std::random_device rd;

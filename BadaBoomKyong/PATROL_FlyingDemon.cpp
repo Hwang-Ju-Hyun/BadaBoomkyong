@@ -41,16 +41,18 @@ void PATROL_FlyingDemon::DoPatrolBehaviour(Monster* _mon)
 		m_fAccDegree += TimeManager::GetInstance()->GetDeltaTime();
 		float speed = 20.f;
 		float depthZ = 10.f;//ÁøÆø ZÃà ±íÀÌ		
-		m_pTransform->AddPositionZ(std::sin(m_fAccDegree*2) * depthZ *speed*TimeManager::GetInstance()->GetDeltaTime());
+		m_pTransform->AddPositionZ(std::sin(m_fAccDegree)*speed*TimeManager::GetInstance()->GetDeltaTime());
 
 		static float m_fAccY = 0.f;
 		m_fAccY += TimeManager::GetInstance()->GetDeltaTime();
-		m_pTransform->AddPositionY(std::sin(m_fAccY)*1* speed * TimeManager::GetInstance()->GetDeltaTime());
+		//m_pTransform->AddPositionY(std::sin(m_fAccY)*1* speed * TimeManager::GetInstance()->GetDeltaTime());
 
 		m_fAccX += TimeManager::GetInstance()->GetDeltaTime();
 		m_pTransform->AddPositionX(-m_fAccX);
 
-		
+		auto a = m_pTransform->GetPosition();
+		int b = 0;
+
 		if (m_fAccDegree > 6.28318f) // 2¥ð
 			m_fAccDegree = 0.f;
 	}

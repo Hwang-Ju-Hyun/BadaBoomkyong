@@ -120,7 +120,7 @@ bool FlyingDemon::DetectPlayer()
 	auto math = MathUtil::GetInstance();
 	auto player_pos = m_pPlayerTransform->GetPosition();
 	
-	float dist = math->DistanceBetweenPoints(player_pos, m_vPosition);
+	float dist = math->DistanceBetweenXY(player_pos, m_vPosition);
 
 	return std::fabs(dist) <= 300.f;	
 }
