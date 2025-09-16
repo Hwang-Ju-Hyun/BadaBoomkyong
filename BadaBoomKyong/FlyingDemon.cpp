@@ -92,13 +92,14 @@ void FlyingDemon::Update()
 		{
 			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1 && GetCurrentState() == MonsterAnimState::TAKE_OFF)
 			{
+				m_pRigidBody->SetVelocity({ 0.f,0.f,0.f });
 				m_pAI->ChangeState(MONSTER_STATE::PATROL_STATE);
 				SetAnimCurrentState(MonsterAnimState::FLYING);				
 			}
 		}
 	}
 
-
+	std::cout << m_pRigidBody->GetVelocity().y << std::endl;
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();
 }

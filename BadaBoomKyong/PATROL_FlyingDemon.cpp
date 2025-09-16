@@ -31,28 +31,42 @@ void PATROL_FlyingDemon::DoPatrolBehaviour(Monster* _mon)
 {						
 	if (m_pRigidBody->GetVelocity().y<=30.f&&Jump==false)
 	{		
-		m_pRigidBody->SetGravity(0.f);
+		
 		m_pRigidBody->SetVelocity({ m_pRigidBody->GetVelocity().x,0.f,m_pRigidBody->GetVelocity().z });		
 		Jump = true;
 	}
 	else
 	{	
 		static float m_fAccX = 0.f;
+		static int frame = 0;
+		static int total = 0;
+		frame++;
 		m_fAccDegree += TimeManager::GetInstance()->GetDeltaTime();
+		float dt = TimeManager::GetInstance()->GetDeltaTime();
+
+
+		
+		//===Z===
 		float speed = 20.f;
-		float depthZ = 10.f;//진폭 Z축 깊이		
-		m_pTransform->AddPositionZ(std::sin(m_fAccDegree)*speed*TimeManager::GetInstance()->GetDeltaTime());
+		float depthZ = 15.f;
+		float frequencyZ = 1.0f;
+		//cos를 쓴 이유 sin으로 이동하고 싶은데 포지션 누적이 됨
+		//그래서 변화량을 더하기 위해 sin의 미분
+		float pathZ = std::cos(m_fAccDegree* frequencyZ) * depthZ;		
+		m_pTransform->AddPositionZ(pathZ * speed * dt);
+		
+		
+		//===Y===		
+		float depthY = 15.f;
+		float frequencyY = 1.5f;		
+		float pathY = std::sin(m_fAccDegree * frequencyZ) * depthZ;
+		m_pTransform->AddPositionY(-pathY * speed * dt);
 
-		static float m_fAccY = 0.f;
-		m_fAccY += TimeManager::GetInstance()->GetDeltaTime();
-		//m_pTransform->AddPositionY(std::sin(m_fAccY)*1* speed * TimeManager::GetInstance()->GetDeltaTime());
 
-		m_fAccX += TimeManager::GetInstance()->GetDeltaTime();
-		m_pTransform->AddPositionX(-m_fAccX);
-
-		auto a = m_pTransform->GetPosition();
-		int b = 0;
-
+		//===X====		
+		float speedX = 30.f;
+		m_pTransform->AddPositionX(-m_fAccDegree * speedX * dt);
+		
 		if (m_fAccDegree > 6.28318f) // 2π
 			m_fAccDegree = 0.f;
 	}
