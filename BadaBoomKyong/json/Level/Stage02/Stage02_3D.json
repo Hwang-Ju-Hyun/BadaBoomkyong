@@ -8,8 +8,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            807.3642578125,
-            5724.5814208984375,
+            2111.33447265625,
+            713.6388549804688,
             0.0
           ],
           "Sca": [
@@ -243,9 +243,9 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            1422.5191650390625,
-            780.185546875,
-            -302.0921325683594
+            1422.0,
+            780.6724853515625,
+            -302.0
           ],
           "Sca": [
             250.0,
@@ -268,8 +268,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "Idle",
-          "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Idle.png"
+          "TextureName": "NormalAttack_1",
+          "TexturePath": "../Extern/Assets/Texture/FlyingDemon/NormalAttack_1.png"
         }
       },
       {
@@ -304,88 +304,88 @@
       {
         "Type": "Animator",
         "CompData": {
-            "Animations": [
-                {
-                    "Name": "Flying",
-                    "TextureName": "Flying",
-                    "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Flying.png",
-                    "Max": 8,
-                    "Row": 1,
-                    "Col": 8,
-                    "Duration": 0.10000000149011612,
-                    "Loop": true
-                },
-                {
-                    "Name": "Idle",
-                    "TextureName": "Idle",
-                    "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Idle.png",
-                    "Max": 8,
-                    "Row": 1,
-                    "Col": 8,
-                    "Duration": 0.10000000149011612,
-                    "Loop": true
-                },
-                {
-                    "Name": "TakeOff",
-                    "TextureName": "TakeOff",
-                    "TexturePath": "../Extern/Assets/Texture/FlyingDemon/TakeOff.png",
-                    "Max": 5,
-                    "Row": 1,
-                    "Col": 5,
-                    "Duration": 0.07999999821186066,
-                    "Loop": false
-                },
-                {
-                    "Name": "Attack_Dive_Start",
-                    "TextureName": "Attack_Dive_Start",
-                    "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Attack_Dive_Start.png",
-                    "Max": 5,
-                    "Row": 1,
-                    "Col": 5,
-                    "Duration": 0.07999999821186066,
-                    "Loop": false
-                },
-                {
-                    "Name": "Attack_Dive_Loop",
-                    "TextureName": "Attack_Dive_Loop",
-                    "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Attack_Dive_Loop.png",
-                    "Max": 4,
-                    "Row": 1,
-                    "Col": 4,
-                    "Duration": 0.07999999821186066,
-                    "Loop": true
-                },
-                {
-                    "Name": "NormalAttack_1",
-                    "TextureName": "NormalAttack_1",
-                    "TexturePath": "../Extern/Assets/Texture/FlyingDemon/NormalAttack_1.png",
-                    "Max": 11,
-                    "Row": 1,
-                    "Col": 11,
-                    "Duration": 0.07999999821186066,
-                    "Loop": false
-                },
-                {
-                    "Name": "Hurt",
-                    "TextureName": "Hurt",
-                    "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Hurt.png",
-                    "Max": 4,
-                    "Row": 1,
-                    "Col": 4,
-                    "Duration": 0.07999999821186066,
-                    "Loop": false
-                },
-                {
-                    "Name": "Death",
-                    "TextureName": "Death",
-                    "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Death.png",
-                    "Max": 19,
-                    "Row": 1,
-                    "Col": 19,
-                    "Duration": 0.07999999821186066,
-                    "Loop": false
-                }
-            ]
+          "Animations": [
+            {
+              "Name": "Attack_Dive_Loop",
+              "TextureName": "Attack_Dive_Loop",
+              "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Attack_Dive_Loop.png",
+              "Max": 4,
+              "Row": 1,
+              "Col": 4,
+              "Duration": 0.07999999821186066,
+              "Loop": true
+            },
+            {
+              "Name": "Attack_Dive_Start",
+              "TextureName": "Attack_Dive_Start",
+              "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Attack_Dive_Start.png",
+              "Max": 5,
+              "Row": 1,
+              "Col": 5,
+              "Duration": 0.07999999821186066,
+              "Loop": false
+            },
+            {
+              "Name": "Death",
+              "TextureName": "Death",
+              "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Death.png",
+              "Max": 19,
+              "Row": 1,
+              "Col": 19,
+              "Duration": 0.07999999821186066,
+              "Loop": false
+            },
+            {
+              "Name": "Flying",
+              "TextureName": "Flying",
+              "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Flying.png",
+              "Max": 8,
+              "Row": 1,
+              "Col": 8,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            },
+            {
+              "Name": "Hurt",
+              "TextureName": "Hurt",
+              "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Hurt.png",
+              "Max": 4,
+              "Row": 1,
+              "Col": 4,
+              "Duration": 0.07999999821186066,
+              "Loop": false
+            },
+            {
+              "Name": "Idle",
+              "TextureName": "Idle",
+              "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Idle.png",
+              "Max": 8,
+              "Row": 1,
+              "Col": 8,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            },
+            {
+              "Name": "NormalAttack_1",
+              "TextureName": "NormalAttack_1",
+              "TexturePath": "../Extern/Assets/Texture/FlyingDemon/NormalAttack_1.png",
+              "Max": 11,
+              "Row": 1,
+              "Col": 11,
+              "Duration": 0.07999999821186066,
+              "Loop": false
+            },
+            {
+              "Name": "TakeOff",
+              "TextureName": "TakeOff",
+              "TexturePath": "../Extern/Assets/Texture/FlyingDemon/TakeOff.png",
+              "Max": 5,
+              "Row": 1,
+              "Col": 5,
+              "Duration": 0.07999999821186066,
+              "Loop": false
+            }
+          ]
         }
       },
       {
@@ -897,8 +897,8 @@
         "CompData": {
           "Pos": [
             2936.558349609375,
-            169.57220458984375,
-            -6.602158546447754
+            210.3280029296875,
+            -6.602233409881592
           ],
           "Sca": [
             0.7130004167556763,
@@ -911,11 +911,26 @@
             -179.99989318847656
           ]
         }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            -470.0,
+            380.0,
+            100.0
+          ],
+          "Scale": [
+            1090.0,
+            180.0,
+            450.0
+          ]
+        }
       }
     ],
     "Model": 6,
     "ModelPath": "../Extern/Assets/Model/Platform/Wall_long1.fbx",
-    "Group": 0
+    "Group": 4
   },
   {
     "Name": "stone_small_6",
@@ -960,6 +975,96 @@
     ],
     "Model": 6,
     "ModelPath": "../Extern/Assets/Model/stone/Fbx/stone_small_6.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "Wall_Segment1",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            1135.8580322265625,
+            207.36732482910156,
+            908.6442260742188
+          ],
+          "Sca": [
+            1.1176283359527588,
+            0.5,
+            0.7413744330406189
+          ],
+          "Rot": [
+            -6.479473086073995e-05,
+            -5.437286853790283,
+            0.00011054328206228092
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Platform/Wall_Segment1.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "Wall_Segment2",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            2107.299072265625,
+            207.36497497558594,
+            -1063.0750732421875
+          ],
+          "Sca": [
+            0.7099970579147339,
+            0.6545224189758301,
+            0.7413737773895264
+          ],
+          "Rot": [
+            -179.999755859375,
+            -31.405929565429688,
+            179.999755859375
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Platform/Wall_Segment2.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "Wall_Segment3",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            152.8283233642578,
+            423.8963623046875,
+            -1392.1048583984375
+          ],
+          "Sca": [
+            0.7310833930969238,
+            0.42066648602485657,
+            0.7413755059242249
+          ],
+          "Rot": [
+            -179.99989318847656,
+            -45.519195556640625,
+            -179.9998779296875
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Platform/Wall_Segment3.fbx",
     "Group": 4
   }
 ]

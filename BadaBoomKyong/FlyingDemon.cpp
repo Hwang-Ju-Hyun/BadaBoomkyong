@@ -159,7 +159,6 @@ bool FlyingDemon::DetectPlayer()
 	return std::fabs(dist) <= 300.f;	
 }
 
-
 void FlyingDemon::DoTakeOff(const glm::vec3& _vel)
 {
 	m_eCurrentState = MonsterAnimState::TAKE_OFF;
@@ -167,7 +166,6 @@ void FlyingDemon::DoTakeOff(const glm::vec3& _vel)
 	velocity.y = 299.f;*/
 	m_pRigidBody->SetVelocity(_vel);
 }
-
 
 void FlyingDemon::EnterCollision(Collider* _other)
 {
