@@ -69,6 +69,10 @@ Melee* MeleeFactory::CreateMelee(const std::string& _name)
 	{
 		return melee_comp = m_pExecutionerDemonMelee;
 	}
+	else if (_name == "FlyingDemon")
+	{
+		return melee_comp = m_pFlyingDemonMelee;
+	}
 }
 
 void MeleeFactory::Exit()

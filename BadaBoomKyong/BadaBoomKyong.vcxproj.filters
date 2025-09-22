@@ -413,6 +413,18 @@
     <Filter Include="Animation\FiniteStateMachine\Flying">
       <UniqueIdentifier>{47c0fd5a-a36b-44df-9400-f836e99500ae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Custom\Monster\FlyingDemon\AI_State\TRACE">
+      <UniqueIdentifier>{bee33e53-362b-47b4-b52c-5a6feba69922}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Dive">
+      <UniqueIdentifier>{71d3bc8d-3d3b-4dfe-9f9e-3b40607d9c88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Dive\ToDive">
+      <UniqueIdentifier>{3361ddd7-8fc3-407f-bcab-67352d2ec359}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Dive\Diving">
+      <UniqueIdentifier>{0c89acf7-3d49-4527-9582-211d8bc84f29}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -720,6 +732,9 @@
     </ClCompile>
     <ClCompile Include="FlyingDemonMelee.cpp">
       <Filter>Component\Custom\Melee\Monster\FlyingDemonMelee</Filter>
+    </ClCompile>
+    <ClCompile Include="TRACE_FlyingDemon.cpp">
+      <Filter>Component\Custom\Monster\FlyingDemon\AI_State\TRACE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1127,6 +1142,15 @@
     </ClInclude>
     <ClInclude Include="Anim_FlyingState.h">
       <Filter>Animation\FiniteStateMachine\Flying</Filter>
+    </ClInclude>
+    <ClInclude Include="TRACE_FlyingDemon.h">
+      <Filter>Component\Custom\Monster\FlyingDemon\AI_State\TRACE</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_ToDiveState.h">
+      <Filter>Animation\FiniteStateMachine\Dive\ToDive</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_DivingState.h">
+      <Filter>Animation\FiniteStateMachine\Dive\Diving</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

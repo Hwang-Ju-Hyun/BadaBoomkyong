@@ -27,10 +27,12 @@ private:
 public:
 	//settor	
 	inline void SetPosition(glm::vec3 _position) { m_vPosition = _position; }
+	inline void SetPositionZ(float _z) { m_vPosition.z = _z; }
+	inline void SetPositionY(float _y) { m_vPosition.y = _y; }
 	inline void SetScale(glm::vec3 _scale) { m_vScale = _scale; }
 	inline void SetRotation(float _rot) { m_fRotation = _rot; }
 	inline void SetRotation(glm::vec3 _rot) { m_vRotation = _rot; }
-
+	
 	//Add
 	inline void AddPosition(const glm::vec3& _xyz) { m_vPosition += _xyz; }
 	inline void AddPositionX(float _x) { m_vPosition.x += _x; }

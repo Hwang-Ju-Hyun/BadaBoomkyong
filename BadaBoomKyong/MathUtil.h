@@ -15,5 +15,8 @@ public:
 public:
 	int GetRandomNumber(int _min, int _max);
 	float GetRandomNumber(float _min, float _max);
+	float lerp(float _start, float _end, float _t);
+
+	float clamp(float _val, float _min, float _max);
 };
 

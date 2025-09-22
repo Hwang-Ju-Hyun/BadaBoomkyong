@@ -13,6 +13,8 @@ class IIdleBehaviour;
 class IRangedBehaviour;
 class IMeleeBehaviour;
 class IPatrolBehaviour;
+class ITraceBehaviour;
+class IMeleeBehaviour;
 
 template<typename T>
 class AnimStateMachine;
@@ -26,8 +28,10 @@ enum class MonsterAnimState
     NORMAL_ATTACK,
     WALK,
     HURT,
-    TAKE_OFF,
+    TAKE_OFF,    
     FLYING,
+    DIVE_START,
+    DIVING,
     DEATH
 };
 
@@ -57,6 +61,7 @@ protected:
     IRangedBehaviour* m_pRangedBehavior;
     IMeleeBehaviour*  m_pMeleeBehaviour;
     IPatrolBehaviour* m_pPatrolBehaviour;
+    ITraceBehaviour* m_pTraceBehaviour;
 protected:
     float m_fDirection = 1.f;          //Postive : Right | Negative : Left 
 public:
@@ -73,13 +78,17 @@ public:
     inline void SetRangedBehaviour(IRangedBehaviour* _behaviour) { m_pRangedBehavior = _behaviour; }
     inline void SetMeleeBehaivour(IMeleeBehaviour* _behaviour) { m_pMeleeBehaviour = _behaviour; }
     inline void SetPatrolBehaviour(IPatrolBehaviour* _behaviour) { m_pPatrolBehaviour = _behaviour; }
+    inline void SetTraceBehaviour(ITraceBehaviour* _behaviour) { m_pTraceBehaviour = _behaviour; }    
     inline void SetAnimator(Animator* _anim) { m_pAnimator = _anim; }
-    inline void SetAnimCurrentState(MonsterAnimState _eState) { m_eCurrentState = _eState; }
+    inline void SetAnimCurrentState(MonsterAnimState _eState) {
+        if (m_eCurrentState == _eState) { return; }m_eCurrentState = _eState;
+    }
     inline Player* GetPlayer()const { return m_pPlayer; }
     inline IIdleBehaviour* GetIdleBehavior() { return m_pIdleBehavior; }
     inline IRangedBehaviour* GetRangedBehavior() { return m_pRangedBehavior; }
     inline IMeleeBehaviour* GetMeleeBehaviour() { return m_pMeleeBehaviour; }
     inline IPatrolBehaviour* GetPatrolBehaviour() { return m_pPatrolBehaviour; }
+    inline ITraceBehaviour* GetTraceBehaviour() { return m_pTraceBehaviour; }
     inline AI* GetAI()const { return m_pAI; }
     inline MonsterAnimState GetCurrentState()const { return m_eCurrentState; }
     inline Animator* GetAnimator()const { return m_pAnimator; }
@@ -99,6 +108,7 @@ public:
     const std::string GetCurrentAnimState();
     inline void SetIsGround(bool _ground) { m_bIsGround = _ground; }
     inline bool GetIsGround()const { return m_bIsGround; }
+    inline void SetCurrentAnimState(MonsterAnimState _eState) { m_eCurrentState = _eState; }
     inline void SetSpeed(float _speed) { m_fSpeed = _speed; }
     inline float GetSpeed()const { return m_fSpeed; }    
     inline void SetCurrentHP(int _hp) { m_iCurrentHP = _hp; }

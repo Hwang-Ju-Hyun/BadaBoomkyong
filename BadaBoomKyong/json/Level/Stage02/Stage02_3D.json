@@ -9,7 +9,7 @@
         "CompData": {
           "Pos": [
             807.3642578125,
-            1724.5814208984375,
+            5724.5814208984375,
             0.0
           ],
           "Sca": [
@@ -304,38 +304,88 @@
       {
         "Type": "Animator",
         "CompData": {
-          "Animations": [
-            {
-              "Name": "Flying",
-              "TextureName": "Flying",
-              "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Flying.png",
-              "Max": 8,
-              "Row": 1,
-              "Col": 8,
-              "Duration": 0.10000000149011612,
-              "Loop": true
-            },
-            {
-              "Name": "Idle",
-              "TextureName": "Idle",
-              "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Idle.png",
-              "Max": 8,
-              "Row": 1,
-              "Col": 8,
-              "Duration": 0.10000000149011612,
-              "Loop": true
-            },
-            {
-              "Name": "TakeOff",
-              "TextureName": "TakeOff",
-              "TexturePath": "../Extern/Assets/Texture/FlyingDemon/TakeOff.png",
-              "Max": 5,
-              "Row": 1,
-              "Col": 5,
-              "Duration": 0.07999999821186066,
-              "Loop": false
-            }
-          ]
+            "Animations": [
+                {
+                    "Name": "Flying",
+                    "TextureName": "Flying",
+                    "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Flying.png",
+                    "Max": 8,
+                    "Row": 1,
+                    "Col": 8,
+                    "Duration": 0.10000000149011612,
+                    "Loop": true
+                },
+                {
+                    "Name": "Idle",
+                    "TextureName": "Idle",
+                    "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Idle.png",
+                    "Max": 8,
+                    "Row": 1,
+                    "Col": 8,
+                    "Duration": 0.10000000149011612,
+                    "Loop": true
+                },
+                {
+                    "Name": "TakeOff",
+                    "TextureName": "TakeOff",
+                    "TexturePath": "../Extern/Assets/Texture/FlyingDemon/TakeOff.png",
+                    "Max": 5,
+                    "Row": 1,
+                    "Col": 5,
+                    "Duration": 0.07999999821186066,
+                    "Loop": false
+                },
+                {
+                    "Name": "Attack_Dive_Start",
+                    "TextureName": "Attack_Dive_Start",
+                    "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Attack_Dive_Start.png",
+                    "Max": 5,
+                    "Row": 1,
+                    "Col": 5,
+                    "Duration": 0.07999999821186066,
+                    "Loop": false
+                },
+                {
+                    "Name": "Attack_Dive_Loop",
+                    "TextureName": "Attack_Dive_Loop",
+                    "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Attack_Dive_Loop.png",
+                    "Max": 4,
+                    "Row": 1,
+                    "Col": 4,
+                    "Duration": 0.07999999821186066,
+                    "Loop": true
+                },
+                {
+                    "Name": "NormalAttack_1",
+                    "TextureName": "NormalAttack_1",
+                    "TexturePath": "../Extern/Assets/Texture/FlyingDemon/NormalAttack_1.png",
+                    "Max": 11,
+                    "Row": 1,
+                    "Col": 11,
+                    "Duration": 0.07999999821186066,
+                    "Loop": false
+                },
+                {
+                    "Name": "Hurt",
+                    "TextureName": "Hurt",
+                    "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Hurt.png",
+                    "Max": 4,
+                    "Row": 1,
+                    "Col": 4,
+                    "Duration": 0.07999999821186066,
+                    "Loop": false
+                },
+                {
+                    "Name": "Death",
+                    "TextureName": "Death",
+                    "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Death.png",
+                    "Max": 19,
+                    "Row": 1,
+                    "Col": 19,
+                    "Duration": 0.07999999821186066,
+                    "Loop": false
+                }
+            ]
         }
       },
       {
@@ -343,7 +393,9 @@
         "CompData": {
           "StateList": [
             0,
-            1
+            1,
+            2,
+            3
           ]
         }
       },

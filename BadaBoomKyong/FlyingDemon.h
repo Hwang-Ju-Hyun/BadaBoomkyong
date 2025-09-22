@@ -66,7 +66,7 @@ public:
     float m_fPatrolRandDistance = 0.f;
 private:
     float m_fOffsetTimeAcc = 0.f;
-    float m_fOffsetTime = 0.8f;
+    float m_fOffsetTime = 0.05f;
 public:
     virtual void EnterCollision(Collider* _other)override;
     virtual void OnCollision(Collider* _other)   override;
@@ -82,5 +82,9 @@ public:
     virtual json SaveToJson(const json& _str)override;
 public:
     static bool Goup;
+public:
+    void DoTakeOff(const glm::vec3& _vel);
+    float m_fAccHurtTime = 0.f;
+    float m_fMaxHurtTime = 0.3f;
 };
 

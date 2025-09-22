@@ -56,6 +56,15 @@ public:
             case MonsterAnimState::WALK:
                 mon_machine->ChangeAnimState(static_cast<int>(MonsterAnimState::WALK));
                 break;
+            case MonsterAnimState::TAKE_OFF:
+                mon_machine->ChangeAnimState(static_cast<int>(MonsterAnimState::TAKE_OFF));
+                break;
+            case MonsterAnimState::DIVE_START:
+                mon_machine->ChangeAnimState(static_cast<int>(MonsterAnimState::DIVE_START));
+                break;
+            case MonsterAnimState::DIVING:
+                mon_machine->ChangeAnimState(static_cast<int>(MonsterAnimState::DIVING));
+                break;
             case MonsterAnimState::NORMAL_ATTACK:
                 mon_machine->ChangeAnimState(static_cast<int>(MonsterAnimState::NORMAL_ATTACK));
                 break;

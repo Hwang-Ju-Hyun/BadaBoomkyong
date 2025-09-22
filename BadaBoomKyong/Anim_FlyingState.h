@@ -21,7 +21,13 @@ public:
         if constexpr (std::is_same<T, Monster>::value)
         {
             switch (_owner->GetCurrentState())
-            {
+            {                
+            case MonsterAnimState::DIVE_START:
+                machine->ChangeAnimState(static_cast<int>(MonsterAnimState::DIVE_START));
+                break;
+            case MonsterAnimState::HURT:
+                machine->ChangeAnimState(static_cast<int>(MonsterAnimState::DIVE_START));
+                break;            
             case MonsterAnimState::DEATH:
                 machine->ChangeAnimState(static_cast<int>(MonsterAnimState::DEATH));
                 break;

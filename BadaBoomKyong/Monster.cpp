@@ -77,9 +77,13 @@ const std::string Monster::GetCurrentAnimState()
 		return "Walk";
 	case MonsterAnimState::HURT:
 		return "Hurt";
+	case MonsterAnimState::DIVE_START:
+		return "DiveStart";
 	case MonsterAnimState::TAKE_OFF:
 		return "TakeOff";
 	case MonsterAnimState::FLYING:
+		return "Flying";
+	case MonsterAnimState::DIVING:
 		return "Flying";
 	case MonsterAnimState::DEATH:
 		return "Death";

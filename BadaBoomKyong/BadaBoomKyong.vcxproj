@@ -242,12 +242,15 @@
     <ClCompile Include="TextureResource.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TraceState.cpp" />
+    <ClCompile Include="TRACE_FlyingDemon.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI.h" />
     <ClInclude Include="Animator.h" />
+    <ClInclude Include="Anim_DivingState.h" />
+    <ClInclude Include="Anim_ToDiveState.h" />
     <ClInclude Include="Anim_FlyingState.h" />
     <ClInclude Include="Anim_TakeOffState.h" />
     <ClInclude Include="Anim_LandState.h" />
@@ -379,6 +382,7 @@
     <ClInclude Include="TextureResource.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TraceState.h" />
+    <ClInclude Include="TRACE_FlyingDemon.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

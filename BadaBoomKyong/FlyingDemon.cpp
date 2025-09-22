@@ -1,4 +1,5 @@
 #include "FlyingDemon.h"
+#include "FlyingDemonMelee.h"
 #include "Collider.h"
 #include "Anim_IdleState.h"
 #include "Sprite.h"
@@ -16,6 +17,8 @@
 #include "IDLE_FlyingDemon.h"
 #include "MELEE_FlyingDemon.h"
 #include "PATROL_FlyingDemon.h"
+#include "TRACE_FlyingDemon.h"
+#include "MELEE_FlyingDemon.h"
 #include "BulletFactory.h"
 #include "GeometryUtill.h"
 #include "MeleeFactory.h"
@@ -24,6 +27,9 @@
 #include "FlyingDemonFireBall.h"
 #include "Anim_TakeOffState.h"
 #include "Anim_FlyingState.h"
+#include "Anim_ToDiveState.h"
+#include "Anim_DivingState.h"
+#include "Anim_NormalAttackState.h"
 
 bool FlyingDemon::Goup = false;
 
@@ -31,15 +37,17 @@ FlyingDemon::FlyingDemon(GameObject* _owner)
     :Monster(_owner)
 {
     SetName(FlyingDemonTypeName);
-
+	m_iInitHP = 3;
+	m_iCurrentHP = 1;
 	m_fDirection = -1.f;
 	m_pAI->RegistryMonster(this);
 	m_pAI->SetOwner(_owner);
 	m_pAI->SetCurState(MONSTER_STATE::IDLE_STATE);
 
-	this->SetIdleBehaviour(new IDLE_FlyingDemon);
+	this->SetIdleBehaviour(new IDLE_FlyingDemon);	
+	this->SetPatrolBehaviour(new PATROL_FlyingDemon);	
+	this->SetTraceBehaviour(new TRACE_FlyingDemon);
 	this->SetMeleeBehaivour(new MELEE_FlyingDemon);
-	this->SetPatrolBehaviour(new PATROL_FlyingDemon);
 
 	assert(m_pAI != nullptr);
 
@@ -48,9 +56,12 @@ FlyingDemon::FlyingDemon(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::IDLE), new AnimIdleState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::TAKE_OFF), new AnimTakeOffState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::FLYING), new AnimFlyingState<Monster>());
-	//m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::HURT), new AnimHurtState<Monster>());
-	//m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DEATH), new AnimDeathState<Monster>());
-
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DIVE_START), new AnimToDiveState<Monster>());
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DIVING), new AnimDivingState<Monster>());
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::NORMAL_ATTACK), new AnimNormalAttackState<Monster>());
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::HURT), new AnimHurtState<Monster>());
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DEATH), new AnimDeathState<Monster>());
+	
 	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::IDLE));
 }
 
@@ -71,6 +82,8 @@ void FlyingDemon::Init()
 	assert(m_pSprite != nullptr);
 
 	m_pRigidBody= dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
+
+	m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
 }
 
 void FlyingDemon::Update()
@@ -78,34 +91,40 @@ void FlyingDemon::Update()
 	if (GetIsAlive())
 	{
 		UpdateSpriteFlipX();
+		
 		m_vPosition = m_pTransform->GetPosition();
-		std::cout << GetCurrentAnimState() << std::endl;
-		if (DetectPlayer()&&Goup==false)
-		{
-			Goup = true;
-			m_eCurrentState = MonsterAnimState::TAKE_OFF;
-			glm::vec3 velocity = m_pRigidBody->GetVelocity();
-			velocity.y = 399.f;
-			m_pRigidBody->SetVelocity(velocity);
-		}
-		if (Goup)
-		{
-			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1 && GetCurrentState() == MonsterAnimState::TAKE_OFF)
-			{
-				m_pRigidBody->SetVelocity({ 0.f,0.f,0.f });
-				m_pAI->ChangeState(MONSTER_STATE::PATROL_STATE);
-				SetAnimCurrentState(MonsterAnimState::FLYING);				
-			}
+	}
+
+	float dt = TimeManager::GetInstance()->GetDeltaTime();
+	
+	if (GetIsHurting())
+	{
+		m_fAccHurtTime += dt;
+		if (m_fAccHurtTime>=m_fMaxHurtTime)
+		{			
+			SetIsHurting(false);
+			m_fAccHurtTime = 0.f;
 		}
 	}
 
-	std::cout << m_pRigidBody->GetVelocity().y << std::endl;
+	auto hp = GetCurrentHP();
+	hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
+
+	if (!GetIsAlive())
+	{
+		m_eCurrentState = MonsterAnimState::DEATH;
+	}		
+
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();
 }
 
 void FlyingDemon::Exit()
 {
+	delete m_pIdleBehavior;
+	delete m_pPatrolBehaviour;
+	delete m_pTraceBehaviour;
+	delete m_pMeleeBehaviour;
 }
 
 void FlyingDemon::Fire()
@@ -114,6 +133,20 @@ void FlyingDemon::Fire()
 
 void FlyingDemon::MeleeAttack()
 {
+	m_pMelee = m_pMeleeFactory->CreateMelee(GetName());
+	FlyingDemonMelee* melee_comp = dynamic_cast<FlyingDemonMelee*>(m_pMelee);
+	assert(m_pMelee != nullptr);
+	m_pMelee->SetAttacker(this->GetOwner());
+	float dt = TimeManager::GetInstance()->GetDeltaTime();
+
+	if (m_bCanMeleeAttack == false)	
+	{	
+
+		EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
+		m_bCanMeleeAttack = true;
+		m_fOffsetTimeAcc = 0.f;
+	}
+	std::cout << m_fOffsetTimeAcc << std::endl;
 }
 
 bool FlyingDemon::DetectPlayer()
@@ -126,9 +159,15 @@ bool FlyingDemon::DetectPlayer()
 	return std::fabs(dist) <= 300.f;	
 }
 
-void FlyingDemon::Patrol()
+
+void FlyingDemon::DoTakeOff(const glm::vec3& _vel)
 {
+	m_eCurrentState = MonsterAnimState::TAKE_OFF;
+	/*glm::vec3 velocity = m_pRigidBody->GetVelocity();
+	velocity.y = 299.f;*/
+	m_pRigidBody->SetVelocity(_vel);
 }
+
 
 void FlyingDemon::EnterCollision(Collider* _other)
 {
@@ -209,3 +248,4 @@ json FlyingDemon::SaveToJson(const json& _str)
 
 	return data;
 }
+

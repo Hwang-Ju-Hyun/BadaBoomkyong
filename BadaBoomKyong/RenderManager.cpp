@@ -401,10 +401,7 @@ void RenderManager::Draw()
 	}
 	
 
-	
-	
-
-
+		
 	// 투명 객체 렌더링 전
 	glDepthMask(GL_FALSE); // 깊이 기록 끄기
 	//투명

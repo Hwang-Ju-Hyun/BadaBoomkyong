@@ -2,7 +2,6 @@
 #include "Anim_StateMachine.h"
 #include "Monster.h"
 
-
 template<typename T>
 class AnimTakeOffState : public AnimIState<T>
 {
@@ -28,6 +27,9 @@ public:
             case MonsterAnimState::FLYING:
                 machine->ChangeAnimState(static_cast<int>(MonsterAnimState::FLYING));
                 break;
+            case MonsterAnimState::HURT:
+                machine->ChangeAnimState(static_cast<int>(MonsterAnimState::HURT));
+                break;         
             }
         }
     }

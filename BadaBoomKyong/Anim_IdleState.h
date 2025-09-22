@@ -67,7 +67,7 @@ public:
                 break;
             case MonsterAnimState::NORMAL_ATTACK:
                 machine->ChangeAnimState(int(MonsterAnimState::NORMAL_ATTACK));
-                break;
+                break;          
             case MonsterAnimState::HURT:
                 machine->ChangeAnimState(int(MonsterAnimState::HURT));
                 break;

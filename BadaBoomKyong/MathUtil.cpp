@@ -37,3 +37,20 @@ float MathUtil::GetRandomNumber(float _min, float _max)
 	std::uniform_real_distribution<float> distribution(_min, _max);
 	return distribution(rd);
 }
+
+float MathUtil::lerp(float _start, float _end, float _t)
+{	
+	if (_t > 1.f)
+		_t = 1.f;	
+	return _start + (_end - _start) * _t;
+}
+
+float MathUtil::clamp(float _val, float _min, float _max)
+{
+	float result = _val;
+	if (_val < _min)
+		result = _min;
+	else if (_val > _max)
+		result = _max;
+	return result;
+}
