@@ -8,8 +8,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            2111.33447265625,
-            713.6388549804688,
+            4513.958984375,
+            988.1591796875,
             0.0
           ],
           "Sca": [
@@ -243,8 +243,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            1422.0,
-            780.6724853515625,
+            1400.89990234375,
+            765.8579711914063,
             -302.0
           ],
           "Sca": [
@@ -268,8 +268,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "NormalAttack_1",
-          "TexturePath": "../Extern/Assets/Texture/FlyingDemon/NormalAttack_1.png"
+          "TextureName": "Idle",
+          "TexturePath": "../Extern/Assets/Texture/FlyingDemon/Idle.png"
         }
       },
       {
@@ -1065,6 +1065,246 @@
     ],
     "Model": 6,
     "ModelPath": "../Extern/Assets/Model/Platform/Wall_Segment3.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "bigtower1",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            3086.16552734375,
+            229.69862365722656,
+            -1230.193359375
+          ],
+          "Sca": [
+            0.8354549407958984,
+            0.6002668142318726,
+            1.2122437953948975
+          ],
+          "Rot": [
+            -4.7849967813817784e-05,
+            -28.687002182006836,
+            0.00022254062059801072
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Platform/bigtower1.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "bigtower2",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            367.8228759765625,
+            529.3499145507813,
+            -723.7288208007813
+          ],
+          "Sca": [
+            0.746935248374939,
+            0.6326838731765747,
+            0.9271231889724731
+          ],
+          "Rot": [
+            179.99989318847656,
+            34.084617614746094,
+            179.99989318847656
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Platform/bigtower2.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "Wall_Block",
+    "ID": 1,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            3213.92529296875,
+            278.31243896484375,
+            195.40211486816406
+          ],
+          "Sca": [
+            0.06469789147377014,
+            0.5166382193565369,
+            0.29960811138153076
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            100.0,
+            100.0,
+            -200.0
+          ],
+          "Scale": [
+            100.0,
+            600.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Platform/wall_Block1.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "big_tower",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            3023.690673828125,
+            278.3110046386719,
+            -660.0703125
+          ],
+          "Sca": [
+            0.45587947964668274,
+            0.3887671232223511,
+            0.5909870266914368
+          ],
+          "Rot": [
+            -179.99989318847656,
+            47.5305061340332,
+            -179.99989318847656
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            620.0,
+            100.0,
+            660.0
+          ],
+          "Scale": [
+            200.0,
+            820.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Platform/big_tower.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "Wall_Block",
+    "ID": 2,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            3760.0869140625,
+            272.92999267578125,
+            113.09063720703125
+          ],
+          "Sca": [
+            0.06469789892435074,
+            0.8602452278137207,
+            0.29960811138153076
+          ],
+          "Rot": [
+            0.0,
+            -43.20362091064453,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            220.0,
+            70.0,
+            -80.0
+          ],
+          "Scale": [
+            150.0,
+            1200.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Platform/wall_Block1.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "Wall_long2",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            4425.91015625,
+            249.5216522216797,
+            68.4456787109375
+          ],
+          "Sca": [
+            1.0658063888549805,
+            0.9870296120643616,
+            2.5461416244506836
+          ],
+          "Rot": [
+            0.0,
+            1.8304489850997925,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            680.0,
+            590.0,
+            -80.0
+          ],
+          "Scale": [
+            1750.0,
+            230.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Platform/Wall_long1.fbx",
     "Group": 4
   }
 ]
