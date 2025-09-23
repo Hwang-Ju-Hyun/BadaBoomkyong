@@ -2,7 +2,6 @@
 #include "Model.h"
 #include <cassert>
 #include <utility>
-#include "Mesh.h"
 
 int ModelManager::g_mesh_cnt = 0;
 
@@ -151,6 +150,9 @@ void ModelManager::PlaneInit()
 	{
 		0,1,2,0,2,3
 	};
+	
+	CaculateTangent(vertices,indices);
+
 
 	GLenum type = GL_TRIANGLES;
 	Mesh* mesh = new Mesh(MODEL_TYPE::PLANE, type, std::move(vertices), std::move(indices));
@@ -220,6 +222,8 @@ void ModelManager::CubeInit()
 		// Bottom face
 		20,21,22,20,22,23
 	};
+
+	CaculateTangent(vertices, indices);
 
 	GLenum type = GL_TRIANGLES;
 	Mesh* mesh = new Mesh(MODEL_TYPE::CUBE,type, std::move(vertices), std::move(indices));	
@@ -544,4 +548,56 @@ void ModelManager::LoadMaterials(const aiScene* _scene,const std::string& _fileP
 			m_pCustomModel->GetMeshes()[i]->SetMaterial(mat);
 		}
 	}
+}
+
+void ModelManager::CaculateTangent(std::vector<Mesh::VertexAttribute>& _vertices, std::vector<unsigned int> _indices)
+{
+	//init
+	for (auto& v : _vertices)
+	{
+		v.tangent = glm::vec3({ 0.f,0.f,0.f });
+	}	
+
+	// 인덱스 3개씩 끊어서 삼각형 단위 처리
+	for (size_t i = 0; i < _indices.size(); i += 3)
+	{
+		unsigned int i0 = _indices[i];
+		unsigned int i1 = _indices[i + 1];
+		unsigned int i2 = _indices[i + 2];
+
+		Mesh::VertexAttribute& v0 = _vertices[i0];
+		Mesh::VertexAttribute& v1 = _vertices[i1];
+		Mesh::VertexAttribute& v2 = _vertices[i2];
+
+		glm::vec3 edge1 = v1.position - v0.position;
+		glm::vec3 edge2 = v2.position - v0.position;
+
+		glm::vec2 deltaUV1 = v1.texcoord - v0.texcoord;
+		glm::vec2 deltaUV2 = v2.texcoord - v0.texcoord;
+
+		float r = deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y;
+		if (r == 0.0f)
+		{
+			// 0으로 나누기 방지
+			r = 1.0f;
+		}
+		else
+		{
+			r = 1.0f / r;
+		}
+
+		glm::vec3 tangent = (edge1 * deltaUV2.y - edge2 * deltaUV1.y) * r;		
+
+		// 각 정점에 탄젠트 누적 (평균을 위해)
+		v0.tangent += tangent;
+		v1.tangent += tangent;
+		v2.tangent += tangent;		
+	}
+
+	// 누적된 탄젠트를 정규화
+	for (auto& v : _vertices)
+	{
+		v.tangent = glm::normalize(v.tangent);
+	}
+
 }

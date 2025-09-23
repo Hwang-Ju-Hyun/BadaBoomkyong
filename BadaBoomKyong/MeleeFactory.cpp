@@ -142,10 +142,10 @@ void MeleeFactory::InitStageTest()
 	Sprite* player_spr = dynamic_cast<Sprite*>(m_pPlayerMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pPlayerMeleeObject)));
 	Collider* player_col = dynamic_cast<Collider*>(m_pPlayerMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pPlayerMeleeObject)));
 
-	m_pExecutionerDemonMeleeObject = new GameObject(Melee::MeleeTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::MELEE);
-	m_pExecutionerDemonMelee = dynamic_cast<ExecutionerDemonMelee*>(m_pExecutionerDemonMeleeObject->AddComponent_and_Get(Melee::MeleeTypeName, new ExecutionerDemonMelee(m_pExecutionerDemonMeleeObject, nullptr)));
-	Transform* trs = dynamic_cast<Transform*>(m_pExecutionerDemonMeleeObject->AddComponent_and_Get(Transform::TransformTypeName, new Transform(m_pExecutionerDemonMeleeObject)));
-	Sprite* spr = dynamic_cast<Sprite*>(m_pExecutionerDemonMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pExecutionerDemonMeleeObject)));
-	Collider* col = dynamic_cast<Collider*>(m_pExecutionerDemonMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pExecutionerDemonMeleeObject)));
+	//m_pExecutionerDemonMeleeObject = new GameObject(Melee::MeleeTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::MELEE);
+	//m_pExecutionerDemonMelee = dynamic_cast<ExecutionerDemonMelee*>(m_pExecutionerDemonMeleeObject->AddComponent_and_Get(Melee::MeleeTypeName, new ExecutionerDemonMelee(m_pExecutionerDemonMeleeObject, nullptr)));
+	//Transform* trs = dynamic_cast<Transform*>(m_pExecutionerDemonMeleeObject->AddComponent_and_Get(Transform::TransformTypeName, new Transform(m_pExecutionerDemonMeleeObject)));
+	//Sprite* spr = dynamic_cast<Sprite*>(m_pExecutionerDemonMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pExecutionerDemonMeleeObject)));
+	//Collider* col = dynamic_cast<Collider*>(m_pExecutionerDemonMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pExecutionerDemonMeleeObject)));
 }
 

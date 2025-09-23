@@ -6,6 +6,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include "Mesh.h"
 
 class Model;
 class TextureResource;
@@ -50,6 +51,8 @@ private:
 	void LoadMesh(aiMesh* _mesh, const aiScene* _scene, const aiMatrix4x4& transform);
 	// 텍스쳐를 로드한다.
 	void LoadMaterials(const aiScene* _scene,const std::string& _filePath);
+private:
+	void CaculateTangent(std::vector<Mesh::VertexAttribute>& _vertices, std::vector<unsigned int> _indices);
 public:
 	static int g_mesh_cnt;
 };

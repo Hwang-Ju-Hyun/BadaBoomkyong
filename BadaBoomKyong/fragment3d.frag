@@ -3,6 +3,7 @@
 in vec2 UV;
 in vec3 WorldPosition;
 in vec3 WorldNormal;
+in mat3 tbnMat;
 
 out vec4 color;
 
@@ -41,14 +42,41 @@ uniform int uLightNumber;
 uniform Light uLight[1];
 uniform bool uLightColorOn;
 
+
+//=====NORMAL MAPPING=====
+//========================
+
+uniform sampler2D uNormalMap;
+uniform bool uUseNormalMap;
+
+//========================
+//=====NORMAL MAPPING=====
+
+
+
 void main()
 {    
     vec3 Phong=vec3(0.f,0.f,0.f);
 
+
+    vec3 N;
+    if (uUseNormalMap)
+    {
+        vec3 normalTS = texture(uNormalMap, UV).rgb;
+        normalTS = normalTS * 2.0 - 1.0; // [0,1] → [-1,1]
+        N = normalize(tbnMat * normalTS);
+    }
+    else
+    {
+        N = normalize(WorldNormal);
+    }
+
+
+
     //카메라 방향벡터
     vec3 viewDir=normalize(uCameraPosition-WorldPosition);
 
-    //표면에서 광원까지
+    //표면에서 광원까지 
     vec3 light_dir;
 
     for(int i=0;i<uLightNumber;i++)
@@ -89,10 +117,10 @@ void main()
         vec3 ambient = vec3(1.0f,1.0f,1.0f)* uLight[i].ambient;
 
         //Diffuse
-        vec3 diffuse= vec3(1.0f,1.0f,1.0f)*max(dot(normalize(WorldNormal),light_dir),0.0);         
+        vec3 diffuse= vec3(1.0f,1.0f,1.0f)*max(dot(normalize(N),light_dir),0.0);         
 
         //Specular
-        vec3 reflectDir=reflect(-light_dir,WorldNormal);
+        vec3 reflectDir=reflect(-light_dir,N);
         //todo 마지막 값 uniform 샤이니 값으로 변경하셈
         float spec = pow(max(dot(viewDir, reflectDir), 0.0), 3002.f);
         

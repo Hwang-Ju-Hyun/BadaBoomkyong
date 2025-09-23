@@ -1,242 +1,311 @@
 [
-  {
-    "Name": "Player",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            306.20166015625,
-            5008.2578125,
-            2000.0
-          ],
-          "Sca": [
-            64.0,
-            64.0,
-            0.0
-          ],
-          "Rot": [
-            0.0,
-            -0.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-          "RGBA": [
-            1.0,
-            1.0,
-            1.0,
-            1.0
-          ],
-          "TextureName": "JumpAttack",
-          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/AirAttack/FX/JumpAttack.png"
-        }
-      },
-      {
-        "Type": "RigidBody",
-        "CompData": {
-          "Kinematic": [
-            false
-          ],
-          "Gravity": [
-            980.0
-          ],
-          "Mass": [
-            1.0
-          ]
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            40.0,
-            70.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Animator",
-        "CompData": {
-          "Animations": [
+    {
+        "Name": "Player",
+        "ID": 0,
+        "Is3D": true,
+        "Components": [
             {
-              "Name": "Dash",
-              "TextureName": "Dash",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Dash/Full/Fx/Dash.png",
-              "Max": 8,
-              "Row": 1,
-              "Col": 8,
-              "Duration": 0.10000000149011612,
-              "Loop": false
+                "Type": "Transform",
+                "CompData": {
+                    "Pos": [
+                        306.20166015625,
+                        5008.2578125,
+                        2000.0
+                    ],
+                    "Sca": [
+                        64.0,
+                        64.0,
+                        0.0
+                    ],
+                    "Rot": [
+                        0.0,
+                        -0.0,
+                        0.0
+                    ]
+                }
             },
             {
-              "Name": "Death",
-              "TextureName": "Death",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Death/Death.png",
-              "Max": 25,
-              "Row": 1,
-              "Col": 25,
-              "Duration": 0.10000000149011612,
-              "Loop": false
+                "Type": "Sprite",
+                "CompData": {
+                    "RGBA": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "TextureName": "JumpAttack",
+                    "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/AirAttack/FX/JumpAttack.png"
+                }
             },
             {
-              "Name": "Fall",
-              "TextureName": "Fall",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Fall/Fall.png",
-              "Max": 6,
-              "Row": 1,
-              "Col": 6,
-              "Duration": 0.10000000149011612,
-              "Loop": true
+                "Type": "RigidBody",
+                "CompData": {
+                    "Kinematic": [
+                        false
+                    ],
+                    "Gravity": [
+                        980.0
+                    ],
+                    "Mass": [
+                        1.0
+                    ]
+                }
             },
             {
-              "Name": "Idle",
-              "TextureName": "Idle",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Idle/Idle.png",
-              "Max": 6,
-              "Row": 1,
-              "Col": 6,
-              "Duration": 0.10000000149011612,
-              "Loop": true
+                "Type": "Collider",
+                "CompData": {
+                    "Offset_Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        40.0,
+                        70.0,
+                        0.0
+                    ]
+                }
             },
             {
-              "Name": "Jump",
-              "TextureName": "Jump",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Jump/Jump.png",
-              "Max": 8,
-              "Row": 1,
-              "Col": 8,
-              "Duration": 0.10000000149011612,
-              "Loop": true
+                "Type": "Animator",
+                "CompData": {
+                    "Animations": [
+                        {
+                            "Name": "Dash",
+                            "TextureName": "Dash",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Dash/Full/Fx/Dash.png",
+                            "Max": 8,
+                            "Row": 1,
+                            "Col": 8,
+                            "Duration": 0.10000000149011612,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "Death",
+                            "TextureName": "Death",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Death/Death.png",
+                            "Max": 25,
+                            "Row": 1,
+                            "Col": 25,
+                            "Duration": 0.10000000149011612,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "Fall",
+                            "TextureName": "Fall",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Fall/Fall.png",
+                            "Max": 6,
+                            "Row": 1,
+                            "Col": 6,
+                            "Duration": 0.10000000149011612,
+                            "Loop": true
+                        },
+                        {
+                            "Name": "Idle",
+                            "TextureName": "Idle",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Idle/Idle.png",
+                            "Max": 6,
+                            "Row": 1,
+                            "Col": 6,
+                            "Duration": 0.10000000149011612,
+                            "Loop": true
+                        },
+                        {
+                            "Name": "Jump",
+                            "TextureName": "Jump",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Jump/Jump.png",
+                            "Max": 8,
+                            "Row": 1,
+                            "Col": 8,
+                            "Duration": 0.10000000149011612,
+                            "Loop": true
+                        },
+                        {
+                            "Name": "JumpAttack",
+                            "TextureName": "JumpAttack",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/AirAttack/FX/JumpAttack.png",
+                            "Max": 17,
+                            "Row": 1,
+                            "Col": 17,
+                            "Duration": 0.05000000074505806,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "LightAttack",
+                            "TextureName": "LightAttack",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/LightAttack/LightAttack.png",
+                            "Max": 13,
+                            "Row": 1,
+                            "Col": 13,
+                            "Duration": 0.050000000149011612,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "SprintAttack",
+                            "TextureName": "SprintAttack",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/SprintAttack/SprintAttack.png",
+                            "Max": 12,
+                            "Row": 1,
+                            "Col": 12,
+                            "Duration": 0.10000000149011612,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "Sprinting",
+                            "TextureName": "Sprinting",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Run/Sprint/Loop/FX/Sprinting.png",
+                            "Max": 8,
+                            "Row": 1,
+                            "Col": 8,
+                            "Duration": 0.10000000149011612,
+                            "Loop": true
+                        },
+                        {
+                            "Name": "ToSprint",
+                            "TextureName": "ToSprint",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Run/Sprint/ToSprint/ToSprint.png",
+                            "Max": 6,
+                            "Row": 1,
+                            "Col": 6,
+                            "Duration": 0.10000000149011612,
+                            "Loop": false
+                        }
+                    ]
+                }
             },
             {
-              "Name": "JumpAttack",
-              "TextureName": "JumpAttack",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/AirAttack/FX/JumpAttack.png",
-              "Max": 17,
-              "Row": 1,
-              "Col": 17,
-              "Duration": 0.05000000074505806,
-              "Loop": false
-            },
-            {
-              "Name": "LightAttack",
-              "TextureName": "LightAttack",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/LightAttack/LightAttack.png",
-              "Max": 13,
-              "Row": 1,
-              "Col": 13,
-              "Duration": 0.050000000149011612,
-              "Loop": false
-            },
-            {
-              "Name": "SprintAttack",
-              "TextureName": "SprintAttack",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/SprintAttack/SprintAttack.png",
-              "Max": 12,
-              "Row": 1,
-              "Col": 12,
-              "Duration": 0.10000000149011612,
-              "Loop": false
-            },
-            {
-              "Name": "Sprinting",
-              "TextureName": "Sprinting",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Run/Sprint/Loop/FX/Sprinting.png",
-              "Max": 8,
-              "Row": 1,
-              "Col": 8,
-              "Duration": 0.10000000149011612,
-              "Loop": true
-            },
-            {
-              "Name": "ToSprint",
-              "TextureName": "ToSprint",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Run/Sprint/ToSprint/ToSprint.png",
-              "Max": 6,
-              "Row": 1,
-              "Col": 6,
-              "Duration": 0.10000000149011612,
-              "Loop": false
+                "Type": "Player",
+                "CompData": {
+                    "Speed": 200.0,
+                    "JumpForce": 800.0
+                }
             }
-          ]
-        }
-      },
-      {
-        "Type": "Player",
-        "CompData": {
-          "Speed": 200.0,
-          "JumpForce": 800.0
-        }
-      }
-    ],
-    "Model": 4,
-    "Group": 1
-  },   
-  {
-    "Name": "Platform",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            0.0,
-            -500.0,
-            2000.0
-          ],
-          "Sca": [
-            7000.0,
-            200.0,
-            200.0
-          ],
-          "Rot": [
-            0.0,
-            0.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-          "RGBA": [
-            1.0,
-            1.0,
-            1.0,
-            1.0
-          ]
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            7000.0,
-            200.0,
-            0.0
-          ]
-        }
-      }
-    ],
-    "Model": 5,
-    "Group": 4
-  }
+        ],
+        "Model": 4,
+        "Group": 1
+    },
+    {
+        "Name": "Platform",
+        "ID": 0,
+        "Is3D": true,
+        "Components": [
+            {
+                "Type": "Transform",
+                "CompData": {
+                    "Pos": [
+                        0.0,
+                        -500.0,
+                        2000.0
+                    ],
+                    "Sca": [
+                        7000.0,
+                        200.0,
+                        200.0
+                    ],
+                    "Rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                }
+            },
+            {
+                "Type": "Sprite",
+                "CompData": {
+                    "RGBA": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            {
+                "Type": "Collider",
+                "CompData": {
+                    "Offset_Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        7000.0,
+                        200.0,
+                        0.0
+                    ]
+                }
+            }
+        ],
+        "Model": 5,
+        "Group": 4
+    },
+    {
+        "Name": "Light",
+        "ID": 0,
+        "Is3D": true,
+        "Components": [
+            {
+                "Type": "Transform",
+                "CompData": {
+                    "Pos": [
+                        528.27587890625,
+                        646.4923095703125,
+                        0.00027261371724307537
+                    ],
+                    "Sca": [
+                        50.0,
+                        50.0,
+                        50.0
+                    ],
+                    "Rot": [
+                        0.0,
+                        -0.0,
+                        0.0
+                    ]
+                }
+            },
+            {
+                "Type": "Sprite",
+                "CompData": {
+                    "RGBA": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            {
+                "Type": "Light",
+                "CompData": {
+                    "LightType": 1,
+                    "Direction": [
+                        0.0,
+                        -1.0,
+                        0.0
+                    ],
+                    "Ambient": [
+                        0.30000001192092896,
+                        0.30000001192092896,
+                        0.30000001192092896
+                    ],
+                    "Diffuse": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Specular": [
+                        0.5,
+                        0.5,
+                        0.5
+                    ],
+                    "CutoffAngle": [
+                        10.0
+                    ]
+                }
+            }
+        ],
+        "Model": 5,
+        "Group": 0
+    }
 ]

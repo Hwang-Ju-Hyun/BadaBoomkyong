@@ -10,6 +10,7 @@ public:
 	~Material();
 private:
 	TextureResource* m_pDiffuseMap = nullptr;
+	TextureResource* m_pNormalMap = nullptr;
 	//light
 	glm::vec3 m_vAmbient;  // 주변광 반사율
 	glm::vec3 m_vDiffuse;  // 난반사 반사율
@@ -20,6 +21,11 @@ public:
 	inline TextureResource* GetTexture()const { return m_pDiffuseMap; }
 	inline void SetTexture(TextureResource* _tex) { m_pDiffuseMap = _tex; }
 	bool GetHasAlphaChannel()const;
+public:
+	// Normal Map 용 함수 추가
+	inline bool HasNormalMap() const { return m_pNormalMap != nullptr; }
+	inline TextureResource* GetNormalMap() const { return m_pNormalMap; }
+	inline void SetNormalMap(TextureResource* _normal) { m_pNormalMap = _normal; }
 public:
 	inline void SetAmbient(const glm::vec3 _amb) { m_vAmbient = _amb; }
 	inline void SetDiffuse(const glm::vec3 _diff) { m_vDiffuse = _diff; }

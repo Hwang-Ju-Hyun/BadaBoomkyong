@@ -175,7 +175,7 @@ void RenderManager::Draw()
 	BeforeDraw();
 
 	m_iLightAffect_location= glGetUniformLocation(shdr_handle_3D, "uLightAffect");
-			
+	
 
 	//1. 불투명 먼저 렌더링
 	for (auto obj : m_vOpaqueObject)

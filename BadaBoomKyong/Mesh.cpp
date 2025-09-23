@@ -100,6 +100,10 @@ void Mesh::UploadBuffers()
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (void*)(5 * sizeof(GL_FLOAT)));
 	glEnableVertexAttribArray(2);
 
+	//Tangent (Location = 3)
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (void*)(8 * sizeof(GL_FLOAT)));
+	glEnableVertexAttribArray(3);
+
 	//Binding 끊기 <- 더 이상 변경하지 않음
 	//즉
 	//glBindVertexArray(VAO); 하면 이후의 VBO, 속성 설정 등이 이 VAO에 저장됨

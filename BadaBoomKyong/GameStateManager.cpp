@@ -3,11 +3,14 @@
 #include <cassert>
 #include "Stage01.h"
 #include "Stage02.h"
+#include "StageTest.h"
 
 GameStateManager::GameStateManager()
 {
 	m_hashLevels.insert({ STAGE_TYPE::STAGE_01,new Stage01(STAGE_TYPE::STAGE_01,"Stage01") });
 	m_hashLevels.insert({ STAGE_TYPE::STAGE_02,new Stage02(STAGE_TYPE::STAGE_02,"Stage02") });
+
+	m_hashLevels.insert({ STAGE_TYPE::STAGE_TEST,new StageTest(STAGE_TYPE::STAGE_TEST,"StageTest") });
 }
 
 GameStateManager::~GameStateManager()
