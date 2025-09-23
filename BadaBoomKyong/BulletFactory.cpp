@@ -176,7 +176,7 @@ void BulletFactory::InitStageTest()
 		m_pBulletPool->m_arrPool[i] = bullet_obj;
 	}
 
-	auto obj_mgr = GameObjectManager::GetInstance();
+	/*auto obj_mgr = GameObjectManager::GetInstance();
 	GameObject* sm_obj = obj_mgr->FindObject(ExecutionerDemon::ExecutionerDemonTypeName);
 	int grenade_obj_count = obj_mgr->GetObjectNumber(ExecutionerDemon::ExecutionerDemonTypeName);
 
@@ -195,5 +195,5 @@ void BulletFactory::InitStageTest()
 		Collider* fireball_col = dynamic_cast<Collider*>(firball_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(firball_obj)));
 		firball_obj->SetActiveAllComps(false);
 		m_pExecutionerDemonFireBallPool->m_arrPool[j] = firball_obj;
-	}
+	}*/
 }

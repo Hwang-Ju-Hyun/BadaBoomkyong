@@ -42,8 +42,8 @@ private:
 	GLint m_iFogStart_location;
 	GLint m_iFogEnd_location;
 	GLint m_iFogOn_location;
-	GLint m_iuUseNormalMap_location;
-	GLint m_iuNormalMap;
+	GLint m_iHasNormalMap_location;
+	GLint m_iOut_NormalMap;
 public:	
 	inline Shader* GetShader(SHADER_REF _shdrRef) { return m_vShdr[int(_shdrRef)]; }	
 	Camera* m_pCam=nullptr;

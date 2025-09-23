@@ -47,7 +47,7 @@ uniform bool uLightColorOn;
 //========================
 
 uniform sampler2D uNormalMap;
-uniform bool uUseNormalMap;
+uniform bool uHasNormalMap;
 
 //========================
 //=====NORMAL MAPPING=====
@@ -60,7 +60,7 @@ void main()
 
 
     vec3 N;
-    if (uUseNormalMap)
+    if (uHasNormalMap)
     {
         vec3 normalTS = texture(uNormalMap, UV).rgb;
         normalTS = normalTS * 2.0 - 1.0; // [0,1] ¡æ [-1,1]

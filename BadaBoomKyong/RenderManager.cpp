@@ -261,6 +261,10 @@ void RenderManager::Draw()
 				m_iHurtEffect_location = glGetUniformLocation(shdr_handle_3D, "uHurtEffect");
 				glUniform1i(m_iHurtEffect_location, false);				
 
+
+				m_iHasNormalMap_location= glGetUniformLocation(shdr_handle_3D, "uHasNormalMap");
+				m_iOut_NormalMap = glGetUniformLocation(shdr_handle_3D, "uNormalMap");
+
 				if (!spr)
 				{
 					for (auto m : model->GetMeshes())
@@ -317,6 +321,17 @@ void RenderManager::Draw()
 					else
 					{
 						glUniform1i(m_iHas_texture_location, false);
+					}
+
+					bool has_normal_tex = false;
+					if (spr->GetNormalTexture())
+					{
+						has_normal_tex = true;
+						GLuint normal_tex_id = spr->GetNormalTexture()->GetTextureID();
+						glActiveTexture(GL_TEXTURE1);
+						glBindTexture(GL_TEXTURE_2D, normal_tex_id);
+						glUniform1i(m_iOut_NormalMap, 1);
+						glUniform1i(m_iHasNormalMap_location, true);
 					}
 					
 					glm::mat4 MVP = GetMVP_ByObject(*obj);

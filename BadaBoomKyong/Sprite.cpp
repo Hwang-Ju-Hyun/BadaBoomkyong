@@ -58,6 +58,15 @@ void Sprite::LoadFromJson(const json& _str)
 			assert(res != nullptr);
 			m_pTextureResource = res;
 		}
+
+		auto normalmap_name = comp_data->find(NormalMapTypeName);
+		auto normalmap_path = comp_data->find(NormalMapPathTypeName);
+		if (normalmap_name != comp_data->end() && normalmap_path != comp_data->end())
+		{
+			TextureResource* res = dynamic_cast<TextureResource*>(ResourceManager::GetInstance()->GetAndLoad(normalmap_name.value(), normalmap_path.value()));
+			assert(res != nullptr);
+			m_pNormalMapResource = res;
+		}
 	}
 }
 
@@ -74,6 +83,11 @@ json Sprite::SaveToJson(const json& _str)
 	{
 		compData[TextureTypeName] = m_pTextureResource->GetResourceName() ;
 		compData[TexturePathTypeName] = m_pTextureResource->GetResourcePath() ;
+	}
+	if (m_pNormalMapResource != nullptr)
+	{
+		compData[NormalMapTypeName] = m_pNormalMapResource->GetResourceName();
+		compData[NormalMapPathTypeName] = m_pNormalMapResource->GetResourcePath();
 	}
 	
 	data[CompDataName] = compData;

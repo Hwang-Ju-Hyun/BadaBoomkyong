@@ -14,12 +14,15 @@ public:
 private:
     glm::vec4 m_vColor = { 1.f,1.f,1.f,1.f };
     TextureResource* m_pTextureResource = nullptr;
+    TextureResource* m_pNormalMapResource = nullptr;
 public:
     inline glm::vec4 GetColor() { return m_vColor; }
     inline void SetColor(const glm::vec4& _color) { m_vColor = _color; }
 
     inline void SetTexture(TextureResource* _res) { m_pTextureResource = _res; }
     inline TextureResource* GetTexture()const { return m_pTextureResource; }
+    inline void SetNormalTexture(TextureResource* _normalTex) { m_pNormalMapResource = _normalTex; }
+    inline TextureResource* GetNormalTexture()const { return m_pNormalMapResource; }
 private:
     bool m_bIsFlipX = false;
 public:
@@ -34,6 +37,9 @@ public:
     static constexpr const char* ColorName = "RGBA";
     static constexpr const char* TextureTypeName = "TextureName";
     static constexpr const char* TexturePathTypeName = "TexturePath";
+
+    static constexpr const char* NormalMapTypeName = "NormalMapName";
+    static constexpr const char* NormalMapPathTypeName = "NormalMapPath";
 public:
     static BaseRTTI* CreateSpriteComponent();
     virtual void LoadFromJson(const json& _str)override;
