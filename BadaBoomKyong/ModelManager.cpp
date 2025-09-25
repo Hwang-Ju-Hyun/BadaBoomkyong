@@ -420,10 +420,20 @@ void ModelManager::LoadMesh(aiMesh* _mesh, const aiScene* _scene, const aiMatrix
             normals = { aiNormal.x, aiNormal.y, aiNormal.z };
         }
 
+		glm::vec3 tangents{ 0.f,0.f,0.f };
+		if (_mesh->HasTangentsAndBitangents())
+		{
+			aiVector3D aiTangents = _mesh->mTangents[i];
+			tangents = { aiTangents.x,aiTangents.y,aiTangents.z };
+		}
+
         Mesh::VertexAttribute vertex;
         vertex.position = pos;
         vertex.texcoord = texcoord;
         vertex.normals = normals;
+		vertex.tangent = tangents;
+
+
         vertices.push_back(vertex);
     }
 
@@ -481,6 +491,7 @@ void ModelManager::LoadMaterials(const aiScene* _scene,const std::string& _fileP
 		aiTextureType_DIFFUSE,
 		aiTextureType_BASE_COLOR,
 		aiTextureType_AMBIENT,  // 일부 FBX는 ambient에 들어감
+		aiTextureType_NORMALS,
 		aiTextureType_UNKNOWN   // FBX 임베디드 텍스처가 여기로 오는 경우도 있음
 		};
 		if (_scene->HasTextures()) {
@@ -491,7 +502,7 @@ void ModelManager::LoadMaterials(const aiScene* _scene,const std::string& _fileP
 		}
 		for (auto type : typesToCheck) {
 			if (material->GetTextureCount(type) > 0) {
-				aiString texturePath;
+				aiString texturePath;				
 				if (material->GetTexture(type, 0, &texturePath) == aiReturn_SUCCESS)
 				{
 					std::string pathStr = texturePath.C_Str();
@@ -505,40 +516,28 @@ void ModelManager::LoadMaterials(const aiScene* _scene,const std::string& _fileP
 					std::string texPath = texture_path + textureName;
 
 					// ResourceManager 통해서 로드 & 캐싱
-					BaseResource* tex = ResourceManager::GetInstance()->GetAndLoad(textureName, texPath);
-					TextureResource* texture_res = dynamic_cast<TextureResource*>(tex);
-					if (texture_res)
+					if (type == aiTextureType_DIFFUSE || type == aiTextureType_BASE_COLOR)
 					{
-						mat->SetTexture(texture_res);
+						BaseResource* tex = ResourceManager::GetInstance()->GetAndLoad(textureName, texPath);
+						TextureResource* texture_res = dynamic_cast<TextureResource*>(tex);
+						if (texture_res)
+						{
+							mat->SetTexture(texture_res);
+						}
 					}
+					else if (type == aiTextureType_NORMALS)
+					{
+						BaseResource* tex = ResourceManager::GetInstance()->GetAndLoad(textureName, texPath);
+						TextureResource* texture_res = dynamic_cast<TextureResource*>(tex);
+						if (texture_res)
+						{
+							mat->SetNormalMap(texture_res);
+						}
+					}
+					
 				}
 			}
-		}
-		//// ─────────────────────────────
-		//// Diffuse 텍스처 로드
-		//// ─────────────────────────────
-		//if (material->GetTextureCount(aiTextureType_DIFFUSE) > 0)
-		//{
-		//	aiString texturePath;
-		//	if (material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath) == aiReturn_SUCCESS)
-		//	{
-		//		std::string pathStr = texturePath.C_Str();
-		//		int idx = pathStr.find_last_of("/\\"); // 윈도우/리눅스 경로 둘 다 고려
-		//		std::string textureName = (idx != std::string::npos) ? pathStr.substr(idx + 1) : pathStr;
-
-		//		int file_path_idx = _filePath.find_last_of("/\\");
-		//		std::string texture_path = (file_path_idx != std::string::npos) ? _filePath.substr(0, file_path_idx + 1) : _filePath;
-		//		std::string texPath = texture_path + textureName;
-
-		//		// ResourceManager 통해서 로드 & 캐싱
-		//		BaseResource* tex = ResourceManager::GetInstance()->GetAndLoad(textureName,texPath);
-		//		TextureResource* texture_res = dynamic_cast<TextureResource*>(tex);
-		//		if (texture_res)
-		//		{
-		//			mat->SetTexture(texture_res);
-		//		}
-		//	}
-		//}
+		}		
 
 		// ─────────────────────────────
 		// Mesh에 Material 연결
@@ -551,15 +550,11 @@ void ModelManager::LoadMaterials(const aiScene* _scene,const std::string& _fileP
 }
 
 void ModelManager::CaculateTangent(std::vector<Mesh::VertexAttribute>& _vertices, std::vector<unsigned int> _indices)
-{
-	//init
-	for (auto& v : _vertices)
-	{
-		v.tangent = glm::vec3({ 0.f,0.f,0.f });
-	}	
-
-	// 인덱스 3개씩 끊어서 삼각형 단위 처리
-	for (size_t i = 0; i < _indices.size(); i += 3)
+{	
+	for (auto& v : _vertices)	
+		v.tangent = glm::vec3({ 0.f,0.f,0.f });		
+	
+	for (size_t i = 0; i < _indices.size(); i += 3)// 인덱스 3개씩 끊어서 삼각형 단위 처리
 	{
 		unsigned int i0 = _indices[i];
 		unsigned int i1 = _indices[i + 1];
@@ -568,36 +563,25 @@ void ModelManager::CaculateTangent(std::vector<Mesh::VertexAttribute>& _vertices
 		Mesh::VertexAttribute& v0 = _vertices[i0];
 		Mesh::VertexAttribute& v1 = _vertices[i1];
 		Mesh::VertexAttribute& v2 = _vertices[i2];
-
 		glm::vec3 edge1 = v1.position - v0.position;
 		glm::vec3 edge2 = v2.position - v0.position;
 
-		glm::vec2 deltaUV1 = v1.texcoord - v0.texcoord;
+		glm::vec2 deltaUV1 = v1.texcoord - v0.texcoord;		
 		glm::vec2 deltaUV2 = v2.texcoord - v0.texcoord;
 
 		float r = deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y;
-		if (r == 0.0f)
-		{
-			// 0으로 나누기 방지
-			r = 1.0f;
-		}
-		else
-		{
-			r = 1.0f / r;
-		}
+		if (std::fabs(r) <=g_epsilon)	
+			r = 1.0f;		
+		else		
+			r = 1.0f / r;		
 
 		glm::vec3 tangent = (edge1 * deltaUV2.y - edge2 * deltaUV1.y) * r;		
-
-		// 각 정점에 탄젠트 누적 (평균을 위해)
+		
 		v0.tangent += tangent;
 		v1.tangent += tangent;
 		v2.tangent += tangent;		
-	}
-
-	// 누적된 탄젠트를 정규화
-	for (auto& v : _vertices)
-	{
-		v.tangent = glm::normalize(v.tangent);
-	}
+	}	
+	for (auto& v : _vertices)	
+		v.tangent = glm::normalize(v.tangent);	
 
 }

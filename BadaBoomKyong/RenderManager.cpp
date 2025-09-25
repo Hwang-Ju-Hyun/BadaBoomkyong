@@ -257,10 +257,9 @@ void RenderManager::Draw()
 				Animator* anim = dynamic_cast<Animator*>(obj->FindComponent(Animator::AnimatorTypeName));
 
 				m_iHas_texture_location = glGetUniformLocation(shdr_handle_3D, "uHasTexture");
-				m_iOut_texture_location = glGetUniformLocation(shdr_handle_3D, "uOutTexture");				
+				m_iOut_texture_location = glGetUniformLocation(shdr_handle_3D, "uOutTexture");			
 				m_iHurtEffect_location = glGetUniformLocation(shdr_handle_3D, "uHurtEffect");
-				glUniform1i(m_iHurtEffect_location, false);				
-
+				glUniform1i(m_iHurtEffect_location, false);
 
 				m_iHasNormalMap_location= glGetUniformLocation(shdr_handle_3D, "uHasNormalMap");
 				m_iOut_NormalMap = glGetUniformLocation(shdr_handle_3D, "uNormalMap");
@@ -273,7 +272,7 @@ void RenderManager::Draw()
 							continue;
 
 						bool has_texture = false;
-
+						bool has_normal_tex = false;
 						if (m->GetMaterial() && m->GetMaterial()->HasTexture())
 						{
 							has_texture = true;
@@ -289,6 +288,15 @@ void RenderManager::Draw()
 							glUniform1i(m_iHas_texture_location, false);
 						}
 
+						if (m->GetMaterial() && m->GetMaterial()->HasNormalMap())
+						{
+							has_normal_tex = true;
+							GLuint normal_tex_id = m->GetMaterial()->GetNormalMap()->GetTextureID();
+							glActiveTexture(GL_TEXTURE1);
+							glBindTexture(GL_TEXTURE_2D, normal_tex_id);
+							glUniform1i(m_iOut_NormalMap, 1);
+							glUniform1i(m_iHasNormalMap_location, true);
+						}
 						
 						glUniform2f(m_iUV_Offset_Location, 0, 0);
 						glUniform2f(m_iUV_Scale_Location, 1, 1);

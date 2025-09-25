@@ -18,7 +18,7 @@
 #include "Light.h"
 #include "SkyBox.h"
 #include "FlyingDemon.h"
-
+#include "SmokeDemon.h"
 Registry::Registry()
 {
     m_mapRTTI.insert({ Transform::TransformTypeName,&Transform::CreateTransformComponent });
@@ -35,6 +35,7 @@ Registry::Registry()
     m_mapRTTI.insert({ ExecutionerDemon::ExecutionerDemonTypeName,&ExecutionerDemon::CreateExecutionerDemonComponent });
     m_mapRTTI.insert({ ExecutionerDemonFireBall::ExecutionerDemonFireBallTypaName,&ExecutionerDemonFireBall::CreateFireBallComponent});
     m_mapRTTI.insert({ FlyingDemon::FlyingDemonTypeName,&FlyingDemon::CreateFlyingDemonComponent });
+    m_mapRTTI.insert({ SmokeDemon::SmokeDemonTypeName,&SmokeDemon::CreateSmokeDemonComponent });
     m_mapRTTI.insert({ Pistol::PistolTypeName,&Pistol::CreatePistolComponent });
     m_mapRTTI.insert({ Light::LightTypeName,&Light::CreateLightComponent });
     m_mapRTTI.insert({ SkyBox::SkyBoxTypeName,&SkyBox::CreateSkyBoxComponent });

@@ -294,238 +294,6 @@
     "Group": 4
   },
   {
-    "Name": "Platform",
-    "ID": 1,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            0.0,
-            671.9137573242188,
-            110.74058532714844
-          ],
-          "Sca": [
-            3578.462890625,
-            19.50214195251465,
-            1624.9215087890625
-          ],
-          "Rot": [
-            0.0,
-            -0.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-            "RGBA": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ],
-            "TextureName": "material_0_baseColor",
-            "TexturePath": "../Extern/Assets/Texture/tile/material_0_baseColor.png"
-  
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            0.0,
-            0.0,
-            0.0
-          ]
-        }
-      }
-    ],
-    "Model": 5,
-    "Group": 4
-  },
-  {
-    "Name": "Platform",
-    "ID": 2,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            0.0,
-            304.1352844238281,
-            -459.8638916015625
-          ],
-          "Sca": [
-            3251.942138671875,
-            789.9923095703125,
-            64.93701934814453
-          ],
-          "Rot": [
-            0.0,
-            -0.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-            "RGBA": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ],
-            "TextureName": "material_0_baseColor",
-            "TexturePath": "../Extern/Assets/Texture/tile/material_0_baseColor.png"
-           
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            0.0,
-            0.0,
-            0.0
-          ]
-        }
-      }
-    ],
-    "Model": 5,
-    "Group": 4
-  },
-  {
-    "Name": "Platform",
-    "ID": 3,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            0.0,
-            215.66949462890625,
-            631.1575927734375
-          ],
-          "Sca": [
-            2223.228515625,
-            1106.3502197265625,
-            21.7586727142334
-          ],
-          "Rot": [
-            0.0,
-            -0.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-            "RGBA": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ],
-            "TextureName": "material_0_baseColor",
-            "TexturePath": "../Extern/Assets/Texture/tile/material_0_baseColor.png"
-         
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            0.0,
-            0.0,
-            0.0
-          ]
-        }
-      }
-    ],
-    "Model": 5,
-    "Group": 4
-  },
-  {
-    "Name": "Platform",
-    "ID": 4,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            -1192.7774658203125,
-            266.37127685546875,
-            153.3394775390625
-          ],
-          "Sca": [
-            1203.89892578125,
-            1072.19580078125,
-            14.061172485351563
-          ],
-          "Rot": [
-            0.0,
-            89.9999771118164,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-            "RGBA": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ],
-            "TextureName": "material_0_baseColor",
-            "TexturePath": "../Extern/Assets/Texture/tile/material_0_baseColor.png",
-          
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            0.0,
-            0.0,
-            0.0
-          ]
-        }
-      }
-    ],
-    "Model": 5,
-    "Group": 4
-  },
-  {
     "Name": "Light",
     "ID": 0,
     "Is3D": true,
@@ -649,7 +417,7 @@
     "Group": 0
   },
   {
-    "Name": "Wall_Block",
+    "Name": "Wall_Segment1",
     "ID": 0,
     "Is3D": true,
     "Components": [
@@ -657,40 +425,25 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            1288.317626953125,
-            264.4378967285156,
-            -125.91757202148438
+            1135.8580322265625,
+            207.36732482910156,
+            908.6442260742188
           ],
           "Sca": [
-            0.06469789147377014,
-            0.5166382193565369,
-            0.29960811138153076
+            1.1176283359527588,
+            0.5,
+            0.7413744330406189
           ],
           "Rot": [
-            0.0,
-            -0.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            -40.0,
-            0.0
-          ],
-          "Scale": [
-            50.0,
-            100.0,
-            450.0
+            -6.479473086073995e-05,
+            -5.437286853790283,
+            0.00011054328206228092
           ]
         }
       }
     ],
     "Model": 6,
-    "ModelPath": "../Extern/Assets/Model/Platform/wall_Block1.fbx",
+    "ModelPath": "../Extern/Assets/Model/Platform/Wall_Segment1.fbx",
     "Group": 4
   }
 ]

@@ -425,6 +425,24 @@
     <Filter Include="Animation\FiniteStateMachine\Dive\Diving">
       <UniqueIdentifier>{0c89acf7-3d49-4527-9582-211d8bc84f29}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Custom\Monster\SmokeDemon">
+      <UniqueIdentifier>{d1a7f5e1-85ea-494d-9b5a-fdcb4d875e1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\SmokeDemon\AI_State">
+      <UniqueIdentifier>{16d4ddea-be84-41b0-a967-aaec8cd6f695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\SmokeDemon\AI_State\IDLE">
+      <UniqueIdentifier>{5c0b321b-4ebc-4970-8bb0-09f2f10f912a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\SmokeDemon\AI_State\PATROL">
+      <UniqueIdentifier>{46756502-945c-42e2-97e3-6f6a4da40436}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\SmokeDemon\AI_State\MELEE">
+      <UniqueIdentifier>{96257c1e-fa0e-49de-afd7-51d2b0b39c6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Melee\Monster\SmokingDemonMelee">
+      <UniqueIdentifier>{60f5e464-6055-4ef3-872d-2cf8c8ee2083}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -735,6 +753,21 @@
     </ClCompile>
     <ClCompile Include="TRACE_FlyingDemon.cpp">
       <Filter>Component\Custom\Monster\FlyingDemon\AI_State\TRACE</Filter>
+    </ClCompile>
+    <ClCompile Include="SmokeDemon.cpp">
+      <Filter>Component\Custom\Monster\SmokeDemon</Filter>
+    </ClCompile>
+    <ClCompile Include="IDLE_SmokeDemon.cpp">
+      <Filter>Component\Custom\Monster\SmokeDemon\AI_State\IDLE</Filter>
+    </ClCompile>
+    <ClCompile Include="PATROL_SmokeDemon.cpp">
+      <Filter>Component\Custom\Monster\SmokeDemon\AI_State\PATROL</Filter>
+    </ClCompile>
+    <ClCompile Include="MELEE_SmokeDemon.cpp">
+      <Filter>Component\Custom\Monster\SmokeDemon\AI_State\MELEE</Filter>
+    </ClCompile>
+    <ClCompile Include="SmokeDemonMelee.cpp">
+      <Filter>Component\Custom\Melee\Monster\SmokingDemonMelee</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1047,9 +1080,6 @@
     <ClInclude Include="StageTest.h">
       <Filter>Level\StageTest</Filter>
     </ClInclude>
-    <ClInclude Include="ExecutionerDemon.h">
-      <Filter>Component\Custom\Monster\ExecutionerDemon</Filter>
-    </ClInclude>
     <ClInclude Include="ExecutionerDemonFireBall.h">
       <Filter>Component\Custom\Bullet\Monster\ExecutionerDemonFireBall</Filter>
     </ClInclude>
@@ -1061,9 +1091,6 @@
     </ClInclude>
     <ClInclude Include="ExecutionerDemonMelee.h">
       <Filter>Component\Custom\Melee\Monster\ExecutionerDemonMelee</Filter>
-    </ClInclude>
-    <ClInclude Include="PATROL_ExecutionerDemon.h">
-      <Filter>Component\Custom\Monster\ExecutionerDemon\AI_State\PATROL</Filter>
     </ClInclude>
     <ClInclude Include="Anim_WalkState.h">
       <Filter>Animation\FiniteStateMachine\Walk</Filter>
@@ -1151,6 +1178,27 @@
     </ClInclude>
     <ClInclude Include="Anim_DivingState.h">
       <Filter>Animation\FiniteStateMachine\Dive\Diving</Filter>
+    </ClInclude>
+    <ClInclude Include="SmokeDemon.h">
+      <Filter>Component\Custom\Monster\SmokeDemon</Filter>
+    </ClInclude>
+    <ClInclude Include="IDLE_SmokeDemon.h">
+      <Filter>Component\Custom\Monster\SmokeDemon\AI_State\IDLE</Filter>
+    </ClInclude>
+    <ClInclude Include="PATROL_ExecutionerDemon.h">
+      <Filter>Component\Custom\Monster\ExecutionerDemon\AI_State\PATROL</Filter>
+    </ClInclude>
+    <ClInclude Include="ExecutionerDemon.h">
+      <Filter>Component\Custom\Monster\ExecutionerDemon</Filter>
+    </ClInclude>
+    <ClInclude Include="PATROL_SmokeDemon.h">
+      <Filter>Component\Custom\Monster\SmokeDemon\AI_State\PATROL</Filter>
+    </ClInclude>
+    <ClInclude Include="MELEE_SmokeDemon.h">
+      <Filter>Component\Custom\Monster\SmokeDemon\AI_State\MELEE</Filter>
+    </ClInclude>
+    <ClInclude Include="SmokeDemonMelee.h">
+      <Filter>Component\Custom\Melee\Monster\SmokingDemonMelee</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

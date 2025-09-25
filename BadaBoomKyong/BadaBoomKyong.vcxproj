@@ -175,6 +175,7 @@
     <ClCompile Include="HolySlashParticle.cpp" />
     <ClCompile Include="IDLE_ExecutionerDemon.cpp" />
     <ClCompile Include="IDLE_FlyingDemon.cpp" />
+    <ClCompile Include="IDLE_SmokeDemon.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -204,6 +205,7 @@
     <ClCompile Include="MELEE_ExecutionerDemon.cpp" />
     <ClCompile Include="MELEE_CurseDemon.cpp" />
     <ClCompile Include="MELEE_FlyingDemon.cpp" />
+    <ClCompile Include="MELEE_SmokeDemon.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelManager.cpp" />
@@ -216,6 +218,7 @@
     <ClCompile Include="PATROL_ExecutionerDemon.cpp" />
     <ClCompile Include="PATROL_CurseDemon.cpp" />
     <ClCompile Include="PATROL_FlyingDemon.cpp" />
+    <ClCompile Include="PATROL_SmokeDemon.cpp" />
     <ClCompile Include="Pistol.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerMelee.cpp" />
@@ -233,6 +236,8 @@
     <ClCompile Include="CurseDemon.cpp" />
     <ClCompile Include="SizeOverLifeTime.cpp" />
     <ClCompile Include="SkyBox.cpp" />
+    <ClCompile Include="SmokeDemon.cpp" />
+    <ClCompile Include="SmokeDemonMelee.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage01.cpp" />
     <ClCompile Include="CurseDemonBullet.cpp" />
@@ -302,6 +307,7 @@
     <ClInclude Include="HolySlashParticle.h" />
     <ClInclude Include="IDLE_ExecutionerDemon.h" />
     <ClInclude Include="IDLE_FlyingDemon.h" />
+    <ClInclude Include="IDLE_SmokeDemon.h" />
     <ClInclude Include="IParticleBehavior.h" />
     <ClInclude Include="IPatrolBehaviour.h" />
     <ClInclude Include="Anim_IState.h" />
@@ -340,6 +346,7 @@
     <ClInclude Include="MELEE_ExecutionerDemon.h" />
     <ClInclude Include="MELEE_CurseDemon.h" />
     <ClInclude Include="MELEE_FlyingDemon.h" />
+    <ClInclude Include="MELEE_SmokeDemon.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelManager.h" />
@@ -353,6 +360,7 @@
     <ClInclude Include="PATROL_ExecutionerDemon.h" />
     <ClInclude Include="PATROL_CurseDemon.h" />
     <ClInclude Include="PATROL_FlyingDemon.h" />
+    <ClInclude Include="PATROL_SmokeDemon.h" />
     <ClInclude Include="Pistol.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerMelee.h" />
@@ -372,6 +380,8 @@
     <ClInclude Include="CurseDemon.h" />
     <ClInclude Include="SizeOverLifeTime.h" />
     <ClInclude Include="SkyBox.h" />
+    <ClInclude Include="SmokeDemon.h" />
+    <ClInclude Include="SmokeDemonMelee.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage01.h" />
     <ClInclude Include="CurseDemonBullet.h" />
@@ -411,4 +421,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties json_4Level_4StageTest_4StageTest_33D_1json__JsonSchema="https://api.app-prg1.zerops.io/api/rest/public/settings/import-project-yml-json-schema.json" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

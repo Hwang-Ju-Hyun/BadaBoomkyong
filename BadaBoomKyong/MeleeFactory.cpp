@@ -11,6 +11,8 @@
 #include "ExecutionerDemonMelee.h"
 #include "FlyingDemon.h"
 #include "FlyingDemonMelee.h"
+#include "SmokeDemon.h"
+#include "SmokeDemonMelee.h"
 
 MeleeFactory::MeleeFactory(STAGE_TYPE _stage)
 	:BaseFactory(_stage)
@@ -73,6 +75,10 @@ Melee* MeleeFactory::CreateMelee(const std::string& _name)
 	{
 		return melee_comp = m_pFlyingDemonMelee;
 	}
+	else if (_name == "SmokeDemon")
+	{
+		return melee_comp = m_pSmokeDemonMelee;
+	}
 }
 
 void MeleeFactory::Exit()
@@ -125,6 +131,11 @@ void MeleeFactory::InitStage02()
 	Sprite* demon_spr = dynamic_cast<Sprite*>(m_pFlyingDemonMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pFlyingDemonMeleeObject)));
 	Collider* demon_col = dynamic_cast<Collider*>(m_pFlyingDemonMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pFlyingDemonMeleeObject)));
 
+	m_pSmokeDemonMeleeObject = new GameObject(Melee::MeleeTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::MELEE);
+	m_pSmokeDemonMelee = dynamic_cast<SmokeDemonMelee*>(m_pSmokeDemonMeleeObject->AddComponent_and_Get(Melee::MeleeTypeName, new SmokeDemonMelee(m_pSmokeDemonMeleeObject, nullptr)));
+	Transform* sm_trs = dynamic_cast<Transform*>(m_pSmokeDemonMeleeObject->AddComponent_and_Get(Transform::TransformTypeName, new Transform(m_pSmokeDemonMeleeObject)));
+	Sprite* sm_spr = dynamic_cast<Sprite*>(m_pSmokeDemonMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pSmokeDemonMeleeObject)));
+	Collider* sm_col = dynamic_cast<Collider*>(m_pSmokeDemonMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pSmokeDemonMeleeObject)));
 }
 
 void MeleeFactory::InitStage03()

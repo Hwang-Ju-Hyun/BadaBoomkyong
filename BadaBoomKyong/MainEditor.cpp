@@ -169,6 +169,14 @@ void MainEditor::TopMenuBarDraw()
 						EventManager::GetInstance()->LevelChange(lvl_2);
 					}
 				}
+				if (ImGui::Button("StageTest"))
+				{
+					if (cur_level->GetName() != "StageTest")
+					{
+						BaseLevel* lvl_test = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_TEST);
+						EventManager::GetInstance()->LevelChange(lvl_test);
+					}
+				}				
 				ImGui::TreePop();
 			}
 			ImGui::EndMenu();
