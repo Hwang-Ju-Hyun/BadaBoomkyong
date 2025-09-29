@@ -9,7 +9,7 @@
         "CompData": {
           "Pos": [
             0.0,
-            -30354.67578125,
+            -36400.81640625,
             0.0
           ],
           "Sca": [
@@ -431,8 +431,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            -1302.7901611328125,
-            -895461.3125,
+            -74.74994659423828,
+            -36227.84765625,
             0.0
           ],
           "Sca": [
@@ -450,14 +450,14 @@
       {
         "Type": "Sprite",
         "CompData": {
-            "RGBA": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ],
-            "TextureName": "Idle",
-            "TexturePath": "../Extern/Assets/Texture/SmokeDemon/Idle.png"
+          "RGBA": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "TextureName": "Idle",
+          "TexturePath": "../Extern/Assets/Texture/SmokeDemon/Idle.png"
         }
       },
       {
@@ -479,7 +479,7 @@
         "CompData": {
           "Offset_Position": [
             0.0,
-            -20.0,
+            10.0,
             0.0
           ],
           "Scale": [
@@ -494,54 +494,54 @@
         "CompData": {
           "Animations": [
             {
-                "Name": "Death",
-                "TextureName": "Death",
-                "TexturePath": "../Extern/Assets/Texture/SmokeDemon/Death.png",
-                "Max": 5,
-                "Row": 1,
-                "Col": 5,
-                "Duration": 0.10000000149011612,
-                "Loop": false
+              "Name": "Death",
+              "TextureName": "Death",
+              "TexturePath": "../Extern/Assets/Texture/SmokeDemon/Death.png",
+              "Max": 5,
+              "Row": 1,
+              "Col": 5,
+              "Duration": 0.10000000149011612,
+              "Loop": false
             },
             {
-                "Name": "Hurt",
-                "TextureName": "Hurt",
-                "TexturePath": "../Extern/Assets/Texture/SmokeDemon/Hurt.png",
-                "Max": 4,
-                "Row": 1,
-                "Col": 4,
-                "Duration": 0.15000002086162567,
-                "Loop": false
+              "Name": "Hurt",
+              "TextureName": "Hurt",
+              "TexturePath": "../Extern/Assets/Texture/SmokeDemon/Hurt.png",
+              "Max": 4,
+              "Row": 1,
+              "Col": 4,
+              "Duration": 0.15000002086162567,
+              "Loop": false
             },
             {
-                "Name": "Idle",
-                "TextureName": "Idle",
-                "TexturePath": "../Extern/Assets/Texture/SmokeDemon/Idle.png",
-                "Max": 8,
-                "Row": 1,
-                "Col": 8,
-                "Duration": 0.10000000149011612,
-                "Loop": true
+              "Name": "Idle",
+              "TextureName": "Idle",
+              "TexturePath": "../Extern/Assets/Texture/SmokeDemon/Idle.png",
+              "Max": 8,
+              "Row": 1,
+              "Col": 8,
+              "Duration": 0.10000000149011612,
+              "Loop": true
             },
             {
-                "Name": "NormalAttack_1",
-                "TextureName": "NormalAttack_1",
-                "TexturePath": "../Extern/Assets/Texture/SmokeDemon/NormalAttack_1.png",
-                "Max": 8,
-                "Row": 1,
-                "Col": 8,
-                "Duration": 0.10000000149011612,
-                "Loop": false
+              "Name": "NormalAttack_1",
+              "TextureName": "NormalAttack_1",
+              "TexturePath": "../Extern/Assets/Texture/SmokeDemon/NormalAttack_1.png",
+              "Max": 8,
+              "Row": 1,
+              "Col": 8,
+              "Duration": 0.50000000149011612,
+              "Loop": false
             },
             {
-                "Name": "Walk",
-                "TextureName": "Walk",
-                "TexturePath": "../Extern/Assets/Texture/SmokeDemon/Walk.png",
-                "Max": 8,
-                "Row": 1,
-                "Col": 8,
-                "Duration": 0.10000000149011612,
-                "Loop": true
+              "Name": "Walk",
+              "TextureName": "Walk",
+              "TexturePath": "../Extern/Assets/Texture/SmokeDemon/Walk.png",
+              "Max": 8,
+              "Row": 1,
+              "Col": 8,
+              "Duration": 0.10000000149011612,
+              "Loop": true
             }
           ]
         }

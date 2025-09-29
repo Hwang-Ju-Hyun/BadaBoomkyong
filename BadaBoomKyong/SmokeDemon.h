@@ -4,11 +4,14 @@
 class Melee;
 class MeleeFactory;
 class AI;
+class ParticleSystem;
+class SmokeAttackParticle;
 
 class SmokeDemon :
     public Monster
 {
 public:
+    bool smoking = false;
     SmokeDemon(GameObject* _owner);
     virtual ~SmokeDemon()override;
 public:
@@ -23,7 +26,9 @@ public:
     float m_fAccPatrolDistance = 0.f;
     bool m_bIsPatrolMoveDone = true;
     float m_fPatrolRandDistance = 0.f;
-
+public:
+    SmokeAttackParticle* m_pSmokeAttackParticle;
+    ParticleSystem* m_pPs;
 private:
     float m_fDetectRange = 0.f;
     glm::vec3 m_vRangedMoveAtkRange = {};
@@ -45,7 +50,7 @@ public:
     virtual void Exit()override;
 private:
     float m_fOffsetTimeAcc = 0.f;
-    float m_fOffsetTime = 0.1f;
+    float m_fOffsetTime = 1.8f;
 public:
     virtual void EnterCollision(Collider* _other)override;
     virtual void OnCollision(Collider* _other)   override;
@@ -59,5 +64,11 @@ public:
     static BaseRTTI* CreateSmokeDemonComponent();
     virtual void LoadFromJson(const json& _str)override;
     virtual json SaveToJson(const json& _str)override;
+
+public:
+    float m_fMeleeStateChange_OffsetAccTime = 0.f;
+    float m_fMeleeStateChange_OffsetTime = 2.0f;
+    float m_fSmokeParticle_WaitAccTime = 0.f;
+    float m_fSmokeParticle_WaitingTime = 0.7f;
 };
 

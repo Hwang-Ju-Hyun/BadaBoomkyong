@@ -236,6 +236,7 @@
     <ClCompile Include="CurseDemon.cpp" />
     <ClCompile Include="SizeOverLifeTime.cpp" />
     <ClCompile Include="SkyBox.cpp" />
+    <ClCompile Include="SmokeAttackParticle.cpp" />
     <ClCompile Include="SmokeDemon.cpp" />
     <ClCompile Include="SmokeDemonMelee.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -380,6 +381,7 @@
     <ClInclude Include="CurseDemon.h" />
     <ClInclude Include="SizeOverLifeTime.h" />
     <ClInclude Include="SkyBox.h" />
+    <ClInclude Include="SmokeAttackParticle.h" />
     <ClInclude Include="SmokeDemon.h" />
     <ClInclude Include="SmokeDemonMelee.h" />
     <ClInclude Include="Sprite.h" />

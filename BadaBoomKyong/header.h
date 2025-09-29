@@ -89,3 +89,4 @@ enum class ParticleEffectType
 
 
 static const float g_epsilon = 0.001f;
+static const float PI = 3.141592;

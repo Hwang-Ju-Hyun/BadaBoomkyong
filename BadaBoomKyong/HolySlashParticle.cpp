@@ -7,16 +7,15 @@
 #include "MathUtil.h"
 #include "ParticleSystemManager.h"
 #include "IParticleBehavior.h"
+#include "ParticleSystem.h"
 
 HolySlashParticle::HolySlashParticle(ParticleSystem* _ps, GameObject* _owner)
 	: m_pParticleSystem(_ps)
 	, m_iParticle_PoolSize(1000)
-	, m_iEmit_size(500)
-	, m_ColorOverLifeTime(glm::vec4{ 48 / 255.0f, 12 / 255.0f, 254 / 255.0f, 1.0f },
-		/*glm::vec4{ 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f }*/
-		 glm::vec4{255.f,0.f, 0.f, 1.0f })
-	, m_SizeOverLifeTime(5.f, 1.f)
-	, m_PositionOverLifeTime(glm::vec3{ 0.f,0.f,0.f},glm::vec3{0.f,0.f,0.f })
+	, m_iEmit_size(500)	
+	, m_PositionOverLifeTime(HolySlashParticle::spiralMotion_Position)
+	, m_ColorOverLifeTime(HolySlashParticle::spiralMotion_Color)
+	, m_SizeOverLifeTime(HolySlashParticle::spiralMotion_Size)
 { 
 	m_pParticleSystem->Init();
 	m_pParticleSystem->SetParticlePoolSize(m_iParticle_PoolSize);
@@ -69,4 +68,59 @@ void HolySlashParticle::CreateParticles(int _emitNum)
 
 		m_pParticleSystem->Emit(props, behavior, cnt);
 	}
+}
+
+glm::vec3 HolySlashParticle::spiralMotion_Position(Particle& _particle, float _progress, float _dt)
+{
+	if (_progress < 0.8f)
+	{
+		// ========================
+		// 회오리 + 약간의 흔들림
+		// ========================
+		float spiralRadiusX = 50.f;
+		float spiralRadiusZ = 30.f;
+		float angle = _progress / 0.8f * 6.2831853071795864769 + _particle.m_fAngleOffset;
+
+		glm::vec3 spiralOffset;
+		spiralOffset.x = cos(angle) * spiralRadiusX;
+		spiralOffset.z = sin(angle) * spiralRadiusZ;
+
+		// 살짝 위아래 흔들림 추가
+		spiralOffset.y = sin(angle * 3.f + _particle.m_fAngleOffset) * 5.f;
+
+		// 랜덤 흔들림
+		spiralOffset += _particle.m_vRandomDir * 5.f;
+
+		_particle.m_vPosition = _particle.m_vPositionStart + spiralOffset;
+	}
+	else
+	{
+		// ========================
+		// 중앙으로 흡수
+		// ========================
+		float easeT = (_progress - 0.8f) / 0.2f; // 0~1 정규화
+		easeT = easeT * easeT;            // 가속(ease-in)
+
+		// lerp를 원래 위치에서 End로
+		_particle.m_vPosition = glm::mix(_particle.m_vPosition, _particle.m_vPositionEnd, easeT);
+	}
+	return _particle.m_vPosition;
+}
+
+glm::vec4 HolySlashParticle::spiralMotion_Color(Particle& _particle, float _progress, float _dt)
+{
+	// ease-in/out 적용
+	float easeT = _progress * _progress * (3 - 2 * _progress); // 부드러운 S-curve	
+	_particle.m_vColorStart = glm::vec4{ (1.f / 255.f),(125.f / 255.f),(214.f / 255.f),1.f};
+	_particle.m_vColorEnd = glm::vec4{ (142.f / 255.f),(215.f / 255.f),(12.f / 255.f),1.f };
+	_particle.m_vColor = glm::mix(_particle.m_vColorStart, _particle.m_vColorEnd, easeT);
+	return _particle.m_vColor;
+}
+
+float HolySlashParticle::spiralMotion_Size(Particle& _particle, float _progress, float _dt)
+{
+	_particle.m_fSizeStart = 6.f;
+	_particle.m_fSizeEnd = 1.f;
+	_particle.m_fSize = glm::mix(_particle.m_fSizeStart, _particle.m_fSizeEnd, _progress) * (1.f + 0.2f * sin(10.f * _progress));
+	return _particle.m_fSize;
 }

@@ -9,20 +9,27 @@ class Transform;
 class ParticleSystem;
 class GameObject;
 
+
+
 class HolySlashParticle
 {
+public:
+	static glm::vec3 spiralMotion_Position(Particle& _particle, float _progress, float _dt);
+	static glm::vec4 spiralMotion_Color(Particle& _particle, float _progress, float _dt);
+	static float spiralMotion_Size(Particle& _particle, float _progress, float _dt);
 public:
 	HolySlashParticle(ParticleSystem* _ps,GameObject* _owner=nullptr);
 	~HolySlashParticle();
 public:
-	void CreateParticles(int _emitNum);
+	void CreateParticles(int _emitNum);	
+private:
+	PositionOverLifeTime m_PositionOverLifeTime;
+	ColorOverLifeTime m_ColorOverLifeTime;
+	SizeOverLifeTime m_SizeOverLifeTime;	
 private:
 	Player* m_pPlayer;
 	Transform* m_pPlayerTransform;
 	ParticleSystem* m_pParticleSystem;	
-	ColorOverLifeTime m_ColorOverLifeTime;
-	SizeOverLifeTime m_SizeOverLifeTime;	
-	PositionOverLifeTime m_PositionOverLifeTime;
 private:
 	int m_iParticle_PoolSize;
 	int m_iEmit_size;

@@ -1,4 +1,5 @@
 #include "MathUtil.h"
+#include "header.h"
 #include <random>
 
 MathUtil::MathUtil(){}
@@ -24,6 +25,11 @@ float MathUtil::DistanceBetweenXY(glm::vec3 _point1, glm::vec3 _point2)
 	return std::sqrt(std::pow(_point2.x - _point1.x, 2) + std::pow(_point2.y - _point1.y, 2));
 }
 
+float MathUtil::GetRadianByDegree(float _degree)
+{
+	return _degree* PI / 180.0f;
+}
+
 int MathUtil::GetRandomNumber(int _min, int _max)
 {
 	std::random_device rd;
@@ -42,6 +48,20 @@ float MathUtil::lerp(float _start, float _end, float _t)
 {	
 	if (_t > 1.f)
 		_t = 1.f;	
+	return _start + (_end - _start) * _t;
+}
+
+glm::vec3 MathUtil::lerp(glm::vec3 _start, glm::vec3 _end, float _t)
+{
+	if (_t > 1.f)
+		_t = 1.f;
+	return _start + (_end - _start) * _t;
+}
+
+glm::vec4 MathUtil::lerp(glm::vec4 _start, glm::vec4 _end, float _t)
+{
+	if (_t > 1.f)
+		_t = 1.f;
 	return _start + (_end - _start) * _t;
 }
 

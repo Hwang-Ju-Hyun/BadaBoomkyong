@@ -15,7 +15,7 @@ SmokeDemonMelee::SmokeDemonMelee(GameObject* _owner, GameObject* _attacker)
 	:Melee(_owner,_attacker)
 {
 	SetName(SmokeDemonMeleeTypeName);
-	m_fLifeTime = 2.f;
+	m_fLifeTime = 1.5f;
 }
 
 SmokeDemonMelee::~SmokeDemonMelee()
@@ -54,7 +54,7 @@ void SmokeDemonMelee::Awake()
     float dir = m_pSmokeDemon->GetDirection();
 
     m_pTransform->SetPosition({ mon_trs->GetPosition().x + dir * offsetX,mon_trs->GetPosition().y,mon_trs->GetPosition().z });
-    m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
+    m_pTransform->SetScale(glm::vec3{ 70.f,70.f,30.f });
     m_pCollider->SetScale(m_pTransform->GetScale());
 
     m_fCurTime = 0.f;

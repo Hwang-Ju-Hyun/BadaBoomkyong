@@ -20,7 +20,8 @@
 #include "Melee.h"
 #include "SmokeDemonMelee.h"
 #include "BaseState.h"
-
+#include "ParticleSystem.h"
+#include "SmokeAttackParticle.h"
 
 SmokeDemon::SmokeDemon(GameObject* _owner)
 	:Monster(_owner)
@@ -47,6 +48,9 @@ SmokeDemon::SmokeDemon(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DEATH), new AnimDeathState<Monster>());
 
 	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::IDLE));
+
+
+	
 }
 
 SmokeDemon::~SmokeDemon()
@@ -55,6 +59,14 @@ SmokeDemon::~SmokeDemon()
 	{
 		delete m_pPatrolBehaviour;
 		m_pPatrolBehaviour = nullptr;
+	}	
+	if (m_pPs)
+	{
+		delete m_pPs;
+	}
+	if (m_pSmokeAttackParticle)
+	{
+		delete m_pSmokeAttackParticle;
 	}
 }
 
@@ -73,8 +85,8 @@ void SmokeDemon::MeleeAttack()
 			return;
 		EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
 		m_bCanMeleeAttack = true;
-		m_fOffsetTimeAcc = 0.f;
-	}
+		m_fOffsetTimeAcc = 0.f;		
+	}	
 }
 
 void SmokeDemon::Patrol()
@@ -111,10 +123,15 @@ void SmokeDemon::Init()
 
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	assert(m_pSprite != nullptr);
+
+	m_pPs = new ParticleSystem;
+	m_pSmokeAttackParticle = new SmokeAttackParticle(m_pPs, GetOwner());
 }
 
+
+#include "InputManager.h"
 void SmokeDemon::Update()
-{
+{	
 	if (GetIsAlive())
 	{
 		UpdateSpriteFlipX();
@@ -134,7 +151,29 @@ void SmokeDemon::Update()
 		{
 			if (dist <= m_vMeleeAtkRange.x)
 			{
-				m_pAI->ChangeState(MONSTER_STATE::MELEE_ATTACK_STATE);
+				float dt = TimeManager::GetInstance()->GetDeltaTime();
+				m_fMeleeStateChange_OffsetAccTime += dt;
+				if (m_fMeleeStateChange_OffsetAccTime > m_fMeleeStateChange_OffsetTime)
+				{
+					m_pAI->ChangeState(MONSTER_STATE::MELEE_ATTACK_STATE);
+
+					m_fMeleeStateChange_OffsetAccTime = 0.f;					
+				}								
+				if (m_eCurrentState == MonsterAnimState::NORMAL_ATTACK)
+				{
+					m_fSmokeParticle_WaitAccTime += dt;
+					if (m_fSmokeParticle_WaitAccTime > m_fSmokeParticle_WaitingTime)
+					{
+						m_pSmokeAttackParticle->CreateParticles(200);
+						smoking = true;
+						m_fSmokeParticle_WaitAccTime = 0.f;
+					}
+				}
+			}
+			else
+			{
+				m_pAI->ChangeState(MONSTER_STATE::PATROL_STATE);
+				m_eCurrentState = MonsterAnimState::WALK;
 			}
 		}
 		else

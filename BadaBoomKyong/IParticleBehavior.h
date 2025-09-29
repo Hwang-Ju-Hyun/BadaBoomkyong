@@ -1,4 +1,6 @@
 #pragma once
+#include <functional>
+#include <glm.hpp>
 
 class Particle;
 
@@ -8,6 +10,5 @@ public:
     IParticleBehavior() {}
     virtual ~IParticleBehavior() {}
 public:
-    virtual void Update(Particle& _particle, float _dt) = 0;    
+    virtual void Update(Particle& _particle,float _progress, float _dt) = 0;
 };
-

@@ -11,6 +11,7 @@
 #include "RenderManager.h"
 #include "Camera.h"
 #include "glm.hpp"
+#include "IParticleBehavior.h"
 
 ParticleSystem::ParticleSystem()
 {
@@ -73,8 +74,8 @@ void ParticleSystem::Update()
 		for (int j = 0;j < m_vecParticlePool[i].behaviorCount;j++)
 		{
 			if (m_vecParticlePool[i].behaviors[j])
-			{
-				m_vecParticlePool[i].behaviors[j]->Update(m_vecParticlePool[i], dt);
+			{				
+				m_vecParticlePool[i].behaviors[j]->Update(m_vecParticlePool[i],0.f, dt);
 			}			
 		}
 		m_vecParticlePool[i].m_fLifeRemaining -= dt;			

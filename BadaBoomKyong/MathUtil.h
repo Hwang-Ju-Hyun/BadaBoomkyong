@@ -12,11 +12,13 @@ public:
 	float DegreeToRadian(float _degree);
 	float DistanceBetweenPoints(glm::vec3 _point1, glm::vec3 _point2);
 	float DistanceBetweenXY(glm::vec3 _point1, glm::vec3 _point2);
+	float GetRadianByDegree(float _degree);
 public:
 	int GetRandomNumber(int _min, int _max);
 	float GetRandomNumber(float _min, float _max);
 	float lerp(float _start, float _end, float _t);
-
+	glm::vec3 lerp(glm::vec3 _start, glm::vec3 _end, float _t);
+	glm::vec4 lerp(glm::vec4 _start, glm::vec4 _end, float _t);
 	float clamp(float _val, float _min, float _max);
 };
 

@@ -39,7 +39,7 @@
 //temp Áö¿ì¼À
 #include "InputManager.h"
 #include "MathUtil.h"
-
+#include "SmokeDemon.h"
 
 RenderManager::RenderManager()
 {	
@@ -398,6 +398,7 @@ void RenderManager::Draw()
 	for (auto obj : objs)
 	{
 		Player* p = dynamic_cast<Player*>(obj->FindComponent<Player>());
+		SmokeDemon* sm = dynamic_cast<SmokeDemon*>(obj->FindComponent<SmokeDemon>());
 		//============
 		//============
 		//==Particle==
@@ -414,6 +415,18 @@ void RenderManager::Draw()
 
 			p->m_pPs->Update();
 			p->m_pPs->Render();
+			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Diuse();
+		}
+		if (sm && sm->smoking)
+		{
+			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Use();
+			sm->m_pPs->m_iParticleTransform_location = glGetUniformLocation(shdr_handle_particle, "u_MVP_Particle");
+			assert(sm->m_pPs->m_iParticleTransform_location >= 0);
+			sm->m_pPs->m_iParticleShaderColor_location = glGetUniformLocation(shdr_handle_particle, "u_Color");
+			assert(sm->m_pPs->m_iParticleShaderColor_location >= 0);
+
+			sm->m_pPs->Update();
+			sm->m_pPs->Render();
 			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Diuse();
 		}
 		//============

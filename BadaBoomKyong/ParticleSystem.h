@@ -1,14 +1,10 @@
 #pragma once
 #include <glm.hpp>
 #include <vector>
-#include "IParticleBehavior.h"
+
+struct IParticleBehavior;
 
 class Camera;
-class IParticleBehavior;
-
-
-
-
 
 //실제로 풀(pool) 안에서 돌고 있는 개별 파티클 객체
 struct Particle 
@@ -29,6 +25,11 @@ struct Particle
 	glm::vec3 m_vPositionStart, m_vPositionEnd;
 	float m_fAngleOffset; // 파티클별 초기 각도
 	glm::vec3 m_vRandomDir;
+
+	//color
+	glm::vec4 m_vColorStart, m_vColorEnd;
+	//size
+	float m_fSizeStart, m_fSizeEnd;
 };
 
 

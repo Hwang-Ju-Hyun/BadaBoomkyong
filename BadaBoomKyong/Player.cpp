@@ -563,11 +563,11 @@ void Player::HolySlash()
 			&& m_pAnimator->GetCurrentFrameIndex() == 20
 			&& m_bHolySlashFlag == false)
 		{
-			Bullet* bullet_comp = m_pBulletFactory->CreateBullet(BULLET_TYPE::PISTOL);
-			m_pBullet = bullet_comp;
-			assert(m_pBullet != nullptr);			
-						
-			EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());			
+			//Bullet* bullet_comp = m_pBulletFactory->CreateBullet(BULLET_TYPE::PISTOL);
+			//m_pBullet = bullet_comp;
+			//assert(m_pBullet != nullptr);			
+			//			
+			//EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());			
 			m_bHolySlashFlag = true;
 		}
 		else if (m_pAnimator->GetCurrentFrameIndex() == 20 && m_bHolySlashFlag == true)

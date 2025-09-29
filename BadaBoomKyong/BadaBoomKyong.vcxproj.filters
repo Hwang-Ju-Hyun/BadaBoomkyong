@@ -443,6 +443,9 @@
     <Filter Include="Component\Custom\Melee\Monster\SmokingDemonMelee">
       <UniqueIdentifier>{60f5e464-6055-4ef3-872d-2cf8c8ee2083}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particle\SmokeAttack">
+      <UniqueIdentifier>{091f1f0d-5d74-4846-875a-f8b02c17028e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -768,6 +771,9 @@
     </ClCompile>
     <ClCompile Include="SmokeDemonMelee.cpp">
       <Filter>Component\Custom\Melee\Monster\SmokingDemonMelee</Filter>
+    </ClCompile>
+    <ClCompile Include="SmokeAttackParticle.cpp">
+      <Filter>Particle\SmokeAttack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1199,6 +1205,9 @@
     </ClInclude>
     <ClInclude Include="SmokeDemonMelee.h">
       <Filter>Component\Custom\Melee\Monster\SmokingDemonMelee</Filter>
+    </ClInclude>
+    <ClInclude Include="SmokeAttackParticle.h">
+      <Filter>Particle\SmokeAttack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
