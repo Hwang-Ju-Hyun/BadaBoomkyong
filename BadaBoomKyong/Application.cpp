@@ -44,7 +44,7 @@ void Application::Init()
     ModelManager::GetInstance()->Init();                        
 
     //GameStateManager
-    BaseLevel* lvl_01=GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_02);
+    BaseLevel* lvl_01=GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_TEST);
     GameStateManager::GetInstance()->ChangeLevel(lvl_01);
 
     FactoryManager::GetInstance()->Init();
@@ -73,9 +73,6 @@ void Application::Update()
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     glfwPollEvents();
     auto handle = Window::GetInstance()->GetWindowHandle();
-
-    //GameObjectManager
-    //GameObjectManager::GetInstance()->Update();
     
     //Active
     ComponentManager::GetInstance()->Awake();

@@ -21,25 +21,40 @@ Stage03::~Stage03()
 
 void Stage03::Init()
 {
-	ModelManager::GetInstance()->Init();
+	//ModelManager::GetInstance()->Init();
 
 	Serializer::GetInstance()->LoadJson_Object("json/Level/Stage03/Stage03_3D.json");
-
-	//FactoryManager    
 	FactoryManager::GetInstance()->Init();
-	//ComponentInit
-	ComponentManager::GetInstance()->Init();
-
-
-	//InputManager
-	InputManager::GetInstance()->Init();
-
-	//RenderInit            
-	RenderManager::GetInstance()->Init();
-	RenderManager::GetInstance()->InitDebugLineShader();
-#ifdef _DEBUG
-	MainEditor::GetInstance()->Init();
-#endif
+	
+	
+		//ComponentInit
+		ComponentManager::GetInstance()->Init();
+	
+		//InputManager
+		InputManager::GetInstance()->Init();
+	
+		//RenderInit            
+		RenderManager::GetInstance()->Init();
+		RenderManager::GetInstance()->InitDebugLineShader();
+	
+	#ifdef _DEBUG	
+		MainEditor::GetInstance()->Init();
+	#endif
+//	//FactoryManager    
+//	FactoryManager::GetInstance()->Init();
+//	//ComponentInit
+//	ComponentManager::GetInstance()->Init();
+//
+//
+//	//InputManager
+//	InputManager::GetInstance()->Init();
+//
+//	//RenderInit            
+//	RenderManager::GetInstance()->Init();
+//	RenderManager::GetInstance()->InitDebugLineShader();
+//#ifdef _DEBUG
+//	MainEditor::GetInstance()->Init();
+//#endif
 }
 
 void Stage03::Update()

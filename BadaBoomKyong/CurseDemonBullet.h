@@ -5,6 +5,8 @@ class Transform;
 class Sprite;
 class RigidBody;
 class CurseDemon;
+class CurseDemonBulletParticle;
+class ParticleSystem;
 
 class CurseDemonBullet :
 	public Bullet
@@ -43,6 +45,13 @@ public:
 	virtual void LoadFromJson(const json& _str) override;
 	virtual json SaveToJson(const json& _str) override;
 	static BaseRTTI* CreateCurseDemonBulletComponent();
-private:
+public:
 	bool m_bCanFire=false;
+public:	
+	CurseDemonBulletParticle* m_pCurseDemonBulletParticle;
+	ParticleSystem* m_pPs;
+
+	float m_fParticle_WaitAccTime;
+	bool on=false;
+	float m_fParticle_WaitingTime=0.001f;
 };

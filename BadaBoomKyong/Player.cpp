@@ -147,7 +147,12 @@ void Player::EnterCollision(Collider* _other)
 		{			
 			BaseLevel* lvl_2 = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_02);
 			EventManager::GetInstance()->LevelChange(lvl_2);
-		}		
+		}
+		if (GameStateManager::GetInstance()->GetCurrentLevel()->GetStageType() == STAGE_TYPE::STAGE_02)
+		{
+			BaseLevel* lvl_3 = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_03);
+			EventManager::GetInstance()->LevelChange(lvl_3);
+		}
 	}
 	
 }
@@ -563,11 +568,11 @@ void Player::HolySlash()
 			&& m_pAnimator->GetCurrentFrameIndex() == 20
 			&& m_bHolySlashFlag == false)
 		{
-			//Bullet* bullet_comp = m_pBulletFactory->CreateBullet(BULLET_TYPE::PISTOL);
-			//m_pBullet = bullet_comp;
-			//assert(m_pBullet != nullptr);			
-			//			
-			//EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());			
+			Bullet* bullet_comp = m_pBulletFactory->CreateBullet(BULLET_TYPE::PISTOL);
+			m_pBullet = bullet_comp;
+			assert(m_pBullet != nullptr);			
+						
+			EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());			
 			m_bHolySlashFlag = true;
 		}
 		else if (m_pAnimator->GetCurrentFrameIndex() == 20 && m_bHolySlashFlag == true)

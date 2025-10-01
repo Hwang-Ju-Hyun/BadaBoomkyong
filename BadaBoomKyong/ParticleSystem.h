@@ -30,6 +30,7 @@ struct Particle
 	glm::vec4 m_vColorStart, m_vColorEnd;
 	//size
 	float m_fSizeStart, m_fSizeEnd;
+	glm::vec3 m_vDir;
 };
 
 

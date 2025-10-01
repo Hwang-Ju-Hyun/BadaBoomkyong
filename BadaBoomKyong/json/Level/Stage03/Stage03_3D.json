@@ -1,379 +1,462 @@
 [
-  {
-    "Name": "Player",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            2515.161376953125,
-            -3607.5654296875,
-            -555.0
-          ],
-          "Sca": [
-            64.0,
-            64.0,
-            0.0
-          ],
-          "Rot": [
-            0.0,
-            -0.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-          "RGBA": [
-            1.0,
-            1.0,
-            1.0,
-            1.0
-          ],
-          "TextureName": "Dash",
-          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Dash/Full/Fx/Dash.png"
-        }
-      },
-      {
-        "Type": "RigidBody",
-        "CompData": {
-          "Kinematic": [
-            false
-          ],
-          "Gravity": [
-            980.0
-          ],
-          "Mass": [
-            1.0
-          ]
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            40.0,
-            70.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Animator",
-        "CompData": {
-          "Animations": [
+    {
+        "Name": "Player",
+        "ID": 0,
+        "Is3D": true,
+        "Components": [
             {
-              "Name": "Dash",
-              "TextureName": "Dash",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Dash/Full/Fx/Dash.png",
-              "Max": 8,
-              "Row": 1,
-              "Col": 8,
-              "Duration": 0.10000000149011612,
-              "Loop": false
+                "Type": "Transform",
+                "CompData": {
+                    "Pos": [
+                        5372.0224609375,
+                        993.6605834960938,
+                        0.0
+                    ],
+                    "Sca": [
+                        300.0,
+                        300.0,
+                        0.0
+                    ],
+                    "Rot": [
+                        0.0,
+                        -0.0,
+                        0.0
+                    ]
+                }
             },
             {
-              "Name": "Death",
-              "TextureName": "Death",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Death/Death.png",
-              "Max": 25,
-              "Row": 1,
-              "Col": 25,
-              "Duration": 0.10000000149011612,
-              "Loop": false
+                "Type": "Sprite",
+                "CompData": {
+                    "RGBA": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "TextureName": "ComboAtk_1",
+                    "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_1.png"
+                }
             },
             {
-              "Name": "Fall",
-              "TextureName": "Fall",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Fall/Fall.png",
-              "Max": 6,
-              "Row": 1,
-              "Col": 6,
-              "Duration": 0.10000000149011612,
-              "Loop": true
+                "Type": "RigidBody",
+                "CompData": {
+                    "Kinematic": [
+                        false
+                    ],
+                    "Gravity": [
+                        980.0
+                    ],
+                    "Mass": [
+                        1.0
+                    ]
+                }
             },
             {
-              "Name": "Idle",
-              "TextureName": "Idle",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Idle/Idle.png",
-              "Max": 6,
-              "Row": 1,
-              "Col": 6,
-              "Duration": 0.10000000149011612,
-              "Loop": true
+                "Type": "Collider",
+                "CompData": {
+                    "Offset_Position": [
+                        0.0,
+                        10.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        40.0,
+                        65.0,
+                        0.0
+                    ]
+                }
             },
             {
-              "Name": "Jump",
-              "TextureName": "Jump",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Jump/Jump.png",
-              "Max": 8,
-              "Row": 1,
-              "Col": 8,
-              "Duration": 0.10000000149011612,
-              "Loop": true
+                "Type": "Animator",
+                "CompData": {
+                    "Animations": [
+                        {
+                            "Name": "ComboAtk_1",
+                            "TextureName": "ComboAtk_1",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_1.png",
+                            "Max": 9,
+                            "Row": 1,
+                            "Col": 9,
+                            "Duration": 0.07000000029802322,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "ComboAtk_2",
+                            "TextureName": "ComboAtk_2",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_2.png",
+                            "Max": 6,
+                            "Row": 1,
+                            "Col": 6,
+                            "Duration": 0.07000014930963516,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "ComboAtk_3",
+                            "TextureName": "ComboAtk_3",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_3.png",
+                            "Max": 14,
+                            "Row": 1,
+                            "Col": 14,
+                            "Duration": 0.07000000774860382,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "Dash",
+                            "TextureName": "Dash",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Dash/Full/Fx/Dash.png",
+                            "Max": 8,
+                            "Row": 1,
+                            "Col": 8,
+                            "Duration": 0.10000000149011612,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "Death",
+                            "TextureName": "Death",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Death/Death.png",
+                            "Max": 25,
+                            "Row": 1,
+                            "Col": 25,
+                            "Duration": 0.10000000149011612,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "Fall",
+                            "TextureName": "Fall",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Fall/Fall.png",
+                            "Max": 6,
+                            "Row": 1,
+                            "Col": 6,
+                            "Duration": 0.10000000149011612,
+                            "Loop": true
+                        },
+                        {
+                            "Name": "HolySlash",
+                            "TextureName": "HolySlash",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Casts/HolySlash/Full/Glow/HolySlash.png",
+                            "Max": 28,
+                            "Row": 1,
+                            "Col": 28,
+                            "Duration": 0.07000000774860382,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "Hurt",
+                            "TextureName": "Hurt",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Hurt/FX/Hurt.png",
+                            "Max": 6,
+                            "Row": 1,
+                            "Col": 6,
+                            "Duration": 0.15000002086162567,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "Idle",
+                            "TextureName": "Idle",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Idle/Idle.png",
+                            "Max": 6,
+                            "Row": 1,
+                            "Col": 6,
+                            "Duration": 0.10000000149011612,
+                            "Loop": true
+                        },
+                        {
+                            "Name": "Jump",
+                            "TextureName": "Jump",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Jump/Jump.png",
+                            "Max": 8,
+                            "Row": 1,
+                            "Col": 8,
+                            "Duration": 0.10000000149011612,
+                            "Loop": true
+                        },
+                        {
+                            "Name": "JumpAttack",
+                            "TextureName": "JumpAttack",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/AirAttack/FX/JumpAttack.png",
+                            "Max": 17,
+                            "Row": 1,
+                            "Col": 17,
+                            "Duration": 0.05000000074505806,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "Land",
+                            "TextureName": "Land",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Land/FX/Land(FX).png",
+                            "Max": 5,
+                            "Row": 1,
+                            "Col": 5,
+                            "Duration": 0.10000000149011612,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "SprintAttack",
+                            "TextureName": "SprintAttack",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/SprintAttack/SprintAttack.png",
+                            "Max": 12,
+                            "Row": 1,
+                            "Col": 12,
+                            "Duration": 0.10000000149011612,
+                            "Loop": false
+                        },
+                        {
+                            "Name": "Sprinting",
+                            "TextureName": "Sprinting",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Run/Sprint/Loop/FX/Sprinting.png",
+                            "Max": 8,
+                            "Row": 1,
+                            "Col": 8,
+                            "Duration": 0.05000000074505806,
+                            "Loop": true
+                        },
+                        {
+                            "Name": "ToSprint",
+                            "TextureName": "ToSprint",
+                            "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Run/Sprint/ToSprint/ToSprint.png",
+                            "Max": 6,
+                            "Row": 1,
+                            "Col": 6,
+                            "Duration": 0.05000000074505806,
+                            "Loop": false
+                        }
+                    ]
+                }
             },
             {
-              "Name": "JumpAttack",
-              "TextureName": "JumpAttack",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/AirAttack/FX/JumpAttack.png",
-              "Max": 17,
-              "Row": 1,
-              "Col": 17,
-              "Duration": 0.05000000074505806,
-              "Loop": false
-            },
-            {
-              "Name": "LightAttack",
-              "TextureName": "LightAttack",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/LightAttack/LightAttack.png",
-              "Max": 13,
-              "Row": 1,
-              "Col": 13,
-              "Duration": 0.10000000149011612,
-              "Loop": false
-            },
-            {
-              "Name": "SprintAttack",
-              "TextureName": "SprintAttack",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/SprintAttack/SprintAttack.png",
-              "Max": 12,
-              "Row": 1,
-              "Col": 12,
-              "Duration": 0.10000000149011612,
-              "Loop": false
-            },
-            {
-              "Name": "Sprinting",
-              "TextureName": "Sprinting",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Run/Sprint/Loop/FX/Sprinting.png",
-              "Max": 8,
-              "Row": 1,
-              "Col": 8,
-              "Duration": 0.10000000149011612,
-              "Loop": true
-            },
-            {
-              "Name": "ToSprint",
-              "TextureName": "ToSprint",
-              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Run/Sprint/ToSprint/ToSprint.png",
-              "Max": 6,
-              "Row": 1,
-              "Col": 6,
-              "Duration": 0.10000000149011612,
-              "Loop": false
+                "Type": "Player",
+                "CompData": {
+                    "Speed": 170.0,
+                    "JumpForce": 800.0
+                }
             }
-          ]
-        }
-      },
-      {
-        "Type": "Player",
-        "CompData": {
-          "Speed": 200.0,
-          "JumpForce": 800.0
-        }
-      }
-    ],
-    "Model": 4,
-    "Group": 1
-  },
-  {
-    "Name": "CurseDemon",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            300.8302001953125,
-            -178.01849365234375,
-            -550.0
-          ],
-          "Sca": [
-            50.0,
-            50.0,
-            450.0
-          ],
-          "Rot": [
-            0.0,
-            -0.0,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Sprite",
-        "CompData": {
-          "RGBA": [
-            1.0,
-            1.0,
-            1.0,
-            1.0
-          ],
-          "TextureName": "Idle",
-          "TexturePath": "../Extern/Assets/Texture/NormalMonster/001/Sprites/Idle.png"
-        }
-      },
-      {
-        "Type": "RigidBody",
-        "CompData": {
-          "Kinematic": [
-            false
-          ],
-          "Gravity": [
-            980.0
-          ],
-          "Mass": [
-            1.0
-          ]
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            50.0,
-            50.0,
-            450.0
-          ]
-        }
-      },
-      {
-        "Type": "Animator",
-        "CompData": {
-          "Animations": [
+        ],
+        "Model": 4,
+        "Group": 1
+    },
+    {
+        "Name": "Light",
+        "ID": 0,
+        "Is3D": true,
+        "Components": [
             {
-              "Name": "Death",
-              "TextureName": "Death",
-              "TexturePath": "../Extern/Assets/Texture/NormalMonster/001/Sprites/Death.png",
-              "Max": 7,
-              "Row": 1,
-              "Col": 7,
-              "Duration": 0.10000000149011612,
-              "Loop": false
+                "Type": "Transform",
+                "CompData": {
+                    "Pos": [
+                        1149.41015625,
+                        -446.95123291015625,
+                        675.8546142578125
+                    ],
+                    "Sca": [
+                        50.0,
+                        50.0,
+                        50.0
+                    ],
+                    "Rot": [
+                        0.0,
+                        -0.0,
+                        0.0
+                    ]
+                }
             },
             {
-              "Name": "Idle",
-              "TextureName": "Idle",
-              "TexturePath": "../Extern/Assets/Texture/NormalMonster/001/Sprites/Idle.png",
-              "Max": 8,
-              "Row": 1,
-              "Col": 8,
-              "Duration": 0.10000000149011612,
-              "Loop": true
+                "Type": "Sprite",
+                "CompData": {
+                    "RGBA": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
             },
             {
-              "Name": "NormalAttack_1",
-              "TextureName": "NormalAttack_1",
-              "TexturePath": "../Extern/Assets/Texture/NormalMonster/001/Sprites/NormalAttack_1.png",
-              "Max": 10,
-              "Row": 1,
-              "Col": 10,
-              "Duration": 0.10000000149011612,
-              "Loop": false
-            },
-            {
-              "Name": "RangeAttack",
-              "TextureName": "RangeAttack",
-              "TexturePath": "../Extern/Assets/Texture/NormalMonster/001/Sprites/RangeAttack.png",
-              "Max": 13,
-              "Row": 1,
-              "Col": 13,
-              "Duration": 0.05000000074505806,
-              "Loop": false
+                "Type": "Light",
+                "CompData": {
+                    "LightType": 0,
+                    "Direction": [
+                        0.0,
+                        -1.0,
+                        0.0
+                    ],
+                    "Ambient": [
+                        0.30000001192092896,
+                        0.30000001192092896,
+                        0.30000001192092896
+                    ],
+                    "Diffuse": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Specular": [
+                        0.5,
+                        0.5,
+                        0.5
+                    ],
+                    "CutoffAngle": [
+                        10.0
+                    ]
+                }
             }
-          ]
-        }
-      },
-      {
-        "Type": "AI",
-        "CompData": {
-          "StateList": [
-            0,
-            2,
-            3,
-            4
-          ]
-        }
-      },
-      {
-        "Type": "CurseDemon",
-        "CompData": {
-          "Speed": 0.5,
-          "JumpForce": 500.0,
-          "DetectRange": 500.0,
-          "RangedMoveAtkRange": [
-            50.0,
-            500.0,
-            0.0
-          ],
-          "MeleeAtkRange": [
-            200.0,
-            500.0,
-            0.0
-          ]
-        }
-      }
-    ],
-    "Model": 4,
-    "Group": 3
-  },
-  {
-    "Name": "customModelObj1",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            4.000296115875244,
-            -228.01849365234375,
-            -561.6494140625
-          ],
-          "Sca": [
-            50.0,
-            50.0,
-            50.0
-          ],
-          "Rot": [
-            0.0,
-            89.9999771118164,
-            0.0
-          ]
-        }
-      },
-      {
-        "Type": "Collider",
-        "CompData": {
-          "Offset_Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            1200.0,
-            50.0,
-            50.0
-          ]
-        }
-      }
-    ],
-    "Model": 6,
-    "ModelPath": "../Extern/Assets/Model/leveltemp/temp3/scene.gltf",
-    "Group": 4
-  }
+        ],
+        "Model": 5,
+        "Group": 0
+    },
+    {
+        "Name": "platform",
+        "ID": 0,
+        "Is3D": true,
+        "Components": [
+            {
+                "Type": "Sprite",
+                "CompData": {
+                    "RGBA": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "TextureName": "desertland",
+                    "TexturePath": "../Extern/Assets/Texture/desertland.png"
+                }
+            },
+            {
+                "Type": "Transform",
+                "CompData": {
+                    "Pos": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Sca": [
+                        50000.0,
+                        5000.0,
+                        500.0
+                    ],
+                    "Rot": [
+                        90.0,
+                        0.0,
+                        0.0
+                    ]
+                }
+            },
+            {
+                "Type": "Collider",
+                "CompData": {
+                    "Offset_Position": [
+                        0.0,
+                        10.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        50000.0,
+                        500.0,
+                        500.0
+                    ]
+                }
+            }
+        ],
+        "Model": 5,
+        "Group": 4
+    },
+    {
+        "Name": "background",
+        "ID": 0,
+        "Is3D": true,
+        "Components": [
+            {
+                "Type": "Transform",
+                "CompData": {
+                    "Pos": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Sca": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                }
+            },
+            {
+                "Type": "Sprite",
+                "CompData": {
+                    "RGBA": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            {
+                "Type": "SkyBox",
+                "CompData": {
+                    "SkyBoxName": "skyBox",
+                    "SkyBoxFacesPath": [
+                        "../Extern/Assets/Model/skybox/Standard-Cube-Map/px.png",
+                        "../Extern/Assets/Model/skybox/Standard-Cube-Map/nx.png",
+                        "../Extern/Assets/Model/skybox/Standard-Cube-Map/py.png",
+                        "../Extern/Assets/Model/skybox/Standard-Cube-Map/ny.png",
+                        "../Extern/Assets/Model/skybox/Standard-Cube-Map/pz.png",
+                        "../Extern/Assets/Model/skybox/Standard-Cube-Map/nz.png"
+                    ]
+                }
+            }
+        ],
+        "Model": 7,
+        "Group": 0
+    },
+    {
+        "Name": "mainhall",
+        "ID": 0,
+        "Is3D": true,
+        "Components": [
+            {
+                "Type": "Transform",
+                "CompData": {
+                    "Pos": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Sca": [
+                        50000.0,
+                        5000.0,
+                        500.0
+                    ],
+                    "Rot": [
+                        90.0,
+                        0.0,
+                        0.0
+                    ]
+                }
+            },
+            {
+                "Type": "Collider",
+                "CompData": {
+                    "Offset_Position": [
+                        0.0,
+                        10.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        50000.0,
+                        500.0,
+                        500.0
+                    ]
+                }
+            }
+        ],
+        "Model": 6,
+        "ModelPath": "../Extern/Assets/Model/level/mainhall.fbm/mainhall.fbx",
+        "Group": 4
+    }
 ]

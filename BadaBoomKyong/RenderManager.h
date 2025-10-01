@@ -4,12 +4,33 @@
 #include "header.h"
 #include <vector>
 #include "ParticleSystem.h"
+#include <unordered_map>
+#include <string>
 
 class Shader;
 class Camera;
 class FrameBuffer;
 class GameObject;
 class Light;
+
+struct LightUniformLocations
+{
+	GLint type;
+	GLint position;
+	GLint ambient;
+	GLint diffuse;
+	GLint specular;
+	GLint direction;
+	GLint cutoff;
+};
+
+struct MaterialUniformLocation
+{
+	GLint ambient;
+	GLint diffuse;
+	GLint specular;
+	GLint shininess;
+};
 
 class RenderManager
 {
@@ -44,12 +65,15 @@ private:
 	GLint m_iFogOn_location;
 	GLint m_iHasNormalMap_location;
 	GLint m_iOut_NormalMap;
+	GLint m_iuVP;
+	GLint m_iuSkybox;
 public:	
 	inline Shader* GetShader(SHADER_REF _shdrRef) { return m_vShdr[int(_shdrRef)]; }	
 	Camera* m_pCam=nullptr;
 	Light* m_pLight=nullptr;		
 public:
 	void Init();
+	void ShaderUniformInit();
 	void BeforeDraw();
 	void Draw();
 	void EndDraw();
@@ -71,5 +95,12 @@ public:
 public:
 	//todo : 얘 삭제하셈 파티클 실험중임
 	ParticleSystem* m_pParticleSystem = nullptr;
+private:
+	static const int MAX_LIGHTS = 1; 
+	LightUniformLocations m_lightUniforms[MAX_LIGHTS];	
 
+	MaterialUniformLocation m_materialUniforms;
+
+	GLint RegistOrGetUniformLocation(GLuint _program, const std::string& _name);
+	std::unordered_map<std::string, GLint> m_hashUniformCache;
 };

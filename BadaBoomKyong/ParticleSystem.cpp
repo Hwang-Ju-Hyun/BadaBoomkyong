@@ -78,7 +78,8 @@ void ParticleSystem::Update()
 				m_vecParticlePool[i].behaviors[j]->Update(m_vecParticlePool[i],0.f, dt);
 			}			
 		}
-		m_vecParticlePool[i].m_fLifeRemaining -= dt;			
+		m_vecParticlePool[i].m_fLifeRemaining -= dt;	
+		m_vecParticlePool[i].m_vVelocity += dt;
 	}
 }
 

@@ -11,9 +11,9 @@ SmokeAttackParticle::SmokeAttackParticle(ParticleSystem* _ps, GameObject* _owner
 	:m_pParticleSystem(_ps)
 	,m_iParticle_PoolSize(1000)
 	,m_iEmit_size(100)
-	, m_ColorOverLifeTime(spiralMotion_Color)
-	, m_SizeOverLifeTime(spiralMotion_Size)
-	, m_PositionOverLifeTime(spiralMotion_Position)
+	, m_ColorOverLifeTime(ScatterMotion_Color)
+	, m_SizeOverLifeTime(ScatterMotion_Size)
+	, m_PositionOverLifeTime(ScatterMotion_Position)
 {
 	m_pParticleSystem->Init();
 	m_pParticleSystem->SetParticlePoolSize(m_iParticle_PoolSize);
@@ -88,7 +88,7 @@ glm::vec3 SmokeAttackParticle::RandomDirectionInCone(const glm::vec3& _conAxis, 
 	return glm::normalize(world_dir);
 }
 
-glm::vec3 SmokeAttackParticle::spiralMotion_Position(Particle& _particle, float _progress, float _dt)
+glm::vec3 SmokeAttackParticle::ScatterMotion_Position(Particle& _particle, float _progress, float _dt)
 {
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
 	float speed = 6.f;
@@ -96,7 +96,7 @@ glm::vec3 SmokeAttackParticle::spiralMotion_Position(Particle& _particle, float 
 	return _particle.m_vPosition;
 }
 
-glm::vec4 SmokeAttackParticle::spiralMotion_Color(Particle& _particle, float _progress, float _dt)
+glm::vec4 SmokeAttackParticle::ScatterMotion_Color(Particle& _particle, float _progress, float _dt)
 {
 	float t = MathUtil::GetInstance()->lerp(0.f, 1.f, _progress);
 	float easeT = _progress * _progress * (3 - 2 * _progress); // 부드러운 S-curve	
@@ -106,7 +106,7 @@ glm::vec4 SmokeAttackParticle::spiralMotion_Color(Particle& _particle, float _pr
 	return _particle.m_vColor;
 }
 
-float SmokeAttackParticle::spiralMotion_Size(Particle& _particle, float _progress, float _dt)
+float SmokeAttackParticle::ScatterMotion_Size(Particle& _particle, float _progress, float _dt)
 {
 	_particle.m_fSize = 10.f;	
 	float t = MathUtil::GetInstance()->lerp(0.f, 1.f, _progress);

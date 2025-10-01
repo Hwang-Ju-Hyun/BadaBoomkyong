@@ -39,6 +39,7 @@ public:
 	inline void AddPositionY(float _y) { m_vPosition.y += _y; }
 	inline void AddPositionZ(float _z) { m_vPosition.z += _z; }
 	inline void AddRotation(float _rot) { m_fRotation += _rot; }
+	inline void AddRotation(const glm::vec3& _rot) { m_vRotation += _rot; }
 	inline void AddRotationX(float _rot) { m_vRotation.x += _rot;}
 	inline void AddRotationY(float _rot) { m_vRotation.y += _rot; }
 	inline void AddRotationZ(float _rot) { m_vRotation.z += _rot; }

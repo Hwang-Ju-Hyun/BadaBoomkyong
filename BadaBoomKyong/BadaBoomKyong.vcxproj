@@ -133,7 +133,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\GLFW\include\;$(ProjectDir)Dependencies\GLEW\include\;$(ProjectDir)Dependencies\GLM\;$(ProjectDir)Dependencies\STB\;$(ProjectDir)Dependencies\Assimp\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\GLFW\lib-vc2019\;$(ProjectDir)Dependencies\GLEW\lib\;$(ProjectDir)Dependencies\Assimp\lib\</AdditionalLibraryDirectories>
@@ -158,6 +158,7 @@
     <ClCompile Include="ColorOverLifeTime.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="CubeMapResource.cpp" />
+    <ClCompile Include="CurseDemonBulletParticle.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="ExecutionerDemon.cpp" />
     <ClCompile Include="ExecutionerDemonFireBall.cpp" />
@@ -289,6 +290,7 @@
     <ClInclude Include="ColorOverLifeTime.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="CubeMapResource.h" />
+    <ClInclude Include="CurseDemonBulletParticle.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="ExecutionerDemon.h" />
     <ClInclude Include="ExecutionerDemonFireBall.h" />

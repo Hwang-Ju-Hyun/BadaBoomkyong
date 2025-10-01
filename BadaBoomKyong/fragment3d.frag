@@ -128,7 +128,7 @@ void main()
         vec3 reflectDir=reflect(-light_dir,N);
         //todo 마지막 값 uniform 샤이니 값으로 변경하셈
         float spec = pow(max(dot(viewDir, reflectDir), 0.0), 3002.f);
-        
+          
         //todo 요것도 vec3(1.0) uMp_Specular로 봐꾸셈
         vec3 specular = vec3(1.0f,1.0f,1.0f) * uLight[i].specular * spec;
 

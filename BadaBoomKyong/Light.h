@@ -70,6 +70,9 @@ public:
     static BaseRTTI* CreateLightComponent();
     virtual void LoadFromJson(const json& _str)override;
     virtual json SaveToJson(const json& _str)override;
+    
+#ifdef _DEBUG
     virtual void EditInfoFromButton()override;
+#endif // DEBUG    
 };
 

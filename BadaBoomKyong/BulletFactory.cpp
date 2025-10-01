@@ -130,8 +130,29 @@ void BulletFactory::InitStage02()
 	GameObject* fd_obj = obj_mgr->FindObject(FlyingDemon::FlyingDemonTypeName);
 	int fireball_obj_count = obj_mgr->GetObjectNumber(FlyingDemon::FlyingDemonTypeName);
 
-	ObjectPoolManager::GetInstance()->ReigistPool<FlyingDemonFireBall, 30>();
+	ObjectPoolManager::GetInstance()->ReigistPool<Pistol, 30>();
+	m_pBulletPool = static_cast<ObjectPool<Pistol, 30>*>(ObjectPoolManager::GetInstance()->GetPool<Pistol, 30>());
+	GameObject* player_obj = GameObjectManager::GetInstance()->FindObject(Player::PlayerTypeName);
+	Player* player_comp = player_obj->FindComponent<Player>();
+	assert(player_comp != nullptr);
 
+	for (int i = 0;i < 30; i++)
+	{
+		Pistol* bullet_comp = nullptr;
+		GameObject* bullet_obj = Serializer::GetInstance()->LoadPrefab("json/Prefab/Player/Slash/Slash_Prefab.json");
+		bullet_comp = dynamic_cast<Pistol*>(bullet_obj->FindComponent<Pistol>());
+		assert(bullet_comp != nullptr);
+		bullet_comp->SetName(Pistol::PistolTypeName);
+		bullet_comp->SetShooter(player_obj);
+		//bullet_comp = dynamic_cast<Pistol*>(bullet_obj->AddComponent_and_Get(Pistol::PistolTypeName, new Pistol(bullet_obj, player_obj)));
+		//Transform* trs = dynamic_cast<Transform*>(bullet_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(bullet_obj)));
+		//Sprite* spr = dynamic_cast<Sprite*>(bullet_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(bullet_obj)));
+		//Collider* col = dynamic_cast<Collider*>(bullet_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(bullet_obj)));
+		bullet_obj->SetActiveAllComps(false); 
+		m_pBulletPool->m_arrPool[i] = bullet_obj;
+	}
+
+	ObjectPoolManager::GetInstance()->ReigistPool<FlyingDemonFireBall, 30>();
 	m_pFlyingDemonFireBallPool = static_cast<ObjectPool<FlyingDemonFireBall, 30>*>(ObjectPoolManager::GetInstance()->GetPool<FlyingDemonFireBall, 30>());
 
 	for (int j = 0;j < 30; j++)
@@ -150,6 +171,28 @@ void BulletFactory::InitStage02()
 
 void BulletFactory::InitStage03()
 {
+	//PISTOL
+	ObjectPoolManager::GetInstance()->ReigistPool<Pistol, 30>();
+	m_pBulletPool = static_cast<ObjectPool<Pistol, 30>*>(ObjectPoolManager::GetInstance()->GetPool<Pistol, 30>());
+	GameObject* player_obj = GameObjectManager::GetInstance()->FindObject(Player::PlayerTypeName);
+	Player* player_comp = player_obj->FindComponent<Player>();
+	assert(player_comp != nullptr);
+
+	for (int i = 0;i < 30; i++)
+	{
+		Pistol* bullet_comp = nullptr;
+		GameObject* bullet_obj = Serializer::GetInstance()->LoadPrefab("json/Prefab/Player/Slash/Slash_Prefab.json");
+		bullet_comp = dynamic_cast<Pistol*>(bullet_obj->FindComponent<Pistol>());
+		assert(bullet_comp != nullptr);
+		bullet_comp->SetName(Pistol::PistolTypeName);
+		bullet_comp->SetShooter(player_obj);
+		//bullet_comp = dynamic_cast<Pistol*>(bullet_obj->AddComponent_and_Get(Pistol::PistolTypeName, new Pistol(bullet_obj, player_obj)));
+		//Transform* trs = dynamic_cast<Transform*>(bullet_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(bullet_obj)));
+		//Sprite* spr = dynamic_cast<Sprite*>(bullet_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(bullet_obj)));
+		//Collider* col = dynamic_cast<Collider*>(bullet_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(bullet_obj)));
+		bullet_obj->SetActiveAllComps(false);
+		m_pBulletPool->m_arrPool[i] = bullet_obj;
+	}
 }
 
 void BulletFactory::InitStageTest()
@@ -170,30 +213,28 @@ void BulletFactory::InitStageTest()
 		Collider* col = dynamic_cast<Collider*>(bullet_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(bullet_obj)));
 		bullet_obj->SetActiveAllComps(false);
 
-
-
-
 		m_pBulletPool->m_arrPool[i] = bullet_obj;
-	}
+	}	
 
-	/*auto obj_mgr = GameObjectManager::GetInstance();
-	GameObject* sm_obj = obj_mgr->FindObject(ExecutionerDemon::ExecutionerDemonTypeName);
-	int grenade_obj_count = obj_mgr->GetObjectNumber(ExecutionerDemon::ExecutionerDemonTypeName);
+	auto obj_mgr = GameObjectManager::GetInstance();
 
-	ObjectPoolManager::GetInstance()->ReigistPool<ExecutionerDemonFireBall, 30>();
+	GameObject* sm_obj = obj_mgr->FindObject(CurseDemon::CurseDemonTypeName);
+	int grenade_obj_count = obj_mgr->GetObjectNumber(CurseDemon::CurseDemonTypeName);
 
-	m_pExecutionerDemonFireBallPool = static_cast<ObjectPool<ExecutionerDemonFireBall, 30>*>(ObjectPoolManager::GetInstance()->GetPool<ExecutionerDemonFireBall, 30>());
+	ObjectPoolManager::GetInstance()->ReigistPool<CurseDemonBullet, 30>();
+
+	m_pMonsterGrenadePool = static_cast<ObjectPool<CurseDemonBullet, 30>*>(ObjectPoolManager::GetInstance()->GetPool<CurseDemonBullet, 30>());
 
 	for (int j = 0;j < 30; j++)
 	{
-		ExecutionerDemonFireBall* fireball_comp = nullptr;
-		GameObject* firball_obj = new GameObject(ExecutionerDemonFireBall::ExecutionerDemonFireBallTypaName, MODEL_TYPE::PLANE, GROUP_TYPE::BULLET);
-		fireball_comp = dynamic_cast<ExecutionerDemonFireBall*>(firball_obj->AddComponent_and_Get(ExecutionerDemonFireBall::ExecutionerDemonFireBallTypaName, new ExecutionerDemonFireBall(firball_obj, sm_obj)));
-		Transform* fireball_trs = dynamic_cast<Transform*>(firball_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(firball_obj)));
-		Sprite* fireball_spr = dynamic_cast<Sprite*>(firball_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(firball_obj)));
-		RigidBody* fireball_rig = dynamic_cast<RigidBody*>(firball_obj->AddComponent_and_Get(RigidBody::RigidBodyTypeName, new RigidBody(firball_obj)));
-		Collider* fireball_col = dynamic_cast<Collider*>(firball_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(firball_obj)));
-		firball_obj->SetActiveAllComps(false);
-		m_pExecutionerDemonFireBallPool->m_arrPool[j] = firball_obj;
-	}*/
+		CurseDemonBullet* grn_comp = nullptr;
+		GameObject* grn_obj = new GameObject(CurseDemonBullet::CurseDemonBulletTypaName, MODEL_TYPE::CUBE, GROUP_TYPE::BULLET);
+		grn_comp = dynamic_cast<CurseDemonBullet*>(grn_obj->AddComponent_and_Get(CurseDemonBullet::CurseDemonBulletTypaName, new CurseDemonBullet(grn_obj, sm_obj)));
+		Transform* grn_trs = dynamic_cast<Transform*>(grn_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(grn_obj)));
+		Sprite* grn_spr = dynamic_cast<Sprite*>(grn_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(grn_obj)));
+		RigidBody* grn_rig = dynamic_cast<RigidBody*>(grn_obj->AddComponent_and_Get(RigidBody::RigidBodyTypeName, new RigidBody(grn_obj)));
+		Collider* grn_col = dynamic_cast<Collider*>(grn_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(grn_obj)));
+		grn_obj->SetActiveAllComps(false);
+		m_pMonsterGrenadePool->m_arrPool[j] = grn_obj;
+	}
 }

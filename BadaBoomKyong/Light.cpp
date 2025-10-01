@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "Sprite.h"
 #include "Serializer.h"
+#include "IMGUI/imgui.h"
 
 Light::Light(GameObject* _owner)
     :MonoBehaviour(_owner)
@@ -91,6 +92,7 @@ json Light::SaveToJson(const json& _str)
 	return data;
 }
 
+#ifdef _DEBUG
 void Light::EditInfoFromButton()
 {	
 	// LightType 선택용 문자열 배열
@@ -113,3 +115,4 @@ void Light::EditInfoFromButton()
 		ImGui::InputFloat("Cutoff Angle", &m_fCutoffAngle);
 	}
 }
+#endif

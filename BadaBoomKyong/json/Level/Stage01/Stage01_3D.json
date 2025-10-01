@@ -8,8 +8,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            1993.724853515625,
-            -895021.0625,
+            2423.1650390625,
+            644.43359375,
             0.0
           ],
           "Sca": [
@@ -244,7 +244,7 @@
         "CompData": {
           "Pos": [
             1192.0,
-            -1956242.875,
+            -2103242.5,
             0.0
           ],
           "Sca": [
@@ -402,8 +402,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            2100.0,
-            -894969.4375,
+            2106.5,
+            -1041972.625,
             0.0
           ],
           "Sca": [
@@ -427,8 +427,8 @@
             1.0,
             1.0
           ],
-          "TextureName": "NormalAttack_1",
-          "TexturePath": "../Extern/Assets/Texture/CurseDemon/NormalAttack_1.png"
+          "TextureName": "Idle",
+          "TexturePath": "../Extern/Assets/Texture/CurseDemon/Idle.png"
         }
       },
       {
@@ -561,8 +561,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            -1302.7901611328125,
-            -895461.3125,
+            -731.4140014648438,
+            -1042464.5,
             0.0
           ],
           "Sca": [
@@ -718,8 +718,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            195.39093017578125,
-            -1958387.375,
+            53.64945983886719,
+            -2105386.0,
             0.0
           ],
           "Sca": [
@@ -905,9 +905,9 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            0.0,
-            1097.75048828125,
-            0.0
+            1149.41015625,
+            -446.95123291015625,
+            675.8546142578125
           ],
           "Sca": [
             50.0,
@@ -1107,36 +1107,6 @@
     "Group": 0
   },
   {
-    "Name": "NewObject2",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            -1064.4754638671875,
-            -143.34393310546875,
-            -572.5099487304688
-          ],
-          "Sca": [
-            1.2204606533050537,
-            1.8961215019226074,
-            1.978309988975525
-          ],
-          "Rot": [
-            8.999985694885254,
-            -0.0,
-            0.0
-          ]
-        }
-      }
-    ],
-    "Model": 6,
-    "ModelPath": "../Extern/Assets/Model/tree/palm_tree/plamTree1.fbx",
-    "Group": 0
-  },
-  {
     "Name": "house0",
     "ID": 0,
     "Is3D": true,
@@ -1329,66 +1299,6 @@
     ],
     "Model": 6,
     "ModelPath": "../Extern/Assets/Model/middle/Untitled.fbx",
-    "Group": 0
-  },
-  {
-    "Name": "tree",
-    "ID": 0,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            722.7803955078125,
-            -102.33995056152344,
-            352.6260070800781
-          ],
-          "Sca": [
-            1.2204606533050537,
-            1.8961215019226074,
-            1.978309988975525
-          ],
-          "Rot": [
-            8.999985694885254,
-            -0.0,
-            0.0
-          ]
-        }
-      }
-    ],
-    "Model": 6,
-    "ModelPath": "../Extern/Assets/Model/tree/palm_tree/plamTree1.fbx",
-    "Group": 0
-  },
-  {
-    "Name": "tree",
-    "ID": 1,
-    "Is3D": true,
-    "Components": [
-      {
-        "Type": "Transform",
-        "CompData": {
-          "Pos": [
-            -769.3143310546875,
-            -132.86325073242188,
-            522.885986328125
-          ],
-          "Sca": [
-            0.983934223651886,
-            1.5903148651123047,
-            1.4345728158950806
-          ],
-          "Rot": [
-            0.0,
-            89.9999771118164,
-            0.0
-          ]
-        }
-      }
-    ],
-    "Model": 6,
-    "ModelPath": "../Extern/Assets/Model/tree/palm_tree/plamTree1.fbx",
     "Group": 0
   },
   {

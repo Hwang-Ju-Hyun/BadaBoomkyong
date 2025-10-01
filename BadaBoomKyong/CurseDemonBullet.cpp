@@ -11,6 +11,8 @@
 #include "Bullet.h"
 #include "CurseDemon.h"
 #include "Player.h"
+#include "ParticleSystem.h"
+#include "CurseDemonBulletParticle.h"
 
 CurseDemonBullet::CurseDemonBullet(GameObject* _owner, GameObject* _shooter)
     :Bullet(_owner,_shooter)    
@@ -32,7 +34,10 @@ void CurseDemonBullet::Init()
 
     assert(m_pTransform != nullptr && m_pSprite != nullptr && m_pCollider != nullptr && m_pRigidBody != nullptr);    
 
-    GetOwner()->SetActiveAllComps(false);    
+    GetOwner()->SetActiveAllComps(false);  
+
+    m_pPs = new ParticleSystem;
+    m_pCurseDemonBulletParticle = new CurseDemonBulletParticle(m_pPs, GetOwner());
 }
 
 void CurseDemonBullet::Awake()
@@ -66,11 +71,23 @@ void CurseDemonBullet::Fire()
     m_bCanFire = false;
 }
 
-
+#include "TimeManager.h"
 void CurseDemonBullet::Update()
-{    
-    if(m_bCanFire)
-        Fire();
+{
+    float dt = TimeManager::GetInstance()->GetDeltaTime();
+    m_pTransform->AddRotation({ 350.f * dt,350.f * dt ,350.f * dt });    
+    if (m_bCanFire)
+    {
+        Fire();       
+    }        
+    m_fParticle_WaitAccTime += dt;
+    if (m_fParticle_WaitAccTime > m_fParticle_WaitingTime)
+    {
+        
+        m_pCurseDemonBulletParticle->CreateParticles(10);
+        on = true;
+        m_fParticle_WaitAccTime = 0.f;
+    }    
 }
 
 void CurseDemonBullet::Exit()
@@ -82,6 +99,20 @@ void CurseDemonBullet::EnterCollision(Collider* _col)
     if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
     {
         EventManager::GetInstance()->SetActiveFalse(GetOwner());
+    }
+
+    m_pPlayer = _col->GetOwner()->FindComponent<Player>();
+    if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::PLAYER)
+    {
+        if (m_pPlayer)
+        {
+            m_pPlayer->MinusCurrentHP(1);
+            if (m_pPlayer->GetIsAlive())
+            {
+                m_pPlayer->SetIsHurting(true);
+                EventManager::GetInstance()->SetActiveFalse(GetOwner());
+            }
+        }
     }
 }
 

@@ -446,6 +446,9 @@
     <Filter Include="Particle\SmokeAttack">
       <UniqueIdentifier>{091f1f0d-5d74-4846-875a-f8b02c17028e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particle\CurseDemonBullet">
+      <UniqueIdentifier>{a74829f2-a1d7-44c0-ad83-8d59f01914cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -774,6 +777,9 @@
     </ClCompile>
     <ClCompile Include="SmokeAttackParticle.cpp">
       <Filter>Particle\SmokeAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="CurseDemonBulletParticle.cpp">
+      <Filter>Particle\CurseDemonBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1208,6 +1214,9 @@
     </ClInclude>
     <ClInclude Include="SmokeAttackParticle.h">
       <Filter>Particle\SmokeAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="CurseDemonBulletParticle.h">
+      <Filter>Particle\CurseDemonBullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

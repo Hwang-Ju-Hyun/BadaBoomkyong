@@ -47,10 +47,7 @@ SmokeDemon::SmokeDemon(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::HURT), new AnimHurtState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DEATH), new AnimDeathState<Monster>());
 
-	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::IDLE));
-
-
-	
+	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::IDLE));	
 }
 
 SmokeDemon::~SmokeDemon()
@@ -147,6 +144,7 @@ void SmokeDemon::Update()
 			float dir = m_vPlayerPosition.x - m_vPosition.x;
 			dir > 0 ? m_fDirection = 1 : m_fDirection = -1;
 		}
+
 		if (dist <= m_fDetectRange)
 		{
 			if (dist <= m_vMeleeAtkRange.x)
