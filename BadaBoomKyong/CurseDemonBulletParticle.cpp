@@ -79,7 +79,7 @@ glm::vec3 CurseDemonBulletParticle::SpiralMotion_Position(Particle& _particle, f
 
 glm::vec4 CurseDemonBulletParticle::SpiralMotion_Color(Particle& _particle, float _progress, float _dt)
 {
-	float t = MathUtil::GetInstance()->lerp(0.f, 1.f, _progress);
+	float t = _progress * _progress * (3 - 2 * _progress);
 	
 	
 	float rStart = MathUtil::GetInstance()->GetRandomNumber(255.f, 255.f) / 255.f;

@@ -106,14 +106,15 @@ glm::vec3 HolySlashParticle::spiralMotion_Position(Particle& _particle, float _p
 	}
 	return _particle.m_vPosition;
 }
-
+#include "TimeManager.h"
 glm::vec4 HolySlashParticle::spiralMotion_Color(Particle& _particle, float _progress, float _dt)
 {
 	// ease-in/out 利侩
-	float easeT = _progress * _progress * (3 - 2 * _progress); // 何靛矾款 S-curve	
-	_particle.m_vColorStart = glm::vec4{ (1.f / 255.f),(125.f / 255.f),(214.f / 255.f),1.f};
-	_particle.m_vColorEnd = glm::vec4{ (142.f / 255.f),(215.f / 255.f),(12.f / 255.f),1.f };
+	float easeT = _progress * _progress * (3 - 2 * _progress); // 何靛矾款 S-curve		
+	_particle.m_vColorStart = glm::vec4{ (255.f / 255.f),(5.f / 255.f),(64.f / 255.f),1.f};
+	_particle.m_vColorEnd = glm::vec4{ (42.f / 255.f),(15.f / 255.f),(255.f / 255.f),1.f };
 	_particle.m_vColor = glm::mix(_particle.m_vColorStart, _particle.m_vColorEnd, easeT);
+
 	return _particle.m_vColor;
 }
 
