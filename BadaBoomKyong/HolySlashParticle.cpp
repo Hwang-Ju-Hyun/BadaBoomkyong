@@ -110,7 +110,7 @@ glm::vec3 HolySlashParticle::spiralMotion_Position(Particle& _particle, float _p
 glm::vec4 HolySlashParticle::spiralMotion_Color(Particle& _particle, float _progress, float _dt)
 {
 	// ease-in/out 적용
-	float easeT = _progress * _progress * (3 - 2 * _progress); // 부드러운 S-curve		
+	float easeT = _progress * _progress * (3 - 2 * _progress); 
 	_particle.m_vColorStart = glm::vec4{ (255.f / 255.f),(5.f / 255.f),(64.f / 255.f),1.f};
 	_particle.m_vColorEnd = glm::vec4{ (42.f / 255.f),(15.f / 255.f),(255.f / 255.f),1.f };
 	_particle.m_vColor = glm::mix(_particle.m_vColorStart, _particle.m_vColorEnd, easeT);

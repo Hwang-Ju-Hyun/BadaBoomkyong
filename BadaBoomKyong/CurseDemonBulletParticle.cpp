@@ -93,8 +93,7 @@ glm::vec4 CurseDemonBulletParticle::SpiralMotion_Color(Particle& _particle, floa
 	float bEnd = MathUtil::GetInstance()->GetRandomNumber(200.f, 255.f) / 255.f;
 	glm::vec4 endColor = glm::vec4(rEnd, gEnd, bEnd, 0.f);
 	_particle.m_vColorEnd = endColor;
-
-	// Blend
+	
 	_particle.m_vColor = glm::mix(_particle.m_vColorStart, _particle.m_vColorEnd, t);
 	return _particle.m_vColor;
 }
