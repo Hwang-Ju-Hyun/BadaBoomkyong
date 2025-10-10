@@ -12,6 +12,8 @@ class FlyingDemon;
 class FlyingDemonMelee;
 class SmokeDemon;
 class SmokeDemonMelee;
+class Boss;
+class BossMelee;
 
 class MeleeFactory :
     public BaseFactory
@@ -44,6 +46,9 @@ private:
     virtual void InitStage02()  override;
     virtual void InitStage03()  override;
     virtual void InitStageTest()override;
+private:
+    PlayerMelee* PlayerMeleeInit();
+    
 public:
     static constexpr const char* MeleeFactoryTypeName = "MeleeFactory";
 };

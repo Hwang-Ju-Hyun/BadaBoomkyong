@@ -140,6 +140,7 @@ void MeleeFactory::InitStage02()
 
 void MeleeFactory::InitStage03()
 {
+	PlayerMeleeInit();
 }
 
 void MeleeFactory::InitStageTest()
@@ -159,5 +160,19 @@ void MeleeFactory::InitStageTest()
 	Transform* trs = dynamic_cast<Transform*>(m_pCurseDemonMeleeObject->AddComponent_and_Get(Transform::TransformTypeName, new Transform(m_pCurseDemonMeleeObject)));
 	Sprite* spr = dynamic_cast<Sprite*>(m_pCurseDemonMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pCurseDemonMeleeObject)));
 	Collider* col = dynamic_cast<Collider*>(m_pCurseDemonMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pCurseDemonMeleeObject)));	
+}
+
+PlayerMelee* MeleeFactory::PlayerMeleeInit()
+{
+	m_pPlayerMeleeObject = new GameObject(Melee::MeleeTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::MELEE);
+	GameObject* player_obj = GameObjectManager::GetInstance()->FindObject("Player");
+	Player* player_comp = dynamic_cast<Player*>(player_obj->FindComponent(Player::PlayerTypeName));
+	assert(player_comp != nullptr);
+	m_pPlayerMelee = dynamic_cast<PlayerMelee*>(m_pPlayerMeleeObject->AddComponent_and_Get(Melee::MeleeTypeName, new PlayerMelee(m_pPlayerMeleeObject, player_obj)));
+	Transform* player_trs = dynamic_cast<Transform*>(m_pPlayerMeleeObject->AddComponent_and_Get(Transform::TransformTypeName, new Transform(m_pPlayerMeleeObject)));
+	Sprite* player_spr = dynamic_cast<Sprite*>(m_pPlayerMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pPlayerMeleeObject)));
+	Collider* player_col = dynamic_cast<Collider*>(m_pPlayerMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pPlayerMeleeObject)));
+
+	return m_pPlayerMelee;
 }
 

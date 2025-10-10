@@ -19,6 +19,6 @@ public:
 	float lerp(float _start, float _end, float _t);
 	glm::vec3 lerp(glm::vec3 _start, glm::vec3 _end, float _t);
 	glm::vec4 lerp(glm::vec4 _start, glm::vec4 _end, float _t);
-	float clamp(float _val, float _min, float _max);
+	float clamp(float _val, float _min, float _max);	
 };
 

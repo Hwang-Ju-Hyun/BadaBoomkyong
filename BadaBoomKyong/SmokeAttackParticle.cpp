@@ -59,7 +59,7 @@ void SmokeAttackParticle::CreateParticles(int _emitNum)
 		props.m_vPositionStart.y = particlePos.y + 100.f;
 		props.m_vPositionStart.x = particlePos.x + (100.f) * dir;
 		props.m_vPosition = particlePos;
-		props.m_vPositionEnd = particlePos + rand_dir * 1.f; // 끝 위치 예시
+		props.m_vPositionEnd = particlePos + rand_dir * 1.f;
 
 		IParticleBehavior* behaviour[3] = { &m_ColorOverLifeTime, &m_SizeOverLifeTime, &m_PositionOverLifeTime };
 		m_pParticleSystem->Emit(props, behaviour, 3);
@@ -71,8 +71,8 @@ glm::vec3 SmokeAttackParticle::RandomDirectionInCone(const glm::vec3& _conAxis, 
 	auto math = MathUtil::GetInstance();
 	float half_angle_rad = math->GetRadianByDegree(_MaxAngleDegree);
 	
-	float theta = math->GetRandomNumber(0.f,1.f)* half_angle_rad; // 축에서 벗어난 각도
-	float phi = math->GetRandomNumber(0.f, 1.f) * 2.0f * PI; // 회전	 
+	float theta = math->GetRandomNumber(0.f,1.f)* half_angle_rad; 
+	float phi = math->GetRandomNumber(0.f, 1.f) * 2.0f * PI;	 
 	
 	float x = sin(theta) * cos(phi);
 	float y = sin(theta) * sin(phi);

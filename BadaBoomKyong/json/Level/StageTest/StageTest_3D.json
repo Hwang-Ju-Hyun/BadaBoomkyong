@@ -8,8 +8,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            -371.3260803222656,
-            2481.9017333984375,
+            -96.97909545898438,
+            479.334228515625,
             0.0
           ],
           "Sca": [
@@ -232,7 +232,185 @@
       }
     ],
     "Model": 4,
-    "Group": 1
+    "Group": 3
+  },
+  {
+    "Name": "Boss",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -6.0,
+            577.5274658203125,
+            0.0
+          ],
+          "Sca": [
+            250.0,
+            250.0,
+            450.0
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Sprite",
+        "CompData": {
+          "RGBA": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "TextureName": "Idle",
+          "TexturePath": "../Extern/Assets/Texture/Boss/idle/Idle.png"
+        }
+      },
+      {
+        "Type": "RigidBody",
+        "CompData": {
+          "Kinematic": [
+            false
+          ],
+          "Gravity": [
+            980.0
+          ],
+          "Mass": [
+            1.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            -80.0,
+            0.0
+          ],
+          "Scale": [
+            50.0,
+            100.0,
+            450.0
+          ]
+        }
+      },
+      {
+        "Type": "Animator",
+        "CompData": {
+          "Animations": [
+            {
+              "Name": "Death",
+              "TextureName": "Death",
+              "TexturePath": "../Extern/Assets/Texture/Boss/death/Death.png",
+              "Max": 12,
+              "Row": 1,
+              "Col": 12,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "Fall",
+              "TextureName": "Fall",
+              "TexturePath": "../Extern/Assets/Texture/Boss/jump/Fall.png",
+              "Max": 7,
+              "Row": 1,
+              "Col": 7,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            },
+            {
+              "Name": "Hurt",
+              "TextureName": "Hurt",
+              "TexturePath": "../Extern/Assets/Texture/Boss/hurt/Hurt.png",
+              "Max": 6,
+              "Row": 1,
+              "Col": 6,
+              "Duration": 0.15000002086162567,
+              "Loop": false
+            },
+            {
+              "Name": "Idle",
+              "TextureName": "Idle",
+              "TexturePath": "../Extern/Assets/Texture/Boss/idle/Idle.png",
+              "Max": 12,
+              "Row": 1,
+              "Col": 12,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            },
+            {
+              "Name": "Jump",
+              "TextureName": "Jump",
+              "TexturePath": "../Extern/Assets/Texture/Boss/jump/Jump.png",
+              "Max": 4,
+              "Row": 1,
+              "Col": 4,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "NormalAttack_1",
+              "TextureName": "NormalAttack_1",
+              "TexturePath": "../Extern/Assets/Texture/Boss/1_atk/NormalAttack_1.png",
+              "Max": 9,
+              "Row": 1,
+              "Col": 9,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "Walk",
+              "TextureName": "Walk",
+              "TexturePath": "../Extern/Assets/Texture/Boss/run/Walk.png",
+              "Max": 10,
+              "Row": 1,
+              "Col": 10,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            }
+          ]
+        }
+      },
+      {
+        "Type": "AI",
+        "CompData": {
+          "StateList": [
+            0,
+            2,
+            3,
+            4
+          ]
+        }
+      },
+      {
+        "Type": "Boss",
+        "CompData": {
+          "Speed": 0.5,
+          "JumpForce": 500.0,
+          "DetectRange": 500.0,
+          "MeleeAtkCoolTime": 3.0,
+          "RangedMoveAtkRange": [
+            100.0,
+            500.0,
+            0.0
+          ],
+          "MeleeAtkRange": [
+            200.0,
+            500.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 4,
+    "Group": 3
   },
   {
     "Name": "Light",
@@ -367,7 +545,7 @@
         "CompData": {
           "Pos": [
             403.5,
-            -229603.40625,
+            -271076.84375,
             0.0
           ],
           "Sca": [

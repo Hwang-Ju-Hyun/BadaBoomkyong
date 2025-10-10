@@ -150,6 +150,9 @@
     <ClCompile Include="BaseLevel.cpp" />
     <ClCompile Include="BaseRTTI.cpp" />
     <ClCompile Include="BaseState.cpp" />
+    <ClCompile Include="BlackBoard.cpp" />
+    <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BTAgent.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletFactory.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -174,6 +177,7 @@
     <ClCompile Include="GeometryUtill.cpp" />
     <ClCompile Include="GizmoManager.cpp" />
     <ClCompile Include="HolySlashParticle.cpp" />
+    <ClCompile Include="IDLE_Boss.cpp" />
     <ClCompile Include="IDLE_ExecutionerDemon.cpp" />
     <ClCompile Include="IDLE_FlyingDemon.cpp" />
     <ClCompile Include="IDLE_SmokeDemon.cpp" />
@@ -203,6 +207,7 @@
     <ClCompile Include="MathUtil.cpp" />
     <ClCompile Include="Melee.cpp" />
     <ClCompile Include="MeleeState.cpp" />
+    <ClCompile Include="MELEE_Boss.cpp" />
     <ClCompile Include="MELEE_ExecutionerDemon.cpp" />
     <ClCompile Include="MELEE_CurseDemon.cpp" />
     <ClCompile Include="MELEE_FlyingDemon.cpp" />
@@ -212,10 +217,12 @@
     <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="MonoBehaviour.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MoveToTarget.cpp" />
     <ClCompile Include="ObjectPoolManager.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="ParticleSystemManager.cpp" />
     <ClCompile Include="PatrolState.cpp" />
+    <ClCompile Include="PATROL_Boss.cpp" />
     <ClCompile Include="PATROL_ExecutionerDemon.cpp" />
     <ClCompile Include="PATROL_CurseDemon.cpp" />
     <ClCompile Include="PATROL_FlyingDemon.cpp" />
@@ -231,6 +238,8 @@
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="Selector.cpp" />
+    <ClCompile Include="Sequence.cpp" />
     <ClCompile Include="Serializer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="CurseDemonMelee.cpp" />
@@ -282,6 +291,10 @@
     <ClInclude Include="BaseLevel.h" />
     <ClInclude Include="BaseRTTI.h" />
     <ClInclude Include="BaseState.h" />
+    <ClInclude Include="BehaviorTreeNode.h" />
+    <ClInclude Include="BlackBoard.h" />
+    <ClInclude Include="Boss.h" />
+    <ClInclude Include="BTAgent.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletFactory.h" />
     <ClInclude Include="Camera.h" />
@@ -308,6 +321,7 @@
     <ClInclude Include="header.h" />
     <ClInclude Include="Anim_HolySlash.h" />
     <ClInclude Include="HolySlashParticle.h" />
+    <ClInclude Include="IDLE_Boss.h" />
     <ClInclude Include="IDLE_ExecutionerDemon.h" />
     <ClInclude Include="IDLE_FlyingDemon.h" />
     <ClInclude Include="IDLE_SmokeDemon.h" />
@@ -346,6 +360,7 @@
     <ClInclude Include="MathUtil.h" />
     <ClInclude Include="Melee.h" />
     <ClInclude Include="MeleeState.h" />
+    <ClInclude Include="MELEE_Boss.h" />
     <ClInclude Include="MELEE_ExecutionerDemon.h" />
     <ClInclude Include="MELEE_CurseDemon.h" />
     <ClInclude Include="MELEE_FlyingDemon.h" />
@@ -355,11 +370,13 @@
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="MonoBehaviour.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="MoveToTarget.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectPoolManager.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="ParticleSystemManager.h" />
     <ClInclude Include="PatrolState.h" />
+    <ClInclude Include="PATROL_Boss.h" />
     <ClInclude Include="PATROL_ExecutionerDemon.h" />
     <ClInclude Include="PATROL_CurseDemon.h" />
     <ClInclude Include="PATROL_FlyingDemon.h" />
@@ -376,6 +393,8 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="Selector.h" />
+    <ClInclude Include="Sequence.h" />
     <ClInclude Include="Serializer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Singleton.h" />
