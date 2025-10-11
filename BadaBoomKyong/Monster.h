@@ -120,6 +120,7 @@ public:
     inline float GetMeleeAtkCoolTime()const { return m_fMeleeAtkCoolTime; }
     inline void SetRangeAtkCoolTime(float _time) { m_fRangeAtkCoolTime = _time; }
     inline float GetRangeAtkCoolTime()const { return m_fRangeAtkCoolTime; }
+    inline glm::vec3 GetPosition()const { return m_vPosition; }
 public:
     bool m_bCol=false;
 public:

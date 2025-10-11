@@ -116,9 +116,7 @@ void Player::Update()
 	//todo : 이거 dashable & isalive이런거 함수화 시켜서 movable로 고치든가하자
 	if (m_bIsAlive&&!m_bIsDashing)
 	{
-		/*if (m_bCanMeleeAttack == false)
-		{			
-		}*/
+		
 		Move();
 		Jump();
 		Fire();
@@ -129,7 +127,7 @@ void Player::Update()
 	Death();
 	ComboUpdate();	
 	StateHandler();	
-	
+	m_vPosition = m_pTransform->GetPosition();
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();		
 }
@@ -215,6 +213,7 @@ void Player::Move()
 	{
 		m_pRigidBody->SetIsGround(false);
 	}
+	
 }
 
 void Player::Fire()

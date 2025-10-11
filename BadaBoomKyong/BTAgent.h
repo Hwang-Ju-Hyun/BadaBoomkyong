@@ -2,6 +2,7 @@
 #include <string>
 #include <queue>
 #include "BehaviorTreeNode.h"
+#include "BlackBoard.h"
 
 class Boss;
 
@@ -19,6 +20,7 @@ class BTAgent
 private:
 	Boss* m_pBoss;//지금은 걍 boss로 두는데 원래는 monster로 두거나 gameobject로 둬야하는거 알지?
 	BTNode* m_pRoot;
+	BlackBoard bb;
 private:
 	std::queue<AgentMessage> m_MsgQueue;
 	BTNodeState m_eNodeLastState = BTNodeState::SUCCESS;

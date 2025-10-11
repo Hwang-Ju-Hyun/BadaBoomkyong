@@ -89,6 +89,7 @@ private:
     int m_iDir = 1;
     float m_fSpeed=0.f;            
     float m_fJumpImpulse = 500.f;   
+    glm::vec3 m_vPosition;
     bool m_bNormalMeleeAttacking = false;
     bool m_bSprintMeleeAttacking = false;
     bool m_bJumpMeleeAttacking = false;
@@ -119,7 +120,7 @@ public:
     inline void SetJumpMeleeAttacking(bool _attacking) { m_bJumpMeleeAttacking = _attacking; }
     inline const bool GetJumpMeleeAttacking()const { return m_bJumpMeleeAttacking; }
     inline const bool GetIsMoving()const { return m_bIsMoving; }
-   
+    inline const glm::vec3& GetPosition()const { return m_vPosition; }
 public:        
     int m_iCurJumpCount = 0;
     bool m_bCanMeleeAttack = false;

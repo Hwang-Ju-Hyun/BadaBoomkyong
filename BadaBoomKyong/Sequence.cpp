@@ -9,16 +9,16 @@ Sequence::~Sequence()
 {
 }
 
-BTNodeState Sequence::Enter()
+BTNodeState Sequence::Enter(BlackBoard& _bb)
 {
 	return BTNodeState();
 }
 
-BTNodeState Sequence::Tick()
+BTNodeState Sequence::Tick(BlackBoard& _bb)
 {
 	while (m_iCurrent < m_vecChildNode.size())
 	{
-		BTNodeState state = m_vecChildNode[m_iCurrent]->Tick();
+		BTNodeState state = m_vecChildNode[m_iCurrent]->Tick(_bb);
 		if (state == BTNodeState::RUNNING)
 			return BTNodeState::RUNNING;
 		if (state == BTNodeState::FAILURE)

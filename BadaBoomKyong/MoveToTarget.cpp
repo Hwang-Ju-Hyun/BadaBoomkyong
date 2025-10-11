@@ -3,26 +3,27 @@
 #include "Boss.h"
 #include "Player.h"
 #include "GeometryUtill.h"
+#include "PlayerMelee.h"
+#include "BlackBoard.h"
 
-MoveToTarget::MoveToTarget(Boss* _boss)
-	:m_pBoss(_boss)
+MoveToTarget::MoveToTarget(Boss* _boss)	
 {	
 
 }
-BTNodeState MoveToTarget::Enter()
+BTNodeState MoveToTarget::Enter(BlackBoard& _bb)
 {		
 	return BTNodeState();
 }
 
-BTNodeState MoveToTarget::Tick()
-{	
+BTNodeState MoveToTarget::Tick(BlackBoard& _bb)
+{			
+	Player* p = _bb.GetPlayer();
+	Boss* b = _bb.GetBoss();		
 
-	glm::vec3 player_pos = m_pPlayerTransform->GetPosition();
-	glm::vec3 boss_pos = m_pBossTransform->GetPosition();
-	glm::vec3 dir = player_pos - boss_pos;
-	dir = glm::normalize(dir);
-	m_pBossTransform->AddPosition(dir * 100.f);
-	
+	glm::vec3 player_pos =p->GetPosition();
+	b->SetTargetPos(player_pos);
+	glm::vec3 boss_pos = b->GetPosition();
+
 	if (GeometryUtil::GetInstance()->IsNear(boss_pos, player_pos))
 		return BTNodeState::SUCCESS;
 	return BTNodeState::RUNNING;

@@ -12,8 +12,8 @@ private:
     std::vector<BTNode*> m_vecChildNode;
     int m_iCurrent = 0;
 public:
-    virtual BTNodeState Enter()override;
-    virtual BTNodeState Tick()override;
+    virtual BTNodeState Enter(BlackBoard& _bb)override;
+    virtual BTNodeState Tick(BlackBoard& _bb)override;
     virtual void Abort()override;
 };
 

@@ -3,6 +3,7 @@
 #include "ObjectPool.h"
 #include "BehaviorTreeNode.h"
 
+class BTAgent;
 class BulletFactory;
 class Bullet;
 class Transform;
@@ -22,8 +23,8 @@ private:
     //ObjectPool<CurseDemonBullet, 30>* m_pGrenadePool = nullptr;
     Bullet* m_pBullet = nullptr;
 public:
-    BTNode* m_pBT;
-    BlackBoard m_BlackBoard;
+    BTNode* m_pBT;   
+    BTAgent* m_pBTAgent;
     BTNode* BuildBossBT();
 private:
     //Melee Object
@@ -33,11 +34,13 @@ private:
     Transform* m_pMeleeTrs = nullptr;
 public:
     inline BulletFactory* GetBulletFactory()const { return m_pBulletFactory; };
-private:
+private:    
+    glm::vec3 m_vTargetPos;
     float m_fDetectRange = 0.f;
     glm::vec3 m_vRangedMoveAtkRange = {};
     glm::vec3 m_vMeleeAtkRange = {};
 public:
+    inline void SetTargetPos(const glm::vec3& _targetPos) { m_vTargetPos = _targetPos; }
     inline float GetDetectRange()const { return m_fDetectRange; }
     inline glm::vec3 GetRangedMoveAtkRange()const { return m_vRangedMoveAtkRange; }
     inline glm::vec3 GetMeleeAtckRange()const { return m_vMeleeAtkRange; }
@@ -48,6 +51,7 @@ private:
 public:
     inline void SetMoveDirection(int _dir) { m_iMoveDirection = _dir; }
     inline int GetMoveDirection()const { return m_iMoveDirection; }
+    void Move();
 public:
     virtual void Init()override;
     virtual void Update()override;

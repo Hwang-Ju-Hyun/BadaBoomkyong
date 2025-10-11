@@ -1,5 +1,7 @@
 #pragma once
 
+class BlackBoard;
+
 enum class BTNodeState
 {
 	SUCCESS,
@@ -10,8 +12,8 @@ enum class BTNodeState
 class BTNode
 {
 public:
-	virtual BTNodeState Enter() = 0;
-	virtual BTNodeState Tick() = 0;
+	virtual BTNodeState Enter(BlackBoard& _bb) = 0;
+	virtual BTNodeState Tick(BlackBoard& _bb) = 0;
 	virtual void Abort() = 0;
 	virtual ~BTNode() {}
 };

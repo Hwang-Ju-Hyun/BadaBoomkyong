@@ -17,6 +17,7 @@ private:
 	Transform* m_pPlayerTransform;
 	Transform* m_pBossTransform;
 public:
+	inline Boss* GetBoss()const { return m_pBoss; }
 	inline Player* GetPlayer()const { return m_pPlayer; }
 	inline Transform* GetPlayerTransform()const { return m_pPlayerTransform; }
 	inline Transform* GetBossTransform()const { return m_pBossTransform; }

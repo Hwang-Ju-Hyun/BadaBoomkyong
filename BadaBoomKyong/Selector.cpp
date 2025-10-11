@@ -9,16 +9,16 @@ Selector::~Selector()
 {
 }
 
-BTNodeState Selector::Enter()
+BTNodeState Selector::Enter(BlackBoard& _bb)
 {
 	return BTNodeState();
 }
 
-BTNodeState Selector::Tick()
+BTNodeState Selector::Tick(BlackBoard& _bb)
 {
 	while (m_iCurrent < m_vecChildNode.size())
 	{
-		BTNodeState state = m_vecChildNode[m_iCurrent]->Tick();
+		BTNodeState state = m_vecChildNode[m_iCurrent]->Tick(_bb);
 		if (state == BTNodeState::SUCCESS)
 		{
 			m_iCurrent = 0;

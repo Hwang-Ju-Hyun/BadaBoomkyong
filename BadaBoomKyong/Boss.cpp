@@ -23,7 +23,10 @@
 #include "BTAgent.h"
 #include "BehaviorTreeNode.h"
 #include "Sequence.h"
+#include "Selector.h"
 #include "BlackBoard.h"
+#include "RigidBody.h"
+#include "MoveToTarget.h"
 
 Boss::Boss(GameObject* _owner)
 	:Monster(_owner)
@@ -38,11 +41,9 @@ Boss::Boss(GameObject* _owner)
 
 	this->SetIdleBehaviour(new IDLE_Boss);
 	this->SetPatrolBehaviour(new PATROL_Boss);
-	this->SetMeleeBehaivour(new MELEE_Boss);*/
+	this->SetMeleeBehaivour(new MELEE_Boss);*/	
 
-	
-
-	assert(m_pAI != nullptr);
+	//assert(m_pAI != nullptr);
 
 	m_pAnimStateMachine = new AnimStateMachine<Monster>(this);
 
@@ -60,13 +61,21 @@ Boss::~Boss()
 }
 
 BTNode* Boss::BuildBossBT()
+{	
+	BTNode* root = new Sequence({ new MoveToTarget(this) });
+	return root;
+}
+
+void Boss::Move()
 {
-	BTNode* root = new Sequence()
+	float dt = TimeManager::GetInstance()->GetDeltaTime();
+	float dir = m_vTargetPos.x - m_vPosition.x;	
+
+	m_pTransform->AddPositionX(dir * m_fSpeed*dt);
 }
 
 void Boss::Init()
-{
-	m_BlackBoard.BBInit(this);
+{	
 	//m_pMeleeFactory = dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
 	//assert(m_pMeleeFactory != nullptr);		
 
@@ -74,26 +83,28 @@ void Boss::Init()
 	assert(m_pSprite != nullptr);
 
 
-	m_pBT=
+	m_pBT = BuildBossBT();
+
+	m_pBTAgent = new BTAgent(this,m_pBT);	
 }
 
 void Boss::Update()
 {
+	m_pBTAgent->Update();
 	if (GetIsAlive())
 	{
 		UpdateSpriteFlipX();
 
 		auto math = MathUtil::GetInstance();
 		m_vPosition = m_pTransform->GetPosition();
-		m_vPlayerPosition = m_pPlayerTransform->GetPosition();
-		
+		m_vPlayerPosition = m_pPlayerTransform->GetPosition();		
 
 		if (GetIsHurting())
 		{
 			float Knockback_dir = -m_fDirection;
 			m_pTransform->AddPositionX(0.5f * Knockback_dir);
 			m_eCurrentState = MonsterAnimState::HURT;
-			m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
+			//m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
 		}
 
 		if (GetIsHurting())
@@ -106,11 +117,15 @@ void Boss::Update()
 		} 
 	}
 
+	Move();
+
 	auto hp = GetCurrentHP();
 	hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
 
 	if (!GetIsAlive())
 		m_eCurrentState = MonsterAnimState::DEATH;
+
+	m_vPosition = m_pTransform->GetPosition();
 
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();
