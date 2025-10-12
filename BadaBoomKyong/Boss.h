@@ -47,11 +47,16 @@ public:
 private:
     //moveDirection은 스텝이 뒤로가고 앞으로가고이고
     //그냥 direction은 오른쪽을 바라보느냐 왼쪽을 바라보냐임
-    int m_iMoveDirection = 1;            //Postive : Right | Negative : Left     
+    int m_iMoveDirection = 1;            //Postive : Right | Negative : Left 
+    float m_fJumpImpulse;
+public:
+    inline void SetJumpImpulse(float _impulse) { m_fJumpImpulse = _impulse; }
+    inline float GetJumpImpulse()const { return m_fJumpImpulse; }
 public:
     inline void SetMoveDirection(int _dir) { m_iMoveDirection = _dir; }
     inline int GetMoveDirection()const { return m_iMoveDirection; }
     void Move();
+    void Jump();    
 public:
     virtual void Init()override;
     virtual void Update()override;
@@ -67,6 +72,10 @@ public:
 private:
     float m_fOffsetTimeAcc = 0.f;
     float m_fOffsetTime = 1.f;
+    bool m_bJumpMeleeAttacking=false;
+    bool m_bIsFalling = false;
+private:
+    void StateHandle();
 public:
     virtual void EnterCollision(Collider* _other)override;
     virtual void OnCollision(Collider* _other)   override;

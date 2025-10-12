@@ -14,7 +14,7 @@ BTNodeState Sequence::Enter(BlackBoard& _bb)
 	return BTNodeState();
 }
 
-BTNodeState Sequence::Tick(BlackBoard& _bb)
+BTNodeState Sequence::Update(BlackBoard& _bb)
 {
 	while (m_iCurrent < m_vecChildNode.size())
 	{
@@ -30,6 +30,10 @@ BTNodeState Sequence::Tick(BlackBoard& _bb)
 	}
 	m_iCurrent = 0;
 	return BTNodeState::SUCCESS;
+}
+
+void Sequence::Exit(BlackBoard& _bb)
+{
 }
 
 void Sequence::Abort()

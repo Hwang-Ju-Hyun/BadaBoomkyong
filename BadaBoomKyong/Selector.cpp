@@ -14,7 +14,7 @@ BTNodeState Selector::Enter(BlackBoard& _bb)
 	return BTNodeState();
 }
 
-BTNodeState Selector::Tick(BlackBoard& _bb)
+BTNodeState Selector::Update(BlackBoard& _bb)
 {
 	while (m_iCurrent < m_vecChildNode.size())
 	{
@@ -32,6 +32,10 @@ BTNodeState Selector::Tick(BlackBoard& _bb)
 	}
 	m_iCurrent = 0;
 	return BTNodeState::SUCCESS;
+}
+
+void Selector::Exit(BlackBoard& _bb)
+{
 }
 
 void Selector::Abort()

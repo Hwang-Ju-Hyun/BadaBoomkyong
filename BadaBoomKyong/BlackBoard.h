@@ -3,7 +3,7 @@
 class Boss;
 class Player;
 class Transform;
-
+class RigidBody;
 
 class BlackBoard
 {
@@ -14,6 +14,7 @@ public:
 private:
 	Boss* m_pBoss;
 	Player* m_pPlayer;
+	RigidBody* m_pBossRigidBody;
 	Transform* m_pPlayerTransform;
 	Transform* m_pBossTransform;
 public:
@@ -21,5 +22,6 @@ public:
 	inline Player* GetPlayer()const { return m_pPlayer; }
 	inline Transform* GetPlayerTransform()const { return m_pPlayerTransform; }
 	inline Transform* GetBossTransform()const { return m_pBossTransform; }
+	inline RigidBody* GetBossRigidBody()const { return m_pBossRigidBody; }
 };
 

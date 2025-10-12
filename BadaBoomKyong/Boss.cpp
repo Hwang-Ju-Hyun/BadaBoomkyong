@@ -27,6 +27,8 @@
 #include "BlackBoard.h"
 #include "RigidBody.h"
 #include "MoveToTarget.h"
+#include "JumpAttack.h"
+#include "BossMelee.h"
 
 Boss::Boss(GameObject* _owner)
 	:Monster(_owner)
@@ -34,16 +36,10 @@ Boss::Boss(GameObject* _owner)
 	SetName(BossTypeName);
 
 	m_fDirection = -1.f;
+	m_fJumpImpulse = 300.f;
 	
-	/*m_pAI->RegistryMonster(this);
-	m_pAI->SetOwner(_owner);
-	m_pAI->SetCurState(MONSTER_STATE::IDLE_STATE);
 
-	this->SetIdleBehaviour(new IDLE_Boss);
-	this->SetPatrolBehaviour(new PATROL_Boss);
-	this->SetMeleeBehaivour(new MELEE_Boss);*/	
-
-	//assert(m_pAI != nullptr);
+	m_pRigidBody = static_cast<RigidBody*>(_owner->FindComponent<RigidBody>());
 
 	m_pAnimStateMachine = new AnimStateMachine<Monster>(this);
 
@@ -51,6 +47,9 @@ Boss::Boss(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::NORMAL_ATTACK), new AnimNormalAttackState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::WALK), new AnimWalkState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::HURT), new AnimHurtState<Monster>());
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::JUMP), new AnimJumpState<Monster>());
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::FALL), new AnimFallState<Monster>());
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::FALL), new AnimJumpAttackState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DEATH), new AnimDeathState<Monster>());
 
 	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::IDLE));
@@ -58,30 +57,43 @@ Boss::Boss(GameObject* _owner)
 
 Boss::~Boss()
 {
+	delete m_pBT;
 }
 
 BTNode* Boss::BuildBossBT()
 {	
-	BTNode* root = new Sequence({ new MoveToTarget(this) });
+	std::vector<BTNode*> vec = { new MoveToTarget(this) ,new JumpAttack(this) };
+	BTNode* root = new Sequence(vec);
 	return root;
 }
 
 void Boss::Move()
 {
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
-	float dir = m_vTargetPos.x - m_vPosition.x;	
+	float dir = m_vTargetPos.x - m_vPosition.x;
+
+	m_eCurrentState = MonsterAnimState::WALK;
 
 	m_pTransform->AddPositionX(dir * m_fSpeed*dt);
 }
 
+void Boss::Jump()
+{	
+	glm::vec3 velocity = m_pRigidBody->GetVelocity();
+	velocity.y = m_fJumpImpulse;
+
+	m_pRigidBody->SetVelocity(velocity);
+	m_pRigidBody->SetIsGround(false);
+	SetCurrentAnimState(MonsterAnimState::JUMP);
+}
+
 void Boss::Init()
 {	
-	//m_pMeleeFactory = dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
-	//assert(m_pMeleeFactory != nullptr);		
+	m_pMeleeFactory = dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
+	assert(m_pMeleeFactory != nullptr);		
 
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	assert(m_pSprite != nullptr);
-
 
 	m_pBT = BuildBossBT();
 
@@ -102,8 +114,7 @@ void Boss::Update()
 		if (GetIsHurting())
 		{
 			float Knockback_dir = -m_fDirection;
-			m_pTransform->AddPositionX(0.5f * Knockback_dir);
-			m_eCurrentState = MonsterAnimState::HURT;
+			m_pTransform->AddPositionX(0.5f * Knockback_dir);			
 			//m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
 		}
 
@@ -117,7 +128,7 @@ void Boss::Update()
 		} 
 	}
 
-	Move();
+	//Move();	
 
 	auto hp = GetCurrentHP();
 	hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
@@ -126,6 +137,8 @@ void Boss::Update()
 		m_eCurrentState = MonsterAnimState::DEATH;
 
 	m_vPosition = m_pTransform->GetPosition();
+
+	StateHandle();
 
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();
@@ -141,6 +154,60 @@ void Boss::Fire()
 
 void Boss::MeleeAttack()
 {
+	m_pMelee = m_pMeleeFactory->CreateMelee(GetName());
+	BossMelee* melee_comp = dynamic_cast<BossMelee*>(m_pMelee);
+	assert(m_pMelee != nullptr);
+
+	m_pMelee->SetAttacker(this->GetOwner());
+	float dt = TimeManager::GetInstance()->GetDeltaTime();
+
+
+	if (std::fabs(m_pRigidBody->GetVelocity().y) > 0 &&
+		m_pAnimator->GetAnimation()->m_bLoopCount < 1)
+		m_bJumpMeleeAttacking = true;
+
+	if (m_bCanMeleeAttack == false)
+	{
+		m_fOffsetTimeAcc += dt;
+		if (m_fOffsetTime > m_fOffsetTimeAcc)
+			return;
+		EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
+		m_bCanMeleeAttack = true;
+		m_fOffsetTimeAcc = 0.f;
+	}
+}
+
+void Boss::StateHandle()
+{
+	m_pRigidBody->GetVelocity().y < 0 ? m_bIsFalling = true : m_bIsFalling = false;
+
+	if (GetIsHurting()==false)
+	{
+		if (m_bJumpMeleeAttacking)
+		{
+			if (GetAnimator()->GetAnimation()->m_bLoopCount >= 1)
+			{				
+				m_bJumpMeleeAttacking = false;
+			}
+			else
+			{
+				m_eCurrentState = MonsterAnimState::JUMP_ATTACK;
+			}			
+		}
+		if (m_bIsFalling)
+		{
+			m_eCurrentState = MonsterAnimState::FALL;
+		}
+		if (GetIsHurting())
+		{
+			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+			{
+				m_pAnimator->GetAnimation()->m_bLoopCount = 0;
+				SetIsHurting(false);
+			}
+		}
+	}
+	
 }
 
 void Boss::EnterCollision(Collider* _other)

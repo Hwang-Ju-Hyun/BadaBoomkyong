@@ -41,6 +41,10 @@ private:
 
     GameObject* m_pSmokeDemonMeleeObject = nullptr;
     SmokeDemonMelee* m_pSmokeDemonMelee = nullptr;
+
+    GameObject* m_pBossMeleeObject = nullptr;
+    BossMelee* m_pBossMelee = nullptr;
+
 private:
     virtual void InitStage01()  override;
     virtual void InitStage02()  override;
@@ -52,4 +56,3 @@ private:
 public:
     static constexpr const char* MeleeFactoryTypeName = "MeleeFactory";
 };
-

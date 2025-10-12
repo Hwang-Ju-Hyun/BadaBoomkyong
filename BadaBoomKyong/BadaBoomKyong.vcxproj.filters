@@ -482,6 +482,9 @@
     <Filter Include="AI\BehaviorTree\BlackBoard">
       <UniqueIdentifier>{e050e1dd-b75e-4853-bb9b-27bd231a7a57}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Custom\Melee\Monster\BossMelee">
+      <UniqueIdentifier>{87757c79-2d2d-4337-9d91-4841e9d8d93e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -840,6 +843,15 @@
     </ClCompile>
     <ClCompile Include="BlackBoard.cpp">
       <Filter>AI\BehaviorTree\BlackBoard</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpAttack.cpp">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="BossMelee.cpp">
+      <Filter>Component\Custom\Melee\Monster\BossMelee</Filter>
+    </ClCompile>
+    <ClCompile Include="BehaviorTreeNode.cpp">
+      <Filter>AI\BehaviorTree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1307,6 +1319,12 @@
     </ClInclude>
     <ClInclude Include="BlackBoard.h">
       <Filter>AI\BehaviorTree\BlackBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpAttack.h">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="BossMelee.h">
+      <Filter>Component\Custom\Melee\Monster\BossMelee</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

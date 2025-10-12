@@ -15,7 +15,7 @@ BTNodeState MoveToTarget::Enter(BlackBoard& _bb)
 	return BTNodeState();
 }
 
-BTNodeState MoveToTarget::Tick(BlackBoard& _bb)
+BTNodeState MoveToTarget::Update(BlackBoard& _bb)
 {			
 	Player* p = _bb.GetPlayer();
 	Boss* b = _bb.GetBoss();		
@@ -24,9 +24,13 @@ BTNodeState MoveToTarget::Tick(BlackBoard& _bb)
 	b->SetTargetPos(player_pos);
 	glm::vec3 boss_pos = b->GetPosition();
 
-	if (GeometryUtil::GetInstance()->IsNear(boss_pos, player_pos))
+	if (GeometryUtil::GetInstance()->IsNear(boss_pos, player_pos,200.f))
 		return BTNodeState::SUCCESS;
 	return BTNodeState::RUNNING;
+}
+
+void MoveToTarget::Exit(BlackBoard& _bb)
+{
 }
 
 void MoveToTarget::Abort()

@@ -13,6 +13,8 @@
 #include "FlyingDemonMelee.h"
 #include "SmokeDemon.h"
 #include "SmokeDemonMelee.h"
+#include "Boss.h"
+#include "BossMelee.h"
 
 MeleeFactory::MeleeFactory(STAGE_TYPE _stage)
 	:BaseFactory(_stage)
@@ -78,6 +80,10 @@ Melee* MeleeFactory::CreateMelee(const std::string& _name)
 	else if (_name == "SmokeDemon")
 	{
 		return melee_comp = m_pSmokeDemonMelee;
+	}
+	else if (_name == "Boss")
+	{
+		return melee_comp = m_pBossMelee;
 	}
 }
 
@@ -154,12 +160,11 @@ void MeleeFactory::InitStageTest()
 	Sprite* player_spr = dynamic_cast<Sprite*>(m_pPlayerMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pPlayerMeleeObject)));
 	Collider* player_col = dynamic_cast<Collider*>(m_pPlayerMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pPlayerMeleeObject)));
 
-
-	m_pCurseDemonMeleeObject = new GameObject(Melee::MeleeTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::MELEE);
-	m_pCurseDemonMelee = dynamic_cast<CurseDemonMelee*>(m_pCurseDemonMeleeObject->AddComponent_and_Get(Melee::MeleeTypeName, new CurseDemonMelee(m_pCurseDemonMeleeObject, nullptr)));
-	Transform* trs = dynamic_cast<Transform*>(m_pCurseDemonMeleeObject->AddComponent_and_Get(Transform::TransformTypeName, new Transform(m_pCurseDemonMeleeObject)));
-	Sprite* spr = dynamic_cast<Sprite*>(m_pCurseDemonMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pCurseDemonMeleeObject)));
-	Collider* col = dynamic_cast<Collider*>(m_pCurseDemonMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pCurseDemonMeleeObject)));	
+	m_pBossMeleeObject = new GameObject(Melee::MeleeTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::MELEE);
+	m_pCurseDemonMelee = dynamic_cast<CurseDemonMelee*>(m_pBossMeleeObject->AddComponent_and_Get(Melee::MeleeTypeName, new CurseDemonMelee(m_pBossMeleeObject, nullptr)));
+	Transform* trs = dynamic_cast<Transform*>(m_pBossMeleeObject->AddComponent_and_Get(Transform::TransformTypeName, new Transform(m_pBossMeleeObject)));
+	Sprite* spr = dynamic_cast<Sprite*>(m_pBossMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pBossMeleeObject)));
+	Collider* col = dynamic_cast<Collider*>(m_pBossMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pBossMeleeObject)));	
 }
 
 PlayerMelee* MeleeFactory::PlayerMeleeInit()

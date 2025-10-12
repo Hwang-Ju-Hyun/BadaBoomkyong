@@ -150,8 +150,10 @@
     <ClCompile Include="BaseLevel.cpp" />
     <ClCompile Include="BaseRTTI.cpp" />
     <ClCompile Include="BaseState.cpp" />
+    <ClCompile Include="BehaviorTreeNode.cpp" />
     <ClCompile Include="BlackBoard.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BossMelee.cpp" />
     <ClCompile Include="BTAgent.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletFactory.cpp" />
@@ -181,6 +183,7 @@
     <ClCompile Include="IDLE_ExecutionerDemon.cpp" />
     <ClCompile Include="IDLE_FlyingDemon.cpp" />
     <ClCompile Include="IDLE_SmokeDemon.cpp" />
+    <ClCompile Include="JumpAttack.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -294,6 +297,7 @@
     <ClInclude Include="BehaviorTreeNode.h" />
     <ClInclude Include="BlackBoard.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="BossMelee.h" />
     <ClInclude Include="BTAgent.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletFactory.h" />
@@ -328,6 +332,7 @@
     <ClInclude Include="IParticleBehavior.h" />
     <ClInclude Include="IPatrolBehaviour.h" />
     <ClInclude Include="Anim_IState.h" />
+    <ClInclude Include="JumpAttack.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightManager.h" />
     <ClInclude Include="Material.h" />

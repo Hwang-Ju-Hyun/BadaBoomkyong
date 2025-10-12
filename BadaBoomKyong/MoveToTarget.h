@@ -8,8 +8,9 @@ class MoveToTarget :
 {
 public:
 	MoveToTarget(Boss* _boss);
-	virtual BTNodeState Enter(BlackBoard& _bb);
-	virtual BTNodeState Tick(BlackBoard& _bb) ;
+	virtual BTNodeState Enter(BlackBoard& _bb)override;
+	virtual BTNodeState Update(BlackBoard& _bb)override;
+	virtual void Exit(BlackBoard& _bb)override;
 	virtual void Abort() ;
 
 };

@@ -13,7 +13,8 @@ private:
     int m_iCurrent = 0;
 public:
     virtual BTNodeState Enter(BlackBoard& _bb)override;
-    virtual BTNodeState Tick(BlackBoard& _bb)override;
+    virtual BTNodeState Update(BlackBoard& _bb)override;
+    virtual void Exit(BlackBoard& _bb)override;
     virtual void Abort()override;
 };
 

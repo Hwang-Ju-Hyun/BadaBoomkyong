@@ -32,6 +32,10 @@ enum class MonsterAnimState
     FLYING,
     DIVE_START,
     DIVING,
+    JUMP,
+    FALL,
+    JUMP_ATTACK,
+    DASH,
     DEATH
 };
 
@@ -121,6 +125,7 @@ public:
     inline void SetRangeAtkCoolTime(float _time) { m_fRangeAtkCoolTime = _time; }
     inline float GetRangeAtkCoolTime()const { return m_fRangeAtkCoolTime; }
     inline glm::vec3 GetPosition()const { return m_vPosition; }
+    inline RigidBody* GetRigidBody()const { return m_pRigidBody; }
 public:
     bool m_bCol=false;
 public:
