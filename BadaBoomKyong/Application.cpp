@@ -75,13 +75,15 @@ void Application::Update()
     auto handle = Window::GetInstance()->GetWindowHandle();
     
     //Active
-    ComponentManager::GetInstance()->Awake();
+    GameObjectManager::GetInstance()->Awake();
 
     //GameState
     GameStateManager::GetInstance()->Update();    
 
+    //GameObject
+    GameObjectManager::GetInstance()->Update();
     //Component
-    ComponentManager::GetInstance()->Update();
+    //ComponentManager::GetInstance()->Update();
 
     //Input
     InputManager::GetInstance()->Update();    

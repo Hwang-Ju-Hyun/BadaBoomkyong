@@ -46,6 +46,7 @@ void EventManager::Excute(const EVENT& _eve)
 	case EVENT_TYPE::ACTIVE_TRUE:		
 	{
 		GameObject* obj = reinterpret_cast<GameObject*>(_eve.lParam);
+		obj->SetActive(true);
 		obj->SetActiveAllComps(true);
 		break;
 	}		

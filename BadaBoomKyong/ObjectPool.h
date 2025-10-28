@@ -4,6 +4,7 @@
 #include "BaseComponent.h"
 #include "GameObject.h"
 #include "EventManager.h"
+
 template<typename T,size_t size>
 class ObjectPool
 {	
@@ -24,10 +25,9 @@ public:
 	GameObject* GetPool()
 	{
 		for (int i = 0;i < size; i++)
-		{				
-			T* comp = m_arrPool[i]->FindComponent<T>();
-			if (!(comp->GetActive()))
-			{
+		{							
+			if (!m_arrPool[i]->GetActive())
+			{				
 				EventManager::GetInstance()->SetActiveTrue(m_arrPool[i]);
 				return m_arrPool[i];
 			}

@@ -30,7 +30,7 @@ void PlayerMelee::Init()
     m_pPlayer = dynamic_cast<Player*>(player_obj->FindComponent(Player::PlayerTypeName));
     
     assert(m_pTransform != nullptr && m_pSprite != nullptr && m_pCollider != nullptr&& m_pPlayer!=nullptr);   
-    GetOwner()->SetActiveAllComps(false);
+    GetOwner()->SetActiveAllComps(false);   
 }
 
 void PlayerMelee::Awake()

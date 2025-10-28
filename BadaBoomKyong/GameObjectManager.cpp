@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <cassert>
 #include "ModelManager.h"
+#include "ComponentManager.h"
+#include "BaseComponent.h"
 
 GameObjectManager::GameObjectManager()
 {
@@ -13,11 +15,32 @@ GameObjectManager::~GameObjectManager()
 {	
 }
 
+void GameObjectManager::Awake()
+{
+	for(GameObject* obj : m_vGameObjects)
+	{		
+		for (BaseComponent* comp:obj->GetAllComponentsOfObj_vec())
+		{
+			if (!comp->m_bAwoken && comp->GetActive())
+			{
+				comp->Awake();
+				comp->MarkAwoken(true);
+			}
+		}
+	}
+}
+
 void GameObjectManager::Update()
 {
 	for (int i = 0;i < m_vGameObjects.size();i++)
 	{
-		if(m_vGameObjects[i].geta
+		if (m_vGameObjects[i]->GetActive())
+		{
+			for (auto comp : m_vGameObjects[i]->GetAllComponentsOfObj_vec())
+			{	
+				comp->Update();
+			}
+		}
 	}
 }
 

@@ -22,6 +22,11 @@ private:
 	GROUP_TYPE m_eGroup;
 	size_t m_uID = 0;
 public:
+	bool m_bIsActive = true;
+	inline void SetActive(bool _active) { m_bIsActive = _active; }
+	inline bool GetActive()const { return m_bIsActive; }
+	void CallAwakeAllComp();
+public:
 	//settor	
 	inline void SetName(const std::string& _name) { m_sName = _name; }
 	inline void SetModel(Model* _model) { m_pModel = _model; }

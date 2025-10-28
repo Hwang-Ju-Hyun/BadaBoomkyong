@@ -27,9 +27,9 @@ public:
 	inline void SetOwner(GameObject* _obj) { m_pOwner = _obj; }
 	inline GameObject* GetOwner()const { return m_pOwner; }
 public:
-	bool m_bIsActive = true;
+	bool m_bIsActive_temp = true;
 	void SetActive(bool _active);
-	inline bool GetActive()const { return m_bIsActive; }	
+	inline bool GetActive()const { return m_bIsActive_temp; }	
 	bool m_bAwoken = false;
 	inline void MarkAwoken(bool _mark) { m_bAwoken = _mark; }
 public:

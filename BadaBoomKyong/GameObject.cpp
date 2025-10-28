@@ -36,6 +36,18 @@ GameObject::~GameObject()
 	mTemp.swap(m_hashComponents);*/
 }
 
+void GameObject::CallAwakeAllComp()
+{
+	for (BaseComponent* comp : GetAllComponentsOfObj_vec())
+	{
+		if (!comp->m_bAwoken&&comp->GetActive())
+		{
+			comp->Awake();
+			comp->MarkAwoken(true);
+		}			
+	}		
+}
+
 void GameObject::SetModelType(MODEL_TYPE _modelType)
 {
 	SetModel(ModelManager::GetInstance()->FindModel(_modelType));

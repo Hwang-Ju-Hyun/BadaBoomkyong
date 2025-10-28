@@ -33,7 +33,7 @@ void BaseComponent::SetActive(bool _active)
 	{
 		m_bAwoken = false;
 	}
-	m_bIsActive = _active;
+	m_bIsActive_temp = _active;
 }
 
 #ifdef _DEBUG

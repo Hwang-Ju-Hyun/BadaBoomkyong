@@ -16,6 +16,7 @@ private:
 private:
 	size_t m_uObjID = 0;
 public:
+	void Awake();
 	void Update();
 	void Exit();
 public:

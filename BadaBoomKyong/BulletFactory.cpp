@@ -217,7 +217,7 @@ void BulletFactory::InitStageTest()
 		Sprite* spr = dynamic_cast<Sprite*>(bullet_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(bullet_obj)));
 		Collider* col = dynamic_cast<Collider*>(bullet_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(bullet_obj)));
 		bullet_obj->SetActiveAllComps(false);
-
+		bullet_obj->SetActive(false);
 		m_pBulletPool->m_arrPool[i] = bullet_obj;
 	}	
 
@@ -238,13 +238,14 @@ void BulletFactory::InitStageTest()
 		RigidBody* grn_rig = dynamic_cast<RigidBody*>(grn_obj->AddComponent_and_Get(RigidBody::RigidBodyTypeName, new RigidBody(grn_obj)));
 		Collider* grn_col = dynamic_cast<Collider*>(grn_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(grn_obj)));
 		grn_obj->SetActiveAllComps(false);
+		grn_obj->SetActive(false);
 		m_pMonsterGrenadePool->m_arrPool[j] = grn_obj;
 	}
 
 	//Boss
 	GameObject* boss_obj = obj_mgr->FindObject(Boss::BossTypeName);	
-	ObjectPoolManager::GetInstance()->ReigistPool<BossRange, 30>();
-	m_pBossRangePool = static_cast<ObjectPool<BossRange, 30>*>(ObjectPoolManager::GetInstance()->GetPool<BossRange, 30>());
+	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, 30>();
+	m_pBossRangePool = static_cast<ObjectPool<GameObject*, 30>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, 30>());
 	for (int j = 0;j < 30; j++)
 	{
 		BossRange* range_comp = nullptr;
@@ -256,5 +257,6 @@ void BulletFactory::InitStageTest()
 		Collider* range_col = dynamic_cast<Collider*>(range_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(range_obj)));
 		range_obj->SetActiveAllComps(false);
 		m_pBossRangePool->m_arrPool[j] = range_obj;
+		range_obj->SetActive(false);
 	}
 }

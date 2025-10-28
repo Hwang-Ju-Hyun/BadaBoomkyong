@@ -232,9 +232,10 @@ void Player::Fire()
 void Player::MeleeAttack()
 {
 	auto input = InputManager::GetInstance();
-	m_pMelee = m_pMeleeFactory->CreateMelee(GROUP_TYPE::PLAYER);
+	m_pMelee = m_pMeleeFactory->CreateMelee(GROUP_TYPE::PLAYER);	
 	if (input->GetMouseBtn(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 	{								
+		
 		PlayerMelee* melee_comp = dynamic_cast<PlayerMelee*>(m_pMelee);
 		assert(melee_comp != nullptr);
 
@@ -265,6 +266,8 @@ void Player::MeleeAttack()
 		{
 			m_bCanMeleeAttack = true;
 			EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
+			//m_pMelee->GetOwner()->SetActive(true);
+			//m_pMelee->GetOwner()->CallAwakeAllComp();
 		}
 	}
 	else
@@ -273,11 +276,14 @@ void Player::MeleeAttack()
 		{
 			m_bCanMeleeAttack = true;
 			//std::cout << m_pAnimator->GetAnimation()->m_sAnimationName << std::endl;
+			//m_pMelee->GetOwner()->SetActive(true);
 			EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
+			//m_pMelee->GetOwner()->CallAwakeAllComp();
 		}		
 	}
 	if ((m_bJumpMeleeAttacking || m_bInNormalCombo) && m_pAnimator->GetCurrentFrameIndex() == m_pAnimator->GetAnimation()->m_iSheet_Max - 3)
 	{
+		//m_pMelee->GetOwner()->SetActive(false);
 		EventManager::GetInstance()->SetActiveFalse(m_pMelee->GetOwner());
 	}
 	
