@@ -2,6 +2,7 @@
 #include "Monster.h"
 #include "ObjectPool.h"
 #include "BehaviorTreeNode.h"
+#include "Ray.h"
 
 class BTAgent;
 class BulletFactory;
@@ -25,7 +26,11 @@ private:
 public:
     BTNode* m_pBT;   
     BTAgent* m_pBTAgent;
-    BTNode* BuildBossBT();
+    BTNode* BuildBossBT();    
+private:
+    Ray m_ray;
+    RayCastHit m_rayHit;
+    void HandleGroundCol();
 private:
     //Melee Object
     GameObject* m_pMeleeObj = nullptr;
@@ -48,7 +53,7 @@ private:
     //moveDirection은 스텝이 뒤로가고 앞으로가고이고
     //그냥 direction은 오른쪽을 바라보느냐 왼쪽을 바라보냐임
     int m_iMoveDirection = 1;            //Postive : Right | Negative : Left 
-    float m_fJumpImpulse;
+    float m_fJumpImpulse=1000.f;
 public:
     inline void SetJumpImpulse(float _impulse) { m_fJumpImpulse = _impulse; }
     inline float GetJumpImpulse()const { return m_fJumpImpulse; }
@@ -64,6 +69,7 @@ public:
 public:
     void Fire();
     void MeleeAttack();
+    bool IsMeleeAnimDone();
     MeleeFactory* m_pMeleeFactory = nullptr;
     Melee* m_pMelee = nullptr;
     bool m_bCanMeleeAttack = false;
@@ -71,8 +77,9 @@ public:
     bool m_bMeleeAtkDone = false;
 private:
     float m_fOffsetTimeAcc = 0.f;
-    float m_fOffsetTime = 1.f;
+    float m_fOffsetTime = 0.015f;
     bool m_bJumpMeleeAttacking=false;
+    bool m_bIsNormalAttacking = false;
     bool m_bIsFalling = false;
 private:
     void StateHandle();

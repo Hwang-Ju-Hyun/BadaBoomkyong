@@ -18,10 +18,9 @@ public:
 
     virtual void Update(T* _owner) override
     {
-        //AnimStateMachine<Player>* machine = _owner->GetAnimStateMachine();
+        AnimStateMachine<T>* machine = _owner->GetAnimStateMachine();
         if constexpr (std::is_same<T, Player>::value)
-        {
-            AnimStateMachine<Player>* machine = _owner->GetAnimStateMachine();
+        {            
             switch (_owner->GetCurrentState())
             {
             case PlayerAnimState::IDLE:
@@ -44,25 +43,27 @@ public:
                 break;
             }
         }
-        /*else if constexpr (std::is_same<T, Monster>::value)
-        {
-            AnimStateMachine<Monster>* machine = _owner->GetAnimStateMachine();
+        else if constexpr (std::is_same<T, Monster>::value)
+        {            
             switch (_owner->GetCurrentState())
             {
             case MonsterAnimState::IDLE:
-                machine->ChangeAnimState((MonsterAnimState::IDLE));
+                machine->ChangeAnimState(static_cast<int>(MonsterAnimState::IDLE));
                 break;
             case MonsterAnimState::JUMP:
-                machine->ChangeAnimState((MonsterAnimState::JUMP));
+                machine->ChangeAnimState(static_cast<int>(MonsterAnimState::JUMP));
                 break;
             case MonsterAnimState::FALL:
-                machine->ChangeAnimState((MonsterAnimState::FALL));
+                machine->ChangeAnimState(static_cast<int>(MonsterAnimState::FALL));
+                break;
+            case MonsterAnimState::WALK:
+                machine->ChangeAnimState(static_cast<int>(MonsterAnimState::WALK));
                 break;
             case MonsterAnimState::DEATH:
-                machine->ChangeAnimState((MonsterAnimState::DEATH));
+                machine->ChangeAnimState(static_cast<int>(MonsterAnimState::DEATH));
                 break;
             }
-        }*/
+        }
     }
 
     virtual void Exit(T* _owner) override {}

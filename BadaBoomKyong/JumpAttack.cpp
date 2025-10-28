@@ -4,6 +4,7 @@
 #include "RigidBody.h"
 #include "GeometryUtill.h"
 #include "Player.h"
+#include "Collider.h"
 
 JumpAttack::JumpAttack(Boss* _boss)
 {	
@@ -17,14 +18,23 @@ BTNodeState JumpAttack::Enter(BlackBoard& _bb)
 	m_vBoss_pos = m_pBoss->GetPosition();
 
 	m_pBoss->Jump();
-	return BTNodeState::SUCCESS;
+	return BTNodeState::RUNNING;
 }
 
 BTNodeState JumpAttack::Update(BlackBoard& _bb)
 {			
-	if (GeometryUtil::GetInstance()->IsNear(m_vPlayer_pos, m_vBoss_pos) && !m_pBoss->GetIsGround())
+	m_vPlayer_pos = m_pPlayer->GetPosition();
+ 	m_vBoss_pos = m_pBoss->GetPosition();
+	Collider* boss_col = static_cast<Collider*>(m_pBoss->GetOwner()->FindComponent<Collider>());
+	Collider* player_col = static_cast<Collider*>(m_pPlayer->GetOwner()->FindComponent<Collider>());
+	int anim_done = m_pBoss->GetAnimator()->GetAnimation()->m_bLoopCount;	
+	if (GeometryUtil::GetInstance()->IsNear(player_col->GetFinalPosition(), boss_col->GetFinalPosition()) && !m_pBoss->GetIsGround())
 	{
 		m_pBoss->MeleeAttack();
+		if (m_pBoss->GetCurrentState() == MonsterAnimState::JUMP_ATTACK && anim_done >= 1)
+		{
+			return BTNodeState::SUCCESS;
+		}
 		return BTNodeState::SUCCESS;
 	}
 	if (m_pBoss->GetIsGround())

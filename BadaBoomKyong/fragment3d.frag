@@ -57,7 +57,7 @@ uniform bool uHasNormalMap;
 void main()
 {    
     vec3 Phong=vec3(0.f,0.f,0.f);
-
+    vec3 PhongTemp=vec3(0.f,0.f,0.f);
 
     vec3 N;
     if (uHasNormalMap)
@@ -67,8 +67,7 @@ void main()
 
         //tangent space -> world space
 
-        normalTS = tbnMat * normalTS;        
-
+        normalTS = tbnMat * normalTS;                
         N = normalize(normalTS);
     }
     else
@@ -89,7 +88,16 @@ void main()
         //POINT TYPE
         if(uLight[i].type==0)
         {
-            light_dir = normalize(uLight[i].position-WorldPosition);            
+            // 거리 기반 감쇠 (Attenuation)
+            //float distance = length(uLight[i].position - WorldPosition);
+            //float attenuation = 1.0 / (1.0 + 0.09 * distance + 0.032 * (distance * distance));
+            light_dir = normalize(uLight[i].position-WorldPosition);
+            
+            // 단순 밝기 계산 (diffuse만 사용)
+            //float diffuse = max(dot(N, lightDir), 0.0);
+
+            //Phong += diffuse * attenuation * uLight[i].diffuse;
+            //PhongTemp=Phong;
         }
         //DIRECTIONAL TYPE
         else if(uLight[i].type==1)
@@ -122,16 +130,18 @@ void main()
         vec3 ambient = vec3(1.0f,1.0f,1.0f)* uLight[i].ambient;
 
         //Diffuse
-        vec3 diffuse= vec3(1.0f,1.0f,1.0f)*max(dot(normalize(N),light_dir),0.0);         
+        vec3 diffuse= vec3(1.0f,1.0f,1.0f)*uLight[i].diffuse*max(dot(normalize(N),light_dir),0.0);         
+
 
         //Specular
         vec3 reflectDir=reflect(-light_dir,N);
         //todo 마지막 값 uniform 샤이니 값으로 변경하셈
-        float spec = pow(max(dot(viewDir, reflectDir), 0.0), 3002.f);
+        float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32.f);
           
         //todo 요것도 vec3(1.0) uMp_Specular로 봐꾸셈
         vec3 specular = vec3(1.0f,1.0f,1.0f) * uLight[i].specular * spec;
 
+        
         Phong+=(specular+ambient+diffuse);
     }
 

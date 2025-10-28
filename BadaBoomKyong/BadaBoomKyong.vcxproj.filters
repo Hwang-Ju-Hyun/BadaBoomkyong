@@ -311,9 +311,6 @@
     <Filter Include="Component\Custom\Melee\Monster\CurseDemonMelee">
       <UniqueIdentifier>{06281e8e-a4ac-495a-be73-af6843ed835e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Custom\Bullet\Monster\CurseDemonMelee">
-      <UniqueIdentifier>{ca189c89-96ba-41ae-a056-3503368717f7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Custom\Monster\CurseDemon">
       <UniqueIdentifier>{d8a4c8bc-d7d9-4636-abc6-ae63eba4a969}</UniqueIdentifier>
     </Filter>
@@ -484,6 +481,12 @@
     </Filter>
     <Filter Include="Component\Custom\Melee\Monster\BossMelee">
       <UniqueIdentifier>{87757c79-2d2d-4337-9d91-4841e9d8d93e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Monster\CurseDemonBullet">
+      <UniqueIdentifier>{ca189c89-96ba-41ae-a056-3503368717f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Monster\BossRange">
+      <UniqueIdentifier>{41b77911-79ab-4443-8083-67f44a104451}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -662,7 +665,7 @@
       <Filter>AI\FiniteStateMachine\Melee</Filter>
     </ClCompile>
     <ClCompile Include="CurseDemonBullet.cpp">
-      <Filter>Component\Custom\Bullet\Monster\CurseDemonMelee</Filter>
+      <Filter>Component\Custom\Bullet\Monster\CurseDemonBullet</Filter>
     </ClCompile>
     <ClCompile Include="EventManager.cpp">
       <Filter>Manager\EventManager</Filter>
@@ -852,6 +855,15 @@
     </ClCompile>
     <ClCompile Include="BehaviorTreeNode.cpp">
       <Filter>AI\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalAttack.cpp">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="RangeAttack.cpp">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="BossRange.cpp">
+      <Filter>Component\Custom\Bullet\Monster\BossRange</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1045,7 +1057,7 @@
       <Filter>AI\FiniteStateMachine\Melee</Filter>
     </ClInclude>
     <ClInclude Include="CurseDemonBullet.h">
-      <Filter>Component\Custom\Bullet\Monster\CurseDemonMelee</Filter>
+      <Filter>Component\Custom\Bullet\Monster\CurseDemonBullet</Filter>
     </ClInclude>
     <ClInclude Include="EventManager.h">
       <Filter>Manager\EventManager</Filter>
@@ -1325,6 +1337,15 @@
     </ClInclude>
     <ClInclude Include="BossMelee.h">
       <Filter>Component\Custom\Melee\Monster\BossMelee</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalAttack.h">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeAttack.h">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="BossRange.h">
+      <Filter>Component\Custom\Bullet\Monster\BossRange</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

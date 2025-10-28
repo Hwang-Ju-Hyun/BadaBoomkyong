@@ -24,7 +24,7 @@ BTNodeState MoveToTarget::Update(BlackBoard& _bb)
 	b->SetTargetPos(player_pos);
 	glm::vec3 boss_pos = b->GetPosition();
 
-	if (GeometryUtil::GetInstance()->IsNear(boss_pos, player_pos,200.f))
+	if (GeometryUtil::GetInstance()->IsNear(boss_pos, player_pos,150.f))
 		return BTNodeState::SUCCESS;
 	return BTNodeState::RUNNING;
 }

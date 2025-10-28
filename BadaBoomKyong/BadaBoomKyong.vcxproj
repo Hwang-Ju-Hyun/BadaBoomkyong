@@ -154,6 +154,7 @@
     <ClCompile Include="BlackBoard.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BossMelee.cpp" />
+    <ClCompile Include="BossRange.cpp" />
     <ClCompile Include="BTAgent.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletFactory.cpp" />
@@ -221,6 +222,7 @@
     <ClCompile Include="MonoBehaviour.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MoveToTarget.cpp" />
+    <ClCompile Include="NormalAttack.cpp" />
     <ClCompile Include="ObjectPoolManager.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="ParticleSystemManager.cpp" />
@@ -234,6 +236,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerMelee.cpp" />
     <ClCompile Include="PositionOverLifeTime.cpp" />
+    <ClCompile Include="RangeAttack.cpp" />
     <ClCompile Include="RangedState.cpp" />
     <ClCompile Include="RANGED_CurseDemon.cpp" />
     <ClCompile Include="Registry.cpp" />
@@ -298,6 +301,7 @@
     <ClInclude Include="BlackBoard.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="BossMelee.h" />
+    <ClInclude Include="BossRange.h" />
     <ClInclude Include="BTAgent.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletFactory.h" />
@@ -376,6 +380,7 @@
     <ClInclude Include="MonoBehaviour.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MoveToTarget.h" />
+    <ClInclude Include="NormalAttack.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectPoolManager.h" />
     <ClInclude Include="ParticleSystem.h" />
@@ -390,6 +395,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerMelee.h" />
     <ClInclude Include="PositionOverLifeTime.h" />
+    <ClInclude Include="RangeAttack.h" />
     <ClInclude Include="RangedState.h" />
     <ClInclude Include="RANGED_CurseDemon.h" />
     <ClInclude Include="Ray.h" />

@@ -19,6 +19,7 @@
 #include "ParticleSystem.h"
 #include "IDLE_Boss.h"
 #include "PATROL_Boss.h"
+#include "CollisionManager.h"
 #include "MELEE_Boss.h"
 #include "BTAgent.h"
 #include "BehaviorTreeNode.h"
@@ -29,6 +30,9 @@
 #include "MoveToTarget.h"
 #include "JumpAttack.h"
 #include "BossMelee.h"
+#include "NormalAttack.h"
+#include "BossRange.h"
+#include "RangeAttack.h"
 
 Boss::Boss(GameObject* _owner)
 	:Monster(_owner)
@@ -49,7 +53,7 @@ Boss::Boss(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::HURT), new AnimHurtState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::JUMP), new AnimJumpState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::FALL), new AnimFallState<Monster>());
-	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::FALL), new AnimJumpAttackState<Monster>());
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::JUMP_ATTACK), new AnimJumpAttackState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DEATH), new AnimDeathState<Monster>());
 
 	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::IDLE));
@@ -62,9 +66,25 @@ Boss::~Boss()
 
 BTNode* Boss::BuildBossBT()
 {	
-	std::vector<BTNode*> vec = { new MoveToTarget(this) ,new JumpAttack(this) };
-	BTNode* root = new Sequence(vec);
+	//std::vector<BTNode*> vec = { new MoveToTarget(this) ,new JumpAttack(this) };
+	BTNode* root = new Sequence({ new NormalAttack(this)});
 	return root;
+}
+
+void Boss::HandleGroundCol()
+{
+	glm::vec3 dir_ray = glm::normalize(glm::vec3{ 0.1f,-1.f,0.f });
+	m_ray = { m_pCollider->GetFinalPosition(),dir_ray };
+	if (CollisionManager::GetInstance()->RayCast(m_ray, m_pCollider->GetScale().y - 50.f, m_rayHit, GROUP_TYPE::PLATFORM))
+	{
+		m_pRigidBody->SetIsGround(true);
+		SetIsGround(true);
+	}
+	else
+	{
+		m_pRigidBody->SetIsGround(false);
+		SetIsGround(false);
+	}
 }
 
 void Boss::Move()
@@ -73,8 +93,9 @@ void Boss::Move()
 	float dir = m_vTargetPos.x - m_vPosition.x;
 
 	m_eCurrentState = MonsterAnimState::WALK;
+	m_pTransform->AddPositionX(dir * m_fSpeed * dt);
 
-	m_pTransform->AddPositionX(dir * m_fSpeed*dt);
+	
 }
 
 void Boss::Jump()
@@ -84,13 +105,14 @@ void Boss::Jump()
 
 	m_pRigidBody->SetVelocity(velocity);
 	m_pRigidBody->SetIsGround(false);
-	SetCurrentAnimState(MonsterAnimState::JUMP);
+	SetIsGround(false);
+	SetCurrentAnimState(MonsterAnimState::JUMP);	
 }
 
 void Boss::Init()
 {	
 	m_pMeleeFactory = dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
-	assert(m_pMeleeFactory != nullptr);		
+	assert(m_pMeleeFactory != nullptr);
 
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	assert(m_pSprite != nullptr);
@@ -101,12 +123,15 @@ void Boss::Init()
 }
 
 void Boss::Update()
-{
-	m_pBTAgent->Update();
+{	
 	if (GetIsAlive())
-	{
+	{	
+		
 		UpdateSpriteFlipX();
 
+		float dir = m_vPlayerPosition.x - m_vPosition.x;
+		dir > 0 ? m_fDirection = 1 : m_fDirection = -1;
+		
 		auto math = MathUtil::GetInstance();
 		m_vPosition = m_pTransform->GetPosition();
 		m_vPlayerPosition = m_pPlayerTransform->GetPosition();		
@@ -128,8 +153,8 @@ void Boss::Update()
 		} 
 	}
 
-	//Move();	
-
+	//Move();
+	HandleGroundCol();
 	auto hp = GetCurrentHP();
 	hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
 
@@ -138,10 +163,12 @@ void Boss::Update()
 
 	m_vPosition = m_pTransform->GetPosition();
 
+	m_pBTAgent->Update();
+
 	StateHandle();
 
 	if (m_pAnimStateMachine)
-		m_pAnimStateMachine->Update();
+		m_pAnimStateMachine->Update();	
 }
 
 void Boss::Exit()
@@ -157,6 +184,8 @@ void Boss::MeleeAttack()
 	m_pMelee = m_pMeleeFactory->CreateMelee(GetName());
 	BossMelee* melee_comp = dynamic_cast<BossMelee*>(m_pMelee);
 	assert(m_pMelee != nullptr);
+	
+	m_bIsNormalAttacking = true;
 
 	m_pMelee->SetAttacker(this->GetOwner());
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
@@ -177,6 +206,12 @@ void Boss::MeleeAttack()
 	}
 }
 
+//The Animation's Loop should be false
+bool Boss::IsMeleeAnimDone()
+{			
+	return(GetCurrentState() == MonsterAnimState::NORMAL_ATTACK && GetAnimator()->GetAnimation()->m_bLoopCount >= 1);
+}
+
 void Boss::StateHandle()
 {
 	m_pRigidBody->GetVelocity().y < 0 ? m_bIsFalling = true : m_bIsFalling = false;
@@ -191,8 +226,22 @@ void Boss::StateHandle()
 			}
 			else
 			{
-				m_eCurrentState = MonsterAnimState::JUMP_ATTACK;
-			}			
+				m_eCurrentState = MonsterAnimState::JUMP_ATTACK;				
+				return;
+			}	
+			
+		}
+		else if (m_bIsNormalAttacking)
+		{
+			if (GetAnimator()->GetAnimation()->m_bLoopCount >= 1)
+			{
+				m_bIsNormalAttacking = false;
+			}
+			else
+			{
+				m_eCurrentState = MonsterAnimState::NORMAL_ATTACK;
+			}
+			return;
 		}
 		if (m_bIsFalling)
 		{
@@ -207,23 +256,37 @@ void Boss::StateHandle()
 			}
 		}
 	}
-	
+	if (m_pRigidBody->GetVelocity().y > 0)
+	{
+		m_eCurrentState = MonsterAnimState::JUMP;
+	}
+	else if (m_pRigidBody->GetVelocity().y < 0)
+	{
+		m_eCurrentState = MonsterAnimState::FALL;
+	}
+
+	if (std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon
+		&& m_pRigidBody->GetIsGround()))
+	{
+		m_eCurrentState = MonsterAnimState::IDLE;
+	}
+		
 }
 
 void Boss::EnterCollision(Collider* _other)
 {
-	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
+	/*if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
 	{
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());
-	}
+	}*/
 }
 
 void Boss::OnCollision(Collider* _other)
 {
-	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
+	/*if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
 	{
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());
-	}
+	}*/
 }
 
 void Boss::ExitCollision(Collider* _other)

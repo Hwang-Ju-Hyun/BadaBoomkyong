@@ -86,7 +86,7 @@ public:
                 break;
             case MonsterAnimState::FALL:
                 machine->ChangeAnimState(int(MonsterAnimState::FALL));
-                break;
+                break;          
             }
         }        
     }

@@ -20,6 +20,7 @@ public:
 	bool CollisionFromBottom=false;
 	bool CollisionFromTop=false;
 public:
-	bool IsNear(const glm::vec3& _pos, const glm::vec3& _target, float _nearDist=1.f);
+	bool IsNear(const glm::vec3& _pos, const glm::vec3& _target, float _nearDist=100.f);
+	bool IsNearX(const glm::vec3& _pos, const glm::vec3& _target, float _nearDist = 100.f);
 	
 };

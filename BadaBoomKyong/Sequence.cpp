@@ -11,7 +11,7 @@ Sequence::~Sequence()
 
 BTNodeState Sequence::Enter(BlackBoard& _bb)
 {
-	return BTNodeState();
+	return BTNodeState::RUNNING;
 }
 
 BTNodeState Sequence::Update(BlackBoard& _bb)
@@ -26,6 +26,7 @@ BTNodeState Sequence::Update(BlackBoard& _bb)
 			m_iCurrent = 0;
 			return BTNodeState::FAILURE;
 		}
+		//STATE == SUCCESS
 		m_iCurrent++;
 	}
 	m_iCurrent = 0;

@@ -339,7 +339,7 @@ Model* ModelManager::LoadModel(const std::string& _filePath)
 		aiProcess_ImproveCacheLocality |
 		aiProcess_RemoveRedundantMaterials |
 		aiProcess_SortByPType 		|
-		aiProcess_GenSmoothNormals
+		aiProcess_GenSmoothNormals		
 	);
 
 	if (!scene || !scene->HasMeshes())

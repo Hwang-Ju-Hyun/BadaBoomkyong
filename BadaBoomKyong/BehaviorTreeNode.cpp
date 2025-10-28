@@ -9,8 +9,9 @@ BTNodeState BTNode::Tick(BlackBoard& _bb)
         if (m_eState == BTNodeState::RUNNING)
             return BTNodeState::RUNNING;
     }
-
-    BTNodeState state_result = Update(_bb);
+    BTNodeState state_result= m_eState;
+    if(m_eState!=BTNodeState::FAILURE)
+        state_result = Update(_bb);
 
 
     if (state_result != BTNodeState::RUNNING)

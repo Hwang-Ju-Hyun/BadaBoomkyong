@@ -161,10 +161,17 @@ void MeleeFactory::InitStageTest()
 	Collider* player_col = dynamic_cast<Collider*>(m_pPlayerMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pPlayerMeleeObject)));
 
 	m_pBossMeleeObject = new GameObject(Melee::MeleeTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::MELEE);
-	m_pCurseDemonMelee = dynamic_cast<CurseDemonMelee*>(m_pBossMeleeObject->AddComponent_and_Get(Melee::MeleeTypeName, new CurseDemonMelee(m_pBossMeleeObject, nullptr)));
+	m_pBossMelee = dynamic_cast<BossMelee*>(m_pBossMeleeObject->AddComponent_and_Get(Melee::MeleeTypeName, new BossMelee(m_pBossMeleeObject, nullptr)));
 	Transform* trs = dynamic_cast<Transform*>(m_pBossMeleeObject->AddComponent_and_Get(Transform::TransformTypeName, new Transform(m_pBossMeleeObject)));
 	Sprite* spr = dynamic_cast<Sprite*>(m_pBossMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pBossMeleeObject)));
 	Collider* col = dynamic_cast<Collider*>(m_pBossMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pBossMeleeObject)));	
+
+
+	m_pSmokeDemonMeleeObject = new GameObject(Melee::MeleeTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::MELEE);
+	m_pSmokeDemonMelee = dynamic_cast<SmokeDemonMelee*>(m_pSmokeDemonMeleeObject->AddComponent_and_Get(Melee::MeleeTypeName, new SmokeDemonMelee(m_pSmokeDemonMeleeObject, nullptr)));
+	Transform* sm_trs = dynamic_cast<Transform*>(m_pSmokeDemonMeleeObject->AddComponent_and_Get(Transform::TransformTypeName, new Transform(m_pSmokeDemonMeleeObject)));
+	Sprite* sm_spr = dynamic_cast<Sprite*>(m_pSmokeDemonMeleeObject->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(m_pSmokeDemonMeleeObject)));
+	Collider* sm_col = dynamic_cast<Collider*>(m_pSmokeDemonMeleeObject->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(m_pSmokeDemonMeleeObject)));
 }
 
 PlayerMelee* MeleeFactory::PlayerMeleeInit()

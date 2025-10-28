@@ -9,7 +9,7 @@
         "CompData": {
           "Pos": [
             -596.97909545898438,
-            479.334228515625,
+            7479.334228515625,
             0.0
           ],
           "Sca": [
@@ -243,8 +243,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-            -6.0,
-            577.5274658203125,
+           200.0,
+            8577.5274658203125,
             0.0
           ],
           "Sca": [
@@ -304,85 +304,105 @@
       {
         "Type": "Animator",
         "CompData": {
-          "Animations": [
-            {
-              "Name": "Death",
-              "TextureName": "Death",
-              "TexturePath": "../Extern/Assets/Texture/Boss/death/Death.png",
-              "Max": 12,
-              "Row": 1,
-              "Col": 12,
-              "Duration": 0.10000000149011612,
-              "Loop": false
-            },
-            {
-              "Name": "Fall",
-              "TextureName": "Fall",
-              "TexturePath": "../Extern/Assets/Texture/Boss/jump/Fall.png",
-              "Max": 7,
-              "Row": 1,
-              "Col": 7,
-              "Duration": 0.10000000149011612,
-              "Loop": true
-            },
-            {
-              "Name": "Hurt",
-              "TextureName": "Hurt",
-              "TexturePath": "../Extern/Assets/Texture/Boss/hurt/Hurt.png",
-              "Max": 6,
-              "Row": 1,
-              "Col": 6,
-              "Duration": 0.15000002086162567,
-              "Loop": false
-            },
-            {
-              "Name": "Idle",
-              "TextureName": "Idle",
-              "TexturePath": "../Extern/Assets/Texture/Boss/idle/Idle.png",
-              "Max": 12,
-              "Row": 1,
-              "Col": 12,
-              "Duration": 0.10000000149011612,
-              "Loop": true
-            },
-            {
-              "Name": "Jump",
-              "TextureName": "Jump",
-              "TexturePath": "../Extern/Assets/Texture/Boss/jump/Jump.png",
-              "Max": 4,
-              "Row": 1,
-              "Col": 4,
-              "Duration": 0.10000000149011612,
-              "Loop": false
-            },
-            {
-              "Name": "NormalAttack_1",
-              "TextureName": "NormalAttack_1",
-              "TexturePath": "../Extern/Assets/Texture/Boss/1_atk/NormalAttack_1.png",
-              "Max": 9,
-              "Row": 1,
-              "Col": 9,
-              "Duration": 0.10000000149011612,
-              "Loop": false
-            },
-            {
-              "Name": "Walk",
-              "TextureName": "Walk",
-              "TexturePath": "../Extern/Assets/Texture/Boss/run/Walk.png",
-              "Max": 10,
-              "Row": 1,
-              "Col": 10,
-              "Duration": 0.10000000149011612,
-              "Loop": true
-            }
-          ]
+            "Animations": [
+                {
+                    "Name": "Death",
+                    "TextureName": "Death",
+                    "TexturePath": "../Extern/Assets/Texture/Boss/death/Death.png",
+                    "Max": 12,
+                    "Row": 1,
+                    "Col": 12,
+                    "Duration": 0.10000000149011612,
+                    "Loop": false
+                },
+                {
+                    "Name": "Fall",
+                    "TextureName": "Fall",
+                    "TexturePath": "../Extern/Assets/Texture/Boss/jump/Fall.png",
+                    "Max": 7,
+                    "Row": 1,
+                    "Col": 7,
+                    "Duration": 0.10000000149011612,
+                    "Loop": true
+                },
+                {
+                    "Name": "Hurt",
+                    "TextureName": "Hurt",
+                    "TexturePath": "../Extern/Assets/Texture/Boss/hurt/Hurt.png",
+                    "Max": 6,
+                    "Row": 1,
+                    "Col": 6,
+                    "Duration": 0.15000002086162567,
+                    "Loop": false
+                },
+                {
+                    "Name": "Idle",
+                    "TextureName": "Idle",
+                    "TexturePath": "../Extern/Assets/Texture/Boss/idle/Idle.png",
+                    "Max": 12,
+                    "Row": 1,
+                    "Col": 12,
+                    "Duration": 0.10000000149011612,
+                    "Loop": true
+                },
+                {
+                    "Name": "Jump",
+                    "TextureName": "Jump",
+                    "TexturePath": "../Extern/Assets/Texture/Boss/jump/Jump.png",
+                    "Max": 4,
+                    "Row": 1,
+                    "Col": 4,
+                    "Duration": 0.10000000149011612,
+                    "Loop": false
+                },
+                {
+                    "Name": "NormalAttack_1",
+                    "TextureName": "NormalAttack_1",
+                    "TexturePath": "../Extern/Assets/Texture/Boss/1_atk/NormalAttack_1.png",
+                    "Max": 9,
+                    "Row": 1,
+                    "Col": 9,
+                    "Duration": 0.10000000149011612,
+                    "Loop": false
+                },
+                {
+                    "Name": "Walk",
+                    "TextureName": "Walk",
+                    "TexturePath": "../Extern/Assets/Texture/Boss/run/Walk.png",
+                    "Max": 10,
+                    "Row": 1,
+                    "Col": 10,
+                    "Duration": 0.10000000149011612,
+                    "Loop": true
+                },
+                {
+                    "Name": "JumpAttack",
+                    "TextureName": "JumpAttack",
+                    "TexturePath": "../Extern/Assets/Texture/Boss/JumpAttack/JumpAttack.png",
+                    "Max": 8,
+                    "Row": 1,
+                    "Col": 8,
+                    "Duration": 0.10000000149011612,
+                    "Loop": false
+                },
+                {
+                    "Name": "RangeAttack",
+                    "TextureName": "RangeAttack",
+                    "TexturePath": "../Extern/Assets/Texture/Boss/RangeAttack/RangeAttack.png",
+                    "Max": 12,
+                    "Row": 1,
+                    "Col": 12,
+                    "Duration": 0.10000000149011612,
+                    "Loop": false
+                }
+            ]
         }
       },      
       {
         "Type": "Boss",
         "CompData": {
-          "Speed": 0.5,
-          "JumpForce": 500.0,
+          "Speed": 1,
+          "JumpForce": 800.0,
           "DetectRange": 500.0,
           "MeleeAtkCoolTime": 3.0,
           "RangedMoveAtkRange": [
@@ -452,9 +472,9 @@
             0.30000001192092896
           ],
           "Diffuse": [
-            0.0,
-            0.0,
-            0.0
+            1.0,
+            1.0,
+            1.0
           ],
           "Specular": [
             0.30000001192092896,
@@ -772,5 +792,237 @@
     "Model": 6,
     "ModelPath": "../Extern/Assets/Model/boss_stage/Outer.fbx",
     "Group": 4
+  },
+  {
+    "Name": "TALL1",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -1711.4901123046875,
+            207.3618927001953,
+            -249.58287048339844
+          ],
+          "Sca": [
+            0.7099999785423279,
+            0.5,
+            0.7413750290870667
+          ],
+          "Rot": [
+            -179.99989318847656,
+            -5.008956122765085e-06,
+            -179.99989318847656
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            -40.0,
+            0.0
+          ],
+          "Scale": [
+            50.0,
+            100.0,
+            450.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Platform/Wall_long_temp2.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "House1",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            1209.9229736328125,
+            -326.55950927734375,
+            -634.5035400390625
+          ],
+          "Sca": [
+            1.2839831113815308,
+            1.0005069971084595,
+            1.204253077507019
+          ],
+          "Rot": [
+            0.0,
+            -38.849586486816406,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Desert/desert-house-diorama/HOUSE_1.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "SmokeDemon",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            168.9678955078125,
+            -302670.4375,
+            0.0
+          ],
+          "Sca": [
+            250.0,
+            250.0,
+            450.0
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Sprite",
+        "CompData": {
+          "RGBA": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "TextureName": "Idle",
+          "TexturePath": "../Extern/Assets/Texture/SmokeDemon/Idle.png"
+        }
+      },
+      {
+        "Type": "RigidBody",
+        "CompData": {
+          "Kinematic": [
+            false
+          ],
+          "Gravity": [
+            980.0
+          ],
+          "Mass": [
+            1.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            10.0,
+            0.0
+          ],
+          "Scale": [
+            40.0,
+            110.0,
+            450.0
+          ]
+        }
+      },
+      {
+        "Type": "Animator",
+        "CompData": {
+          "Animations": [
+            {
+              "Name": "Death",
+              "TextureName": "Death",
+              "TexturePath": "../Extern/Assets/Texture/SmokeDemon/Death.png",
+              "Max": 5,
+              "Row": 1,
+              "Col": 5,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "Hurt",
+              "TextureName": "Hurt",
+              "TexturePath": "../Extern/Assets/Texture/SmokeDemon/Hurt.png",
+              "Max": 4,
+              "Row": 1,
+              "Col": 4,
+              "Duration": 0.15000002086162567,
+              "Loop": false
+            },
+            {
+              "Name": "Idle",
+              "TextureName": "Idle",
+              "TexturePath": "../Extern/Assets/Texture/SmokeDemon/Idle.png",
+              "Max": 8,
+              "Row": 1,
+              "Col": 8,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            },
+            {
+              "Name": "NormalAttack_1",
+              "TextureName": "NormalAttack_1",
+              "TexturePath": "../Extern/Assets/Texture/SmokeDemon/NormalAttack_1.png",
+              "Max": 8,
+              "Row": 1,
+              "Col": 8,
+              "Duration": 0.5,
+              "Loop": false
+            },
+            {
+              "Name": "Walk",
+              "TextureName": "Walk",
+              "TexturePath": "../Extern/Assets/Texture/SmokeDemon/Walk.png",
+              "Max": 8,
+              "Row": 1,
+              "Col": 8,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            }
+          ]
+        }
+      },
+      {
+        "Type": "AI",
+        "CompData": {
+          "StateList": [
+            0,
+            1,
+            3
+          ]
+        }
+      },
+      {
+        "Type": "SmokeDemon",
+        "CompData": {
+          "Speed": 100.0,
+          "JumpForce": 500.0,
+          "DetectRange": 500.0,
+          "MeleeAtkCoolTime": 1.0,
+          "RangedMoveAtkRange": [
+            50.0,
+            500.0,
+            0.0
+          ],
+          "MeleeAtkRange": [
+            200.0,
+            500.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 4,
+    "Group": 3
   }
 ]

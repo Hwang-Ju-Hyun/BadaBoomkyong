@@ -274,7 +274,7 @@ bool CollisionManager::RayCast(const Ray& _ray, float _maxDistance, RayCastHit& 
 			continue;		
 		if (col->GetOwner()->GetGroupType() != _target)
 			continue;
-		if(col->GetOwner()->GetModelType()==RECTANGLE)
+ 		if(col->GetOwner()->GetModelType()==RECTANGLE)
 			continue;
 
 		RayCastHit tempHit;	

@@ -4,6 +4,7 @@ class Boss;
 class Player;
 class Transform;
 class RigidBody;
+class Monster;
 
 class BlackBoard
 {
@@ -23,5 +24,10 @@ public:
 	inline Transform* GetPlayerTransform()const { return m_pPlayerTransform; }
 	inline Transform* GetBossTransform()const { return m_pBossTransform; }
 	inline RigidBody* GetBossRigidBody()const { return m_pBossRigidBody; }
+
+//CONDITION
+public:
+	bool IsPlayerNear(Monster* _monster);
+	bool IsPlayerNearX(Monster* _monster);
 };
 

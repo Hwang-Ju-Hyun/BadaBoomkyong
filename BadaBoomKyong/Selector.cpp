@@ -28,6 +28,7 @@ BTNodeState Selector::Update(BlackBoard& _bb)
 		{			
 			return BTNodeState::RUNNING;
 		}
+		//FAIL 
 		m_iCurrent++;
 	}
 	m_iCurrent = 0;

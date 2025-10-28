@@ -18,6 +18,9 @@
 #include "Serializer.h"
 #include "FlyingDemon.h"
 #include "FlyingDemonFireBall.h"
+#include "Boss.h"
+#include "BossRange.h"
+
 
 BulletFactory::BulletFactory(STAGE_TYPE _stage)
 	:BaseFactory(_stage)
@@ -65,6 +68,8 @@ Bullet* BulletFactory::CreateBullet(BULLET_TYPE _type)
 		break;
 	case BULLET_TYPE::BULLET_LAST:
 		break;	
+	case BULLET_TYPE::BOSS_RANGE:
+		break;
 	case BULLET_TYPE::CURSEDEMON_FIREBALL:
 		bullet_comp = m_pMonsterGrenadePool->GetPool()->FindComponent<CurseDemonBullet>();
 	default:
@@ -218,13 +223,11 @@ void BulletFactory::InitStageTest()
 
 	auto obj_mgr = GameObjectManager::GetInstance();
 
+	////Curse
 	GameObject* sm_obj = obj_mgr->FindObject(CurseDemon::CurseDemonTypeName);
 	int grenade_obj_count = obj_mgr->GetObjectNumber(CurseDemon::CurseDemonTypeName);
-
 	ObjectPoolManager::GetInstance()->ReigistPool<CurseDemonBullet, 30>();
-
 	m_pMonsterGrenadePool = static_cast<ObjectPool<CurseDemonBullet, 30>*>(ObjectPoolManager::GetInstance()->GetPool<CurseDemonBullet, 30>());
-
 	for (int j = 0;j < 30; j++)
 	{
 		CurseDemonBullet* grn_comp = nullptr;
@@ -236,5 +239,22 @@ void BulletFactory::InitStageTest()
 		Collider* grn_col = dynamic_cast<Collider*>(grn_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(grn_obj)));
 		grn_obj->SetActiveAllComps(false);
 		m_pMonsterGrenadePool->m_arrPool[j] = grn_obj;
+	}
+
+	//Boss
+	GameObject* boss_obj = obj_mgr->FindObject(Boss::BossTypeName);	
+	ObjectPoolManager::GetInstance()->ReigistPool<BossRange, 30>();
+	m_pBossRangePool = static_cast<ObjectPool<BossRange, 30>*>(ObjectPoolManager::GetInstance()->GetPool<BossRange, 30>());
+	for (int j = 0;j < 30; j++)
+	{
+		BossRange* range_comp = nullptr;
+		GameObject* range_obj = new GameObject(BossRange::BossRangeTypaName, MODEL_TYPE::CUBE, GROUP_TYPE::BULLET);
+		range_comp = dynamic_cast<BossRange*>(range_obj->AddComponent_and_Get(BossRange::BossRangeTypaName, new BossRange(range_obj, boss_obj)));
+		Transform* range_trs = dynamic_cast<Transform*>(range_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(range_obj)));
+		Sprite* range_spr= dynamic_cast<Sprite*>(range_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(range_obj)));
+		RigidBody* range_rig = dynamic_cast<RigidBody*>(range_obj->AddComponent_and_Get(RigidBody::RigidBodyTypeName, new RigidBody(range_obj)));
+		Collider* range_col = dynamic_cast<Collider*>(range_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(range_obj)));
+		range_obj->SetActiveAllComps(false);
+		m_pBossRangePool->m_arrPool[j] = range_obj;
 	}
 }

@@ -104,3 +104,8 @@ bool GeometryUtil::IsNear(const glm::vec3& _pos, const glm::vec3& _target, float
         && std::fabs(_pos.z - _target.z) < _nearDist;
 }
 
+bool GeometryUtil::IsNearX(const glm::vec3& _pos, const glm::vec3& _target, float _nearDist)
+{
+    return std::fabs(_pos.x - _target.x) < _nearDist;
+}
+
