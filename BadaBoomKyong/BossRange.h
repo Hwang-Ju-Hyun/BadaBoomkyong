@@ -30,7 +30,7 @@ private:
 private:
 	float m_fThrowingForce = 0.f;
 public:
-	static constexpr const char* BossRangeTypaName = "BossRange";
+	static constexpr const char* BossRangeTypeName = "BossRange";
 	static constexpr const char* BossRangeImpulseTypeName = "BossRangeImpulse";
 public:
 	virtual void Fire() override;

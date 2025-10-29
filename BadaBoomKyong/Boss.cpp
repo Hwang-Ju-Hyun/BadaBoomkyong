@@ -33,6 +33,7 @@
 #include "NormalAttack.h"
 #include "BossRange.h"
 #include "RangeAttack.h"
+#include "BulletFactory.h"
 
 Boss::Boss(GameObject* _owner)
 	:Monster(_owner)
@@ -49,6 +50,7 @@ Boss::Boss(GameObject* _owner)
 
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::IDLE), new AnimIdleState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::NORMAL_ATTACK), new AnimNormalAttackState<Monster>());
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::RANGE_ATTACK), new AnimRangeAttackState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::WALK), new AnimWalkState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::HURT), new AnimHurtState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::JUMP), new AnimJumpState<Monster>());
@@ -67,7 +69,7 @@ Boss::~Boss()
 BTNode* Boss::BuildBossBT()
 {	
 	//std::vector<BTNode*> vec = { new MoveToTarget(this) ,new JumpAttack(this) };
-	BTNode* root = new Sequence({ new NormalAttack(this)});
+	BTNode* root = new Selector({ new RangeAttack(this)});
 	return root;
 }
 
@@ -114,6 +116,8 @@ void Boss::Init()
 	m_pMeleeFactory = dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
 	assert(m_pMeleeFactory != nullptr);
 
+	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
+
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	assert(m_pSprite != nullptr);
 
@@ -140,7 +144,6 @@ void Boss::Update()
 		{
 			float Knockback_dir = -m_fDirection;
 			m_pTransform->AddPositionX(0.5f * Knockback_dir);			
-			//m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
 		}
 
 		if (GetIsHurting())
@@ -177,6 +180,12 @@ void Boss::Exit()
 
 void Boss::Fire()
 {
+	m_pBullet = GetBulletFactory()->CreateBullet(BULLET_TYPE::BOSS_RANGE);
+	BossRange* grn_comp = dynamic_cast<BossRange*>(m_pBullet->GetOwner()->FindComponent(BossRange::BossRangeTypeName));
+	grn_comp->SetShooter(this->GetOwner());
+
+	EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
+	grn_comp->SetCanFire(true);
 }
 
 void Boss::MeleeAttack()
@@ -189,7 +198,6 @@ void Boss::MeleeAttack()
 
 	m_pMelee->SetAttacker(this->GetOwner());
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
-
 
 	if (std::fabs(m_pRigidBody->GetVelocity().y) > 0 &&
 		m_pAnimator->GetAnimation()->m_bLoopCount < 1)
@@ -266,7 +274,7 @@ void Boss::StateHandle()
 	}
 
 	if (std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon
-		&& m_pRigidBody->GetIsGround()))
+		&& m_pRigidBody->GetIsGround())&&m_eCurrentState!=MonsterAnimState::RANGE_ATTACK)
 	{
 		m_eCurrentState = MonsterAnimState::IDLE;
 	}

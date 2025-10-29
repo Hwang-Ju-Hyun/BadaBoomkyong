@@ -29,11 +29,11 @@ public:
 	virtual GameObject* CreatePoolObject()override { return nullptr; };
 	virtual void Exit()override;
 private:
-	ObjectPool<Pistol,30>* m_pBulletPool;
+	ObjectPool<GameObject*,30>* m_pBulletPool;
 	ObjectPool<CurseDemonBullet, 30>* m_pMonsterGrenadePool;
 	ObjectPool<ExecutionerDemonFireBall, 30>* m_pExecutionerDemonFireBallPool;
 	ObjectPool<FlyingDemonFireBall, 30>* m_pFlyingDemonFireBallPool;
-	ObjectPool<GameObject*, 30>* m_pBossRangePool;
+	ObjectPool<GameObject*, 2>* m_pBossRangePool;
 private:
 	virtual void InitStage01()  override;
 	virtual void InitStage02()  override;

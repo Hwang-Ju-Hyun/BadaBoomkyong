@@ -8,7 +8,7 @@
 #include "GameObjectManager.h"
 #include "Boss.h"
 #include "Serializer.h"
-
+#include "TimeManager.h"
 
 BossRange::BossRange(GameObject* _owner, GameObject* _shooter)
 	:Bullet(_owner,_shooter)
@@ -22,7 +22,7 @@ BossRange::~BossRange()
 
 void BossRange::Init()
 {
-    SetName(BossRangeTypaName);
+    SetName(BossRangeTypeName);
     m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
     m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
     m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
@@ -56,20 +56,20 @@ void BossRange::Awake()
 
 void BossRange::Update()
 {  
-    //float dt = TimeManager::GetInstance()->GetDeltaTime();
-    //m_pTransform->AddRotation({ 350.f * dt,350.f * dt ,350.f * dt });
-    //if (m_bCanFire)
-    //{
-    //    Fire();
-    //}
-    //m_fParticle_WaitAccTime += dt;
-    //if (m_fParticle_WaitAccTime > m_fParticle_WaitingTime)
-    //{
+    float dt = TimeManager::GetInstance()->GetDeltaTime();
+    m_pTransform->AddRotation({ 350.f * dt,350.f * dt ,350.f * dt });
+    if (m_bCanFire)
+    {
+        Fire();
+    }
+    m_fParticle_WaitAccTime += dt;
+    if (m_fParticle_WaitAccTime > m_fParticle_WaitingTime)
+    {
 
-    //    //m_pCurseDemonBulletParticle->CreateParticles(10);
-    //    on = true;
-    //    m_fParticle_WaitAccTime = 0.f;
-    //}
+        //m_pCurseDemonBulletParticle->CreateParticles(10);
+        on = true;
+        m_fParticle_WaitAccTime = 0.f;
+    }
 }
 
 void BossRange::Exit()
@@ -113,7 +113,7 @@ json BossRange::SaveToJson(const json& _str)
     json data;
 
     auto serializer = Serializer::GetInstance();
-    data[serializer->ComponentTypeNameInJson] = BossRangeTypaName;
+    data[serializer->ComponentTypeNameInJson] = BossRangeTypeName;
 
     json compData;
     compData[BossRangeImpulseTypeName] = m_fThrowingForce;

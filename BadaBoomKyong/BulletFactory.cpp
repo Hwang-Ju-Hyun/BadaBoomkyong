@@ -69,6 +69,7 @@ Bullet* BulletFactory::CreateBullet(BULLET_TYPE _type)
 	case BULLET_TYPE::BULLET_LAST:
 		break;	
 	case BULLET_TYPE::BOSS_RANGE:
+		bullet_comp = m_pBossRangePool->GetPool()->FindComponent<BossRange>();
 		break;
 	case BULLET_TYPE::CURSEDEMON_FIREBALL:
 		bullet_comp = m_pMonsterGrenadePool->GetPool()->FindComponent<CurseDemonBullet>();
@@ -83,8 +84,8 @@ void BulletFactory::Exit(){}
 void BulletFactory::InitStage01()
 {
 	//PISTOL
-	ObjectPoolManager::GetInstance()->ReigistPool<Pistol, 30>();
-	m_pBulletPool = static_cast<ObjectPool<Pistol, 30>*>(ObjectPoolManager::GetInstance()->GetPool<Pistol, 30>());
+	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, 30>();
+	m_pBulletPool = static_cast<ObjectPool<GameObject*, 30>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, 30>());
 	GameObject* player_obj = GameObjectManager::GetInstance()->FindObject(Player::PlayerTypeName);
 	Player* player_comp = player_obj->FindComponent<Player>();
 	assert(player_comp != nullptr);
@@ -135,8 +136,8 @@ void BulletFactory::InitStage02()
 	GameObject* fd_obj = obj_mgr->FindObject(FlyingDemon::FlyingDemonTypeName);
 	int fireball_obj_count = obj_mgr->GetObjectNumber(FlyingDemon::FlyingDemonTypeName);
 
-	ObjectPoolManager::GetInstance()->ReigistPool<Pistol, 30>();
-	m_pBulletPool = static_cast<ObjectPool<Pistol, 30>*>(ObjectPoolManager::GetInstance()->GetPool<Pistol, 30>());
+	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, 30>();
+	m_pBulletPool = static_cast<ObjectPool<GameObject*, 30>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, 30>());
 	GameObject* player_obj = GameObjectManager::GetInstance()->FindObject(Player::PlayerTypeName);
 	Player* player_comp = player_obj->FindComponent<Player>();
 	assert(player_comp != nullptr);
@@ -177,8 +178,8 @@ void BulletFactory::InitStage02()
 void BulletFactory::InitStage03()
 {
 	//PISTOL
-	ObjectPoolManager::GetInstance()->ReigistPool<Pistol, 30>();
-	m_pBulletPool = static_cast<ObjectPool<Pistol, 30>*>(ObjectPoolManager::GetInstance()->GetPool<Pistol, 30>());
+	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, 30>();
+	m_pBulletPool = static_cast<ObjectPool<GameObject*, 30>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, 30>());
 	GameObject* player_obj = GameObjectManager::GetInstance()->FindObject(Player::PlayerTypeName);
 	Player* player_comp = player_obj->FindComponent<Player>();
 	assert(player_comp != nullptr);
@@ -203,8 +204,8 @@ void BulletFactory::InitStage03()
 void BulletFactory::InitStageTest()
 {
 	//PISTOL
-	ObjectPoolManager::GetInstance()->ReigistPool<Pistol, 30>();
-	m_pBulletPool = static_cast<ObjectPool<Pistol, 30>*>(ObjectPoolManager::GetInstance()->GetPool<Pistol, 30>());
+	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, 30>();
+	m_pBulletPool = static_cast<ObjectPool<GameObject*, 30>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, 30>());
 	GameObject* player_obj = GameObjectManager::GetInstance()->FindObject(Player::PlayerTypeName);
 	Player* player_comp = player_obj->FindComponent<Player>();
 	assert(player_comp != nullptr);
@@ -224,7 +225,7 @@ void BulletFactory::InitStageTest()
 	auto obj_mgr = GameObjectManager::GetInstance();
 
 	////Curse
-	GameObject* sm_obj = obj_mgr->FindObject(CurseDemon::CurseDemonTypeName);
+	/*GameObject* sm_obj = obj_mgr->FindObject(CurseDemon::CurseDemonTypeName);
 	int grenade_obj_count = obj_mgr->GetObjectNumber(CurseDemon::CurseDemonTypeName);
 	ObjectPoolManager::GetInstance()->ReigistPool<CurseDemonBullet, 30>();
 	m_pMonsterGrenadePool = static_cast<ObjectPool<CurseDemonBullet, 30>*>(ObjectPoolManager::GetInstance()->GetPool<CurseDemonBullet, 30>());
@@ -240,17 +241,18 @@ void BulletFactory::InitStageTest()
 		grn_obj->SetActiveAllComps(false);
 		grn_obj->SetActive(false);
 		m_pMonsterGrenadePool->m_arrPool[j] = grn_obj;
-	}
+	}*/
 
 	//Boss
 	GameObject* boss_obj = obj_mgr->FindObject(Boss::BossTypeName);	
-	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, 30>();
-	m_pBossRangePool = static_cast<ObjectPool<GameObject*, 30>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, 30>());
-	for (int j = 0;j < 30; j++)
+	const size_t range_cnt = 2;
+	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, range_cnt >();
+	m_pBossRangePool = static_cast<ObjectPool<GameObject*, range_cnt>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, range_cnt>());
+	for (int j = 0;j < range_cnt; j++)
 	{
 		BossRange* range_comp = nullptr;
-		GameObject* range_obj = new GameObject(BossRange::BossRangeTypaName, MODEL_TYPE::CUBE, GROUP_TYPE::BULLET);
-		range_comp = dynamic_cast<BossRange*>(range_obj->AddComponent_and_Get(BossRange::BossRangeTypaName, new BossRange(range_obj, boss_obj)));
+		GameObject* range_obj = new GameObject(BossRange::BossRangeTypeName, MODEL_TYPE::CUBE, GROUP_TYPE::BULLET);
+		range_comp = dynamic_cast<BossRange*>(range_obj->AddComponent_and_Get(BossRange::BossRangeTypeName, new BossRange(range_obj, boss_obj)));
 		Transform* range_trs = dynamic_cast<Transform*>(range_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(range_obj)));
 		Sprite* range_spr= dynamic_cast<Sprite*>(range_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(range_obj)));
 		RigidBody* range_rig = dynamic_cast<RigidBody*>(range_obj->AddComponent_and_Get(RigidBody::RigidBodyTypeName, new RigidBody(range_obj)));

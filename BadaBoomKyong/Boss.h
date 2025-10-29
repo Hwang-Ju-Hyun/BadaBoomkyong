@@ -17,6 +17,8 @@ class Boss :
     public Monster
 {
 public:
+    bool temp = false;
+public:
     Boss(GameObject* _owner);
     virtual ~Boss()override;
 private:
