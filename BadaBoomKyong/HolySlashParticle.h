@@ -16,7 +16,7 @@ class HolySlashParticle
 public:
 	static glm::vec3 spiralMotion_Position(Particle& _particle, float _progress, float _dt);
 	static glm::vec4 spiralMotion_Color(Particle& _particle, float _progress, float _dt);
-	static float spiralMotion_Size(Particle& _particle, float _progress, float _dt);
+	static glm::vec2 spiralMotion_Size(Particle& _particle, float _progress, float _dt);
 public:
 	HolySlashParticle(ParticleSystem* _ps,GameObject* _owner=nullptr);
 	~HolySlashParticle();

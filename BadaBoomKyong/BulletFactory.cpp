@@ -255,7 +255,7 @@ void BulletFactory::InitStageTest()
 		range_comp = dynamic_cast<BossRange*>(range_obj->AddComponent_and_Get(BossRange::BossRangeTypeName, new BossRange(range_obj, boss_obj)));
 		Transform* range_trs = dynamic_cast<Transform*>(range_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(range_obj)));
 		Sprite* range_spr= dynamic_cast<Sprite*>(range_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(range_obj)));
-		RigidBody* range_rig = dynamic_cast<RigidBody*>(range_obj->AddComponent_and_Get(RigidBody::RigidBodyTypeName, new RigidBody(range_obj)));
+		//RigidBody* range_rig = dynamic_cast<RigidBody*>(range_obj->AddComponent_and_Get(RigidBody::RigidBodyTypeName, new RigidBody(range_obj)));
 		Collider* range_col = dynamic_cast<Collider*>(range_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(range_obj)));
 		range_obj->SetActiveAllComps(false);
 		m_pBossRangePool->m_arrPool[j] = range_obj;

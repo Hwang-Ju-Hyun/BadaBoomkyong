@@ -15,5 +15,5 @@ void SizeOverLifeTime::Update(Particle& _particle, float _progress, float _dt)
 {
 	float t = 1.f - (_particle.m_fLifeRemaining / _particle.m_fLifeTime);	
 
-	_particle.m_fSize = m_func(_particle, t, _dt);
+	_particle.m_vSize = m_func(_particle, t, _dt);
 }

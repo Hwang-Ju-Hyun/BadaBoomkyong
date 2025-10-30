@@ -165,6 +165,7 @@
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="CubeMapResource.cpp" />
     <ClCompile Include="CurseDemonBulletParticle.cpp" />
+    <ClCompile Include="EnergyRayParticle.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="ExecutionerDemon.cpp" />
     <ClCompile Include="ExecutionerDemonFireBall.cpp" />
@@ -266,6 +267,7 @@
     <ClCompile Include="TraceState.cpp" />
     <ClCompile Include="TRACE_FlyingDemon.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Wait.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -312,6 +314,7 @@
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="CubeMapResource.h" />
     <ClInclude Include="CurseDemonBulletParticle.h" />
+    <ClInclude Include="EnergyRayParticle.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="ExecutionerDemon.h" />
     <ClInclude Include="ExecutionerDemonFireBall.h" />
@@ -428,6 +431,7 @@
     <ClInclude Include="TraceState.h" />
     <ClInclude Include="TRACE_FlyingDemon.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Wait.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

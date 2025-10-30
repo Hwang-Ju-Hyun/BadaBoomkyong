@@ -1,13 +1,17 @@
 #pragma once
 #include "Bullet.h"
 
+class Player;
 class Boss;
 class ParticleSystem;
 class RigidBody;
+class EnergyRayParticle;
 
 class BossRange :
     public Bullet
 {
+public:
+	bool temp = false;
 public:
 	BossRange(GameObject* _owner, GameObject* _shooter);
 	virtual ~BossRange()override;
@@ -21,6 +25,8 @@ public:
 	virtual void OnCollision(Collider* _col)override;
 	virtual void ExitCollision(Collider* _col) override;
 private:
+	Player* m_pPlayer;
+	Transform* m_pPlayerTransform;
 	Transform* m_pTransform = nullptr;
 	Sprite* m_pSprite = nullptr;
 	Collider* m_pCollider = nullptr;
@@ -45,9 +51,9 @@ public:
 public:
 	//CurseDemonBulletParticle* m_pCurseDemonBulletParticle;
 	ParticleSystem* m_pPs;
-
+	EnergyRayParticle* m_pEnergyRayParticle;
 	float m_fParticle_WaitAccTime;
 	bool on = false;
-	float m_fParticle_WaitingTime = 0.001f;
+	float m_fParticle_WaitingTime = 0.01f;
 };
 

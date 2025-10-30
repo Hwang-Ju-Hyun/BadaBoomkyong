@@ -34,6 +34,7 @@
 #include "BossRange.h"
 #include "RangeAttack.h"
 #include "BulletFactory.h"
+#include "Wait.h"
 
 Boss::Boss(GameObject* _owner)
 	:Monster(_owner)
@@ -58,7 +59,7 @@ Boss::Boss(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::JUMP_ATTACK), new AnimJumpAttackState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DEATH), new AnimDeathState<Monster>());
 
-	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::IDLE));
+	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::IDLE));	
 }
 
 Boss::~Boss()
@@ -69,7 +70,7 @@ Boss::~Boss()
 BTNode* Boss::BuildBossBT()
 {	
 	//std::vector<BTNode*> vec = { new MoveToTarget(this) ,new JumpAttack(this) };
-	BTNode* root = new Selector({ new RangeAttack(this)});
+	BTNode* root = new Selector({ new RangeAttack(this)/*,new Wait(10.f)*/});
 	return root;
 }
 
@@ -95,9 +96,7 @@ void Boss::Move()
 	float dir = m_vTargetPos.x - m_vPosition.x;
 
 	m_eCurrentState = MonsterAnimState::WALK;
-	m_pTransform->AddPositionX(dir * m_fSpeed * dt);
-
-	
+	m_pTransform->AddPositionX(dir * m_fSpeed * dt);	
 }
 
 void Boss::Jump()
@@ -156,6 +155,15 @@ void Boss::Update()
 		} 
 	}
 
+	if (!temp)
+	{
+		if (GeometryUtil::GetInstance()->IsNearX(GetPosition(), m_vPlayerPosition,400.f))
+		{
+			Fire();
+			temp = true;
+		}
+	}
+
 	//Move();
 	HandleGroundCol();
 	auto hp = GetCurrentHP();
@@ -166,7 +174,7 @@ void Boss::Update()
 
 	m_vPosition = m_pTransform->GetPosition();
 
-	m_pBTAgent->Update();
+	//m_pBTAgent->Update();
 
 	StateHandle();
 
@@ -181,11 +189,11 @@ void Boss::Exit()
 void Boss::Fire()
 {
 	m_pBullet = GetBulletFactory()->CreateBullet(BULLET_TYPE::BOSS_RANGE);
-	BossRange* grn_comp = dynamic_cast<BossRange*>(m_pBullet->GetOwner()->FindComponent(BossRange::BossRangeTypeName));
-	grn_comp->SetShooter(this->GetOwner());
+	BossRange* range_comp = dynamic_cast<BossRange*>(m_pBullet->GetOwner()->FindComponent(BossRange::BossRangeTypeName));
+	range_comp->SetShooter(this->GetOwner());
 
 	EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
-	grn_comp->SetCanFire(true);
+	range_comp->SetCanFire(true);
 }
 
 void Boss::MeleeAttack()

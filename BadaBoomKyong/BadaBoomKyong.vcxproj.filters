@@ -488,6 +488,9 @@
     <Filter Include="Component\Custom\Bullet\Monster\BossRange">
       <UniqueIdentifier>{41b77911-79ab-4443-8083-67f44a104451}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particle\EnergyRay">
+      <UniqueIdentifier>{956268d1-33d4-44bc-844a-7f5ac331af78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -864,6 +867,12 @@
     </ClCompile>
     <ClCompile Include="BossRange.cpp">
       <Filter>Component\Custom\Bullet\Monster\BossRange</Filter>
+    </ClCompile>
+    <ClCompile Include="EnergyRayParticle.cpp">
+      <Filter>Particle\EnergyRay</Filter>
+    </ClCompile>
+    <ClCompile Include="Wait.cpp">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1346,6 +1355,12 @@
     </ClInclude>
     <ClInclude Include="BossRange.h">
       <Filter>Component\Custom\Bullet\Monster\BossRange</Filter>
+    </ClInclude>
+    <ClInclude Include="EnergyRayParticle.h">
+      <Filter>Particle\EnergyRay</Filter>
+    </ClInclude>
+    <ClInclude Include="Wait.h">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

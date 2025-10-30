@@ -118,10 +118,11 @@ glm::vec4 HolySlashParticle::spiralMotion_Color(Particle& _particle, float _prog
 	return _particle.m_vColor;
 }
 
-float HolySlashParticle::spiralMotion_Size(Particle& _particle, float _progress, float _dt)
+glm::vec2 HolySlashParticle::spiralMotion_Size(Particle& _particle, float _progress, float _dt)
 {
-	_particle.m_fSizeStart = 6.f;
-	_particle.m_fSizeEnd = 1.f;
-	_particle.m_fSize = glm::mix(_particle.m_fSizeStart, _particle.m_fSizeEnd, _progress) * (1.f + 0.2f * sin(10.f * _progress));
-	return _particle.m_fSize;
+	_particle.m_vSizeStart = { 6.f,6.f };
+	_particle.m_vSizeEnd = { 1.f,1.f };
+	glm::vec2 size = (glm::mix(_particle.m_vSizeStart, _particle.m_vSizeEnd, _progress) * (1.f + 0.2f * sin(10.f * _progress)));
+	_particle.m_vSize = size;
+	return _particle.m_vSize;
 }

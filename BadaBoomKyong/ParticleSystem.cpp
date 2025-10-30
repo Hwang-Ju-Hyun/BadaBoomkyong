@@ -14,8 +14,9 @@
 #include "IParticleBehavior.h"
 
 ParticleSystem::ParticleSystem()
+	:m_bIsBiillBoard(true)
 {
-	m_vecParticlePool.resize(400);
+	m_vecParticlePool.resize(400);	
 }
 
 ParticleSystem::~ParticleSystem()
@@ -66,7 +67,7 @@ void ParticleSystem::Update()
 		{			
 			continue;
 		}
-		if (m_vecParticlePool[i].m_fLifeRemaining <= 0.1f)
+		if (m_vecParticlePool[i].m_fLifeRemaining <= 0.f)
 		{		
 			m_vecParticlePool[i].m_bActive = false;
 			continue;
@@ -97,8 +98,8 @@ void ParticleSystem::Render()
 		glUniform4fv(m_iParticleShaderColor_location, 1, glm::value_ptr(m_vecParticlePool[i].m_vColor));
 
 		glm::mat4 translate = glm::translate(glm::mat4(1.0f), m_vecParticlePool[i].m_vPosition);
-		glm::mat4 scale = glm::scale(glm::mat4(1.0f), { m_vecParticlePool[i].m_fSize,m_vecParticlePool[i].m_fSize,1.f });
-		glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f), m_vecParticlePool[i].m_fRotation, glm::vec3(0, 0, 1));
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), { m_vecParticlePool[i].m_vSize.x,m_vecParticlePool[i].m_vSize.y,1.f });
+		glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f), m_vecParticlePool[i].m_fRotation, glm::vec3(0, 0, 1));		
 		
 		glm::vec3 cam_pos= cam->GetCamPosition();
 
@@ -111,9 +112,33 @@ void ParticleSystem::Render()
 		billboard[1] = glm::vec4(up, 0.0f);
 		billboard[2] = glm::vec4(dir, 0.0f);
 
-		glm::mat4 m2w = translate * billboard * scale;
 		glm::mat4 proj = cam->GetProjMatrix();
-		glm::mat4 view = cam->GetViewMatrix();
+		glm::mat4 view = cam->GetViewMatrix();		
+		glm::mat4 Rot;
+		if (m_bIsBiillBoard)
+		{
+			Rot = billboard;
+		}
+		else
+		{
+			// 파티클의 방향을 정할 수 있는 forward 벡터를 만듭니다.
+			// 예를 들어 X축 방향으로 기본이 되어 있다면 이렇게 설정:
+			glm::vec3 forward = glm::vec3(0, 0, 1); // Z+ 방향이 앞
+			
+			forward = glm::normalize(forward);
+
+			glm::vec3 up = glm::vec3(0, 1, 0);
+			glm::vec3 right = glm::normalize(glm::cross(up, forward));
+			up = glm::cross(forward, right);
+
+			glm::mat4 orient(1.0f);
+			orient[0] = glm::vec4(right, 0.0f);//x
+			orient[1] = glm::vec4(up, 0.0f);//y
+			orient[2] = glm::vec4(forward, 0.0f);//z
+
+			Rot = orient;
+		}		
+		glm::mat4 m2w = translate * Rot * scale;
 		glUniformMatrix4fv(m_iParticleTransform_location, 1, GL_FALSE, glm::value_ptr(proj * view * m2w));
 
 		glBindVertexArray(VAO);

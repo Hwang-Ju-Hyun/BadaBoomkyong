@@ -33,6 +33,6 @@ public:
 	inline int GetEmitSize()const { return m_iEmit_size; }
 	static glm::vec3 ScatterMotion_Position(Particle& _particle, float _progress, float _dt);
 	static glm::vec4 ScatterMotion_Color(Particle& _particle, float _progress, float _dt);
-	static float ScatterMotion_Size(Particle& _particle, float _progress, float _dt);
+	static glm::vec2 ScatterMotion_Size(Particle& _particle, float _progress, float _dt);
 };
 

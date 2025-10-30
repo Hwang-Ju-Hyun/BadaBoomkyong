@@ -41,6 +41,7 @@
 #include "MathUtil.h"
 #include "SmokeDemon.h"
 #include "CurseDemonBullet.h"
+#include "BossRange.h"
 
 RenderManager::RenderManager()
 {	
@@ -463,6 +464,7 @@ void RenderManager::Draw()
 		Player* p = static_cast<Player*>(obj->FindComponent<Player>());
 		SmokeDemon* sm = static_cast<SmokeDemon*>(obj->FindComponent<SmokeDemon>());
 		CurseDemonBullet* cdm= static_cast<CurseDemonBullet*>(obj->FindComponent<CurseDemonBullet>());
+		BossRange* br = static_cast<BossRange*>(obj->FindComponent<BossRange>());
 		//============
 		//============
 		//==Particle==
@@ -470,7 +472,8 @@ void RenderManager::Draw()
 		//============	
 		if (p && p->m_bHolySlashing)
 		{
-			//glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Use();
 			p->m_pPs->m_iParticleTransform_location = glGetUniformLocation(shdr_handle_particle, "u_MVP_Particle");
 			assert(p->m_pPs->m_iParticleTransform_location >= 0);
@@ -480,6 +483,7 @@ void RenderManager::Draw()
 			p->m_pPs->Update();
 			p->m_pPs->Render();
 			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Diuse();
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
 		}
 		if (sm && sm->smoking)
 		{
@@ -504,6 +508,26 @@ void RenderManager::Draw()
 			cdm->m_pPs->Update();
 			cdm->m_pPs->Render();
 			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Diuse();
+		}
+		if (br && br->on)
+		{
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+			
+			glDepthMask(GL_FALSE); // 깊이 버퍼 쓰기 비활성화
+			glEnable(GL_DEPTH_TEST);
+			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Use();
+			br->m_pPs->m_iParticleTransform_location = glGetUniformLocation(shdr_handle_particle, "u_MVP_Particle");
+			assert(br->m_pPs->m_iParticleTransform_location >= 0);
+			br->m_pPs->m_iParticleShaderColor_location = glGetUniformLocation(shdr_handle_particle, "u_Color");
+			assert(br->m_pPs->m_iParticleShaderColor_location >= 0);
+
+			br->m_pPs->Update();
+			br->m_pPs->Render();
+			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Diuse();
+			// 원래대로 복구			
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glDepthMask(GL_TRUE);
 		}
 		//============
 		//============

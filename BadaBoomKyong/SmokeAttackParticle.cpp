@@ -106,12 +106,12 @@ glm::vec4 SmokeAttackParticle::ScatterMotion_Color(Particle& _particle, float _p
 	return _particle.m_vColor;
 }
 
-float SmokeAttackParticle::ScatterMotion_Size(Particle& _particle, float _progress, float _dt)
+glm::vec2 SmokeAttackParticle::ScatterMotion_Size(Particle& _particle, float _progress, float _dt)
 {
-	_particle.m_fSize = 10.f;	
+	_particle.m_vSize = { 10.f,10.f };
 	float t = MathUtil::GetInstance()->lerp(0.f, 1.f, _progress);
-	_particle.m_fSizeStart = 10.f;
-	_particle.m_fSizeEnd = 20.f;
-	_particle.m_fSize = glm::mix(_particle.m_fSizeStart, _particle.m_fSizeEnd, t);
-	return _particle.m_fSize;
+	_particle.m_vSizeStart = { 10.f,10.f };
+	_particle.m_vSizeEnd = { 20.f,20.f };
+	_particle.m_vSize = glm::vec2{ glm::mix(_particle.m_vSizeStart.x, _particle.m_vSizeEnd.x, t),glm::mix(_particle.m_vSizeStart.y, _particle.m_vSizeEnd.y, t) };
+	return _particle.m_vSize;
 }

@@ -98,11 +98,11 @@ glm::vec4 CurseDemonBulletParticle::SpiralMotion_Color(Particle& _particle, floa
 	return _particle.m_vColor;
 }
 
-float CurseDemonBulletParticle::SpiralMotion_Size(Particle& _particle, float _progress, float _dt)
+glm::vec2 CurseDemonBulletParticle::SpiralMotion_Size(Particle& _particle, float _progress, float _dt)
 {	
 	float t = MathUtil::GetInstance()->lerp(0.f, 1.f, _progress);
-	_particle.m_fSizeStart = 10.f;
-	_particle.m_fSizeEnd = 15.f;
-	_particle.m_fSize = glm::mix(_particle.m_fSizeStart, _particle.m_fSizeEnd, t);
-	return _particle.m_fSize;
+	_particle.m_vSizeStart = { 10.f,10.f };
+	_particle.m_vSizeEnd = { 15.f,15.f };
+	_particle.m_vSize = glm::vec2{ glm::mix(_particle.m_vSizeStart.x, _particle.m_vSizeEnd.x, t),glm::mix(_particle.m_vSizeStart.y, _particle.m_vSizeEnd.y, t) };
+	return _particle.m_vSize;
 }

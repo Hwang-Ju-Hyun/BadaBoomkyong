@@ -25,9 +25,7 @@ BTNodeState RangeAttack::Update(BlackBoard& _bb)
 	{
 		boss_comp->Fire();
 		boss_comp->temp = true;
-	}
-		
-
+	}		
 	if (boss_comp->GetCurrentState() == MonsterAnimState::RANGE_ATTACK && anim_done >= 1)
 	{
 		return BTNodeState::SUCCESS;

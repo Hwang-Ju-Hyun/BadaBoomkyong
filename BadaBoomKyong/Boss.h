@@ -4,6 +4,7 @@
 #include "BehaviorTreeNode.h"
 #include "Ray.h"
 
+class ParticleSystem;
 class BTAgent;
 class BulletFactory;
 class Bullet;
@@ -12,6 +13,7 @@ class GameObject;
 class Melee;
 class MeleeFactory;
 class BlackBoard;
+
 
 class Boss :
     public Monster
@@ -22,8 +24,7 @@ public:
     Boss(GameObject* _owner);
     virtual ~Boss()override;
 private:
-    BulletFactory* m_pBulletFactory = nullptr;
-    //ObjectPool<CurseDemonBullet, 30>* m_pGrenadePool = nullptr;
+    BulletFactory* m_pBulletFactory = nullptr;    
     Bullet* m_pBullet = nullptr;
 public:
     BTNode* m_pBT;   
@@ -40,7 +41,7 @@ private:
     Sprite* m_pMeleeSpr = nullptr;
     Transform* m_pMeleeTrs = nullptr;
 public:
-    inline BulletFactory* GetBulletFactory()const { return m_pBulletFactory; };
+    inline BulletFactory* GetBulletFactory()const { return m_pBulletFactory; };    
 private:    
     glm::vec3 m_vTargetPos;
     float m_fDetectRange = 0.f;

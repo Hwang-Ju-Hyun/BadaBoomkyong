@@ -13,7 +13,7 @@ struct Particle
 	glm::vec3 m_vVelocity;
 	float m_fRotation;
 	glm::vec4 m_vColor;
-	float m_fSize;
+	glm::vec2 m_vSize;	
 	float m_fLifeTime;
 	float m_fLifeRemaining;
 	bool m_bActive = false;
@@ -29,7 +29,7 @@ struct Particle
 	//color
 	glm::vec4 m_vColorStart, m_vColorEnd;
 	//size
-	float m_fSizeStart, m_fSizeEnd;
+	glm::vec2 m_vSizeStart, m_vSizeEnd;
 	glm::vec3 m_vDir;
 };
 
@@ -61,6 +61,9 @@ public:
 	int m_iParticleShaderColor_location;
 	int m_iParticleShaderMVP;
 	Camera* cam = nullptr;
+	bool m_bIsBiillBoard = true;
+public:
+	inline void SetRenderBillboard(bool _bill) { m_bIsBiillBoard = _bill; }
 public:
 	void SetParticlePoolSize(int _size);
 };

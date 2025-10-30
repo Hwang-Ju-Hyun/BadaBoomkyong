@@ -34,7 +34,7 @@ public:
 	inline int GetEmitSize()const { return m_iEmit_size; }		
 	static glm::vec3 SpiralMotion_Position(Particle& _particle, float _progress, float _dt);
 	static glm::vec4 SpiralMotion_Color(Particle& _particle, float _progress, float _dt);
-	static float SpiralMotion_Size(Particle& _particle, float _progress, float _dt);
+	static glm::vec2 SpiralMotion_Size(Particle& _particle, float _progress, float _dt);
 	
 };
 
