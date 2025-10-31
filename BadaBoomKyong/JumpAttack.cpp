@@ -17,6 +17,8 @@ BTNodeState JumpAttack::Enter(BlackBoard& _bb)
 	m_vPlayer_pos = m_pPlayer->GetPosition();
 	m_vBoss_pos = m_pBoss->GetPosition();
 
+	if (!m_pPlayer->GetIsJumping())
+		return BTNodeState::FAILURE;
 	m_pBoss->Jump();
 	return BTNodeState::RUNNING;
 }

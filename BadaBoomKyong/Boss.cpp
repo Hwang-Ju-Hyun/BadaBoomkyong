@@ -35,6 +35,9 @@
 #include "RangeAttack.h"
 #include "BulletFactory.h"
 #include "Wait.h"
+#include "Ray.h"
+#include "RandomSelector.h"
+#include "D_IsPlayerFar.h"
 
 Boss::Boss(GameObject* _owner)
 	:Monster(_owner)
@@ -68,10 +71,19 @@ Boss::~Boss()
 }
 
 BTNode* Boss::BuildBossBT()
-{	
-	//std::vector<BTNode*> vec = { new MoveToTarget(this) ,new JumpAttack(this) };
-	BTNode* root = new Selector({ new RangeAttack(this)/*,new Wait(10.f)*/});
+{				
+	BTNode* MeleeBehaivor = new Selector({ new NormalAttack(this),new JumpAttack(this)});
+	BTNode* MoveToMeleeAttack = new Sequence({ new MoveToTarget(this),new NormalAttack(this) });
+	BTNode* random_rangeBehavior = new Selector({ MoveToMeleeAttack ,new RangeAttack(this)});
+	BTNode* melee_deco = new D_IsPlayerFar(random_rangeBehavior);	
+	BTNode* root = new Selector({ new Sequence({MeleeBehaivor}),new Sequence({melee_deco})});
 	return root;
+}
+
+void Boss::Aiming(glm::vec3 _targetPos)
+{		
+	glm::vec3 pos = { GetPosition().x,GetPosition().y-50.f,GetPosition().z };
+	m_LineLenderer.DrawLine(pos, _targetPos, 12.f, { 1.f,1.f,0.f,1.f });
 }
 
 void Boss::HandleGroundCol()
@@ -88,6 +100,7 @@ void Boss::HandleGroundCol()
 		m_pRigidBody->SetIsGround(false);
 		SetIsGround(false);
 	}
+	
 }
 
 void Boss::Move()
@@ -95,7 +108,7 @@ void Boss::Move()
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
 	float dir = m_vTargetPos.x - m_vPosition.x;
 
-	m_eCurrentState = MonsterAnimState::WALK;
+	//m_eCurrentState = MonsterAnimState::WALK;
 	m_pTransform->AddPositionX(dir * m_fSpeed * dt);	
 }
 
@@ -127,9 +140,15 @@ void Boss::Init()
 
 void Boss::Update()
 {	
+	static int a = 0;
 	if (GetIsAlive())
-	{	
-		
+	{			
+		if (a % 5 == 0)
+		{
+			Aiming(m_vPlayerPosition);			
+		}
+		a++;
+			
 		UpdateSpriteFlipX();
 
 		float dir = m_vPlayerPosition.x - m_vPosition.x;
@@ -155,16 +174,16 @@ void Boss::Update()
 		} 
 	}
 
-	if (!temp)
+	/*if (!temp)
 	{
 		if (GeometryUtil::GetInstance()->IsNearX(GetPosition(), m_vPlayerPosition,400.f))
 		{
 			Fire();
 			temp = true;
 		}
-	}
+	}*/
 
-	//Move();
+	Move();
 	HandleGroundCol();
 	auto hp = GetCurrentHP();
 	hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
@@ -174,12 +193,12 @@ void Boss::Update()
 
 	m_vPosition = m_pTransform->GetPosition();
 
-	//m_pBTAgent->Update();
+	m_pBTAgent->Update();
 
 	StateHandle();
 
 	if (m_pAnimStateMachine)
-		m_pAnimStateMachine->Update();	
+		m_pAnimStateMachine->Update();		
 }
 
 void Boss::Exit()

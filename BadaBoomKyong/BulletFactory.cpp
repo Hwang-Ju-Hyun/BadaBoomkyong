@@ -245,7 +245,7 @@ void BulletFactory::InitStageTest()
 
 	//Boss
 	GameObject* boss_obj = obj_mgr->FindObject(Boss::BossTypeName);	
-	const size_t range_cnt = 2;
+	const size_t range_cnt = 100;
 	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, range_cnt >();
 	m_pBossRangePool = static_cast<ObjectPool<GameObject*, range_cnt>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, range_cnt>());
 	for (int j = 0;j < range_cnt; j++)

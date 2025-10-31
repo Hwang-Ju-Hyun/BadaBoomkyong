@@ -1,3 +1,4 @@
+#include <GL/glew.h>
 #include "CollisionManager.h"
 #include "GameObjectManager.h"
 #include "Collider.h"
@@ -266,9 +267,7 @@ bool CollisionManager::RayCast(const Ray& _ray, float _maxDistance, RayCastHit& 
 	bool hasHit = false;
 
 	for (const auto obj : GameObjectManager::GetInstance()->GetAllObjects()) 
-	{
-		if (obj->GetName() == "NewObject")
-			int a = 0;
+	{		
 		Collider* col = dynamic_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
 		if (col==nullptr) 
 			continue;		
@@ -289,4 +288,66 @@ bool CollisionManager::RayCast(const Ray& _ray, float _maxDistance, RayCastHit& 
 		}
 	}
 	return hasHit;
+}
+
+
+
+#include "RenderManager.h"
+#include "Camera.h"
+#include <../GLM/gtc/type_ptr.hpp>	
+
+void CollisionManager::DrawRay(const Ray& _ray, float _maxDistance, const RayCastHit* _hit)
+{
+	static GLuint rayVAO = 0, rayVBO = 0;
+	if (m_bRayInitialized == false)
+	{
+		glGenVertexArrays(1, &rayVAO);
+		glGenBuffers(1, &rayVBO);
+
+		glBindVertexArray(rayVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, rayVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * 2, nullptr, GL_DYNAMIC_DRAW); // 2점
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
+		glBindVertexArray(0);
+		m_bRayInitialized = true;
+	}
+
+	// 레이 끝 위치 결정
+	glm::vec3 start = _ray.m_vPosition;
+	glm::vec3 end;
+	if (_hit && _hit->m_bIsHit)
+		end = _hit->m_vPoint;        // 충돌지점까지
+	else
+		end = _ray.m_vPosition + _ray.m_vDirection * _maxDistance; // 최대 거리
+
+	glm::vec3 lineVerts[2] = { start, end };
+
+	// VBO 업데이트
+	glBindBuffer(GL_ARRAY_BUFFER, rayVBO);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(lineVerts), lineVerts);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// MVP 계산
+	glm::mat4 proj = RenderManager::GetInstance()->GetCamera()->GetProjMatrix();
+	glm::mat4 view = RenderManager::GetInstance()->GetCamera()->GetViewMatrix();
+	glm::mat4 model = glm::mat4(1.0f);
+	glm::mat4 MVP = proj * view * model;
+
+	GLuint shader = RenderManager::GetInstance()->GetDebugLineShader();
+	glUseProgram(shader);
+
+	GLint mvpLoc = glGetUniformLocation(shader, "uMVP");
+	glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(MVP));
+
+	GLint colorLoc = glGetUniformLocation(shader, "uColor");
+	if (_hit && _hit->m_bIsHit)
+		glUniform4f(colorLoc, 1.f, 0.f, 0.f, 1.f); // 충돌: 빨강
+	else
+		glUniform4f(colorLoc, 0.f, 1.f, 0.f, 1.f); // 미충돌: 초록
+
+	glBindVertexArray(rayVAO);
+	glLineWidth(8.0f);
+	glDrawArrays(GL_LINES, 0, 2);
+	glBindVertexArray(0);
 }

@@ -27,6 +27,7 @@ private:
 	//이전 프레임 col정보 key : colision id
 	std::map<unsigned long long, bool> m_mapColInfo;
 	std::array<size_t, (size_t)GROUP_TYPE::LAST> m_arrCheckCollision;	
+	bool m_bRayInitialized = false;
 public:
 	void Init();
 	void Update();
@@ -35,6 +36,7 @@ public:
 	void CheckCollision(GROUP_TYPE _left, GROUP_TYPE _right);	
 	void Reset();
 	bool RayCast(const Ray& _ray, float _maxDistance, RayCastHit& _outHit,const GROUP_TYPE _target);
+	void DrawRay(const Ray& _ray, float _maxDistance, const RayCastHit* _hit = nullptr);
 private:
 	void CollisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right);
 public:

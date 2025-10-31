@@ -352,6 +352,8 @@ void Player::ComboUpdate()
 	}
 }
 
+
+
 void Player::StateHandler()
 {
 	if (m_bIsSprinting)
@@ -589,6 +591,12 @@ void Player::HolySlash()
 			m_bHolySlashFlag = false;
 		}
 	}
+}
+
+
+bool Player::GetIsJumping() const
+{
+	return m_pRigidBody->GetVelocity().y >= 20;
 }
 
 BaseRTTI* Player::CreatePlayerComponent()

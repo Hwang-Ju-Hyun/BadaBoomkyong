@@ -491,6 +491,12 @@
     <Filter Include="Particle\EnergyRay">
       <UniqueIdentifier>{956268d1-33d4-44bc-844a-7f5ac331af78}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\LineRenderer">
+      <UniqueIdentifier>{fd96fc7e-a0e8-472c-a9eb-648658c87745}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\BehaviorTree\Decorator">
+      <UniqueIdentifier>{2b482eb4-8475-424d-919b-1d014c33e77b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -873,6 +879,18 @@
     </ClCompile>
     <ClCompile Include="Wait.cpp">
       <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="LineLenderer.cpp">
+      <Filter>Graphics\LineRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomSelector.cpp">
+      <Filter>AI\BehaviorTree\ControlFlow</Filter>
+    </ClCompile>
+    <ClCompile Include="D_IsPlayerFar.cpp">
+      <Filter>AI\BehaviorTree\Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="D_IsPlayerInsideMeleeRange.cpp">
+      <Filter>AI\BehaviorTree\Decorator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1361,6 +1379,18 @@
     </ClInclude>
     <ClInclude Include="Wait.h">
       <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="LineLenderer.h">
+      <Filter>Graphics\LineRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomSelector.h">
+      <Filter>AI\BehaviorTree\ControlFlow</Filter>
+    </ClInclude>
+    <ClInclude Include="D_IsPlayerFar.h">
+      <Filter>AI\BehaviorTree\Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="D_IsPlayerInsideMeleeRange.h">
+      <Filter>AI\BehaviorTree\Decorator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

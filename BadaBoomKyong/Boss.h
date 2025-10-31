@@ -3,6 +3,7 @@
 #include "ObjectPool.h"
 #include "BehaviorTreeNode.h"
 #include "Ray.h"
+#include "LineLenderer.h"
 
 class ParticleSystem;
 class BTAgent;
@@ -30,7 +31,10 @@ public:
     BTNode* m_pBT;   
     BTAgent* m_pBTAgent;
     BTNode* BuildBossBT();    
-private:
+private:    
+    LineLenderer m_LineLenderer;
+    void Aiming(glm::vec3 _targetPos);
+
     Ray m_ray;
     RayCastHit m_rayHit;
     void HandleGroundCol();
@@ -41,6 +45,7 @@ private:
     Sprite* m_pMeleeSpr = nullptr;
     Transform* m_pMeleeTrs = nullptr;
 public:
+    inline Ray GetRay() const { return m_ray; }
     inline BulletFactory* GetBulletFactory()const { return m_pBulletFactory; };    
 private:    
     glm::vec3 m_vTargetPos;

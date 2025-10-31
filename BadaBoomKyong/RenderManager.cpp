@@ -41,6 +41,7 @@
 #include "MathUtil.h"
 #include "SmokeDemon.h"
 #include "CurseDemonBullet.h"
+#include "Boss.h"
 #include "BossRange.h"
 
 RenderManager::RenderManager()
@@ -465,6 +466,7 @@ void RenderManager::Draw()
 		SmokeDemon* sm = static_cast<SmokeDemon*>(obj->FindComponent<SmokeDemon>());
 		CurseDemonBullet* cdm= static_cast<CurseDemonBullet*>(obj->FindComponent<CurseDemonBullet>());
 		BossRange* br = static_cast<BossRange*>(obj->FindComponent<BossRange>());
+		Boss* boss= static_cast<Boss*>(obj->FindComponent<Boss>());
 		//============
 		//============
 		//==Particle==
@@ -528,6 +530,7 @@ void RenderManager::Draw()
 			// 원래대로 복구			
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			glDepthMask(GL_TRUE);
+			
 		}
 		//============
 		//============
@@ -541,7 +544,6 @@ void RenderManager::Draw()
 	// 투명 객체 렌더링 전
 	glDepthMask(GL_FALSE); // 깊이 기록 끄기
 	//투명
-
 	for (const auto& obj : m_vTransParnetObject)
 	{
 		//todo 이거 transform만 active이면 실행되는거 이상함 sprite로 하든가 수정필요함

@@ -161,6 +161,7 @@ private:
 public:
     void SetIsHurting(bool _hurt) { m_bIsHurting = _hurt; }
     bool GetIsHurting()const { return m_bIsHurting; }
+    bool GetIsJumping()const;
 public:
     static constexpr const char* PlayerTypeName = "Player";
     static constexpr const char* SpeedName = "Speed";

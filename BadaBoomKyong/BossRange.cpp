@@ -12,6 +12,7 @@
 #include "EnergyRayParticle.h"
 #include "GameObject.h"
 #include "Player.h"
+#include "CollisionManager.h"
 BossRange::BossRange(GameObject* _owner, GameObject* _shooter)
 	:Bullet(_owner,_shooter)
 {
@@ -67,7 +68,7 @@ void BossRange::Update()
     //m_pTransform->AddRotation({ 350.f * dt,350.f * dt ,350.f * dt });
     float dir = m_pBoss->GetDirection();
     float speed = 100.f;
-    
+
     m_pTransform->AddPositionX( dir * speed * dt);   
     m_fParticle_WaitAccTime += dt;
     /*if (temp == false)

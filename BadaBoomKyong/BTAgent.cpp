@@ -36,6 +36,7 @@ void BTAgent::Update()
 		}
 	}	
 	
-	BTNodeState cur_state = m_pRoot->Tick(bb);
+	BTNodeState cur_state = m_pRoot->Tick(bb);	
+
 	m_eNodeLastState = cur_state;
 }

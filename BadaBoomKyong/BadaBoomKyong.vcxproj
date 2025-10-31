@@ -165,6 +165,7 @@
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="CubeMapResource.cpp" />
     <ClCompile Include="CurseDemonBulletParticle.cpp" />
+    <ClCompile Include="D_IsPlayerInsideMeleeRange.cpp" />
     <ClCompile Include="EnergyRayParticle.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="ExecutionerDemon.cpp" />
@@ -185,9 +186,11 @@
     <ClCompile Include="IDLE_ExecutionerDemon.cpp" />
     <ClCompile Include="IDLE_FlyingDemon.cpp" />
     <ClCompile Include="IDLE_SmokeDemon.cpp" />
+    <ClCompile Include="D_IsPlayerFar.cpp" />
     <ClCompile Include="JumpAttack.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
+    <ClCompile Include="LineLenderer.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MeleeFactory.cpp" />
     <ClCompile Include="ICollisionHandler.cpp" />
@@ -237,6 +240,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerMelee.cpp" />
     <ClCompile Include="PositionOverLifeTime.cpp" />
+    <ClCompile Include="RandomSelector.cpp" />
     <ClCompile Include="RangeAttack.cpp" />
     <ClCompile Include="RangedState.cpp" />
     <ClCompile Include="RANGED_CurseDemon.cpp" />
@@ -314,6 +318,7 @@
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="CubeMapResource.h" />
     <ClInclude Include="CurseDemonBulletParticle.h" />
+    <ClInclude Include="D_IsPlayerInsideMeleeRange.h" />
     <ClInclude Include="EnergyRayParticle.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="ExecutionerDemon.h" />
@@ -339,9 +344,11 @@
     <ClInclude Include="IParticleBehavior.h" />
     <ClInclude Include="IPatrolBehaviour.h" />
     <ClInclude Include="Anim_IState.h" />
+    <ClInclude Include="D_IsPlayerFar.h" />
     <ClInclude Include="JumpAttack.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightManager.h" />
+    <ClInclude Include="LineLenderer.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MeleeFactory.h" />
     <ClInclude Include="ICollisionHandler.h" />
@@ -398,6 +405,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerMelee.h" />
     <ClInclude Include="PositionOverLifeTime.h" />
+    <ClInclude Include="RandomSelector.h" />
     <ClInclude Include="RangeAttack.h" />
     <ClInclude Include="RangedState.h" />
     <ClInclude Include="RANGED_CurseDemon.h" />

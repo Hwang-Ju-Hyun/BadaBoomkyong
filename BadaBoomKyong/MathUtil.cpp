@@ -25,6 +25,11 @@ float MathUtil::DistanceBetweenXY(glm::vec3 _point1, glm::vec3 _point2)
 	return std::sqrt(std::pow(_point2.x - _point1.x, 2) + std::pow(_point2.y - _point1.y, 2));
 }
 
+float MathUtil::DistanceBetweenX(glm::vec3 _point1, glm::vec3 _point2)
+{
+	return std::sqrt(std::pow(_point2.x - _point1.x, 2));
+}
+
 float MathUtil::GetRadianByDegree(float _degree)
 {
 	return _degree* PI / 180.0f;
@@ -73,4 +78,13 @@ float MathUtil::clamp(float _val, float _min, float _max)
 	else if (_val > _max)
 		result = _max;
 	return result;
+}
+
+void MathUtil::Shuffle(std::vector<BTNode*>& _btVec)
+{	
+	for (int i = _btVec.size() - 1; i > 0; --i)
+	{
+		int j = MathUtil::GetInstance()->GetRandomNumber(0, i);
+		std::swap(_btVec[i], _btVec[j]);
+	}	
 }
