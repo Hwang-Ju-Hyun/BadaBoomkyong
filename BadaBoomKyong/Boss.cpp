@@ -74,7 +74,7 @@ BTNode* Boss::BuildBossBT()
 {				
 	BTNode* MeleeBehaivor = new Selector({ new NormalAttack(this),new JumpAttack(this)});
 	BTNode* MoveToMeleeAttack = new Sequence({ new MoveToTarget(this),new NormalAttack(this) });
-	BTNode* random_rangeBehavior = new Selector({ MoveToMeleeAttack ,new RangeAttack(this)});
+	BTNode* random_rangeBehavior = new Selector({ MoveToMeleeAttack,new Sequence({new Wait(10.f),new RangeAttack(this)})});
 	BTNode* melee_deco = new D_IsPlayerFar(random_rangeBehavior);	
 	BTNode* root = new Selector({ new Sequence({MeleeBehaivor}),new Sequence({melee_deco})});
 	return root;
@@ -83,7 +83,7 @@ BTNode* Boss::BuildBossBT()
 void Boss::Aiming(glm::vec3 _targetPos)
 {		
 	glm::vec3 pos = { GetPosition().x,GetPosition().y-50.f,GetPosition().z };
-	m_LineLenderer.DrawLine(pos, _targetPos, 12.f, { 1.f,1.f,0.f,1.f });
+	m_LineLenderer.DrawLine(pos, _targetPos, 50.f, { 1.f,1.f,0.f,1.f });
 }
 
 void Boss::HandleGroundCol()
@@ -139,15 +139,9 @@ void Boss::Init()
 }
 
 void Boss::Update()
-{	
-	static int a = 0;
+{		
 	if (GetIsAlive())
-	{			
-		if (a % 5 == 0)
-		{
-			Aiming(m_vPlayerPosition);			
-		}
-		a++;
+	{					
 			
 		UpdateSpriteFlipX();
 

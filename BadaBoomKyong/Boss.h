@@ -33,7 +33,6 @@ public:
     BTNode* BuildBossBT();    
 private:    
     LineLenderer m_LineLenderer;
-    void Aiming(glm::vec3 _targetPos);
 
     Ray m_ray;
     RayCastHit m_rayHit;
@@ -45,6 +44,7 @@ private:
     Sprite* m_pMeleeSpr = nullptr;
     Transform* m_pMeleeTrs = nullptr;
 public:
+    void Aiming(glm::vec3 _targetPos);
     inline Ray GetRay() const { return m_ray; }
     inline BulletFactory* GetBulletFactory()const { return m_pBulletFactory; };    
 private:    

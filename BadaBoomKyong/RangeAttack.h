@@ -13,5 +13,8 @@ public:
 	virtual BTNodeState Update(BlackBoard& _bb)override;
 	virtual void Exit(BlackBoard& _bb)override;
 	virtual void Abort();
+public:
+	float m_fElapse_AimingAccTime = 0.f;
+	float m_fMaxAimingTime = 3.f;
 };
 
