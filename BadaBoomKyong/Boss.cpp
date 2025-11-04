@@ -37,7 +37,13 @@
 #include "Wait.h"
 #include "Ray.h"
 #include "RandomSelector.h"
-#include "D_IsPlayerFar.h"
+#include "IsPlayerFar.h"
+#include "D_IsHPLessThan.h"
+#include "Anim_AppearState.h"
+#include "Anim_DisappearState.h"
+#include "TeleportAttack.h"
+#include "IsPlayerNear.h"
+#include "ConeRange.h"
 
 Boss::Boss(GameObject* _owner)
 	:Monster(_owner)
@@ -60,6 +66,8 @@ Boss::Boss(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::JUMP), new AnimJumpState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::FALL), new AnimFallState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::JUMP_ATTACK), new AnimJumpAttackState<Monster>());
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::APPEAR), new AnimAppearState<Monster>());
+	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DISAPPEAR), new AnimDisAppearState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DEATH), new AnimDeathState<Monster>());
 
 	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::IDLE));	
@@ -71,12 +79,38 @@ Boss::~Boss()
 }
 
 BTNode* Boss::BuildBossBT()
-{				
-	BTNode* MeleeBehaivor = new Selector({ new NormalAttack(this),new JumpAttack(this)});
-	BTNode* MoveToMeleeAttack = new Sequence({ new MoveToTarget(this),new NormalAttack(this) });
-	BTNode* random_rangeBehavior = new Selector({ MoveToMeleeAttack,new Sequence({new Wait(10.f),new RangeAttack(this)})});
-	BTNode* melee_deco = new D_IsPlayerFar(random_rangeBehavior);	
-	BTNode* root = new Selector({ new Sequence({MeleeBehaivor}),new Sequence({melee_deco})});
+{					
+	BTNode* moveAndAttackSequence = new Sequence({
+	  new MoveToTarget(this),                 // 멀면 이동 (Boss 내부에서 이동 중)
+	  new NormalAttack(this)                  // 근접하면 공격
+		});
+	
+	BTNode* randomSelector = new RandomSelector({
+		moveAndAttackSequence,
+		new RangeAttack(this),
+		new TeleportAttack(this)
+		});
+	
+	BTNode* Act_IfFarSequence = new Sequence({
+		new IsPlayerFar(this),  // 조건 체크 (Condition Node)
+		randomSelector
+		});
+
+
+	BTNode* Act_IfNear = new Sequence({
+		new IsPlayerNear(this),
+			new Selector({new JumpAttack(this),new NormalAttack(this)
+				})
+		});
+
+	
+
+	
+	BTNode* root = new Selector({
+		Act_IfFarSequence,
+		Act_IfNear
+		});
+
 	return root;
 }
 
@@ -84,6 +118,24 @@ void Boss::Aiming(glm::vec3 _targetPos)
 {		
 	glm::vec3 pos = { GetPosition().x,GetPosition().y-50.f,GetPosition().z };
 	m_LineLenderer.DrawLine(pos, _targetPos, 50.f, { 1.f,1.f,0.f,1.f });
+}
+
+void Boss::SpawnPawn()
+{	
+	for (int i = 0;i < 5;i++)
+	{
+		Bullet* cone_rage= GetBulletFactory()->CreateBullet(BULLET_TYPE::CONE_RANGE);
+		ConeRange* cone_range_comp = static_cast<ConeRange*>(cone_rage->GetOwner()->FindComponent(ConeRange::ConeRangeTypeName));
+		cone_range_comp->SetShooter(this->GetOwner());
+
+		EventManager::GetInstance()->SetActiveTrue(cone_rage->GetOwner());
+		cone_range_comp->SetCanFire(true);
+	}		
+}
+
+void Boss::ConeAttack(int _contCnt)
+{
+
 }
 
 void Boss::HandleGroundCol()
@@ -109,7 +161,7 @@ void Boss::Move()
 	float dir = m_vTargetPos.x - m_vPosition.x;
 
 	//m_eCurrentState = MonsterAnimState::WALK;
-	m_pTransform->AddPositionX(dir * m_fSpeed * dt);	
+	m_pTransform->AddPositionX(dir * m_fSpeed * dt);		
 }
 
 void Boss::Jump()
@@ -121,6 +173,11 @@ void Boss::Jump()
 	m_pRigidBody->SetIsGround(false);
 	SetIsGround(false);
 	SetCurrentAnimState(MonsterAnimState::JUMP);	
+}
+
+void Boss::TelePort(const glm::vec3& _target)
+{
+	m_pTransform->SetPosition(_target);
 }
 
 void Boss::Init()
@@ -138,11 +195,16 @@ void Boss::Init()
 	m_pBTAgent = new BTAgent(this,m_pBT);	
 }
 
+#include "InputManager.h"
 void Boss::Update()
 {		
 	if (GetIsAlive())
 	{					
 			
+		if (InputManager::GetInstance()->GetKetCode(GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+		{
+			SpawnPawn();
+		}
 		UpdateSpriteFlipX();
 
 		float dir = m_vPlayerPosition.x - m_vPosition.x;
@@ -168,16 +230,7 @@ void Boss::Update()
 		} 
 	}
 
-	/*if (!temp)
-	{
-		if (GeometryUtil::GetInstance()->IsNearX(GetPosition(), m_vPlayerPosition,400.f))
-		{
-			Fire();
-			temp = true;
-		}
-	}*/
-
-	Move();
+	//Move();
 	HandleGroundCol();
 	auto hp = GetCurrentHP();
 	hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
@@ -187,10 +240,11 @@ void Boss::Update()
 
 	m_vPosition = m_pTransform->GetPosition();
 
-	m_pBTAgent->Update();
+	//m_pBTAgent->Update();
 
-	StateHandle();
+	
 
+	StateHandle();	
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();		
 }
@@ -242,7 +296,7 @@ bool Boss::IsMeleeAnimDone()
 }
 
 void Boss::StateHandle()
-{
+{	
 	m_pRigidBody->GetVelocity().y < 0 ? m_bIsFalling = true : m_bIsFalling = false;
 
 	if (GetIsHurting()==false)
@@ -272,7 +326,7 @@ void Boss::StateHandle()
 			}
 			return;
 		}
-		if (m_bIsFalling)
+		if (m_bIsFalling&& m_eCurrentState != MonsterAnimState::DISAPPEAR&& m_eCurrentState != MonsterAnimState::APPEAR)
 		{
 			m_eCurrentState = MonsterAnimState::FALL;
 		}
@@ -289,13 +343,15 @@ void Boss::StateHandle()
 	{
 		m_eCurrentState = MonsterAnimState::JUMP;
 	}
-	else if (m_pRigidBody->GetVelocity().y < 0)
+	else if (m_pRigidBody->GetVelocity().y < 0 && m_eCurrentState != MonsterAnimState::DISAPPEAR && m_eCurrentState != MonsterAnimState::APPEAR)
 	{
 		m_eCurrentState = MonsterAnimState::FALL;
 	}
 
 	if (std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon
-		&& m_pRigidBody->GetIsGround())&&m_eCurrentState!=MonsterAnimState::RANGE_ATTACK)
+		&& m_pRigidBody->GetIsGround())&&m_eCurrentState!=MonsterAnimState::RANGE_ATTACK&&
+		m_eCurrentState!=MonsterAnimState::APPEAR&&
+		m_eCurrentState != MonsterAnimState::DISAPPEAR)
 	{
 		m_eCurrentState = MonsterAnimState::IDLE;
 	}

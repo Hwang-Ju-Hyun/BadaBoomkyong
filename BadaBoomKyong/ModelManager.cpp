@@ -47,6 +47,7 @@ void ModelManager::Init()
 	RectangleInit();
 	PlaneInit();
 	CubeInit();
+	ConeInit(36);
 	SkyBoxInit();
 }
 
@@ -235,7 +236,72 @@ void ModelManager::CubeInit()
 	model->AddMesh(mesh);	
 }
 
-void ModelManager::SkyBoxInit()
+void ModelManager::ConeInit(int _slices)
+{
+	std::string name = "Cone";
+
+	glm::vec3 top = { 0.f,0.5f,0.f };
+	glm::vec3 bottom = { 0.f,-0.5f,0.f };
+	std::vector<Mesh::VertexAttribute>vertices;
+	
+	vertices.push_back(Mesh::VertexAttribute{ { bottom }, {},{0.f,-1.f,0.f} });
+	std::vector<glm::vec3> vertices_pos;
+	for (int i = 0;i < _slices; i++)
+	{
+		float theta = glm::radians(360.f*(i) / _slices);		
+
+		glm::vec3 pos = glm::vec3{ 0.5 * std::cos(theta), -0.5f, 0.5 * std::sin(theta) };						
+		vertices_pos.push_back(pos);
+
+	}	
+
+	std::vector<unsigned int> indices;
+	vertices.push_back({ top, {0.5f, 0.0f}, {0.f, 1.f, 0.f}, {} });
+	int top_idx = vertices.size()- 1;	
+
+
+	//indices bot 
+	for (int i = 0;i < _slices;i++)
+	{
+		int bot_idx = 0;
+		int next = (i + 1) % _slices;
+
+		indices.push_back(bot_idx);
+		indices.push_back(next + 1);
+		indices.push_back(i + 1);
+	}
+
+	//indices side
+	for (int i = 0;i < _slices;i++)
+	{		
+		int next = (i + 1)%_slices+1;
+
+		indices.push_back(i+1);
+		indices.push_back(next + 1);
+		indices.push_back(top_idx);
+	}
+
+	std::vector<glm::vec3> vertex_normal = GetVertexNormal(vertices_pos, indices);
+	for (int i = 0;i < vertices_pos.size();i++)
+	{
+		vertices.push_back(Mesh::VertexAttribute{ vertices_pos[i],{},{} });
+	}	
+
+	//CaculateTangent(vertices, indices);
+	
+
+	GLenum type = GL_TRIANGLES;
+	Mesh* mesh = new Mesh(MODEL_TYPE::CONE, type, std::move(vertices), std::move(indices));
+	assert(mesh != nullptr);
+
+	Model* model = new Model(name, MODEL_TYPE::CONE);
+
+	assert(model != nullptr);
+	model->AddMesh(mesh);
+
+}
+
+void ModelManager::SkyBoxInit() 
 {
 	std::string name = "SkyBox";
 	std::vector<Mesh::VertexAttribute> vertices =
@@ -547,6 +613,39 @@ void ModelManager::LoadMaterials(const aiScene* _scene,const std::string& _fileP
 			m_pCustomModel->GetMeshes()[i]->SetMaterial(mat);
 		}
 	}
+}
+
+
+//이거 살짝 문제 있음 지금
+std::vector<glm::vec3> ModelManager::GetVertexNormal(std::vector<glm::vec3> _verticesPos, std::vector<unsigned int> _indices)
+{
+	std::vector<glm::vec3> vertex_normal(_indices.size(), glm::vec3{ 0.f,0.f,0.f });
+	for (int i = 0;i < _indices.size();i += 3)
+	{
+		unsigned int i0 = _indices[i];
+		unsigned int i1 = _indices[i + 1];
+		unsigned int i2 = _indices[i + 2];		
+		glm::vec3 v0 = _verticesPos[i0%(_verticesPos.size())];
+		glm::vec3 v1 = _verticesPos[i1%(_verticesPos.size())];
+		glm::vec3 v2 = _verticesPos[i2%(_verticesPos.size())];
+
+		glm::vec3 edge1 = v1 - v0;
+		glm::vec3 edge2 = v2 - v0;
+
+		glm::vec3 faceNormal = glm::cross(edge1, edge2);
+		faceNormal = glm::normalize(faceNormal);
+
+
+		vertex_normal[i0] += faceNormal;
+		vertex_normal[i1] += faceNormal;
+		vertex_normal[i2] += faceNormal;
+	}	
+	for(int i=0;i<vertex_normal.size();i++)
+	{
+		vertex_normal[i] = glm::normalize(vertex_normal[i]);
+	}
+
+	return vertex_normal;
 }
 
 void ModelManager::CaculateTangent(std::vector<Mesh::VertexAttribute>& _vertices, std::vector<unsigned int> _indices)

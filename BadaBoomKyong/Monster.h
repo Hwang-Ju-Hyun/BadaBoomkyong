@@ -36,6 +36,8 @@ enum class MonsterAnimState
     FALL,
     JUMP_ATTACK,
     DASH,
+    DISAPPEAR,
+    APPEAR,
     DEATH
 };
 

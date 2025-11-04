@@ -31,22 +31,30 @@ BTNodeState MoveToTarget::Update(BlackBoard& _bb)
 	
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
 	m_fElapseAccTime += dt;
-	
-	float dist = MathUtil::GetInstance()->DistanceBetweenX(boss_pos,player_pos);
-	if (dist >= m_fMaxDistance || m_fElapseAccTime >= m_fMaxTime)
+	std::cout << "Moving" << std::endl;
+	//float dist = MathUtil::GetInstance()->DistanceBetweenX(boss_pos,player_pos);
+	if (!GeometryUtil::GetInstance()->IsNearX(boss_pos, player_pos, 50.f))
 	{
-		Abort();
-		b->SetTargetPos(boss_pos);
-		return BTNodeState::FAILURE;
-	}
-
-	if (GeometryUtil::GetInstance()->IsNear(boss_pos, player_pos,150.f))
+		if (/*dist >= m_fMaxDistance || */m_fElapseAccTime >= m_fMaxTime)
+		{
+			Abort();
+			b->SetTargetPos(boss_pos);
+			return BTNodeState::FAILURE;
+		}
+	}	
+	if (GeometryUtil::GetInstance()->IsNearX(boss_pos, player_pos,50.f))
 		return BTNodeState::SUCCESS;
 	return BTNodeState::RUNNING;
 }
 
 void MoveToTarget::Exit(BlackBoard& _bb)
 {
+	Player* p = _bb.GetPlayer();
+	Boss* b = _bb.GetBoss();
+
+	glm::vec3 player_pos = p->GetPosition();
+	glm::vec3 boss_pos = b->GetPosition();	
+	std::cout << "Moving Exit" << std::endl;
 }
 
 void MoveToTarget::Abort()

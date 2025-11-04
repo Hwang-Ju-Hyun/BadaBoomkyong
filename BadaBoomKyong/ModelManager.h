@@ -40,6 +40,7 @@ private:
 private:
 	void PlaneInit();
 	void CubeInit();
+	void ConeInit(int _slices);
 	void SkyBoxInit();
 public:
 	Model* LoadModel(const std::string& _filePath); // 모델을 메모리에 올린다.	
@@ -52,6 +53,7 @@ private:
 	// 텍스쳐를 로드한다.
 	void LoadMaterials(const aiScene* _scene,const std::string& _filePath);
 private:
+	std::vector<glm::vec3> GetVertexNormal(std::vector<glm::vec3> _verticesPos,std::vector<unsigned int> _indices);
 	void CaculateTangent(std::vector<Mesh::VertexAttribute>& _vertices, std::vector<unsigned int> _indices);
 public:
 	static int g_mesh_cnt;

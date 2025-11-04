@@ -15,6 +15,7 @@ class CurseDemonBullet;
 class ExecutionerDemonFireBall;
 class FlyingDemonFireBall;
 class BossRange;
+class ConeRange;
 
 
 class BulletFactory
@@ -34,6 +35,7 @@ private:
 	ObjectPool<ExecutionerDemonFireBall, 30>* m_pExecutionerDemonFireBallPool;
 	ObjectPool<FlyingDemonFireBall, 30>* m_pFlyingDemonFireBallPool;
 	ObjectPool<GameObject*, 5>* m_pBossRangePool;
+	ObjectPool<GameObject*, 10>* m_pConeRangePool;
 private:
 	virtual void InitStage01()  override;
 	virtual void InitStage02()  override;

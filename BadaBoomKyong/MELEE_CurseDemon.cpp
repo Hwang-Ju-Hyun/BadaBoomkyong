@@ -18,7 +18,7 @@ void MELEE_CurseDemon::DoMeleeBehaviour(Monster* _mon)
 	if (m_pCurseDemon->m_bMeleeAtkDone == false&&m_fMeleeAtkCoolTime < m_fMeleeCoolTimeAcc)
 	{
 		m_pCurseDemon->SetAnimCurrentState(MonsterAnimState::NORMAL_ATTACK);
-		m_pCurseDemon->MeleeAttack();				
+		m_pCurseDemon->MeleeAttack();
 	}	
 	else if (m_pCurseDemon->m_bMeleeAtkDone)
 	{

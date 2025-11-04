@@ -497,6 +497,18 @@
     <Filter Include="AI\BehaviorTree\Decorator">
       <UniqueIdentifier>{2b482eb4-8475-424d-919b-1d014c33e77b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Appear">
+      <UniqueIdentifier>{de9fcfa0-8c07-48ed-9637-0fb9ea79d4b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Disappear">
+      <UniqueIdentifier>{28e49524-4272-4852-a51f-54c37a8b27a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Monster\BossRange\ConeRange">
+      <UniqueIdentifier>{fdb33e0f-1b35-4e42-b292-30a4d5f8b1a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Monster\BossRange\NormalRange">
+      <UniqueIdentifier>{4e4e69d7-b02e-4ccd-9c1a-8be37660a803}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -871,9 +883,6 @@
     <ClCompile Include="RangeAttack.cpp">
       <Filter>AI\BehaviorTree\Leaf</Filter>
     </ClCompile>
-    <ClCompile Include="BossRange.cpp">
-      <Filter>Component\Custom\Bullet\Monster\BossRange</Filter>
-    </ClCompile>
     <ClCompile Include="EnergyRayParticle.cpp">
       <Filter>Particle\EnergyRay</Filter>
     </ClCompile>
@@ -891,6 +900,24 @@
     </ClCompile>
     <ClCompile Include="D_IsPlayerInsideMeleeRange.cpp">
       <Filter>AI\BehaviorTree\Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="D_IsHPLessThan.cpp">
+      <Filter>AI\BehaviorTree\Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="TeleportAttack.cpp">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="IsPlayerFar.cpp">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="IsPlayerNear.cpp">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="BossRange.cpp">
+      <Filter>Component\Custom\Bullet\Monster\BossRange\NormalRange</Filter>
+    </ClCompile>
+    <ClCompile Include="ConeRange.cpp">
+      <Filter>Component\Custom\Bullet\Monster\BossRange\ConeRange</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1371,9 +1398,6 @@
     <ClInclude Include="RangeAttack.h">
       <Filter>AI\BehaviorTree\Leaf</Filter>
     </ClInclude>
-    <ClInclude Include="BossRange.h">
-      <Filter>Component\Custom\Bullet\Monster\BossRange</Filter>
-    </ClInclude>
     <ClInclude Include="EnergyRayParticle.h">
       <Filter>Particle\EnergyRay</Filter>
     </ClInclude>
@@ -1391,6 +1415,30 @@
     </ClInclude>
     <ClInclude Include="D_IsPlayerInsideMeleeRange.h">
       <Filter>AI\BehaviorTree\Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="D_IsHPLessThan.h">
+      <Filter>AI\BehaviorTree\Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="TeleportAttack.h">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_AppearState.h">
+      <Filter>Animation\FiniteStateMachine\Appear</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_DisappearState.h">
+      <Filter>Animation\FiniteStateMachine\Disappear</Filter>
+    </ClInclude>
+    <ClInclude Include="IsPlayerFar.h">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="IsPlayerNear.h">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="BossRange.h">
+      <Filter>Component\Custom\Bullet\Monster\BossRange\NormalRange</Filter>
+    </ClInclude>
+    <ClInclude Include="ConeRange.h">
+      <Filter>Component\Custom\Bullet\Monster\BossRange\ConeRange</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -21,6 +21,8 @@
 #include "SmokeDemon.h"
 #include "Boss.h"
 #include "BossRange.h"
+#include "ConeRange.h"
+
 
 Registry::Registry()
 {
@@ -42,6 +44,7 @@ Registry::Registry()
     m_mapRTTI.insert({ Boss::BossTypeName,&Boss::CreateBossComponent });    
     m_mapRTTI.insert({ BossRange::BossRangeTypeName,&BossRange::CreateBossRangeComponent});
     m_mapRTTI.insert({ Pistol::PistolTypeName,&Pistol::CreatePistolComponent });
+    m_mapRTTI.insert({ ConeRange::ConeRangeTypeName,&ConeRange::CreateConeRangeComponent});
     m_mapRTTI.insert({ Light::LightTypeName,&Light::CreateLightComponent });
     m_mapRTTI.insert({ SkyBox::SkyBoxTypeName,&SkyBox::CreateSkyBoxComponent });
 }

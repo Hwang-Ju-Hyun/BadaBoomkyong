@@ -30,6 +30,15 @@ public:
             case MonsterAnimState::NORMAL_ATTACK:
                 machine->ChangeAnimState(int(MonsterAnimState::NORMAL_ATTACK));
                 break;
+            case MonsterAnimState::WALK:
+                machine->ChangeAnimState(int(MonsterAnimState::WALK));
+                break;
+            case MonsterAnimState::APPEAR:
+                machine->ChangeAnimState(int(MonsterAnimState::APPEAR));
+                break;
+            case MonsterAnimState::DISAPPEAR:
+                machine->ChangeAnimState(int(MonsterAnimState::DISAPPEAR));
+                break;
             case MonsterAnimState::DEATH:
                 machine->ChangeAnimState(int(MonsterAnimState::DEATH));
                 break;

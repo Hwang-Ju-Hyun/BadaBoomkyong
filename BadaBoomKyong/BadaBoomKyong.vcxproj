@@ -163,8 +163,10 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="ColorOverLifeTime.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
+    <ClCompile Include="ConeRange.cpp" />
     <ClCompile Include="CubeMapResource.cpp" />
     <ClCompile Include="CurseDemonBulletParticle.cpp" />
+    <ClCompile Include="D_IsHPLessThan.cpp" />
     <ClCompile Include="D_IsPlayerInsideMeleeRange.cpp" />
     <ClCompile Include="EnergyRayParticle.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -187,6 +189,8 @@
     <ClCompile Include="IDLE_FlyingDemon.cpp" />
     <ClCompile Include="IDLE_SmokeDemon.cpp" />
     <ClCompile Include="D_IsPlayerFar.cpp" />
+    <ClCompile Include="IsPlayerFar.cpp" />
+    <ClCompile Include="IsPlayerNear.cpp" />
     <ClCompile Include="JumpAttack.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
@@ -266,6 +270,7 @@
     <ClCompile Include="Stage02.cpp" />
     <ClCompile Include="Stage03.cpp" />
     <ClCompile Include="StageTest.cpp" />
+    <ClCompile Include="TeleportAttack.cpp" />
     <ClCompile Include="TextureResource.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TraceState.cpp" />
@@ -277,6 +282,8 @@
   <ItemGroup>
     <ClInclude Include="AI.h" />
     <ClInclude Include="Animator.h" />
+    <ClInclude Include="Anim_AppearState.h" />
+    <ClInclude Include="Anim_DisappearState.h" />
     <ClInclude Include="Anim_DivingState.h" />
     <ClInclude Include="Anim_ToDiveState.h" />
     <ClInclude Include="Anim_FlyingState.h" />
@@ -316,8 +323,10 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="ColorOverLifeTime.h" />
     <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="ConeRange.h" />
     <ClInclude Include="CubeMapResource.h" />
     <ClInclude Include="CurseDemonBulletParticle.h" />
+    <ClInclude Include="D_IsHPLessThan.h" />
     <ClInclude Include="D_IsPlayerInsideMeleeRange.h" />
     <ClInclude Include="EnergyRayParticle.h" />
     <ClInclude Include="EventManager.h" />
@@ -345,6 +354,8 @@
     <ClInclude Include="IPatrolBehaviour.h" />
     <ClInclude Include="Anim_IState.h" />
     <ClInclude Include="D_IsPlayerFar.h" />
+    <ClInclude Include="IsPlayerFar.h" />
+    <ClInclude Include="IsPlayerNear.h" />
     <ClInclude Include="JumpAttack.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightManager.h" />
@@ -434,6 +445,7 @@
     <ClInclude Include="Stage02.h" />
     <ClInclude Include="Stage03.h" />
     <ClInclude Include="StageTest.h" />
+    <ClInclude Include="TeleportAttack.h" />
     <ClInclude Include="TextureResource.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TraceState.h" />

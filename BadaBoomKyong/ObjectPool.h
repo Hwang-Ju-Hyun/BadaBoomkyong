@@ -29,6 +29,7 @@ public:
 			if (!m_arrPool[i]->GetActive())
 			{				
 				EventManager::GetInstance()->SetActiveTrue(m_arrPool[i]);
+				m_arrPool[i]->SetActive(true);
 				return m_arrPool[i];
 			}
 

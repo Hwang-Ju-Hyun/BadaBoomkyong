@@ -222,8 +222,7 @@ void Player::Fire()
 	if (input->GetKetCode(GLFW_KEY_J) == GLFW_PRESS)
 	{
 		Bullet* bullet_comp = m_pBulletFactory->CreateBullet(BULLET_TYPE::PISTOL);
-		m_pBullet = bullet_comp;
-		assert(m_pBullet != nullptr);
+		m_pBullet = bullet_comp;		
 
 		EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
 	}	

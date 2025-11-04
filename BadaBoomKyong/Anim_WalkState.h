@@ -31,6 +31,9 @@ public:
             case MonsterAnimState::RANGE_ATTACK:
                 machine->ChangeAnimState(static_cast<int>(MonsterAnimState::RANGE_ATTACK));
                 break;
+            case MonsterAnimState::DISAPPEAR:
+                machine->ChangeAnimState(static_cast<int>(MonsterAnimState::DISAPPEAR));
+                break;            
             case MonsterAnimState::JUMP:
                 machine->ChangeAnimState(static_cast<int>(MonsterAnimState::JUMP));
                 break;

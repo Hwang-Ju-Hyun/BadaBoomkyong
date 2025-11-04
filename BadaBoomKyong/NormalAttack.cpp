@@ -15,9 +15,10 @@ NormalAttack::NormalAttack(Boss* _boss)
 BTNodeState NormalAttack::Enter(BlackBoard& _bb)
 {
 	Boss* boss_comp = _bb.GetBoss();
-	if (_bb.IsPlayerNear(boss_comp))
+	std::cout << "Normal Attack" << std::endl;
+	if (_bb.IsPlayerNearX(boss_comp))
 	{
-		return BTNodeState::SUCCESS;
+		return BTNodeState::RUNNING;
 	}
 	return BTNodeState::FAILURE;
 }

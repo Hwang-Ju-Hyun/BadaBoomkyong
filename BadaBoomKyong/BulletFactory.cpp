@@ -20,7 +20,7 @@
 #include "FlyingDemonFireBall.h"
 #include "Boss.h"
 #include "BossRange.h"
-
+#include "ConeRange.h"
 
 BulletFactory::BulletFactory(STAGE_TYPE _stage)
 	:BaseFactory(_stage)
@@ -71,11 +71,15 @@ Bullet* BulletFactory::CreateBullet(BULLET_TYPE _type)
 	case BULLET_TYPE::BOSS_RANGE:
 		bullet_comp = m_pBossRangePool->GetPool()->FindComponent<BossRange>();
 		break;
+	case BULLET_TYPE::CONE_RANGE:
+		bullet_comp = m_pConeRangePool->GetPool()->FindComponent<ConeRange>();
+		break;
 	case BULLET_TYPE::CURSEDEMON_FIREBALL:
 		bullet_comp = m_pMonsterGrenadePool->GetPool()->FindComponent<CurseDemonBullet>();
 	default:
 		break;
 	}
+	assert(bullet_comp != nullptr);
 	return bullet_comp;
 }
 
@@ -260,5 +264,22 @@ void BulletFactory::InitStageTest()
 		range_obj->SetActiveAllComps(false);
 		m_pBossRangePool->m_arrPool[j] = range_obj;
 		range_obj->SetActive(false);
+	}
+
+
+	const size_t cone_cnt = 10;
+	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, cone_cnt >();
+	m_pConeRangePool = static_cast<ObjectPool<GameObject*, cone_cnt >*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, cone_cnt >());
+	for (int j = 0;j < cone_cnt; j++)
+	{
+		ConeRange* cone_comp = nullptr;
+		GameObject* cone_obj = Serializer::GetInstance()->LoadPrefab("json/Prefab/Boss/Cone/Cone_Prefab.json");		
+		cone_comp = dynamic_cast<ConeRange*>(cone_obj->FindComponent<ConeRange>());
+		cone_comp->SetShooter(boss_obj);
+		assert(cone_comp != nullptr);
+
+		cone_obj->SetActiveAllComps(false);
+		m_pConeRangePool->m_arrPool[j] = cone_obj;
+		cone_obj->SetActive(false);
 	}
 }

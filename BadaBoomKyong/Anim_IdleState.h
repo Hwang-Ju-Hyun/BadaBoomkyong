@@ -87,6 +87,12 @@ public:
             case MonsterAnimState::FALL:
                 machine->ChangeAnimState(int(MonsterAnimState::FALL));
                 break;          
+            case MonsterAnimState::DISAPPEAR:
+                machine->ChangeAnimState(int(MonsterAnimState::DISAPPEAR));
+                break;
+            case MonsterAnimState::APPEAR:
+                machine->ChangeAnimState(int(MonsterAnimState::APPEAR));
+                break;
             }
         }        
     }

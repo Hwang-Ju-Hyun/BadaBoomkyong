@@ -27,6 +27,7 @@ public:
 private:
     BulletFactory* m_pBulletFactory = nullptr;    
     Bullet* m_pBullet = nullptr;
+    Bullet* m_pConeBullet = nullptr;
 public:
     BTNode* m_pBT;   
     BTAgent* m_pBTAgent;
@@ -46,7 +47,9 @@ private:
 public:
     void Aiming(glm::vec3 _targetPos);
     inline Ray GetRay() const { return m_ray; }
-    inline BulletFactory* GetBulletFactory()const { return m_pBulletFactory; };    
+    inline BulletFactory* GetBulletFactory()const { return m_pBulletFactory; };
+    void SpawnPawn();
+    void ConeAttack(int _contCnt);
 private:    
     glm::vec3 m_vTargetPos;
     float m_fDetectRange = 0.f;
@@ -70,6 +73,7 @@ public:
     inline int GetMoveDirection()const { return m_iMoveDirection; }
     void Move();
     void Jump();    
+    void TelePort(const glm::vec3& _target);
 public:
     virtual void Init()override;
     virtual void Update()override;
@@ -88,7 +92,7 @@ private:
     float m_fOffsetTime = 0.015f;
     bool m_bJumpMeleeAttacking=false;
     bool m_bIsNormalAttacking = false;
-    bool m_bIsFalling = false;
+    bool m_bIsFalling = false;    
 private:
     void StateHandle();
 public:

@@ -13,6 +13,7 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "CollisionManager.h"
+
 BossRange::BossRange(GameObject* _owner, GameObject* _shooter)
 	:Bullet(_owner,_shooter)
 {

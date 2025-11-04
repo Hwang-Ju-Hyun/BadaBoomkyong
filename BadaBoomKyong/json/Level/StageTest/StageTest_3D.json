@@ -9,7 +9,7 @@
         "CompData": {
           "Pos": [
             -596.97909545898438,
-            7479.334228515625,
+            9479.334228515625,
             0.0
           ],
           "Sca": [
@@ -243,8 +243,8 @@
         "Type": "Transform",
         "CompData": {
           "Pos": [
-           200.0,
-            8577.5274658203125,
+           400.0,
+           8577.5274658203125,
             0.0
           ],
           "Sca": [
@@ -392,6 +392,26 @@
                     "Max": 12,
                     "Row": 1,
                     "Col": 12,
+                    "Duration": 0.10000000149011612,
+                    "Loop": false
+                },
+                {
+                    "Name": "Appear",
+                    "TextureName": "Appear",
+                    "TexturePath": "../Extern/Assets/Texture/Boss/Appear/Appear.png",
+                    "Max": 21,
+                    "Row": 1,
+                    "Col": 21,
+                    "Duration": 0.10000000149011612,
+                    "Loop": false
+                },
+                {
+                    "Name": "Disappear",
+                    "TextureName": "Disappear",
+                    "TexturePath": "../Extern/Assets/Texture/Boss/Disappear/Disappear.png",
+                    "Max": 14,
+                    "Row": 1,
+                    "Col": 14,
                     "Duration": 0.10000000149011612,
                     "Loop": false
                 }

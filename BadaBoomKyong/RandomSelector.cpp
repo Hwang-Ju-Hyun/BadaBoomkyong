@@ -23,9 +23,9 @@ BTNodeState RandomSelector::Enter(BlackBoard& _bb)
 
 BTNodeState RandomSelector::Update(BlackBoard& _bb)
 {		
-	while (m_iCurrent<m_vecChildNode.size())
+	while (m_iCurrent< m_vecShuffle.size())
 	{		
-		BTNodeState state = m_vecChildNode[m_iCurrent]->Tick(_bb);
+		BTNodeState state = m_vecShuffle[m_iCurrent]->Tick(_bb);
 		if (state == BTNodeState::SUCCESS)
 		{
 			m_iCurrent = 0;

@@ -14,7 +14,7 @@ public:
 	virtual void Abort() ;
 private:
 	float m_fElapseAccTime = 0.f;
-	float m_fMaxTime= 3.f;
+	float m_fMaxTime= 10.f;
 	float m_fMaxDistance = 1300.f;
 };
 

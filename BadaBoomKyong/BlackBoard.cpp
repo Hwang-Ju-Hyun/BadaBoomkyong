@@ -27,12 +27,12 @@ bool BlackBoard::IsPlayerNear(Monster* _monster)
 {	
 	glm::vec3 mon_pos = static_cast<Transform*>(_monster->GetOwner()->FindComponent<Transform>())->GetPosition();
 	glm::vec3 player_pos = m_pPlayerTransform->GetPosition();
-	return GeometryUtil::GetInstance()->IsNear(mon_pos, player_pos,150);	
+	return GeometryUtil::GetInstance()->IsNear(mon_pos, player_pos,50);	
 }
 
 bool BlackBoard::IsPlayerNearX(Monster* _monster)
 {
 	glm::vec3 mon_pos = static_cast<Transform*>(_monster->GetOwner()->FindComponent<Transform>())->GetPosition();
 	glm::vec3 player_pos = m_pPlayerTransform->GetPosition();
-	return GeometryUtil::GetInstance()->IsNearX(mon_pos, player_pos);
+	return GeometryUtil::GetInstance()->IsNearX(mon_pos, player_pos,50.f);
 }

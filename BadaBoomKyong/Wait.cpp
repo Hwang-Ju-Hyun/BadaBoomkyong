@@ -10,11 +10,13 @@ BTNodeState Wait::Enter(BlackBoard& _bb)
 {
     return BTNodeState::RUNNING;
 }
+#include <iostream>
 
 BTNodeState Wait::Update(BlackBoard& _bb)
 {
     float dt = TimeManager::GetInstance()->GetDeltaTime();
     m_fAccTime += dt;
+    std::cout << "Waiting" << std::endl;
     if (m_fAccTime >= m_fWaitTime)
     {
         m_fAccTime = 0.f;

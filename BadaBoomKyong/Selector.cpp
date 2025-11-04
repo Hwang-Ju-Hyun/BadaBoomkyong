@@ -19,10 +19,10 @@ BTNodeState Selector::Update(BlackBoard& _bb)
 	while (m_iCurrent < m_vecChildNode.size())
 	{
 		BTNodeState state = m_vecChildNode[m_iCurrent]->Tick(_bb);
-#ifdef _DEBUG
-		std::cout << "Current Node type: " << typeid(*m_vecChildNode[m_iCurrent]).name()
-			<< ", State: " << static_cast<int>(state) << std::endl;
-#endif
+//#ifdef _DEBUG
+//		std::cout << "Current Node type: " << typeid(*m_vecChildNode[m_iCurrent]).name()
+//			<< ", State: " << static_cast<int>(state) << std::endl;
+//#endif
 		if (state == BTNodeState::SUCCESS)
 		{
 			m_iCurrent = 0;

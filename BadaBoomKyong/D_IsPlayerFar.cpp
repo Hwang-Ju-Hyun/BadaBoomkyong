@@ -16,13 +16,16 @@ BTNodeState D_IsPlayerFar::Enter(BlackBoard& _bb)
 	return BTNodeState::RUNNING;
 }
 
+#include <iostream>
 BTNodeState D_IsPlayerFar::Update(BlackBoard& _bb)
 {
     // 조건 판단
     Boss* boss = _bb.GetBoss();
     if (_bb.IsPlayerNearX(boss))
-        return BTNodeState::FAILURE; // 조건 불만족 시 FAIL
-
+    {
+        std::cout << "DecoNode Fail Player is near" << std::endl;
+        return BTNodeState::FAILURE; // 조건 불만족 시 FAIL    
+    }        
     // 조건 만족 → 자식 실행
     return m_pChild->Tick(_bb);
 }
