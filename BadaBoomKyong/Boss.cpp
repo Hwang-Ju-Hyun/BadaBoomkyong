@@ -123,19 +123,15 @@ void Boss::Aiming(glm::vec3 _targetPos)
 void Boss::SpawnPawn()
 {	
 	for (int i = 0;i < 5;i++)
-	{
+	{		
 		Bullet* cone_rage= GetBulletFactory()->CreateBullet(BULLET_TYPE::CONE_RANGE);
 		ConeRange* cone_range_comp = static_cast<ConeRange*>(cone_rage->GetOwner()->FindComponent(ConeRange::ConeRangeTypeName));
 		cone_range_comp->SetShooter(this->GetOwner());
 
 		EventManager::GetInstance()->SetActiveTrue(cone_rage->GetOwner());
 		cone_range_comp->SetCanFire(true);
+		
 	}		
-}
-
-void Boss::ConeAttack(int _contCnt)
-{
-
 }
 
 void Boss::HandleGroundCol()
@@ -201,7 +197,7 @@ void Boss::Update()
 	if (GetIsAlive())
 	{					
 			
-		if (InputManager::GetInstance()->GetKetCode(GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+		if (InputManager::GetInstance()->GetKetCode(GLFW_KEY_B) == GLFW_PRESS)
 		{
 			SpawnPawn();
 		}
@@ -240,7 +236,7 @@ void Boss::Update()
 
 	m_vPosition = m_pTransform->GetPosition();
 
-	//m_pBTAgent->Update();
+	m_pBTAgent->Update();
 
 	
 

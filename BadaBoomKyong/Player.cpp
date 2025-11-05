@@ -123,6 +123,8 @@ void Player::Update()
 		MeleeAttack();
 		HolySlash();
 	}
+	std::cout << std::boolalpha;
+	std::cout << m_bIsAlive << std::endl;
 	Dash();
 	Death();
 	ComboUpdate();	
@@ -182,7 +184,7 @@ void Player::Move()
 		{
 			Sprite* sprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 			if (sprite)
-				sprite->SetIsFlipX(false); // 왼쪽 볼 때 FlipX 켜기
+				sprite->SetIsFlipX(false); // 왼x쪽 볼 때 FlipX 켜기
 			m_iDir *= -1;
 		}
 		velocity.x = m_fSpeed;

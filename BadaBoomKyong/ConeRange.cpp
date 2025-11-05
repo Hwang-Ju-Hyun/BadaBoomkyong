@@ -28,9 +28,7 @@ void ConeRange::Init()
     SetName(ConeRangeTypeName);
     m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
     m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
-    m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
-    //m_pRigidBody = dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
-    //m_pRigidBody->SetGravity(9.8f);
+    m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));   
     Boss* boss = dynamic_cast<Boss*>(GetShooter()->FindComponent<Boss>());
     m_pPlayer = boss->GetPlayer();
     m_pPlayerTransform = static_cast<Transform*>(m_pPlayer->GetOwner()->FindComponent<Transform>());
@@ -71,60 +69,103 @@ void ConeRange::Awake()
 
     //m_pEnergyRayParticle->CreateParticles(10, m_pTransform->GetPosition(), m_pPlayerTransform->GetPosition());
     //on = true;
+
+    m_eState = ConeState::RANDOM_ROTATE;
 }
 
 #include "Timemanager.h"
-#include <gtx/quaternion.hpp>
+
 
 void ConeRange::Update()
 {    
-    float dt = TimeManager::GetInstance()->GetDeltaTime();
-    m_fRotElapsedTime += dt; // 직접 누적 시간 관리
-    m_fStopRotElapseTime += dt;
-
-    float speed = 180.f;
-
-    // 프레임마다 살짝 랜덤하게 흔들리는 노이즈
-    float nx = MathUtil::GetInstance()->GetRandomNumber(-0.2f, 0.2f);
-    float ny = MathUtil::GetInstance()->GetRandomNumber(-0.2f, 0.2f);
-    float nz = MathUtil::GetInstance()->GetRandomNumber(-0.2f, 0.2f);
-    glm::vec3 noise = glm::vec3(nx, ny, nz);
-
-    // 부드럽게 흔들리는 파동 (시간 기반)
-    glm::vec3 wave = glm::vec3(
-        sin(m_fRotElapsedTime * 0.7f + m_fSeed),
-        cos(m_fRotElapsedTime * 0.9f + m_fSeed * 0.5f),
-        sin(m_fRotElapsedTime * 1.1f + m_fSeed * 0.3f)
-    ) * 0.2f;
-
-    // 회전축 계산
-    glm::vec3 a = m_vBaseAxis + noise + wave;
-    glm::vec3 axis = glm::normalize(a);
-
-    // 최종 회전 적용
-    m_pTransform->AddRotation(axis * dt * speed);
-
-    
-    if (m_fStopRotElapseTime >= m_fStopRotElapse_MaxTime)
+    switch (m_eState)
     {
+    case ConeState::RANDOM_ROTATE:
+    {
+        float dt = TimeManager::GetInstance()->GetDeltaTime();
+        m_fRotElapsedTime += dt; // 직접 누적 시간 관리
+        m_fStopRotElapseTime += dt;
+
+        float speed = 180.f;
+
+        // 프레임마다 살짝 랜덤하게 흔들리는 노이즈
+        float nx = MathUtil::GetInstance()->GetRandomNumber(-0.2f, 0.2f);
+        float ny = MathUtil::GetInstance()->GetRandomNumber(-0.2f, 0.2f);
+        float nz = MathUtil::GetInstance()->GetRandomNumber(-0.2f, 0.2f);
+        glm::vec3 noise = glm::vec3(nx, ny, nz);
+
+        // 부드럽게 흔들리는 파동 (시간 기반)
+        glm::vec3 wave = glm::vec3(
+            sin(m_fRotElapsedTime * 0.7f + m_fSeed),
+            cos(m_fRotElapsedTime * 0.9f + m_fSeed * 0.5f),
+            sin(m_fRotElapsedTime * 1.1f + m_fSeed * 0.3f)
+        ) * 0.2f;
+
+        // 회전축 계산
+        glm::vec3 a = m_vBaseAxis + noise + wave;
+        glm::vec3 axis = glm::normalize(a);
+
+        // 최종 회전 적용
+        m_pTransform->AddRotation(axis * dt * speed);
+        if (m_fStopRotElapseTime >= m_fStopRotElapse_MaxTime)
+        {
+            m_fStopRotElapseTime = 0.f;
+            m_fRotElapsedTime = 0.f;
+            m_eState = ConeState::AIMING;
+        }
+        break;
+    }       
+    case ConeState::AIMING:
+    {
+        float dt = TimeManager::GetInstance()->GetDeltaTime();
         glm::vec3 pos = m_pTransform->GetPosition();
         glm::vec3 target = m_pPlayerTransform->GetPosition();
 
         glm::vec3 dir = glm::normalize(target - pos);
 
-        // 모델이 "어느 방향을 앞"으로 보고 있는지에 따라 기준 벡터를 바꿔야 함
-        // 예: 콘 모델의 앞이 +Z면 forward = {0, 0, 1}, 
-        //     +Y면 forward = {0, 1, 0}, 
-        //     +X면 forward = {1, 0, 0}.
-        glm::vec3 forward = glm::vec3(0, 1, 0); // 콘 모델이 Z+을 향한다고 가정
 
-        // look 회전 생성
-        glm::quat rot = glm::rotation(forward, dir);
+        glm::vec3 forward = glm::vec3(0, 1, 0);
 
-        // 쿼터니언을 Euler로 변환 후 Transform에 세팅
-        glm::vec3 euler = glm::degrees(glm::eulerAngles(rot));
+        target_rot = glm::rotation(forward, dir);
+        
+        glm::quat current_rot = glm::quat(glm::radians(m_pTransform->GetRotation_3D()));
+        glm::quat smoothRot = glm::slerp(current_rot, target_rot, 0.4f);
+        glm::vec3 smootScale = MathUtil::GetInstance()->lerp(m_pTransform->GetScale(), glm::vec3{ 25.f,105.f,35.f }, 0.5f);
+        m_pTransform->SetScale(smootScale);
+
+        glm::vec3 euler = glm::degrees(glm::eulerAngles(smoothRot));
+         
         m_pTransform->SetRotation(euler);
+
+        glm::quat angleDiff = target_rot* glm::inverse(smoothRot);
+
+
+        if (glm::angle(angleDiff) < 1)
+        {
+            
+            m_fAimingElapseTime += dt;
+            if (m_fAimingElapseTime >= m_fAiming_MaxTime)
+            {
+                m_eState = ConeState::FIRE;
+            }            
+        }        
+        break;
+    }        
+    case ConeState::FIRE:
+    {
+        float speed = 1000.f;
+        float dt = TimeManager::GetInstance()->GetDeltaTime();
+        glm::vec3 pos = m_pTransform->GetPosition();
+        glm::vec3 target = m_pPlayerTransform->GetPosition();
+
+        glm::vec3 dir = glm::normalize(target - pos);        
+        m_pTransform->AddPosition(dir * speed * dt);
     }
+        break;
+    default:
+        break;
+    }    
+    
 }
 
 void ConeRange::Exit()
@@ -133,6 +174,8 @@ void ConeRange::Exit()
 
 void ConeRange::EnterCollision(Collider* _col)
 {
+    if(m_eState==ConeState::FIRE)
+        EventManager::GetInstance()->SetActiveFalse(this->GetOwner());
 }
 
 void ConeRange::OnCollision(Collider* _col)

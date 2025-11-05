@@ -276,10 +276,11 @@ void BulletFactory::InitStageTest()
 		GameObject* cone_obj = Serializer::GetInstance()->LoadPrefab("json/Prefab/Boss/Cone/Cone_Prefab.json");		
 		cone_comp = dynamic_cast<ConeRange*>(cone_obj->FindComponent<ConeRange>());
 		cone_comp->SetShooter(boss_obj);
-		assert(cone_comp != nullptr);
-
+		assert(cone_comp != nullptr);		
 		cone_obj->SetActiveAllComps(false);
 		m_pConeRangePool->m_arrPool[j] = cone_obj;
 		cone_obj->SetActive(false);
+		bool a = player_comp->GetIsAlive();
+		int b = 0;
 	}
 }
