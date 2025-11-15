@@ -16,5 +16,9 @@ public:
 public:
 	float m_fElapse_AimingAccTime = 0.f;
 	float m_fMaxAimingTime = 3.f;
+
+	float m_fElapse_AimingDelayAccTime = 0.f;
+	float m_fMaxAimingDelayTime = 0.8f;
+	bool m_bAimingFlag = true;
 };
 

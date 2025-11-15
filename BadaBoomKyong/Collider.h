@@ -7,6 +7,7 @@ class Transform;
 class Model;
 class Sprite;
 class CollisionManager;
+#include "Transform.h"
 
 class Collider :
     public MonoBehaviour
@@ -22,6 +23,7 @@ private:
     glm::vec3 m_vScale = {};
     Transform* m_pOwnerTransform = nullptr;
     Transform* m_pColliderTransform = nullptr;
+    float m_fRot;
     Sprite* m_pColliderSpirte = nullptr;
     Model* m_pColliderModel = nullptr;
 public:
@@ -33,9 +35,13 @@ public:
     virtual void Exit()override;
     
 public:
+    void SetRotate(float _rot);
     inline void SetOffsetPosition(const glm::vec3& _offset) { m_vOffsetPosition = _offset; }
-    inline void SetScale(const glm::vec3& _scale) { m_vScale = _scale; }        
+    inline void SetScale(const glm::vec3& _scale) { m_vScale = _scale;}
+    inline void SetScaleY(float _y) { m_vScale.y = _y; }
     inline void SetColModel(Model* _model) { m_pColliderModel = _model; }
+    inline void SetFinalPosition(glm::vec3 _pos) { m_vFinalPosition = _pos; }
+    inline void SetFinalPosition(glm::vec2 _pos) { m_vFinalPosition.x = _pos.x;m_vFinalPosition.y = _pos.y;}
     glm::vec3 GetColModelMin_AABB();
     glm::vec3 GetColModelMax_AABB();
     void SetColliderModelType(MODEL_TYPE _modelType);

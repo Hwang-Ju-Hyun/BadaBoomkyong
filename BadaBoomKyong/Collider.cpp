@@ -49,13 +49,22 @@ void Collider::Init()
 
 void Collider::Update()
 {
+	std::string str = m_pColliderTransform->GetOwner()->GetName();
+
 	glm::vec3 owner_pos = m_pOwnerTransform->GetPosition();
 	m_vFinalPosition = owner_pos + m_vOffsetPosition;
-	m_pColliderTransform->SetPosition(m_vFinalPosition);	
+	m_pColliderTransform->SetPosition(m_vFinalPosition);
+	m_pColliderTransform->SetScale(m_vScale);
+	m_pColliderTransform->SetRotation(m_fRot);
 }
 
 void Collider::Exit()
 {
+}
+
+void Collider::SetRotate(float _rot)
+{
+	m_fRot=_rot;
 }
 
 glm::vec3 Collider::GetColModelMin_AABB()
@@ -63,13 +72,7 @@ glm::vec3 Collider::GetColModelMin_AABB()
 	if (m_pColliderTransform == nullptr)
 		assert(false);
 	if (GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM || GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
-	{
-		glm::vec3 a;
-		if (GetOwner()->GetName() == "stone_small_6")
-		{
-			a = m_pColliderTransform->GetPosition();
-			int b = 0;
-		}
+	{		
 		glm::vec3 lPos = GetFinalPosition();		
 		glm::vec3 lScale = GetScale();		
 
@@ -204,20 +207,33 @@ void Collider::DrawCollider()const
 		m_debugBufferInitialized = true;
 	}
 
-	// 정점 데이터 계산 (사각형 테두리)
 	glm::vec3 pos = m_vFinalPosition;
 	glm::vec3 halfScale = m_vScale * 0.5f;
-	
-	glm::vec3 verts[4] = 
+
+	// 로컬 정점
+	glm::vec3 localVerts[4] =
 	{
-		{pos.x - halfScale.x, pos.y - halfScale.y, pos.z},
-		{pos.x + halfScale.x, pos.y - halfScale.y, pos.z},
-		{pos.x + halfScale.x, pos.y + halfScale.y, pos.z},
-		{pos.x - halfScale.x, pos.y + halfScale.y, pos.z}
+		{-halfScale.x, -halfScale.y, 0},
+		{ halfScale.x, -halfScale.y, 0},
+		{ halfScale.x,  halfScale.y, 0},
+		{-halfScale.x,  halfScale.y, 0},
 	};
 
+	// 회전 적용
+	float rot = m_fRot; // Collider::SetRotate()로 넣은 값
+	glm::mat4 rotMat = glm::rotate(glm::mat4(1.0f), rot, glm::vec3(0, 0, 1));
+
+	// 최종 월드 좌표
+	glm::vec3 finalVerts[4];
+	for (int i = 0; i < 4; i++)
+	{
+		glm::vec4 rotated = rotMat * glm::vec4(localVerts[i], 1.0f);
+		finalVerts[i] = rotated + glm::vec4(pos, 0.0f);
+	}
+
+	// VBO에 업로드
 	glBindBuffer(GL_ARRAY_BUFFER, m_lineVBO);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(verts), verts);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(finalVerts), finalVerts);
 
 	// MVP 계산
 	glm::mat4 proj = RenderManager::GetInstance()->GetCamera()->GetProjMatrix();

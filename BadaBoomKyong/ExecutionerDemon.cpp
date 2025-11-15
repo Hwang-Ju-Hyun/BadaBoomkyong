@@ -81,9 +81,7 @@ void ExecutionerDemon::Init()
 	//assert(m_pBulletFactory != nullptr);
 	m_pMeleeFactory = dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
 	//assert(m_pMeleeFactory != nullptr);
-	m_pFireBallPool = static_cast<ObjectPool<ExecutionerDemonFireBall, 30>*>(ObjectPoolManager::GetInstance()->GetPool<ExecutionerDemonFireBall, 30>());
-	ObjectPoolManager::GetInstance()->ReigistPool<ExecutionerDemonFireBall, 30>();
- 
+
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	assert(m_pSprite != nullptr);
 }

@@ -18,6 +18,7 @@ BossRange::BossRange(GameObject* _owner, GameObject* _shooter)
 	:Bullet(_owner,_shooter)
 {
 	GetOwner()->SetIsSerializable(false);
+   
 }
 
 BossRange::~BossRange()
@@ -30,60 +31,64 @@ void BossRange::Init()
     m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
     m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
     m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
-    //m_pRigidBody = dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
-    //m_pRigidBody->SetGravity(9.8f);
+    
     Boss* boss = dynamic_cast<Boss*>(GetShooter()->FindComponent<Boss>());
     m_pPlayer = boss->GetPlayer();
     m_pPlayerTransform = static_cast<Transform*>(m_pPlayer->GetOwner()->FindComponent<Transform>());
     assert(m_pTransform != nullptr && m_pSprite != nullptr && m_pCollider != nullptr);
 
-    GetOwner()->SetActiveAllComps(false);
+    GetOwner()->SetActiveAllComps(false);     
+
 
     m_pPs = new ParticleSystem;
     m_pEnergyRayParticle = new EnergyRayParticle(m_pPs, GetOwner());
 }
 
+#include "EnergyRayParticle.h"
 void BossRange::Awake()
 {
     GameObject* mon_obj = GameObjectManager::GetInstance()->FindObject(Boss::BossTypeName);
     Transform* mon_trs = dynamic_cast<Transform*>(GetShooter()->FindComponent(Transform::TransformTypeName));
-    Boss* mon_comp = dynamic_cast<Boss*>(mon_obj->FindComponent(Boss::BossTypeName));
-
-    m_pTransform->SetPosition({ mon_trs->GetPosition() });
-    //m_pRigidBody->SetVelocity({ 0.f,0.f,0.f });
-    m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
-    m_pCollider->SetScale(m_pTransform->GetScale());    
+    Boss* mon_comp = dynamic_cast<Boss*>(mon_obj->FindComponent(Boss::BossTypeName));    
+    
+    GetOwner()->SetIs3D(false);
 
     m_pBoss = dynamic_cast<Boss*>(GetShooter()->FindComponent(Boss::BossTypeName));
     m_pBossTransform = dynamic_cast<Transform*>(m_pBoss->GetOwner()->FindComponent(Transform::TransformTypeName));
 
-    m_pEnergyRayParticle->CreateParticles(10, m_pTransform->GetPosition(), m_pPlayerTransform->GetPosition());
-    on = true;
-    //m_pPlayer = m_pCurseDemon->GetPlayer();
-    //m_pPlayerTransform = dynamic_cast<Transform*>(m_pPlayer->GetOwner()->FindComponent(Transform::TransformTypeName));
+    glm::vec3 dir = (mon_comp->GetAiminngTargetPos() - m_pBossTransform->GetPosition());
+    dir = glm::normalize(dir);
+
+    m_pEnergyRayParticle->CreateParticles(10, m_pBossTransform->GetPosition(), mon_comp->GetAiminngTargetPos());
+        
+    float dist = m_pBoss->GetAimingDistance();    
+
+    m_pTransform->SetPosition({ mon_trs->GetPosition() + dir * (dist / 2.f) });
+
+    m_pCollider->SetScale({dist+10000.f,60.f,0.f});    
+    
+    float angle = atan2(dir.y, dir.x);
+    m_pCollider->SetRotate(angle);
+    on = true;    
 }
 
+#include "MathUtil.h"
 void BossRange::Update()
 {
-    float dt = TimeManager::GetInstance()->GetDeltaTime();
-    //m_pTransform->AddRotation({ 350.f * dt,350.f * dt ,350.f * dt });
+    float dt = TimeManager::GetInstance()->GetDeltaTime();    
     float dir = m_pBoss->GetDirection();
-    float speed = 100.f;
-
-    m_pTransform->AddPositionX( dir * speed * dt);   
-    m_fParticle_WaitAccTime += dt;
-    /*if (temp == false)
+    float speed = 100.f;  
+    
+    float t = MathUtil::GetInstance()->lerp(0.f, 1.f, dt);
+    float col_y = glm::mix(m_pCollider->GetScale().y, 0.f,1.f);
+       
+    m_fLifeAccTime += dt;
+    if (m_fLifeAccTime > m_fMaxLifeTime)
     {
-        m_pEnergyRayParticle->CreateParticles(100, m_pBossTransform->GetPosition(), m_pPlayerTransform->GetPosition());
-        on = true;
-        temp = true;
-    }*/
-    if (m_fParticle_WaitAccTime > m_fParticle_WaitingTime)
-    {
-        //m_pEnergyRayParticle->CreateParticles(10, m_pTransform->GetPosition(), m_pPlayerTransform->GetPosition());
-        //on = true;
-        //m_fParticle_WaitAccTime = 0.f;
+        m_fLifeAccTime = 0.f;
+        EventManager::GetInstance()->SetActiveFalse(GetOwner());
     }
+
 }
 
 void BossRange::Exit()

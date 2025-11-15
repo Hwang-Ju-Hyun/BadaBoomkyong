@@ -122,9 +122,7 @@ void Player::Update()
 		Fire();
 		MeleeAttack();
 		HolySlash();
-	}
-	std::cout << std::boolalpha;
-	std::cout << m_bIsAlive << std::endl;
+	}	
 	Dash();
 	Death();
 	ComboUpdate();	
@@ -153,8 +151,7 @@ void Player::EnterCollision(Collider* _other)
 			BaseLevel* lvl_3 = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_03);
 			EventManager::GetInstance()->LevelChange(lvl_3);
 		}
-	}
-	
+	}		
 }
 
 void Player::OnCollision(Collider* _other)

@@ -919,6 +919,12 @@
     <ClCompile Include="ConeRange.cpp">
       <Filter>Component\Custom\Bullet\Monster\BossRange\ConeRange</Filter>
     </ClCompile>
+    <ClCompile Include="ConeAttack.cpp">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="WeightRandomSelector.cpp">
+      <Filter>AI\BehaviorTree\ControlFlow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -1439,6 +1445,12 @@
     </ClInclude>
     <ClInclude Include="ConeRange.h">
       <Filter>Component\Custom\Bullet\Monster\BossRange\ConeRange</Filter>
+    </ClInclude>
+    <ClInclude Include="ConeAttack.h">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="WeightRandomSelector.h">
+      <Filter>AI\BehaviorTree\ControlFlow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

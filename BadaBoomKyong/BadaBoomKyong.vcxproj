@@ -163,6 +163,7 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="ColorOverLifeTime.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
+    <ClCompile Include="ConeAttack.cpp" />
     <ClCompile Include="ConeRange.cpp" />
     <ClCompile Include="CubeMapResource.cpp" />
     <ClCompile Include="CurseDemonBulletParticle.cpp" />
@@ -277,6 +278,7 @@
     <ClCompile Include="TRACE_FlyingDemon.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Wait.cpp" />
+    <ClCompile Include="WeightRandomSelector.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -323,6 +325,7 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="ColorOverLifeTime.h" />
     <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="ConeAttack.h" />
     <ClInclude Include="ConeRange.h" />
     <ClInclude Include="CubeMapResource.h" />
     <ClInclude Include="CurseDemonBulletParticle.h" />
@@ -452,6 +455,7 @@
     <ClInclude Include="TRACE_FlyingDemon.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Wait.h" />
+    <ClInclude Include="WeightRandomSelector.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

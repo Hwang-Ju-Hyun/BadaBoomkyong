@@ -30,6 +30,7 @@ private:
 	Transform* m_pTransform = nullptr;
 	Sprite* m_pSprite = nullptr;
 	Collider* m_pCollider = nullptr;
+	Transform* m_pColliderTransform = nullptr;
 	RigidBody* m_pRigidBody = nullptr;
 	Boss* m_pBoss = nullptr;
 	Transform* m_pBossTransform = nullptr;
@@ -55,5 +56,8 @@ public:
 	float m_fParticle_WaitAccTime;
 	bool on = false;
 	float m_fParticle_WaitingTime = 0.01f;
+
+	float m_fLifeAccTime = 0.f;
+	float m_fMaxLifeTime = 0.2f;
 };
 

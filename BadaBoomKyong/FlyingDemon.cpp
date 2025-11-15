@@ -74,9 +74,7 @@ void FlyingDemon::Init()
 	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
 	//assert(m_pBulletFactory != nullptr);
 	m_pMeleeFactory = dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
-	//assert(m_pMeleeFactory != nullptr);
-	m_pFireBallPool = static_cast<ObjectPool<FlyingDemonFireBall, 30>*>(ObjectPoolManager::GetInstance()->GetPool<FlyingDemonFireBall, 30>());
-	ObjectPoolManager::GetInstance()->ReigistPool<FlyingDemonFireBall, 30>();
+	//assert(m_pMeleeFactory != nullptr);	
 
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	assert(m_pSprite != nullptr);

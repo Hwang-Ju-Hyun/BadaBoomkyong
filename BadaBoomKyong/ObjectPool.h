@@ -19,17 +19,17 @@ public:
 		}
 	}
 	~ObjectPool() 
-	{		
+	{
 	}
 public:
 	GameObject* GetPool()
 	{
 		for (int i = 0;i < size; i++)
 		{							
-			if (!m_arrPool[i]->GetActive())
+			if (!m_arrPool[i]->GetActive() && !m_arrPool[i]->GetPendingActive())
 			{				
-				EventManager::GetInstance()->SetActiveTrue(m_arrPool[i]);
-				m_arrPool[i]->SetActive(true);
+				EventManager::GetInstance()->SetActiveTrue(m_arrPool[i]);				
+				//m_arrPool[i]->SetActive(true);
 				return m_arrPool[i];
 			}
 

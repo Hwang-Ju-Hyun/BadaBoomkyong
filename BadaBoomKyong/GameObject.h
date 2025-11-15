@@ -23,6 +23,10 @@ private:
 	size_t m_uID = 0;
 public:
 	bool m_bIsActive = true;
+	bool m_bPendingActive = false;
+	inline void SetPendingActive(bool _pending) { m_bPendingActive = _pending; }
+	inline bool GetPendingActive() const { return m_bPendingActive; }
+
 	inline void SetActive(bool _active) { m_bIsActive = _active; }
 	inline bool GetActive()const { return m_bIsActive; }
 	void CallAwakeAllComp();

@@ -136,7 +136,7 @@ void ParticleSystem::Render()
 			orient[1] = glm::vec4(up, 0.0f);//y
 			orient[2] = glm::vec4(forward, 0.0f);//z
 
-			Rot = orient;
+			Rot = rotateZ;
 		}		
 		glm::mat4 m2w = translate * Rot * scale;
 		glUniformMatrix4fv(m_iParticleTransform_location, 1, GL_FALSE, glm::value_ptr(proj * view * m2w));

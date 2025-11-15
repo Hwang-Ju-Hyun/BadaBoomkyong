@@ -22,6 +22,7 @@
 #include "BossRange.h"
 #include "ConeRange.h"
 
+
 BulletFactory::BulletFactory(STAGE_TYPE _stage)
 	:BaseFactory(_stage)
 {			
@@ -88,8 +89,9 @@ void BulletFactory::Exit(){}
 void BulletFactory::InitStage01()
 {
 	//PISTOL
-	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, 30>();
-	m_pBulletPool = static_cast<ObjectPool<GameObject*, 30>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, 30>());
+	
+	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, 5>(player_bulletPool_Key);
+	m_pBulletPool = static_cast<ObjectPool<GameObject*, 5>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, 30>(player_bulletPool_Key));
 	GameObject* player_obj = GameObjectManager::GetInstance()->FindObject(Player::PlayerTypeName);
 	Player* player_comp = player_obj->FindComponent<Player>();
 	assert(player_comp != nullptr);
@@ -110,14 +112,14 @@ void BulletFactory::InitStage01()
 		m_pBulletPool->m_arrPool[i] = bullet_obj;
 	}
 
-	//SOLDIER GRENADE
+	//CurseDemon GRENADE
 	auto obj_mgr = GameObjectManager::GetInstance();
 	GameObject* sm_obj = obj_mgr->FindObject(CurseDemon::CurseDemonTypeName);
 	int grenade_obj_count = obj_mgr->GetObjectNumber(CurseDemon::CurseDemonTypeName);
+	
+	ObjectPoolManager::GetInstance()->ReigistPool<CurseDemonBullet, 3>(curse_bulletPool_Key);
 
-	ObjectPoolManager::GetInstance()->ReigistPool<CurseDemonBullet, 30>();
-
-	m_pMonsterGrenadePool = static_cast<ObjectPool<CurseDemonBullet, 30>*>(ObjectPoolManager::GetInstance()->GetPool<CurseDemonBullet, 30>());
+	m_pMonsterGrenadePool = static_cast<ObjectPool<CurseDemonBullet, 3>*>(ObjectPoolManager::GetInstance()->GetPool<CurseDemonBullet, 3>(curse_bulletPool_Key));
 
 	for (int j = 0;j < 30; j++)
 	{
@@ -140,8 +142,8 @@ void BulletFactory::InitStage02()
 	GameObject* fd_obj = obj_mgr->FindObject(FlyingDemon::FlyingDemonTypeName);
 	int fireball_obj_count = obj_mgr->GetObjectNumber(FlyingDemon::FlyingDemonTypeName);
 
-	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, 30>();
-	m_pBulletPool = static_cast<ObjectPool<GameObject*, 30>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, 30>());
+	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, 5>(player_bulletPool_Key);
+	m_pBulletPool = static_cast<ObjectPool<GameObject*, 5>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, 30>(player_bulletPool_Key));
 	GameObject* player_obj = GameObjectManager::GetInstance()->FindObject(Player::PlayerTypeName);
 	Player* player_comp = player_obj->FindComponent<Player>();
 	assert(player_comp != nullptr);
@@ -162,8 +164,8 @@ void BulletFactory::InitStage02()
 		m_pBulletPool->m_arrPool[i] = bullet_obj;
 	}
 
-	ObjectPoolManager::GetInstance()->ReigistPool<FlyingDemonFireBall, 30>();
-	m_pFlyingDemonFireBallPool = static_cast<ObjectPool<FlyingDemonFireBall, 30>*>(ObjectPoolManager::GetInstance()->GetPool<FlyingDemonFireBall, 30>());
+	ObjectPoolManager::GetInstance()->ReigistPool<FlyingDemonFireBall, 30>(fly_fireball_pool_Key);
+	m_pFlyingDemonFireBallPool = static_cast<ObjectPool<FlyingDemonFireBall, 30>*>(ObjectPoolManager::GetInstance()->GetPool<FlyingDemonFireBall, 30>(fly_fireball_pool_Key));
 
 	for (int j = 0;j < 30; j++)
 	{
@@ -182,8 +184,8 @@ void BulletFactory::InitStage02()
 void BulletFactory::InitStage03()
 {
 	//PISTOL
-	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, 30>();
-	m_pBulletPool = static_cast<ObjectPool<GameObject*, 30>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, 30>());
+	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, 5>(player_bulletPool_Key);
+	m_pBulletPool = static_cast<ObjectPool<GameObject*, 5>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, 30>(player_bulletPool_Key));
 	GameObject* player_obj = GameObjectManager::GetInstance()->FindObject(Player::PlayerTypeName);
 	Player* player_comp = player_obj->FindComponent<Player>();
 	assert(player_comp != nullptr);
@@ -208,12 +210,12 @@ void BulletFactory::InitStage03()
 void BulletFactory::InitStageTest()
 {
 	//PISTOL
-	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, 30>();
-	m_pBulletPool = static_cast<ObjectPool<GameObject*, 30>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, 30>());
+	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, 5>(player_bulletPool_Key);
+	m_pBulletPool = static_cast<ObjectPool<GameObject*, 5>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, 30>(player_bulletPool_Key));
 	GameObject* player_obj = GameObjectManager::GetInstance()->FindObject(Player::PlayerTypeName);
 	Player* player_comp = player_obj->FindComponent<Player>();
 	assert(player_comp != nullptr);
-	for (int i = 0;i < 30; i++)
+	for (int i = 0;i < 5; i++)
 	{
 		Pistol* bullet_comp = nullptr;
 		GameObject* bullet_obj = new GameObject(Pistol::PistolTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::BULLET);
@@ -229,11 +231,11 @@ void BulletFactory::InitStageTest()
 	auto obj_mgr = GameObjectManager::GetInstance();
 
 	////Curse
-	/*GameObject* sm_obj = obj_mgr->FindObject(CurseDemon::CurseDemonTypeName);
+	GameObject* sm_obj = obj_mgr->FindObject(CurseDemon::CurseDemonTypeName);
 	int grenade_obj_count = obj_mgr->GetObjectNumber(CurseDemon::CurseDemonTypeName);
-	ObjectPoolManager::GetInstance()->ReigistPool<CurseDemonBullet, 30>();
-	m_pMonsterGrenadePool = static_cast<ObjectPool<CurseDemonBullet, 30>*>(ObjectPoolManager::GetInstance()->GetPool<CurseDemonBullet, 30>());
-	for (int j = 0;j < 30; j++)
+	ObjectPoolManager::GetInstance()->ReigistPool<CurseDemonBullet, 3>(curse_bulletPool_Key);
+	m_pMonsterGrenadePool = static_cast<ObjectPool<CurseDemonBullet, 3>*>(ObjectPoolManager::GetInstance()->GetPool<CurseDemonBullet, 3>(curse_bulletPool_Key));
+	for (int j = 0;j < 3; j++)
 	{
 		CurseDemonBullet* grn_comp = nullptr;
 		GameObject* grn_obj = new GameObject(CurseDemonBullet::CurseDemonBulletTypaName, MODEL_TYPE::CUBE, GROUP_TYPE::BULLET);
@@ -245,13 +247,13 @@ void BulletFactory::InitStageTest()
 		grn_obj->SetActiveAllComps(false);
 		grn_obj->SetActive(false);
 		m_pMonsterGrenadePool->m_arrPool[j] = grn_obj;
-	}*/
+	}
 
 	//Boss
 	GameObject* boss_obj = obj_mgr->FindObject(Boss::BossTypeName);	
 	const size_t range_cnt = 5;
-	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, range_cnt >();
-	m_pBossRangePool = static_cast<ObjectPool<GameObject*, range_cnt>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, range_cnt>());
+	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, range_cnt >(bossRange_bulletPool_Key);
+	m_pBossRangePool = static_cast<ObjectPool<GameObject*, range_cnt>*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, range_cnt>(bossRange_bulletPool_Key));
 	for (int j = 0;j < range_cnt; j++)
 	{
 		BossRange* range_comp = nullptr;
@@ -261,6 +263,7 @@ void BulletFactory::InitStageTest()
 		Sprite* range_spr= dynamic_cast<Sprite*>(range_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(range_obj)));
 		//RigidBody* range_rig = dynamic_cast<RigidBody*>(range_obj->AddComponent_and_Get(RigidBody::RigidBodyTypeName, new RigidBody(range_obj)));
 		Collider* range_col = dynamic_cast<Collider*>(range_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(range_obj)));
+		range_comp->SetShooter(boss_obj);
 		range_obj->SetActiveAllComps(false);
 		m_pBossRangePool->m_arrPool[j] = range_obj;
 		range_obj->SetActive(false);
@@ -268,8 +271,8 @@ void BulletFactory::InitStageTest()
 
 
 	const size_t cone_cnt = 10;
-	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, cone_cnt >();
-	m_pConeRangePool = static_cast<ObjectPool<GameObject*, cone_cnt >*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, cone_cnt >());
+	ObjectPoolManager::GetInstance()->ReigistPool<GameObject*, cone_cnt >(bossCone_bulletPool_Key);
+	m_pConeRangePool = static_cast<ObjectPool<GameObject*, cone_cnt >*>(ObjectPoolManager::GetInstance()->GetPool<GameObject*, cone_cnt >(bossCone_bulletPool_Key));
 	for (int j = 0;j < cone_cnt; j++)
 	{
 		ConeRange* cone_comp = nullptr;
@@ -279,8 +282,6 @@ void BulletFactory::InitStageTest()
 		assert(cone_comp != nullptr);		
 		cone_obj->SetActiveAllComps(false);
 		m_pConeRangePool->m_arrPool[j] = cone_obj;
-		cone_obj->SetActive(false);
-		bool a = player_comp->GetIsAlive();
-		int b = 0;
+		cone_obj->SetActive(false);		
 	}
 }

@@ -1,5 +1,7 @@
 #pragma once
 #include "Monster.h"
+#include <vector> 
+#include <list>
 #include "ObjectPool.h"
 #include "BehaviorTreeNode.h"
 #include "Ray.h"
@@ -14,7 +16,6 @@ class GameObject;
 class Melee;
 class MeleeFactory;
 class BlackBoard;
-
 
 class Boss :
     public Monster
@@ -34,24 +35,35 @@ public:
     BTNode* BuildBossBT();    
 private:    
     LineLenderer m_LineLenderer;
-
+    std::vector<Bullet*> m_vecCone;    
+    inline std::vector<Bullet*> GetVecCone() { return m_vecCone; }
     Ray m_ray;
     RayCastHit m_rayHit;
     void HandleGroundCol();
+    glm::vec3 m_vAimingTargetPos;
+public:
+    inline std::vector<Bullet*>& GetConeVec() { return m_vecCone; }
+    void SetAimingTargetPos(const glm::vec3& _pos) { m_vAimingTargetPos = _pos; }
+    const glm::vec3& GetAiminngTargetPos()const { return m_vAimingTargetPos; }
 private:
     //Melee Object
     GameObject* m_pMeleeObj = nullptr;
     Collider* m_pMeleeCol = nullptr;
     Sprite* m_pMeleeSpr = nullptr;
-    Transform* m_pMeleeTrs = nullptr;
+    Transform* m_pMeleeTrs = nullptr;   
+    float m_fAimingDist = 0.f;
 public:
     void Aiming(glm::vec3 _targetPos);
+    inline void SetAimingDistance(const float _dist) { m_fAimingDist = _dist; }
+    inline float GetAimingDistance()const { return m_fAimingDist; }
     inline Ray GetRay() const { return m_ray; }
     inline BulletFactory* GetBulletFactory()const { return m_pBulletFactory; };
-    void SpawnPawn();
-    void ConeAttack(int _contCnt);
+    void SpawnPawn();     
+public:
+    float m_fMoveX = 0.f;
 private:    
     glm::vec3 m_vTargetPos;
+  
     float m_fDetectRange = 0.f;
     glm::vec3 m_vRangedMoveAtkRange = {};
     glm::vec3 m_vMeleeAtkRange = {};
@@ -109,5 +121,6 @@ public:
     static BaseRTTI* CreateBossComponent();
     virtual void LoadFromJson(const json& _str)override;
     virtual json SaveToJson(const json& _str)override;
+    
 };
 

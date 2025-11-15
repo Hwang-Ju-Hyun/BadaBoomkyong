@@ -53,6 +53,9 @@ public:
             case MonsterAnimState::JUMP:
                 machine->ChangeAnimState(static_cast<int>(MonsterAnimState::JUMP));
                 break;
+            case MonsterAnimState::NORMAL_ATTACK:
+                machine->ChangeAnimState(static_cast<int>(MonsterAnimState::NORMAL_ATTACK));
+                break;
             case MonsterAnimState::FALL:
                 machine->ChangeAnimState(static_cast<int>(MonsterAnimState::FALL));
                 break;

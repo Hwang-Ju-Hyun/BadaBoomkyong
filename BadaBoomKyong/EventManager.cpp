@@ -53,6 +53,7 @@ void EventManager::Excute(const EVENT& _eve)
 	case EVENT_TYPE::ACTIVE_FALSE:
 	{
 		GameObject* obj = reinterpret_cast<GameObject*>(_eve.lParam);
+		obj->SetActive(false);
 		obj->SetActiveAllComps(false);
 		break;
 	}	
@@ -77,7 +78,7 @@ void EventManager::SetActiveTrue(GameObject* _obj)
 	EVENT eve = {};
 	eve.event = EVENT_TYPE::ACTIVE_TRUE;
 	eve.lParam = size_t(_obj);
-
+	_obj->SetPendingActive(true);
 	EventManager::GetInstance()->AddEvent(eve);
 }
 
@@ -86,7 +87,7 @@ void EventManager::SetActiveFalse(GameObject* _obj)
 	EVENT eve = {};
 	eve.event = EVENT_TYPE::ACTIVE_FALSE;
 	eve.lParam = size_t(_obj);
-
+	_obj->SetPendingActive(false);
 	EventManager::GetInstance()->AddEvent(eve);
 }
 

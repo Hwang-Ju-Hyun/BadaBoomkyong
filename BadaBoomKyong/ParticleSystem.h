@@ -61,7 +61,7 @@ public:
 	int m_iParticleShaderColor_location;
 	int m_iParticleShaderMVP;
 	Camera* cam = nullptr;
-	bool m_bIsBiillBoard = true;
+	bool m_bIsBiillBoard = false;
 public:
 	inline void SetRenderBillboard(bool _bill) { m_bIsBiillBoard = _bill; }
 public:

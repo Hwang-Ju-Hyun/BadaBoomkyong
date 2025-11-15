@@ -44,6 +44,8 @@
 #include "TeleportAttack.h"
 #include "IsPlayerNear.h"
 #include "ConeRange.h"
+#include "ConeAttack.h"
+#include "WeightRandomSelector.h"
 
 Boss::Boss(GameObject* _owner)
 	:Monster(_owner)
@@ -81,30 +83,28 @@ Boss::~Boss()
 BTNode* Boss::BuildBossBT()
 {					
 	BTNode* moveAndAttackSequence = new Sequence({
-	  new MoveToTarget(this),                 // 멀면 이동 (Boss 내부에서 이동 중)
-	  new NormalAttack(this)                  // 근접하면 공격
-		});
+	  new MoveToTarget(this),                 
+	  new NormalAttack(this)                  
+		});		
 	
-	BTNode* randomSelector = new RandomSelector({
-		moveAndAttackSequence,
-		new RangeAttack(this),
-		new TeleportAttack(this)
+	
+	BTNode* randomSelector = new WeightedRandomSelector({
+		std::make_pair(moveAndAttackSequence,0.5f),
+		std::make_pair(new RangeAttack(this),100.5f),
+		std::make_pair(new TeleportAttack(this),1.5f),
+		std::make_pair(new Sequence({new ConeAttack(this),new Wait(0.1f)}),1.f)
 		});
 	
 	BTNode* Act_IfFarSequence = new Sequence({
-		new IsPlayerFar(this),  // 조건 체크 (Condition Node)
+		new IsPlayerFar(this),  
 		randomSelector
 		});
 
-
 	BTNode* Act_IfNear = new Sequence({
 		new IsPlayerNear(this),
-			new Selector({new JumpAttack(this),new NormalAttack(this)
+			new Selector({/*new JumpAttack(this),*/new NormalAttack(this)
 				})
-		});
-
-	
-
+		});	
 	
 	BTNode* root = new Selector({
 		Act_IfFarSequence,
@@ -123,15 +123,14 @@ void Boss::Aiming(glm::vec3 _targetPos)
 void Boss::SpawnPawn()
 {	
 	for (int i = 0;i < 5;i++)
-	{		
-		Bullet* cone_rage= GetBulletFactory()->CreateBullet(BULLET_TYPE::CONE_RANGE);
+	{				
+		Bullet* cone_rage= GetBulletFactory()->CreateBullet(BULLET_TYPE::CONE_RANGE);	
 		ConeRange* cone_range_comp = static_cast<ConeRange*>(cone_rage->GetOwner()->FindComponent(ConeRange::ConeRangeTypeName));
 		cone_range_comp->SetShooter(this->GetOwner());
-
-		EventManager::GetInstance()->SetActiveTrue(cone_rage->GetOwner());
-		cone_range_comp->SetCanFire(true);
 		
-	}		
+		cone_range_comp->SetCanFire(true);		
+		m_vecCone.push_back(cone_range_comp);
+	}
 }
 
 void Boss::HandleGroundCol()
@@ -155,9 +154,9 @@ void Boss::Move()
 {
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
 	float dir = m_vTargetPos.x - m_vPosition.x;
-
-	//m_eCurrentState = MonsterAnimState::WALK;
-	m_pTransform->AddPositionX(dir * m_fSpeed * dt);		
+	
+	m_pTransform->AddPositionX(dir * m_fSpeed * dt);	
+	m_fMoveX = dir * m_fSpeed * dt;	
 }
 
 void Boss::Jump()
@@ -226,8 +225,9 @@ void Boss::Update()
 		} 
 	}
 
-	//Move();
+	Move();
 	HandleGroundCol();
+
 	auto hp = GetCurrentHP();
 	hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
 
@@ -237,10 +237,10 @@ void Boss::Update()
 	m_vPosition = m_pTransform->GetPosition();
 
 	m_pBTAgent->Update();
-
 	
-
 	StateHandle();	
+	
+	
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();		
 }
@@ -255,7 +255,7 @@ void Boss::Fire()
 	BossRange* range_comp = dynamic_cast<BossRange*>(m_pBullet->GetOwner()->FindComponent(BossRange::BossRangeTypeName));
 	range_comp->SetShooter(this->GetOwner());
 
-	EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
+	//EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
 	range_comp->SetCanFire(true);
 }
 
@@ -305,12 +305,12 @@ void Boss::StateHandle()
 			}
 			else
 			{
-				m_eCurrentState = MonsterAnimState::JUMP_ATTACK;				
+				//m_eCurrentState = MonsterAnimState::JUMP_ATTACK;				
 				return;
 			}	
 			
 		}
-		else if (m_bIsNormalAttacking)
+		else if (m_bIsNormalAttacking&&std::fabs(m_fMoveX)<1.f)
 		{
 			if (GetAnimator()->GetAnimation()->m_bLoopCount >= 1)
 			{
@@ -324,7 +324,7 @@ void Boss::StateHandle()
 		}
 		if (m_bIsFalling&& m_eCurrentState != MonsterAnimState::DISAPPEAR&& m_eCurrentState != MonsterAnimState::APPEAR)
 		{
-			m_eCurrentState = MonsterAnimState::FALL;
+			//m_eCurrentState = MonsterAnimState::FALL;
 		}
 		if (GetIsHurting())
 		{
@@ -341,17 +341,17 @@ void Boss::StateHandle()
 	}
 	else if (m_pRigidBody->GetVelocity().y < 0 && m_eCurrentState != MonsterAnimState::DISAPPEAR && m_eCurrentState != MonsterAnimState::APPEAR)
 	{
-		m_eCurrentState = MonsterAnimState::FALL;
+		//m_eCurrentState = MonsterAnimState::FALL;
 	}
 
-	if (std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon
+	if (std::fabs(m_fMoveX) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon
 		&& m_pRigidBody->GetIsGround())&&m_eCurrentState!=MonsterAnimState::RANGE_ATTACK&&
 		m_eCurrentState!=MonsterAnimState::APPEAR&&
 		m_eCurrentState != MonsterAnimState::DISAPPEAR)
 	{
 		m_eCurrentState = MonsterAnimState::IDLE;
-	}
-		
+	}	
+	
 }
 
 void Boss::EnterCollision(Collider* _other)

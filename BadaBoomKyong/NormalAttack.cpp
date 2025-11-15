@@ -18,8 +18,9 @@ BTNodeState NormalAttack::Enter(BlackBoard& _bb)
 	std::cout << "Normal Attack" << std::endl;
 	if (_bb.IsPlayerNearX(boss_comp))
 	{
+		boss_comp->SetAnimCurrentState(MonsterAnimState::NORMAL_ATTACK);
 		return BTNodeState::RUNNING;
-	}
+	}	
 	return BTNodeState::FAILURE;
 }
 

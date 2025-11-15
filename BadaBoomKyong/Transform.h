@@ -16,7 +16,7 @@ private:
 	glm::vec3 m_vPosition = {};
 	glm::vec3 m_vScale = {};
 	glm::vec3 m_vRotation = {};
-	float m_fRotation = 0.f;
+	float m_fRotation = -1.f;
 private:
 	//2D
 	glm::mat3 m_mModeltoNDC_2D;
@@ -30,6 +30,7 @@ public:
 	inline void SetPositionZ(float _z) { m_vPosition.z = _z; }
 	inline void SetPositionY(float _y) { m_vPosition.y = _y; }
 	inline void SetScale(glm::vec3 _scale) { m_vScale = _scale; }
+	inline void SetScaleY(float _y) { m_vScale.y = _y; }
 	inline void SetRotation(float _rot) { m_fRotation = _rot; }
 	inline void SetRotation(glm::vec3 _rot) { m_vRotation = _rot; }
 	

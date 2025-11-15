@@ -78,9 +78,7 @@ void CurseDemon::Init()
 	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
 	//assert(m_pBulletFactory != nullptr);
 	m_pMeleeFactory =dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
-	//assert(m_pMeleeFactory != nullptr);
-	m_pGrenadePool = static_cast<ObjectPool<CurseDemonBullet, 30>*>(ObjectPoolManager::GetInstance()->GetPool<CurseDemonBullet, 30>());
-	ObjectPoolManager::GetInstance()->ReigistPool<CurseDemonBullet, 30>();
+	//assert(m_pMeleeFactory != nullptr);	
 
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	assert(m_pSprite != nullptr);	
@@ -160,6 +158,13 @@ void CurseDemon::Update()
 	}
 	
 
+	/*if (m_eCurrentState== MonsterAnimState::RANGE_ATTACK &&
+		GetAnimator()->GetCurrentFrameIndex() == 11)
+	{
+		Fire();
+	}*/
+
+
 	auto hp = GetCurrentHP();
 	hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
 
@@ -184,7 +189,7 @@ void CurseDemon::Fire()
 	CurseDemonBullet* grn_comp = dynamic_cast<CurseDemonBullet*>(m_pBullet->GetOwner()->FindComponent(CurseDemonBullet::CurseDemonBulletTypaName));
 	grn_comp->SetShooter(this->GetOwner());
 
-	EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
+	//EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
 	grn_comp->SetCanFire(true);
 }
 

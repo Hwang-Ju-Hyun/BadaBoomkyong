@@ -17,7 +17,10 @@ BTNodeState MoveToTarget::Enter(BlackBoard& _bb)
 	m_fElapseAccTime = 0.f;
 	m_fMaxTime = 3.f;
 	m_fMaxDistance = 1300.f;
-	return BTNodeState::RUNNING;
+
+	_bb.GetBoss()->SetCurrentAnimState(MonsterAnimState::WALK);
+
+	return BTNodeState::RUNNING;	
 }
 
 BTNodeState MoveToTarget::Update(BlackBoard& _bb)
@@ -33,7 +36,7 @@ BTNodeState MoveToTarget::Update(BlackBoard& _bb)
 	m_fElapseAccTime += dt;
 	std::cout << "Moving" << std::endl;
 	//float dist = MathUtil::GetInstance()->DistanceBetweenX(boss_pos,player_pos);
-	if (!GeometryUtil::GetInstance()->IsNearX(boss_pos, player_pos, 50.f))
+	if (!GeometryUtil::GetInstance()->IsNearX(boss_pos, player_pos, 150.f))
 	{
 		if (/*dist >= m_fMaxDistance || */m_fElapseAccTime >= m_fMaxTime)
 		{
@@ -42,7 +45,7 @@ BTNodeState MoveToTarget::Update(BlackBoard& _bb)
 			return BTNodeState::FAILURE;
 		}
 	}	
-	if (GeometryUtil::GetInstance()->IsNearX(boss_pos, player_pos,50.f))
+	if (GeometryUtil::GetInstance()->IsNearX(boss_pos, player_pos,150.f))
 		return BTNodeState::SUCCESS;
 	return BTNodeState::RUNNING;
 }

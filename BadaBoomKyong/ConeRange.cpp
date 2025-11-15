@@ -174,8 +174,10 @@ void ConeRange::Exit()
 
 void ConeRange::EnterCollision(Collider* _col)
 {
-    if(m_eState==ConeState::FIRE)
+    if (m_eState == ConeState::FIRE)
+    {
         EventManager::GetInstance()->SetActiveFalse(this->GetOwner());
+    }        
 }
 
 void ConeRange::OnCollision(Collider* _col)

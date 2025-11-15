@@ -100,10 +100,11 @@ void Transform::Update()
 
 			m_mModeltoWorld_3D = translate * billboard * scale;
 			return;
-		}
+		}	
 	}
 	else
-	{				
+	{
+		std::string a = GetOwner()->GetName();
 		m_vPosition.z = 0.f;
 		glm::mat4 translate = glm::translate(glm::mat4(1.0f),m_vPosition);
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f),m_vScale);

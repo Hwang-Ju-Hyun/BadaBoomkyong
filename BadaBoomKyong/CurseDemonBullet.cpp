@@ -49,10 +49,7 @@ void CurseDemonBullet::Awake()
     m_pTransform->SetPosition({ mon_trs->GetPosition() });
     m_pRigidBody->SetVelocity({ 0.f,0.f,0.f });
     m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
-    m_pCollider->SetScale(m_pTransform->GetScale()); 
-    
-    GameObject* a = GetShooter();
-
+    m_pCollider->SetScale(m_pTransform->GetScale());
 
     m_pCurseDemon = dynamic_cast<CurseDemon*>(GetShooter()->FindComponent(CurseDemon::CurseDemonTypeName));
     m_pCurseDemonTransform = dynamic_cast<Transform*>(m_pCurseDemon->GetOwner()->FindComponent(Transform::TransformTypeName));

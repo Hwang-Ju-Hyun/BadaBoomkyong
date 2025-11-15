@@ -78,6 +78,7 @@ public:
             case MonsterAnimState::TAKE_OFF:
                 machine->ChangeAnimState(static_cast<int>(MonsterAnimState::TAKE_OFF));
                 break;
+
             case MonsterAnimState::HURT:
                 machine->ChangeAnimState(static_cast<int>(MonsterAnimState::HURT));
                 break;
@@ -86,6 +87,9 @@ public:
                 break;
             case MonsterAnimState::DEATH:
                 machine->ChangeAnimState(static_cast<int>(MonsterAnimState::DEATH));
+                break;
+            case MonsterAnimState::DISAPPEAR:
+                machine->ChangeAnimState(static_cast<int>(MonsterAnimState::DISAPPEAR));
                 break;
             }
         }

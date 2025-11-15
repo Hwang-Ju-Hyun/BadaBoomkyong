@@ -6,6 +6,7 @@
 #include "PositionOverLifeTime.h"
 
 class BossRange;
+class Collider;
 class Transform;
 class ParticleSystem;
 class GameObject;
@@ -30,12 +31,14 @@ private:
 	BossRange* m_pBossRange;
 	RigidBody* m_pBossRangeRig;
 	Transform* m_pBossTransform;
+	Collider* m_pColBossRange;
 	ParticleSystem* m_pParticleSystem;
 	SizeOverLifeTime m_SizeOverLifeTime;
 private:
 	float m_fLifeTime;
 	int m_iParticle_PoolSize;
 	int m_iEmit_size;
+	
 public:
 	inline int GetEmitSize()const { return m_iEmit_size; }
 };

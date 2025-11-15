@@ -22,18 +22,31 @@ BTNodeState RangeAttack::Enter(BlackBoard& _bb)
 
 BTNodeState RangeAttack::Update(BlackBoard& _bb)
 {
+	float dt = TimeManager::GetInstance()->GetDeltaTime();
 	Boss* boss_comp = _bb.GetBoss();
 	Player* player_comp = _bb.GetPlayer();
-	int anim_done = boss_comp->GetAnimator()->GetAnimation()->m_bLoopCount;	
-	float dt = TimeManager::GetInstance()->GetDeltaTime();
-	m_fElapse_AimingAccTime += dt;
-	boss_comp->Aiming(player_comp->GetPosition());
-	 
-	if (m_fElapse_AimingAccTime >= m_fMaxAimingTime)
+	if (m_bAimingFlag)
+	{		
+		int anim_done = boss_comp->GetAnimator()->GetAnimation()->m_bLoopCount;		
+		m_fElapse_AimingAccTime += dt;
+		boss_comp->Aiming(player_comp->GetPosition());
+		if (m_fElapse_AimingAccTime >= m_fMaxAimingTime)
+		{
+			m_bAimingFlag = false;
+			boss_comp->SetAimingTargetPos(player_comp->GetPosition());
+		}		
+	}
+	else
 	{
-		boss_comp->Fire();
-		
-		return BTNodeState::SUCCESS;
+		m_fElapse_AimingDelayAccTime += dt;
+		if (m_fElapse_AimingDelayAccTime >= m_fMaxAimingDelayTime)
+		{
+			boss_comp->SetAimingDistance(std::fabs(boss_comp->GetPosition().x - boss_comp->GetAiminngTargetPos().x));
+			boss_comp->Fire();
+			m_fElapse_AimingDelayAccTime = 0.f;
+			m_bAimingFlag = true;
+			return BTNodeState::SUCCESS;
+		}
 	}
 	return BTNodeState::RUNNING;	
 	

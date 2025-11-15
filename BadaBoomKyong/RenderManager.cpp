@@ -253,7 +253,7 @@ void RenderManager::Draw()
 		{
 			Model* model = obj->GetModel();
 			bool is3d = obj->GetIs3D();
-			if (model && is3d)
+			if (model)
 			{							
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
 				
@@ -501,6 +501,11 @@ void RenderManager::Draw()
 		}
 		if (cdm&& cdm->on)
 		{
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+
+			glDepthMask(GL_FALSE);
+			glEnable(GL_DEPTH_TEST);
 			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Use();
 			cdm->m_pPs->m_iParticleTransform_location = glGetUniformLocation(shdr_handle_particle, "u_MVP_Particle");
 			assert(cdm->m_pPs->m_iParticleTransform_location >= 0);
@@ -510,13 +515,16 @@ void RenderManager::Draw()
 			cdm->m_pPs->Update();
 			cdm->m_pPs->Render();
 			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Diuse();
+			// 원래대로 복구			
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glDepthMask(GL_TRUE);
 		}
 		if (br && br->on)
 		{
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 			
-			glDepthMask(GL_FALSE); // 깊이 버퍼 쓰기 비활성화
+			glDepthMask(GL_FALSE);
 			glEnable(GL_DEPTH_TEST);
 			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Use();
 			br->m_pPs->m_iParticleTransform_location = glGetUniformLocation(shdr_handle_particle, "u_MVP_Particle");
@@ -529,8 +537,7 @@ void RenderManager::Draw()
 			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Diuse();
 			// 원래대로 복구			
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			glDepthMask(GL_TRUE);
-			
+			glDepthMask(GL_TRUE);			
 		}
 		//============
 		//============
@@ -554,7 +561,7 @@ void RenderManager::Draw()
 		{
 			Model* model = obj->GetModel();
 			bool is3d = obj->GetIs3D();
-			if (model && is3d)
+			if (model)
 			{
 				
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
