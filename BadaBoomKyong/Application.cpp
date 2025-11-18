@@ -44,7 +44,7 @@ void Application::Init()
     ModelManager::GetInstance()->Init();                        
 
     //GameStateManager
-    BaseLevel* lvl_01=GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_TEST);
+    BaseLevel* lvl_01=GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_01);
     GameStateManager::GetInstance()->ChangeLevel(lvl_01);
 
     FactoryManager::GetInstance()->Init();
@@ -81,9 +81,7 @@ void Application::Update()
     GameStateManager::GetInstance()->Update();    
 
     //GameObject
-    GameObjectManager::GetInstance()->Update();
-    //Component
-    //ComponentManager::GetInstance()->Update();
+    GameObjectManager::GetInstance()->Update();    
 
     //Input
     InputManager::GetInstance()->Update();    

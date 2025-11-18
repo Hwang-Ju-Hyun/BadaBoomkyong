@@ -89,9 +89,9 @@ BTNode* Boss::BuildBossBT()
 	
 	
 	BTNode* randomSelector = new WeightedRandomSelector({
-		std::make_pair(moveAndAttackSequence,0.5f),
-		std::make_pair(new RangeAttack(this),100.5f),
-		std::make_pair(new TeleportAttack(this),1.5f),
+		std::make_pair(moveAndAttackSequence,5.5f),
+		std::make_pair(new RangeAttack(this),3.5f),
+		std::make_pair(new TeleportAttack(this),2.5f),
 		std::make_pair(new Sequence({new ConeAttack(this),new Wait(0.1f)}),1.f)
 		});
 	
@@ -156,7 +156,7 @@ void Boss::Move()
 	float dir = m_vTargetPos.x - m_vPosition.x;
 	
 	m_pTransform->AddPositionX(dir * m_fSpeed * dt);	
-	m_fMoveX = dir * m_fSpeed * dt;	
+	m_fMoveX = dir * m_fSpeed * dt;
 }
 
 void Boss::Jump()
@@ -293,6 +293,7 @@ bool Boss::IsMeleeAnimDone()
 
 void Boss::StateHandle()
 {	
+	float dt = TimeManager::GetInstance()->GetDeltaTime();
 	m_pRigidBody->GetVelocity().y < 0 ? m_bIsFalling = true : m_bIsFalling = false;
 
 	if (GetIsHurting()==false)
@@ -326,15 +327,13 @@ void Boss::StateHandle()
 		{
 			//m_eCurrentState = MonsterAnimState::FALL;
 		}
-		if (GetIsHurting())
-		{
-			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
-			{
-				m_pAnimator->GetAnimation()->m_bLoopCount = 0;
-				SetIsHurting(false);
-			}
-		}
+		
 	}
+	else
+	{
+		OccurHitFlash();
+	}
+
 	if (m_pRigidBody->GetVelocity().y > 0)
 	{
 		m_eCurrentState = MonsterAnimState::JUMP;
@@ -343,6 +342,7 @@ void Boss::StateHandle()
 	{
 		//m_eCurrentState = MonsterAnimState::FALL;
 	}
+	
 
 	if (std::fabs(m_fMoveX) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon
 		&& m_pRigidBody->GetIsGround())&&m_eCurrentState!=MonsterAnimState::RANGE_ATTACK&&

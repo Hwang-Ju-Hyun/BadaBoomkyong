@@ -14,6 +14,7 @@
 #include "MathUtil.h"
 #include "FactoryManager.h"
 #include "BulletFactory.h"
+#include "TimeManager.h"
 
 Monster::Monster(GameObject* _owner)
 	:MonoBehaviour(_owner)
@@ -59,6 +60,29 @@ void Monster::UpdateSpriteFlipX()
 	{
 		if (m_pSprite)
 			m_pSprite->SetIsFlipX(false);
+	}
+}
+
+void Monster::OccurHitFlash()
+{
+	float dt = TimeManager::GetInstance()->GetDeltaTime();
+	if (GetIsHurting())
+	{
+		m_fHitFlashAccTime += dt;
+		if (m_fHitFlashDuration <= m_fHitFlashAccTime)
+		{
+			m_fHitFlashAccTime = 0.f;
+			SetIsHurting(false);
+		}
+	}
+	if (GetIsStagger())
+	{
+		if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
+		{
+			m_pAnimator->GetAnimation()->m_bLoopCount = 0;
+			SetIsHurting(false);
+			SetIsStagger(false);
+		}
 	}
 }
 

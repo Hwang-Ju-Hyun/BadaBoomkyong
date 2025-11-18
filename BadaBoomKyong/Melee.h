@@ -13,9 +13,12 @@ public:
     inline void SetLifeTime(float _time) { m_fLifeTime = _time; }
     inline float GetLifetTime()const { return m_fLifeTime; }
     float m_fCurTime = 0.f;
+    int m_iDamage;
+    inline void SetDamage(int _dam) { m_iDamage = _dam; }
+    inline const int GetDamage()const { return m_iDamage; }
 private:
     GameObject* m_pAttacker = nullptr;
-protected:
+protected:   
     bool m_bIsMeleeAttacking = false;
 public:
     inline void SetIsMeleeAttacking(bool _isAttacking) { m_bIsMeleeAttacking = _isAttacking; }

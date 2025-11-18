@@ -77,6 +77,8 @@ private:
     ComboStep m_eComboStep = ComboStep::NONE;
     bool m_bComboQueue = false;
 public:
+    inline const ComboStep GetCurComboStep() { return m_eComboStep; }
+public:
     bool m_bInNormalCombo = false;
     float m_fComboMaxTimeOut = 1.f;
     static float m_fComboAccTime;

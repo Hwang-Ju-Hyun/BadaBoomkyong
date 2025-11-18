@@ -59,6 +59,7 @@ public:
             m_pMelee = dynamic_cast<PlayerMelee*>(_owner->GetMelee());
             if (m_pMelee)
             {
+                m_pMelee->SetDamage(1);
                 EventManager::GetInstance()->SetActiveFalse(m_pMelee->GetOwner());
             }
         }        

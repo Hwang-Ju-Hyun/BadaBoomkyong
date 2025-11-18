@@ -41,6 +41,11 @@ private:
 	virtual void InitStage02()  override;
 	virtual void InitStage03()  override;
 	virtual void InitStageTest()override;
+private:
+	void CurseDemonBUlletInit();
+	void PlayerBulletInit();
+	void BossRangeInit();
+	void ConeRnageInit();
 public:
 	std::string player_bulletPool_Key = "PistolPool";
 	std::string curse_bulletPool_Key     = "CursePool";

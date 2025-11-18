@@ -162,7 +162,7 @@ void SmokeDemon::Update()
 					m_fSmokeParticle_WaitAccTime += dt;
 					if (m_fSmokeParticle_WaitAccTime > m_fSmokeParticle_WaitingTime)
 					{
-						m_pSmokeAttackParticle->CreateParticles(200);
+						m_pSmokeAttackParticle->CreateParticles(150);
 						smoking = true;
 						m_fSmokeParticle_WaitAccTime = 0.f;
 					}
@@ -190,22 +190,15 @@ void SmokeDemon::Update()
 			}
 		}
 
-		if (GetIsHurting())
+		if (GetIsStagger())
 		{
 			float Knockback_dir = -m_fDirection;
 			m_pTransform->AddPositionX(0.5f * Knockback_dir);
-			m_eCurrentState = MonsterAnimState::HURT;
+			m_eCurrentState = MonsterAnimState::HURT;			
 			m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
 		}
 
-		if (GetIsHurting())
-		{
-			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
-			{
-				m_pAnimator->GetAnimation()->m_bLoopCount = 0;
-				SetIsHurting(false);
-			}
-		}
+		OccurHitFlash();
 	}
 
 	auto hp = GetCurrentHP();

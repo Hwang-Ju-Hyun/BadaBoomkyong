@@ -69,6 +69,6 @@ public:
     float m_fMeleeStateChange_OffsetAccTime = 0.f;
     float m_fMeleeStateChange_OffsetTime = 2.0f;
     float m_fSmokeParticle_WaitAccTime = 0.f;
-    float m_fSmokeParticle_WaitingTime = 0.7f;
+    float m_fSmokeParticle_WaitingTime = 0.3f;
 };
 

@@ -5,6 +5,7 @@
 Melee::Melee(GameObject* _owner, GameObject* _attacker)
 	:MonoBehaviour(_owner)
     ,m_pAttacker(_attacker)
+    ,m_iDamage(1)
 {
     GetOwner()->SetIsSerializable(false);
 }

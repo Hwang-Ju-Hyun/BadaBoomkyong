@@ -61,6 +61,11 @@ void ExecutionerDemonMelee::Awake()
 
 void ExecutionerDemonMelee::Update()
 {
+    if (!m_pExecutionerDemon->GetIsAlive())
+    {
+        EventManager::GetInstance()->SetActiveFalse(GetOwner());
+    }
+    
     float dt = TimeManager::GetInstance()->GetDeltaTime();
 
     if (m_pExecutionerDemon->GetCurrentState() == MonsterAnimState::HURT|| m_pExecutionerDemon->GetCurrentState() == MonsterAnimState::DEATH)

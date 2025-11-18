@@ -9,7 +9,7 @@
 
 SmokeAttackParticle::SmokeAttackParticle(ParticleSystem* _ps, GameObject* _owner)
 	:m_pParticleSystem(_ps)
-	,m_iParticle_PoolSize(1000)
+	,m_iParticle_PoolSize(1500)
 	,m_iEmit_size(100)
 	, m_ColorOverLifeTime(ScatterMotion_Color)
 	, m_SizeOverLifeTime(ScatterMotion_Size)
@@ -49,7 +49,7 @@ void SmokeAttackParticle::CreateParticles(int _emitNum)
 		glm::vec3 particlePos = owner_pos + rand_dir * r;
 
 
-		props.m_fLifeTime = 4.f;
+		props.m_fLifeTime = 6.f;
 		props.m_fLifeRemaining = props.m_fLifeTime;
 		props.m_vVelocity = glm::vec3(0.f);
 
@@ -91,27 +91,53 @@ glm::vec3 SmokeAttackParticle::RandomDirectionInCone(const glm::vec3& _conAxis, 
 glm::vec3 SmokeAttackParticle::ScatterMotion_Position(Particle& _particle, float _progress, float _dt)
 {
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
-	float speed = 6.f;
-	_particle.m_vPosition += speed*(_particle.m_vRandomDir * _progress);
+
+	// 1) 기본 감속 (progress 0→빠름 / 1→거의 정지)
+	float decel = (1.0f - _progress);
+
+	// 2) 퍼지는 이동 (랜덤 방향 + 원래 방향)
+	glm::vec3 dirMove = _particle.m_vRandomDir * 2.0f * decel;
+
+	// 3) 살짝 위로 상승 (연기 느낌 핵심)
+	float upForce = 10.0f * decel;
+	dirMove.y += upForce * dt;
+
+	// 4) 랜덤 흔들림(Perlin 없으니 간단 랜덤 노이즈)
+	float shake = MathUtil::GetInstance()->GetRandomNumber(-1.f, 1.f) * 0.5f * decel;
+	dirMove.x += shake * 0.3f;
+	dirMove.y += shake * 0.1f;
+
+	_particle.m_vPosition += dirMove;
 	return _particle.m_vPosition;
 }
 
 glm::vec4 SmokeAttackParticle::ScatterMotion_Color(Particle& _particle, float _progress, float _dt)
 {
-	float t = MathUtil::GetInstance()->lerp(0.f, 1.f, _progress);
-	float easeT = _progress * _progress * (3 - 2 * _progress); // 부드러운 S-curve	
-	_particle.m_vColorStart = glm::vec4{ (255.f / 255.f),(130.f/ 255.f),(150.f/ 255.f),1.f };
-	_particle.m_vColorEnd = glm::vec4{ (159.f / 255.f),(222.f / 255.f),(150.f / 255.f),0.0f };
-	_particle.m_vColor = glm::mix(_particle.m_vColorStart, _particle.m_vColorEnd, t);
+	glm::vec4 start = { 0.6f, 0.9f, 0.5f, 0.0f };
+	glm::vec4 middle = { 0.4f, 0.7f, 0.3f, 0.3f };
+	glm::vec4 end = { 0.2f, 0.4f, 0.15f, 0.0f };
+
+	if (_progress < 0.5f)
+		_particle.m_vColor = mix(start, middle, _progress / 0.5f);
+	else
+		_particle.m_vColor = mix(middle, end, (_progress - 0.5f) / 0.5f);
 	return _particle.m_vColor;
+
+
+	//float t = MathUtil::GetInstance()->lerp(0.f, 1.f, _progress);
+	//float easeT = _progress * _progress * (3 - 2 * _progress); // 부드러운 S-curve	
+	//_particle.m_vColorStart = glm::vec4{ (255.f / 255.f),(130.f/ 255.f),(150.f/ 255.f),1.f };
+	//_particle.m_vColorEnd = glm::vec4{ (159.f / 255.f),(222.f / 255.f),(150.f / 255.f),0.0f };
+	//_particle.m_vColor = glm::mix(_particle.m_vColorStart, _particle.m_vColorEnd, t);
+	//return _particle.m_vColor;
 }
 
 glm::vec2 SmokeAttackParticle::ScatterMotion_Size(Particle& _particle, float _progress, float _dt)
 {
-	_particle.m_vSize = { 10.f,10.f };
+	_particle.m_vSize = { 5.f,5.f };
 	float t = MathUtil::GetInstance()->lerp(0.f, 1.f, _progress);
-	_particle.m_vSizeStart = { 10.f,10.f };
-	_particle.m_vSizeEnd = { 20.f,20.f };
+	_particle.m_vSizeStart = { 5.f,5.f };
+	_particle.m_vSizeEnd = { 40.f,40.f };
 	_particle.m_vSize = glm::vec2{ glm::mix(_particle.m_vSizeStart.x, _particle.m_vSizeEnd.x, t),glm::mix(_particle.m_vSizeStart.y, _particle.m_vSizeEnd.y, t) };
 	return _particle.m_vSize;
 }

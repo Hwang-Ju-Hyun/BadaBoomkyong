@@ -59,7 +59,7 @@ public:
     bool m_bMeleeAtkDone = false;
 private:
     float m_fOffsetTimeAcc = 0.f;
-    float m_fOffsetTime = 1.f;
+    float m_fOffsetTime = 0.02f;
 public:
     virtual void EnterCollision(Collider* _other)override;
     virtual void OnCollision(Collider* _other)   override;

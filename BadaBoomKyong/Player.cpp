@@ -116,18 +116,21 @@ void Player::Update()
 	//todo : 이거 dashable & isalive이런거 함수화 시켜서 movable로 고치든가하자
 	if (m_bIsAlive&&!m_bIsDashing)
 	{
-		
-		Move();
-		Jump();
-		Fire();
-		MeleeAttack();
-		HolySlash();
+		if (!m_bIsHurting)
+		{
+			Move();
+			Jump();
+			Fire();
+			MeleeAttack();			
+			HolySlash();
+			ComboUpdate();
+		}
 	}	
 	Dash();
 	Death();
-	ComboUpdate();	
+	
 	StateHandler();	
-	m_vPosition = m_pTransform->GetPosition();
+
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();		
 }
@@ -520,9 +523,8 @@ void Player::StartComboStep(ComboStep step)
 	case ComboStep::COMBO_3:
 	{
 		m_bCanMeleeAttack = true;
-		
-		m_pAnimStateMachine->ChangeAnimState(PlayerAnimState::COMBO_ATTACK_3);		
-		
+		m_pMelee->SetDamage(2);
+		m_pAnimStateMachine->ChangeAnimState(PlayerAnimState::COMBO_ATTACK_3);				
 		break;
 	}		
 	default: 
@@ -560,6 +562,8 @@ static int a = 0;
 
 void Player::HolySlash()
 {
+	if (!m_pRigidBody->GetIsGround())
+		return;
 	auto input = InputManager::GetInstance();	
 	if (input->GetKetCode(GLFW_KEY_Q) == GLFW_PRESS)
 	{

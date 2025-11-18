@@ -76,9 +76,12 @@ public:
     void UpdateSpriteFlipX();
 private:
     bool m_bIsHurting = false;
+    bool m_bIsStagger = false;
 public:
-    void SetIsHurting(bool _hurt) { m_bIsHurting = _hurt; }
-    bool GetIsHurting()const { return m_bIsHurting; }
+    inline void SetIsHurting(bool _hurt) { m_bIsHurting = _hurt; }
+    inline bool GetIsHurting()const { return m_bIsHurting; }
+    inline void SetIsStagger(bool _stagger) { m_bIsStagger = _stagger; }
+    inline const bool GetIsStagger()const { return m_bIsStagger; }
 public:
     inline void SetIdleBehaviour(IIdleBehaviour* _behaviour) { m_pIdleBehavior = _behaviour; }
     inline void SetRangedBehaviour(IRangedBehaviour* _behaviour) { m_pRangedBehavior = _behaviour; }
@@ -110,6 +113,10 @@ protected:
 
     float m_fMeleeAtkCoolTime = 0.f;
     float m_fRangeAtkCoolTime = 0.f;
+
+    float m_fHitFlashDuration = 0.3f;
+    float m_fHitFlashAccTime = 0.f;
+    void OccurHitFlash();
 public:        
     const std::string GetCurrentAnimState();
     inline void SetIsGround(bool _ground) { m_bIsGround = _ground; }
@@ -127,7 +134,7 @@ public:
     inline void SetRangeAtkCoolTime(float _time) { m_fRangeAtkCoolTime = _time; }
     inline float GetRangeAtkCoolTime()const { return m_fRangeAtkCoolTime; }
     inline glm::vec3 GetPosition()const { return m_vPosition; }
-    inline RigidBody* GetRigidBody()const { return m_pRigidBody; }
+    inline RigidBody* GetRigidBody()const { return m_pRigidBody; }    
 public:
     bool m_bCol=false;
 public:

@@ -42,7 +42,6 @@ CurseDemon::CurseDemon(GameObject* _owner)
 	assert(m_pAI != nullptr);
 
 	m_pAnimStateMachine = new AnimStateMachine<Monster>(this);
-
 	
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::IDLE), new AnimIdleState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::NORMAL_ATTACK), new AnimNormalAttackState<Monster>());
@@ -88,6 +87,8 @@ void CurseDemon::Update()
 {		
 	if (GetIsAlive())
 	{
+		float dt = TimeManager::GetInstance()->GetDeltaTime();
+
 		//인지범위
 		auto math = MathUtil::GetInstance();
 		m_vPosition = m_pTransform->GetPosition();
@@ -128,9 +129,8 @@ void CurseDemon::Update()
 			m_eCurrentState = MonsterAnimState::IDLE;
 		}
 
-
-		//피격시
-		if (GetIsHurting())
+		
+		if (GetIsStagger())
 		{
 			float Knockback_dir = -m_fDirection;
 			m_pTransform->AddPositionX(0.5f * Knockback_dir);
@@ -146,31 +146,17 @@ void CurseDemon::Update()
 				m_pAnimator->GetAnimation()->m_bLoopCount = 0;
 			}
 		}
-
-		if (GetIsHurting())
-		{
-			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
-			{
-				m_pAnimator->GetAnimation()->m_bLoopCount = 0;
-				SetIsHurting(false);
-			}
-		}
-	}
-	
-
-	/*if (m_eCurrentState== MonsterAnimState::RANGE_ATTACK &&
-		GetAnimator()->GetCurrentFrameIndex() == 11)
-	{
-		Fire();
-	}*/
-
+		OccurHitFlash();
+	}	
 
 	auto hp = GetCurrentHP();
 	hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
 
-
 	if (!GetIsAlive())
-		m_eCurrentState = MonsterAnimState::DEATH;
+	{
+		m_eCurrentState = MonsterAnimState::DEATH;		
+	}
+		
 
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();
@@ -187,14 +173,12 @@ void CurseDemon::Fire()
 {
 	m_pBullet = GetBulletFactory()->CreateBullet(BULLET_TYPE::CURSEDEMON_FIREBALL);
 	CurseDemonBullet* grn_comp = dynamic_cast<CurseDemonBullet*>(m_pBullet->GetOwner()->FindComponent(CurseDemonBullet::CurseDemonBulletTypaName));
-	grn_comp->SetShooter(this->GetOwner());
-
-	//EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
+	grn_comp->SetShooter(this->GetOwner());	
 	grn_comp->SetCanFire(true);
 }
 
 void CurseDemon::MeleeAttack()
-{
+{	
 	m_pMelee = m_pMeleeFactory->CreateMelee(GROUP_TYPE::MELEE);
 	CurseDemonMelee* melee_comp = dynamic_cast<CurseDemonMelee*>(m_pMelee);
 	assert(m_pMelee != nullptr);

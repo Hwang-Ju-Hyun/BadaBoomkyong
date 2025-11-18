@@ -57,8 +57,11 @@ void CurseDemonMelee::Awake()
 
 void CurseDemonMelee::Update()
 {
-    float dt = TimeManager::GetInstance()->GetDeltaTime();
-    
+    if (!m_pCurseDemon->GetIsAlive())
+    {
+        EventManager::GetInstance()->SetActiveFalse(GetOwner());
+    }
+    float dt = TimeManager::GetInstance()->GetDeltaTime();        
     if (m_pCurseDemon->GetCurrentState() == MonsterAnimState::HURT)
     {
         m_fCurTime = 0.f;

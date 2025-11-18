@@ -10,5 +10,8 @@ void PATROL_ExecutionerDemon::Init(Monster* _mon)
 
 void PATROL_ExecutionerDemon::DoPatrolBehaviour(Monster* _mon)
 {
-	m_pExecutionerDemon->Patrol();
+	if (_mon->GetIsAlive())
+	{
+		m_pExecutionerDemon->Patrol();
+	}	
 }

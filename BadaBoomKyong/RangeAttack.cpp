@@ -19,7 +19,7 @@ BTNodeState RangeAttack::Enter(BlackBoard& _bb)
 	return BTNodeState::FAILURE;
 }
 #include "TimeManager.h"
-
+#include <algorithm>
 BTNodeState RangeAttack::Update(BlackBoard& _bb)
 {
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
@@ -34,7 +34,7 @@ BTNodeState RangeAttack::Update(BlackBoard& _bb)
 		{
 			m_bAimingFlag = false;
 			boss_comp->SetAimingTargetPos(player_comp->GetPosition());
-		}		
+		}						
 	}
 	else
 	{

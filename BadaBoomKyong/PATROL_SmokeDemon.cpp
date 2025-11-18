@@ -10,5 +10,6 @@ void PATROL_SmokeDemon::Init(Monster* _mon)
 
 void PATROL_SmokeDemon::DoPatrolBehaviour(Monster* _mon)
 {
-	m_pSmokeDemon->Patrol();
+	if(_mon->GetIsAlive())
+		m_pSmokeDemon->Patrol();
 }
