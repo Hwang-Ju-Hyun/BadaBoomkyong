@@ -26,8 +26,11 @@ private:
     Player* m_pPlayer = nullptr;
     Monster* m_pMonster = nullptr;
     Transform* m_pPlayerTrs = nullptr;
+    int m_iIBullet_dir;
 private:
     float m_fSpeed = 0.f;
+    const float m_fMaxLifeTime = 4.f;
+    float m_fLifeTimeElapse = 0.f;
 public:
     virtual void EnterCollision(Collider* _col)override;
     virtual void OnCollision(Collider* _col)override;

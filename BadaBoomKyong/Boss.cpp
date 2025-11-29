@@ -55,7 +55,6 @@ Boss::Boss(GameObject* _owner)
 	m_fDirection = -1.f;
 	m_fJumpImpulse = 300.f;
 	
-
 	m_pRigidBody = static_cast<RigidBody*>(_owner->FindComponent<RigidBody>());
 
 	m_pAnimStateMachine = new AnimStateMachine<Monster>(this);
@@ -224,8 +223,7 @@ void Boss::Init()
 void Boss::Update()
 {		
 	if (GetIsAlive())
-	{					
-			
+	{			
 		if (InputManager::GetInstance()->GetKetCode(GLFW_KEY_B) == GLFW_PRESS)
 		{
 			SpawnPawn();
@@ -356,8 +354,7 @@ void Boss::StateHandle()
 		if (m_bIsFalling&& m_eCurrentState != MonsterAnimState::DISAPPEAR&& m_eCurrentState != MonsterAnimState::APPEAR)
 		{
 			//m_eCurrentState = MonsterAnimState::FALL;
-		}
-		
+		}		
 	}
 	else
 	{
@@ -371,9 +368,7 @@ void Boss::StateHandle()
 	else if (m_pRigidBody->GetVelocity().y < 0 && m_eCurrentState != MonsterAnimState::DISAPPEAR && m_eCurrentState != MonsterAnimState::APPEAR)
 	{
 		//m_eCurrentState = MonsterAnimState::FALL;
-	}
-	
-
+	}	
 	if (std::fabs(m_fMoveX) <= g_epsilon && (m_pRigidBody->GetVelocity().y <= g_epsilon
 		&& m_pRigidBody->GetIsGround())&&m_eCurrentState!=MonsterAnimState::RANGE_ATTACK&&
 		m_eCurrentState!=MonsterAnimState::APPEAR&&

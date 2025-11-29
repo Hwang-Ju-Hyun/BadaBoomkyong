@@ -44,7 +44,7 @@ void CurseDemonMelee::Awake()
     Transform* mon_trs = dynamic_cast<Transform*>(mon_obj->FindComponent(Transform::TransformTypeName));
     m_pCurseDemon = dynamic_cast<CurseDemon*>(mon_obj->FindComponent(CurseDemon::CurseDemonTypeName));
     
-    float offsetX = 55.f;
+    float offsetX = 75.f;
 
     float dir = m_pCurseDemon->GetDirection();
 

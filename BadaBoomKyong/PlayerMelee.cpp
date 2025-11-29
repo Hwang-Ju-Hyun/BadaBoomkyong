@@ -45,6 +45,7 @@ void PlayerMelee::Awake()
         m_vOffset = { -55.f,0.f,0.f };
     else
         m_vOffset = { 55.f,0.f,0.f };
+
     glm::vec3 final_pos= player_pos + m_vOffset;
 
     m_pTransform->SetPosition(final_pos);

@@ -7,10 +7,11 @@
 #include "Player.h"
 #include "EventManager.h"
 #include "Monster.h"
+#include "TimeManager.h"
 
 Pistol::Pistol(GameObject* _owner,GameObject* _shooter)
 	:Bullet(_owner,_shooter)
-	, m_fSpeed(1.5f)
+	, m_fSpeed(700.5f)
 {
 
 }
@@ -41,12 +42,18 @@ void Pistol::Awake()
 	m_pTransform->SetPosition(shooter_pos);
 	m_pTransform->SetScale(glm::vec3{ 50.f,50.f,10.f });
 	m_pCollider->SetScale(m_pTransform->GetScale());
+
+	m_iIBullet_dir = m_pPlayer->GetDir();
 }
 
 void Pistol::Update()
 {
+	
 	if (GetActive())
-		Fire();
+	{
+		Fire();		
+	}
+		
 }
 
 void Pistol::Exit()
@@ -54,8 +61,16 @@ void Pistol::Exit()
 }
 
 void Pistol::Fire()
-{
-	m_pTransform->AddPositionX(m_fSpeed);
+{	
+	float dt = TimeManager::GetInstance()->GetDeltaTime();
+	m_pTransform->AddPositionX(m_iIBullet_dir * m_fSpeed * dt);
+	m_fLifeTimeElapse += dt;
+	if (m_fLifeTimeElapse >= m_fMaxLifeTime)
+	{
+		EventManager::GetInstance()->SetActiveFalse(GetOwner());
+		m_fLifeTimeElapse = 0.f;
+	}
+	
 }
 
 void Pistol::EnterCollision(Collider* _col)
