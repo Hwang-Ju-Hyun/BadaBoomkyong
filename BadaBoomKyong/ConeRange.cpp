@@ -47,12 +47,11 @@ void ConeRange::Awake()
     Transform* mon_trs = dynamic_cast<Transform*>(GetShooter()->FindComponent(Transform::TransformTypeName));
     Boss* mon_comp = dynamic_cast<Boss*>(mon_obj->FindComponent(Boss::BossTypeName));
 
-    float spawn_x = MathUtil::GetInstance()->GetRandomNumber(-600.f, 600.f);
-    float spawn_y= MathUtil::GetInstance()->GetRandomNumber(400.f, 1200.f);
-    m_pTransform->SetPosition({ spawn_x,spawn_y,700.f});    
-    m_pTransform->SetScale(glm::vec3{ 130.f,130.f,130.f });
-    m_pCollider->SetScale(m_pTransform->GetScale());
-
+    //float spawn_x = MathUtil::GetInstance()->GetRandomNumber(-600.f, 600.f);
+    //float spawn_y= MathUtil::GetInstance()->GetRandomNumber(400.f, 1200.f);
+    //m_pTransform->SetPosition({ spawn_x,spawn_y,700.f});    
+    m_pTransform->SetScale(glm::vec3{ 10.f,10.f,10.f });
+    m_pCollider->SetScale({50.f,50.f,50.f});
 
     // 오브젝트 생성 시 고정 랜덤 축을 하나 만든다
     float rx = MathUtil::GetInstance()->GetRandomNumber(-1.0f, 1.0f);
@@ -105,8 +104,10 @@ void ConeRange::Update()
         glm::vec3 a = m_vBaseAxis + noise + wave;
         glm::vec3 axis = glm::normalize(a);
 
+        float scale_speed = 40.f;
         // 최종 회전 적용
         m_pTransform->AddRotation(axis * dt * speed);
+        m_pTransform->AddScale({ dt * scale_speed ,dt * scale_speed ,dt * scale_speed });
         if (m_fStopRotElapseTime >= m_fStopRotElapse_MaxTime)
         {
             m_fStopRotElapseTime = 0.f;
@@ -130,7 +131,7 @@ void ConeRange::Update()
         
         glm::quat current_rot = glm::quat(glm::radians(m_pTransform->GetRotation_3D()));
         glm::quat smoothRot = glm::slerp(current_rot, target_rot, 0.4f);
-        glm::vec3 smootScale = MathUtil::GetInstance()->lerp(m_pTransform->GetScale(), glm::vec3{ 25.f,105.f,35.f }, 0.5f);
+        glm::vec3 smootScale = MathUtil::GetInstance()->lerp(m_pTransform->GetScale(), glm::vec3{ 25.f,105.f,35.f }, 0.2f);
         m_pTransform->SetScale(smootScale);
 
         glm::vec3 euler = glm::degrees(glm::eulerAngles(smoothRot));
@@ -146,6 +147,7 @@ void ConeRange::Update()
             m_fAimingElapseTime += dt;
             if (m_fAimingElapseTime >= m_fAiming_MaxTime)
             {
+                
                 m_eState = ConeState::FIRE;
             }            
         }        
@@ -155,17 +157,19 @@ void ConeRange::Update()
     {
         float speed = 1000.f;
         float dt = TimeManager::GetInstance()->GetDeltaTime();
-        glm::vec3 pos = m_pTransform->GetPosition();
-        glm::vec3 target = m_pPlayerTransform->GetPosition();
-
-        glm::vec3 dir = glm::normalize(target - pos);        
+        glm::vec3 pos = m_pTransform->GetPosition();        
+        m_vTarget_pos = m_pPlayerTransform->GetPosition();
+        glm::vec3 dir = glm::normalize(m_vTarget_pos - pos);
         m_pTransform->AddPosition(dir * speed * dt);
     }
         break;
     default:
         break;
     }    
-    
+    if (m_pTransform->GetPosition().z < 10.f)
+    {
+        EventManager::GetInstance()->SetActiveFalse(this->GetOwner());
+    }
 }
 
 void ConeRange::Exit()

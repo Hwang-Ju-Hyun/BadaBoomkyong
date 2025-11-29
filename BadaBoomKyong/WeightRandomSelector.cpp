@@ -11,6 +11,11 @@ WeightedRandomSelector::WeightedRandomSelector(const std::vector<std::pair<BTNod
 
 WeightedRandomSelector::~WeightedRandomSelector()
 {
+    for (int i = 0;i < m_vecWeightedNodes.size();i++)
+    {
+        delete m_vecWeightedNodes[i].node;
+        m_vecWeightedNodes[i].node = nullptr;
+    }
 }
 
 BTNodeState WeightedRandomSelector::Enter(BlackBoard& _bb)

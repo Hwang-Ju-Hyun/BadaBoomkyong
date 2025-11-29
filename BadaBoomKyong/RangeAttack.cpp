@@ -8,6 +8,10 @@ RangeAttack::RangeAttack(Boss* _boss)
 {
 }
 
+RangeAttack::~RangeAttack()
+{
+}
+
 BTNodeState RangeAttack::Enter(BlackBoard& _bb)
 {
 	Boss* boss_comp = _bb.GetBoss();

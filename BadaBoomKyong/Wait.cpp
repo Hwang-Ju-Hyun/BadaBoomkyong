@@ -6,6 +6,10 @@ Wait::Wait(float _time)
 {
 }
 
+Wait::~Wait()
+{
+}
+
 BTNodeState Wait::Enter(BlackBoard& _bb)
 {
     return BTNodeState::RUNNING;

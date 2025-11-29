@@ -17,6 +17,15 @@ class Melee;
 class MeleeFactory;
 class BlackBoard;
 
+class MoveToTarget;
+class NormalAttack;
+class WeightedRandomSelector;
+class RangeAttack;
+class TeleportAttack;
+class Sequence;
+class ConeAttack;
+class Wait;
+
 class Boss :
     public Monster
 {
@@ -61,9 +70,9 @@ public:
     void SpawnPawn();     
 public:
     float m_fMoveX = 0.f;
-private:    
+    
+private:
     glm::vec3 m_vTargetPos;
-  
     float m_fDetectRange = 0.f;
     glm::vec3 m_vRangedMoveAtkRange = {};
     glm::vec3 m_vMeleeAtkRange = {};

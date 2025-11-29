@@ -462,7 +462,7 @@ void RenderManager::Draw()
 	
 	for (const auto& obj : objs)
 	{
-		Player* p = static_cast<Player*>(obj->FindComponent<Player>());
+		Player* p = static_cast<Player*>(obj->FindComponent<Player>());		
 		SmokeDemon* sm = static_cast<SmokeDemon*>(obj->FindComponent<SmokeDemon>());
 		CurseDemonBullet* cdm= static_cast<CurseDemonBullet*>(obj->FindComponent<CurseDemonBullet>());
 		BossRange* br = static_cast<BossRange*>(obj->FindComponent<BossRange>());

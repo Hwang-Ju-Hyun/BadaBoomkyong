@@ -14,7 +14,7 @@ private:
     BTNode* m_pCurrentNode = nullptr;
 
 public:
-    WeightedRandomSelector(const std::vector<std::pair<BTNode*, float>>& _childNode);
+    WeightedRandomSelector(const std::vector<std::pair<BTNode*, float>>& _childNode );
     virtual ~WeightedRandomSelector() ;
 
     virtual BTNodeState Enter(BlackBoard& _bb) override;

@@ -9,6 +9,10 @@ TeleportAttack::TeleportAttack(Boss* _boss)
 {
 }
 
+TeleportAttack::~TeleportAttack()
+{
+}
+
 BTNodeState TeleportAttack::Enter(BlackBoard& _bb)
 {
 	m_pBoss = _bb.GetBoss();

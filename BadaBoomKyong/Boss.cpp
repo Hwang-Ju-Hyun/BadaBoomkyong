@@ -48,7 +48,7 @@
 #include "WeightRandomSelector.h"
 
 Boss::Boss(GameObject* _owner)
-	:Monster(_owner)
+	:Monster(_owner)	
 {
 	SetName(BossTypeName);
 
@@ -72,16 +72,17 @@ Boss::Boss(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DISAPPEAR), new AnimDisAppearState<Monster>());
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DEATH), new AnimDeathState<Monster>());
 
-	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::IDLE));	
+	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::IDLE));		
 }
 
 Boss::~Boss()
 {
 	delete m_pBT;
+	delete m_pBTAgent;
 }
 
 BTNode* Boss::BuildBossBT()
-{					
+{						
 	BTNode* moveAndAttackSequence = new Sequence({
 	  new MoveToTarget(this),                 
 	  new NormalAttack(this)                  
@@ -89,10 +90,10 @@ BTNode* Boss::BuildBossBT()
 	
 	
 	BTNode* randomSelector = new WeightedRandomSelector({
-		std::make_pair(moveAndAttackSequence,5.5f),
-		std::make_pair(new RangeAttack(this),3.5f),
-		std::make_pair(new TeleportAttack(this),2.5f),
-		std::make_pair(new Sequence({new ConeAttack(this),new Wait(0.1f)}),1.f)
+		std::make_pair(moveAndAttackSequence,0.5f),
+		std::make_pair(new RangeAttack(this),0.5f),
+		std::make_pair(new TeleportAttack(this),0.5f),
+		std::make_pair(new Sequence({new Wait(5.1f),new ConeAttack(this),new Wait(0.1f)}),110.f)
 		});
 	
 	BTNode* Act_IfFarSequence = new Sequence({
@@ -106,12 +107,12 @@ BTNode* Boss::BuildBossBT()
 				})
 		});	
 	
-	BTNode* root = new Selector({
+	m_pBT = new Selector({
 		Act_IfFarSequence,
 		Act_IfNear
 		});
 
-	return root;
+	return m_pBT;
 }
 
 void Boss::Aiming(glm::vec3 _targetPos)
@@ -129,6 +130,35 @@ void Boss::SpawnPawn()
 		cone_range_comp->SetShooter(this->GetOwner());
 		
 		cone_range_comp->SetCanFire(true);		
+
+
+		float startAngle = -60.f;
+		float endAngle = 60.f;		
+
+		glm::vec3 bossPos = m_pTransform->GetPosition();
+		glm::vec3 playerPos = m_pPlayerTransform->GetPosition();
+
+		float t = (float)i / (5 - 1);
+		float angle = glm::radians(glm::mix(startAngle, endAngle, t));
+
+		glm::vec3 forward = glm::normalize(playerPos - bossPos);
+		glm::vec3 right = glm::cross(forward, glm::vec3(0, 0, 1));
+
+		glm::vec3 spawnDir = glm::normalize(
+			forward * cos(angle) +
+			right * sin(angle)
+		);
+
+		glm::vec3 spawnPos;
+		spawnPos.x= bossPos.x + spawnDir.x * 500.f;
+		spawnPos.y= bossPos.y*(7.f/8.f)+ spawnDir.y * 1000.f;
+		spawnPos.z = 700.f; 
+
+
+		Transform* trs = static_cast<Transform*>(cone_range_comp->GetOwner()->FindComponent<Transform>());
+		trs->SetPosition(spawnPos);
+
+
 		m_vecCone.push_back(cone_range_comp);
 	}
 }
@@ -242,7 +272,7 @@ void Boss::Update()
 	
 	
 	if (m_pAnimStateMachine)
-		m_pAnimStateMachine->Update();		
+		m_pAnimStateMachine->Update();			
 }
 
 void Boss::Exit()

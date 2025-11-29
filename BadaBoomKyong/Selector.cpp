@@ -7,6 +7,11 @@ Selector::Selector(std::vector<BTNode*> _childNode)
 
 Selector::~Selector()
 {
+	for (int i = 0;i < m_vecChildNode.size();i++)
+	{
+		delete m_vecChildNode[i];
+		m_vecChildNode[i] = nullptr;
+	}
 }
 
 BTNodeState Selector::Enter(BlackBoard& _bb)

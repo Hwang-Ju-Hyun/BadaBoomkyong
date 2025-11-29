@@ -89,6 +89,8 @@ void CurseDemonBullet::Update()
 
 void CurseDemonBullet::Exit()
 {
+    delete m_pPs;
+    delete m_pCurseDemonBulletParticle;
 }
 
 void CurseDemonBullet::EnterCollision(Collider* _col)

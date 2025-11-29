@@ -46,6 +46,7 @@ private:
 	float m_fThrowingForce = 0.f;
 	bool m_bIsAiming = false;
 	glm::quat target_rot = {};
+	glm::vec3 m_vTarget_pos = {};
 public:
 	static constexpr const char* ConeRangeTypeName = "ConeRange";
 	static constexpr const char* ConeRangeImpulseTypeName = "ConeRangeImpulse";

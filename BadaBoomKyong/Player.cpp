@@ -8,6 +8,7 @@
 #include "TimeManager.h"
 #include "Collider.h"
 #include "RigidBody.h"
+#include "Camera.h"
 #include <cassert>
 #include "GeometryUtill.h"
 #include "BulletFactory.h"
@@ -31,6 +32,7 @@
 #include "GameStateManager.h"
 #include "BaseLevel.h"
 #include "Stage02.h"
+#include "RenderManager.h"
 
 class AnimIdelState;
 template<typename T>
@@ -69,7 +71,9 @@ Player::Player(GameObject* _owner)
 	m_pAnimStateMachine->ChangeAnimState(PlayerAnimState::IDLE);
 	
 	m_pPs = new ParticleSystem;
-	m_pHolySlashParticle = new HolySlashParticle(m_pPs,this->GetOwner());			
+	m_pHolySlashParticle = new HolySlashParticle(m_pPs,this->GetOwner());	
+
+	
 
 	//todo 바인드 이거 ㅈ나게 ㅈ같음 그리고 AddComboIndex했을때 반환이 int가 사실아님! 씨발! Chatgpt CollisionManager 코드 분석 맨끝줄에 설명있음
 	//todo 이거 지금은 주석되어있는데 중요한 문법들 많아서 시간있을때 참고해서 공부해보셈
@@ -103,6 +107,7 @@ void Player::Awake()
 {	
 	m_iCurrentHP = m_iInitHP;
 	m_bIsAlive = true;
+	m_pCam = RenderManager::GetInstance()->GetCamera();
 }
 
 void Player::Exit()
@@ -114,6 +119,8 @@ void Player::Update()
 	auto input = InputManager::GetInstance();	
 	m_ePreviousState = m_eCurrentState;	
 	//todo : 이거 dashable & isalive이런거 함수화 시켜서 movable로 고치든가하자
+	m_vPosition = m_pTransform->GetPosition();	
+
 	if (m_bIsAlive&&!m_bIsDashing)
 	{
 		if (!m_bIsHurting)
@@ -121,18 +128,19 @@ void Player::Update()
 			Move();
 			Jump();
 			Fire();
-			MeleeAttack();			
+			MeleeAttack();
 			HolySlash();
 			ComboUpdate();
 		}
 	}	
+
 	Dash();
 	Death();
 	
 	StateHandler();	
 
 	if (m_pAnimStateMachine)
-		m_pAnimStateMachine->Update();		
+		m_pAnimStateMachine->Update();			
 }
 
 void Player::EnterCollision(Collider* _other)
@@ -151,7 +159,7 @@ void Player::EnterCollision(Collider* _other)
 		}
 		if (GameStateManager::GetInstance()->GetCurrentLevel()->GetStageType() == STAGE_TYPE::STAGE_02)
 		{
-			BaseLevel* lvl_3 = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_03);
+			BaseLevel* lvl_3 = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_TEST);
 			EventManager::GetInstance()->LevelChange(lvl_3);
 		}
 	}		
@@ -561,12 +569,13 @@ void Player::EndCombo()
 static int a = 0;
 
 void Player::HolySlash()
-{
+{ 	
 	if (!m_pRigidBody->GetIsGround())
 		return;
+	float dt = TimeManager::GetInstance()->GetDeltaTime();
 	auto input = InputManager::GetInstance();	
 	if (input->GetKetCode(GLFW_KEY_Q) == GLFW_PRESS)
-	{
+	{		
 		m_eCurrentState = PlayerAnimState::HOLY_SLASH;
 		m_bHolySlashing = true;
 		m_pHolySlashParticle->CreateParticles(m_pHolySlashParticle->GetEmitSize());		
@@ -579,10 +588,11 @@ void Player::HolySlash()
 		{
 			Bullet* bullet_comp = m_pBulletFactory->CreateBullet(BULLET_TYPE::PISTOL);
 			m_pBullet = bullet_comp;
-			assert(m_pBullet != nullptr);			
-						
+			assert(m_pBullet != nullptr);
+
 			EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());			
 			m_bHolySlashFlag = true;
+			m_bShouldZoomOut = true;
 		}
 		else if (m_pAnimator->GetCurrentFrameIndex() == 20 && m_bHolySlashFlag == true)
 		{
@@ -591,8 +601,29 @@ void Player::HolySlash()
 		else
 		{
 			m_bHolySlashFlag = false;
+		}		
+	
+		float zoom_in_speed = 250.f;
+	
+		
+		if (m_bHolySlashing && m_pAnimator->GetCurrentFrameIndex() < 20&&m_pAnimator->GetAnimation()->m_sAnimationName == "HolySlash")
+		{
+			m_pCam->AddCamPosOffset({ 0.f,0.f,-dt * zoom_in_speed });			
+		}					
+	}
+
+	if (m_bShouldZoomOut)
+	{
+		float zoom_out_speed = 1600.f;
+		m_pCam->AddCamPosOffset({ 0.f,0.f,dt * zoom_out_speed });
+		if (m_pCam->GetCamPosOffset().z > m_pCam->GetCamPosOriginOffset().z)
+		{
+			m_pCam->SetCamPosOffset(m_pCam->GetCamPosOriginOffset());
+			m_bShouldZoomOut = false;
+			m_bHolySlashing = false;
 		}
 	}
+	
 }
 
 

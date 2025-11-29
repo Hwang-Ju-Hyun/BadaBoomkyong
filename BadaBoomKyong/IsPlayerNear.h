@@ -10,6 +10,7 @@ class IsPlayerNear :
 {
 public:
 	IsPlayerNear(Boss* _boss);
+	virtual ~IsPlayerNear()override;
 	virtual BTNodeState Enter(BlackBoard& _bb);
 	virtual BTNodeState Update(BlackBoard& _bb);
 	virtual void Exit(BlackBoard& _bb)override;

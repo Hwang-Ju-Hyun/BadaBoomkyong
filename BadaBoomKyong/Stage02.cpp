@@ -47,9 +47,9 @@ void Stage02::Init()
 	RenderManager::GetInstance()->Init();
 	RenderManager::GetInstance()->InitDebugLineShader();
 
-//#ifdef _DEBUG	
+#ifdef _DEBUG	
 	MainEditor::GetInstance()->Init();
-//#endif
+#endif
 
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::MONSTER);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MELEE, GROUP_TYPE::MONSTER);

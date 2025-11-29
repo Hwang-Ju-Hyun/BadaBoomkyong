@@ -16,6 +16,7 @@ class Melee;
 class Animator;
 class HolySlashParticle;
 class ParticleSystem;
+class Camera;
 
 enum PlayerAnimState
 { 
@@ -57,6 +58,7 @@ private:
     Sprite* m_pSprite = nullptr;
     Collider* m_pCollider = nullptr;
     RigidBody* m_pRigidBody = nullptr;
+    Camera* m_pCam = nullptr;
     Animator* m_pAnimator = nullptr;
     AnimStateMachine<Player>* m_pAnimStateMachine;
 private:
@@ -71,6 +73,7 @@ private:
     bool m_bIsGround;
     bool m_bIsMoving;
     bool m_bHasLanded;
+    bool m_bShouldZoomOut=false;
 public:
     bool m_bHolySlashing = false;
 private:

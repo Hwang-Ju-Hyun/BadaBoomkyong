@@ -12,6 +12,10 @@ NormalAttack::NormalAttack(Boss* _boss)
 {
 }
 
+NormalAttack::~NormalAttack()
+{
+}
+
 BTNodeState NormalAttack::Enter(BlackBoard& _bb)
 {
 	Boss* boss_comp = _bb.GetBoss();

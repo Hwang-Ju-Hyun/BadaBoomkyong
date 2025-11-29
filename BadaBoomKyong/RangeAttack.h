@@ -9,6 +9,7 @@ class RangeAttack :
 {
 public:
 	RangeAttack(Boss* _boss);
+	virtual ~RangeAttack()override;
 	virtual BTNodeState Enter(BlackBoard& _bb)override;
 	virtual BTNodeState Update(BlackBoard& _bb)override;
 	virtual void Exit(BlackBoard& _bb)override;

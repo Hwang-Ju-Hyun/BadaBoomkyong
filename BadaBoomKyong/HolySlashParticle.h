@@ -10,7 +10,6 @@ class ParticleSystem;
 class GameObject;
 
 
-
 class HolySlashParticle
 {
 public:
@@ -25,7 +24,7 @@ public:
 private:
 	PositionOverLifeTime m_PositionOverLifeTime;
 	ColorOverLifeTime m_ColorOverLifeTime;
-	SizeOverLifeTime m_SizeOverLifeTime;	
+	SizeOverLifeTime m_SizeOverLifeTime;		
 private:
 	Player* m_pPlayer;
 	Transform* m_pPlayerTransform;

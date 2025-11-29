@@ -7,24 +7,29 @@
 #include "TimeManager.h"
 #include "RigidBody.h"
 #include "ConeRange.h"
+#include "RenderManager.h"
+#include "Camera.h"
 
 ConeAttack::ConeAttack(Boss* _boss)
     :m_pBoss(_boss)
+    , m_vConeCamPos({ -95.0776 , 988.183 , 1867.05 })
+{
+   
+}
+
+ConeAttack::~ConeAttack()
 {
 }
 
 BTNodeState ConeAttack::Enter(BlackBoard& _bb)
 {
+    m_pCam = RenderManager::GetInstance()->GetCamera();
 	m_pBoss = _bb.GetBoss();
 	m_pPlayer = _bb.GetPlayer();
     m_pBossRigidBody = _bb.GetBossRigidBody();
     m_pPlayerTransform = _bb.GetPlayerTransform();
 	m_vPlayer_pos = m_pPlayer->GetPosition();
-	m_vBoss_pos = m_pBoss->GetPosition();
-	
-	//glm::vec3 target_pos = glm::vec3{ -300,1600,-800 };
-	//
-	//m_pBoss->TelePort(target_pos);
+	m_vBoss_pos = m_pBoss->GetPosition();	
 	
 	m_pBoss->SetCurrentAnimState(MonsterAnimState::DISAPPEAR);
 
@@ -33,17 +38,20 @@ BTNodeState ConeAttack::Enter(BlackBoard& _bb)
 
 BTNodeState ConeAttack::Update(BlackBoard& _bb)
 {
-    float dt = TimeManager::GetInstance()->GetDeltaTime();
-    m_fDisappear_AccTime += dt;
+    float dt = TimeManager::GetInstance()->GetDeltaTime();    
 
     Animator* anim = m_pBoss->GetAnimator();
     if (!anim) 
         return BTNodeState::FAILURE;
-
+    
     switch (m_eState)
     {
     case ConeAttackState::GO:
     {
+        glm::vec3 dir = m_vConeCamPos-m_pCam->GetCamPosition();
+        float speed = 600.f;
+        dir = glm::normalize(dir);
+        m_pCam->AddCamPosOffset(dir * dt * speed);               
         //사라지는 중
         if (!m_bFlag)
         {
@@ -81,7 +89,7 @@ BTNodeState ConeAttack::Update(BlackBoard& _bb)
                 m_eState = ConeAttackState::ATTACKING;
             }
             return BTNodeState::RUNNING;
-        }
+        }              
     }
         break;
     case ConeAttackState::ATTACKING:
@@ -117,11 +125,25 @@ BTNodeState ConeAttack::Update(BlackBoard& _bb)
         break;
     case ConeAttackState::BACK:
     {   
+        float zoom_out_speed = 1800.f;
+
+        glm::vec3 cur_offset = m_pCam->GetCamPosition();
+        const glm::vec3 origin_offset = m_pPlayerTransform->GetPosition()+m_pCam->GetCamPosOriginOffset();
+
+        glm::vec3 diff = cur_offset-origin_offset;
+        float dist = glm::length(diff);
+        
+        
+        glm::vec3 dir = origin_offset - cur_offset;
+        dir = glm::normalize(dir);
+
+        m_pCam->AddCamPosOffset(dir * dt * zoom_out_speed);
         m_pBoss->SetCurrentAnimState(MonsterAnimState::APPEAR);
-        if (m_pBoss->GetCurrentState() == MonsterAnimState::APPEAR && m_pBoss->GetAnimator()->GetAnimation()->m_bLoopCount >= 1)
+        if (dist < 2.f)
         {
+            m_pCam->SetCamPosOffset(m_pCam->GetCamPosOriginOffset());
             return BTNodeState::SUCCESS;
-        }                        
+        }
         return BTNodeState::RUNNING;
     }
         break;

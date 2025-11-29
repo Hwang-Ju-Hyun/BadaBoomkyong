@@ -23,6 +23,7 @@ BossRange::BossRange(GameObject* _owner, GameObject* _shooter)
 
 BossRange::~BossRange()
 {
+
 }
 
 void BossRange::Init()
@@ -93,6 +94,8 @@ void BossRange::Update()
 
 void BossRange::Exit()
 {
+    delete m_pPs;
+    delete m_pEnergyRayParticle;
 }
 
 void BossRange::EnterCollision(Collider* _col)

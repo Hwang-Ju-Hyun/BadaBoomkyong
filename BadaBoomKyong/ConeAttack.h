@@ -6,6 +6,7 @@ class Player;
 class Boss;
 class Transform;
 class RigidBody;
+class Camera;
 
 enum class ConeAttackState
 {	
@@ -19,6 +20,7 @@ class ConeAttack :
 {
 public:
 	ConeAttack(Boss* _boss);
+	virtual ~ConeAttack()override;
 	virtual BTNodeState Enter(BlackBoard& _bb);
 	virtual BTNodeState Update(BlackBoard& _bb);
 	virtual void Exit(BlackBoard& _bb)override;
@@ -32,6 +34,8 @@ private:
 	RigidBody* m_pBossRigidBody;
 	glm::vec3 m_vPlayer_pos;
 	glm::vec3 m_vBoss_pos;
+	glm::vec3 m_vConeCamPos;
+	Camera* m_pCam;
 public:
 	float m_fDisappear_AccTime = 0.f;
 	float m_fDisappear_MaxTime = 3.f;

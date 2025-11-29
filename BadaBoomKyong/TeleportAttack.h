@@ -10,6 +10,7 @@ class TeleportAttack :
 {
 public:
 	TeleportAttack(Boss* _boss);
+	virtual ~TeleportAttack()override;
 	virtual BTNodeState Enter(BlackBoard& _bb)override;
 	virtual BTNodeState Update(BlackBoard& _bb)override;
 	virtual void Exit(BlackBoard& _bb)override;

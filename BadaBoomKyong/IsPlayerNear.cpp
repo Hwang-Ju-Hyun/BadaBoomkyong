@@ -7,6 +7,10 @@ IsPlayerNear::IsPlayerNear(Boss* _boss)
 {
 }
 
+IsPlayerNear::~IsPlayerNear()
+{
+}
+
 BTNodeState IsPlayerNear::Enter(BlackBoard& _bb)
 {
 	return BTNodeState::RUNNING;

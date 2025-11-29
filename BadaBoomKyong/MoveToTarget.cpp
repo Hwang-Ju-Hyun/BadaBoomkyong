@@ -12,6 +12,9 @@ MoveToTarget::MoveToTarget(Boss* _boss)
 {	
 
 }
+MoveToTarget::~MoveToTarget()
+{
+}
 BTNodeState MoveToTarget::Enter(BlackBoard& _bb)
 {		
 	m_fElapseAccTime = 0.f;

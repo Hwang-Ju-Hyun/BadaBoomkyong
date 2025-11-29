@@ -59,6 +59,8 @@ void Camera::Update()
 		m_vCamTarget = m_vCamPos + m_vCamFront;
 		m_mViewMat = glm::lookAt(m_vCamPos, m_vCamTarget, m_vCamUp);
 		m_mProjMat = glm::perspective(glm::radians(fovy), width / height, nearPlane, farPlane);
+
+		std::cout << m_vCamPos.x << " , " << m_vCamPos.y << " , " << m_vCamPos.z << std::endl;
 	}	
 	else
 	{
@@ -66,11 +68,11 @@ void Camera::Update()
 		// 플레이어 위치
 		glm::vec3 playerPos = m_pPlayerTransform->GetPosition();
 
-		// 플레이어 중심 기준 카메라 오프셋 (뒤/위쪽으로 약간 떨어지게)
-		glm::vec3 offset = glm::vec3(0.0f, 60.0f, 600.0f);
+		// 플레이어 중심 기준 카메라 오프셋 (뒤/위쪽으로 약간 떨어지게)		
 
 		// 카메라 위치 = 플레이어 위치 + 오프셋
-		m_vCamPos = playerPos + offset;
+		m_vCamPos = playerPos + m_vCamPosOffset;
+		
 
 		// 카메라가 바라볼 타겟 = 플레이어 위치
 		m_vCamTarget = playerPos;

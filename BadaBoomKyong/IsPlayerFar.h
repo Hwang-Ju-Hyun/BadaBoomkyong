@@ -10,6 +10,7 @@ class IsPlayerFar :
 {
 public:
 	IsPlayerFar(Boss* _boss);
+	virtual ~IsPlayerFar()override;
 	virtual BTNodeState Enter(BlackBoard& _bb);
 	virtual BTNodeState Update(BlackBoard& _bb);
 	virtual void Exit(BlackBoard& _bb)override;

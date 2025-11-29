@@ -7,6 +7,11 @@ Sequence::Sequence(std::vector<BTNode*> _childNode)
 
 Sequence::~Sequence()
 {
+	for (int i = 0;i < m_vecChildNode.size();i++)
+	{
+		delete m_vecChildNode[i];
+		m_vecChildNode[i] = nullptr;
+	}
 }
 
 BTNodeState Sequence::Enter(BlackBoard& _bb)

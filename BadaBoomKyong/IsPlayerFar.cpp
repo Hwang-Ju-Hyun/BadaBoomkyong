@@ -7,6 +7,10 @@ IsPlayerFar::IsPlayerFar(Boss* _boss)
 {
 }
 
+IsPlayerFar::~IsPlayerFar()
+{
+}
+
 BTNodeState IsPlayerFar::Enter(BlackBoard& _bb)
 {
 	return BTNodeState::RUNNING;

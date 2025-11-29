@@ -21,8 +21,7 @@ HolySlashParticle::HolySlashParticle(ParticleSystem* _ps, GameObject* _owner)
 	m_pParticleSystem->SetParticlePoolSize(m_iParticle_PoolSize);
 
 	m_pPlayer = dynamic_cast<Player*>(_owner->FindComponent<Player>());
-	m_pPlayerTransform = dynamic_cast<Transform*>(_owner->FindComponent<Transform>());	
-
+	m_pPlayerTransform = dynamic_cast<Transform*>(_owner->FindComponent<Transform>());		
 }
 
 HolySlashParticle::~HolySlashParticle()
@@ -97,7 +96,7 @@ glm::vec3 HolySlashParticle::spiralMotion_Position(Particle& _particle, float _p
 	{
 		// ========================
 		// 중앙으로 흡수
-		// ========================
+		// ========================			
 		float easeT = (_progress - 0.8f) / 0.2f; // 0~1 정규화
 		easeT = easeT * easeT;            // 가속(ease-in)
 
