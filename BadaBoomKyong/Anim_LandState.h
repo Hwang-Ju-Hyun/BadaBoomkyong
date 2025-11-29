@@ -1,0 +1,56 @@
+#pragma once
+#include "Anim_IState.h"
+
+template<typename T>
+class AnimIdleState;  // Forward declaration
+template<typename T>
+class AnimDeathState;
+
+template<typename T>
+class AnimLandState : public AnimIState<T>
+{
+public:
+    AnimLandState() {}
+    virtual ~AnimLandState() override {}
+public:
+    virtual void Enter(T* _owner) override
+    {
+        _owner->GetAnimator()->ChangeAnimation("Land");
+    }
+
+    virtual void Update(T* _owner) override
+    {
+        AnimStateMachine<Player>* machine = _owner->GetAnimStateMachine();
+        if constexpr (std::is_same<T, Player>::value)
+        {
+            switch (_owner->GetCurrentState())
+            {
+            case PlayerAnimState::IDLE:
+                machine->ChangeAnimState(int(PlayerAnimState::IDLE));
+                break;
+            case PlayerAnimState::TOSPRINT:
+                machine->ChangeAnimState(int(PlayerAnimState::TOSPRINT));
+                break;
+            case PlayerAnimState::SPRINTING:
+                machine->ChangeAnimState(int(PlayerAnimState::SPRINTING));
+                break;
+            case PlayerAnimState::JUMP_ATTACK:
+                machine->ChangeAnimState(int(PlayerAnimState::JUMP_ATTACK));
+                break;
+            case PlayerAnimState::DASH:
+                machine->ChangeAnimState(int(PlayerAnimState::DASH));
+                break;
+            case PlayerAnimState::COMBO_ATTACK_1:
+                machine->ChangeAnimState(int(PlayerAnimState::COMBO_ATTACK_1));
+                break;
+            case PlayerAnimState::DEATH:
+                machine->ChangeAnimState(int(PlayerAnimState::DEATH));
+                break;
+            }
+        }
+    }
+
+    virtual void Exit(T* _owner) override
+    {        
+    }
+};

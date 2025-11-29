@@ -1,0 +1,11 @@
+Model Information:
+* title:	Desert Mesa
+* source:	https://sketchfab.com/3d-models/desert-mesa-99f864962332443ba9d204dd61459bee
+* author:	xdlolexe (https://sketchfab.com/xdlolexe)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Desert Mesa" (https://sketchfab.com/3d-models/desert-mesa-99f864962332443ba9d204dd61459bee) by xdlolexe (https://sketchfab.com/xdlolexe) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

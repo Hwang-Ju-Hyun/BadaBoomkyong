@@ -1,0 +1,82 @@
+[ 
+  {
+    "Name": "Pistol",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Sca": [
+            50.0,
+            50.0,
+            50.0
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Sprite",
+        "CompData": {
+          "RGBA": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "TextureName": "Slash_yellow",
+          "TexturePath": "../Extern/Assets/Texture/Effect/Slash_yellow.png"
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            -20.0,
+            0.0
+          ],
+          "Scale": [
+            40.0,
+            110.0,
+            450.0
+          ]
+        }
+      },
+        {
+            "Type": "Animator",
+            "CompData": {
+                "Animations": [
+                    {
+                        "Name": "Idle",
+                        "TextureName": "Slash_yellow",
+                        "TexturePath": "../Extern/Assets/Texture/Effect/Slash_yellow.png",
+                        "Max": 14,
+                        "Row": 1,
+                        "Col": 14,
+                        "Duration": 0.02000000149011612,
+                        "Loop": false
+                    }
+                ]
+            }
+        },
+        {
+        "Type": "Pistol",
+        "CompData": {
+          "Speed": 10.0          
+        }
+      }
+    ],
+    "Model": 4,
+    "Group": 2
+  }
+]

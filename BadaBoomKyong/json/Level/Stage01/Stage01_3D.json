@@ -1,0 +1,1719 @@
+[
+  {
+    "Name": "Player",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            2441.363037109375,
+            645.8821411132813,
+            0.0
+          ],
+          "Sca": [
+            300.0,
+            300.0,
+            0.0
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Sprite",
+        "CompData": {
+          "RGBA": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "TextureName": "Fall",
+          "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Fall/Fall.png"
+        }
+      },
+      {
+        "Type": "RigidBody",
+        "CompData": {
+          "Kinematic": [
+            false
+          ],
+          "Gravity": [
+            980.0
+          ],
+          "Mass": [
+            1.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            10.0,
+            0.0
+          ],
+          "Scale": [
+            40.0,
+            65.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Animator",
+        "CompData": {
+          "Animations": [
+            {
+              "Name": "ComboAtk_1",
+              "TextureName": "ComboAtk_1",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_1.png",
+              "Max": 9,
+              "Row": 1,
+              "Col": 9,
+              "Duration": 0.07000000029802322,
+              "Loop": false
+            },
+            {
+              "Name": "ComboAtk_2",
+              "TextureName": "ComboAtk_2",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_2.png",
+              "Max": 6,
+              "Row": 1,
+              "Col": 6,
+              "Duration": 0.07000014930963516,
+              "Loop": false
+            },
+            {
+              "Name": "ComboAtk_3",
+              "TextureName": "ComboAtk_3",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/ComboAtk/ComboAtk_3.png",
+              "Max": 14,
+              "Row": 1,
+              "Col": 14,
+              "Duration": 0.07000000774860382,
+              "Loop": false
+            },
+            {
+              "Name": "Dash",
+              "TextureName": "Dash",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Dash/Full/Fx/Dash.png",
+              "Max": 8,
+              "Row": 1,
+              "Col": 8,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "Death",
+              "TextureName": "Death",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Death/Death.png",
+              "Max": 25,
+              "Row": 1,
+              "Col": 25,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "Fall",
+              "TextureName": "Fall",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Fall/Fall.png",
+              "Max": 6,
+              "Row": 1,
+              "Col": 6,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            },
+            {
+              "Name": "HolySlash",
+              "TextureName": "HolySlash",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Casts/HolySlash/Full/Glow/HolySlash.png",
+              "Max": 28,
+              "Row": 1,
+              "Col": 28,
+              "Duration": 0.07000000774860382,
+              "Loop": false
+            },
+            {
+              "Name": "Hurt",
+              "TextureName": "Hurt",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Hurt/FX/Hurt.png",
+              "Max": 6,
+              "Row": 1,
+              "Col": 6,
+              "Duration": 0.15000002086162567,
+              "Loop": false
+            },
+            {
+              "Name": "Idle",
+              "TextureName": "Idle",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Idle/Idle.png",
+              "Max": 6,
+              "Row": 1,
+              "Col": 6,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            },
+            {
+              "Name": "Jump",
+              "TextureName": "Jump",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Jump/Jump.png",
+              "Max": 8,
+              "Row": 1,
+              "Col": 8,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            },
+            {
+              "Name": "JumpAttack",
+              "TextureName": "JumpAttack",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/AirAttack/FX/JumpAttack.png",
+              "Max": 17,
+              "Row": 1,
+              "Col": 17,
+              "Duration": 0.05000000074505806,
+              "Loop": false
+            },
+            {
+              "Name": "Land",
+              "TextureName": "Land",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/JumpAndFall/Land/FX/Land(FX).png",
+              "Max": 5,
+              "Row": 1,
+              "Col": 5,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "SprintAttack",
+              "TextureName": "SprintAttack",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Attacks/SprintAttack/SprintAttack.png",
+              "Max": 12,
+              "Row": 1,
+              "Col": 12,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "Sprinting",
+              "TextureName": "Sprinting",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Run/Sprint/Loop/FX/Sprinting.png",
+              "Max": 8,
+              "Row": 1,
+              "Col": 8,
+              "Duration": 0.05000000074505806,
+              "Loop": true
+            },
+            {
+              "Name": "ToSprint",
+              "TextureName": "ToSprint",
+              "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Run/Sprint/ToSprint/ToSprint.png",
+              "Max": 6,
+              "Row": 1,
+              "Col": 6,
+              "Duration": 0.05000000074505806,
+              "Loop": false
+            }
+          ]
+        }
+      },
+      {
+        "Type": "Player",
+        "CompData": {
+          "Speed": 170.0,
+          "JumpForce": 800.0
+        }
+      }
+    ],
+    "Model": 4,
+    "Group": 1
+  },
+  {
+    "Name": "CurseDemon",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -523.0,
+            -127190.2578125,
+            0.0
+          ],
+          "Sca": [
+            250.0,
+            250.0,
+            450.0
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Sprite",
+        "CompData": {
+          "RGBA": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "TextureName": "Idle",
+          "TexturePath": "../Extern/Assets/Texture/CurseDemon/Idle.png"
+        }
+      },
+      {
+        "Type": "RigidBody",
+        "CompData": {
+          "Kinematic": [
+            false
+          ],
+          "Gravity": [
+            980.0
+          ],
+          "Mass": [
+            1.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            -40.0,
+            0.0
+          ],
+          "Scale": [
+            50.0,
+            100.0,
+            450.0
+          ]
+        }
+      },
+      {
+        "Type": "Animator",
+        "CompData": {
+          "Animations": [
+            {
+              "Name": "Death",
+              "TextureName": "Death",
+              "TexturePath": "../Extern/Assets/Texture/CurseDemon/Death.png",
+              "Max": 23,
+              "Row": 1,
+              "Col": 23,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "Hurt",
+              "TextureName": "Hurt",
+              "TexturePath": "../Extern/Assets/Texture/CurseDemon/Hurt.png",
+              "Max": 4,
+              "Row": 1,
+              "Col": 4,
+              "Duration": 0.15000002086162567,
+              "Loop": false
+            },
+            {
+              "Name": "Idle",
+              "TextureName": "Idle",
+              "TexturePath": "../Extern/Assets/Texture/CurseDemon/Idle.png",
+              "Max": 8,
+              "Row": 1,
+              "Col": 8,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            },
+            {
+              "Name": "NormalAttack_1",
+              "TextureName": "NormalAttack_1",
+              "TexturePath": "../Extern/Assets/Texture/CurseDemon/NormalAttack_1.png",
+              "Max": 22,
+              "Row": 1,
+              "Col": 22,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "RangeAttack",
+              "TextureName": "RangeAttack",
+              "TexturePath": "../Extern/Assets/Texture/CurseDemon/RangeAttack.png",
+              "Max": 22,
+              "Row": 1,
+              "Col": 22,
+              "Duration": 0.054999999701976776,
+              "Loop": false
+            }
+          ]
+        }
+      },
+      {
+        "Type": "AI",
+        "CompData": {
+          "StateList": [
+            0,
+            2,
+            3,
+            4
+          ]
+        }
+      },
+      {
+        "Type": "CurseDemon",
+        "CompData": {
+          "Speed": 0.5,
+          "JumpForce": 500.0,
+          "DetectRange": 500.0,
+          "MeleeAtkCoolTime": 0.5,
+          "RangeAtkCoolTime": 500.0,
+          "RangedMoveAtkRange": [
+            100.0,
+            500.0,
+            0.0
+          ],
+          "MeleeAtkRange": [
+            200.0,
+            500.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 4,
+    "Group": 3
+  },
+  {
+    "Name": "CurseDemon",
+    "ID": 1,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            2148.0,
+            -126713.3984375,
+            0.0
+          ],
+          "Sca": [
+            250.0,
+            250.0,
+            450.0
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Sprite",
+        "CompData": {
+          "RGBA": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "TextureName": "Idle",
+          "TexturePath": "../Extern/Assets/Texture/CurseDemon/Idle.png"
+        }
+      },
+      {
+        "Type": "RigidBody",
+        "CompData": {
+          "Kinematic": [
+            false
+          ],
+          "Gravity": [
+            980.0
+          ],
+          "Mass": [
+            1.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            -40.0,
+            0.0
+          ],
+          "Scale": [
+            50.0,
+            100.0,
+            450.0
+          ]
+        }
+      },
+      {
+        "Type": "Animator",
+        "CompData": {
+          "Animations": [
+            {
+              "Name": "Death",
+              "TextureName": "Death",
+              "TexturePath": "../Extern/Assets/Texture/CurseDemon/Death.png",
+              "Max": 23,
+              "Row": 1,
+              "Col": 23,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "Hurt",
+              "TextureName": "Hurt",
+              "TexturePath": "../Extern/Assets/Texture/CurseDemon/Hurt.png",
+              "Max": 4,
+              "Row": 1,
+              "Col": 4,
+              "Duration": 0.15000002086162567,
+              "Loop": false
+            },
+            {
+              "Name": "Idle",
+              "TextureName": "Idle",
+              "TexturePath": "../Extern/Assets/Texture/CurseDemon/Idle.png",
+              "Max": 8,
+              "Row": 1,
+              "Col": 8,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            },
+            {
+              "Name": "NormalAttack_1",
+              "TextureName": "NormalAttack_1",
+              "TexturePath": "../Extern/Assets/Texture/CurseDemon/NormalAttack_1.png",
+              "Max": 22,
+              "Row": 1,
+              "Col": 22,
+              "Duration": 0.07999999821186066,
+              "Loop": false
+            },
+            {
+              "Name": "RangeAttack",
+              "TextureName": "RangeAttack",
+              "TexturePath": "../Extern/Assets/Texture/CurseDemon/RangeAttack.png",
+              "Max": 22,
+              "Row": 1,
+              "Col": 22,
+              "Duration": 0.050000015646219254,
+              "Loop": false
+            }
+          ]
+        }
+      },
+      {
+        "Type": "AI",
+        "CompData": {
+          "StateList": [
+            0,
+            2,
+            3,
+            4
+          ]
+        }
+      },
+      {
+        "Type": "CurseDemon",
+        "CompData": {
+          "Speed": 0.5,
+          "JumpForce": 500.0,
+          "DetectRange": 500.0,
+          "MeleeAtkCoolTime": 0.5,
+          "RangeAtkCoolTime": 5.0,
+          "RangedMoveAtkRange": [
+            50.0,
+            500.0,
+            0.0
+          ],
+          "MeleeAtkRange": [
+            200.0,
+            500.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 4,
+    "Group": 3
+  },
+  {
+    "Name": "ExecutionerDemon",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            814.4437866210938,
+            -127205.2578125,
+            0.0
+          ],
+          "Sca": [
+            250.0,
+            250.0,
+            450.0
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Sprite",
+        "CompData": {
+          "RGBA": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "TextureName": "Idle",
+          "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Idle.png"
+        }
+      },
+      {
+        "Type": "RigidBody",
+        "CompData": {
+          "Kinematic": [
+            false
+          ],
+          "Gravity": [
+            980.0
+          ],
+          "Mass": [
+            1.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            -20.0,
+            0.0
+          ],
+          "Scale": [
+            40.0,
+            110.0,
+            450.0
+          ]
+        }
+      },
+      {
+        "Type": "Animator",
+        "CompData": {
+          "Animations": [
+            {
+              "Name": "Death",
+              "TextureName": "Death",
+              "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Death.png",
+              "Max": 29,
+              "Row": 1,
+              "Col": 29,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "Hurt",
+              "TextureName": "Hurt",
+              "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Hurt.png",
+              "Max": 5,
+              "Row": 1,
+              "Col": 5,
+              "Duration": 0.15000002086162567,
+              "Loop": false
+            },
+            {
+              "Name": "Idle",
+              "TextureName": "Idle",
+              "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Idle.png",
+              "Max": 8,
+              "Row": 1,
+              "Col": 8,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            },
+            {
+              "Name": "NormalAttack_1",
+              "TextureName": "NormalAttack_1",
+              "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/NormalAttack_1.png",
+              "Max": 28,
+              "Row": 1,
+              "Col": 28,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "Walk",
+              "TextureName": "Walk",
+              "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Walk.png",
+              "Max": 10,
+              "Row": 1,
+              "Col": 10,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            }
+          ]
+        }
+      },
+      {
+        "Type": "AI",
+        "CompData": {
+          "StateList": [
+            0,
+            1,
+            3
+          ]
+        }
+      },
+      {
+        "Type": "ExecutionerDemon",
+        "CompData": {
+          "Speed": 100.0,
+          "JumpForce": 500.0,
+          "DetectRange": 500.0,
+          "MeleeAtkCoolTime": 0.5,
+          "RangedMoveAtkRange": [
+            50.0,
+            500.0,
+            0.0
+          ],
+          "MeleeAtkRange": [
+            200.0,
+            500.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 4,
+    "Group": 3
+  },
+  {
+    "Name": "ExecutionerDemon",
+    "ID": 1,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            578.9840698242188,
+            -127067.2578125,
+            0.0
+          ],
+          "Sca": [
+            250.0,
+            250.0,
+            450.0
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Sprite",
+        "CompData": {
+          "RGBA": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "TextureName": "Idle",
+          "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Idle.png"
+        }
+      },
+      {
+        "Type": "RigidBody",
+        "CompData": {
+          "Kinematic": [
+            false
+          ],
+          "Gravity": [
+            980.0
+          ],
+          "Mass": [
+            1.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            -20.0,
+            0.0
+          ],
+          "Scale": [
+            40.0,
+            110.0,
+            450.0
+          ]
+        }
+      },
+      {
+        "Type": "Animator",
+        "CompData": {
+          "Animations": [
+            {
+              "Name": "Death",
+              "TextureName": "Death",
+              "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Death.png",
+              "Max": 29,
+              "Row": 1,
+              "Col": 29,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "Hurt",
+              "TextureName": "Hurt",
+              "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Hurt.png",
+              "Max": 5,
+              "Row": 1,
+              "Col": 5,
+              "Duration": 0.15000002086162567,
+              "Loop": false
+            },
+            {
+              "Name": "Idle",
+              "TextureName": "Idle",
+              "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Idle.png",
+              "Max": 8,
+              "Row": 1,
+              "Col": 8,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            },
+            {
+              "Name": "NormalAttack_1",
+              "TextureName": "NormalAttack_1",
+              "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/NormalAttack_1.png",
+              "Max": 28,
+              "Row": 1,
+              "Col": 28,
+              "Duration": 0.10000000149011612,
+              "Loop": false
+            },
+            {
+              "Name": "Walk",
+              "TextureName": "Walk",
+              "TexturePath": "../Extern/Assets/Texture/ExecutionerDemon/Walk.png",
+              "Max": 10,
+              "Row": 1,
+              "Col": 10,
+              "Duration": 0.10000000149011612,
+              "Loop": true
+            }
+          ]
+        }
+      },
+      {
+        "Type": "AI",
+        "CompData": {
+          "StateList": [
+            0,
+            1,
+            3
+          ]
+        }
+      },
+      {
+        "Type": "ExecutionerDemon",
+        "CompData": {
+          "Speed": 100.0,
+          "JumpForce": 500.0,
+          "DetectRange": 500.0,
+          "MeleeAtkCoolTime": 0.5,
+          "RangedMoveAtkRange": [
+            50.0,
+            500.0,
+            0.0
+          ],
+          "MeleeAtkRange": [
+            200.0,
+            500.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 4,
+    "Group": 3
+  },
+  {
+    "Name": "customModelObj1",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -249.9727020263672,
+            -265.66680908203125,
+            260.6317138671875
+          ],
+          "Sca": [
+            1.9368358850479126,
+            1.7143194675445557,
+            2.0681633949279785
+          ],
+          "Rot": [
+            179.99989318847656,
+            -60.38958740234375,
+            179.99989318847656
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stone/Fbx/Untitled.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "Light",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            1149.41015625,
+            -446.95123291015625,
+            675.8546142578125
+          ],
+          "Sca": [
+            50.0,
+            50.0,
+            50.0
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Sprite",
+        "CompData": {
+          "RGBA": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      },
+      {
+        "Type": "Light",
+        "CompData": {
+          "LightType": 0,
+          "Direction": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "Ambient": [
+            0.30000001192092896,
+            0.30000001192092896,
+            0.30000001192092896
+          ],
+          "Diffuse": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Specular": [
+            0.5,
+            0.5,
+            0.5
+          ],
+          "CutoffAngle": [
+            10.0
+          ]
+        }
+      }
+    ],
+    "Model": 5,
+    "Group": 0
+  },
+  {
+    "Name": "NewObject",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            164.53306579589844,
+            -293.3622131347656,
+            -8.609443664550781
+          ],
+          "Sca": [
+            5000.0,
+            49.999996185302734,
+            3854.703125
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Sprite",
+        "CompData": {
+          "RGBA": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "TextureName": "desertland",
+          "TexturePath": "../Extern/Assets/Texture/desertland.png"
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            5000.0,
+            50.0,
+            50.0
+          ]
+        }
+      }
+    ],
+    "Model": 5,
+    "Group": 4
+  },
+  {
+    "Name": "background",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Sca": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Rot": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Sprite",
+        "CompData": {
+          "RGBA": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      },
+      {
+        "Type": "SkyBox",
+        "CompData": {
+          "SkyBoxName": "skyBox",
+          "SkyBoxFacesPath": [
+            "../Extern/Assets/Model/skybox/Standard-Cube-Map/px.png",
+            "../Extern/Assets/Model/skybox/Standard-Cube-Map/nx.png",
+            "../Extern/Assets/Model/skybox/Standard-Cube-Map/py.png",
+            "../Extern/Assets/Model/skybox/Standard-Cube-Map/ny.png",
+            "../Extern/Assets/Model/skybox/Standard-Cube-Map/pz.png",
+            "../Extern/Assets/Model/skybox/Standard-Cube-Map/nz.png"
+          ]
+        }
+      }
+    ],
+    "Model": 7,
+    "Group": 0
+  },
+  {
+    "Name": "NewObject1",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            19.615631103515625,
+            -277.9075927734375,
+            62.989532470703125
+          ],
+          "Sca": [
+            0.7128234505653381,
+            0.5,
+            0.4299744665622711
+          ],
+          "Rot": [
+            179.99989318847656,
+            68.55936431884766,
+            179.99989318847656
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stone/Fbx/Stone_desert_big_2.fbx",
+    "Group": 0
+  },
+  {
+    "Name": "house0",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            1273.39111328125,
+            -176.32373046875,
+            -10.215463638305664
+          ],
+          "Sca": [
+            0.999998927116394,
+            1.1913816928863525,
+            1.3785969018936157
+          ],
+          "Rot": [
+            -179.99989318847656,
+            -87.73168182373047,
+            -179.99989318847656
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/house/stylized-desert-house/house1.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "stone_small_6",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            1045.8665771484375,
+            -280.3576354980469,
+            -24.857032775878906
+          ],
+          "Sca": [
+            1.790974736213684,
+            2.283392906188965,
+            1.3108702898025513
+          ],
+          "Rot": [
+            -179.9996337890625,
+            -45.64762496948242,
+            -179.99989318847656
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            -100.0,
+            90.0,
+            24.0
+          ],
+          "Scale": [
+            274.0,
+            120.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stone/Fbx/stone_small_6.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "NewObject4",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            174.41551208496094,
+            -258.8914489746094,
+            -1414.65380859375
+          ],
+          "Sca": [
+            1.002469539642334,
+            0.8418185710906982,
+            1.0
+          ],
+          "Rot": [
+            179.99989318847656,
+            -0.0,
+            179.99989318847656
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/house/egyptian-embalmer-house/house3.fbx",
+    "Group": 0
+  },
+  {
+    "Name": "NewObject5",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            1561.7021484375,
+            -698.2020874023438,
+            -2734.006591796875
+          ],
+          "Sca": [
+            6.826581954956055,
+            8.065468788146973,
+            7.2653374671936035
+          ],
+          "Rot": [
+            179.99949645996094,
+            -14.02490520477295,
+            179.99949645996094
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/house/desert-diorama/Untitled.fbx",
+    "Group": 0
+  },
+  {
+    "Name": "NewObject6",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -869.9425659179688,
+            303.2225341796875,
+            -2350.50048828125
+          ],
+          "Sca": [
+            9.221506118774414,
+            5.93049430847168,
+            12.383831977844238
+          ],
+          "Rot": [
+            0.0019838358275592327,
+            77.4778060913086,
+            0.0018442292930558324
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/house/low_poly_desert/desert.fbx",
+    "Group": 0
+  },
+  {
+    "Name": "NewObject6",
+    "ID": 1,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -189.8796844482422,
+            -432.7554626464844,
+            -1815.6807861328125
+          ],
+          "Sca": [
+            30.738920211791992,
+            6.468040943145752,
+            50.41716384887695
+          ],
+          "Rot": [
+            -89.9999771118164,
+            -6.513776497352186e-12,
+            0.00017026580462697893
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/middle/Untitled.fbx",
+    "Group": 0
+  },
+  {
+    "Name": "stone_mid_4",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            2942.075439453125,
+            -346.9952697753906,
+            -1797.82373046875
+          ],
+          "Sca": [
+            8.415043830871582,
+            6.072601795196533,
+            6.430843830108643
+          ],
+          "Rot": [
+            8.068784518400207e-05,
+            32.79523849487305,
+            -0.0001416621234966442
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stone/Fbx/stone_mid_4.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "Stone_big_9",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            1982.498291015625,
+            -541.5108642578125,
+            38.882389068603516
+          ],
+          "Sca": [
+            1.6029280424118042,
+            0.6966218948364258,
+            0.8967183828353882
+          ],
+          "Rot": [
+            179.999755859375,
+            3.698683738708496,
+            179.99974060058594
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            100.0,
+            650.0,
+            0.0
+          ],
+          "Scale": [
+            1390.0,
+            200.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stone/Fbx/Stone_big_9.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "House1",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            1209.9229736328125,
+            -326.55950927734375,
+            -634.5035400390625
+          ],
+          "Sca": [
+            1.2839831113815308,
+            1.0005069971084595,
+            1.204253077507019
+          ],
+          "Rot": [
+            0.0,
+            -38.849586486816406,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/Desert/desert-house-diorama/HOUSE_1.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "stone_mid_8",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -1351.9022216796875,
+            -326.559814453125,
+            -382.6246032714844
+          ],
+          "Sca": [
+            1.0672380924224854,
+            3.309746503829956,
+            2.531096935272217
+          ],
+          "Rot": [
+            0.0,
+            -10.27419662475586,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stone/Fbx/stone_mid_8.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "rip1",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -380.59869384765625,
+            -234.3250274658203,
+            -465.5760192871094
+          ],
+          "Sca": [
+            0.3041761815547943,
+            0.28083673119544983,
+            0.17673876881599426
+          ],
+          "Rot": [
+            36.733394622802734,
+            -19.596446990966797,
+            81.93244171142578
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stuff/grave/rip1.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "tree2",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            219.34217834472656,
+            -49.98185729980469,
+            -1268.466064453125
+          ],
+          "Sca": [
+            3.9062418937683105,
+            4.021003723144531,
+            5.616565227508545
+          ],
+          "Rot": [
+            0.0,
+            -19.685047149658203,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stuff/desert/tree2.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "skull",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -907.2295532226563,
+            -178.9438018798828,
+            -69.45730590820313
+          ],
+          "Sca": [
+            1.9505784511566162,
+            1.5834792852401733,
+            1.6576706171035767
+          ],
+          "Rot": [
+            -179.99989318847656,
+            -54.80579376220703,
+            179.99989318847656
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stuff/desert/skull.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "stone_big_3",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            -1442.5821533203125,
+            -290.2106018066406,
+            -245.6948699951172
+          ],
+          "Sca": [
+            1.3682137727737427,
+            1.0337680578231812,
+            0.9223790764808655
+          ],
+          "Rot": [
+            -179.99923706054688,
+            -79.69788360595703,
+            179.99923706054688
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            100.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            10.0,
+            1000.0,
+            500.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stone/Fbx/stone_big_3.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "stone_mid_14",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            718.9089965820313,
+            -290.2109069824219,
+            -457.7385559082031
+          ],
+          "Sca": [
+            0.9361536502838135,
+            0.9075820446014404,
+            1.0171608924865723
+          ],
+          "Rot": [
+            -0.0001842961646616459,
+            -44.19257736206055,
+            0.00012147563393227756
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/stone/Fbx/stone_mid_14.fbx",
+    "Group": 4
+  },
+  {
+    "Name": "House0Collider",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Sprite",
+        "CompData": {
+          "RGBA": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            1249.1549072265625,
+            -85.32125854492188,
+            0.0
+          ],
+          "Sca": [
+            219.53700256347656,
+            203.68490600585938,
+            75.37211608886719
+          ],
+          "Rot": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            400.0,
+            230.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "Model": 5,
+    "Group": 4
+  },
+  {
+    "Name": "NewObject1",
+    "ID": 1,
+    "Is3D": true,
+    "Components": [
+      {
+        "Type": "Transform",
+        "CompData": {
+          "Pos": [
+            2584.44873046875,
+            -123.75611114501953,
+            -1.9833526611328125
+          ],
+          "Sca": [
+            1.0907785892486572,
+            1.937929391860962,
+            1.4973154067993164
+          ],
+          "Rot": [
+            179.99989318847656,
+            68.55933380126953,
+            179.99989318847656
+          ]
+        }
+      },
+      {
+        "Type": "Collider",
+        "CompData": {
+          "Offset_Position": [
+            0.0,
+            500.0,
+            0.0
+          ],
+          "Scale": [
+            300.0,
+            500.0,
+            500.0
+          ]
+        }
+      }
+    ],
+    "Model": 6,
+    "ModelPath": "../Extern/Assets/Model/portal/realportal.fbx",
+    "Group": 6
+  }
+]

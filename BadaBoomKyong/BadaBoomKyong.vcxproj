@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{c5ec08ac-4dc0-465d-bd02-fbde730585b7}</ProjectGuid>
+    <RootNamespace>BadaBoomKyong</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IntDir>$(SolutionDir)temp</IntDir>
+    <IncludePath>$(SolutionDir)Extern\Json;$(SolutionDir)Extern\Assets;C:\Program Files (x86)\Visual Leak Detector\include</IncludePath>
+    <LibraryPath>C:\Program Files (x86)\Visual Leak Detector\lib\Win64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IntDir>$(SolutionDir)temp</IntDir>
+    <IncludePath>$(SolutionDir)Extern\Json;$(SolutionDir)Extern\Assets</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\GLFW\include\;$(ProjectDir)Dependencies\GLEW\include\;$(ProjectDir)Dependencies\GLM\;$(ProjectDir)Dependencies\STB\;$(ProjectDir)Dependencies\Assimp\include\;$(ProjectDir)IMGUI\;$(ProjectDir)IMGUIZMO\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\GLFW\lib-vc2019\;$(ProjectDir)Dependencies\GLEW\lib\;$(ProjectDir)IMGUI\;$(ProjectDir)Dependencies\Assimp\lib\;$(ProjectDir)IMGUIZMO\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\GLFW\include\;$(ProjectDir)Dependencies\GLEW\include\;$(ProjectDir)Dependencies\GLM\;$(ProjectDir)Dependencies\STB\;$(ProjectDir)Dependencies\Assimp\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\GLFW\lib-vc2019\;$(ProjectDir)Dependencies\GLEW\lib\;$(ProjectDir)Dependencies\Assimp\lib\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="AI.cpp" />
+    <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="BaseComponent.cpp" />
+    <ClCompile Include="BaseFactory.cpp" />
+    <ClCompile Include="BaseLevel.cpp" />
+    <ClCompile Include="BaseRTTI.cpp" />
+    <ClCompile Include="BaseState.cpp" />
+    <ClCompile Include="BehaviorTreeNode.cpp" />
+    <ClCompile Include="BlackBoard.cpp" />
+    <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BossMelee.cpp" />
+    <ClCompile Include="BossRange.cpp" />
+    <ClCompile Include="BTAgent.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletFactory.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="ColorOverLifeTime.cpp" />
+    <ClCompile Include="ComponentManager.cpp" />
+    <ClCompile Include="ConeAttack.cpp" />
+    <ClCompile Include="ConeRange.cpp" />
+    <ClCompile Include="CubeMapResource.cpp" />
+    <ClCompile Include="CurseDemonBulletParticle.cpp" />
+    <ClCompile Include="D_IsHPLessThan.cpp" />
+    <ClCompile Include="D_IsPlayerInsideMeleeRange.cpp" />
+    <ClCompile Include="EnergyRayParticle.cpp" />
+    <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="ExecutionerDemon.cpp" />
+    <ClCompile Include="ExecutionerDemonFireBall.cpp" />
+    <ClCompile Include="ExecutionerDemonMelee.cpp" />
+    <ClCompile Include="FactoryManager.cpp" />
+    <ClCompile Include="FlyingDemon.cpp" />
+    <ClCompile Include="FlyingDemonFireBall.cpp" />
+    <ClCompile Include="FlyingDemonMelee.cpp" />
+    <ClCompile Include="FrameBuffer.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="GameStateManager.cpp" />
+    <ClCompile Include="GeometryUtill.cpp" />
+    <ClCompile Include="GizmoManager.cpp" />
+    <ClCompile Include="HolySlashParticle.cpp" />
+    <ClCompile Include="IDLE_Boss.cpp" />
+    <ClCompile Include="IDLE_ExecutionerDemon.cpp" />
+    <ClCompile Include="IDLE_FlyingDemon.cpp" />
+    <ClCompile Include="IDLE_SmokeDemon.cpp" />
+    <ClCompile Include="D_IsPlayerFar.cpp" />
+    <ClCompile Include="IsPlayerFar.cpp" />
+    <ClCompile Include="IsPlayerNear.cpp" />
+    <ClCompile Include="JumpAttack.cpp" />
+    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="LightManager.cpp" />
+    <ClCompile Include="LineLenderer.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MeleeFactory.cpp" />
+    <ClCompile Include="ICollisionHandler.cpp" />
+    <ClCompile Include="IdleState.cpp" />
+    <ClCompile Include="IDLE_CurseDemon.cpp" />
+    <ClCompile Include="IMGUIZMO\GraphEditor.cpp" />
+    <ClCompile Include="IMGUIZMO\ImCurveEdit.cpp" />
+    <ClCompile Include="IMGUIZMO\ImGradient.cpp" />
+    <ClCompile Include="IMGUIZMO\ImGuizmo.cpp" />
+    <ClCompile Include="IMGUIZMO\ImSequencer.cpp" />
+    <ClCompile Include="IMGUI\imgui.cpp" />
+    <ClCompile Include="IMGUI\imgui_demo.cpp" />
+    <ClCompile Include="IMGUI\imgui_draw.cpp" />
+    <ClCompile Include="IMGUI\imgui_impl_glfw.cpp" />
+    <ClCompile Include="IMGUI\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="IMGUI\imgui_stdlib.cpp" />
+    <ClCompile Include="IMGUI\imgui_tables.cpp" />
+    <ClCompile Include="IMGUI\imgui_widgets.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MainEditor.cpp" />
+    <ClCompile Include="MathUtil.cpp" />
+    <ClCompile Include="Melee.cpp" />
+    <ClCompile Include="MeleeState.cpp" />
+    <ClCompile Include="MELEE_Boss.cpp" />
+    <ClCompile Include="MELEE_ExecutionerDemon.cpp" />
+    <ClCompile Include="MELEE_CurseDemon.cpp" />
+    <ClCompile Include="MELEE_FlyingDemon.cpp" />
+    <ClCompile Include="MELEE_SmokeDemon.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ModelManager.cpp" />
+    <ClCompile Include="MonoBehaviour.cpp" />
+    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MoveToTarget.cpp" />
+    <ClCompile Include="NormalAttack.cpp" />
+    <ClCompile Include="ObjectPoolManager.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="ParticleSystemManager.cpp" />
+    <ClCompile Include="PatrolState.cpp" />
+    <ClCompile Include="PATROL_Boss.cpp" />
+    <ClCompile Include="PATROL_ExecutionerDemon.cpp" />
+    <ClCompile Include="PATROL_CurseDemon.cpp" />
+    <ClCompile Include="PATROL_FlyingDemon.cpp" />
+    <ClCompile Include="PATROL_SmokeDemon.cpp" />
+    <ClCompile Include="Pistol.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerMelee.cpp" />
+    <ClCompile Include="PositionOverLifeTime.cpp" />
+    <ClCompile Include="RandomSelector.cpp" />
+    <ClCompile Include="RangeAttack.cpp" />
+    <ClCompile Include="RangedState.cpp" />
+    <ClCompile Include="RANGED_CurseDemon.cpp" />
+    <ClCompile Include="Registry.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="Selector.cpp" />
+    <ClCompile Include="Sequence.cpp" />
+    <ClCompile Include="Serializer.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="CurseDemonMelee.cpp" />
+    <ClCompile Include="CurseDemon.cpp" />
+    <ClCompile Include="SizeOverLifeTime.cpp" />
+    <ClCompile Include="SkyBox.cpp" />
+    <ClCompile Include="SmokeAttackParticle.cpp" />
+    <ClCompile Include="SmokeDemon.cpp" />
+    <ClCompile Include="SmokeDemonMelee.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Stage01.cpp" />
+    <ClCompile Include="CurseDemonBullet.cpp" />
+    <ClCompile Include="Stage02.cpp" />
+    <ClCompile Include="Stage03.cpp" />
+    <ClCompile Include="StageTest.cpp" />
+    <ClCompile Include="TeleportAttack.cpp" />
+    <ClCompile Include="TextureResource.cpp" />
+    <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="TraceState.cpp" />
+    <ClCompile Include="TRACE_FlyingDemon.cpp" />
+    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Wait.cpp" />
+    <ClCompile Include="WeightRandomSelector.cpp" />
+    <ClCompile Include="Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AI.h" />
+    <ClInclude Include="Animator.h" />
+    <ClInclude Include="Anim_AppearState.h" />
+    <ClInclude Include="Anim_DisappearState.h" />
+    <ClInclude Include="Anim_DivingState.h" />
+    <ClInclude Include="Anim_ToDiveState.h" />
+    <ClInclude Include="Anim_FlyingState.h" />
+    <ClInclude Include="Anim_TakeOffState.h" />
+    <ClInclude Include="Anim_LandState.h" />
+    <ClInclude Include="Anim_HurtState.h" />
+    <ClInclude Include="Anim_NormalAttackState_2.h" />
+    <ClInclude Include="Anim_NormalAttackState_3.h" />
+    <ClInclude Include="Anim_WalkState.h" />
+    <ClInclude Include="Anim_DashState.h" />
+    <ClInclude Include="Anim_DeathState.h" />
+    <ClInclude Include="Anim_FallState.h" />
+    <ClInclude Include="Anim_JumpState.h" />
+    <ClInclude Include="Anim_IdleState.h" />
+    <ClInclude Include="Anim_NormalAttackState.h" />
+    <ClInclude Include="Anim_JumpAttackState.h" />
+    <ClInclude Include="Anim_RangeAttackState.h" />
+    <ClInclude Include="Anim_SprintAttackState.h" />
+    <ClInclude Include="Anim_SprintingState.h" />
+    <ClInclude Include="Anim_ToSprintState.h" />
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="BaseComponent.h" />
+    <ClInclude Include="BaseFactory.h" />
+    <ClInclude Include="BaseLevel.h" />
+    <ClInclude Include="BaseRTTI.h" />
+    <ClInclude Include="BaseState.h" />
+    <ClInclude Include="BehaviorTreeNode.h" />
+    <ClInclude Include="BlackBoard.h" />
+    <ClInclude Include="Boss.h" />
+    <ClInclude Include="BossMelee.h" />
+    <ClInclude Include="BossRange.h" />
+    <ClInclude Include="BTAgent.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="BulletFactory.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="ColorOverLifeTime.h" />
+    <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="ConeAttack.h" />
+    <ClInclude Include="ConeRange.h" />
+    <ClInclude Include="CubeMapResource.h" />
+    <ClInclude Include="CurseDemonBulletParticle.h" />
+    <ClInclude Include="D_IsHPLessThan.h" />
+    <ClInclude Include="D_IsPlayerInsideMeleeRange.h" />
+    <ClInclude Include="EnergyRayParticle.h" />
+    <ClInclude Include="EventManager.h" />
+    <ClInclude Include="ExecutionerDemon.h" />
+    <ClInclude Include="ExecutionerDemonFireBall.h" />
+    <ClInclude Include="ExecutionerDemonMelee.h" />
+    <ClInclude Include="FactoryManager.h" />
+    <ClInclude Include="FlyingDemon.h" />
+    <ClInclude Include="FlyingDemonFireBall.h" />
+    <ClInclude Include="FlyingDemonMelee.h" />
+    <ClInclude Include="FrameBuffer.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="GameStateManager.h" />
+    <ClInclude Include="GeometryUtill.h" />
+    <ClInclude Include="GizmoManager.h" />
+    <ClInclude Include="header.h" />
+    <ClInclude Include="Anim_HolySlash.h" />
+    <ClInclude Include="HolySlashParticle.h" />
+    <ClInclude Include="IDLE_Boss.h" />
+    <ClInclude Include="IDLE_ExecutionerDemon.h" />
+    <ClInclude Include="IDLE_FlyingDemon.h" />
+    <ClInclude Include="IDLE_SmokeDemon.h" />
+    <ClInclude Include="IParticleBehavior.h" />
+    <ClInclude Include="IPatrolBehaviour.h" />
+    <ClInclude Include="Anim_IState.h" />
+    <ClInclude Include="D_IsPlayerFar.h" />
+    <ClInclude Include="IsPlayerFar.h" />
+    <ClInclude Include="IsPlayerNear.h" />
+    <ClInclude Include="JumpAttack.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="LightManager.h" />
+    <ClInclude Include="LineLenderer.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="MeleeFactory.h" />
+    <ClInclude Include="ICollisionHandler.h" />
+    <ClInclude Include="IdleState.h" />
+    <ClInclude Include="IDLE_CurseDemon.h" />
+    <ClInclude Include="IIdleBehaviour.h" />
+    <ClInclude Include="IMeleeBehaviour.h" />
+    <ClInclude Include="IMGUIZMO\GraphEditor.h" />
+    <ClInclude Include="IMGUIZMO\ImCurveEdit.h" />
+    <ClInclude Include="IMGUIZMO\ImGradient.h" />
+    <ClInclude Include="IMGUIZMO\ImGuizmo.h" />
+    <ClInclude Include="IMGUIZMO\ImSequencer.h" />
+    <ClInclude Include="IMGUIZMO\ImZoomSlider.h" />
+    <ClInclude Include="IMGUI\imconfig.h" />
+    <ClInclude Include="IMGUI\imgui.h" />
+    <ClInclude Include="IMGUI\imgui_impl_glfw.h" />
+    <ClInclude Include="IMGUI\imgui_impl_opengl3.h" />
+    <ClInclude Include="IMGUI\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="IMGUI\imgui_internal.h" />
+    <ClInclude Include="IMGUI\imgui_stdlib.h" />
+    <ClInclude Include="IMGUI\imstb_rectpack.h" />
+    <ClInclude Include="IMGUI\imstb_textedit.h" />
+    <ClInclude Include="IMGUI\imstb_truetype.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="IRangedBehaviour.h" />
+    <ClInclude Include="ITraceBehaviour.h" />
+    <ClInclude Include="MainEditor.h" />
+    <ClInclude Include="MathUtil.h" />
+    <ClInclude Include="Melee.h" />
+    <ClInclude Include="MeleeState.h" />
+    <ClInclude Include="MELEE_Boss.h" />
+    <ClInclude Include="MELEE_ExecutionerDemon.h" />
+    <ClInclude Include="MELEE_CurseDemon.h" />
+    <ClInclude Include="MELEE_FlyingDemon.h" />
+    <ClInclude Include="MELEE_SmokeDemon.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="ModelManager.h" />
+    <ClInclude Include="MonoBehaviour.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="MoveToTarget.h" />
+    <ClInclude Include="NormalAttack.h" />
+    <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="ObjectPoolManager.h" />
+    <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="ParticleSystemManager.h" />
+    <ClInclude Include="PatrolState.h" />
+    <ClInclude Include="PATROL_Boss.h" />
+    <ClInclude Include="PATROL_ExecutionerDemon.h" />
+    <ClInclude Include="PATROL_CurseDemon.h" />
+    <ClInclude Include="PATROL_FlyingDemon.h" />
+    <ClInclude Include="PATROL_SmokeDemon.h" />
+    <ClInclude Include="Pistol.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerMelee.h" />
+    <ClInclude Include="PositionOverLifeTime.h" />
+    <ClInclude Include="RandomSelector.h" />
+    <ClInclude Include="RangeAttack.h" />
+    <ClInclude Include="RangedState.h" />
+    <ClInclude Include="RANGED_CurseDemon.h" />
+    <ClInclude Include="Ray.h" />
+    <ClInclude Include="Registry.h" />
+    <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="Selector.h" />
+    <ClInclude Include="Sequence.h" />
+    <ClInclude Include="Serializer.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="CurseDemonMelee.h" />
+    <ClInclude Include="CurseDemon.h" />
+    <ClInclude Include="SizeOverLifeTime.h" />
+    <ClInclude Include="SkyBox.h" />
+    <ClInclude Include="SmokeAttackParticle.h" />
+    <ClInclude Include="SmokeDemon.h" />
+    <ClInclude Include="SmokeDemonMelee.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Stage01.h" />
+    <ClInclude Include="CurseDemonBullet.h" />
+    <ClInclude Include="Anim_StateMachine.h" />
+    <ClInclude Include="Stage02.h" />
+    <ClInclude Include="Stage03.h" />
+    <ClInclude Include="StageTest.h" />
+    <ClInclude Include="TeleportAttack.h" />
+    <ClInclude Include="TextureResource.h" />
+    <ClInclude Include="TimeManager.h" />
+    <ClInclude Include="TraceState.h" />
+    <ClInclude Include="TRACE_FlyingDemon.h" />
+    <ClInclude Include="Transform.h" />
+    <ClInclude Include="Wait.h" />
+    <ClInclude Include="WeightRandomSelector.h" />
+    <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fragmenetSkyBox.frag" />
+    <None Include="fragment.frag" />
+    <None Include="fragment3d.frag" />
+    <None Include="IMGUI\imgui.ini" />
+    <None Include="json\Level\Stage01\Stage01_2D.json" />
+    <None Include="json\Level\Stage01\Stage01_3D.json" />
+    <None Include="json\Level\Stage02\Stage02_2D.json" />
+    <None Include="json\Level\Stage02\Stage02_3D.json" />
+    <None Include="json\Level\Stage03\Stage03_2D.json" />
+    <None Include="json\Level\Stage03\Stage03_3D.json" />
+    <None Include="json\Level\StageTest\StageTest_2D.json" />
+    <None Include="json\Level\StageTest\StageTest_3D.json" />
+    <None Include="json\Prefab\Player\Slash\Slash_Prefab.json" />
+    <None Include="line.frag" />
+    <None Include="line.vert" />
+    <None Include="Particles.frag" />
+    <None Include="Particles.vert" />
+    <None Include="vertex.vert" />
+    <None Include="vertex3d.vert" />
+    <None Include="vertexSkyBox.vert" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties json_4Level_4StageTest_4StageTest_33D_1json__JsonSchema="https://api.app-prg1.zerops.io/api/rest/public/settings/import-project-yml-json-schema.json" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

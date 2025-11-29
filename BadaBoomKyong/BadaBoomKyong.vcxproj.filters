@@ -1,0 +1,1518 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{c2e7fef9-d4bd-4540-a4c5-020135ce4aa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{23ac9234-6dc9-4e1a-88b2-a6381b9b8432}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level">
+      <UniqueIdentifier>{d1165c6d-72e4-435e-a089-a9d3e10acffd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{b509b9e2-1053-4a48-bb83-01f763f0915c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Application">
+      <UniqueIdentifier>{d781e1cc-366b-4980-9f7b-1b0ae4ce02cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Windows">
+      <UniqueIdentifier>{760ca5a3-c136-4192-a2ae-14a6a055bf05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{b21b48ee-8f3b-4e00-a2ba-5d48a1e1124a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{0d18973e-a9d0-4f85-b7a2-7673dcdbfd1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ModelManager">
+      <UniqueIdentifier>{28ee09eb-65bf-40c8-840a-e307a9d5783f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Shader">
+      <UniqueIdentifier>{d085d119-f12c-460c-96e8-04e4545c1bd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Model">
+      <UniqueIdentifier>{27a2eff5-e25b-46ed-9cb3-caddefb62cee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderFiles">
+      <UniqueIdentifier>{32b1dad4-3ed1-4c37-8291-aea93b51014d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\InputManager">
+      <UniqueIdentifier>{8fdcf56e-a2af-40b3-8ab4-f1909a7947bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\GameObjectManger">
+      <UniqueIdentifier>{669aa80f-66f4-4366-b894-bf337f8275b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\RenderManager">
+      <UniqueIdentifier>{e0fb8169-714b-4440-a7d0-3d637da1d558}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ComponentManager">
+      <UniqueIdentifier>{fb2c0ab0-259c-4e32-abc2-751929987b54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\GameStateManager">
+      <UniqueIdentifier>{6ff7954a-8b1a-4367-aacb-1741f10064e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Stage01">
+      <UniqueIdentifier>{31eac67e-e6aa-4cf7-9480-c196fdaccb4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{4544a5c2-44ef-4d7f-b937-d610f9e90f49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RTTI">
+      <UniqueIdentifier>{246f045a-1112-4997-9ce8-97999511f5c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RTTI\Registry">
+      <UniqueIdentifier>{9fafbefa-a4b0-43c5-b1c8-43534e5663fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Serializer">
+      <UniqueIdentifier>{2582f953-aec7-42c0-b5f8-e471d8c782c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMGUI">
+      <UniqueIdentifier>{bf94b43f-7fc5-4eaf-90c2-ec0fb26928e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{29d8193f-2fdc-480d-ba7b-93ac9b6839c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\MainEditor">
+      <UniqueIdentifier>{98aaa504-c853-49e4-92d1-457cc3784d22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{e0b3c6f5-fc22-4903-a5f2-75402d20da88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util\GeometryUtil">
+      <UniqueIdentifier>{83f453e6-1d0d-4c81-b82e-f680185930b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util\MathUtil">
+      <UniqueIdentifier>{10e265fe-b277-417a-bcbf-ae1e825bb35a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Gizmo">
+      <UniqueIdentifier>{c5f63a51-5495-4216-a871-da8bbf098a43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\TimeManager">
+      <UniqueIdentifier>{00700c28-7318-43e8-86e6-b475ab81aa42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\CollisionManager">
+      <UniqueIdentifier>{3405b47f-6ed7-4f3a-8bf7-4e8d356a2226}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Default">
+      <UniqueIdentifier>{178ba916-a5e5-4f39-8bf6-8ee57a9a1098}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Default\RigidBody">
+      <UniqueIdentifier>{3109bb1b-d4e5-4e54-8488-77b0c83fbacd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Default\Sprite">
+      <UniqueIdentifier>{6d2d22d1-cc67-4541-b86f-bf055e544dcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Default\Transform">
+      <UniqueIdentifier>{34bc6b4c-1cf7-4995-8ea4-5d5963baba31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom">
+      <UniqueIdentifier>{c4edf3c8-98ad-450c-9e6c-1b55410ca9d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Player">
+      <UniqueIdentifier>{aa6fc971-8e5d-4619-b07b-919a22e2f699}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderFiles\2D">
+      <UniqueIdentifier>{95d5f775-6c9f-4ee7-a501-1b4c183caa8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderFiles\3D">
+      <UniqueIdentifier>{a9e264ac-fc82-4de1-8974-71d59e9a11f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMGUI\Gizmo">
+      <UniqueIdentifier>{b4606360-0e3f-4332-a3f8-348c1bb0470c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{ce5d65a4-0f20-4e8a-a6d3-fced627c7be3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\FrameBuffer">
+      <UniqueIdentifier>{d2c34801-789f-4308-9dfc-59fb4a04e979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\MemoryPoolManager">
+      <UniqueIdentifier>{2daa8bc6-6628-4717-aaea-e927d5290062}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Factory">
+      <UniqueIdentifier>{ca68a4fb-1e8a-4fa1-9859-1cfc22470af6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Factory\BulletFactory">
+      <UniqueIdentifier>{937c57b5-3eb8-4019-8401-518a0df97147}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\FactoryManager">
+      <UniqueIdentifier>{785c33ee-c986-4e10-909f-e47552b02d8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectPool">
+      <UniqueIdentifier>{d93f0bcb-e266-4bec-96fe-af90acc6188d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster">
+      <UniqueIdentifier>{6603f99e-feea-4413-a072-bc794d585fde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\EventManager">
+      <UniqueIdentifier>{56e832d1-3b7e-4844-8854-f97a4f9cb937}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet">
+      <UniqueIdentifier>{8dfff092-d20b-43df-882e-efee9766c799}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Player">
+      <UniqueIdentifier>{565aa095-c49b-4d16-ab7d-9eea451da0cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Player\Pistol">
+      <UniqueIdentifier>{537dd74e-bbc3-49b2-88f4-c5432173d645}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Monster">
+      <UniqueIdentifier>{d4ab23bf-810e-4fe9-8e9a-61fdf1de5204}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Melee">
+      <UniqueIdentifier>{010fe2ac-4568-4ae6-ab5f-d108de9a20f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Factory\HitBoxFactory">
+      <UniqueIdentifier>{2d1e86f8-a415-4cc7-89c2-04a105dbfd64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Melee\Monster">
+      <UniqueIdentifier>{ce0b76be-3460-47a9-a57b-ec933de403cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Melee\Player">
+      <UniqueIdentifier>{d0247e73-ae41-4d17-8b96-542af5e0122a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{2ed29f3f-69b5-4323-a4ab-9fe66e99bb4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ResourceManager">
+      <UniqueIdentifier>{bbb484cf-60e9-40fa-8d03-7ec804aab61e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Texture">
+      <UniqueIdentifier>{e0e23275-9019-4102-b5df-daf8d6a52ea4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Mesh">
+      <UniqueIdentifier>{e318628e-416b-45e0-88fd-c859e6acda57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Materials">
+      <UniqueIdentifier>{a9829d66-ce17-49bb-b644-ee726438d554}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI">
+      <UniqueIdentifier>{7053d56b-9366-4664-9262-a2ba45573ab7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\FiniteStateMachine">
+      <UniqueIdentifier>{291109b3-df4d-49c7-a6ea-5389b3053548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\FiniteStateMachine\Idle">
+      <UniqueIdentifier>{99415940-9c29-46f9-adc4-f1045a6d8a59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\FiniteStateMachine\Trace">
+      <UniqueIdentifier>{009cb4ff-1a27-40fd-836c-9398d79aae5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\FiniteStateMachine\Patrol">
+      <UniqueIdentifier>{d547c685-3a08-44ed-806a-e6be1495e67b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\FiniteStateMachine\Melee">
+      <UniqueIdentifier>{c696bffb-63b1-43cc-8356-2890de5c95d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\FiniteStateMachine\Ranged">
+      <UniqueIdentifier>{4469d03d-80bc-43d1-8cbf-e863554e6795}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{2af79aca-fcd7-46c3-877c-43d69a42b799}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine">
+      <UniqueIdentifier>{a97ea663-ee6c-4699-a884-40b3e6b3fb26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Idle">
+      <UniqueIdentifier>{de2274d4-d976-4ca4-8197-ec15851f6ca8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Sprint">
+      <UniqueIdentifier>{cc8d9bc1-bab0-466f-b4b5-39fec422945f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Attack">
+      <UniqueIdentifier>{f00bb427-a1a1-4543-955d-32067b4f062d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Jump">
+      <UniqueIdentifier>{692ed897-6092-4327-903b-c34880579170}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Death">
+      <UniqueIdentifier>{31e3926d-fda9-4774-a08f-a2e5283a30a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Fall">
+      <UniqueIdentifier>{8a968451-b265-43c7-bfd5-6cdc8fb27112}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Attack\NormalAttack">
+      <UniqueIdentifier>{424a2439-a36c-44c9-8138-ea04febc5ccd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Attack\SprintAttack">
+      <UniqueIdentifier>{70f01b55-2508-42b4-a27e-cae6d2cf235f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Sprint\ToSprint">
+      <UniqueIdentifier>{7107259c-c9c9-4f9c-b11b-f283e01582e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Sprint\Sprinting">
+      <UniqueIdentifier>{56739e6d-93e7-4b2b-a034-eab5f5806b21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Dash">
+      <UniqueIdentifier>{71cacfa9-19dc-4d16-ba49-8c311a75c3bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Attack\JumpAttack">
+      <UniqueIdentifier>{b6b38eae-59a8-49f6-a703-8a241b663700}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Attack\RangeAttack">
+      <UniqueIdentifier>{9fbb1b72-0315-4091-a093-ec75d09b3f42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Stage02">
+      <UniqueIdentifier>{e993590b-585b-481f-9238-e47f7c3c1778}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Stage03">
+      <UniqueIdentifier>{8ee69c0e-19bc-43f2-b6e5-74f112add0db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\StageTest">
+      <UniqueIdentifier>{bdc42052-d7b3-40f0-933e-be59969e3169}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\ExecutionerDemon">
+      <UniqueIdentifier>{1265b43a-dc55-48bb-a4c7-68d521d042de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Monster\ExecutionerDemonFireBall">
+      <UniqueIdentifier>{fecf5a4a-8205-47d1-8929-49cb58e0c116}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\ExecutionerDemon\AI_State">
+      <UniqueIdentifier>{5f92724e-8c2c-4ef0-879e-ed5a9e79f91f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\ExecutionerDemon\AI_State\IDLE">
+      <UniqueIdentifier>{500179a5-dfdd-4954-b40c-4831a43a19ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\ExecutionerDemon\AI_State\MELEE">
+      <UniqueIdentifier>{978af5d6-d295-4e16-8486-f09d60f324fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Melee\Monster\ExecutionerDemonMelee">
+      <UniqueIdentifier>{315cc1cd-240b-4d30-84ef-a86e2b01702a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\ExecutionerDemon\AI_State\PATROL">
+      <UniqueIdentifier>{35425141-d491-47bd-a900-23c7cd29d90e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Walk">
+      <UniqueIdentifier>{a229f9de-abc4-4c2a-a62e-62efeaf9d79c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Hurt">
+      <UniqueIdentifier>{f6889f32-a4ce-4832-b447-d41f0cf2baef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json">
+      <UniqueIdentifier>{9d8f479c-a500-45c9-9e55-eda855921d6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json\Stage01">
+      <UniqueIdentifier>{5a48f277-50f0-4a77-9bb6-7c2a7bea2cbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json\Stage02">
+      <UniqueIdentifier>{389fa36d-48d7-4539-a0ae-cb54fabaecf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json\Stage03">
+      <UniqueIdentifier>{479121bd-d331-4fa2-a5f3-60256815fc98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json\StageTest">
+      <UniqueIdentifier>{d2530daa-2ef3-4df1-aae9-f4ce72305da3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Melee\Monster\CurseDemonMelee">
+      <UniqueIdentifier>{06281e8e-a4ac-495a-be73-af6843ed835e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\CurseDemon">
+      <UniqueIdentifier>{d8a4c8bc-d7d9-4636-abc6-ae63eba4a969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\CurseDemon\AI_State">
+      <UniqueIdentifier>{af4db368-554a-4585-9ebe-066529926f9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\CurseDemon\AI_State\IDLE">
+      <UniqueIdentifier>{e5825eda-b2ea-4b29-8e23-4331810def86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\CurseDemon\AI_State\RANGED">
+      <UniqueIdentifier>{cf4f7bfe-bc10-4ceb-9b88-6872f7fd5908}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\CurseDemon\AI_State\MELEE">
+      <UniqueIdentifier>{0e832c55-419c-436d-b4c4-08b73eb8930d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\CurseDemon\AI_State\PATROL">
+      <UniqueIdentifier>{66f75b8c-d5f0-4c9b-a4a2-0660d4bc36a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Light">
+      <UniqueIdentifier>{f88bc32e-50dc-4bfd-9056-be79c325c4b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\LightManager">
+      <UniqueIdentifier>{c6d00f7d-3cd2-49c0-8a54-f63a7f0f81c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\CubeMap">
+      <UniqueIdentifier>{e3cd354d-876c-4fd4-a2bd-6b445a8c145f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Default\SkyBox">
+      <UniqueIdentifier>{18932aa6-1080-4d90-bbdf-252590a8b029}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderFiles\Skybox">
+      <UniqueIdentifier>{c761fdbd-6e64-4195-85d1-0eaaddf3eee0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Skill">
+      <UniqueIdentifier>{fd6c47bb-92e4-43cb-b1d2-c668c5e765a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle">
+      <UniqueIdentifier>{afd0a247-b6f1-4ddf-84fa-1a2a8a32e33a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderFiles\Particle">
+      <UniqueIdentifier>{9a41a20e-c8b4-4713-a5fb-20682c625c09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\HolySlash">
+      <UniqueIdentifier>{01e50fc9-46d6-42de-843a-4796d508ca70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ParticleSystemManager">
+      <UniqueIdentifier>{d37448d7-2ac7-498c-affc-51bcba70858a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\Behaviour">
+      <UniqueIdentifier>{c0329a2b-2d4f-4824-a075-7481d065c826}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\Behaviour\Color">
+      <UniqueIdentifier>{d64418bc-ac18-48ae-978f-666751d42e9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\Behaviour\Size">
+      <UniqueIdentifier>{848f74d8-001c-4e5c-b241-3a98a0152718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\Behaviour\Position">
+      <UniqueIdentifier>{ac5d8d0e-b472-4e31-bd04-10e30e822afd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json\Prefab">
+      <UniqueIdentifier>{54e0ae77-a6e0-4ec1-8cde-069d33c7d12b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Default\Collider">
+      <UniqueIdentifier>{37ddfb3f-1071-45b8-9018-8d9d8ee5ca11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Default\Collider\Ray">
+      <UniqueIdentifier>{c3862e12-890d-41c6-b4be-c66f469c90de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Default\Collider\Interface">
+      <UniqueIdentifier>{d79bfbcb-5d5b-4ae2-8b84-5372cc13c636}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\FlyingDemon">
+      <UniqueIdentifier>{0b126637-f101-4091-a605-b5d0b2f0cc1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\FlyingDemon\AI_State">
+      <UniqueIdentifier>{060c1153-f805-4857-8cd8-703505fbe465}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\FlyingDemon\AI_State\IDLE">
+      <UniqueIdentifier>{82b68e29-bbed-4292-b10c-b3a232ade20e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\FlyingDemon\AI_State\MELEE">
+      <UniqueIdentifier>{408c4858-64b7-4740-b112-64b6bf272067}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\FlyingDemon\AI_State\PATROL">
+      <UniqueIdentifier>{2aebe277-2ddf-4b75-aaef-58a4d3a67ee4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Monster\FlyingDemonFireBall">
+      <UniqueIdentifier>{688a3a9c-0070-4d2a-a494-2158b8e2071e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Melee\Monster\FlyingDemonMelee">
+      <UniqueIdentifier>{76c11547-96c8-4876-ac9a-75b09c2eb718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Takeoff">
+      <UniqueIdentifier>{3df8273d-d092-4587-930b-dc836d2076f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Flying">
+      <UniqueIdentifier>{47c0fd5a-a36b-44df-9400-f836e99500ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\FlyingDemon\AI_State\TRACE">
+      <UniqueIdentifier>{bee33e53-362b-47b4-b52c-5a6feba69922}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Dive">
+      <UniqueIdentifier>{71d3bc8d-3d3b-4dfe-9f9e-3b40607d9c88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Dive\ToDive">
+      <UniqueIdentifier>{3361ddd7-8fc3-407f-bcab-67352d2ec359}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Dive\Diving">
+      <UniqueIdentifier>{0c89acf7-3d49-4527-9582-211d8bc84f29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\SmokeDemon">
+      <UniqueIdentifier>{d1a7f5e1-85ea-494d-9b5a-fdcb4d875e1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\SmokeDemon\AI_State">
+      <UniqueIdentifier>{16d4ddea-be84-41b0-a967-aaec8cd6f695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\SmokeDemon\AI_State\IDLE">
+      <UniqueIdentifier>{5c0b321b-4ebc-4970-8bb0-09f2f10f912a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\SmokeDemon\AI_State\PATROL">
+      <UniqueIdentifier>{46756502-945c-42e2-97e3-6f6a4da40436}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\SmokeDemon\AI_State\MELEE">
+      <UniqueIdentifier>{96257c1e-fa0e-49de-afd7-51d2b0b39c6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Melee\Monster\SmokingDemonMelee">
+      <UniqueIdentifier>{60f5e464-6055-4ef3-872d-2cf8c8ee2083}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\SmokeAttack">
+      <UniqueIdentifier>{091f1f0d-5d74-4846-875a-f8b02c17028e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\CurseDemonBullet">
+      <UniqueIdentifier>{a74829f2-a1d7-44c0-ad83-8d59f01914cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\Boss">
+      <UniqueIdentifier>{208d5428-dfae-4c33-9329-19fe2aa7c810}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\Boss\AI_State">
+      <UniqueIdentifier>{918b5b55-65ec-4ba4-a07b-2c32842093a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\Boss\AI_State\IDLE">
+      <UniqueIdentifier>{8cd5d522-cebc-4560-b505-5704d1b98cb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\Boss\AI_State\MELEE">
+      <UniqueIdentifier>{6b415ae4-7bad-49ab-884e-ecace74a1498}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\Boss\AI_State\PATROL">
+      <UniqueIdentifier>{b37bcc3d-d832-46e5-a37a-7e65546dbc3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Monster\Boss\AI_State\RANGED">
+      <UniqueIdentifier>{de192212-f15e-4216-8705-f3601b603619}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\BehaviorTree">
+      <UniqueIdentifier>{08a368ac-33b5-4fc1-877c-9cb536803dec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\BehaviorTree\ControlFlow">
+      <UniqueIdentifier>{40031e6e-9649-4d39-aa35-e57b4f41885f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\BehaviorTree\Agent">
+      <UniqueIdentifier>{9ade55d6-74f7-4800-814d-6872bfc90267}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\BehaviorTree\Leaf">
+      <UniqueIdentifier>{f8a1799f-cdbf-4e25-9b91-677cbfed08b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\BehaviorTree\BlackBoard">
+      <UniqueIdentifier>{e050e1dd-b75e-4853-bb9b-27bd231a7a57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Melee\Monster\BossMelee">
+      <UniqueIdentifier>{87757c79-2d2d-4337-9d91-4841e9d8d93e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Monster\CurseDemonBullet">
+      <UniqueIdentifier>{ca189c89-96ba-41ae-a056-3503368717f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Monster\BossRange">
+      <UniqueIdentifier>{41b77911-79ab-4443-8083-67f44a104451}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\EnergyRay">
+      <UniqueIdentifier>{956268d1-33d4-44bc-844a-7f5ac331af78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\LineRenderer">
+      <UniqueIdentifier>{fd96fc7e-a0e8-472c-a9eb-648658c87745}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\BehaviorTree\Decorator">
+      <UniqueIdentifier>{2b482eb4-8475-424d-919b-1d014c33e77b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Appear">
+      <UniqueIdentifier>{de9fcfa0-8c07-48ed-9637-0fb9ea79d4b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\FiniteStateMachine\Disappear">
+      <UniqueIdentifier>{28e49524-4272-4852-a51f-54c37a8b27a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Monster\BossRange\ConeRange">
+      <UniqueIdentifier>{fdb33e0f-1b35-4e42-b292-30a4d5f8b1a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Custom\Bullet\Monster\BossRange\NormalRange">
+      <UniqueIdentifier>{4e4e69d7-b02e-4ccd-9c1a-8be37660a803}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Core\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Core\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Manager\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Graphics\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Graphics\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelManager.cpp">
+      <Filter>Manager\ModelManager</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>Manager\RenderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>Manager\GameObjectManger</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentManager.cpp">
+      <Filter>Manager\ComponentManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Component\Default\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateManager.cpp">
+      <Filter>Manager\GameStateManager</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage01.cpp">
+      <Filter>Level\Stage01</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseRTTI.cpp">
+      <Filter>RTTI</Filter>
+    </ClCompile>
+    <ClCompile Include="Registry.cpp">
+      <Filter>RTTI\Registry</Filter>
+    </ClCompile>
+    <ClCompile Include="Serializer.cpp">
+      <Filter>Manager\Serializer</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Component\Default\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_demo.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_draw.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_impl_glfw.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_impl_opengl3.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_stdlib.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_tables.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_widgets.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="MainEditor.cpp">
+      <Filter>Editor\MainEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryUtill.cpp">
+      <Filter>Util\GeometryUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="MathUtil.cpp">
+      <Filter>Util\MathUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="GizmoManager.cpp">
+      <Filter>Editor\Gizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Component\Custom\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Component\Default\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>Manager\TimeManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Component\Default\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Manager\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ICollisionHandler.cpp">
+      <Filter>Component\Default\Collider\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="MonoBehaviour.cpp">
+      <Filter>Component\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUIZMO\GraphEditor.cpp">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUIZMO\ImCurveEdit.cpp">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUIZMO\ImGradient.cpp">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUIZMO\ImGuizmo.cpp">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUIZMO\ImSequencer.cpp">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameBuffer.cpp">
+      <Filter>Graphics\FrameBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletFactory.cpp">
+      <Filter>Factory\BulletFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Component\Custom\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="FactoryManager.cpp">
+      <Filter>Manager\FactoryManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPoolManager.cpp">
+      <Filter>Manager\MemoryPoolManager</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseFactory.cpp">
+      <Filter>Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Component\Custom\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="AI.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseState.cpp">
+      <Filter>AI\FiniteStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="IdleState.cpp">
+      <Filter>AI\FiniteStateMachine\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="TraceState.cpp">
+      <Filter>AI\FiniteStateMachine\Trace</Filter>
+    </ClCompile>
+    <ClCompile Include="RangedState.cpp">
+      <Filter>AI\FiniteStateMachine\Ranged</Filter>
+    </ClCompile>
+    <ClCompile Include="MeleeState.cpp">
+      <Filter>AI\FiniteStateMachine\Melee</Filter>
+    </ClCompile>
+    <ClCompile Include="CurseDemonBullet.cpp">
+      <Filter>Component\Custom\Bullet\Monster\CurseDemonBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>Manager\EventManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Pistol.cpp">
+      <Filter>Component\Custom\Bullet\Player\Pistol</Filter>
+    </ClCompile>
+    <ClCompile Include="IDLE_CurseDemon.cpp">
+      <Filter>Component\Custom\Monster\CurseDemon\AI_State\IDLE</Filter>
+    </ClCompile>
+    <ClCompile Include="CurseDemon.cpp">
+      <Filter>Component\Custom\Monster\CurseDemon</Filter>
+    </ClCompile>
+    <ClCompile Include="RANGED_CurseDemon.cpp">
+      <Filter>Component\Custom\Monster\CurseDemon\AI_State\RANGED</Filter>
+    </ClCompile>
+    <ClCompile Include="MELEE_CurseDemon.cpp">
+      <Filter>Component\Custom\Monster\CurseDemon\AI_State\MELEE</Filter>
+    </ClCompile>
+    <ClCompile Include="Melee.cpp">
+      <Filter>Component\Custom\Melee</Filter>
+    </ClCompile>
+    <ClCompile Include="MeleeFactory.cpp">
+      <Filter>Factory\HitBoxFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="CurseDemonMelee.cpp">
+      <Filter>Component\Custom\Melee\Monster\CurseDemonMelee</Filter>
+    </ClCompile>
+    <ClCompile Include="PatrolState.cpp">
+      <Filter>AI\FiniteStateMachine\Patrol</Filter>
+    </ClCompile>
+    <ClCompile Include="PATROL_CurseDemon.cpp">
+      <Filter>Component\Custom\Monster\CurseDemon\AI_State\PATROL</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Manager\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureResource.cpp">
+      <Filter>Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMelee.cpp">
+      <Filter>Component\Custom\Melee\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Graphics\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage02.cpp">
+      <Filter>Level\Stage02</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage03.cpp">
+      <Filter>Level\Stage03</Filter>
+    </ClCompile>
+    <ClCompile Include="StageTest.cpp">
+      <Filter>Level\StageTest</Filter>
+    </ClCompile>
+    <ClCompile Include="ExecutionerDemon.cpp">
+      <Filter>Component\Custom\Monster\ExecutionerDemon</Filter>
+    </ClCompile>
+    <ClCompile Include="ExecutionerDemonFireBall.cpp">
+      <Filter>Component\Custom\Bullet\Monster\ExecutionerDemonFireBall</Filter>
+    </ClCompile>
+    <ClCompile Include="IDLE_ExecutionerDemon.cpp">
+      <Filter>Component\Custom\Monster\ExecutionerDemon\AI_State\IDLE</Filter>
+    </ClCompile>
+    <ClCompile Include="MELEE_ExecutionerDemon.cpp">
+      <Filter>Component\Custom\Monster\ExecutionerDemon\AI_State\MELEE</Filter>
+    </ClCompile>
+    <ClCompile Include="ExecutionerDemonMelee.cpp">
+      <Filter>Component\Custom\Melee\Monster\ExecutionerDemonMelee</Filter>
+    </ClCompile>
+    <ClCompile Include="PATROL_ExecutionerDemon.cpp">
+      <Filter>Component\Custom\Monster\ExecutionerDemon\AI_State\PATROL</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Light</Filter>
+    </ClCompile>
+    <ClCompile Include="LightManager.cpp">
+      <Filter>Manager\LightManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeMapResource.cpp">
+      <Filter>Resource\CubeMap</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>Component\Default\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="HolySlashParticle.cpp">
+      <Filter>Particle\HolySlash</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystemManager.cpp">
+      <Filter>Manager\ParticleSystemManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorOverLifeTime.cpp">
+      <Filter>Particle\Behaviour\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="SizeOverLifeTime.cpp">
+      <Filter>Particle\Behaviour\Size</Filter>
+    </ClCompile>
+    <ClCompile Include="PositionOverLifeTime.cpp">
+      <Filter>Particle\Behaviour\Position</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingDemon.cpp">
+      <Filter>Component\Custom\Monster\FlyingDemon</Filter>
+    </ClCompile>
+    <ClCompile Include="IDLE_FlyingDemon.cpp">
+      <Filter>Component\Custom\Monster\FlyingDemon\AI_State\IDLE</Filter>
+    </ClCompile>
+    <ClCompile Include="MELEE_FlyingDemon.cpp">
+      <Filter>Component\Custom\Monster\FlyingDemon\AI_State\MELEE</Filter>
+    </ClCompile>
+    <ClCompile Include="PATROL_FlyingDemon.cpp">
+      <Filter>Component\Custom\Monster\FlyingDemon\AI_State\PATROL</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingDemonFireBall.cpp">
+      <Filter>Component\Custom\Bullet\Monster\FlyingDemonFireBall</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingDemonMelee.cpp">
+      <Filter>Component\Custom\Melee\Monster\FlyingDemonMelee</Filter>
+    </ClCompile>
+    <ClCompile Include="TRACE_FlyingDemon.cpp">
+      <Filter>Component\Custom\Monster\FlyingDemon\AI_State\TRACE</Filter>
+    </ClCompile>
+    <ClCompile Include="SmokeDemon.cpp">
+      <Filter>Component\Custom\Monster\SmokeDemon</Filter>
+    </ClCompile>
+    <ClCompile Include="IDLE_SmokeDemon.cpp">
+      <Filter>Component\Custom\Monster\SmokeDemon\AI_State\IDLE</Filter>
+    </ClCompile>
+    <ClCompile Include="PATROL_SmokeDemon.cpp">
+      <Filter>Component\Custom\Monster\SmokeDemon\AI_State\PATROL</Filter>
+    </ClCompile>
+    <ClCompile Include="MELEE_SmokeDemon.cpp">
+      <Filter>Component\Custom\Monster\SmokeDemon\AI_State\MELEE</Filter>
+    </ClCompile>
+    <ClCompile Include="SmokeDemonMelee.cpp">
+      <Filter>Component\Custom\Melee\Monster\SmokingDemonMelee</Filter>
+    </ClCompile>
+    <ClCompile Include="SmokeAttackParticle.cpp">
+      <Filter>Particle\SmokeAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="CurseDemonBulletParticle.cpp">
+      <Filter>Particle\CurseDemonBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Component\Custom\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="IDLE_Boss.cpp">
+      <Filter>Component\Custom\Monster\Boss\AI_State\IDLE</Filter>
+    </ClCompile>
+    <ClCompile Include="MELEE_Boss.cpp">
+      <Filter>Component\Custom\Monster\Boss\AI_State\MELEE</Filter>
+    </ClCompile>
+    <ClCompile Include="PATROL_Boss.cpp">
+      <Filter>Component\Custom\Monster\Boss\AI_State\PATROL</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence.cpp">
+      <Filter>AI\BehaviorTree\ControlFlow</Filter>
+    </ClCompile>
+    <ClCompile Include="Selector.cpp">
+      <Filter>AI\BehaviorTree\ControlFlow</Filter>
+    </ClCompile>
+    <ClCompile Include="BTAgent.cpp">
+      <Filter>AI\BehaviorTree\Agent</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveToTarget.cpp">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="BlackBoard.cpp">
+      <Filter>AI\BehaviorTree\BlackBoard</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpAttack.cpp">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="BossMelee.cpp">
+      <Filter>Component\Custom\Melee\Monster\BossMelee</Filter>
+    </ClCompile>
+    <ClCompile Include="BehaviorTreeNode.cpp">
+      <Filter>AI\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalAttack.cpp">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="RangeAttack.cpp">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="EnergyRayParticle.cpp">
+      <Filter>Particle\EnergyRay</Filter>
+    </ClCompile>
+    <ClCompile Include="Wait.cpp">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="LineLenderer.cpp">
+      <Filter>Graphics\LineRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomSelector.cpp">
+      <Filter>AI\BehaviorTree\ControlFlow</Filter>
+    </ClCompile>
+    <ClCompile Include="D_IsPlayerFar.cpp">
+      <Filter>AI\BehaviorTree\Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="D_IsPlayerInsideMeleeRange.cpp">
+      <Filter>AI\BehaviorTree\Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="D_IsHPLessThan.cpp">
+      <Filter>AI\BehaviorTree\Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="TeleportAttack.cpp">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="IsPlayerFar.cpp">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="IsPlayerNear.cpp">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="BossRange.cpp">
+      <Filter>Component\Custom\Bullet\Monster\BossRange\NormalRange</Filter>
+    </ClCompile>
+    <ClCompile Include="ConeRange.cpp">
+      <Filter>Component\Custom\Bullet\Monster\BossRange\ConeRange</Filter>
+    </ClCompile>
+    <ClCompile Include="ConeAttack.cpp">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="WeightRandomSelector.cpp">
+      <Filter>AI\BehaviorTree\ControlFlow</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Singleton.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Core\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Core\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Manager\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Graphics\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Graphics\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="header.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelManager.h">
+      <Filter>Manager\ModelManager</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>Manager\RenderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>Manager\GameObjectManger</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentManager.h">
+      <Filter>Manager\ComponentManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Component\Default\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateManager.h">
+      <Filter>Manager\GameStateManager</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage01.h">
+      <Filter>Level\Stage01</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseRTTI.h">
+      <Filter>RTTI</Filter>
+    </ClInclude>
+    <ClInclude Include="Registry.h">
+      <Filter>RTTI\Registry</Filter>
+    </ClInclude>
+    <ClInclude Include="Serializer.h">
+      <Filter>Manager\Serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Component\Default\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imconfig.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui_impl_glfw.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui_impl_opengl3.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui_impl_opengl3_loader.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui_internal.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui_stdlib.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imstb_rectpack.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imstb_textedit.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imstb_truetype.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="MainEditor.h">
+      <Filter>Editor\MainEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryUtill.h">
+      <Filter>Util\GeometryUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtil.h">
+      <Filter>Util\MathUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="GizmoManager.h">
+      <Filter>Editor\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Component\Custom\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>Component\Default\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>Manager\TimeManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Component\Default\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Manager\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ICollisionHandler.h">
+      <Filter>Component\Default\Collider\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="MonoBehaviour.h">
+      <Filter>Component\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUIZMO\GraphEditor.h">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUIZMO\ImCurveEdit.h">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUIZMO\ImGradient.h">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUIZMO\ImGuizmo.h">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUIZMO\ImSequencer.h">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUIZMO\ImZoomSlider.h">
+      <Filter>IMGUI\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBuffer.h">
+      <Filter>Graphics\FrameBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Component\Custom\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryManager.h">
+      <Filter>Manager\FactoryManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPoolManager.h">
+      <Filter>Manager\MemoryPoolManager</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletFactory.h">
+      <Filter>Factory\BulletFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseFactory.h">
+      <Filter>Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>ObjectPool</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Component\Custom\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="AI.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseState.h">
+      <Filter>AI\FiniteStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="IdleState.h">
+      <Filter>AI\FiniteStateMachine\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="TraceState.h">
+      <Filter>AI\FiniteStateMachine\Trace</Filter>
+    </ClInclude>
+    <ClInclude Include="RangedState.h">
+      <Filter>AI\FiniteStateMachine\Ranged</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeState.h">
+      <Filter>AI\FiniteStateMachine\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="CurseDemonBullet.h">
+      <Filter>Component\Custom\Bullet\Monster\CurseDemonBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>Manager\EventManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Pistol.h">
+      <Filter>Component\Custom\Bullet\Player\Pistol</Filter>
+    </ClInclude>
+    <ClInclude Include="CurseDemon.h">
+      <Filter>Component\Custom\Monster\CurseDemon</Filter>
+    </ClInclude>
+    <ClInclude Include="IRangedBehaviour.h">
+      <Filter>AI\FiniteStateMachine\Ranged</Filter>
+    </ClInclude>
+    <ClInclude Include="IMeleeBehaviour.h">
+      <Filter>AI\FiniteStateMachine\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="IIdleBehaviour.h">
+      <Filter>AI\FiniteStateMachine\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="ITraceBehaviour.h">
+      <Filter>AI\FiniteStateMachine\Trace</Filter>
+    </ClInclude>
+    <ClInclude Include="IDLE_CurseDemon.h">
+      <Filter>Component\Custom\Monster\CurseDemon\AI_State\IDLE</Filter>
+    </ClInclude>
+    <ClInclude Include="RANGED_CurseDemon.h">
+      <Filter>Component\Custom\Monster\CurseDemon\AI_State\RANGED</Filter>
+    </ClInclude>
+    <ClInclude Include="MELEE_CurseDemon.h">
+      <Filter>Component\Custom\Monster\CurseDemon\AI_State\MELEE</Filter>
+    </ClInclude>
+    <ClInclude Include="Melee.h">
+      <Filter>Component\Custom\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeFactory.h">
+      <Filter>Factory\HitBoxFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="CurseDemonMelee.h">
+      <Filter>Component\Custom\Melee\Monster\CurseDemonMelee</Filter>
+    </ClInclude>
+    <ClInclude Include="PatrolState.h">
+      <Filter>AI\FiniteStateMachine\Patrol</Filter>
+    </ClInclude>
+    <ClInclude Include="IPatrolBehaviour.h">
+      <Filter>AI\FiniteStateMachine\Patrol</Filter>
+    </ClInclude>
+    <ClInclude Include="PATROL_CurseDemon.h">
+      <Filter>Component\Custom\Monster\CurseDemon\AI_State\PATROL</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Manager\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureResource.h">
+      <Filter>Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMelee.h">
+      <Filter>Component\Custom\Melee\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Graphics\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_IState.h">
+      <Filter>Animation\FiniteStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_StateMachine.h">
+      <Filter>Animation\FiniteStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_IdleState.h">
+      <Filter>Animation\FiniteStateMachine\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_JumpState.h">
+      <Filter>Animation\FiniteStateMachine\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_FallState.h">
+      <Filter>Animation\FiniteStateMachine\Fall</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_DeathState.h">
+      <Filter>Animation\FiniteStateMachine\Death</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_NormalAttackState.h">
+      <Filter>Animation\FiniteStateMachine\Attack\NormalAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_ToSprintState.h">
+      <Filter>Animation\FiniteStateMachine\Sprint\ToSprint</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_SprintingState.h">
+      <Filter>Animation\FiniteStateMachine\Sprint\Sprinting</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_DashState.h">
+      <Filter>Animation\FiniteStateMachine\Dash</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_JumpAttackState.h">
+      <Filter>Animation\FiniteStateMachine\Attack\JumpAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_SprintAttackState.h">
+      <Filter>Animation\FiniteStateMachine\Attack\SprintAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_RangeAttackState.h">
+      <Filter>Animation\FiniteStateMachine\Attack\RangeAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage02.h">
+      <Filter>Level\Stage02</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage03.h">
+      <Filter>Level\Stage03</Filter>
+    </ClInclude>
+    <ClInclude Include="StageTest.h">
+      <Filter>Level\StageTest</Filter>
+    </ClInclude>
+    <ClInclude Include="ExecutionerDemonFireBall.h">
+      <Filter>Component\Custom\Bullet\Monster\ExecutionerDemonFireBall</Filter>
+    </ClInclude>
+    <ClInclude Include="IDLE_ExecutionerDemon.h">
+      <Filter>Component\Custom\Monster\ExecutionerDemon\AI_State\IDLE</Filter>
+    </ClInclude>
+    <ClInclude Include="MELEE_ExecutionerDemon.h">
+      <Filter>Component\Custom\Monster\ExecutionerDemon\AI_State\MELEE</Filter>
+    </ClInclude>
+    <ClInclude Include="ExecutionerDemonMelee.h">
+      <Filter>Component\Custom\Melee\Monster\ExecutionerDemonMelee</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_WalkState.h">
+      <Filter>Animation\FiniteStateMachine\Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_HurtState.h">
+      <Filter>Animation\FiniteStateMachine\Hurt</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Light</Filter>
+    </ClInclude>
+    <ClInclude Include="LightManager.h">
+      <Filter>Manager\LightManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_NormalAttackState_2.h">
+      <Filter>Animation\FiniteStateMachine\Attack\NormalAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_NormalAttackState_3.h">
+      <Filter>Animation\FiniteStateMachine\Attack\NormalAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeMapResource.h">
+      <Filter>Resource\CubeMap</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>Component\Default\SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_LandState.h">
+      <Filter>Animation\FiniteStateMachine\Fall</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_HolySlash.h">
+      <Filter>Animation\FiniteStateMachine\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="HolySlashParticle.h">
+      <Filter>Particle\HolySlash</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystemManager.h">
+      <Filter>Manager\ParticleSystemManager</Filter>
+    </ClInclude>
+    <ClInclude Include="IParticleBehavior.h">
+      <Filter>Particle\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorOverLifeTime.h">
+      <Filter>Particle\Behaviour\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="SizeOverLifeTime.h">
+      <Filter>Particle\Behaviour\Size</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionOverLifeTime.h">
+      <Filter>Particle\Behaviour\Position</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>Component\Default\Collider\Ray</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingDemon.h">
+      <Filter>Component\Custom\Monster\FlyingDemon</Filter>
+    </ClInclude>
+    <ClInclude Include="IDLE_FlyingDemon.h">
+      <Filter>Component\Custom\Monster\FlyingDemon\AI_State\IDLE</Filter>
+    </ClInclude>
+    <ClInclude Include="MELEE_FlyingDemon.h">
+      <Filter>Component\Custom\Monster\FlyingDemon\AI_State\MELEE</Filter>
+    </ClInclude>
+    <ClInclude Include="PATROL_FlyingDemon.h">
+      <Filter>Component\Custom\Monster\FlyingDemon\AI_State\PATROL</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingDemonFireBall.h">
+      <Filter>Component\Custom\Bullet\Monster\FlyingDemonFireBall</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingDemonMelee.h">
+      <Filter>Component\Custom\Melee\Monster\FlyingDemonMelee</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_TakeOffState.h">
+      <Filter>Animation\FiniteStateMachine\Takeoff</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_FlyingState.h">
+      <Filter>Animation\FiniteStateMachine\Flying</Filter>
+    </ClInclude>
+    <ClInclude Include="TRACE_FlyingDemon.h">
+      <Filter>Component\Custom\Monster\FlyingDemon\AI_State\TRACE</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_ToDiveState.h">
+      <Filter>Animation\FiniteStateMachine\Dive\ToDive</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_DivingState.h">
+      <Filter>Animation\FiniteStateMachine\Dive\Diving</Filter>
+    </ClInclude>
+    <ClInclude Include="SmokeDemon.h">
+      <Filter>Component\Custom\Monster\SmokeDemon</Filter>
+    </ClInclude>
+    <ClInclude Include="IDLE_SmokeDemon.h">
+      <Filter>Component\Custom\Monster\SmokeDemon\AI_State\IDLE</Filter>
+    </ClInclude>
+    <ClInclude Include="PATROL_ExecutionerDemon.h">
+      <Filter>Component\Custom\Monster\ExecutionerDemon\AI_State\PATROL</Filter>
+    </ClInclude>
+    <ClInclude Include="ExecutionerDemon.h">
+      <Filter>Component\Custom\Monster\ExecutionerDemon</Filter>
+    </ClInclude>
+    <ClInclude Include="PATROL_SmokeDemon.h">
+      <Filter>Component\Custom\Monster\SmokeDemon\AI_State\PATROL</Filter>
+    </ClInclude>
+    <ClInclude Include="MELEE_SmokeDemon.h">
+      <Filter>Component\Custom\Monster\SmokeDemon\AI_State\MELEE</Filter>
+    </ClInclude>
+    <ClInclude Include="SmokeDemonMelee.h">
+      <Filter>Component\Custom\Melee\Monster\SmokingDemonMelee</Filter>
+    </ClInclude>
+    <ClInclude Include="SmokeAttackParticle.h">
+      <Filter>Particle\SmokeAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="CurseDemonBulletParticle.h">
+      <Filter>Particle\CurseDemonBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Component\Custom\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="IDLE_Boss.h">
+      <Filter>Component\Custom\Monster\Boss\AI_State\IDLE</Filter>
+    </ClInclude>
+    <ClInclude Include="MELEE_Boss.h">
+      <Filter>Component\Custom\Monster\Boss\AI_State\MELEE</Filter>
+    </ClInclude>
+    <ClInclude Include="PATROL_Boss.h">
+      <Filter>Component\Custom\Monster\Boss\AI_State\PATROL</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviorTreeNode.h">
+      <Filter>AI\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence.h">
+      <Filter>AI\BehaviorTree\ControlFlow</Filter>
+    </ClInclude>
+    <ClInclude Include="Selector.h">
+      <Filter>AI\BehaviorTree\ControlFlow</Filter>
+    </ClInclude>
+    <ClInclude Include="BTAgent.h">
+      <Filter>AI\BehaviorTree\Agent</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveToTarget.h">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackBoard.h">
+      <Filter>AI\BehaviorTree\BlackBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpAttack.h">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="BossMelee.h">
+      <Filter>Component\Custom\Melee\Monster\BossMelee</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalAttack.h">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeAttack.h">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="EnergyRayParticle.h">
+      <Filter>Particle\EnergyRay</Filter>
+    </ClInclude>
+    <ClInclude Include="Wait.h">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="LineLenderer.h">
+      <Filter>Graphics\LineRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomSelector.h">
+      <Filter>AI\BehaviorTree\ControlFlow</Filter>
+    </ClInclude>
+    <ClInclude Include="D_IsPlayerFar.h">
+      <Filter>AI\BehaviorTree\Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="D_IsPlayerInsideMeleeRange.h">
+      <Filter>AI\BehaviorTree\Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="D_IsHPLessThan.h">
+      <Filter>AI\BehaviorTree\Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="TeleportAttack.h">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_AppearState.h">
+      <Filter>Animation\FiniteStateMachine\Appear</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_DisappearState.h">
+      <Filter>Animation\FiniteStateMachine\Disappear</Filter>
+    </ClInclude>
+    <ClInclude Include="IsPlayerFar.h">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="IsPlayerNear.h">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="BossRange.h">
+      <Filter>Component\Custom\Bullet\Monster\BossRange\NormalRange</Filter>
+    </ClInclude>
+    <ClInclude Include="ConeRange.h">
+      <Filter>Component\Custom\Bullet\Monster\BossRange\ConeRange</Filter>
+    </ClInclude>
+    <ClInclude Include="ConeAttack.h">
+      <Filter>AI\BehaviorTree\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="WeightRandomSelector.h">
+      <Filter>AI\BehaviorTree\ControlFlow</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IMGUI\imgui.ini">
+      <Filter>IMGUI</Filter>
+    </None>
+    <None Include="vertex.vert">
+      <Filter>ShaderFiles\2D</Filter>
+    </None>
+    <None Include="fragment.frag">
+      <Filter>ShaderFiles\2D</Filter>
+    </None>
+    <None Include="vertex3d.vert">
+      <Filter>ShaderFiles\3D</Filter>
+    </None>
+    <None Include="fragment3d.frag">
+      <Filter>ShaderFiles\3D</Filter>
+    </None>
+    <None Include="line.vert">
+      <Filter>ShaderFiles\3D</Filter>
+    </None>
+    <None Include="line.frag">
+      <Filter>ShaderFiles\3D</Filter>
+    </None>
+    <None Include="json\Level\Stage01\Stage01_2D.json">
+      <Filter>Json\Stage01</Filter>
+    </None>
+    <None Include="json\Level\Stage01\Stage01_3D.json">
+      <Filter>Json\Stage01</Filter>
+    </None>
+    <None Include="json\Level\Stage02\Stage02_2D.json">
+      <Filter>Json\Stage02</Filter>
+    </None>
+    <None Include="json\Level\Stage02\Stage02_3D.json">
+      <Filter>Json\Stage02</Filter>
+    </None>
+    <None Include="json\Level\Stage03\Stage03_2D.json">
+      <Filter>Json\Stage03</Filter>
+    </None>
+    <None Include="json\Level\Stage03\Stage03_3D.json">
+      <Filter>Json\Stage03</Filter>
+    </None>
+    <None Include="json\Level\StageTest\StageTest_2D.json">
+      <Filter>Json\StageTest</Filter>
+    </None>
+    <None Include="json\Level\StageTest\StageTest_3D.json">
+      <Filter>Json\StageTest</Filter>
+    </None>
+    <None Include="vertexSkyBox.vert">
+      <Filter>ShaderFiles\Skybox</Filter>
+    </None>
+    <None Include="fragmenetSkyBox.frag">
+      <Filter>ShaderFiles\Skybox</Filter>
+    </None>
+    <None Include="Particles.vert">
+      <Filter>ShaderFiles\Particle</Filter>
+    </None>
+    <None Include="Particles.frag">
+      <Filter>ShaderFiles\Particle</Filter>
+    </None>
+    <None Include="json\Prefab\Player\Slash\Slash_Prefab.json">
+      <Filter>Json\Prefab</Filter>
+    </None>
+  </ItemGroup>
+</Project>

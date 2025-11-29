@@ -1,0 +1,60 @@
+#pragma once
+#include "Singleton.h"
+#include <vector>
+#include "header.h"
+
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include "Mesh.h"
+
+class Model;
+class TextureResource;
+
+class ModelManager
+{
+public:
+	SINGLETON(ModelManager);
+//todo : temp임 나중에 리펙토링  하셈
+public:
+	std::vector<Model*> m_vModels;	
+	std::vector<size_t> m_vMaterials;
+	std::vector<TextureResource*> m_vTextureList;
+public:
+	inline void AddModel(Model* _model){ m_vModels.push_back(_model); }
+	inline std::vector<Model*> GetAllModels() { return m_vModels; }
+	Model* FindModel(const std::string& _modelName);
+	Model* FindModel(MODEL_TYPE _modelType);
+public:
+	Model* m_pCustomModel = nullptr;
+public:
+	void Init();
+	void Exit();
+//2d
+private:
+	void LineInit();
+	void TriangleInit();
+	void CircleInit();
+	void RectangleInit();
+//3d
+private:
+	void PlaneInit();
+	void CubeInit();
+	void ConeInit(int _slices);
+	void SkyBoxInit();
+public:
+	Model* LoadModel(const std::string& _filePath); // 모델을 메모리에 올린다.	
+	void ClearModel(); // 메모리에서 내린다.	
+private:
+	// 재귀호출되며 노드를 순회하기 위한 함수
+	void LoadNode(aiNode* _node, const aiScene* _scene ,const aiMatrix4x4& parentTransform = aiMatrix4x4());
+	// 실제 메시 오브젝트를 참조하여 버텍스 정보를 로드한다.
+	void LoadMesh(aiMesh* _mesh, const aiScene* _scene, const aiMatrix4x4& transform);
+	// 텍스쳐를 로드한다.
+	void LoadMaterials(const aiScene* _scene,const std::string& _filePath);
+private:
+	std::vector<glm::vec3> GetVertexNormal(std::vector<glm::vec3> _verticesPos,std::vector<unsigned int> _indices);
+	void CaculateTangent(std::vector<Mesh::VertexAttribute>& _vertices, std::vector<unsigned int> _indices);
+public:
+	static int g_mesh_cnt;
+};

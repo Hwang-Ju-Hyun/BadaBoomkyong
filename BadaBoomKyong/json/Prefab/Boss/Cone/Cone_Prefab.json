@@ -1,0 +1,63 @@
+[ 
+  {
+    "Name": "ConeBullet",
+    "ID": 0,
+    "Is3D": true,
+    "Components": [
+        {
+            "Type": "Transform",
+            "CompData": {
+                "Pos": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "Sca": [
+                    50.0,
+                    50.0,
+                    50.0
+                ],
+                "Rot": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ]
+            }
+        },
+        {
+            "Type": "Sprite",
+            "CompData": {
+                "RGBA": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]                
+            }
+        },
+        {
+            "Type": "Collider",
+            "CompData": {
+                "Offset_Position": [
+                    0.0,
+                    -20.0,
+                    0.0
+                ],
+                "Scale": [
+                    40.0,
+                    110.0,
+                    450.0
+                ]
+            }
+        },
+        {
+            "Type": "ConeRange",
+            "CompData": {
+                "Speed": 10.0
+            }
+        }
+    ],
+    "Model": 8,
+    "Group": 2
+  }
+]
