@@ -21,6 +21,8 @@
 #include "ResourceManager.h"
 #include "Stage02.h"
 #include "StageTest.h"
+#include "UIManager.h"
+#include "TimeManager.h"
 
 Application::Application(){}
 
@@ -60,6 +62,7 @@ void Application::Init()
     RenderManager::GetInstance()->Init();
     RenderManager::GetInstance()->InitDebugLineShader();
   
+    UIManager::GetInstance()->Init();
 #ifdef _DEBUG
     //MainEditor
     MainEditor::GetInstance()->Init();
@@ -73,7 +76,8 @@ void Application::Update()
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     glfwPollEvents();
     auto handle = Window::GetInstance()->GetWindowHandle();
-    
+    float dt = TimeManager::GetInstance()->GetDeltaTime();
+
     //Active
     GameObjectManager::GetInstance()->Awake();
 
@@ -88,6 +92,10 @@ void Application::Update()
 
     //Collision
     CollisionManager::GetInstance()->Update();
+
+    //UI
+    UIManager::GetInstance()->Update(dt);
+
 
 #ifdef _DEBUG
     //Main Editor

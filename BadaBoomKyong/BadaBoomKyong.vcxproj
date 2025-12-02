@@ -279,6 +279,8 @@
     <ClCompile Include="TraceState.cpp" />
     <ClCompile Include="TRACE_FlyingDemon.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="UIManager.cpp" />
+    <ClCompile Include="UIPanel.cpp" />
     <ClCompile Include="UIWidget.cpp" />
     <ClCompile Include="Wait.cpp" />
     <ClCompile Include="WeightRandomSelector.cpp" />
@@ -459,6 +461,8 @@
     <ClInclude Include="TraceState.h" />
     <ClInclude Include="TRACE_FlyingDemon.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="UIManager.h" />
+    <ClInclude Include="UIPanel.h" />
     <ClInclude Include="UIWidget.h" />
     <ClInclude Include="Wait.h" />
     <ClInclude Include="WeightRandomSelector.h" />
@@ -482,6 +486,8 @@
     <None Include="line.vert" />
     <None Include="Particles.frag" />
     <None Include="Particles.vert" />
+    <None Include="UI.frag" />
+    <None Include="UI.vert" />
     <None Include="vertex.vert" />
     <None Include="vertex3d.vert" />
     <None Include="vertexSkyBox.vert" />

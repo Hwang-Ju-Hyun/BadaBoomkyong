@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <iostream>
 
 class GameObject;
 
@@ -30,5 +31,7 @@ public:
 	void DeleteAllObject();	
 private:
 	size_t AssignObjectID(GameObject* _obj);
+public:
+	inline void GameRestart() { std::cout << "RESTART!" << std::endl; }
 };
 

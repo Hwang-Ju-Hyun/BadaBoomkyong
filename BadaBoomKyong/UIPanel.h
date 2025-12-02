@@ -5,12 +5,12 @@
 
 class Camera;
 
-class UIButton :
+class UIPanel :
     public UIWidget
 {
 public:
-    UIButton(UICanvas* _owner=nullptr,float _x = 0.f, float _y = 0.f,float _z=0.f,float _width = 0.f, float _height = 0.f);
-    virtual ~UIButton()override;
+    UIPanel(UICanvas* _owner = nullptr, float _x = 0.f, float _y = 0.f, float _z = 0.f, float _width = 0.f, float _height = 0.f);
+    virtual ~UIPanel()override;
 public:
     std::function<void()> m_fpMouseOn;
     std::function<void()> m_fpMouseClick;

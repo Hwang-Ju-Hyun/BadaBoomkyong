@@ -11,6 +11,7 @@
 #include "EventManager.h"
 #include <string>
 #include <sstream>
+#include "UIManager.h"
 
 #ifdef _DEBUG
 #include <vld.h>
@@ -32,7 +33,10 @@ void main(void)
 		TimeManager::m_dLastFrame = CurrentTime;		
 
 		Application::GetInstance()->Update();
-		RenderManager::GetInstance()->Draw();		
+
+		RenderManager::GetInstance()->Draw();
+        UIManager::GetInstance()->Render();
+
 		//Event
 		EventManager::GetInstance()->Update();
 

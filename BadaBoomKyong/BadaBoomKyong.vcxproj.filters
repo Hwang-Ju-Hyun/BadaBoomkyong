@@ -521,6 +521,15 @@
     <Filter Include="UI\Widget\Button">
       <UniqueIdentifier>{30f24463-ae76-4d67-8bd0-f888065c0ae1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\UIManager">
+      <UniqueIdentifier>{a4f2bbf5-8efb-4a0b-8ed0-29b8201ddb97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderFiles\UI">
+      <UniqueIdentifier>{b7bc1853-b156-4915-91e5-9b97facb84b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Widget\Panel">
+      <UniqueIdentifier>{16a9d7b3-f364-43d5-88ea-e643384a863c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -945,6 +954,12 @@
     </ClCompile>
     <ClCompile Include="UIButton.cpp">
       <Filter>UI\Widget\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>Manager\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="UIPanel.cpp">
+      <Filter>UI\Widget\Panel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1482,6 +1497,12 @@
     <ClInclude Include="UIButton.h">
       <Filter>UI\Widget\Button</Filter>
     </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>Manager\UIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="UIPanel.h">
+      <Filter>UI\Widget\Panel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="IMGUI\imgui.ini">
@@ -1543,6 +1564,12 @@
     </None>
     <None Include="json\Prefab\Player\Slash\Slash_Prefab.json">
       <Filter>Json\Prefab</Filter>
+    </None>
+    <None Include="UI.vert">
+      <Filter>ShaderFiles\UI</Filter>
+    </None>
+    <None Include="UI.frag">
+      <Filter>ShaderFiles\UI</Filter>
     </None>
   </ItemGroup>
 </Project>

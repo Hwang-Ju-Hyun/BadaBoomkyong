@@ -64,6 +64,10 @@ void RenderManager::InitDebugLineShader()
 	debugLineShader->CreateShaderProgramFromFiles("line.vert", "line.frag");
 	m_debugLineShader = debugLineShader;
 }
+#include "UIManager.h"
+#include "UICanvas.h"
+#include "UIWidget.h"
+#include "UIButton.h"
 
 static float x = 0.f;
 void RenderManager::Init()
@@ -80,6 +84,9 @@ void RenderManager::Init()
 	const char* vsFile_Particle = "Particles.vert";
 	const char* fsFile_Particle = "Particles.frag";
 
+	const char* vsFile_UI = "UI.vert";
+	const char* fsFile_UI = "UI.frag";
+
 	for (int i = 0;i<int(SHADER_REF::SHADER_REF_LAST);i++)
 	{
 		Shader* shdr = new Shader;
@@ -89,9 +96,8 @@ void RenderManager::Init()
 	m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->CreateShaderProgramFromFiles(vsFile_2D, fsFile_2D);
 	m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->CreateShaderProgramFromFiles(vsFile_3D, fsFile_3D);
 	m_vShdr[int(SHADER_REF::SKYBOX)]->CreateShaderProgramFromFiles(vsFile_SkyBox, fsFile_SkyBox);
-	m_vShdr[int(SHADER_REF::PARTICLES)]->CreateShaderProgramFromFiles(vsFile_Particle, fsFile_Particle);
-
-	
+	m_vShdr[int(SHADER_REF::PARTICLES)]->CreateShaderProgramFromFiles(vsFile_Particle, fsFile_Particle);	
+	m_vShdr[int(SHADER_REF::UI)]->CreateShaderProgramFromFiles(vsFile_UI, fsFile_UI);
 	
 	m_pParticleSystem = new ParticleSystem;
 		
@@ -122,6 +128,7 @@ void RenderManager::ShaderUniformInit()
 	auto shdr_handle_3D = m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->GetShaderProgramHandle();
 	auto shdr_handle_skybox = m_vShdr[int(SHADER_REF::SKYBOX)]->GetShaderProgramHandle();
 	auto shdr_handle_particle = m_vShdr[int(SHADER_REF::PARTICLES)]->GetShaderProgramHandle();
+	auto shdr_handle_ui = m_vShdr[int(SHADER_REF::UI)]->GetShaderProgramHandle();
 
 	m_iMVP_Location = RegistOrGetUniformLocation(shdr_handle_3D, "uMVP");
 	m_iM2W_Location = RegistOrGetUniformLocation(shdr_handle_3D, "uM2W");
@@ -692,7 +699,30 @@ void RenderManager::Draw()
 		}	
 	}	
 	glDepthMask(GL_TRUE); // 다시 켜기
-	
+
+
+	//=============
+	//=============
+	//=====UI======
+	//=============
+	//=============
+	m_vShdr[int(SHADER_REF::UI)]->Use();
+	auto shdr_ui = m_vShdr[int(SHADER_REF::UI)]->GetShaderProgramHandle();
+	for (auto c : UIManager::GetInstance()->m_vecCanvases)
+	{		
+		c->m_iUiTransform_location = glGetUniformLocation(shdr_ui, "u_MVP");
+		assert(c->m_iUiTransform_location >= 0);
+		c->m_iUiShaderColor_location = glGetUniformLocation(shdr_ui, "u_Color");
+		assert(c->m_iUiShaderColor_location >= 0);		
+		c->Render();
+	}
+	m_vShdr[int(SHADER_REF::UI)]->Diuse();
+	//=============
+	//=============
+	//=====UI======
+	//=============
+	//=============
+
 #ifdef _DEBUG
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

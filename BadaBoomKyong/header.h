@@ -26,7 +26,8 @@ enum class GROUP_TYPE
 	MELEE=5,
 	PORTAL=6,
 	DEATH_ZONE=7,
-	
+
+	UI=8,
 	LAST
 };
 
@@ -36,6 +37,7 @@ enum class SHADER_REF
 	THREE_DIMENSIONS = 1,
 	SKYBOX,
 	PARTICLES,
+	UI,
 	SHADER_REF_LAST
 	
 };

@@ -1,26 +1,27 @@
-#include "UIButton.h"
+#include "UIPanel.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <gtc/type_ptr.hpp>
-#include "UICanvas.h"
 #include "Camera.h"
+#include "UICanvas.h"
 #include "Window.h"
 
-UIButton::UIButton(UICanvas* _owner,float _x, float _y,float _z, float _width, float _height)
-	:UIWidget(_owner,_x,_y,_z,_width,_height)
-{	
-	m_vColor = { 1.f,0.f,0.f,1.f };
+
+UIPanel::UIPanel(UICanvas* _owner, float _x, float _y, float _z, float _width, float _height)
+    :UIWidget(_owner,_x,_y,_z,_width,_height)
+{
+	m_vColor = { 0.f,1.f,0.f,1.f };
 }
 
-UIButton::~UIButton()
+UIPanel::~UIPanel()
 {
 }
 
-void UIButton::Update(float _dt)
+void UIPanel::Update(float _dt)
 {
 }
 
-void UIButton::RenderScreenSpace()
+void UIPanel::RenderScreenSpace()
 {
 	float screenWidth = Window::GetInstance()->GetWindowWidth();
 	float screenHeight = Window::GetInstance()->GetWindowHeight();
@@ -44,17 +45,16 @@ void UIButton::RenderScreenSpace()
 	UIWidget::RenderScreenSpace();
 }
 
-void UIButton::RenderWorldSpace(const Camera* _cam)
-{			
-				
+void UIPanel::RenderWorldSpace(const Camera* _cam)
+{
 	glm::mat4 model(1.0f);
 	glm::mat4 translate = glm::translate(model, glm::vec3(GetAbsoluteX(), GetAbsoluteY(), GetAbsoluteZ()));
-	glm::mat4 scale = glm::scale(model, glm::vec3(m_fWidth, m_fHeight,1.f));
+	glm::mat4 scale = glm::scale(model, glm::vec3(m_fWidth, m_fHeight, 1.f));
 
-	glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f),0.f, glm::vec3(0, 0, 1));
+	glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f), 0.f, glm::vec3(0, 0, 1));
 
 
-	glm::mat4 m2w = translate * rotateZ* scale;
+	glm::mat4 m2w = translate * rotateZ * scale;
 
 	glm::mat4 proj = _cam->GetProjMatrix();
 	glm::mat4 view = _cam->GetViewMatrix();
@@ -64,27 +64,28 @@ void UIButton::RenderWorldSpace(const Camera* _cam)
 	glUniform4fv(GetOwner()->m_iUiShaderColor_location, 1, glm::value_ptr(m_vColor));
 	glBindVertexArray(GetOwner()->VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-	// ÀÚ½Äµµ ·»´õ
-	UIWidget::RenderWorldSpace(_cam);
 }
 
-bool UIButton::IsMouseOnInput(float _mouseX, float _mouseY, bool _IsMouseOn)
+#include <iostream>
+bool UIPanel::IsMouseOnInput(float _mouseX, float _mouseY, bool _IsMouseOn)
 {
 	float x = GetAbsoluteX();
 	float y = GetAbsoluteY();
 
-	if (_mouseX <= x && _mouseY <= y&& _IsMouseOn)
-	{
 
+	std::cout << "Screen Pos : " << x << " , " << y << std::endl;
+	std::cout << std::endl;
+	if (_mouseX <= x && _mouseY <= y && _IsMouseOn)
+	{
 		m_fpMouseOn();
 		return true;
 	}
 	return false;
 }
 
-bool UIButton::IsMouseClickedInput(float _mouseX, float _mouseY, bool _IsMouseClicked)
+bool UIPanel::IsMouseClickedInput(float _mouseX, float _mouseY, bool _IsMouseClicked)
 {
+
 	float x = GetAbsoluteX();
 	float y = GetAbsoluteY();
 

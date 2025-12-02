@@ -21,6 +21,13 @@
 #include "Stage03.h"
 #include "GameStateManager.h"
 
+
+#include "UICanvas.h"
+#include "UIWidget.h"
+#include "UIButton.h"
+#include "UIManager.h"
+#include "UIPanel.h"
+
 Stage02::Stage02(STAGE_TYPE _stageType,const std::string& _name)
 	:BaseLevel(_stageType,_name)
 {
@@ -59,6 +66,28 @@ void Stage02::Init()
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MONSTER, GROUP_TYPE::PLATFORM);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLATFORM);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PORTAL);
+
+
+	UICanvas* canvas = new UICanvas(UIRenderSpace::WORLD_SPACE);
+	UIWidget* widget = new UIWidget(canvas);
+	UIButton* btn = new UIButton(widget->GetOwner(), 228.353f, 641.322f, 597.875f, 1000.f, 10000.f);
+	canvas->Init();
+	widget->AddChild(btn);
+	canvas->AddChild(widget);
+
+
+	UICanvas* canvas_s = new UICanvas(UIRenderSpace::SCREEN_SPACE);
+	UIWidget* widget_s = new UIWidget(canvas_s);
+	UIPanel* panel_s = new UIPanel(widget_s->GetOwner(), 50.f, 900.f,0.f, 50.f, 50.f);
+
+	canvas_s->Init();
+	widget_s->AddChild(panel_s);
+	canvas_s->AddChild(widget_s);
+
+	panel_s->m_fpMouseOn = []() {GameObjectManager::GetInstance()->GameRestart();};
+
+	UIManager::GetInstance()->AddCanvas(canvas);
+	UIManager::GetInstance()->AddCanvas(canvas_s);
 }
 
 void Stage02::Update()
