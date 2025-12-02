@@ -159,6 +159,8 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletFactory.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="UIButton.cpp" />
+    <ClCompile Include="UICanvas.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="ColorOverLifeTime.cpp" />
@@ -277,6 +279,7 @@
     <ClCompile Include="TraceState.cpp" />
     <ClCompile Include="TRACE_FlyingDemon.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="UIWidget.cpp" />
     <ClCompile Include="Wait.cpp" />
     <ClCompile Include="WeightRandomSelector.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -321,6 +324,8 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletFactory.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="UIButton.h" />
+    <ClInclude Include="UICanvas.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="ColorOverLifeTime.h" />
@@ -454,6 +459,7 @@
     <ClInclude Include="TraceState.h" />
     <ClInclude Include="TRACE_FlyingDemon.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="UIWidget.h" />
     <ClInclude Include="Wait.h" />
     <ClInclude Include="WeightRandomSelector.h" />
     <ClInclude Include="Window.h" />

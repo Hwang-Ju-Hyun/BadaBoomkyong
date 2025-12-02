@@ -147,9 +147,14 @@ void Player::EnterCollision(Collider* _other)
 {		
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
 	{
-		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());		
+		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());
 		jumpPressed = false;			
-	}		
+	}	
+	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::DEATH_ZONE)
+	{
+		std::cout << "Enter : lava col" << std::endl;
+		m_iCurrentHP = 0;
+	}
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PORTAL)
 	{
 		if (GameStateManager::GetInstance()->GetCurrentLevel()->GetStageType() == STAGE_TYPE::STAGE_01)
@@ -170,7 +175,7 @@ void Player::OnCollision(Collider* _other)
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PLATFORM)
 	{
 		GeometryUtil::GetInstance()->HandlePosition_CollisionAABB(_other->GetOwner(), this->GetOwner());
-	}
+	}	
 }
 
 void Player::ExitCollision(Collider* _other)
@@ -334,9 +339,7 @@ void Player::Death()
 	if (!m_bIsAlive)
 	{
 		m_bIsHurting = false;
-		m_eCurrentState = PlayerAnimState::DEATH;
-		if(m_pAnimator->GetAnimation()->m_bLoopCount==1)
-			EventManager::GetInstance()->SetActiveFalse(GetOwner());
+		m_eCurrentState = PlayerAnimState::DEATH;		
 	}
 }
 
@@ -365,6 +368,8 @@ void Player::ComboUpdate()
 
 void Player::StateHandler()
 {
+	if (m_eCurrentState == PlayerAnimState::DEATH)
+		return;
 	if (m_bIsSprinting)
 		std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon ? m_bIsSprinting = false : m_bIsSprinting = true;
 

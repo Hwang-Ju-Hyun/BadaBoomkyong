@@ -25,6 +25,7 @@ enum class GROUP_TYPE
 	PLATFORM =4,
 	MELEE=5,
 	PORTAL=6,
+	DEATH_ZONE=7,
 	
 	LAST
 };

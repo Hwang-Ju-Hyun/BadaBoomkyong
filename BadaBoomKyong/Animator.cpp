@@ -97,7 +97,7 @@ void Animator::Update()
 }
 
 void Animator::Exit()
-{	
+{
 }
 
 AnimationSpriteSheet* Animator::AddSpriteSheet(std::string _name, AnimationSpriteSheet* _clip)

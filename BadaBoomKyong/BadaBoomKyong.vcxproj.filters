@@ -509,6 +509,18 @@
     <Filter Include="Component\Custom\Bullet\Monster\BossRange\NormalRange">
       <UniqueIdentifier>{4e4e69d7-b02e-4ccd-9c1a-8be37660a803}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{849c4d79-e8f5-4e6e-9eb9-8dcaf6c317ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Canvas">
+      <UniqueIdentifier>{0e791370-0f2f-4b73-abee-a1aee059d621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Widget">
+      <UniqueIdentifier>{517b60b7-ad57-4d4e-855c-3492c14bc480}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Widget\Button">
+      <UniqueIdentifier>{30f24463-ae76-4d67-8bd0-f888065c0ae1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -924,6 +936,15 @@
     </ClCompile>
     <ClCompile Include="WeightRandomSelector.cpp">
       <Filter>AI\BehaviorTree\ControlFlow</Filter>
+    </ClCompile>
+    <ClCompile Include="UICanvas.cpp">
+      <Filter>UI\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="UIWidget.cpp">
+      <Filter>UI\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UIButton.cpp">
+      <Filter>UI\Widget\Button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1451,6 +1472,15 @@
     </ClInclude>
     <ClInclude Include="WeightRandomSelector.h">
       <Filter>AI\BehaviorTree\ControlFlow</Filter>
+    </ClInclude>
+    <ClInclude Include="UICanvas.h">
+      <Filter>UI\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="UIWidget.h">
+      <Filter>UI\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButton.h">
+      <Filter>UI\Widget\Button</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
