@@ -23,41 +23,50 @@ UICanvas::~UICanvas()
 
 void UICanvas::Init()
 {
+
 	float vertices[] = {
-		0.f, 0.f, 0.f,
-		1.f, 0.f, 0.f,
-		1.f, 1.f, 0.f,
-		0.f, 1.f, 0.f
+		// x    y    z      u    v
+		 0.f, 0.f, 0.f,   0.f, 0.f,  // bottom-left
+		 1.f, 0.f, 0.f,   1.f, 0.f,  // bottom-right
+		 1.f, 1.f, 0.f,   1.f, 1.f,  // top-right
+		 0.f, 1.f, 0.f,   0.f, 1.f   // top-left
 	};
-	unsigned int indices[] = { 0,1,2, 2,3,0 };
+	unsigned int indices[] = { 0, 1, 2, 2, 3, 0 };
 
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
 
 	glBindVertexArray(VAO);
+
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	// Vertex Positions
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
+
+	// Vertex UVs
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+
 	glBindVertexArray(0);
 }
-#include <iostream>
 
+#include <iostream>
+#include "GeometryUtill.h"
 void UICanvas::Update(float _dt)
 {
 	glm::vec2 mouse_pos=InputManager::GetInstance()->GetCursorPostion();
-	std::cout << mouse_pos.x << " , " << mouse_pos.y << std::endl;
+	glm::vec2 mouse_screen_pos = GeometryUtil::GetInstance()->GetScreenPointFromWorld(mouse_pos);		
 	for (const auto& it : m_vecChild)
 	{
-		it->IsMouseOnInput(mouse_pos.x,mouse_pos.y,false);
+		it->IsMouseOnInput(mouse_screen_pos.x, mouse_screen_pos.y,true);
 		it->Update(_dt);
-	}
-		
+	}		
 }
 
 void UICanvas::Render()

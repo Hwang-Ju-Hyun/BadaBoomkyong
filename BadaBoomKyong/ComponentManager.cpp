@@ -32,10 +32,11 @@ void ComponentManager::DeleteComponent(BaseComponent* _comp)
 void ComponentManager::Init()
 {
 	for (auto comp : m_vComponents)
-	{
+	{	
 		if (comp != nullptr)
 			comp->Init();
 	}
+	
 }
 
 void ComponentManager::Awake()

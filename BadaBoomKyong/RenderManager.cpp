@@ -714,6 +714,15 @@ void RenderManager::Draw()
 		assert(c->m_iUiTransform_location >= 0);
 		c->m_iUiShaderColor_location = glGetUniformLocation(shdr_ui, "u_Color");
 		assert(c->m_iUiShaderColor_location >= 0);		
+		c->m_iUiHas_texture_location = glGetUniformLocation(shdr_ui, "uHasTexture");
+		assert(c->m_iUiHas_texture_location >= 0);
+		c->m_iUiOut_texture_location = glGetUniformLocation(shdr_ui, "uOutTexture");
+		assert(c->m_iUiOut_texture_location>= 0);
+		c->m_iUV_Offset_Location = glGetUniformLocation(shdr_ui, "uUV_Offset");
+		assert(c->m_iUV_Offset_Location);
+		c->m_iUV_Scale_Location= glGetUniformLocation(shdr_ui, "uUV_Scale");
+		assert(c->m_iUV_Scale_Location);
+
 		c->Render();
 	}
 	m_vShdr[int(SHADER_REF::UI)]->Diuse();

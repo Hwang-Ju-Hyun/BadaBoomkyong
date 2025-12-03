@@ -15,7 +15,8 @@ glm::vec2 InputManager::m_vCursorPosition = {};
 
 void InputManager::CursorWorldPositionCallBack(GLFWwindow* _window, double _xpos, double _ypos)
 {
-    m_vCursorPosition = GetWolrdPosFromScreenPos(glm::vec2{ _xpos,_ypos });   
+    
+    m_vCursorPosition = GetWolrdPosFromScreenPos(glm::vec2{ _xpos,_ypos});   
 }
 
 void InputManager::KeyboardCallBack(GLFWwindow* _window, int _key, int _scancode, int _action, int _mods)
@@ -139,7 +140,7 @@ void InputManager::Init()
     }
 
     glfwSetKeyCallback(Window::GetInstance()->GetWindowHandle(), KeyboardCallBack);
-    glfwSetCursorPosCallback(Window::GetInstance()->GetWindowHandle(), CursorWorldPositionCallBack);
+    glfwSetCursorPosCallback(Window::GetInstance()->GetWindowHandle(), CursorWorldPositionCallBack);    
     glfwSetMouseButtonCallback(Window::GetInstance()->GetWindowHandle(), MouseButtonCallBack);
 }
 void InputManager::Update()
@@ -155,8 +156,8 @@ glm::vec2 InputManager::GetWolrdPosFromScreenPos(glm::vec2 _pos)
     GLint window_height=Window::GetInstance()->GetWindowHeight();
 
     int pos_x = _pos.x;
-    int pos_y = _pos.y;
-    glm::vec2 world_pos = { pos_x - (window_width / 2),(pos_y - (window_height / 2))*-1 };
+    int pos_y = _pos.y;    
 
+    glm::vec2 world_pos = { pos_x - (window_width / 2),(pos_y - (window_height / 2))*-1 };    
     return world_pos;
 }

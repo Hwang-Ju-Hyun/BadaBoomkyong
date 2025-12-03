@@ -5,7 +5,8 @@
 #include "Camera.h"
 #include "UICanvas.h"
 #include "Window.h"
-
+#include "ResourceManager.h"
+#include "TextureResource.h"
 
 UIPanel::UIPanel(UICanvas* _owner, float _x, float _y, float _z, float _width, float _height)
     :UIWidget(_owner,_x,_y,_z,_width,_height)
@@ -60,10 +61,31 @@ void UIPanel::RenderWorldSpace(const Camera* _cam)
 	glm::mat4 view = _cam->GetViewMatrix();
 	glm::mat4 mvp = proj * view * m2w;
 
+
+	if (m_pTexture != nullptr)
+	{
+		GLuint tex_id = m_pTexture->GetTextureID();
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, tex_id);
+		glUniform1i(GetOwner()->m_iUiOut_texture_location, 0);
+		glUniform1i(GetOwner()->m_iUiHas_texture_location, true);
+	}
+	else
+	{
+		glUniform1i(GetOwner()->m_iUiHas_texture_location, false);
+	}
+	
+
 	glUniformMatrix4fv(GetOwner()->m_iUiTransform_location, 1, GL_FALSE, glm::value_ptr(mvp));
 	glUniform4fv(GetOwner()->m_iUiShaderColor_location, 1, glm::value_ptr(m_vColor));
 	glBindVertexArray(GetOwner()->VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+}
+
+TextureResource* UIPanel::LoadTexture(const std::string& _name, const std::string& _path)
+{
+	m_pTexture = static_cast<TextureResource*>(ResourceManager::GetInstance()->GetAndLoad(_name, _path));
+	return m_pTexture;
 }
 
 #include <iostream>
@@ -75,7 +97,9 @@ bool UIPanel::IsMouseOnInput(float _mouseX, float _mouseY, bool _IsMouseOn)
 
 	std::cout << "Screen Pos : " << x << " , " << y << std::endl;
 	std::cout << std::endl;
-	if (_mouseX <= x && _mouseY <= y && _IsMouseOn)
+	if (_mouseX <= x+m_fWidth&&_mouseX>=x
+		&& _mouseY <= y&& _mouseY >= y-m_fHeight
+		&& _IsMouseOn)
 	{
 		m_fpMouseOn();
 		return true;

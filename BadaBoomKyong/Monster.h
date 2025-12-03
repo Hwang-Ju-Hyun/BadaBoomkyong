@@ -15,6 +15,7 @@ class IMeleeBehaviour;
 class IPatrolBehaviour;
 class ITraceBehaviour;
 class IMeleeBehaviour;
+class UIPanel;
 
 template<typename T>
 class AnimStateMachine;
@@ -142,4 +143,8 @@ public:
     static constexpr const char* JumpForceName = "JumpForce";
     static constexpr const char* MeleeAtkCoolTimeName = "MeleeAtkCoolTime";
     static constexpr const char* RangeAtkCoolTimeName = "RangeAtkCoolTime";
+public:
+    void InitHPBarUi();
+    UIPanel* m_pHPPanelUI;
+    UIPanel* m_pHPPanelBorderUI;
 };

@@ -26,8 +26,11 @@ public:
     int m_iUiShaderViewProj_location;
     int m_vUiShaderTransform;
     int m_iUiShaderColor_location;
-    int m_iUiShaderMVP;
-
+    int m_iUiShaderMVP;    
+    int m_iUiHas_texture_location;
+    int m_iUiOut_texture_location;
+    int m_iUV_Offset_Location;
+    int m_iUV_Scale_Location;
     UIWidget* m_pRoot;
     UIRenderSpace m_eRenderSpace;
 public:

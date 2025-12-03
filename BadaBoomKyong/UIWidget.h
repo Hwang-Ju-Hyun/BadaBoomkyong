@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <glm.hpp>
 
 class Camera;
 class UICanvas;
@@ -26,6 +27,10 @@ public:
 public:
     virtual void Update(float _dt);    
 
+    inline void SetPos(float _x, float _y, float _z) { m_fX = _x;m_fY = _y;m_fZ = _z; }
+    inline void SetScale(float _width, float _height) { m_fWidth = _width;m_fHeight = _height; }
+    glm::vec3 const GetPos()const { return glm::vec3{ m_fX,m_fY,m_fZ }; }
+    glm::vec2 const GetScale()const { return glm::vec2{ m_fWidth,m_fHeight }; }
     virtual void RenderScreenSpace();
     virtual void RenderWorldSpace(const Camera* _cam);
 protected:

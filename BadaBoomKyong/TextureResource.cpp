@@ -42,6 +42,8 @@ void TextureResource::Load(const std::string& _path)
     GLenum format;
     if (m_iNrChannels == 1)
         format = GL_RED;
+    else if (m_iNrChannels==2)
+        format = GL_RGBA;
     else if (m_iNrChannels == 3)
         format = GL_RGB;
     else if (m_iNrChannels == 4)

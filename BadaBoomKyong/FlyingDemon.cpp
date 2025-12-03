@@ -30,6 +30,7 @@
 #include "Anim_ToDiveState.h"
 #include "Anim_DivingState.h"
 #include "Anim_NormalAttackState.h"
+#include "UIPanel.h"
 
 bool FlyingDemon::Goup = false;
 
@@ -82,10 +83,16 @@ void FlyingDemon::Init()
 	m_pRigidBody= dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
 
 	m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
+	InitHPBarUi();
 }
 
 void FlyingDemon::Update()
-{
+{	
+	glm::vec3 pos = m_pTransform->GetPosition();
+	glm::vec3 scale = m_pTransform->GetScale();
+
+	m_pHPPanelUI->SetPos(pos.x-20.f, pos.y+15.f, pos.z);
+
 	if (GetIsAlive())
 	{
 		UpdateSpriteFlipX();

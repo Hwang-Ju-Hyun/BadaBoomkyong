@@ -15,6 +15,7 @@ public:
 public:
 	//void HandlePosition_CollisionAABB(GameObject* _obj1, GameObject* _obj2);	
 	void HandlePosition_CollisionAABB(GameObject* _groundObj, GameObject* _otherObj);
+	glm::vec2 GetScreenPointFromWorld(glm::vec2 _worldPoint);
 	bool CollisionFromLeft = false;
 	bool CollisionFromRight= false;
 	bool CollisionFromBottom=false;

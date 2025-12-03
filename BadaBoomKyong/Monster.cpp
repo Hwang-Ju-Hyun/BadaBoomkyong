@@ -16,6 +16,12 @@
 #include "BulletFactory.h"
 #include "TimeManager.h"
 
+#include "UICanvas.h"
+#include "UIWidget.h"
+#include "UIButton.h"
+#include "UIManager.h"
+#include "UIPanel.h"
+#include "TextureResource.h"
 Monster::Monster(GameObject* _owner)
 	:MonoBehaviour(_owner)
 {		
@@ -114,4 +120,30 @@ const std::string Monster::GetCurrentAnimState()
 	default:
 		break;
 	}
+}
+
+void Monster::InitHPBarUi()
+{
+	glm::vec3 pos = m_pTransform->GetPosition();
+	glm::vec3 scale = m_pTransform->GetScale();
+
+	UICanvas* canvas = new UICanvas(UIRenderSpace::WORLD_SPACE);
+	UIWidget* HP_BloodWidget = new UIWidget(canvas);	
+
+	
+	m_pHPPanelBorderUI = new UIPanel(HP_BloodWidget->GetOwner(), pos.x - 20.f, pos.y + 15.f, pos.z, 160.f, 87.f);	
+	TextureResource* hp_border_tex = m_pHPPanelBorderUI->LoadTexture("HP_Bar", "../Extern/Assets/Texture/UI/Health_Bars/Style_2.png");
+	
+
+	m_pHPPanelUI = new UIPanel(HP_BloodWidget->GetOwner(),pos.x-20.f, pos.y+15.f, pos.z, 160.f, 87.f);		
+	m_pHPPanelUI->SetColor(glm::vec4{ 1.0f,0.f,0.f,1.f });		
+	m_pHPPanelBorderUI->AddChild(m_pHPPanelUI);
+
+	canvas->Init();
+	HP_BloodWidget->AddChild(m_pHPPanelUI);
+	canvas->AddChild(HP_BloodWidget);	
+
+	m_pHPPanelUI->m_fpMouseOn = []() {GameObjectManager::GetInstance()->GameRestart();};
+
+	UIManager::GetInstance()->AddCanvas(canvas);	
 }

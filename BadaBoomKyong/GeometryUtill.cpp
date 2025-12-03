@@ -96,6 +96,15 @@ void GeometryUtil::HandlePosition_CollisionAABB(GameObject* _groundObj, GameObje
         }*/        
     }
 }
+#include "Window.h"
+glm::vec2 GeometryUtil::GetScreenPointFromWorld(glm::vec2 _worldPoint)
+{
+    auto width = Window::GetInstance()->GetWindowWidth();
+    auto height = Window::GetInstance()->GetWindowHeight();
+
+    glm::vec2 a = { _worldPoint.x + width / 2.f,height/2.f-_worldPoint.y  };
+    return a;
+}
 
 bool GeometryUtil::IsNear(const glm::vec3& _pos, const glm::vec3& _target, float _nearDist)
 {

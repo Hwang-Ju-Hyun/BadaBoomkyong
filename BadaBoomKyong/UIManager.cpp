@@ -35,10 +35,9 @@ void UIManager::Render()
 		c->m_iUiTransform_location=glGetUniformLocation(shdr_ui,"u_MVP");
 		assert(c->m_iUiTransform_location >= 0);
 		c->m_iUiShaderColor_location= glGetUniformLocation(shdr_ui, "u_Color");
-		assert(c->m_iUiShaderColor_location >= 0);
+		assert(c->m_iUiShaderColor_location >= 0);		
 
-		//glBindVertexArray(c->VAO);
-		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		c->m_iUiHas_texture_location = glGetUniformLocation(shdr_ui, "u_Color");
 
 		c->Render();
 	}	

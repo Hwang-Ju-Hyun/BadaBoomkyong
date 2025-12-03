@@ -45,7 +45,7 @@ void Stage02::Init()
 	FactoryManager::GetInstance()->Init();
 
 	//ComponentInit
-	ComponentManager::GetInstance()->Init();
+	//ComponentManager::GetInstance()->Init();
 
 	//InputManager
 	InputManager::GetInstance()->Init();
@@ -68,7 +68,7 @@ void Stage02::Init()
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PORTAL);
 
 
-	UICanvas* canvas = new UICanvas(UIRenderSpace::WORLD_SPACE);
+	/*UICanvas* canvas = new UICanvas(UIRenderSpace::WORLD_SPACE);
 	UIWidget* widget = new UIWidget(canvas);
 	UIButton* btn = new UIButton(widget->GetOwner(), 228.353f, 641.322f, 597.875f, 1000.f, 10000.f);
 	canvas->Init();
@@ -78,7 +78,7 @@ void Stage02::Init()
 
 	UICanvas* canvas_s = new UICanvas(UIRenderSpace::SCREEN_SPACE);
 	UIWidget* widget_s = new UIWidget(canvas_s);
-	UIPanel* panel_s = new UIPanel(widget_s->GetOwner(), 50.f, 900.f,0.f, 50.f, 50.f);
+	UIPanel* panel_s = new UIPanel(widget_s->GetOwner(), 1080.f, 800.f,0.f, 50.f, 50.f);
 
 	canvas_s->Init();
 	widget_s->AddChild(panel_s);
@@ -87,7 +87,7 @@ void Stage02::Init()
 	panel_s->m_fpMouseOn = []() {GameObjectManager::GetInstance()->GameRestart();};
 
 	UIManager::GetInstance()->AddCanvas(canvas);
-	UIManager::GetInstance()->AddCanvas(canvas_s);
+	UIManager::GetInstance()->AddCanvas(canvas_s);*/
 }
 
 void Stage02::Update()
