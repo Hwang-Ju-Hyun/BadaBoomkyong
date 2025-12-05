@@ -20,6 +20,8 @@ private:
     glm::vec4 m_vColor;
     Camera* m_pCam;        
     TextureResource* m_pTexture;
+    glm::vec2 m_uvOffset = { 0.f, 0.f };
+    glm::vec2 m_uvScale = { 1.f, 1.f };
 public:
     virtual void Update(float _dt);
     virtual void RenderScreenSpace()override;
@@ -29,5 +31,7 @@ public:
     inline void SetColor(glm::vec4 _color) { m_vColor = _color; }
     virtual bool IsMouseOnInput(float _mouseX, float _mouseY, bool _IsMouseOn)override;
     virtual bool IsMouseClickedInput(float _mouseX, float _mouseY, bool _IsMouseClicked)override;
+public:
+    void SetUVRight(float ratio);
 };
 

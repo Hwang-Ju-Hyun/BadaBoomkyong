@@ -118,7 +118,7 @@ void Player::Awake()
 void Player::Exit()
 {	
 }
-
+#include "window.h"
 void Player::Update() 
 {				
 	auto input = InputManager::GetInstance();	
@@ -138,6 +138,30 @@ void Player::Update()
 			ComboUpdate();
 		}
 	}	
+
+
+	if (GetDamageTaken() > 0)
+	{
+		int dam_taken = GetDamageTaken();
+		int cur_hp = GetCurrentHP();
+		float ratio = float(dam_taken) / float(cur_hp);
+		float new_width = ratio * m_pHPPanelUI->GetScale().x;
+		int x = Window::GetInstance()->GetWindowWidth();
+		int y = Window::GetInstance()->GetWindowHeight();
+		int width = 870.f * ratio;
+		int height =170.f;
+
+		glEnable(GL_SCISSOR_TEST);
+		glScissor(x, y, width, height);
+
+		//RenderFill(); // 화염 텍스쳐 그리는 함수 (UV는 0~1 그대로)
+
+		//glDisable(GL_SCISSOR_TEST);
+		m_pHPPanelUI->SetUVRight(ratio);
+		m_iCurrentHP -= dam_taken;
+		SetDamageTaken(0);
+	}
+
 
 	Dash();
 	Death();

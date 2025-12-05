@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <glm.hpp>
 
 class UIButton;
 class UIWidget;
@@ -33,6 +34,7 @@ public:
     int m_iUV_Scale_Location;
     UIWidget* m_pRoot;
     UIRenderSpace m_eRenderSpace;
+
 public:
     std::vector<UIWidget*>m_vecChild;
     inline void AddChild(UIWidget* _child) { m_vecChild.push_back(_child); }
@@ -41,7 +43,7 @@ public:
     void Update(float _dt);
     void Render();     
     void Exit();
-
+    
     friend class UIWidget;
     friend class UIButton;
 };

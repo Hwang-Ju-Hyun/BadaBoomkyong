@@ -48,6 +48,8 @@ void UIPanel::RenderScreenSpace()
 	{
 		glUniform1i(GetOwner()->m_iUiHas_texture_location, false);
 	}
+	glUniform2f(GetOwner()->m_iUV_Offset_Location, m_uvOffset.x, m_uvOffset.y);
+	glUniform2f(GetOwner()->m_iUV_Scale_Location,  m_uvScale.x,  m_uvScale.y);
 
 	glUniformMatrix4fv(GetOwner()->m_iUiTransform_location, 1, GL_FALSE, glm::value_ptr(model));
 	glUniform4fv(GetOwner()->m_iUiShaderColor_location, 1, glm::value_ptr(m_vColor));
@@ -92,6 +94,9 @@ void UIPanel::RenderWorldSpace(const Camera* _cam)
 		glUniform1i(GetOwner()->m_iUiHas_texture_location, false);
 	}	
 
+	glUniform2f(GetOwner()->m_iUV_Offset_Location, m_uvOffset.x,m_uvOffset.y);
+	glUniform2f(GetOwner()->m_iUV_Scale_Location,  m_uvScale.x, m_uvScale.y);
+
 	glUniformMatrix4fv(GetOwner()->m_iUiTransform_location, 1, GL_FALSE, glm::value_ptr(mvp));
 	glUniform4fv(GetOwner()->m_iUiShaderColor_location, 1, glm::value_ptr(m_vColor));
 	glBindVertexArray(GetOwner()->VAO);
@@ -132,4 +137,14 @@ bool UIPanel::IsMouseClickedInput(float _mouseX, float _mouseY, bool _IsMouseCli
 		return true;
 	}
 	return false;
+}
+
+void UIPanel::SetUVRight(float ratio)
+{
+	if (ratio < 0.f) ratio = 0.f;
+	if (ratio > 1.f) ratio = 1.f;
+
+	// X축으로만 스케일 조절
+	m_uvScale.x = ratio;
+	m_uvOffset.x = 1.f - ratio;
 }

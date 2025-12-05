@@ -91,7 +91,7 @@ public:
     int m_iComboIndex = 0;
 private:
     int m_iInitHP = 5;
-    int m_iCurrentHP=1;
+    int m_iCurrentHP=5;
     bool m_bIsAlive = true;
     //right : postive left : negative
     int m_iDir = 1;
@@ -118,7 +118,7 @@ public:
     inline Melee* GetMelee()const { return m_pMelee; }
     inline void AddHP(int _hp) { m_iCurrentHP += _hp; }
     inline void MinusCurrentHP(int _hp) { m_iCurrentHP -= _hp; }
-    inline const int GetHP()const { return m_iCurrentHP; }
+    inline const int GetCurrentHP()const { return m_iCurrentHP; }
     inline void SetIsAlive(bool _alive) { m_bIsAlive = _alive; }
     inline const bool GetIsAlive()const { return m_bIsAlive; }
     inline void SetNormalMeleeAttacking(bool _attacking) { m_bNormalMeleeAttacking = _attacking; }
@@ -132,6 +132,7 @@ public:
 public:        
     int m_iCurJumpCount = 0;
     bool m_bCanMeleeAttack = false;
+    int m_iDamageTaken = 0;
 private:
     bool m_bIsFalling = false;
 public:
@@ -140,6 +141,8 @@ public:
     virtual void Update()override;
     virtual void Exit()override;
 public:
+    inline void SetDamageTaken(int _dmgTaken) { m_iDamageTaken = _dmgTaken; }
+    inline int GetDamageTaken()const { return m_iDamageTaken; }
     //inline void SetJumpForce(float _force) { m_fJumpForce = _force; }
     inline void SetSpeed(float _speed) { m_fSpeed = _speed; }    
     inline void SetIsFalling(bool _fall) { m_bIsFalling = _fall; }
