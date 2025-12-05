@@ -17,6 +17,9 @@ class Animator;
 class HolySlashParticle;
 class ParticleSystem;
 class Camera;
+class UICanvas;
+class UIWidget;
+class UIPanel;
 
 enum PlayerAnimState
 { 
@@ -177,6 +180,14 @@ private:
     void AdvanceCombo();
     void EndCombo();
     void HolySlash();
+public:
+    void InitHPBarUi();
+private:
+    UICanvas* m_pHPCanvasUI;
+    UIPanel* m_pPanelBorderUI;
+    UIPanel* m_pMPPanelUI;
+    UIPanel* m_pDashPanelUI;
+    UIPanel* m_pHPPanelUI;
 public:
     HolySlashParticle* m_pHolySlashParticle;
     ParticleSystem* m_pPs;

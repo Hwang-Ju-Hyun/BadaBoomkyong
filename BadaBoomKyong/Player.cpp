@@ -33,6 +33,10 @@
 #include "BaseLevel.h"
 #include "Stage02.h"
 #include "RenderManager.h"
+#include "UIManager.h"
+#include "UICanvas.h"
+#include "UIWidget.h"
+#include "UIPanel.h"
 
 class AnimIdelState;
 template<typename T>
@@ -108,6 +112,7 @@ void Player::Awake()
 	m_iCurrentHP = m_iInitHP;
 	m_bIsAlive = true;
 	m_pCam = RenderManager::GetInstance()->GetCamera();
+	InitHPBarUi();
 }
 
 void Player::Exit()
@@ -629,6 +634,44 @@ void Player::HolySlash()
 		}
 	}
 	
+}
+
+void Player::InitHPBarUi()
+{
+	glm::vec3 pos = m_pTransform->GetPosition();
+	glm::vec3 scale = m_pTransform->GetScale();
+
+	m_pHPCanvasUI = new UICanvas(UIRenderSpace::SCREEN_SPACE);
+	UIWidget* HP_Bar_Widget = new UIWidget(m_pHPCanvasUI);
+
+	m_pPanelBorderUI = new UIPanel(HP_Bar_Widget->GetOwner(),10.f,200.f, -1.f, 870.f, 170.f);
+	TextureResource* hp_border_tex = m_pPanelBorderUI->LoadTexture("HP_Bar_Border", "../Extern/Assets/Texture/UI/PlayerHP_UI/BHP_base.png");
+	m_pPanelBorderUI->SetPivot({ 0.f,0.f });
+
+	m_pHPPanelUI = new UIPanel(HP_Bar_Widget->GetOwner(), 168.f, -79.f, 0.f, 686.f, 60.f);
+	m_pHPPanelUI->SetPivot({ 0.0f, 0.0f });
+	TextureResource* hp_bar_tex = m_pHPPanelUI->LoadTexture("HP_Bar", "../Extern/Assets/Texture/UI/PlayerHP_UI/BHP_red.png");
+
+	m_pMPPanelUI = new UIPanel(HP_Bar_Widget->GetOwner(), 172.f, -38.f, 0.f, 574.f, 46.f);
+	m_pMPPanelUI->SetPivot({ 0.0f, 0.0f });
+	TextureResource* mp_bar_tex = m_pMPPanelUI->LoadTexture("MP_Bar", "../Extern/Assets/Texture/UI/PlayerHP_UI/BHP_blue.png");
+	
+	m_pDashPanelUI=new UIPanel(HP_Bar_Widget->GetOwner(), 160.f, 180.f, 0.f, 530.f, 21.f);
+	m_pDashPanelUI->SetPivot({ 0.0f, 0.0f });
+	TextureResource* dash_bar_tex = m_pDashPanelUI->LoadTexture("MP_Bar", "../Extern/Assets/Texture/UI/PlayerHP_UI/BHP_yellow.png");
+
+	m_pPanelBorderUI->AddChild(m_pHPPanelUI);
+	m_pPanelBorderUI->AddChild(m_pMPPanelUI);	
+
+	HP_Bar_Widget->AddChild(m_pDashPanelUI);
+	HP_Bar_Widget->AddChild(m_pPanelBorderUI);
+	m_pHPCanvasUI->AddChild(HP_Bar_Widget);
+
+	m_pHPCanvasUI->Init();
+
+	m_pHPPanelUI->m_fpMouseOn = []() {GameObjectManager::GetInstance()->GameRestart();};
+
+	UIManager::GetInstance()->AddCanvas(m_pHPCanvasUI);
 }
 
 

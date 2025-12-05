@@ -36,8 +36,22 @@ void UIPanel::RenderScreenSpace()
 	model = glm::translate(model, glm::vec3(x, y, 0.f));
 	model = glm::scale(model, glm::vec3(w, h, 1.f));
 
+	if (m_pTexture != nullptr)
+	{
+		GLuint tex_id = m_pTexture->GetTextureID();
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, tex_id);
+		glUniform1i(GetOwner()->m_iUiOut_texture_location, 0);
+		glUniform1i(GetOwner()->m_iUiHas_texture_location, true);
+	}
+	else
+	{
+		glUniform1i(GetOwner()->m_iUiHas_texture_location, false);
+	}
+
 	glUniformMatrix4fv(GetOwner()->m_iUiTransform_location, 1, GL_FALSE, glm::value_ptr(model));
 	glUniform4fv(GetOwner()->m_iUiShaderColor_location, 1, glm::value_ptr(m_vColor));
+	
 
 	glBindVertexArray(GetOwner()->VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

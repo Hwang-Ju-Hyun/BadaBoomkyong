@@ -32,10 +32,10 @@ void UICanvas::Init()
 
 	float vertices[] = {
 		// x    y    z      u    v
-		 0.f, 0.f, 0.f,   0.f, 0.f,  // bottom-left
-		 1.f, 0.f, 0.f,   1.f, 0.f,  // bottom-right
-		 1.f, 1.f, 0.f,   1.f, 1.f,  // top-right
-		 0.f, 1.f, 0.f,   0.f, 1.f   // top-left
+		 0.f, 0.f, 0.f,   0.f, 1.f,  // bottom-left
+		 1.f, 0.f, 0.f,   1.f, 1.f,  // bottom-right
+		 1.f, 1.f, 0.f,   1.f, 0.f,  // top-right
+		 0.f, 1.f, 0.f,   0.f, 0.f   // top-left
 	};
 	unsigned int indices[] = { 0, 1, 2, 2, 3, 0 };
 
@@ -70,14 +70,14 @@ void UICanvas::Update(float _dt)
 	glm::vec2 mouse_screen_pos = GeometryUtil::GetInstance()->GetScreenPointFromWorld(mouse_pos);		
 	for (const auto& it : m_vecChild)
 	{
-		it->IsMouseOnInput(mouse_screen_pos.x, mouse_screen_pos.y,true);
+		//it->IsMouseOnInput(mouse_screen_pos.x, mouse_screen_pos.y,true);
 		it->Update(_dt);
 	}		
 }
 
 void UICanvas::Render()
 {		
-	//glDisable(GL_DEPTH_TEST);
+	glDisable(GL_DEPTH_TEST);
 	m_pCam = RenderManager::GetInstance()->GetCamera();
 	switch (m_eRenderSpace)
 	{
