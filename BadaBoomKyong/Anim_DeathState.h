@@ -18,7 +18,8 @@ public:
     {                
         if (_owner->GetAnimator()->GetAnimation()->m_bLoopCount >= 1)
         {
-            EventManager::GetInstance()->SetActiveFalse(_owner->GetOwner());
+            EventManager::GetInstance()->DeleteObject(_owner->GetOwner());
+            //EventManager::GetInstance()->SetActiveFalse(_owner->GetOwner());
         }
     }
 

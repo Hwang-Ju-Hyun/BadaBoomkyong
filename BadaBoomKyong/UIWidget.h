@@ -18,10 +18,14 @@ protected:
     float m_fMouseX, m_fMouseY;
     float m_fX, m_fY, m_fWidth, m_fHeight;
     float m_fZ;
+protected:
+    glm::vec2 m_vPivot = { 0.5f,0.5f };
 private:
     UIWidget* m_pParent = nullptr;
     std::vector<UIWidget*>m_vecChild;
 public:
+    inline void SetPivot(const glm::vec2& _pivot) { m_vPivot = _pivot; }
+    inline glm::vec2 GetPivot()const { return m_vPivot; }
     inline void AddChild(UIWidget* _child) { m_vecChild.push_back(_child); _child->m_pParent = this; }
     UICanvas* GetOwner() const { return m_pOwner; }
 public:
@@ -29,6 +33,9 @@ public:
 
     inline void SetPos(float _x, float _y, float _z) { m_fX = _x;m_fY = _y;m_fZ = _z; }
     inline void SetScale(float _width, float _height) { m_fWidth = _width;m_fHeight = _height; }
+    inline void SetWidth(float _width) { m_fWidth = _width; }
+    inline void AddWidth(float _width) { m_fWidth += _width; }
+    inline void AddHeight(float _height) { m_fHeight += _height; }
     glm::vec3 const GetPos()const { return glm::vec3{ m_fX,m_fY,m_fZ }; }
     glm::vec2 const GetScale()const { return glm::vec2{ m_fWidth,m_fHeight }; }
     virtual void RenderScreenSpace();

@@ -52,7 +52,7 @@ Monster::~Monster()
 		delete m_pAnimStateMachine;
 		m_pAnimStateMachine = nullptr;
 	}
-	
+	delete m_pHPCanvasUI;
 }
 
 void Monster::UpdateSpriteFlipX()
@@ -127,23 +127,32 @@ void Monster::InitHPBarUi()
 	glm::vec3 pos = m_pTransform->GetPosition();
 	glm::vec3 scale = m_pTransform->GetScale();
 
-	UICanvas* canvas = new UICanvas(UIRenderSpace::WORLD_SPACE);
-	UIWidget* HP_BloodWidget = new UIWidget(canvas);	
-
+	m_pHPCanvasUI = new UICanvas(UIRenderSpace::WORLD_SPACE);
+	UIWidget* HP_Bar_Widget = new UIWidget(m_pHPCanvasUI);
 	
-	m_pHPPanelBorderUI = new UIPanel(HP_BloodWidget->GetOwner(), pos.x - 20.f, pos.y + 15.f, pos.z, 160.f, 87.f);	
-	TextureResource* hp_border_tex = m_pHPPanelBorderUI->LoadTexture("HP_Bar", "../Extern/Assets/Texture/UI/Health_Bars/Style_2.png");
+	m_pHPPanelBorderUI = new UIPanel(HP_Bar_Widget->GetOwner(), pos.x - 60.f, pos.y + 30.f, pos.z, 155.f, 10.f);
+	TextureResource* hp_border_tex = m_pHPPanelBorderUI->LoadTexture("HP_Bar", "../Extern/Assets/Texture/UI/Health_Bars/Borders/Border_Style_4.png");
+	m_pHPPanelBorderUI->SetPivot({ 0.f,0.f });
 	
+	m_pHPPanelUI = new UIPanel(HP_Bar_Widget->GetOwner(),0.f, 0.f, 1.f, 155.f, 10.f);
+	m_pHPPanelUI->SetPivot({ 0.0f, 0.0f });
+	TextureResource* hp_bar_tex = m_pHPPanelUI->LoadTexture("HP_Bar", "../Extern/Assets/Texture/UI/Health_Bars/Style_1.png");	
 
-	m_pHPPanelUI = new UIPanel(HP_BloodWidget->GetOwner(),pos.x-20.f, pos.y+15.f, pos.z, 160.f, 87.f);		
-	m_pHPPanelUI->SetColor(glm::vec4{ 1.0f,0.f,0.f,1.f });		
 	m_pHPPanelBorderUI->AddChild(m_pHPPanelUI);
 
-	canvas->Init();
-	HP_BloodWidget->AddChild(m_pHPPanelUI);
-	canvas->AddChild(HP_BloodWidget);	
+	m_pHPCanvasUI->Init();
+	HP_Bar_Widget->AddChild(m_pHPPanelBorderUI);
+	m_pHPCanvasUI->AddChild(HP_Bar_Widget);
 
 	m_pHPPanelUI->m_fpMouseOn = []() {GameObjectManager::GetInstance()->GameRestart();};
 
-	UIManager::GetInstance()->AddCanvas(canvas);	
+	UIManager::GetInstance()->AddCanvas(m_pHPCanvasUI);
+}
+
+void Monster::HPBarUIUpdate()
+{
+	if (GetDamageTaken()<=0)
+	{
+		return;
+	}	
 }

@@ -63,8 +63,8 @@ void Stage03::Update()
 
 void Stage03::Exit()
 {
-	Serializer::GetInstance()->SaveJson_Object("json/Level/Stage03/Stage03_3D.json", true);
-	Serializer::GetInstance()->SaveJson_Object("json/Level/Stage03/Stage03_2D.json", false);
+	//Serializer::GetInstance()->SaveJson_Object("json/Level/Stage03/Stage03_3D.json", true);
+	//Serializer::GetInstance()->SaveJson_Object("json/Level/Stage03/Stage03_2D.json", false);
 	FactoryManager::GetInstance()->Exit();
 	ObjectPoolManager::GetInstance()->Exit();
 

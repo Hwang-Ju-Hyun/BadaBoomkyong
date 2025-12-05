@@ -18,6 +18,11 @@ UIWidget::UIWidget(UICanvas* _owner,float _x , float _y ,float _z, float _width 
 
 UIWidget::~UIWidget()
 {
+	for (auto& it : m_vecChild)
+	{
+		delete it;
+		it = nullptr;
+	}
 }
 
 void UIWidget::Update(float _dt)
@@ -40,7 +45,7 @@ void UIWidget::RenderWorldSpace(const Camera* _cam)
 {	
 	// ÀÚ½Ä
 	for (const auto& c : m_vecChild)
-		c->RenderWorldSpace(_cam);			
+		c->RenderWorldSpace(_cam);
 }
 
 float UIWidget::GetAbsoluteX() const

@@ -752,13 +752,9 @@ void RenderManager::EndDraw()
 
 void RenderManager::Exit()
 {
-	EndDraw();
-				
-	m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->Diuse();
-	m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();
-	m_vShdr[int(SHADER_REF::SKYBOX)]->Diuse();
+	EndDraw();			
 
-	for (int i = 0;i < static_cast<int>(SHADER_REF::SHADER_REF_LAST);i++)
+	for (int i = 0;i < m_vShdr.size();i++)
 	{
 		delete m_vShdr[i];
 		m_vShdr[i] = nullptr;

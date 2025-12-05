@@ -42,17 +42,17 @@ void Stage02::Init()
 {	
 	Serializer::GetInstance()->LoadJson_Object("json/Level/Stage02/Stage02_3D.json");		
 	
-	FactoryManager::GetInstance()->Init();
+	//FactoryManager::GetInstance()->Init();
 
 	//ComponentInit
 	//ComponentManager::GetInstance()->Init();
 
 	//InputManager
-	InputManager::GetInstance()->Init();
+	//InputManager::GetInstance()->Init();
 
 	//RenderInit            
-	RenderManager::GetInstance()->Init();
-	RenderManager::GetInstance()->InitDebugLineShader();
+	//RenderManager::GetInstance()->Init();
+	//RenderManager::GetInstance()->InitDebugLineShader();
 
 #ifdef _DEBUG	
 	//MainEditor::GetInstance()->Init();
@@ -97,8 +97,8 @@ void Stage02::Update()
 
 void Stage02::Exit()
 {
-	Serializer::GetInstance()->SaveJson_Object("json/Level/Stage02/Stage02_3D.json", true);
-	Serializer::GetInstance()->SaveJson_Object("json/Level/Stage02/Stage02_2D.json", false);
+	//Serializer::GetInstance()->SaveJson_Object("json/Level/Stage02/Stage02_3D.json", true);
+	//Serializer::GetInstance()->SaveJson_Object("json/Level/Stage02/Stage02_2D.json", false);
 	
 	ComponentManager::GetInstance()->Exit();
 
@@ -108,7 +108,7 @@ void Stage02::Exit()
 	GameObjectManager::GetInstance()->Exit();
 
 	ResourceManager::GetInstance()->RemoveAllRes();
-	//ModelManager::GetInstance()->Exit();
+	ModelManager::GetInstance()->Exit();
 
 	RenderManager::GetInstance()->Exit();
 	EventManager::GetInstance()->Exit();

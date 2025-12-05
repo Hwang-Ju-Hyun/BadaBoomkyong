@@ -20,7 +20,7 @@ ParticleSystem::ParticleSystem()
 }
 
 ParticleSystem::~ParticleSystem()
-{
+{	
 }
 
 void ParticleSystem::Init()

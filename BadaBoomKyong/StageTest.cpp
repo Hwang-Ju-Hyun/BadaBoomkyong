@@ -41,8 +41,8 @@ void StageTest::Update()
 
 void StageTest::Exit()
 {
-	Serializer::GetInstance()->SaveJson_Object("json/Level/StageTest/StageTest_3D.json",true);
-	Serializer::GetInstance()->SaveJson_Object("json/Level/StageTest/StageTest_2D.json", false);
+	//Serializer::GetInstance()->SaveJson_Object("json/Level/StageTest/StageTest_3D.json",true);
+	//Serializer::GetInstance()->SaveJson_Object("json/Level/StageTest/StageTest_2D.json", false);
 	ComponentManager::GetInstance()->Exit();
 
 	FactoryManager::GetInstance()->Exit();

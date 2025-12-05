@@ -39,7 +39,8 @@ public:
 public:
     void Init();
     void Update(float _dt);
-    void Render();        
+    void Render();     
+    void Exit();
 
     friend class UIWidget;
     friend class UIButton;

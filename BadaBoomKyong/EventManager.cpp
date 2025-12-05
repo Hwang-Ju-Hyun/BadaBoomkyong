@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "GameStateManager.h"
 #include "BaseLevel.h"
+#include "GameObjectManager.h"
 
 EventManager::EventManager()
 {
@@ -36,7 +37,11 @@ void EventManager::Excute(const EVENT& _eve)
 	case EVENT_TYPE::CREATE_OBJECT:
 		break;
 	case EVENT_TYPE::DELETE_OBJECT:
+	{
+		GameObject* obj = reinterpret_cast<GameObject*>(_eve.lParam);
+		GameObjectManager::GetInstance()->DeleteObject(obj->GetName());
 		break;
+	}		
 	case EVENT_TYPE::LEVEL_CHANGE:
 	{
 		BaseLevel* lvl = reinterpret_cast<BaseLevel*>(_eve.lParam);
@@ -88,6 +93,14 @@ void EventManager::SetActiveFalse(GameObject* _obj)
 	eve.event = EVENT_TYPE::ACTIVE_FALSE;
 	eve.lParam = size_t(_obj);
 	_obj->SetPendingActive(false);
+	EventManager::GetInstance()->AddEvent(eve);
+}
+
+void EventManager::DeleteObject(GameObject* _obj)
+{
+	EVENT eve = {};
+	eve.event = EVENT_TYPE::DELETE_OBJECT;
+	eve.lParam = size_t(_obj);
 	EventManager::GetInstance()->AddEvent(eve);
 }
 

@@ -49,18 +49,21 @@ void UIPanel::RenderScreenSpace()
 void UIPanel::RenderWorldSpace(const Camera* _cam)
 {
 	glm::mat4 model(1.0f);
-	glm::mat4 translate = glm::translate(model, glm::vec3(GetAbsoluteX(), GetAbsoluteY(), GetAbsoluteZ()));
-	glm::mat4 scale = glm::scale(model, glm::vec3(m_fWidth, m_fHeight, 1.f));
 
+	glm::mat4 translate = glm::translate(model, glm::vec3(GetAbsoluteX(), GetAbsoluteY(), GetAbsoluteZ()));	
+	
+	//PIVOT 이해하기
+	glm::vec3 pivotOffset = glm::vec3{- (m_fWidth*m_vPivot.x),-(m_fHeight*m_vPivot.y), 0.0f };
+	glm::mat4 P = glm::translate(glm::mat4(1.0f), pivotOffset);
+
+	glm::mat4 scale = glm::scale(model, glm::vec3(m_fWidth, m_fHeight, 1.f));
 	glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f), 0.f, glm::vec3(0, 0, 1));
 
-
-	glm::mat4 m2w = translate * rotateZ * scale;
+	glm::mat4 m2w = translate * rotateZ * P *scale;
 
 	glm::mat4 proj = _cam->GetProjMatrix();
 	glm::mat4 view = _cam->GetViewMatrix();
 	glm::mat4 mvp = proj * view * m2w;
-
 
 	if (m_pTexture != nullptr)
 	{
@@ -73,13 +76,13 @@ void UIPanel::RenderWorldSpace(const Camera* _cam)
 	else
 	{
 		glUniform1i(GetOwner()->m_iUiHas_texture_location, false);
-	}
-	
+	}	
 
 	glUniformMatrix4fv(GetOwner()->m_iUiTransform_location, 1, GL_FALSE, glm::value_ptr(mvp));
 	glUniform4fv(GetOwner()->m_iUiShaderColor_location, 1, glm::value_ptr(m_vColor));
 	glBindVertexArray(GetOwner()->VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	UIWidget::RenderWorldSpace(_cam);
 }
 
 TextureResource* UIPanel::LoadTexture(const std::string& _name, const std::string& _path)
@@ -88,15 +91,11 @@ TextureResource* UIPanel::LoadTexture(const std::string& _name, const std::strin
 	return m_pTexture;
 }
 
-#include <iostream>
 bool UIPanel::IsMouseOnInput(float _mouseX, float _mouseY, bool _IsMouseOn)
 {
 	float x = GetAbsoluteX();
 	float y = GetAbsoluteY();
 
-
-	std::cout << "Screen Pos : " << x << " , " << y << std::endl;
-	std::cout << std::endl;
 	if (_mouseX <= x+m_fWidth&&_mouseX>=x
 		&& _mouseY <= y&& _mouseY >= y-m_fHeight
 		&& _IsMouseOn)

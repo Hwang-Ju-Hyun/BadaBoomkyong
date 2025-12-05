@@ -28,4 +28,5 @@ public:
 	void LevelChange(BaseLevel* _lvl);
 	static void SetActiveTrue(GameObject* _obj);
 	static void SetActiveFalse(GameObject* _obj);
+	static void DeleteObject(GameObject* _obj);
 };

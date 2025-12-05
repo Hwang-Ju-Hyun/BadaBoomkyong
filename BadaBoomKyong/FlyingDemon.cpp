@@ -38,8 +38,8 @@ FlyingDemon::FlyingDemon(GameObject* _owner)
     :Monster(_owner)
 {
     SetName(FlyingDemonTypeName);
-	m_iInitHP = 3;
-	m_iCurrentHP = 1;
+	m_iInitHP = 7;
+	m_iCurrentHP = 4;
 	m_fDirection = -1.f;
 	m_pAI->RegistryMonster(this);
 	m_pAI->SetOwner(_owner);
@@ -68,6 +68,7 @@ FlyingDemon::FlyingDemon(GameObject* _owner)
 
 FlyingDemon::~FlyingDemon()
 {
+	
 }
 
 void FlyingDemon::Init()
@@ -82,7 +83,11 @@ void FlyingDemon::Init()
 
 	m_pRigidBody= dynamic_cast<RigidBody*>(GetOwner()->FindComponent(RigidBody::RigidBodyTypeName));
 
-	m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);
+	m_pAI->ChangeState(MONSTER_STATE::IDLE_STATE);	
+}
+
+void FlyingDemon::Awake()
+{
 	InitHPBarUi();
 }
 
@@ -90,9 +95,9 @@ void FlyingDemon::Update()
 {	
 	glm::vec3 pos = m_pTransform->GetPosition();
 	glm::vec3 scale = m_pTransform->GetScale();
-
-	m_pHPPanelUI->SetPos(pos.x-20.f, pos.y+15.f, pos.z);
-
+	
+	m_pHPPanelBorderUI->SetPos(pos.x-80.f, pos.y+30.f, pos.z);
+	
 	if (GetIsAlive())
 	{
 		UpdateSpriteFlipX();
@@ -100,20 +105,32 @@ void FlyingDemon::Update()
 		m_vPosition = m_pTransform->GetPosition();
 	}
 
-	float dt = TimeManager::GetInstance()->GetDeltaTime();
-	
+	float dt = TimeManager::GetInstance()->GetDeltaTime();		
+
 	if (GetIsHurting())
 	{
-		m_fAccHurtTime += dt;
+		m_fAccHurtTime += dt;		
+		
 		if (m_fAccHurtTime>=m_fMaxHurtTime)
-		{			
+		{						
 			SetIsHurting(false);
 			m_fAccHurtTime = 0.f;
-		}
+		}		
+			
+	}
+	if (GetDamageTaken() > 0)
+	{
+		int dam_taken = GetDamageTaken();
+		int cur_hp = GetCurrentHP();
+		float ratio = float(dam_taken) / float(cur_hp);
+		float new_width = ratio * m_pHPPanelUI->GetScale().x;
+		m_pHPPanelUI->SetWidth(m_pHPPanelUI->GetScale().x - new_width);
+		m_iCurrentHP -= dam_taken;
+		SetDamageTaken(0);
 	}
 
 	auto hp = GetCurrentHP();
-	hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
+	hp <= 3 ? SetIsAlive(false) : SetIsAlive(true);
 
 	if (!GetIsAlive())
 	{
@@ -129,7 +146,7 @@ void FlyingDemon::Exit()
 	delete m_pIdleBehavior;
 	delete m_pPatrolBehaviour;
 	delete m_pTraceBehaviour;
-	delete m_pMeleeBehaviour;
+	delete m_pMeleeBehaviour;	
 }
 
 void FlyingDemon::Fire()
@@ -146,7 +163,6 @@ void FlyingDemon::MeleeAttack()
 
 	if (m_bCanMeleeAttack == false)	
 	{	
-
 		EventManager::GetInstance()->SetActiveTrue(m_pMelee->GetOwner());
 		m_bCanMeleeAttack = true;
 		m_fOffsetTimeAcc = 0.f;

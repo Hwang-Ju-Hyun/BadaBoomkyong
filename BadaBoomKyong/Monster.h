@@ -16,6 +16,7 @@ class IPatrolBehaviour;
 class ITraceBehaviour;
 class IMeleeBehaviour;
 class UIPanel;
+class UICanvas;
 
 template<typename T>
 class AnimStateMachine;
@@ -102,7 +103,7 @@ public:
     inline AI* GetAI()const { return m_pAI; }
     inline MonsterAnimState GetCurrentState()const { return m_eCurrentState; }
     inline Animator* GetAnimator()const { return m_pAnimator; }
-    inline AnimStateMachine<Monster>* GetAnimStateMachine()const { return m_pAnimStateMachine; }
+    inline AnimStateMachine<Monster>* GetAnimStateMachine()const { return m_pAnimStateMachine; }    
 protected:
     float m_fSpeed = 0.f;
     float m_fJumpImpulse = 500.f;
@@ -110,6 +111,7 @@ protected:
 
     int m_iCurrentHP = 10;
     int m_iInitHP = 10;
+    int m_iDamageTaken = 0;
     bool m_bIsAlive = true;
 
     float m_fMeleeAtkCoolTime = 0.f;
@@ -119,6 +121,8 @@ protected:
     float m_fHitFlashAccTime = 0.f;
     void OccurHitFlash();
 public:        
+    inline void SetDamageTaken(int _dmgTaken) { m_iDamageTaken = _dmgTaken; }
+    inline int GetDamageTaken()const { return m_iDamageTaken; }
     const std::string GetCurrentAnimState();
     inline void SetIsGround(bool _ground) { m_bIsGround = _ground; }
     inline bool GetIsGround()const { return m_bIsGround; }
@@ -145,6 +149,8 @@ public:
     static constexpr const char* RangeAtkCoolTimeName = "RangeAtkCoolTime";
 public:
     void InitHPBarUi();
+    void HPBarUIUpdate();    
     UIPanel* m_pHPPanelUI;
     UIPanel* m_pHPPanelBorderUI;
+    UICanvas* m_pHPCanvasUI;
 };
