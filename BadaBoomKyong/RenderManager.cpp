@@ -710,6 +710,7 @@ void RenderManager::Draw()
 	auto shdr_ui = m_vShdr[int(SHADER_REF::UI)]->GetShaderProgramHandle();
 	for (auto c : UIManager::GetInstance()->m_vecCanvases)
 	{		
+		glDisable(GL_DEPTH_TEST);
 		c->m_iUiTransform_location = glGetUniformLocation(shdr_ui, "u_MVP");
 		assert(c->m_iUiTransform_location >= 0);
 		c->m_iUiShaderColor_location = glGetUniformLocation(shdr_ui, "u_Color");

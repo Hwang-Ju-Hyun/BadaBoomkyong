@@ -118,7 +118,7 @@ void Player::Awake()
 void Player::Exit()
 {	
 }
-#include "window.h"
+
 void Player::Update() 
 {				
 	auto input = InputManager::GetInstance();	
@@ -146,18 +146,7 @@ void Player::Update()
 		int cur_hp = GetCurrentHP();
 		float ratio = float(dam_taken) / float(cur_hp);
 		float new_width = ratio * m_pHPPanelUI->GetScale().x;
-		int x = Window::GetInstance()->GetWindowWidth();
-		int y = Window::GetInstance()->GetWindowHeight();
-		int width = 870.f * ratio;
-		int height =170.f;
-
-		glEnable(GL_SCISSOR_TEST);
-		glScissor(x, y, width, height);
-
-		//RenderFill(); // 화염 텍스쳐 그리는 함수 (UV는 0~1 그대로)
-
-		//glDisable(GL_SCISSOR_TEST);
-		m_pHPPanelUI->SetUVRight(ratio);
+		m_pHPPanelUI->SetWidth(m_pHPPanelUI->GetScale().x - new_width);
 		m_iCurrentHP -= dam_taken;
 		SetDamageTaken(0);
 	}
@@ -668,28 +657,25 @@ void Player::InitHPBarUi()
 	m_pHPCanvasUI = new UICanvas(UIRenderSpace::SCREEN_SPACE);
 	UIWidget* HP_Bar_Widget = new UIWidget(m_pHPCanvasUI);
 
-	m_pPanelBorderUI = new UIPanel(HP_Bar_Widget->GetOwner(),10.f,200.f, -1.f, 870.f, 170.f);
-	TextureResource* hp_border_tex = m_pPanelBorderUI->LoadTexture("HP_Bar_Border", "../Extern/Assets/Texture/UI/PlayerHP_UI/BHP_base.png");
+	m_pPanelBorderUI = new UIPanel(HP_Bar_Widget->GetOwner(),10.f,200.f, 0.f, 870.f, 170.f);
+	TextureResource* hp_border_tex = m_pPanelBorderUI->LoadTexture("HP_Bar_Border", "../Extern/Assets/Texture/UI/PlayerHP_UI/base.png");
 	m_pPanelBorderUI->SetPivot({ 0.f,0.f });
 
-	m_pHPPanelUI = new UIPanel(HP_Bar_Widget->GetOwner(), 168.f, -79.f, 0.f, 686.f, 60.f);
-	m_pHPPanelUI->SetPivot({ 0.0f, 0.0f });
-	TextureResource* hp_bar_tex = m_pHPPanelUI->LoadTexture("HP_Bar", "../Extern/Assets/Texture/UI/PlayerHP_UI/BHP_red.png");
+	m_pHPPanelUI = new UIPanel(HP_Bar_Widget->GetOwner(), 117.f, 122.f, 0.f, 730.f, 36.f);
+	m_pHPPanelUI->SetPivot({ 0.0f, 0.0f });	
+	m_pHPPanelUI->SetColor(glm::vec4{ 1.0f,0.f,0.f,1.f });
 
-	m_pMPPanelUI = new UIPanel(HP_Bar_Widget->GetOwner(), 172.f, -38.f, 0.f, 574.f, 46.f);
+	m_pMPPanelUI = new UIPanel(HP_Bar_Widget->GetOwner(), 131.f, 152.f, 0.f, 439.f, 17.f);
 	m_pMPPanelUI->SetPivot({ 0.0f, 0.0f });
-	TextureResource* mp_bar_tex = m_pMPPanelUI->LoadTexture("MP_Bar", "../Extern/Assets/Texture/UI/PlayerHP_UI/BHP_blue.png");
-	
-	m_pDashPanelUI=new UIPanel(HP_Bar_Widget->GetOwner(), 160.f, 180.f, 0.f, 530.f, 21.f);
-	m_pDashPanelUI->SetPivot({ 0.0f, 0.0f });
-	TextureResource* dash_bar_tex = m_pDashPanelUI->LoadTexture("MP_Bar", "../Extern/Assets/Texture/UI/PlayerHP_UI/BHP_yellow.png");
+	m_pMPPanelUI->SetColor(glm::vec4{ 0.0f,0.f,1.f,1.f });
 
-	m_pPanelBorderUI->AddChild(m_pHPPanelUI);
-	m_pPanelBorderUI->AddChild(m_pMPPanelUI);	
-
-	HP_Bar_Widget->AddChild(m_pDashPanelUI);
+	HP_Bar_Widget->AddChild(m_pHPPanelUI);
+	HP_Bar_Widget->AddChild(m_pMPPanelUI);
 	HP_Bar_Widget->AddChild(m_pPanelBorderUI);
+
+
 	m_pHPCanvasUI->AddChild(HP_Bar_Widget);
+	//m_pPanelBorderUI->AddChild(m_pHPPanelUI);
 
 	m_pHPCanvasUI->Init();
 

@@ -188,8 +188,7 @@ public:
 private:
     UICanvas* m_pHPCanvasUI;
     UIPanel* m_pPanelBorderUI;
-    UIPanel* m_pMPPanelUI;
-    UIPanel* m_pDashPanelUI;
+    UIPanel* m_pMPPanelUI;    
     UIPanel* m_pHPPanelUI;
 public:
     HolySlashParticle* m_pHolySlashParticle;

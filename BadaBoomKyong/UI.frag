@@ -12,12 +12,10 @@ uniform vec2 uUV_Scale;
 
 
 void main()
-{	
-    vec2 finalUV = uUV_Offset + UV * uUV_Scale;
-    
+{	        
 	if (uHasTexture)
     {
-        o_Color = texture(uOutTexture, finalUV);               
+        o_Color = texture(uOutTexture, UV);               
     }    
     else
     {
