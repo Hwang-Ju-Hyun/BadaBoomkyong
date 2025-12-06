@@ -113,6 +113,7 @@ void Player::Awake()
 	m_bIsAlive = true;
 	m_pCam = RenderManager::GetInstance()->GetCamera();
 	InitHPBarUi();
+	InitDashBarUI();
 }
 
 void Player::Exit()
@@ -323,27 +324,49 @@ void Player::MeleeAttack()
 
 void Player::Dash()
 {
+	m_pDashPanelUI->SetPos(m_vPosition.x-40.f, m_vPosition.y+55.f, m_vPosition.z);
 	auto input = InputManager::GetInstance();
+	float dt = TimeManager::GetInstance()->GetDeltaTime();
+	
 	if (input->GetKetCode(GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+	{			
+		m_bIsDashInput = true;
+	}
+	if (m_fDashCoolTime >= 2.99f && m_bDashable&&m_bIsDashInput)
 	{
-		m_bDashable = true;
-	}	
-	if (m_bDashable)
-	{
-		float dt = TimeManager::GetInstance()->GetDeltaTime();
 		m_fDashAccTime += dt;
 		if (m_fDashAccTime <= m_fDashDuration)
-		{	
-			m_bIsDashing = true;			
+		{
+			m_pDashPanelUI->AddWidth((m_fDash_bar_width / m_fDashDuration) * dt * -1);			
+			m_bIsDashing = true;
 			m_pRigidBody->SetVelocity({ m_iDir * m_fDashSpeed,0.f,0.f });
 		}
 		else
 		{
-			m_bIsDashing = false;
+			if (m_pDashPanelUI->GetScale().x <= 10.f)
+			{
+				m_pDashPanelUI->SetWidth(0.f);				
+			}			
+			m_pDashPanelUI->SetWidth(0.f);
 			m_bDashable = false;
-			m_fDashAccTime = 0.f;			
+			m_bIsDashInput = false;
+			m_fDashCoolTime = 3.f;
+			m_fDashAccTime = 0.f;
 		}
 	}
+	if (m_bDashable == false)
+	{
+		m_bIsDashing = false;
+		m_bIsDashInput = false;
+		m_fDashCoolTime -= dt;
+		m_pDashPanelUI->AddWidth(dt * (m_fDash_bar_width / 3.f));//3.f==DashCoolTime
+		if (m_fDashCoolTime <= 0.01f)
+		{
+			m_pDashPanelUI->SetWidth(m_fDash_bar_width);
+			m_fDashCoolTime =3.f;
+			m_bDashable = true;
+		}
+	}	
 }
 
 void Player::Death()   
@@ -360,7 +383,6 @@ void Player::Death()
 		m_eCurrentState = PlayerAnimState::DEATH;		
 	}
 }
-
 
 float Player::m_fComboAccTime = 0.f;
 void Player::ComboUpdate()
@@ -381,8 +403,6 @@ void Player::ComboUpdate()
 		EndCombo();
 	}
 }
-
-
 
 void Player::StateHandler()
 {
@@ -674,14 +694,34 @@ void Player::InitHPBarUi()
 	HP_Bar_Widget->AddChild(m_pPanelBorderUI);
 
 
-	m_pHPCanvasUI->AddChild(HP_Bar_Widget);
-	//m_pPanelBorderUI->AddChild(m_pHPPanelUI);
+	m_pHPCanvasUI->AddChild(HP_Bar_Widget);	
 
 	m_pHPCanvasUI->Init();
 
 	m_pHPPanelUI->m_fpMouseOn = []() {GameObjectManager::GetInstance()->GameRestart();};
 
 	UIManager::GetInstance()->AddCanvas(m_pHPCanvasUI);
+}
+
+void Player::InitDashBarUI()
+{
+	glm::vec3 pos = m_pTransform->GetPosition();
+	glm::vec3 scale = m_pTransform->GetScale();
+
+	m_pDashCanvasUI = new UICanvas(UIRenderSpace::WORLD_SPACE);
+	UIWidget* Dash_Bar_Widget = new UIWidget(m_pDashCanvasUI);	
+
+	m_pDashPanelUI= new UIPanel(Dash_Bar_Widget->GetOwner(), pos.x-60.f,pos.y+80.f,pos.z, m_fDash_bar_width, 10.f);
+	m_pDashPanelUI->SetPivot({ 0.f,0.f });
+	//TextureResource* tx = m_pDashPanelUI->LoadTexture("HP_Bar", "../Extern/Assets/Texture/UI/Health_Bars/Style_1.png");
+
+	m_pDashCanvasUI->Init();
+	m_pDashPanelUI->SetColor(glm::vec4{ 1.0f,0.f,1.f,1.f });
+	Dash_Bar_Widget->AddChild(m_pDashPanelUI);
+	m_pDashCanvasUI->AddChild(Dash_Bar_Widget);
+
+
+	UIManager::GetInstance()->AddCanvas(m_pDashCanvasUI);
 }
 
 

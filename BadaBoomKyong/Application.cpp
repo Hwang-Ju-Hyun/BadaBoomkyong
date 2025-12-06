@@ -99,7 +99,7 @@ void Application::Update()
 
 #ifdef _DEBUG
     //Main Editor
-    //MainEditor::GetInstance()->Update();
+    MainEditor::GetInstance()->Update();
 #endif    
 }
 

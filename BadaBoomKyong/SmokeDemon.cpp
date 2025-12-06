@@ -23,6 +23,10 @@
 #include "ParticleSystem.h"
 #include "SmokeAttackParticle.h"
 
+#include "UIPanel.h"
+#include "UICanvas.h"
+#include "UIWidget.h"
+
 SmokeDemon::SmokeDemon(GameObject* _owner)
 	:Monster(_owner)
 {
@@ -125,6 +129,11 @@ void SmokeDemon::Init()
 	m_pSmokeAttackParticle = new SmokeAttackParticle(m_pPs, GetOwner());
 }
 
+void SmokeDemon::Awake()
+{
+	InitHPBarUi();
+}
+
 
 #include "InputManager.h"
 void SmokeDemon::Update()
@@ -199,6 +208,21 @@ void SmokeDemon::Update()
 		}
 
 		OccurHitFlash();
+	}
+
+	glm::vec3 pos = m_pTransform->GetPosition();
+	glm::vec3 scale = m_pTransform->GetScale();
+	m_pHPPanelBorderUI->SetPos(pos.x - 80.f, pos.y + 55.f, pos.z);
+
+	if (GetDamageTaken() > 0)
+	{
+		int dam_taken = GetDamageTaken();
+		int cur_hp = GetCurrentHP();
+		float ratio = float(dam_taken) / float(cur_hp);
+		float new_width = ratio * m_pHPPanelUI->GetScale().x;
+		m_pHPPanelUI->SetWidth(m_pHPPanelUI->GetScale().x - new_width);
+		m_iCurrentHP -= dam_taken;
+		SetDamageTaken(0);
 	}
 
 	auto hp = GetCurrentHP();

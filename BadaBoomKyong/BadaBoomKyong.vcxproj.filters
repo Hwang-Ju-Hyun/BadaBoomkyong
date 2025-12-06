@@ -530,6 +530,15 @@
     <Filter Include="UI\Widget\Panel">
       <UniqueIdentifier>{16a9d7b3-f364-43d5-88ea-e643384a863c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\GameStart">
+      <UniqueIdentifier>{efb82d4c-46e4-45b1-980b-0140d9fb6e03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\GameOver">
+      <UniqueIdentifier>{03934a51-fc33-4420-8e7c-ce2c261a99f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Congratulation">
+      <UniqueIdentifier>{2156f633-1444-4736-84a5-195ed3db29ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -960,6 +969,15 @@
     </ClCompile>
     <ClCompile Include="UIPanel.cpp">
       <Filter>UI\Widget\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="Congratulation.cpp">
+      <Filter>Level\Congratulation</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>Level\GameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStart.cpp">
+      <Filter>Level\GameStart</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1502,6 +1520,15 @@
     </ClInclude>
     <ClInclude Include="UIPanel.h">
       <Filter>UI\Widget\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="Congratulation.h">
+      <Filter>Level\Congratulation</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOver.h">
+      <Filter>Level\GameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStart.h">
+      <Filter>Level\GameStart</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

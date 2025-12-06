@@ -34,6 +34,8 @@ void MELEE_FlyingDemon::Init(Monster* _mon)
 
 void MELEE_FlyingDemon::DoMeleeBehaviour(Monster* _mon)
 {	            
+    if (m_pPlayer == nullptr)
+        return;
     float dt = TimeManager::GetInstance()->GetDeltaTime();
 
     m_vPosition = m_pTransform->GetPosition();

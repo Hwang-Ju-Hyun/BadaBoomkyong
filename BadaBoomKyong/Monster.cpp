@@ -147,7 +147,7 @@ void Monster::InitHPBarUi()
 	m_pHPPanelUI->m_fpMouseOn = []() {GameObjectManager::GetInstance()->GameRestart();};
 
 	UIManager::GetInstance()->AddCanvas(m_pHPCanvasUI);
-}
+} 
 
 void Monster::HPBarUIUpdate()
 {

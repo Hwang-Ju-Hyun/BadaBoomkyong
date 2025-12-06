@@ -159,6 +159,9 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletFactory.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Congratulation.cpp" />
+    <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="GameStart.cpp" />
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UICanvas.cpp" />
     <ClCompile Include="Collider.cpp" />
@@ -326,6 +329,9 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletFactory.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Congratulation.h" />
+    <ClInclude Include="GameOver.h" />
+    <ClInclude Include="GameStart.h" />
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UICanvas.h" />
     <ClInclude Include="Collider.h" />

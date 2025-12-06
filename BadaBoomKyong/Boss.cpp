@@ -47,6 +47,10 @@
 #include "ConeAttack.h"
 #include "WeightRandomSelector.h"
 
+#include "UIPanel.h"
+#include "UICanvas.h"
+#include "UIWidget.h"
+
 Boss::Boss(GameObject* _owner)
 	:Monster(_owner)	
 {
@@ -219,6 +223,11 @@ void Boss::Init()
 	m_pBTAgent = new BTAgent(this,m_pBT);	
 }
 
+void Boss::Awake()
+{
+	InitHPBarUi();
+}
+
 #include "InputManager.h"
 void Boss::Update()
 {		
@@ -267,7 +276,21 @@ void Boss::Update()
 	m_pBTAgent->Update();
 	
 	StateHandle();	
+
+	glm::vec3 pos = m_pTransform->GetPosition();
+	glm::vec3 scale = m_pTransform->GetScale();
+	m_pHPPanelBorderUI->SetPos(pos.x - 80.f, pos.y - 30.f, pos.z);
 	
+	if (GetDamageTaken() > 0)
+	{
+		int dam_taken = GetDamageTaken();
+		int cur_hp = GetCurrentHP();
+		float ratio = float(dam_taken) / float(cur_hp);
+		float new_width = ratio * m_pHPPanelUI->GetScale().x;
+		m_pHPPanelUI->SetWidth(m_pHPPanelUI->GetScale().x - new_width);
+		m_iCurrentHP -= dam_taken;
+		SetDamageTaken(0);
+	}
 	
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();			

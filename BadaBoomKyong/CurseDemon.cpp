@@ -25,6 +25,9 @@
 #include "Anim_StateMachine.h"
 #include "Anim_IdleState.h"
 #include "TimeManager.h"
+#include "UIPanel.h"
+#include "UICanvas.h"
+#include "UIWidget.h"
 
 CurseDemon::CurseDemon(GameObject* _owner)
     :Monster(_owner)	
@@ -81,6 +84,11 @@ void CurseDemon::Init()
 
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
 	assert(m_pSprite != nullptr);	
+}
+
+void CurseDemon::Awake()
+{
+	InitHPBarUi();
 }
 
 void CurseDemon::Update()
@@ -148,6 +156,21 @@ void CurseDemon::Update()
 		}
 		OccurHitFlash();
 	}	
+
+	glm::vec3 pos = m_pTransform->GetPosition();
+	glm::vec3 scale = m_pTransform->GetScale();
+	m_pHPPanelBorderUI->SetPos(pos.x - 80.f, pos.y + 30.f, pos.z);
+
+	if (GetDamageTaken() > 0)
+	{
+		int dam_taken = GetDamageTaken();
+		int cur_hp = GetCurrentHP();
+		float ratio = float(dam_taken) / float(cur_hp);
+		float new_width = ratio * m_pHPPanelUI->GetScale().x;
+		m_pHPPanelUI->SetWidth(m_pHPPanelUI->GetScale().x - new_width);
+		m_iCurrentHP -= dam_taken;
+		SetDamageTaken(0);
+	}
 
 	auto hp = GetCurrentHP();
 	hp < 0 ? SetIsAlive(false) : SetIsAlive(true);

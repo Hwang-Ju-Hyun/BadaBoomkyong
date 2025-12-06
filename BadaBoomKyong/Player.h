@@ -104,7 +104,8 @@ private:
     bool m_bDashable = true;
     float m_fDashSpeed=600.f;
     float m_fDashDuration=0.4f;
-    float m_fDashAccTime = 0.f;
+    float m_fDashAccTime = 0.f;    
+    float m_fDashCoolTime = 3.f;
     bool m_bIsDashing = false;
     bool m_bIsSprinting = false;
     bool m_bIsToSprint = false;
@@ -185,8 +186,11 @@ private:
     void HolySlash();
 public:
     void InitHPBarUi();
+    void InitDashBarUI();
 private:
     UICanvas* m_pHPCanvasUI;
+    UICanvas* m_pDashCanvasUI;
+    UIPanel* m_pDashPanelUI;
     UIPanel* m_pPanelBorderUI;
     UIPanel* m_pMPPanelUI;    
     UIPanel* m_pHPPanelUI;
@@ -205,4 +209,7 @@ public:
 private:
     bool m_bHolySlashFlag = false;
     float m_fMeleeDelayAccTime = 0.f;
+
+    const float m_fDash_bar_width = 85.f;
+    bool m_bIsDashInput = false;
 };

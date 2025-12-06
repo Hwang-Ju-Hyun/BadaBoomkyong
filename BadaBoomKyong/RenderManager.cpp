@@ -734,8 +734,8 @@ void RenderManager::Draw()
 	//=============
 
 #ifdef _DEBUG
-	//ImGui::Render();
-	//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 #endif
 	auto handle=Window::GetInstance()->GetWindowHandle();
 	glfwSwapBuffers(handle);

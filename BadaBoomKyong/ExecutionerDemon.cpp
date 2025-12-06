@@ -25,6 +25,10 @@
 #include "Anim_HurtState.h"
 #include "Anim_WalkState.h"
 
+#include "UIPanel.h"
+#include "UICanvas.h"
+#include "UIWidget.h"
+
 ExecutionerDemon::ExecutionerDemon(GameObject* _owner)
 	:Monster(_owner)
 {
@@ -86,6 +90,11 @@ void ExecutionerDemon::Init()
 	assert(m_pSprite != nullptr);
 }
 
+void ExecutionerDemon::Awake()
+{
+	InitHPBarUi();
+}
+
 void ExecutionerDemon::Update()
 {	
 	//인지범위
@@ -137,6 +146,21 @@ void ExecutionerDemon::Update()
 		}
 
 		OccurHitFlash();		
+	}
+
+	glm::vec3 pos = m_pTransform->GetPosition();
+	glm::vec3 scale = m_pTransform->GetScale();
+	m_pHPPanelBorderUI->SetPos(pos.x - 80.f, pos.y - 30.f, pos.z);
+
+	if (GetDamageTaken() > 0)
+	{
+		int dam_taken = GetDamageTaken();
+		int cur_hp = GetCurrentHP();
+		float ratio = float(dam_taken) / float(cur_hp);
+		float new_width = ratio * m_pHPPanelUI->GetScale().x;
+		m_pHPPanelUI->SetWidth(m_pHPPanelUI->GetScale().x - new_width);
+		m_iCurrentHP -= dam_taken;
+		SetDamageTaken(0);
 	}
 	
 	 auto hp = GetCurrentHP();

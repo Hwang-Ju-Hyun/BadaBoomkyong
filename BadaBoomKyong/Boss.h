@@ -97,6 +97,7 @@ public:
     void TelePort(const glm::vec3& _target);
 public:
     virtual void Init()override;
+    virtual void Awake()override;
     virtual void Update()override;
     virtual void Exit()override;
 public:
