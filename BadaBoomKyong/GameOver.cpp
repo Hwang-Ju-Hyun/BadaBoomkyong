@@ -1,7 +1,7 @@
 #include "GameOver.h"
 
 GameOver::GameOver(STAGE_TYPE _stageType, const std::string& _name)
-	:BaseLevel(_stageType, _name
+	:BaseLevel(_stageType, _name)
 {
 }
 

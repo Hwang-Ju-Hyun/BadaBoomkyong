@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <glm.hpp>
+#include <string>
 
 class UIButton;
 class UIWidget;
@@ -10,6 +11,14 @@ enum class UIRenderSpace
 {
     SCREEN_SPACE,
     WORLD_SPACE
+};
+
+struct TextDrawRequest {
+    std::string text;
+    float x;
+    float y;
+    float scale;
+    glm::vec3 color;
 };
 
 class UICanvas   
@@ -22,6 +31,7 @@ public:
     unsigned int VBO;
     unsigned int EBO;
     Camera* m_pCam;
+    std::vector<TextDrawRequest> m_TextDrawRequests;
 public:
     int m_iUiTransform_location;
     int m_iUiShaderViewProj_location;
@@ -38,12 +48,12 @@ public:
 public:
     std::vector<UIWidget*>m_vecChild;
     inline void AddChild(UIWidget* _child) { m_vecChild.push_back(_child); }
+    inline void AddText(std::string text, float x, float y, float scale, glm::vec3 color) { m_TextDrawRequests.push_back({ text, x, y, scale, color });}
 public:
     void Init();
     void Update(float _dt);
     void Render();     
-    void Exit();
-    
+    void Exit();    
     friend class UIWidget;
     friend class UIButton;
 };

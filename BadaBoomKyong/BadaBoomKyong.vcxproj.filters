@@ -539,6 +539,18 @@
     <Filter Include="Level\Congratulation">
       <UniqueIdentifier>{2156f633-1444-4736-84a5-195ed3db29ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ShaderFiles\Background">
+      <UniqueIdentifier>{6628bd8b-64e4-490a-ac43-495a05b9ddd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\TextManager">
+      <UniqueIdentifier>{9c4713a7-5874-42de-b2fb-5c02e2269f96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderFiles\Text">
+      <UniqueIdentifier>{5da9a6dc-f070-4b7e-b6aa-8fda95bae448}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Widget\Text">
+      <UniqueIdentifier>{6547b552-f3a5-494f-b384-7126fd5d87e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -978,6 +990,12 @@
     </ClCompile>
     <ClCompile Include="GameStart.cpp">
       <Filter>Level\GameStart</Filter>
+    </ClCompile>
+    <ClCompile Include="TextManager.cpp">
+      <Filter>Manager\TextManager</Filter>
+    </ClCompile>
+    <ClCompile Include="UIText.cpp">
+      <Filter>UI\Widget\Text</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1530,6 +1548,12 @@
     <ClInclude Include="GameStart.h">
       <Filter>Level\GameStart</Filter>
     </ClInclude>
+    <ClInclude Include="TextManager.h">
+      <Filter>Manager\TextManager</Filter>
+    </ClInclude>
+    <ClInclude Include="UIText.h">
+      <Filter>UI\Widget\Text</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="IMGUI\imgui.ini">
@@ -1597,6 +1621,18 @@
     </None>
     <None Include="UI.frag">
       <Filter>ShaderFiles\UI</Filter>
+    </None>
+    <None Include="Background.vert">
+      <Filter>ShaderFiles\Background</Filter>
+    </None>
+    <None Include="Background.frag">
+      <Filter>ShaderFiles\Background</Filter>
+    </None>
+    <None Include="text.vert">
+      <Filter>ShaderFiles\Text</Filter>
+    </None>
+    <None Include="text.frag">
+      <Filter>ShaderFiles\Text</Filter>
     </None>
   </ItemGroup>
 </Project>

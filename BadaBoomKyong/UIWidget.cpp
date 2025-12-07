@@ -5,6 +5,7 @@
 #include <../GLM/gtc/type_ptr.hpp>
 #include <gtc/type_ptr.hpp>
 #include "Camera.h"
+#include "UIButton.h"
 
 
 UIWidget::UIWidget(UICanvas* _owner,float _x , float _y ,float _z, float _width , float _height)
@@ -73,10 +74,13 @@ bool UIWidget::IsMouseOnInput(float _mouseX, float _mouseY, bool _IsMouseOn)
 {
 	for (auto c : m_vecChild)
 	{
-		if (c->IsMouseOnInput(_mouseX, _mouseY, _IsMouseOn))
+		if (dynamic_cast<UIButton*>(c) != nullptr)
 		{
-			return true;
-		}			
+			if (c->IsMouseOnInput(_mouseX, _mouseY, _IsMouseOn))
+			{
+				return true;
+			}
+		}		
 	}
 	return false;
 } 

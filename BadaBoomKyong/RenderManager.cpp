@@ -35,6 +35,7 @@
 #include "Light.h"
 #include "CubeMapResource.h"
 #include "SkyBox.h"
+#include "TextManager.h"
 
 //temp 지우셈
 #include "InputManager.h"
@@ -64,6 +65,19 @@ void RenderManager::InitDebugLineShader()
 	debugLineShader->CreateShaderProgramFromFiles("line.vert", "line.frag");
 	m_debugLineShader = debugLineShader;
 }
+
+void RenderManager::InitTextShader()
+{
+	textShader = new Shader();
+	textShader->CreateShaderProgramFromFiles("text.vert", "text.frag");	
+}
+
+GLuint RenderManager::GetTextShader() const
+{
+	return textShader ? textShader->GetShaderProgramHandle() : 0;
+}
+
+
 #include "UIManager.h"
 #include "UICanvas.h"
 #include "UIWidget.h"
@@ -84,6 +98,9 @@ void RenderManager::Init()
 	const char* vsFile_Particle = "Particles.vert";
 	const char* fsFile_Particle = "Particles.frag";
 
+	const char* vsFile_Background = "Background.vert";
+	const char* fsFile_Background = "Background.frag";
+
 	const char* vsFile_UI = "UI.vert";
 	const char* fsFile_UI = "UI.frag";
 
@@ -97,6 +114,7 @@ void RenderManager::Init()
 	m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->CreateShaderProgramFromFiles(vsFile_3D, fsFile_3D);
 	m_vShdr[int(SHADER_REF::SKYBOX)]->CreateShaderProgramFromFiles(vsFile_SkyBox, fsFile_SkyBox);
 	m_vShdr[int(SHADER_REF::PARTICLES)]->CreateShaderProgramFromFiles(vsFile_Particle, fsFile_Particle);	
+	m_vShdr[int(SHADER_REF::BACKGROUND)]->CreateShaderProgramFromFiles(vsFile_Background, fsFile_Background);
 	m_vShdr[int(SHADER_REF::UI)]->CreateShaderProgramFromFiles(vsFile_UI, fsFile_UI);
 	
 	m_pParticleSystem = new ParticleSystem;
@@ -107,12 +125,16 @@ void RenderManager::Init()
 	m_pParticleSystem->Init();
 
 	ShaderUniformInit();
+	InitTextShader();
 
-	//todo : 이거 곧 light manager로 옮기셈
-	GameObject* light_obj = GameObjectManager::GetInstance()->FindObject("Light");
-	m_pLight = static_cast<Light*>(light_obj->FindComponent(Light::LightTypeName));
-	assert(m_pLight != nullptr);
-
+	if (GameStateManager::GetInstance()->GetStageType() <= STAGE_TYPE::STAGE_03)
+	{
+		//todo : 이거 곧 light manager로 옮기셈
+		GameObject* light_obj = GameObjectManager::GetInstance()->FindObject("Light");
+		m_pLight = static_cast<Light*>(light_obj->FindComponent(Light::LightTypeName));
+		assert(m_pLight != nullptr);
+	}
+	
 	glEnable(GL_CULL_FACE);// 컬링 기능 활성화
 	glCullFace(GL_BACK); // 뒷면 제거
 	glFrontFace(GL_CCW); // 반시계 방향을 앞면으로 간주
@@ -128,6 +150,7 @@ void RenderManager::ShaderUniformInit()
 	auto shdr_handle_3D = m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->GetShaderProgramHandle();
 	auto shdr_handle_skybox = m_vShdr[int(SHADER_REF::SKYBOX)]->GetShaderProgramHandle();
 	auto shdr_handle_particle = m_vShdr[int(SHADER_REF::PARTICLES)]->GetShaderProgramHandle();
+	auto shdr_handle_background = m_vShdr[int(SHADER_REF::BACKGROUND)]->GetShaderProgramHandle();
 	auto shdr_handle_ui = m_vShdr[int(SHADER_REF::UI)]->GetShaderProgramHandle();
 
 	m_iMVP_Location = RegistOrGetUniformLocation(shdr_handle_3D, "uMVP");
@@ -235,11 +258,11 @@ void RenderManager::BeforeDraw()
 #include "Player.h"
 void RenderManager::Draw()
 {				
-	const auto& objs=GameObjectManager::GetInstance()->GetAllObjects();
+	const auto& objs = GameObjectManager::GetInstance()->GetAllObjects();
 	auto shdr_handle_2D = m_vShdr[int(SHADER_REF::TWO_DIMENSIONS)]->GetShaderProgramHandle();
-	auto shdr_handle_3D=  m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->GetShaderProgramHandle();
+	auto shdr_handle_3D = m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->GetShaderProgramHandle();
 	auto shdr_handle_skybox = m_vShdr[int(SHADER_REF::SKYBOX)]->GetShaderProgramHandle();
-	auto shdr_handle_particle= m_vShdr[int(SHADER_REF::PARTICLES)]->GetShaderProgramHandle();
+	auto shdr_handle_particle = m_vShdr[int(SHADER_REF::PARTICLES)]->GetShaderProgramHandle();
 
 	Transform* obj_trs = nullptr;
 	glEnable(GL_DEPTH_TEST);
@@ -248,7 +271,7 @@ void RenderManager::Draw()
 	BeforeDraw();
 
 	//m_iLightAffect_location= glGetUniformLocation(shdr_handle_3D, "uLightAffect");
-		
+
 	//1. 불투명 먼저 렌더링
 	for (const auto& obj : m_vOpaqueObject)
 	{
@@ -261,33 +284,33 @@ void RenderManager::Draw()
 			Model* model = obj->GetModel();
 			bool is3d = obj->GetIs3D();
 			if (model)
-			{							
+			{
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
-				
+
 				//m_iMVP_Location = glGetUniformLocation(shdr_handle_3D, "uMVP");
 				assert(m_iMVP_Location >= 0);
 
 				//m_iM2W_Location = glGetUniformLocation(shdr_handle_3D, "uM2W");
 				assert(m_iM2W_Location >= 0);
-				glm::mat4 m2w = obj_trs->GetModelToWorld_Matrix();				
+				glm::mat4 m2w = obj_trs->GetModelToWorld_Matrix();
 				glUniformMatrix4fv(m_iM2W_Location, 1, GL_FALSE, glm::value_ptr(m2w));
-				
+
 				//LIGHT
 				GLint light_num = 1;
 				//m_iLightNumber = glGetUniformLocation(shdr_handle_3D, "uLightNumber");			
 				glUniform1i(m_iLightNumber, light_num);
-				
+
 				//m_iLightColorOn = glGetUniformLocation(shdr_handle_3D, "uLightColorOn");
-				glUniform3f(m_iCamreaPosition,m_pCam->GetCamPosition().x, m_pCam->GetCamPosition().y, m_pCam->GetCamPosition().z);
+				glUniform3f(m_iCamreaPosition, m_pCam->GetCamPosition().x, m_pCam->GetCamPosition().y, m_pCam->GetCamPosition().z);
 				glUniform1i(m_iLightAffect_location, true);
 
 
 				obj->GetName() == "Light" ? glUniform1i(m_iLightColorOn, true) : glUniform1i(m_iLightColorOn, false);
-				
+
 				for (int i = 0;i < MAX_LIGHTS;i++)
 				{
 					const std::string type = "uLight[" + std::to_string(i) + "].type";
-					glUniform1i(m_lightUniforms[i].type,static_cast<int>(m_pLight->GetType()));
+					glUniform1i(m_lightUniforms[i].type, static_cast<int>(m_pLight->GetType()));
 
 					const std::string position = "uLight[" + std::to_string(i) + "].position";
 					const Transform* light_trs = dynamic_cast<Transform*>(m_pLight->GetOwner()->FindComponent(Transform::TransformTypeName));
@@ -307,14 +330,14 @@ void RenderManager::Draw()
 					glUniform3f(m_lightUniforms[i].direction, m_pLight->GetDirection().x, m_pLight->GetDirection().y, m_pLight->GetDirection().z);
 
 					const std::string cufotff_angle = "uLight[" + std::to_string(i) + "].cutoffangle";
-					glUniform1f(m_lightUniforms[i].cutoff,m_pLight->GetCutoffAngle());
+					glUniform1f(m_lightUniforms[i].cutoff, m_pLight->GetCutoffAngle());
 				}
 
 				for (int i = 0;i < model->GetMeshes().size();i++)
 				{
 					Material* mat = model->GetMeshes()[i]->GetMaterial();
 					if (mat)
-					{												
+					{
 						glUniform3f(m_materialUniforms.ambient, mat->GetAmbient().x, mat->GetAmbient().y, mat->GetAmbient().z);
 						glUniform3f(m_materialUniforms.diffuse, mat->GetDiffuse().x, mat->GetDiffuse().y, mat->GetDiffuse().z);
 						glUniform3f(m_materialUniforms.specular, mat->GetSpecular().x, mat->GetSpecular().y, mat->GetSpecular().z);
@@ -370,7 +393,7 @@ void RenderManager::Draw()
 							glUniform1i(m_iOut_NormalMap, 1);
 							glUniform1i(m_iHasNormalMap_location, true);
 						}
-						
+
 						glUniform2f(m_iUV_Offset_Location, 0, 0);
 						glUniform2f(m_iUV_Scale_Location, 1, 1);
 						glm::mat4 MVP = GetMVP_ByObject(*obj);
@@ -414,7 +437,7 @@ void RenderManager::Draw()
 						glUniform1i(m_iOut_NormalMap, 1);
 						glUniform1i(m_iHasNormalMap_location, true);
 					}
-					
+
 					glm::mat4 MVP = GetMVP_ByObject(*obj);
 
 					if (anim)
@@ -422,7 +445,7 @@ void RenderManager::Draw()
 						glUniform2f(m_iUV_Offset_Location, anim->GetAnimation()->m_fSheet_UV_offset_X, anim->GetAnimation()->m_fSheet_UV_offset_Y);
 						glUniform2f(m_iUV_Scale_Location, anim->GetAnimation()->m_fSheet_UV_Width, anim->GetAnimation()->m_fSheet_UV_Height);
 					}
-			 		else
+					else
 					{
 						glUniform2f(m_iUV_Offset_Location, 0, 0);
 						glUniform2f(m_iUV_Scale_Location, 1, 1);
@@ -437,7 +460,7 @@ void RenderManager::Draw()
 						IsFogOn = false;
 
 					DrawFog(shdr_handle_3D, IsFogOn);
-							
+
 					model->Draw();
 
 
@@ -466,14 +489,14 @@ void RenderManager::Draw()
 	//==========
 	//==========
 
-	
+
 	for (const auto& obj : objs)
 	{
-		Player* p = static_cast<Player*>(obj->FindComponent<Player>());		
+		Player* p = static_cast<Player*>(obj->FindComponent<Player>());
 		SmokeDemon* sm = static_cast<SmokeDemon*>(obj->FindComponent<SmokeDemon>());
-		CurseDemonBullet* cdm= static_cast<CurseDemonBullet*>(obj->FindComponent<CurseDemonBullet>());
+		CurseDemonBullet* cdm = static_cast<CurseDemonBullet*>(obj->FindComponent<CurseDemonBullet>());
 		BossRange* br = static_cast<BossRange*>(obj->FindComponent<BossRange>());
-		Boss* boss= static_cast<Boss*>(obj->FindComponent<Boss>());
+		Boss* boss = static_cast<Boss*>(obj->FindComponent<Boss>());
 		//============
 		//============
 		//==Particle==
@@ -492,7 +515,7 @@ void RenderManager::Draw()
 			p->m_pPs->Update();
 			p->m_pPs->Render();
 			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Diuse();
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		}
 		if (sm && sm->smoking)
 		{
@@ -506,7 +529,7 @@ void RenderManager::Draw()
 			sm->m_pPs->Render();
 			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Diuse();
 		}
-		if (cdm&& cdm->on)
+		if (cdm && cdm->on)
 		{
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
@@ -530,7 +553,7 @@ void RenderManager::Draw()
 		{
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-			
+
 			glDepthMask(GL_FALSE);
 			glEnable(GL_DEPTH_TEST);
 			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Use();
@@ -544,7 +567,7 @@ void RenderManager::Draw()
 			m_vShdr[static_cast<int>(SHADER_REF::PARTICLES)]->Diuse();
 			// 원래대로 복구			
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			glDepthMask(GL_TRUE);			
+			glDepthMask(GL_TRUE);
 		}
 		//============
 		//============
@@ -552,9 +575,9 @@ void RenderManager::Draw()
 		//============
 		//============
 	}
-	
 
-		
+
+
 	// 투명 객체 렌더링 전
 	glDepthMask(GL_FALSE); // 깊이 기록 끄기
 	//투명
@@ -570,7 +593,7 @@ void RenderManager::Draw()
 			bool is3d = obj->GetIs3D();
 			if (model)
 			{
-				
+
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Use();
 				//OpenGL에서 셰이더 프로그램 안에 있는 유니폼 변수의 위치(주소)를 얻는 함수
 				//m_iMVP_Location = glGetUniformLocation(shdr_handle_3D, "uMVP");
@@ -625,7 +648,7 @@ void RenderManager::Draw()
 					}
 				}
 				else if (spr)
-				{					
+				{
 					if (spr->GetTexture() != nullptr)
 					{
 						GLuint tex_id = spr->GetTexture()->GetTextureID();
@@ -637,16 +660,16 @@ void RenderManager::Draw()
 					else
 					{
 						glUniform1i(m_iHas_texture_location, false);
-		 			}
-					 
+					}
+
 					//todo : 여기좀 지저분함 손좀보셈
 					glm::mat4 MVP = GetMVP_ByObject(*obj);
-					glm::mat4 visualOffset;		
+					glm::mat4 visualOffset;
 					Player* p = static_cast<Player*>(obj->FindComponent(Player::PlayerTypeName));
 					Monster* mon = static_cast<Monster*>(obj->FindComponent<Monster>());
 
-						 
-					glm::mat4 finalMVP = MVP * visualOffset;					
+
+					glm::mat4 finalMVP = MVP * visualOffset;
 					if (anim)
 					{
 						float uvLeft = anim->GetAnimation()->m_fSheet_UV_offset_X;
@@ -672,16 +695,16 @@ void RenderManager::Draw()
 
 
 					glUniformMatrix4fv(m_iMVP_Location, 1, GL_FALSE, glm::value_ptr(MVP));
-					if (p&&p->GetIsHurting())					
-						glUniform1i(m_iHurtEffect_location, true);					
-					else					
-						glUniform1i(m_iHurtEffect_location, false);					
-
-					if (mon && mon->GetIsHurting())					
+					if (p && p->GetIsHurting())
 						glUniform1i(m_iHurtEffect_location, true);
 					else
-						glUniform1i(m_iHurtEffect_location, false);					
-					
+						glUniform1i(m_iHurtEffect_location, false);
+
+					if (mon && mon->GetIsHurting())
+						glUniform1i(m_iHurtEffect_location, true);
+					else
+						glUniform1i(m_iHurtEffect_location, false);
+
 					model->Draw();
 
 					//todo : 주석처리된거 지우고 충돌체 쉐이더를 통해 그리는거 이것도 쉐이더에서 수정하고 
@@ -696,8 +719,8 @@ void RenderManager::Draw()
 				}
 				m_vShdr[int(SHADER_REF::THREE_DIMENSIONS)]->Diuse();
 			}
-		}	
-	}	
+		}
+	}
 	glDepthMask(GL_TRUE); // 다시 켜기
 
 
@@ -709,19 +732,19 @@ void RenderManager::Draw()
 	m_vShdr[int(SHADER_REF::UI)]->Use();
 	auto shdr_ui = m_vShdr[int(SHADER_REF::UI)]->GetShaderProgramHandle();
 	for (auto c : UIManager::GetInstance()->m_vecCanvases)
-	{		
+	{
 		glDisable(GL_DEPTH_TEST);
 		c->m_iUiTransform_location = glGetUniformLocation(shdr_ui, "u_MVP");
 		assert(c->m_iUiTransform_location >= 0);
 		c->m_iUiShaderColor_location = glGetUniformLocation(shdr_ui, "u_Color");
-		assert(c->m_iUiShaderColor_location >= 0);		
+		assert(c->m_iUiShaderColor_location >= 0);
 		c->m_iUiHas_texture_location = glGetUniformLocation(shdr_ui, "uHasTexture");
 		assert(c->m_iUiHas_texture_location >= 0);
 		c->m_iUiOut_texture_location = glGetUniformLocation(shdr_ui, "uOutTexture");
-		assert(c->m_iUiOut_texture_location>= 0);
+		assert(c->m_iUiOut_texture_location >= 0);
 		c->m_iUV_Offset_Location = glGetUniformLocation(shdr_ui, "uUV_Offset");
 		assert(c->m_iUV_Offset_Location);
-		c->m_iUV_Scale_Location= glGetUniformLocation(shdr_ui, "uUV_Scale");
+		c->m_iUV_Scale_Location = glGetUniformLocation(shdr_ui, "uUV_Scale");
 		assert(c->m_iUV_Scale_Location);
 
 		c->Render();
@@ -733,17 +756,35 @@ void RenderManager::Draw()
 	//=============
 	//=============
 
+
+
+	//=============
+	//=============
+	//=====Text====
+	//=============
+	//=============
+	//TextManager::GetInstance()->Render("Hello World", 50, 200, 1.0f, glm::vec3(1, 1, 1));
+	//=============
+	//=============
+	//=====Text====
+	//=============
+	//=============
+
+
 #ifdef _DEBUG
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 #endif
-	auto handle=Window::GetInstance()->GetWindowHandle();
+	auto handle = Window::GetInstance()->GetWindowHandle();
 	glfwSwapBuffers(handle);
 
 	EndDraw();
 }
+
+
 #include <iostream>
 #include "InputManager.h"
+
 void RenderManager::EndDraw()
 {		
 	std::vector<GameObject*> TransParent_temp,Opaque_temp;

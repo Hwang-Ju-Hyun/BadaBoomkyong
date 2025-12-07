@@ -18,8 +18,21 @@
 #endif
 #include <Windows.h>
 #ifdef _DEBUG
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 void main(void)
 {		
+    FT_Library ft;
+    if (FT_Init_FreeType(&ft))
+    {
+        std::cout << "FreeType init failed!\n";
+        return;
+    }
+
+    std::cout << "FreeType OK!\n";
+    FT_Done_FreeType(ft);
+    
 	Application::GetInstance()->Init();	
 	TimeManager::m_dDeltaTime = 0;
 	TimeManager::m_dLastFrame= 0;

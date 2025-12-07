@@ -23,6 +23,7 @@
 #include "StageTest.h"
 #include "UIManager.h"
 #include "TimeManager.h"
+#include "TextManager.h"
 
 Application::Application(){}
 
@@ -46,14 +47,13 @@ void Application::Init()
     ModelManager::GetInstance()->Init();                        
 
     //GameStateManager
-    BaseLevel* lvl_01=GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_02);
+    BaseLevel* lvl_01=GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::GAME_START);
     GameStateManager::GetInstance()->ChangeLevel(lvl_01);
 
     FactoryManager::GetInstance()->Init();
 
-
     //ComponentInit
-    ComponentManager::GetInstance()->Init();       
+    ComponentManager::GetInstance()->Init();
     
     //InputManager
     InputManager::GetInstance()->Init();                    
@@ -67,6 +67,9 @@ void Application::Init()
     //MainEditor
     MainEditor::GetInstance()->Init();
 #endif    
+
+    TextManager::GetInstance()->Init("../Extern/Assets/Fonts/COOPBL.TTF",48, Window::GetInstance()->GetWindowWidth(), Window::GetInstance()->GetWindowHeight());
+    
 }
 #include <iostream>
 #include "GameStateManager.h"

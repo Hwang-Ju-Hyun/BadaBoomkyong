@@ -43,6 +43,8 @@ public:
 	//todo :이거 라인 쉐이더 이해하기
 	GLuint GetDebugLineShader() const;
 	void InitDebugLineShader(); 
+	GLuint GetTextShader()const;
+	void InitTextShader();
 private:
 	std::vector<Shader*> m_vShdr;
 	std::vector<GameObject*> m_vTransParnetObject;
@@ -92,6 +94,7 @@ private:
 	FrameBuffer* m_pFrameBuffer = nullptr;
 public:
 	Shader* debugLineShader = nullptr;
+	Shader* textShader = nullptr;
 public:
 	//todo : 얘 삭제하셈 파티클 실험중임
 	ParticleSystem* m_pParticleSystem = nullptr;

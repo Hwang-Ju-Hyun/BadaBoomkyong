@@ -5,12 +5,18 @@
 #include "Stage02.h"
 #include "Stage03.h"
 #include "StageTest.h"
+#include "GameStart.h"
+#include "GameOver.h"
+#include "Congratulation.h"
 
 GameStateManager::GameStateManager()
 {
 	m_hashLevels.insert({ STAGE_TYPE::STAGE_01,new Stage01(STAGE_TYPE::STAGE_01,"Stage01") });
 	m_hashLevels.insert({ STAGE_TYPE::STAGE_02,new Stage02(STAGE_TYPE::STAGE_02,"Stage02") });
 	m_hashLevels.insert({ STAGE_TYPE::STAGE_03,new Stage03(STAGE_TYPE::STAGE_03,"Stage03") });
+	m_hashLevels.insert({ STAGE_TYPE::GAME_START,new GameStart(STAGE_TYPE::GAME_START,"GameStart") });
+	m_hashLevels.insert({ STAGE_TYPE::GAME_OVER,new GameOver(STAGE_TYPE::GAME_OVER,"GameOver")});
+	m_hashLevels.insert({ STAGE_TYPE::CONGRATULATION,new Congratulation(STAGE_TYPE::CONGRATULATION,"Congratulation") });
 	m_hashLevels.insert({ STAGE_TYPE::STAGE_TEST,new StageTest(STAGE_TYPE::STAGE_TEST,"StageTest") });
 }
 

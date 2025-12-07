@@ -5,10 +5,14 @@
 #include "UICanvas.h"
 #include "Camera.h"
 #include "Window.h"
+#include "ResourceManager.h"
+#include "Resource.h"
+#include "TextureResource.h"
 
 UIButton::UIButton(UICanvas* _owner,float _x, float _y,float _z, float _width, float _height)
 	:UIWidget(_owner,_x,_y,_z,_width,_height)
 {	
+	m_pTexture=nullptr;
 	m_vColor = { 1.f,0.f,0.f,1.f };
 }
 
@@ -17,7 +21,7 @@ UIButton::~UIButton()
 }
 
 void UIButton::Update(float _dt)
-{
+{	
 }
 
 void UIButton::RenderScreenSpace()
@@ -33,6 +37,20 @@ void UIButton::RenderScreenSpace()
 	glm::mat4 model(1.0f);
 	model = glm::translate(model, glm::vec3(x, y, 0.f));
 	model = glm::scale(model, glm::vec3(w, h, 1.f));
+
+	if (m_pTexture != nullptr)
+	{
+		GLuint tex_id = m_pTexture->GetTextureID();
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, tex_id);
+		glUniform1i(GetOwner()->m_iUiOut_texture_location, 0);
+		glUniform1i(GetOwner()->m_iUiHas_texture_location, true);
+	}
+	else
+	{
+		glUniform1i(GetOwner()->m_iUiHas_texture_location, false);
+	}
+
 
 	glUniformMatrix4fv(GetOwner()->m_iUiTransform_location, 1, GL_FALSE, glm::value_ptr(model));
 	glUniform4fv(GetOwner()->m_iUiShaderColor_location, 1, glm::value_ptr(m_vColor));
@@ -60,6 +78,20 @@ void UIButton::RenderWorldSpace(const Camera* _cam)
 	glm::mat4 view = _cam->GetViewMatrix();
 	glm::mat4 mvp = proj * view * m2w;
 
+	if (m_pTexture != nullptr)
+	{
+		GLuint tex_id = m_pTexture->GetTextureID();
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, tex_id);
+		glUniform1i(GetOwner()->m_iUiOut_texture_location, 0);
+		glUniform1i(GetOwner()->m_iUiHas_texture_location, true);
+	}
+	else
+	{
+		glUniform1i(GetOwner()->m_iUiHas_texture_location, false);
+	}
+
+
 	glUniformMatrix4fv(GetOwner()->m_iUiTransform_location, 1, GL_FALSE, glm::value_ptr(mvp));
 	glUniform4fv(GetOwner()->m_iUiShaderColor_location, 1, glm::value_ptr(m_vColor));
 	glBindVertexArray(GetOwner()->VAO);
@@ -69,15 +101,23 @@ void UIButton::RenderWorldSpace(const Camera* _cam)
 	UIWidget::RenderWorldSpace(_cam);
 }
 
+TextureResource* UIButton::LoadTexture(const std::string& _name, const std::string& _path)
+{
+	m_pTexture = static_cast<TextureResource*>(ResourceManager::GetInstance()->GetAndLoad(_name, _path));
+	return m_pTexture;
+}
+
 bool UIButton::IsMouseOnInput(float _mouseX, float _mouseY, bool _IsMouseOn)
 {
 	float x = GetAbsoluteX();
 	float y = GetAbsoluteY();
 
-	if (_mouseX <= x && _mouseY <= y&& _IsMouseOn)
+	if (_mouseX <= x + m_fWidth && _mouseX >= x
+		&& _mouseY <= y && _mouseY >= y - m_fHeight
+		&& _IsMouseOn)
 	{
-
-		m_fpMouseOn();
+		if(m_fpMouseOn)
+			m_fpMouseOn();
 		return true;
 	}
 	return false;
@@ -88,9 +128,12 @@ bool UIButton::IsMouseClickedInput(float _mouseX, float _mouseY, bool _IsMouseCl
 	float x = GetAbsoluteX();
 	float y = GetAbsoluteY();
 
-	if (_mouseX <= x && _mouseY <= y && _IsMouseClicked)
+	if (_mouseX <= x + m_fWidth && _mouseX >= x
+		&& _mouseY <= y && _mouseY >= y - m_fHeight
+		&& _IsMouseClicked)
 	{
-		m_fpMouseClick();
+		if (m_fpMouseOn)
+			m_fpMouseOn();
 		return true;
 	}
 	return false;

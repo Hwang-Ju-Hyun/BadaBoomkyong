@@ -6,6 +6,7 @@
 #include <iostream>
 
 class GameObject;
+static int as = 0;
 
 class GameObjectManager
 {
@@ -32,6 +33,7 @@ public:
 private:
 	size_t AssignObjectID(GameObject* _obj);
 public:
-	inline void GameRestart() { std::cout << "RESTART!" << std::endl; }
+	
+	inline void GameRestart() { std::cout << "RESTART!"<<as++ << std::endl; }
 };
 

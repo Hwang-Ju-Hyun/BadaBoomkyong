@@ -5,6 +5,8 @@
 #include "RenderManager.h"
 #include "Camera.h"
 #include "InputManager.h"
+#include "UIButton.h"
+#include "TextManager.h"
 
 UICanvas::UICanvas(UIRenderSpace _space)
 	:m_pRoot(nullptr)
@@ -69,8 +71,8 @@ void UICanvas::Update(float _dt)
 	glm::vec2 mouse_pos=InputManager::GetInstance()->GetCursorPostion();
 	glm::vec2 mouse_screen_pos = GeometryUtil::GetInstance()->GetScreenPointFromWorld(mouse_pos);		
 	for (const auto& it : m_vecChild)
-	{
-		//it->IsMouseOnInput(mouse_screen_pos.x, mouse_screen_pos.y,true);
+	{		
+		it->IsMouseOnInput(mouse_screen_pos.x, mouse_screen_pos.y, true);
 		it->Update(_dt);
 	}		
 }
@@ -96,6 +98,18 @@ void UICanvas::Render()
 	default:
 		break;
 	}
+	for (const auto& req : m_TextDrawRequests)
+	{
+		TextManager::GetInstance()->Render(
+			req.text,
+			req.x,
+			req.y,
+			req.scale,
+			req.color
+		);
+	}
+	// 3) 다음 프레임 위해 리스트 초기화
+	m_TextDrawRequests.clear();
 }
 
 void UICanvas::Exit()

@@ -698,7 +698,7 @@ void Player::InitHPBarUi()
 
 	m_pHPCanvasUI->Init();
 
-	m_pHPPanelUI->m_fpMouseOn = []() {GameObjectManager::GetInstance()->GameRestart();};
+	//m_pHPPanelUI->m_fpMouseOn = []() {GameObjectManager::GetInstance()->GameRestart();};
 
 	UIManager::GetInstance()->AddCanvas(m_pHPCanvasUI);
 }

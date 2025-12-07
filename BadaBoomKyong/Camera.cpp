@@ -8,7 +8,7 @@
 #include "GameObjectManager.h"
 #include "GameObject.h"
 #include "Transform.h"
-
+#include <ft2build.h>
 
 Camera::Camera()
 	:m_camMode(-1)
@@ -32,9 +32,15 @@ Camera::~Camera()
 void Camera::Init()
 {
 	GameObject* player_obj = GameObjectManager::GetInstance()->FindObject(Player::PlayerTypeName);
-	m_pPlayer = dynamic_cast<Player*>(player_obj->FindComponent(Player::PlayerTypeName));
-
-	m_pPlayerTransform = dynamic_cast<Transform*>(m_pPlayer->GetOwner()->FindComponent(Transform::TransformTypeName));
+	if (player_obj == nullptr)
+		return;
+	if (m_pPlayer==nullptr)
+	{
+		m_pPlayer = dynamic_cast<Player*>(player_obj->FindComponent(Player::PlayerTypeName));
+		
+		m_pPlayerTransform = dynamic_cast<Transform*>(m_pPlayer->GetOwner()->FindComponent(Transform::TransformTypeName));
+	}
+	
 }
 
 void Camera::Update()
@@ -64,23 +70,27 @@ void Camera::Update()
 	}	
 	else
 	{
-		m_vCamUp = { 0.f,1.f,0.f };
-		// 플레이어 위치
-		glm::vec3 playerPos = m_pPlayerTransform->GetPosition();
+		if (m_pPlayer)
+		{
+			m_vCamUp = { 0.f,1.f,0.f };
+			// 플레이어 위치
+			glm::vec3 playerPos = m_pPlayerTransform->GetPosition();
 
-		// 플레이어 중심 기준 카메라 오프셋 (뒤/위쪽으로 약간 떨어지게)		
+			// 플레이어 중심 기준 카메라 오프셋 (뒤/위쪽으로 약간 떨어지게)		
 
-		// 카메라 위치 = 플레이어 위치 + 오프셋
-		m_vCamPos = playerPos + m_vCamPosOffset;
+			// 카메라 위치 = 플레이어 위치 + 오프셋
+			m_vCamPos = playerPos + m_vCamPosOffset;
+
+
+			// 카메라가 바라볼 타겟 = 플레이어 위치
+			m_vCamTarget = playerPos;
+
+			// 뷰행렬 및 투영행렬 계산
+			m_mViewMat = glm::lookAt(m_vCamPos, m_vCamTarget, m_vCamUp);
+			m_mProjMat = glm::perspective(glm::radians(fovy), width / height, nearPlane, farPlane);
+
+		}
 		
-
-		// 카메라가 바라볼 타겟 = 플레이어 위치
-		m_vCamTarget = playerPos;
-
-		// 뷰행렬 및 투영행렬 계산
-		m_mViewMat = glm::lookAt(m_vCamPos, m_vCamTarget, m_vCamUp);
-		m_mProjMat = glm::perspective(glm::radians(fovy), width / height, nearPlane, farPlane);
-
 	}
 
 	//if (cam_mode_switch < 0)
