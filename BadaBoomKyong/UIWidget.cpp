@@ -89,7 +89,7 @@ bool UIWidget::IsMouseClickedInput(float _mouseX, float _mouseY, bool _IsMouseCl
 {	
 	for (auto c : m_vecChild)
 	{
-		if (c->IsMouseOnInput(_mouseX, _mouseY, _IsMouseClicked))
+		if (c->IsMouseClickedInput(_mouseX, _mouseY, _IsMouseClicked))
 			return true;
 	}
 	return false;

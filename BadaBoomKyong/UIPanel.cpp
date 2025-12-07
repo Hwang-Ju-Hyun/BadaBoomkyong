@@ -119,7 +119,8 @@ bool UIPanel::IsMouseOnInput(float _mouseX, float _mouseY, bool _IsMouseOn)
 		&& _mouseY <= y&& _mouseY >= y-m_fHeight
 		&& _IsMouseOn)
 	{
-		m_fpMouseOn();
+		if(m_fpMouseOn!=nullptr)
+			m_fpMouseOn();
 		return true;
 	}
 	return false;
@@ -131,9 +132,12 @@ bool UIPanel::IsMouseClickedInput(float _mouseX, float _mouseY, bool _IsMouseCli
 	float x = GetAbsoluteX();
 	float y = GetAbsoluteY();
 
-	if (_mouseX <= x && _mouseY <= y && _IsMouseClicked)
+	if (_mouseX <= x + m_fWidth && _mouseX >= x
+		&& _mouseY <= y && _mouseY >= y - m_fHeight
+		&& _IsMouseClicked)
 	{
-		m_fpMouseClick();
+		if(m_fpMouseClick!=nullptr)
+			m_fpMouseClick();
 		return true;
 	}
 	return false;

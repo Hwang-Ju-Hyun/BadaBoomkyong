@@ -7,7 +7,9 @@
 #include "TextureResource.h"
 #include "UIManager.h"
 #include "GameObjectManager.h"
+#include "GameStateManager.h"
 #include "UIText.h"
+#include "BaseLevel.h";
 
 
 GameStart::GameStart(STAGE_TYPE _stageType, const std::string& _name)
@@ -18,7 +20,7 @@ GameStart::GameStart(STAGE_TYPE _stageType, const std::string& _name)
 GameStart::~GameStart()
 {
 }
-
+#include <iostream>
 void GameStart::Init()
 {		
 	m_pUICanvas = new UICanvas(UIRenderSpace::SCREEN_SPACE);
@@ -38,8 +40,8 @@ void GameStart::Init()
 	m_pUIEndBtn->SetColor({ 1.0f,1.f,0.f,1.f });
 	//TextureResource* hp_bar_tex = m_pUIEndBtn->LoadTexture("HP_Bar", "../Extern/Assets/Texture/UI/Health_Bars/Style_1.png");
 
-	m_pStartText = new UIText(btn_Widget->GetOwner(), "Hello World", 34.f, 215.f, 1.f, glm::vec3{ 1.0f,0.5f,1.f, });
-
+	m_pStartText = new UIText(btn_Widget->GetOwner(), "START", 80.f, 215.f, 1.f, glm::vec3{ 1.0f,0.5f,1.f, });
+	m_pExitText =  new UIText(btn_Widget->GetOwner(), "EXIT", 110.f,-585.f, 1.f, glm::vec3{ 1.0f,0.5f,1.f, });
 
 
 	UIWidget* back_ground_widget= new UIWidget(m_pUIBackCanvas);
@@ -58,19 +60,20 @@ void GameStart::Init()
 	btn_Widget->AddChild(m_pUIStartBtn);
 	btn_Widget->AddChild(m_pUIEndBtn);
 	m_pUIStartBtn->AddChild(m_pStartText);
+	m_pUIEndBtn->AddChild(m_pExitText);
 
 	m_pUIStartBtn->m_fpMouseOn = []() {GameObjectManager::GetInstance()->GameRestart();};
 
+	BaseLevel* lvl_01 = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_01);	
+
+	m_pUIStartBtn->m_fpMouseClick = [lvl_01]() {GameStateManager::GetInstance()->ChangeLevel(lvl_01);};
 	UIManager::GetInstance()->AddCanvas(m_pUIBackCanvas);
 	UIManager::GetInstance()->AddCanvas(m_pUICanvas);
 }
 
 void GameStart::Update()
 {
-	//glm::vec3 pos = m_pTransform->GetPosition();
-	//glm::vec3 scale = m_pTransform->GetScale();
 
-	
 }
 
 void GameStart::Exit()

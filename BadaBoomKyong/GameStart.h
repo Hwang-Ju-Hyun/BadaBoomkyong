@@ -27,5 +27,6 @@ public:
 	UIButton* m_pUIStartBtn;
 	UIButton* m_pUIEndBtn;	
 	UIText* m_pStartText;
+	UIText* m_pExitText;
 };
 

@@ -123,6 +123,7 @@ bool UIButton::IsMouseOnInput(float _mouseX, float _mouseY, bool _IsMouseOn)
 	return false;
 }
 
+#include "InputManager.h"
 bool UIButton::IsMouseClickedInput(float _mouseX, float _mouseY, bool _IsMouseClicked)
 {
 	float x = GetAbsoluteX();
@@ -132,8 +133,14 @@ bool UIButton::IsMouseClickedInput(float _mouseX, float _mouseY, bool _IsMouseCl
 		&& _mouseY <= y && _mouseY >= y - m_fHeight
 		&& _IsMouseClicked)
 	{
-		if (m_fpMouseOn)
-			m_fpMouseOn();
+		if (m_fpMouseClick != nullptr)
+		{			
+			if (InputManager::GetInstance()->GetMouseBtn(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+			{
+				m_fpMouseClick();
+			}			
+		}
+			
 		return true;
 	}
 	return false;

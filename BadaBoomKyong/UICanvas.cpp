@@ -73,6 +73,7 @@ void UICanvas::Update(float _dt)
 	for (const auto& it : m_vecChild)
 	{		
 		it->IsMouseOnInput(mouse_screen_pos.x, mouse_screen_pos.y, true);
+		it->IsMouseClickedInput(mouse_screen_pos.x, mouse_screen_pos.y, true);
 		it->Update(_dt);
 	}		
 }
