@@ -10,7 +10,7 @@
 #include "GameStateManager.h"
 #include "UIText.h"
 #include "BaseLevel.h";
-
+#include "EventManager.h"
 
 GameStart::GameStart(STAGE_TYPE _stageType, const std::string& _name)
 	:BaseLevel(_stageType,_name)
@@ -63,19 +63,20 @@ void GameStart::Init()
 	m_pUIEndBtn->AddChild(m_pExitText);
 
 	m_pUIStartBtn->m_fpMouseOn = []() {GameObjectManager::GetInstance()->GameRestart();};
-
-	BaseLevel* lvl_01 = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_01);	
-
-	m_pUIStartBtn->m_fpMouseClick = [lvl_01]() {GameStateManager::GetInstance()->ChangeLevel(lvl_01);};
+	
 	UIManager::GetInstance()->AddCanvas(m_pUIBackCanvas);
-	UIManager::GetInstance()->AddCanvas(m_pUICanvas);
+	UIManager::GetInstance()->AddCanvas(m_pUICanvas);	
+
+	BaseLevel* lvl_01 = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_01);
+
+	m_pUIStartBtn->m_fpMouseClick = [lvl_01]() {EventManager::GetInstance()->LevelChange(lvl_01);};
 }
 
 void GameStart::Update()
-{
-
+{	
 }
 
 void GameStart::Exit()
 {
+	UIManager::GetInstance()->Exit();
 }

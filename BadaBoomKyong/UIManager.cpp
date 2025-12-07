@@ -7,8 +7,6 @@
 #include "TimeManager.h"
 #include <cassert>
 
-
-
 UIManager::UIManager() 
 {		
 }
@@ -42,4 +40,17 @@ void UIManager::Render()
 		c->Render();
 	}	
 	m_vShdr->Diuse();		
+}
+
+void UIManager::Exit()
+{
+	for (int i = 0;i < m_vecCanvases.size();i++)
+	{
+		delete m_vecCanvases[i];
+		m_vecCanvases[i] = nullptr;
+	}
+	m_vecCanvases.clear();	
+	std::vector<UICanvas*> temp;
+	temp.swap(m_vecCanvases);
+
 }

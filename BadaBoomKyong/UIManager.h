@@ -20,5 +20,6 @@ public:
 	void Init();
 	void Update(float _dt);
 	void Render();
+	void Exit();
 };
 

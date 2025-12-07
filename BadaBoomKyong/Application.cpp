@@ -115,8 +115,8 @@ void Application::Exit()
     ModelManager::GetInstance()->Exit();    
     FactoryManager::GetInstance()->Exit();
     ObjectPoolManager::GetInstance()->Exit();    
+    UIManager::GetInstance()->Exit();
     RenderManager::GetInstance()->Exit();
-    
     Window::GetInstance()->Exit();
     glfwTerminate();
 }

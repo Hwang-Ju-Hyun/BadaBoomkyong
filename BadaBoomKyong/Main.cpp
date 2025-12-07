@@ -12,14 +12,14 @@
 #include <string>
 #include <sstream>
 #include "UIManager.h"
-
+#include <ft2build.h>
+#include FT_FREETYPE_H
 #ifdef _DEBUG
 #include <vld.h>
 #endif
 #include <Windows.h>
 #ifdef _DEBUG
-#include <ft2build.h>
-#include FT_FREETYPE_H
+
 
 void main(void)
 {		
@@ -73,8 +73,6 @@ void main(void)
 }
 #endif
 
-
-
 int APIENTRY WinMain(HINSTANCE hInstance,
     HINSTANCE hPrevInstance,
     LPSTR     lpCmdLine,
@@ -86,6 +84,15 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     static int update_cnt = 0;
     static int fps = 0;
     static float AccDT = 0.f;
+    FT_Library ft;
+    if (FT_Init_FreeType(&ft))
+    {
+        //std::cout << "FreeType init failed!\n";
+        return 0;
+    }
+
+    //std::cout << "FreeType OK!\n";
+    FT_Done_FreeType(ft);    
 
     while (!glfwWindowShouldClose(Window::GetInstance()->GetWindowHandle()))
     {
@@ -95,6 +102,9 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
         Application::GetInstance()->Update();
         RenderManager::GetInstance()->Draw();
+
+        UIManager::GetInstance()->Render();
+
         EventManager::GetInstance()->Update();
 
         update_cnt++;

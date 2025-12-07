@@ -21,7 +21,7 @@
 #include "FactoryManager.h"
 #include "RenderManager.h"
 #include "MainEditor.h"
-
+#include "UIManager.h"
 
 Stage01::Stage01(STAGE_TYPE _stageType, const std::string& _name)
 	:BaseLevel(_stageType,_name)
@@ -37,6 +37,18 @@ void Stage01::Init()
 {			
 	Serializer::GetInstance()->LoadJson_Object("json/Level/Stage01/Stage01_3D.json");	
 
+	FactoryManager::GetInstance()->Init();
+
+	ComponentManager::GetInstance()->Init();
+
+	RenderManager::GetInstance()->Init();
+	RenderManager::GetInstance()->InitDebugLineShader();
+
+
+#ifdef _DEBUG	
+	//MainEditor::GetInstance()->Init();
+#endif
+	UIManager::GetInstance()->Init();
 	//todo : stage01으로 시작할꺼면 stage02 이거끄셈 그리고 이거 키고
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::MONSTER);

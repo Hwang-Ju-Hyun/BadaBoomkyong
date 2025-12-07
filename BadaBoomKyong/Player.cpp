@@ -105,6 +105,7 @@ void Player::Init()
 	m_pBulletFactory = dynamic_cast<BulletFactory*>(FactoryManager::GetInstance()->GetFactory(BulletFactory::BulletFactoryTypeName));
 	m_pMeleeFactory = dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
 	assert(m_pBulletFactory != nullptr && m_pMeleeFactory != nullptr);
+
 }
 
 void Player::Awake()
