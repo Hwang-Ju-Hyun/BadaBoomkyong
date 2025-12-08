@@ -65,8 +65,8 @@ void Camera::Update()
 		m_vCamTarget = m_vCamPos + m_vCamFront;
 		m_mViewMat = glm::lookAt(m_vCamPos, m_vCamTarget, m_vCamUp);
 		m_mProjMat = glm::perspective(glm::radians(fovy), width / height, nearPlane, farPlane);
-
-		std::cout << m_vCamPos.x << " , " << m_vCamPos.y << " , " << m_vCamPos.z << std::endl;
+		std::cout << m_vCamFront.x << " , " << m_vCamFront.y << " , " << m_vCamFront.z << std::endl;
+		//std::cout << m_vCamPos.x << " , " << m_vCamPos.y << " , " << m_vCamPos.z << std::endl;
 	}	
 	else
 	{

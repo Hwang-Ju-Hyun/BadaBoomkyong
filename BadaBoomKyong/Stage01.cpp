@@ -46,7 +46,7 @@ void Stage01::Init()
 
 
 #ifdef _DEBUG	
-	//MainEditor::GetInstance()->Init();
+	MainEditor::GetInstance()->Init();
 #endif
 	UIManager::GetInstance()->Init();
 	//todo : stage01으로 시작할꺼면 stage02 이거끄셈 그리고 이거 키고
@@ -57,6 +57,7 @@ void Stage01::Init()
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PLATFORM);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MONSTER, GROUP_TYPE::PLATFORM);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLATFORM);
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLAYER);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PORTAL);
 }
 
@@ -70,17 +71,20 @@ void Stage01::Exit()
 {	
 	//Serializer::GetInstance()->SaveJson_Object("json/Level/Stage01/Stage01_3D.json",true);
 	//Serializer::GetInstance()->SaveJson_Object("json/Level/Stage01/Stage01_2D.json", false);
-	ComponentManager::GetInstance()->Exit();
+	
+	//ComponentManager::GetInstance()->Exit();
 	
 	FactoryManager::GetInstance()->Exit();
 	ObjectPoolManager::GetInstance()->Exit();
 
+	EventManager::GetInstance()->Exit();
+	UIManager::GetInstance()->Exit();
 	GameObjectManager::GetInstance()->Exit();
-	ResourceManager::GetInstance()->RemoveAllRes();
+	//ResourceManager::GetInstance()->RemoveAllRes();
 	//ModelManager::GetInstance()->Exit();
 	
 	RenderManager::GetInstance()->Exit();
-	EventManager::GetInstance()->Exit();
+
 
 #ifdef _DEBUG
 	// Cleanup

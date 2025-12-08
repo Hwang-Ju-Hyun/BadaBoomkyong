@@ -54,18 +54,34 @@ void Stage02::Init()
 	//RenderManager::GetInstance()->Init();
 	//RenderManager::GetInstance()->InitDebugLineShader();
 
+
+	FactoryManager::GetInstance()->Init();
+
+	ComponentManager::GetInstance()->Init();
+
+	RenderManager::GetInstance()->Init();
+	RenderManager::GetInstance()->InitDebugLineShader();
+	//RenderManager::GetInstance()->Init();
+	//RenderManager::GetInstance()->InitDebugLineShader();
+
+
+#ifdef _DEBUG	
+	MainEditor::GetInstance()->Init();
+#endif
+	UIManager::GetInstance()->Init();
+
 #ifdef _DEBUG	
 	//MainEditor::GetInstance()->Init();
 #endif
 
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::MONSTER);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MELEE, GROUP_TYPE::MONSTER);
+	//CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PORTAL);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MELEE, GROUP_TYPE::PLAYER);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PLATFORM);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::DEATH_ZONE);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MONSTER, GROUP_TYPE::PLATFORM);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLATFORM);
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PORTAL);
 
 
 	/*UICanvas* canvas = new UICanvas(UIRenderSpace::WORLD_SPACE);
@@ -100,18 +116,16 @@ void Stage02::Exit()
 	//Serializer::GetInstance()->SaveJson_Object("json/Level/Stage02/Stage02_3D.json", true);
 	//Serializer::GetInstance()->SaveJson_Object("json/Level/Stage02/Stage02_2D.json", false);
 	
-	ComponentManager::GetInstance()->Exit();
-
 	FactoryManager::GetInstance()->Exit();
 	ObjectPoolManager::GetInstance()->Exit();
 
+	EventManager::GetInstance()->Exit();
+	UIManager::GetInstance()->Exit();
 	GameObjectManager::GetInstance()->Exit();
-
-	ResourceManager::GetInstance()->RemoveAllRes();
-	ModelManager::GetInstance()->Exit();
+	//ResourceManager::GetInstance()->RemoveAllRes();
+	//ModelManager::GetInstance()->Exit();
 
 	RenderManager::GetInstance()->Exit();
-	EventManager::GetInstance()->Exit();
 
 #ifdef _DEBUG
 	// Cleanup

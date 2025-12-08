@@ -118,5 +118,12 @@ void Application::Exit()
     UIManager::GetInstance()->Exit();
     RenderManager::GetInstance()->Exit();
     Window::GetInstance()->Exit();
+
+#ifdef _DEBUG
+    // Cleanup
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+#endif // DEBUG	
     glfwTerminate();
 }

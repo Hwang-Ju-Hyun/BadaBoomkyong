@@ -97,6 +97,7 @@ void CurseDemonMelee::EnterCollision(Collider* _col)
         if (m_pPlayer)
         {
             m_pPlayer->MinusCurrentHP(1);
+            m_pPlayer->SetDamageTaken(1);
             if (m_pPlayer->GetIsAlive())
             {
                 m_pPlayer->SetIsHurting(true);

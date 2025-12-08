@@ -52,7 +52,6 @@ Monster::~Monster()
 		delete m_pAnimStateMachine;
 		m_pAnimStateMachine = nullptr;
 	}
-	delete m_pHPCanvasUI;
 }
 
 void Monster::UpdateSpriteFlipX()

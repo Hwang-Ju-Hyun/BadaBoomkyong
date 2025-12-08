@@ -42,6 +42,8 @@ void ExecutionerDemonMelee::Awake()
     GameObject* mon_obj = GetAttacker();    
     assert(mon_obj != nullptr);
     m_pPlayer = m_pExecutionerDemon->GetPlayer();
+    if (m_pPlayer == nullptr)
+        return;
     Transform* mon_trs = dynamic_cast<Transform*>(mon_obj->FindComponent(Transform::TransformTypeName));
     m_pExecutionerDemon = dynamic_cast<ExecutionerDemon*>(mon_obj->FindComponent(ExecutionerDemon::ExecutionerDemonTypeName));
 
@@ -101,6 +103,7 @@ void ExecutionerDemonMelee::EnterCollision(Collider* _col)
         if (m_pPlayer)
         {
             m_pPlayer->MinusCurrentHP(1);
+            m_pPlayer->SetDamageTaken(1);
             if (m_pPlayer->GetIsAlive())
             {
                 m_pPlayer->SetIsHurting(true);

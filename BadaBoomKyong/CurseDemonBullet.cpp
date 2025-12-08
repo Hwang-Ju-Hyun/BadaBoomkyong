@@ -42,11 +42,12 @@ void CurseDemonBullet::Init()
 
 void CurseDemonBullet::Awake()
 { 
-    GameObject* mon_obj = GameObjectManager::GetInstance()->FindObject(CurseDemon::CurseDemonTypeName);
+    GameObject* mon_obj = GetShooter();
+    //GameObject* mon_obj = GameObjectManager::GetInstance()->FindObject(CurseDemon::CurseDemonTypeName);
     Transform* mon_trs = dynamic_cast<Transform*>(GetShooter()->FindComponent(Transform::TransformTypeName));
     CurseDemon* mon_comp = dynamic_cast<CurseDemon*>(mon_obj->FindComponent(CurseDemon::CurseDemonTypeName));
 
-    m_pTransform->SetPosition({ mon_trs->GetPosition() });
+    m_pTransform->SetPosition({ mon_trs->GetPosition()});
     m_pRigidBody->SetVelocity({ 0.f,0.f,0.f });
     m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
     m_pCollider->SetScale(m_pTransform->GetScale());
@@ -106,6 +107,7 @@ void CurseDemonBullet::EnterCollision(Collider* _col)
         if (m_pPlayer)
         {
             m_pPlayer->MinusCurrentHP(1);
+            m_pPlayer->SetDamageTaken(1);
             if (m_pPlayer->GetIsAlive())
             {
                 m_pPlayer->SetIsHurting(true);

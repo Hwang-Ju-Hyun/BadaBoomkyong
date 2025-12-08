@@ -813,6 +813,9 @@ void RenderManager::Exit()
 		m_pParticleSystem = nullptr;
 	}
 
+	delete textShader;
+	textShader = nullptr;
+
 	std::vector<Shader*> temp;
 
 	delete debugLineShader;

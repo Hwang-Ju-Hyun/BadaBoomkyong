@@ -11,6 +11,7 @@
 #include "UIText.h"
 #include "BaseLevel.h";
 #include "EventManager.h"
+#include "MainEditor.h"
 
 GameStart::GameStart(STAGE_TYPE _stageType, const std::string& _name)
 	:BaseLevel(_stageType,_name)
@@ -69,7 +70,7 @@ void GameStart::Init()
 
 	BaseLevel* lvl_01 = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_01);
 
-	m_pUIStartBtn->m_fpMouseClick = [lvl_01]() {EventManager::GetInstance()->LevelChange(lvl_01);};
+	m_pUIStartBtn->m_fpMouseClick = [lvl_01]() {EventManager::GetInstance()->LevelChange(lvl_01);};	
 }
 
 void GameStart::Update()
@@ -79,4 +80,10 @@ void GameStart::Update()
 void GameStart::Exit()
 {
 	UIManager::GetInstance()->Exit();
+	#ifdef _DEBUG
+	// Cleanup
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+#endif // DEBUG
 }

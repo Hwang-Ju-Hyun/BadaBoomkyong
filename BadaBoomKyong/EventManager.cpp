@@ -39,7 +39,7 @@ void EventManager::Excute(const EVENT& _eve)
 	case EVENT_TYPE::DELETE_OBJECT:
 	{
 		GameObject* obj = reinterpret_cast<GameObject*>(_eve.lParam);
-		GameObjectManager::GetInstance()->DeleteObject(obj->GetName());
+		GameObjectManager::GetInstance()->DeleteObject(obj);
 		break;
 	}		
 	case EVENT_TYPE::LEVEL_CHANGE:
