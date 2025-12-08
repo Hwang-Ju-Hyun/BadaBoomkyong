@@ -76,7 +76,18 @@ void AudioManager::PlaySound(const std::string& name, float volume)
 
     if (channel)
     {
-        channel->setVolume(volume);        
+        channel->setVolume(volume);   
+        mChannelMap[name] = channel;
     }
        
+}
+
+void AudioManager::StopSound(const std::string& name)
+{
+    auto it = mChannelMap.find(name);
+    if (it == mChannelMap.end()) return;
+
+    FMOD::Channel* channel = it->second;
+    if (channel)
+        channel->stop();
 }

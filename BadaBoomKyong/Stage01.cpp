@@ -39,6 +39,7 @@ void Stage01::Init()
 {	
 	Serializer::GetInstance()->LoadJson_Object("json/Level/Stage01/Stage01_3D.json");	
 		
+
 	AudioManager::GetInstance()->LoadSound("Stage01BGM", "../Extern/Assets/Sound/Stage01BGM.wav", true);
 	AudioManager::GetInstance()->PlaySound("Stage01BGM", 0.7f);
 
@@ -48,7 +49,6 @@ void Stage01::Init()
 
 	RenderManager::GetInstance()->Init();
 	RenderManager::GetInstance()->InitDebugLineShader();
-
 
 #ifdef _DEBUG	
 	MainEditor::GetInstance()->Init();
@@ -77,9 +77,9 @@ void Stage01::Exit()
 	//Serializer::GetInstance()->SaveJson_Object("json/Level/Stage01/Stage01_3D.json",true);
 	//Serializer::GetInstance()->SaveJson_Object("json/Level/Stage01/Stage01_2D.json", false);
 	
-	//ComponentManager::GetInstance()->Exit();
 	
 	FactoryManager::GetInstance()->Exit();
+	ComponentManager::GetInstance()->Exit();
 	ObjectPoolManager::GetInstance()->Exit();
 
 	EventManager::GetInstance()->Exit();
@@ -88,7 +88,7 @@ void Stage01::Exit()
 	//ResourceManager::GetInstance()->RemoveAllRes();
 	//ModelManager::GetInstance()->Exit();
 	
-	RenderManager::GetInstance()->Exit();
+	//RenderManager::GetInstance()->Exit();
 
 
 #ifdef _DEBUG
@@ -98,4 +98,5 @@ void Stage01::Exit()
 	ImGui::DestroyContext();
 #endif // DEBUG		
 
+	AudioManager::GetInstance()->StopSound("Stage01BGM");
 }

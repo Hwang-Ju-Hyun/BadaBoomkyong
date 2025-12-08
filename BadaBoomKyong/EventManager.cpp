@@ -3,6 +3,8 @@
 #include "GameStateManager.h"
 #include "BaseLevel.h"
 #include "GameObjectManager.h"
+#include "RenderManager.h"
+
 
 EventManager::EventManager()
 {
@@ -45,6 +47,7 @@ void EventManager::Excute(const EVENT& _eve)
 	case EVENT_TYPE::LEVEL_CHANGE:
 	{
 		BaseLevel* lvl = reinterpret_cast<BaseLevel*>(_eve.lParam);
+		RenderManager::GetInstance()->Exit();
 		GameStateManager::GetInstance()->ChangeLevel(lvl);
 		break;
 	}		

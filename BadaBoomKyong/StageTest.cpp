@@ -63,15 +63,12 @@ void StageTest::Exit()
 	//Serializer::GetInstance()->SaveJson_Object("json/Level/StageTest/StageTest_3D.json",true);
 	//Serializer::GetInstance()->SaveJson_Object("json/Level/StageTest/StageTest_2D.json", false);
 	FactoryManager::GetInstance()->Exit();
+	ComponentManager::GetInstance()->Exit();
 	ObjectPoolManager::GetInstance()->Exit();
 
 	EventManager::GetInstance()->Exit();
 	UIManager::GetInstance()->Exit();
-	GameObjectManager::GetInstance()->Exit();
-	//ResourceManager::GetInstance()->RemoveAllRes();
-	//ModelManager::GetInstance()->Exit();
-
-	RenderManager::GetInstance()->Exit();
+	GameObjectManager::GetInstance()->Exit();		
 
 #ifdef _DEBUG
 	// Cleanup

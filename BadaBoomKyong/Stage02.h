@@ -16,7 +16,6 @@ public:
 public:
 	virtual void Init()	override;
 	virtual void Update()override;
-	virtual void Exit()	override;
-	Stage03* lvl_3 = nullptr;
+	virtual void Exit()	override;	
 };
 

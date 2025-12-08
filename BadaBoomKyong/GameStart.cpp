@@ -1,5 +1,4 @@
 #include "GameStart.h"
-#include <glm.hpp>
 #include "UICanvas.h"
 #include "UIWidget.h"
 #include "UIPanel.h"
@@ -9,10 +8,11 @@
 #include "GameObjectManager.h"
 #include "GameStateManager.h"
 #include "UIText.h"
-#include "BaseLevel.h";
 #include "EventManager.h"
 #include "MainEditor.h"
 #include "AudioManager.h"
+#include "ComponentManager.h"
+
 GameStart::GameStart(STAGE_TYPE _stageType, const std::string& _name)
 	:BaseLevel(_stageType,_name)
 {
@@ -80,6 +80,7 @@ void GameStart::Update()
 {	
 }
 
+
 void GameStart::Exit()
 {
 	UIManager::GetInstance()->Exit();
@@ -88,5 +89,9 @@ void GameStart::Exit()
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
-#endif // DEBUG	
+#endif // DEBUG			
+	ComponentManager::GetInstance()->Exit();
+	GameObjectManager::GetInstance()->Exit();			
+	
+	AudioManager::GetInstance()->StopSound("GameStartBGM");
 }

@@ -44,7 +44,11 @@ void FactoryManager::Exit()
 	for (auto iter = m_hashFactories.begin();iter != m_hashFactories.end();iter++)
 	{
 		if (iter->second != nullptr)
+		{
 			delete iter->second;
+			iter->second = nullptr;
+		}
+		
 	}
 	std::unordered_map<std::string, BaseFactory*> temp;
 	temp.swap(m_hashFactories);

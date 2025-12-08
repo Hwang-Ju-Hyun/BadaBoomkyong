@@ -25,6 +25,7 @@
 #include "UIButton.h"
 #include "UIManager.h"
 #include "UIPanel.h"
+#include "AudioManager.h"
 
 Stage02::Stage02(STAGE_TYPE _stageType,const std::string& _name)
 	:BaseLevel(_stageType,_name)
@@ -82,6 +83,9 @@ void Stage02::Init()
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLATFORM);
 
 
+	AudioManager::GetInstance()->LoadSound("Stage02BGM", "../Extern/Assets/Sound/Stage02BGM.mp3",true);
+	AudioManager::GetInstance()->PlaySound("Stage02BGM", 1.0f);
+
 	/*UICanvas* canvas = new UICanvas(UIRenderSpace::WORLD_SPACE);
 	UIWidget* widget = new UIWidget(canvas);
 	UIButton* btn = new UIButton(widget->GetOwner(), 228.353f, 641.322f, 597.875f, 1000.f, 10000.f);
@@ -123,7 +127,7 @@ void Stage02::Exit()
 	//ResourceManager::GetInstance()->RemoveAllRes();
 	//ModelManager::GetInstance()->Exit();
 
-	RenderManager::GetInstance()->Exit();
+	//RenderManager::GetInstance()->Exit();
 
 #ifdef _DEBUG
 	// Cleanup
@@ -131,4 +135,6 @@ void Stage02::Exit()
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
 #endif // DEBUG	
+
+	AudioManager::GetInstance()->StopSound("Stage02BGM");
 }

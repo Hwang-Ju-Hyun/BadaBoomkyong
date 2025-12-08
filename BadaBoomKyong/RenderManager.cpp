@@ -20,7 +20,6 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-#include "Collider.h"
 #endif // DEBUG
 #include "header.h"
 #include "Camera.h"
@@ -44,6 +43,12 @@
 #include "CurseDemonBullet.h"
 #include "Boss.h"
 #include "BossRange.h"
+
+#include "UIManager.h"
+#include "UICanvas.h"
+#include "UIWidget.h"
+#include "UIButton.h"
+
 
 RenderManager::RenderManager()
 {	
@@ -78,10 +83,6 @@ GLuint RenderManager::GetTextShader() const
 }
 
 
-#include "UIManager.h"
-#include "UICanvas.h"
-#include "UIWidget.h"
-#include "UIButton.h"
 
 static float x = 0.f;
 void RenderManager::Init()
@@ -780,10 +781,6 @@ void RenderManager::Draw()
 
 	EndDraw();
 }
-
-
-#include <iostream>
-#include "InputManager.h"
 
 void RenderManager::EndDraw()
 {		
