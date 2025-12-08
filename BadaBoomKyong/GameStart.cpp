@@ -1,4 +1,6 @@
 #include "GameStart.h"
+#include <GL/glew.h>
+#include "Window.h"
 #include "UICanvas.h"
 #include "UIWidget.h"
 #include "UIPanel.h"
@@ -74,6 +76,7 @@ void GameStart::Init()
 	BaseLevel* lvl_01 = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_01);
 
 	m_pUIStartBtn->m_fpMouseClick = [lvl_01]() {EventManager::GetInstance()->LevelChange(lvl_01);};	
+	m_pUIEndBtn->m_fpMouseClick= []() { glfwSetWindowShouldClose(Window::GetInstance()->GetWindowHandle(), GL_TRUE);};
 }
 
 void GameStart::Update()

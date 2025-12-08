@@ -13,6 +13,7 @@
 #include "Player.h"
 #include "ParticleSystem.h"
 #include "CurseDemonBulletParticle.h"
+#include "AudioManager.h"
 
 CurseDemonBullet::CurseDemonBullet(GameObject* _owner, GameObject* _shooter)
     :Bullet(_owner,_shooter)    
@@ -42,7 +43,7 @@ void CurseDemonBullet::Init()
 
 void CurseDemonBullet::Awake()
 { 
-    GameObject* mon_obj = GetShooter();
+    GameObject* mon_obj = GetShooter();    
     //GameObject* mon_obj = GameObjectManager::GetInstance()->FindObject(CurseDemon::CurseDemonTypeName);
     Transform* mon_trs = dynamic_cast<Transform*>(GetShooter()->FindComponent(Transform::TransformTypeName));
     CurseDemon* mon_comp = dynamic_cast<CurseDemon*>(mon_obj->FindComponent(CurseDemon::CurseDemonTypeName));
@@ -57,6 +58,8 @@ void CurseDemonBullet::Awake()
 
     m_pPlayer = m_pCurseDemon->GetPlayer();
     m_pPlayerTransform = dynamic_cast<Transform*>(m_pPlayer->GetOwner()->FindComponent(Transform::TransformTypeName));
+
+    AudioManager::GetInstance()->PlaySound("CurseDemonBullet", 1.0f);
 }
 
 void CurseDemonBullet::Fire()

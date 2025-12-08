@@ -111,7 +111,7 @@ void Player::Init()
 	AudioManager::GetInstance()->LoadSound("dash", "../Extern/Assets/Sound/dash.wav", false);
 	AudioManager::GetInstance()->LoadSound("combo1", "../Extern/Assets/Sound/combo1.wav", false);
 	AudioManager::GetInstance()->LoadSound("combo2", "../Extern/Assets/Sound/combo2.wav", false);
-	AudioManager::GetInstance()->LoadSound("combo3", "../Extern/Assets/Sound/combo3.wav", false);
+	AudioManager::GetInstance()->LoadSound("combo3", "../Extern/Assets/Sound/combo3.mp3", false);
 	AudioManager::GetInstance()->LoadSound("jumpAttack", "../Extern/Assets/Sound/jumpAttack.flac", false);
 	AudioManager::GetInstance()->LoadSound("playerHurt", "../Extern/Assets/Sound/playerHurt.mp3", false);	
 	AudioManager::GetInstance()->LoadSound("playerDeath", "../Extern/Assets/Sound/playerDeath.wav", false);

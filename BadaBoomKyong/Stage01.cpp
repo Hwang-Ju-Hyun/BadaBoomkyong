@@ -43,6 +43,8 @@ void Stage01::Init()
 	AudioManager::GetInstance()->LoadSound("Stage01BGM", "../Extern/Assets/Sound/Stage01BGM.wav", true);
 	AudioManager::GetInstance()->PlaySound("Stage01BGM", 0.7f);
 
+	
+
 	FactoryManager::GetInstance()->Init();
 
 	ComponentManager::GetInstance()->Init();

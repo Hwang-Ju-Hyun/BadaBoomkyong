@@ -28,6 +28,7 @@
 #include "UIPanel.h"
 #include "UICanvas.h"
 #include "UIWidget.h"
+#include "AudioManager.h"
 
 CurseDemon::CurseDemon(GameObject* _owner)
     :Monster(_owner)	
@@ -53,6 +54,10 @@ CurseDemon::CurseDemon(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DEATH), new AnimDeathState<Monster>());
 
 	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::IDLE));
+
+	AudioManager::GetInstance()->LoadSound("CurseDemonBullet", "../Extern/Assets/Sound/CurseDemonBullet.mp3", false);
+	AudioManager::GetInstance()->LoadSound("CurseDemonMelee", "../Extern/Assets/Sound/CurseDemonMelee.mp3", false);	
+	AudioManager::GetInstance()->LoadSound("CurseDemonDeath", "../Extern/Assets/Sound/CurseDemonDeath.mp3", false);
 }
 
 CurseDemon::~CurseDemon()
@@ -173,7 +178,14 @@ void CurseDemon::Update()
 	}
 
 	auto hp = GetCurrentHP();
-	hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
+
+	if (GetIsAlive())
+	{
+		hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
+		if(!GetIsAlive())
+			AudioManager::GetInstance()->PlaySound("CurseDemonDeath", 0.7f);
+	}
+	
 
 	if (!GetIsAlive())
 	{

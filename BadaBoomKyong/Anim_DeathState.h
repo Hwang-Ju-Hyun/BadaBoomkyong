@@ -14,7 +14,7 @@ public:
         if constexpr (std::is_same<T, Player>::value)
         {
             AudioManager::GetInstance()->PlaySound("playerDeath", 1.0f);
-        }
+        }        
         _owner->GetAnimator()->ChangeAnimation("Death");
     }
 

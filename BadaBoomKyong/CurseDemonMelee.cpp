@@ -8,6 +8,7 @@
 #include "TimeManager.h"
 #include "ComponentManager.h"
 #include "Player.h"
+#include "AudioManager.h"
 
 CurseDemonMelee::CurseDemonMelee(GameObject* _owner,GameObject* _attacker)
 	:Melee(_owner, _attacker)
@@ -53,6 +54,8 @@ void CurseDemonMelee::Awake()
     m_pCollider->SetScale(m_pTransform->GetScale());
 
     m_fCurTime = 0.f;
+
+    AudioManager::GetInstance()->PlaySound("CurseDemonMelee", 1.0f);
 }
 
 void CurseDemonMelee::Update()

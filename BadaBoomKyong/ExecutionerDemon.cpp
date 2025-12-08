@@ -28,6 +28,7 @@
 #include "UIPanel.h"
 #include "UICanvas.h"
 #include "UIWidget.h"
+#include "AudioManager.h"
 
 ExecutionerDemon::ExecutionerDemon(GameObject* _owner)
 	:Monster(_owner)
