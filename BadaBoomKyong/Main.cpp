@@ -20,7 +20,6 @@
 #include <Windows.h>
 #ifdef _DEBUG
 
-
 void main(void)
 {		
     FT_Library ft;
@@ -32,6 +31,8 @@ void main(void)
 
     std::cout << "FreeType OK!\n";
     FT_Done_FreeType(ft);
+
+
     
 	Application::GetInstance()->Init();	
 	TimeManager::m_dDeltaTime = 0;

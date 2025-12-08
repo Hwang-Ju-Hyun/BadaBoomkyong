@@ -22,7 +22,7 @@ public:
     }
 
     virtual void Update(T* _owner) override
-    {
+    {        
         AnimStateMachine<Player>* machine = _owner->GetAnimStateMachine();
         if constexpr (std::is_same<T, Player>::value)
         {

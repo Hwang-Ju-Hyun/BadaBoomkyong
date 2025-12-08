@@ -1,7 +1,7 @@
 #pragma once
 #include "Anim_IState.h"
 #include "EventManager.h"
-
+#include "AudioManager.h"
 template<typename T>
 class AnimDeathState :public AnimIState<T>
 {
@@ -11,6 +11,10 @@ public:
 public:
     virtual void Enter(T* _owner) override
     {        
+        if constexpr (std::is_same<T, Player>::value)
+        {
+            AudioManager::GetInstance()->PlaySound("playerDeath", 1.0f);
+        }
         _owner->GetAnimator()->ChangeAnimation("Death");
     }
 

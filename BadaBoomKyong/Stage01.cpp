@@ -22,6 +22,8 @@
 #include "RenderManager.h"
 #include "MainEditor.h"
 #include "UIManager.h"
+#include "AudioManager.h"
+
 
 Stage01::Stage01(STAGE_TYPE _stageType, const std::string& _name)
 	:BaseLevel(_stageType,_name)
@@ -34,8 +36,11 @@ Stage01::~Stage01()
 }
 
 void Stage01::Init()
-{			
+{	
 	Serializer::GetInstance()->LoadJson_Object("json/Level/Stage01/Stage01_3D.json");	
+		
+	AudioManager::GetInstance()->LoadSound("Stage01BGM", "../Extern/Assets/Sound/Stage01BGM.wav", true);
+	AudioManager::GetInstance()->PlaySound("Stage01BGM", 0.7f);
 
 	FactoryManager::GetInstance()->Init();
 
@@ -91,6 +96,6 @@ void Stage01::Exit()
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
-#endif // DEBUG
-	
+#endif // DEBUG		
+
 }

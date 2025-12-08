@@ -353,8 +353,7 @@ void MainEditor::UpdateEditorCameraControls()
 {
 	auto input = InputManager::GetInstance();
 	static glm::vec2 prevMousePos = { 0.f, 0.f };
-	static bool isFirst = true;
-	std::cout << m_pCam->m_vCamFront.x << " , " << m_pCam->m_vCamFront.y << " , " << m_pCam->m_vCamFront.z << std::endl;
+	static bool isFirst = true;	
 	if (input->GetMouseBtn(GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS ||
 		input->GetMouseBtn(GLFW_MOUSE_BUTTON_RIGHT) == GLFW_REPEAT)
 	{

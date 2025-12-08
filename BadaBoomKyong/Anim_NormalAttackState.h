@@ -5,6 +5,7 @@
 #include "Monster.h"
 #include "EventManager.h"
 #include "PlayerMelee.h"
+#include "AudioManager.h"
 
 template<typename T>
 class AnimNormalAttackState : public AnimIState<T>
@@ -21,7 +22,8 @@ public:
         }            
         else if constexpr (std::is_same<T, Player>::value)
         {
-            _owner->GetAnimator()->ChangeAnimation("ComboAtk_1");           
+            _owner->GetAnimator()->ChangeAnimation("ComboAtk_1");       
+            AudioManager::GetInstance()->PlaySound("combo1", 1.0f);
         }
             
     }

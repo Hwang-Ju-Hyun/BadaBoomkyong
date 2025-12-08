@@ -2,7 +2,7 @@
 #include "Anim_IState.h"
 #include "Player.h"
 #include "Monster.h"
-
+#include "AudioManager.h"
 template<typename T>
 class AnimHurtState : public AnimIState<T>
 {
@@ -13,6 +13,7 @@ public:
     virtual void Enter(T* _owner) override
     {
         _owner->GetAnimator()->ChangeAnimation("Hurt");
+        AudioManager::GetInstance()->PlaySound("playerHurt", 1.0f);
     }
 
     virtual void Update(T* _owner) override

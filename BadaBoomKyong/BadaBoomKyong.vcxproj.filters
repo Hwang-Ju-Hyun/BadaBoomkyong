@@ -551,6 +551,9 @@
     <Filter Include="UI\Widget\Text">
       <UniqueIdentifier>{6547b552-f3a5-494f-b384-7126fd5d87e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\AudioManager">
+      <UniqueIdentifier>{8ddc061d-dcb1-45bb-a1cb-47388ad358be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -996,6 +999,9 @@
     </ClCompile>
     <ClCompile Include="UIText.cpp">
       <Filter>UI\Widget\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>Manager\AudioManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1553,6 +1559,9 @@
     </ClInclude>
     <ClInclude Include="UIText.h">
       <Filter>UI\Widget\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioManager.h">
+      <Filter>Manager\AudioManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

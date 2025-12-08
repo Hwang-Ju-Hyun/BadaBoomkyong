@@ -113,13 +113,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\GLFW\include\;$(ProjectDir)Dependencies\GLEW\include\;$(ProjectDir)Dependencies\GLM\;$(ProjectDir)Dependencies\STB\;$(ProjectDir)Dependencies\Assimp\include\;$(ProjectDir)IMGUI;$(ProjectDir)IMGUIZMO;$(ProjectDir)Dependencies\Freetype\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\GLFW\include\;$(ProjectDir)Dependencies\GLEW\include\;$(ProjectDir)Dependencies\GLM\;$(ProjectDir)Dependencies\STB\;$(ProjectDir)Dependencies\Assimp\include\;$(ProjectDir)IMGUI;$(ProjectDir)IMGUIZMO;$(ProjectDir)Dependencies\Freetype\include\;$(ProjectDir)Dependencies\FMOD\api\core\inc\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\GLFW\lib-vc2019\;$(ProjectDir)Dependencies\GLEW\lib\;$(ProjectDir)Dependencies\Assimp\lib\;$(ProjectDir)Dependencies\Freetype\lib\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;assimp-vc143-mtd.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\GLFW\lib-vc2019\;$(ProjectDir)Dependencies\GLEW\lib\;$(ProjectDir)Dependencies\Assimp\lib\;$(ProjectDir)Dependencies\Freetype\lib\;$(ProjectDir)Dependencies\FMOD\api\core\lib\x64\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;assimp-vc143-mtd.lib;freetype.lib;fmod_vc.lib;fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -145,6 +145,7 @@
     <ClCompile Include="AI.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="BaseFactory.cpp" />
     <ClCompile Include="BaseLevel.cpp" />
@@ -317,6 +318,7 @@
     <ClInclude Include="Anim_SprintingState.h" />
     <ClInclude Include="Anim_ToSprintState.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="BaseFactory.h" />
     <ClInclude Include="BaseLevel.h" />

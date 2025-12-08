@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Monster.h"
 #include "EventManager.h"
+#include "AudioManager.h"
 
 template<typename T>
 class AnimNormalAttackState_3 : public AnimIState<T>
@@ -15,6 +16,7 @@ public:
     virtual void Enter(T* _owner) override
     {        
         _owner->GetAnimator()->ChangeAnimation("ComboAtk_3");
+        AudioManager::GetInstance()->PlaySound("combo3");
     }
 
     virtual void Update(T* _owner) override

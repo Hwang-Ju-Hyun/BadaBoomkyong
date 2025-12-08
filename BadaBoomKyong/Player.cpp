@@ -37,6 +37,7 @@
 #include "UICanvas.h"
 #include "UIWidget.h"
 #include "UIPanel.h"
+#include "AudioManager.h"
 
 class AnimIdelState;
 template<typename T>
@@ -106,6 +107,14 @@ void Player::Init()
 	m_pMeleeFactory = dynamic_cast<MeleeFactory*>(FactoryManager::GetInstance()->GetFactory(MeleeFactory::MeleeFactoryTypeName));
 	assert(m_pBulletFactory != nullptr && m_pMeleeFactory != nullptr);
 
+	AudioManager::GetInstance()->LoadSound("jump", "../Extern/Assets/Sound/jump.mp3", false);
+	AudioManager::GetInstance()->LoadSound("dash", "../Extern/Assets/Sound/dash.wav", false);
+	AudioManager::GetInstance()->LoadSound("combo1", "../Extern/Assets/Sound/combo1.wav", false);
+	AudioManager::GetInstance()->LoadSound("combo2", "../Extern/Assets/Sound/combo2.wav", false);
+	AudioManager::GetInstance()->LoadSound("combo3", "../Extern/Assets/Sound/combo3.wav", false);
+	AudioManager::GetInstance()->LoadSound("jumpAttack", "../Extern/Assets/Sound/jumpAttack.flac", false);
+	AudioManager::GetInstance()->LoadSound("playerHurt", "../Extern/Assets/Sound/playerHurt.mp3", false);	
+	AudioManager::GetInstance()->LoadSound("playerDeath", "../Extern/Assets/Sound/playerDeath.wav", false);
 }
 
 void Player::Awake()
@@ -330,12 +339,12 @@ void Player::Dash()
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
 	
 	if (input->GetKetCode(GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-	{			
+	{					
 		m_bIsDashInput = true;
 	}
 	if (m_fDashCoolTime >= 2.99f && m_bDashable&&m_bIsDashInput)
 	{
-		m_fDashAccTime += dt;
+		m_fDashAccTime += dt;		
 		if (m_fDashAccTime <= m_fDashDuration)
 		{
 			m_pDashPanelUI->AddWidth((m_fDash_bar_width / m_fDashDuration) * dt * -1);			
@@ -380,7 +389,7 @@ void Player::Death()
 
 	if (!m_bIsAlive)
 	{
-		m_bIsHurting = false;
+		m_bIsHurting = false;		
 		m_eCurrentState = PlayerAnimState::DEATH;		
 	}
 }
@@ -419,12 +428,12 @@ void Player::StateHandler()
 		if (m_pRigidBody->GetIsGround() && std::fabs(m_pRigidBody->GetVelocity().x) > g_epsilon
 			&& (!m_bSprintMeleeAttacking && !m_bIsDashing))
 		{						
-			m_eCurrentState = PlayerAnimState::TOSPRINT;			
+			m_eCurrentState = PlayerAnimState::TOSPRINT;						
 			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
 			{
-				m_bIsSprinting = true;
+				m_bIsSprinting = true;					
 				m_eCurrentState = PlayerAnimState::SPRINTING;				
-			}
+			}			
 		}		
 		if (m_bIsFalling)
 		{
@@ -518,7 +527,7 @@ void Player::StateHandler()
 			m_pAnimator->GetAnimation()->m_bLoopCount = 0;
 			m_bIsHurting = false;
 		}
-	}
+	}	
 }
 
 void Player::Jump()
@@ -527,13 +536,15 @@ void Player::Jump()
 	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS && m_pRigidBody->GetIsGround())
 	{
 		m_iCurJumpCount++;
-		jumpPressed = true;
-
+		jumpPressed = true;		
 		glm::vec3 velocity = m_pRigidBody->GetVelocity();
 		velocity.y = m_fJumpImpulse;
 		m_pRigidBody->SetVelocity(velocity);
 		m_pRigidBody->SetIsGround(false);
 		m_eCurrentState = PlayerAnimState::JUMP;
+
+		
+		AudioManager::GetInstance()->PlaySound("jump", 0.7f);
 	}
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "Anim_IState.h"
 #include "Anim_HurtState.h"
+#include "AudioManager.h"
 template<typename T>
 class AnimIdleState;  // Forward declaration
 template<typename T>
@@ -15,7 +16,8 @@ public:
 public:
     virtual void Enter(T* _owner) override
     {
-        _owner->GetAnimator()->ChangeAnimation("Dash");
+        _owner->GetAnimator()->ChangeAnimation("Dash");        
+        AudioManager::GetInstance()->PlaySound("dash", 1.0f);
     }
 
     virtual void Update(T* _owner) override

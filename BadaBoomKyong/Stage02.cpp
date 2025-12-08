@@ -20,8 +20,6 @@
 #include "ResourceManager.h"
 #include "Stage03.h"
 #include "GameStateManager.h"
-
-
 #include "UICanvas.h"
 #include "UIWidget.h"
 #include "UIButton.h"
@@ -39,8 +37,8 @@ Stage02::~Stage02()
 }
 
 void Stage02::Init()
-{	
-	Serializer::GetInstance()->LoadJson_Object("json/Level/Stage02/Stage02_3D.json");		
+{
+	Serializer::GetInstance()->LoadJson_Object("json/Level/Stage02/Stage02_3D.json");
 	
 	//FactoryManager::GetInstance()->Init();
 
@@ -50,7 +48,7 @@ void Stage02::Init()
 	//InputManager
 	//InputManager::GetInstance()->Init();
 
-	//RenderInit            
+	//RenderInit        
 	//RenderManager::GetInstance()->Init();
 	//RenderManager::GetInstance()->InitDebugLineShader();
 

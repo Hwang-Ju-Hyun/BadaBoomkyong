@@ -12,7 +12,7 @@
 #include "BaseLevel.h";
 #include "EventManager.h"
 #include "MainEditor.h"
-
+#include "AudioManager.h"
 GameStart::GameStart(STAGE_TYPE _stageType, const std::string& _name)
 	:BaseLevel(_stageType,_name)
 {
@@ -23,7 +23,10 @@ GameStart::~GameStart()
 }
 #include <iostream>
 void GameStart::Init()
-{		
+{			
+	AudioManager::GetInstance()->LoadSound("GameStartBGM","../Extern/Assets/Sound/GameStartBGM.mp3",true);
+	AudioManager::GetInstance()->PlaySound("GameStartBGM", 0.7f);
+	
 	m_pUICanvas = new UICanvas(UIRenderSpace::SCREEN_SPACE);
 
 	m_pUIBackCanvas = new UICanvas(UIRenderSpace::SCREEN_SPACE);
@@ -33,7 +36,7 @@ void GameStart::Init()
 
 	m_pUIStartBtn = new UIButton(btn_Widget->GetOwner(), 800.f, 400.f, 0.f, 355.f, 100.f);
 	//TextureResource* hp_border_tex = m_pUIStartBtn->LoadTexture("HP_Bar", "../Extern/Assets/Texture/UI/Health_Bars/Borders/Border_Style_4.png");
-	m_pUIStartBtn->SetPivot({ 0.f,0.f });
+	m_pUIStartBtn->SetPivot({ 0.f,0.f });\
 	m_pUIStartBtn->SetColor({ 1.0f,0.f,0.f,1.f });
 
 	m_pUIEndBtn = new UIButton(btn_Widget->GetOwner(), 800.f, 800.f, 0.f, 355.f, 100.f);
@@ -85,5 +88,5 @@ void GameStart::Exit()
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
-#endif // DEBUG
+#endif // DEBUG	
 }

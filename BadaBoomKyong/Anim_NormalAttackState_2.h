@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Monster.h"
 #include "EventManager.h"
+#include "AudioManager.h"
 
 template<typename T>
 class AnimNormalAttackState_2 : public AnimIState<T>
@@ -25,6 +26,7 @@ public:
                 _owner->GetAnimator()->ChangeAnimation("ComboAtk_2");
             }                        
         }*/
+        AudioManager::GetInstance()->PlaySound("combo2", 1.0f);
         _owner->GetAnimator()->ChangeAnimation("ComboAtk_2");
     }
 

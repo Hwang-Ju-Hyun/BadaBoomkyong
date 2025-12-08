@@ -25,8 +25,6 @@ void StageTest::Init()
 {
 	Serializer::GetInstance()->LoadJson_Object("json/Level/StageTest/StageTest_3D.json");
 
-
-
 	FactoryManager::GetInstance()->Init();
 
 	ComponentManager::GetInstance()->Init();
@@ -41,7 +39,6 @@ void StageTest::Init()
 	MainEditor::GetInstance()->Init();
 #endif
 	UIManager::GetInstance()->Init();
-
 
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::MONSTER);

@@ -3,6 +3,7 @@
 #include "Anim_IState.h"
 #include "Player.h"
 #include "Monster.h"
+#include "AudioManager.h"
 
 template<typename T>
 class AnimJumpAttackState : public AnimIState<T>
@@ -13,7 +14,8 @@ public:
 public:
     virtual void Enter(T* _owner) override
     {
-        _owner->GetAnimator()->ChangeAnimation("JumpAttack");      
+        _owner->GetAnimator()->ChangeAnimation("JumpAttack");
+        AudioManager::GetInstance()->PlaySound("jumpAttack", 1.0f);
     }
 
     virtual void Update(T* _owner) override

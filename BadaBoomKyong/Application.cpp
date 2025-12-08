@@ -24,6 +24,7 @@
 #include "UIManager.h"
 #include "TimeManager.h"
 #include "TextManager.h"
+#include "AudioManager.h"
 
 Application::Application(){}
 
@@ -42,6 +43,8 @@ void Application::Init()
     //GLEW Init
     GLenum iGlewInit_Err = glewInit(); 
     assert(iGlewInit_Err == GLEW_OK);
+
+    AudioManager::GetInstance()->Init();
 
     //ModelInit
     ModelManager::GetInstance()->Init();                        
@@ -69,6 +72,8 @@ void Application::Init()
 #endif    
 
     TextManager::GetInstance()->Init("../Extern/Assets/Fonts/COOPBL.TTF",48, Window::GetInstance()->GetWindowWidth(), Window::GetInstance()->GetWindowHeight());
+
+ 
     
 }
 #include <iostream>
@@ -80,7 +85,7 @@ void Application::Update()
     glfwPollEvents();
     auto handle = Window::GetInstance()->GetWindowHandle();
     float dt = TimeManager::GetInstance()->GetDeltaTime();
-
+   
     //Active
     GameObjectManager::GetInstance()->Awake();
 
@@ -99,15 +104,19 @@ void Application::Update()
     //UI
     UIManager::GetInstance()->Update(dt);
 
-
 #ifdef _DEBUG
     //Main Editor
     MainEditor::GetInstance()->Update();
-#endif    
+#endif        
+
+    //Audio
+    //AudioManager::GetInstance()->Update();
 }
 
+
 void Application::Exit()
-{        
+{
+
     GameStateManager::GetInstance()->ChangeLevel(nullptr);
     ComponentManager::GetInstance()->Exit();
     GameObjectManager::GetInstance()->Exit(); 
@@ -117,13 +126,13 @@ void Application::Exit()
     ObjectPoolManager::GetInstance()->Exit();    
     UIManager::GetInstance()->Exit();
     RenderManager::GetInstance()->Exit();
-    Window::GetInstance()->Exit();
-
-#ifdef _DEBUG
-    // Cleanup
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
-#endif // DEBUG	
+    Window::GetInstance()->Exit();    
+    AudioManager::GetInstance()->Exit();
+//#ifdef _DEBUG
+//    // Cleanup
+//    ImGui_ImplOpenGL3_Shutdown();
+//    ImGui_ImplGlfw_Shutdown();
+//    ImGui::DestroyContext();
+//#endif // DEBUG	
     glfwTerminate();
 }
