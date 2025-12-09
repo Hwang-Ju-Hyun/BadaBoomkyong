@@ -60,7 +60,11 @@ void MainEditor::Update()
 	
 	UpdateEditorCameraControls();
 
-	DrawGizmo();
+	if (GameStateManager::GetInstance()->GetCurrentLevel()->GetStageType() != STAGE_TYPE::GAME_START
+		&& GameStateManager::GetInstance()->GetCurrentLevel()->GetStageType() != STAGE_TYPE::GAME_OVER)
+	{
+		DrawGizmo();
+	}
 }
 
 static bool openDeletePopup = false;

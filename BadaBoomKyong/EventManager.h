@@ -26,7 +26,9 @@ private:
 	void Excute(const EVENT& _eve);
 public:	
 	void LevelChange(BaseLevel* _lvl);
+	EVENT_TYPE FindEvent(EVENT_TYPE _eevt);
 	static void SetActiveTrue(GameObject* _obj);
 	static void SetActiveFalse(GameObject* _obj);
 	static void DeleteObject(GameObject* _obj);
+	static void RestartStage();
 };

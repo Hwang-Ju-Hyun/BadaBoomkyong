@@ -69,7 +69,7 @@ void Stage01::Init()
 }
 
 void Stage01::Update()
-{				
+{
 	
 }
 
@@ -81,12 +81,12 @@ void Stage01::Exit()
 	
 	
 	FactoryManager::GetInstance()->Exit();
-	ObjectPoolManager::GetInstance()->Exit();
 	ComponentManager::GetInstance()->Exit();
-	GameObjectManager::GetInstance()->Exit();
-
-	UIManager::GetInstance()->Exit();
+	ObjectPoolManager::GetInstance()->Exit();
+	CollisionManager::GetInstance()->Exit();
 	EventManager::GetInstance()->Exit();
+	UIManager::GetInstance()->Exit();
+	GameObjectManager::GetInstance()->Exit();	
 	//ResourceManager::GetInstance()->RemoveAllRes();
 	//ModelManager::GetInstance()->Exit();
 	

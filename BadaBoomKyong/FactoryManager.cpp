@@ -5,7 +5,7 @@
 #include "Bullet.h"
 #include "MeleeFactory.h"
 #include "GameStateManager.h"
-
+#include "BaseLevel.h"
 FactoryManager::FactoryManager()
 {
 
@@ -18,7 +18,8 @@ FactoryManager::~FactoryManager()
 
 void FactoryManager::Init()
 {					
-	STAGE_TYPE stage_type = GameStateManager::GetInstance()->GetStageType();
+	STAGE_TYPE stage_type = GameStateManager::GetInstance()->GetCurrentLevel()->GetStageType();
+	
 	InsertFactory(BulletFactory::BulletFactoryTypeName, new BulletFactory(stage_type));	
 	InsertFactory(MeleeFactory::MeleeFactoryTypeName, new MeleeFactory(stage_type));
 	for (auto iter = m_hashFactories.begin();iter != m_hashFactories.end();iter++)

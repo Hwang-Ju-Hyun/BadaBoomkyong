@@ -14,6 +14,7 @@
 #include "MainEditor.h"
 #include "AudioManager.h"
 #include "ComponentManager.h"
+#include "RenderManager.h"
 
 GameStart::GameStart(STAGE_TYPE _stageType, const std::string& _name)
 	:BaseLevel(_stageType,_name)
@@ -93,6 +94,6 @@ void GameStart::Exit()
 #endif // DEBUG			
 	ComponentManager::GetInstance()->Exit();
 	GameObjectManager::GetInstance()->Exit();			
-	
+	RenderManager::GetInstance()->Exit();
 	AudioManager::GetInstance()->StopSound("GameStartBGM");
 }

@@ -39,6 +39,8 @@ void CollisionManager::Update()
 
 void CollisionManager::Exit()
 {	
+	Reset();
+	m_mapColInfo.clear();
 }
 
 void CollisionManager::CheckCollision(GROUP_TYPE _left, GROUP_TYPE _right)

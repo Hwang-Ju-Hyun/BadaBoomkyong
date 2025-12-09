@@ -53,7 +53,7 @@ void GameOver::Update()
 {
 	if(InputManager::GetInstance()->GetKetCode(GLFW_KEY_R) == GLFW_PRESS)
 	{
-		GameStateManager::GetInstance()->RestartLastStage();
+		EventManager::GetInstance()->RestartStage();
 	}
 	if (InputManager::GetInstance()->GetKetCode(GLFW_KEY_E) == GLFW_PRESS)
 	{		

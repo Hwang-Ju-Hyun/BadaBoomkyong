@@ -128,7 +128,7 @@ void RenderManager::Init()
 	ShaderUniformInit();
 	InitTextShader();
 
-	if (GameStateManager::GetInstance()->GetStageType() <= STAGE_TYPE::STAGE_03)
+	if (GameStateManager::GetInstance()->GetCurrentLevel()->GetStageType()<= STAGE_TYPE::STAGE_03)
 	{
 		//todo : ÀÌ°Å °ð light manager·Î ¿Å±â¼À
 		GameObject* light_obj = GameObjectManager::GetInstance()->FindObject("Light");

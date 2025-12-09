@@ -68,7 +68,7 @@ void GameStateManager::DeleteAll()
 	ResourceManager::GetInstance()->RemoveAllRes();
 	RenderManager::GetInstance()->Exit();
 	AudioManager::GetInstance()->Exit();
-	Window::GetInstance()->Exit();
+	Window::GetInstance()->Exit();	
 	//#ifdef _DEBUG
 	//    // Cleanup
 	//    ImGui_ImplOpenGL3_Shutdown();
@@ -105,7 +105,8 @@ void GameStateManager::ChangeLevel(BaseLevel* _lvl)
 		glfwSetWindowShouldClose(Window::GetInstance()->GetWindowHandle(), true);
 		return;
 	}
-	if (_lvl)
+	else if (_lvl!=nullptr&&_lvl->GetStageType()!=STAGE_TYPE::GAME_OVER
+		&& _lvl->GetStageType() != STAGE_TYPE::GAME_START)
 		m_eLastStageType= _lvl->GetStageType();
 
 	if (m_pPreviousLevel)
@@ -118,7 +119,7 @@ void GameStateManager::ChangeLevel(BaseLevel* _lvl)
 		Exit();		
 		m_pPreviousLevel = m_pCurrentLevel;
 	}	
-
+	RenderManager::GetInstance()->Exit();
 	m_pCurrentLevel = _lvl;
 	m_eCurrentStageType = _lvl->GetStageType();
 	m_pCurrentLevel->Init();
@@ -126,23 +127,22 @@ void GameStateManager::ChangeLevel(BaseLevel* _lvl)
 
 void GameStateManager::RestartLastStage()
 {
-	Exit();
-	DeleteAllStages();
-	BaseLevel* newStage = nullptr;
+	RenderManager::GetInstance()->Exit();
+	Exit();	
+	BaseLevel* newStage = nullptr;	
 	switch (m_eLastStageType)
 	{
-	case STAGE_TYPE::STAGE_01:
-		newStage = new Stage01(STAGE_TYPE::STAGE_01, "Stage01");
-		break;
+	case STAGE_TYPE::STAGE_01:	
+		newStage = m_hashLevels[STAGE_TYPE::STAGE_01];		
+		break;			
 	case STAGE_TYPE::STAGE_02:
-		newStage = new Stage02(STAGE_TYPE::STAGE_02, "Stage02");
+		newStage = m_hashLevels[STAGE_TYPE::STAGE_02];
 		break;
 	case STAGE_TYPE::STAGE_TEST:		
-		newStage = new StageTest(STAGE_TYPE::STAGE_TEST, "StageTest");
+		newStage = m_hashLevels[STAGE_TYPE::STAGE_TEST];
 		break;
-	}
+	}	
 	m_pCurrentLevel = newStage;
 	m_hashLevels[m_eLastStageType] = newStage;
-
 	m_pCurrentLevel->Init();
 }

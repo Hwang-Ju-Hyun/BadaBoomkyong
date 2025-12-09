@@ -35,7 +35,7 @@ void EventManager::Excute(const EVENT& _eve)
 	EVENT_TYPE type = _eve.event;
 
 	switch (type)
-	{
+	{		
 	case EVENT_TYPE::CREATE_OBJECT:
 		break;
 	case EVENT_TYPE::DELETE_OBJECT:
@@ -52,8 +52,7 @@ void EventManager::Excute(const EVENT& _eve)
 	}		
 	case EVENT_TYPE::LEVEL_CHANGE:
 	{
-		BaseLevel* lvl = reinterpret_cast<BaseLevel*>(_eve.lParam);
-		RenderManager::GetInstance()->Exit();
+		BaseLevel* lvl = reinterpret_cast<BaseLevel*>(_eve.lParam);		
 		GameStateManager::GetInstance()->ChangeLevel(lvl);
 		break;
 	}		
@@ -70,7 +69,12 @@ void EventManager::Excute(const EVENT& _eve)
 		obj->SetActive(false);
 		obj->SetActiveAllComps(false);
 		break;
-	}	
+	}
+	case EVENT_TYPE::RESTART_STAGE:
+	{
+		
+		GameStateManager::GetInstance()->RestartLastStage();
+	}
 	case EVENT_TYPE::LAST:
 		break;
 	default:
@@ -85,6 +89,16 @@ void EventManager::LevelChange(BaseLevel* _lvl)
 	eve.lParam = size_t(_lvl);
 
 	EventManager::GetInstance()->AddEvent(eve);
+}
+
+EVENT_TYPE EventManager::FindEvent(EVENT_TYPE _eevt)
+{
+	for (int i = 0;i < m_vecEvent.size();i++)
+	{
+		if (m_vecEvent[i].event == _eevt)
+			return m_vecEvent[i].event;
+	}
+	return EVENT_TYPE::LAST;
 }
 
 void EventManager::SetActiveTrue(GameObject* _obj)
@@ -113,4 +127,9 @@ void EventManager::DeleteObject(GameObject* _obj)
 	EventManager::GetInstance()->AddEvent(eve);
 }
 
-
+void EventManager::RestartStage()
+{
+	EVENT eve = {};
+	eve.event = EVENT_TYPE::RESTART_STAGE;		
+	EventManager::GetInstance()->AddEvent(eve);
+}

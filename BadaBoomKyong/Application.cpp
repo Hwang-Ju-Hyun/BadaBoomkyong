@@ -102,8 +102,12 @@ void Application::Update()
     UIManager::GetInstance()->Update(dt);
 
 #ifdef _DEBUG
-    //Main Editor
-    MainEditor::GetInstance()->Update();
+    //Main Editor    
+    if (EventManager::GetInstance()->FindEvent(EVENT_TYPE::LEVEL_CHANGE) != EVENT_TYPE::LEVEL_CHANGE)
+    {
+        MainEditor::GetInstance()->Update();
+    }
+    
 #endif        
 
     //Audio
