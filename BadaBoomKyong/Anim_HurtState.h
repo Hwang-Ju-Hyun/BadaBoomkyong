@@ -44,6 +44,9 @@ public:
             case PlayerAnimState::FALL:
                 player_machine->ChangeAnimState(static_cast<int>(PlayerAnimState::FALL));
                 break;
+            case PlayerAnimState::DEATH:
+                player_machine->ChangeAnimState(static_cast<int>(PlayerAnimState::DEATH));
+                break;
             }
         }        
         if constexpr (std::is_same<T, Monster>::value)

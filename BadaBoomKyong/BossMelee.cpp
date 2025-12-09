@@ -47,7 +47,7 @@ void BossMelee::Awake()
 
     float dir = m_pBoss->GetDirection();
 
-    m_pTransform->SetPosition({ mon_trs->GetPosition().x + dir * offsetX,mon_trs->GetPosition().y - 20.f,mon_trs->GetPosition().z });
+    m_pTransform->SetPosition({ mon_trs->GetPosition().x + dir * offsetX,mon_trs->GetPosition().y - 50.f,mon_trs->GetPosition().z });
     m_pTransform->SetScale(glm::vec3{ 30.f,30.f,30.f });
     m_pCollider->SetScale(m_pTransform->GetScale());
 
@@ -81,6 +81,7 @@ void BossMelee::Update()
 
 void BossMelee::Exit()
 {
+    
     m_pBoss->m_bCanMeleeAttack = false;
 }
 
@@ -92,6 +93,7 @@ void BossMelee::EnterCollision(Collider* _col)
         if (m_pPlayer)
         {
             m_pPlayer->MinusCurrentHP(1);
+            m_pPlayer->SetDamageTaken(1);
             if (m_pPlayer->GetIsAlive())
             {
                 m_pPlayer->SetIsHurting(true);

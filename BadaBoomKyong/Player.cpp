@@ -396,15 +396,18 @@ void Player::Dash()
 void Player::Death()   
 {		
 	auto input = InputManager::GetInstance();
+#ifdef _DEBUG
 	if (input->GetKetCode(GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 		m_fCurrentHP = 0;
-
+#endif
 	m_fCurrentHP > 0 ? m_bIsAlive = true : m_bIsAlive=false;
 
 	if (!m_bIsAlive)
 	{
 		m_bIsHurting = false;		
 		m_eCurrentState = PlayerAnimState::DEATH;		
+		
+		m_pRigidBody->SetIsKinematic(true);
 	}
 }
 
@@ -432,6 +435,12 @@ void Player::HPMPBarUpdate()
 {
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
 	auto a = m_pHPPanelUI->GetWidth();
+
+
+	if (!GetIsAlive())
+	{
+		m_pHPPanelUI->SetWidth(0);
+	}
 
 	if (m_pHPPanelUI->GetWidth() < 730.f)
 	{

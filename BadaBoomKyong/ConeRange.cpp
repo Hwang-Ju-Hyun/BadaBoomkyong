@@ -138,8 +138,7 @@ void ConeRange::Update()
          
         m_pTransform->SetRotation(euler);
 
-        glm::quat angleDiff = target_rot* glm::inverse(smoothRot);
-
+        glm::quat angleDiff = target_rot* glm::inverse(smoothRot);        
 
         if (glm::angle(angleDiff) < 1)
         {
@@ -147,7 +146,9 @@ void ConeRange::Update()
             m_fAimingElapseTime += dt;
             if (m_fAimingElapseTime >= m_fAiming_MaxTime)
             {
-                
+                m_vTarget_pos = m_pPlayerTransform->GetPosition();
+                target_rot = {};
+                m_fAimingElapseTime = 0.f;
                 m_eState = ConeState::FIRE;
             }            
         }        
@@ -158,7 +159,7 @@ void ConeRange::Update()
         float speed = 1000.f;
         float dt = TimeManager::GetInstance()->GetDeltaTime();
         glm::vec3 pos = m_pTransform->GetPosition();        
-        m_vTarget_pos = m_pPlayerTransform->GetPosition();
+        //m_vTarget_pos = m_pPlayerTransform->GetPosition();
         glm::vec3 dir = glm::normalize(m_vTarget_pos - pos);
         m_pTransform->AddPosition(dir * speed * dt);
     }
@@ -170,6 +171,7 @@ void ConeRange::Update()
     {
         EventManager::GetInstance()->SetActiveFalse(this->GetOwner());
     }
+
 }
 
 void ConeRange::Exit()
@@ -177,11 +179,27 @@ void ConeRange::Exit()
 }
 
 void ConeRange::EnterCollision(Collider* _col)
-{
-    if (m_eState == ConeState::FIRE)
+{    
+    m_pPlayer = _col->GetOwner()->FindComponent<Player>();        
+    if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::PLAYER)
     {
-        EventManager::GetInstance()->SetActiveFalse(this->GetOwner());
-    }        
+
+        float z_dist = std::fabs(_col->GetFinalPosition().z - m_pCollider->GetFinalPosition().z);
+        std::cout << "cone z : " << m_pCollider->GetFinalPosition().z << std::endl;
+        std::cout << "player z : " << _col->GetFinalPosition().z << std::endl;
+        std::cout << "dist : " << z_dist << std::endl;
+        std::cout << std::endl;
+        if (m_pPlayer&&z_dist<150)
+        {            
+            m_pPlayer->MinusCurrentHP(1);
+            m_pPlayer->SetDamageTaken(1);
+            if (m_pPlayer->GetIsAlive())
+            {
+                m_pPlayer->SetIsHurting(true);
+                EventManager::GetInstance()->SetActiveFalse(GetOwner());
+            }
+        }
+    }
 }
 
 void ConeRange::OnCollision(Collider* _col)

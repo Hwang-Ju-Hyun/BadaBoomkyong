@@ -38,7 +38,7 @@ void GameStart::Init()
 
 	m_pUIStartBtn = new UIButton(btn_Widget->GetOwner(), 800.f, 400.f, 0.f, 355.f, 100.f);
 	//TextureResource* hp_border_tex = m_pUIStartBtn->LoadTexture("HP_Bar", "../Extern/Assets/Texture/UI/Health_Bars/Borders/Border_Style_4.png");
-	m_pUIStartBtn->SetPivot({ 0.f,0.f });\
+	m_pUIStartBtn->SetPivot({ 0.f,0.f });
 	m_pUIStartBtn->SetColor({ 1.0f,0.f,0.f,1.f });
 
 	m_pUIEndBtn = new UIButton(btn_Widget->GetOwner(), 800.f, 800.f, 0.f, 355.f, 100.f);

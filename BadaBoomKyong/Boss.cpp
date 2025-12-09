@@ -96,7 +96,7 @@ BTNode* Boss::BuildBossBT()
 		std::make_pair(moveAndAttackSequence,8.5f),
 		std::make_pair(new RangeAttack(this),5.5f),
 		std::make_pair(new TeleportAttack(this),2.5f),
-		std::make_pair(new Sequence({new Wait(5.1f),new ConeAttack(this),new Wait(0.1f)}),0.001f)
+		std::make_pair(new Sequence({new Wait(5.1f),new ConeAttack(this),new Wait(0.1f)}),50.1f)
 		});
 	
 	BTNode* Act_IfFarSequence = new Sequence({

@@ -35,7 +35,7 @@ BTNodeState ConeAttack::Enter(BlackBoard& _bb)
 
 	return BTNodeState::RUNNING;
 }
-
+#include "MathUtil.h"
 BTNodeState ConeAttack::Update(BlackBoard& _bb)
 {
     float dt = TimeManager::GetInstance()->GetDeltaTime();    
@@ -51,7 +51,17 @@ BTNodeState ConeAttack::Update(BlackBoard& _bb)
         glm::vec3 dir = m_vConeCamPos-m_pCam->GetCamPosition();
         float speed = 600.f;
         dir = glm::normalize(dir);
-        m_pCam->AddCamPosOffset(dir * dt * speed);               
+        m_pCam->AddCamPosOffset(dir * dt * speed);             
+        
+        glm::vec3 a = m_pCam->GetCamPosOriginOffset() + m_pCam->GetCamPosition();
+        const glm::vec3 b = m_vConeCamPos;
+        
+        float dist = MathUtil::GetInstance()->DistanceBetweenPoints(a, b);
+        if (dist < 150.f)
+        {
+            m_pCam->SetCamPosOffset(m_vConeCamPos);
+        }
+
         //사라지는 중
         if (!m_bFlag)
         {
@@ -60,7 +70,7 @@ BTNodeState ConeAttack::Update(BlackBoard& _bb)
                 m_pBoss->GetCurrentState() == MonsterAnimState::DISAPPEAR)
             {
                 m_pBoss->TelePort({ -10000.f, -10000.f, -10000.f });
-                m_bFlag = true; // 다음 단계로            
+                m_bFlag = true; // 다음 단계로  
             }
             return BTNodeState::RUNNING;
         }
@@ -139,7 +149,7 @@ BTNodeState ConeAttack::Update(BlackBoard& _bb)
 
         m_pCam->AddCamPosOffset(dir * dt * zoom_out_speed);
         m_pBoss->SetCurrentAnimState(MonsterAnimState::APPEAR);
-        if (dist < 2.f)
+        if (dist < 20.f)
         {
             m_pCam->SetCamPosOffset(m_pCam->GetCamPosOriginOffset());
             return BTNodeState::SUCCESS;
