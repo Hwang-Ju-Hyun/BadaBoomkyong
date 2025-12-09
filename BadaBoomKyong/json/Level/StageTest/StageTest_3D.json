@@ -244,8 +244,8 @@
         "CompData": {
           "Pos": [
             2.2714477410090694e-08,
-            1800.0,
-            -800.0
+            2800.0,
+            0.0
           ],
           "Sca": [
             250.0,
@@ -276,7 +276,7 @@
         "Type": "RigidBody",
         "CompData": {
           "Kinematic": [
-            true
+            false
           ],
           "Gravity": [
             980.0
