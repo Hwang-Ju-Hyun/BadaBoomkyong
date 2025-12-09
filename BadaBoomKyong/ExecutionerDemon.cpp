@@ -55,11 +55,13 @@ ExecutionerDemon::ExecutionerDemon(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DEATH), new AnimDeathState<Monster>());
 
 	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::WALK));	
+
+	AudioManager::GetInstance()->LoadSound("CurseDemonDeath", "../Extern/Assets/Sound/CurseDemonDeath.mp3", false);
 }
 
 ExecutionerDemon::~ExecutionerDemon()
 {	
-	/*if (m_pIdleBehavior)
+	if (m_pIdleBehavior)
 	{
 		delete m_pIdleBehavior;
 		m_pIdleBehavior = nullptr;
@@ -73,7 +75,7 @@ ExecutionerDemon::~ExecutionerDemon()
 	{
 		delete m_pPatrolBehaviour;
 		m_pPatrolBehaviour = nullptr;
-	}*/if (m_pPatrolBehaviour)
+	}if (m_pPatrolBehaviour)
 	{
 		delete m_pPatrolBehaviour;
 		m_pPatrolBehaviour = nullptr;
@@ -94,6 +96,7 @@ void ExecutionerDemon::Init()
 void ExecutionerDemon::Awake()
 {
 	InitHPBarUi();
+	AudioManager::GetInstance()->LoadSound("exe_melee", "../Extern/Assets/Sound/exe_melee.mp3", false);
 }
 
 void ExecutionerDemon::Update()
@@ -165,7 +168,12 @@ void ExecutionerDemon::Update()
 	}
 	
 	 auto hp = GetCurrentHP();
-	 hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
+	 if (GetIsAlive())
+	 {
+		 hp <= 0 ? SetIsAlive(false) : SetIsAlive(true);
+		 if (!GetIsAlive())
+			 AudioManager::GetInstance()->PlaySound("CurseDemonDeath", 0.7f);
+	 }
 
 	 if (!GetIsAlive())
 	 {
@@ -177,12 +185,35 @@ void ExecutionerDemon::Update()
 
 	
 }
-
+#include "UIManager.h"
 void ExecutionerDemon::Exit()
 {
-	delete m_pIdleBehavior;
-	delete m_pRangedBehavior;
-	delete m_pMeleeBehaviour;
+	if (m_pHPCanvasUI)
+	{
+		auto a = UIManager::GetInstance()->m_vecCanvases;
+		UIManager::GetInstance()->RemoveCanvas(m_pHPCanvasUI);
+		m_pHPCanvasUI = nullptr;
+		auto b = UIManager::GetInstance()->m_vecCanvases;
+	}
+	if (m_pIdleBehavior)
+	{
+		delete m_pIdleBehavior;
+		m_pIdleBehavior = nullptr;
+	}
+	if (m_pMeleeBehaviour)
+	{
+		delete m_pMeleeBehaviour;
+		m_pMeleeBehaviour = nullptr;
+	}
+	if (m_pPatrolBehaviour)
+	{
+		delete m_pPatrolBehaviour;
+		m_pPatrolBehaviour = nullptr;
+	}if (m_pPatrolBehaviour)
+	{
+		delete m_pPatrolBehaviour;
+		m_pPatrolBehaviour = nullptr;
+	}
 }
 
 void ExecutionerDemon::Fire()

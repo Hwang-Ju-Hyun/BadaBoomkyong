@@ -14,6 +14,7 @@ AI::AI(GameObject* _owner)
 
 AI::~AI()
 {
+	Exit();
 }
 
 #include "IdleState.h"

@@ -18,15 +18,14 @@ UICanvas::UICanvas(UIRenderSpace _space)
 
 UICanvas::~UICanvas()
 {
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
 	for (int i = 0;i < m_vecChild.size();i++)
 	{
 		delete m_vecChild[i];
 		m_vecChild[i] = nullptr;
-	}
-
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
-	glDeleteBuffers(1, &EBO);
+	}	
 }
 
 void UICanvas::Init()

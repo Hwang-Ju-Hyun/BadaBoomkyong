@@ -9,6 +9,7 @@
 #include "ComponentManager.h"
 #include "Player.h"
 #include "MELEE_ExecutionerDemon.h"
+#include "AudioManager.h"
 
 ExecutionerDemonMelee::ExecutionerDemonMelee(GameObject* _owner, GameObject* _attacker)
 	:Melee(_owner, _attacker)
@@ -59,6 +60,8 @@ void ExecutionerDemonMelee::Awake()
     m_pCollider->SetScale(m_pTransform->GetScale());
 
     m_fCurTime = 0.f;
+
+    AudioManager::GetInstance()->PlaySound("exe_melee", 0.8f);
 }
 
 void ExecutionerDemonMelee::Update()

@@ -46,12 +46,20 @@ Monster::Monster(GameObject* _owner)
 }
 
 Monster::~Monster()
-{
+{	
+	if (m_pHPCanvasUI)
+	{
+		auto a = UIManager::GetInstance()->m_vecCanvases;
+		UIManager::GetInstance()->RemoveCanvas(m_pHPCanvasUI);
+		m_pHPCanvasUI = nullptr;
+		auto b = UIManager::GetInstance()->m_vecCanvases;
+	}
 	if (m_pAnimStateMachine)
 	{
 		delete m_pAnimStateMachine;
 		m_pAnimStateMachine = nullptr;
-	}
+	}	
+		
 }
 
 void Monster::UpdateSpriteFlipX()
@@ -66,6 +74,11 @@ void Monster::UpdateSpriteFlipX()
 		if (m_pSprite)
 			m_pSprite->SetIsFlipX(false);
 	}
+}
+
+void Monster::Exit()
+{
+	
 }
 
 void Monster::OccurHitFlash()

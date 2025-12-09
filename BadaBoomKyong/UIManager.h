@@ -21,5 +21,7 @@ public:
 	void Update(float _dt);
 	void Render();
 	void Exit();
+public:
+	void RemoveCanvas(UICanvas* _canvas);
 };
 

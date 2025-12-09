@@ -20,8 +20,11 @@ void UIManager::Init()
 
 void UIManager::Update(float _dt)
 {	
-	for (auto c : m_vecCanvases)
-		c->Update(_dt);
+	auto copy = m_vecCanvases; // 포인터 복사 (값 복사)
+	for (auto c : copy)
+	{
+		if (c) c->Update(_dt);
+	}
 }
 
 void UIManager::Render()
@@ -39,18 +42,34 @@ void UIManager::Render()
 
 		c->Render();
 	}	
-	m_vShdr->Diuse();		
+	m_vShdr->Diuse();
 }
 
 void UIManager::Exit()
 {
-	for (int i = 0;i < m_vecCanvases.size();i++)
+	for (int i = 0;i < m_vecCanvases.size();)
 	{
-		delete m_vecCanvases[i];
-		m_vecCanvases[i] = nullptr;
+		if (m_vecCanvases[i])
+		{
+			auto a = UIManager::GetInstance()->m_vecCanvases;
+			UIManager::GetInstance()->RemoveCanvas(m_vecCanvases[i]);						
+			auto b = UIManager::GetInstance()->m_vecCanvases;
+		}		
 	}
 	m_vecCanvases.clear();	
 	std::vector<UICanvas*> temp;
 	temp.swap(m_vecCanvases);
 
+}
+
+void UIManager::RemoveCanvas(UICanvas* _canvas)
+{
+	if (!_canvas) 
+		return;
+	auto it = std::find(m_vecCanvases.begin(), m_vecCanvases.end(), _canvas);
+	if (it != m_vecCanvases.end())
+	{
+		delete* it;             		
+		m_vecCanvases.erase(it);
+	}
 }

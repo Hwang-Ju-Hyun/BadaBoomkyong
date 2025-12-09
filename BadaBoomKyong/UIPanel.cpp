@@ -16,6 +16,7 @@ UIPanel::UIPanel(UICanvas* _owner, float _x, float _y, float _z, float _width, f
 
 UIPanel::~UIPanel()
 {
+	
 }
 
 void UIPanel::Update(float _dt)

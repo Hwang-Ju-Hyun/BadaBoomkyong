@@ -60,6 +60,10 @@ void Stage02::Init()
 
 	RenderManager::GetInstance()->Init();
 	RenderManager::GetInstance()->InitDebugLineShader();
+	
+	
+	
+	
 	//RenderManager::GetInstance()->Init();
 	//RenderManager::GetInstance()->InitDebugLineShader();
 
@@ -69,22 +73,18 @@ void Stage02::Init()
 #endif
 	UIManager::GetInstance()->Init();
 
-#ifdef _DEBUG	
-	//MainEditor::GetInstance()->Init();
-#endif
 
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::MONSTER);
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MELEE, GROUP_TYPE::MONSTER);
+	//CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::MONSTER);	
 	//CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PORTAL);
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MELEE, GROUP_TYPE::PLAYER);
+	//CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MELEE, GROUP_TYPE::PLAYER);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PLATFORM);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::DEATH_ZONE);
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MONSTER, GROUP_TYPE::PLATFORM);
+	//CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MONSTER, GROUP_TYPE::PLATFORM);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLATFORM);
 
 
 	AudioManager::GetInstance()->LoadSound("Stage02BGM", "../Extern/Assets/Sound/Stage02BGM.mp3",true);
-	AudioManager::GetInstance()->PlaySound("Stage02BGM", 1.0f);
+	AudioManager::GetInstance()->PlaySound("Stage02BGM", 0.4f);
 
 	/*UICanvas* canvas = new UICanvas(UIRenderSpace::WORLD_SPACE);
 	UIWidget* widget = new UIWidget(canvas);
@@ -119,6 +119,7 @@ void Stage02::Exit()
 	//Serializer::GetInstance()->SaveJson_Object("json/Level/Stage02/Stage02_2D.json", false);
 	
 	FactoryManager::GetInstance()->Exit();
+	ComponentManager::GetInstance()->Exit();
 	ObjectPoolManager::GetInstance()->Exit();
 
 	EventManager::GetInstance()->Exit();

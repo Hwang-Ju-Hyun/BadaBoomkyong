@@ -23,6 +23,7 @@
 #include "ParticleSystem.h"
 #include "SmokeAttackParticle.h"
 
+#include "UIManager.h"
 #include "UIPanel.h"
 #include "UICanvas.h"
 #include "UIWidget.h"
@@ -61,6 +62,16 @@ SmokeDemon::~SmokeDemon()
 		delete m_pPatrolBehaviour;
 		m_pPatrolBehaviour = nullptr;
 	}	
+	if (m_pIdleBehavior)
+	{
+		delete m_pIdleBehavior;
+		m_pIdleBehavior = nullptr;
+	}
+	if (m_pMeleeBehaviour)
+	{
+		delete m_pMeleeBehaviour;
+		m_pMeleeBehaviour = nullptr;
+	}
 	if (m_pPs)
 	{
 		delete m_pPs;
@@ -237,9 +248,23 @@ void SmokeDemon::Update()
 
 void SmokeDemon::Exit()
 {
+	if (m_pHPCanvasUI)
+	{
+		auto a = UIManager::GetInstance()->m_vecCanvases;
+		UIManager::GetInstance()->RemoveCanvas(m_pHPCanvasUI);
+		m_pHPCanvasUI = nullptr;
+		auto b = UIManager::GetInstance()->m_vecCanvases;
+	}
+
 	delete m_pIdleBehavior;
+	m_pIdleBehavior = nullptr;
 	delete m_pRangedBehavior;
+	m_pRangedBehavior = nullptr;
 	delete m_pMeleeBehaviour;
+	m_pMeleeBehaviour = nullptr;
+
+	if (m_pAI)
+		m_pAI->Exit();
 }
 
 void SmokeDemon::EnterCollision(Collider* _other)

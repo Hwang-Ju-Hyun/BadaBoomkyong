@@ -39,7 +39,7 @@ void GameStateManager::Update()
 void GameStateManager::Exit()
 {
 	assert(m_pCurrentLevel != nullptr);
-	m_pCurrentLevel->Exit();	
+	m_pCurrentLevel->Exit();		
 	m_pCurrentLevel = nullptr;
 }
 

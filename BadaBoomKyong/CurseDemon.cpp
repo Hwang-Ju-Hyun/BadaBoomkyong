@@ -29,6 +29,7 @@
 #include "UICanvas.h"
 #include "UIWidget.h"
 #include "AudioManager.h"
+#include "UIManager.h"
 
 CurseDemon::CurseDemon(GameObject* _owner)
     :Monster(_owner)	
@@ -62,7 +63,15 @@ CurseDemon::CurseDemon(GameObject* _owner)
 
 CurseDemon::~CurseDemon()
 {
-	/*if (m_pIdleBehavior)
+	/*if (m_pHPCanvasUI != nullptr)
+	{
+		auto a = UIManager::GetInstance()->m_vecCanvases;
+		delete m_pHPCanvasUI;
+		m_pHPCanvasUI = nullptr;
+		auto b= UIManager::GetInstance()->m_vecCanvases;
+		int c = 0;
+	}*/
+	if (m_pIdleBehavior)
 	{
 		delete m_pIdleBehavior;
 		m_pIdleBehavior = nullptr;
@@ -76,8 +85,9 @@ CurseDemon::~CurseDemon()
 	{
 		delete m_pMeleeBehaviour;
 		m_pMeleeBehaviour = nullptr;
-	}*/
-
+	}	/*
+	if (m_pAI)
+		m_pAI->Exit();*/
 }
 
 void CurseDemon::Init()
@@ -181,7 +191,7 @@ void CurseDemon::Update()
 
 	if (GetIsAlive())
 	{
-		hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
+		hp <= 0 ? SetIsAlive(false) : SetIsAlive(true);
 		if(!GetIsAlive())
 			AudioManager::GetInstance()->PlaySound("CurseDemonDeath", 0.7f);
 	}
@@ -196,12 +206,41 @@ void CurseDemon::Update()
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();
 }
-
+#include "UIManager.h"
 void CurseDemon::Exit()
 {
-	delete m_pIdleBehavior;
-	delete m_pRangedBehavior;
-	delete m_pMeleeBehaviour;
+	if (m_pHPCanvasUI)
+	{
+		auto a = UIManager::GetInstance()->m_vecCanvases;
+		UIManager::GetInstance()->RemoveCanvas(m_pHPCanvasUI);
+		m_pHPCanvasUI = nullptr;
+		auto b = UIManager::GetInstance()->m_vecCanvases;
+	}
+
+	if (m_pAnimStateMachine)
+	{
+		delete m_pAnimStateMachine;
+		m_pAnimStateMachine = nullptr;
+	}
+
+	if (m_pIdleBehavior)
+	{
+		delete m_pIdleBehavior;
+		m_pIdleBehavior = nullptr;
+	}
+	if (m_pRangedBehavior)
+	{
+		delete m_pRangedBehavior;
+		m_pRangedBehavior = nullptr;
+	}
+	if (m_pMeleeBehaviour)
+	{
+		delete m_pMeleeBehaviour;
+		m_pMeleeBehaviour = nullptr;
+	}
+
+	if (m_pAI)
+		m_pAI->Exit();
 }
 
 void CurseDemon::Fire()

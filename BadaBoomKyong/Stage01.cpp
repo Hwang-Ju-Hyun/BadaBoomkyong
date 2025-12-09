@@ -81,12 +81,12 @@ void Stage01::Exit()
 	
 	
 	FactoryManager::GetInstance()->Exit();
-	ComponentManager::GetInstance()->Exit();
 	ObjectPoolManager::GetInstance()->Exit();
-
-	EventManager::GetInstance()->Exit();
-	UIManager::GetInstance()->Exit();
+	ComponentManager::GetInstance()->Exit();
 	GameObjectManager::GetInstance()->Exit();
+
+	UIManager::GetInstance()->Exit();
+	EventManager::GetInstance()->Exit();
 	//ResourceManager::GetInstance()->RemoveAllRes();
 	//ModelManager::GetInstance()->Exit();
 	

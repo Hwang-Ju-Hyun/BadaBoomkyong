@@ -94,11 +94,7 @@ Player::~Player()
 	{
 		delete m_pAnimStateMachine;
 		m_pAnimStateMachine = nullptr;
-	}		
-	if(m_pHolySlashParticle)
-		delete m_pHolySlashParticle;
-	if(m_pPs)
-		delete m_pPs;
+	}				
 }
 
 void Player::Init()
@@ -128,6 +124,22 @@ void Player::Awake()
 
 void Player::Exit()
 {	
+	if (m_pHPCanvasUI)
+	{
+		auto a = UIManager::GetInstance()->m_vecCanvases;
+		UIManager::GetInstance()->RemoveCanvas(m_pHPCanvasUI);
+		m_pHPCanvasUI = nullptr;
+		auto b = UIManager::GetInstance()->m_vecCanvases;
+	}
+	if (m_pAnimStateMachine)
+	{
+		delete m_pAnimStateMachine;
+		m_pAnimStateMachine = nullptr;
+	}
+	if (m_pHolySlashParticle)
+		delete m_pHolySlashParticle;
+	if (m_pPs)
+		delete m_pPs;
 }
 
 void Player::Update() 

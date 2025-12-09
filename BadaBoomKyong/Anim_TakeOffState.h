@@ -1,6 +1,7 @@
 #pragma once
 #include "Anim_StateMachine.h"
 #include "Monster.h"
+#include "AudioManager.h"
 
 template<typename T>
 class AnimTakeOffState : public AnimIState<T>
@@ -11,6 +12,7 @@ public:
 public:
     virtual void Enter(T* _owner) override
     {
+        AudioManager::GetInstance()->PlaySound("TakeOff", 0.6f);
         _owner->GetAnimator()->ChangeAnimation("TakeOff");
     }
 

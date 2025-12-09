@@ -110,7 +110,7 @@ void PlayerMelee::EnterCollision(Collider* _col)
     {
         if (m_pMonster)
         {            
-            //m_pMonster->MinusCurrentHp(GetDamage());
+            m_pMonster->MinusCurrentHp(GetDamage());
             m_pMonster->SetDamageTaken(GetDamage());
             if (GetDamage() > 1)
             {                

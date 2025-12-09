@@ -17,13 +17,14 @@ GameObject::GameObject(const std::string& _name, MODEL_TYPE _modelType, GROUP_TY
 
 GameObject::~GameObject()
 {	
-	for (int i = 0;i < m_vComponents.size();i++)
+	for (int i = 0;i < m_vComponents.size();)
 	{
 		if (m_vComponents[i] != nullptr)
 		{
 			delete m_vComponents[i];
 			ComponentManager::GetInstance()->DeleteComponent(m_vComponents[i]);
 			m_vComponents[i] = nullptr;	
+			i++;
 		}
 	}		
 	m_vComponents.clear();	

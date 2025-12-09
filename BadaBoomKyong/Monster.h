@@ -76,6 +76,7 @@ public:
     inline void SetDirection(float _dir) { m_fDirection = _dir; }
     inline float GetDirection()const { return m_fDirection; }
     void UpdateSpriteFlipX();
+    virtual void Exit()override;
 private:
     bool m_bIsHurting = false;
     bool m_bIsStagger = false;

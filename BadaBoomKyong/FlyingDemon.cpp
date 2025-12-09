@@ -31,6 +31,8 @@
 #include "Anim_DivingState.h"
 #include "Anim_NormalAttackState.h"
 #include "UIPanel.h"
+#include "AudioManager.h"
+#include "UIManager.h"
 
 bool FlyingDemon::Goup = false;
 
@@ -39,7 +41,7 @@ FlyingDemon::FlyingDemon(GameObject* _owner)
 {
     SetName(FlyingDemonTypeName);
 	m_iInitHP = 7;
-	m_iCurrentHP = 4;
+	m_iCurrentHP = 7;
 	m_fDirection = -1.f;
 	m_pAI->RegistryMonster(this);
 	m_pAI->SetOwner(_owner);
@@ -64,11 +66,34 @@ FlyingDemon::FlyingDemon(GameObject* _owner)
 	m_pAnimStateMachine->RegisterAnimState(int(MonsterAnimState::DEATH), new AnimDeathState<Monster>());
 	
 	m_pAnimStateMachine->ChangeAnimState(int(MonsterAnimState::IDLE));
+
+	AudioManager::GetInstance()->LoadSound("CurseDemonDeath", "../Extern/Assets/Sound/CurseDemonDeath.mp3", false);
+	AudioManager::GetInstance()->LoadSound("TakeOff", "../Extern/Assets/Sound/TakeOff.mp3", false);
+	AudioManager::GetInstance()->LoadSound("FlyingDemonAtk", "../Extern/Assets/Sound/FlyingDemonAtk.mp3", false);
 }
 
 FlyingDemon::~FlyingDemon()
 {
-	
+	if (m_pIdleBehavior)
+	{
+		delete m_pIdleBehavior;
+		m_pIdleBehavior = nullptr;
+	}
+	if (m_pPatrolBehaviour)
+	{
+		delete m_pPatrolBehaviour;
+		m_pPatrolBehaviour = nullptr;
+	}
+	if (m_pTraceBehaviour)
+	{
+		delete m_pTraceBehaviour;
+		m_pTraceBehaviour = nullptr;
+	}
+	if (m_pMeleeBehaviour)
+	{
+		delete m_pMeleeBehaviour;
+		m_pMeleeBehaviour = nullptr;
+	}
 }
 
 void FlyingDemon::Init()
@@ -130,7 +155,12 @@ void FlyingDemon::Update()
 	}
 
 	auto hp = GetCurrentHP();
-	hp <= 3 ? SetIsAlive(false) : SetIsAlive(true);
+	if (GetIsAlive())
+	{
+		hp <= 0 ? SetIsAlive(false) : SetIsAlive(true);
+		if (!GetIsAlive())
+			AudioManager::GetInstance()->PlaySound("CurseDemonDeath", 0.7f);
+	}
 
 	if (!GetIsAlive())
 	{
@@ -143,10 +173,25 @@ void FlyingDemon::Update()
 
 void FlyingDemon::Exit()
 {
+	if (m_pHPCanvasUI)
+	{
+		auto a = UIManager::GetInstance()->m_vecCanvases;
+		UIManager::GetInstance()->RemoveCanvas(m_pHPCanvasUI);
+		m_pHPCanvasUI = nullptr;
+		auto b = UIManager::GetInstance()->m_vecCanvases;
+	}
+
 	delete m_pIdleBehavior;
+	m_pIdleBehavior = nullptr;
 	delete m_pPatrolBehaviour;
+	m_pPatrolBehaviour = nullptr;
 	delete m_pTraceBehaviour;
+	m_pTraceBehaviour = nullptr;
 	delete m_pMeleeBehaviour;	
+	m_pMeleeBehaviour = nullptr;
+
+	if (m_pAI)
+		m_pAI->Exit();
 }
 
 void FlyingDemon::Fire()
@@ -167,7 +212,7 @@ void FlyingDemon::MeleeAttack()
 		m_bCanMeleeAttack = true;
 		m_fOffsetTimeAcc = 0.f;
 	}
-	std::cout << m_fOffsetTimeAcc << std::endl;
+	
 }
 
 bool FlyingDemon::DetectPlayer()

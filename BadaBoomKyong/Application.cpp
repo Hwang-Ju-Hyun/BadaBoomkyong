@@ -113,17 +113,17 @@ void Application::Update()
 
 void Application::Exit()
 {
-    RenderManager::GetInstance()->Exit();
     GameStateManager::GetInstance()->ChangeLevel(nullptr);
-    ObjectPoolManager::GetInstance()->Exit();    
-    ComponentManager::GetInstance()->Exit();
     GameObjectManager::GetInstance()->Exit(); 
-    ResourceManager::GetInstance()->RemoveAllRes();
-    ModelManager::GetInstance()->Exit();    
+    ComponentManager::GetInstance()->Exit();
+    ObjectPoolManager::GetInstance()->Exit();    
     FactoryManager::GetInstance()->Exit();
+    ModelManager::GetInstance()->Exit();    
     UIManager::GetInstance()->Exit();
-    Window::GetInstance()->Exit();    
+    ResourceManager::GetInstance()->RemoveAllRes();
+    RenderManager::GetInstance()->Exit();
     AudioManager::GetInstance()->Exit();
+    Window::GetInstance()->Exit();    
 //#ifdef _DEBUG
 //    // Cleanup
 //    ImGui_ImplOpenGL3_Shutdown();

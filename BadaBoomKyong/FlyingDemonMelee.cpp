@@ -8,6 +8,7 @@
 #include "Collider.h"
 #include "FlyingDemon.h"
 #include "GameObject.h"
+#include "AudioManager.h"
 
 FlyingDemonMelee::FlyingDemonMelee(GameObject* _owner, GameObject* _attacker)
     :Melee(_owner,_attacker)
@@ -52,6 +53,8 @@ void FlyingDemonMelee::Awake()
     m_pCollider->SetScale(m_pTransform->GetScale());
 
     m_fCurTime = 0.f;
+
+    AudioManager::GetInstance()->PlaySound("FlyingDemonAtk", 0.7f);
 }
 
 void FlyingDemonMelee::Update()

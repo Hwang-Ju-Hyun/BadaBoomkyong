@@ -1,11 +1,8 @@
 #pragma once
 #include "Anim_IState.h"
-#include "Anim_HurtState.h"
+#include "Player.h"
 #include "AudioManager.h"
-template<typename T>
-class AnimIdleState;  // Forward declaration
-template<typename T>
-class AnimDeathState;  // Forward declaration
+
 
 template<typename T>
 class AnimDashState : public AnimIState<T>
@@ -22,24 +19,25 @@ public:
 
     virtual void Update(T* _owner) override
     {
+        AnimStateMachine<T>* machine = _owner->GetAnimStateMachine();
         if constexpr (std::is_same<T, Player>::value)
         {
             switch (_owner->GetCurrentState())
             {
             case PlayerAnimState::IDLE:
-                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimIdleState<T>());
+                machine->ChangeAnimState(PlayerAnimState::IDLE);
                 break;
             case PlayerAnimState::HURT:
-                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimHurtState<T>());
+                machine->ChangeAnimState(PlayerAnimState::HURT);
                 break;
             case PlayerAnimState::TOSPRINT:
-                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimToSprintState<T>());
+                machine->ChangeAnimState(PlayerAnimState::TOSPRINT);
                 break;
             case PlayerAnimState::SPRINTING:
-                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimSprintingState<T>());
+                machine->ChangeAnimState(PlayerAnimState::SPRINTING);
                 break;
             case PlayerAnimState::DEATH:
-                _owner->GetAnimStateMachine()->ChangeAnimState(new AnimDeathState<T>());
+                machine->ChangeAnimState(PlayerAnimState::DEATH);
                 break;
             }
         }
