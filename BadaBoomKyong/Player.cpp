@@ -174,7 +174,7 @@ void Player::Update()
 		SetDamageTaken(0);
 	}
 
-
+	HPMPBarUpdate();
 	Dash();
 	Death();
 	
@@ -426,6 +426,55 @@ void Player::ComboUpdate()
 	}
 }
 
+void Player::HPMPBarUpdate()
+{
+	float dt = TimeManager::GetInstance()->GetDeltaTime();
+	auto a = m_pHPPanelUI->GetWidth();
+
+	if (m_pHPPanelUI->GetWidth() < 730.f)
+	{
+		m_fHPBarFill_Elapse += dt;
+		m_bSholudFill_HP = true;
+	}
+
+	float hp_speed = 100.f;
+	if (m_fHPBarFill_MaxTime < m_fHPBarFill_Elapse&& m_bSholudFill_HP)
+	{
+		if (m_pHPPanelUI->GetWidth() + dt * hp_speed > 730.f)
+		{
+			m_pHPPanelUI->SetWidth(730.f);
+			m_bSholudFill_HP = false;
+			m_fHPBarFill_Elapse = 0.f;
+		}			
+		m_pHPPanelUI->AddWidth(dt * 100.f);
+		if (GetDamageTaken() > 0)
+		{
+			m_bSholudFill_HP = false;
+			m_fHPBarFill_Elapse = 0.f;
+		}
+	}
+
+	if (m_pMPPanelUI->GetWidth() < 439.f)
+	{
+		m_fMPBarFill_Elapse += dt;
+		m_bSholudFill_MP = true;
+	}
+
+	float mp_speed = 100.f;
+	if (m_fMPBarFill_MaxTime < m_fMPBarFill_Elapse && m_bSholudFill_MP)
+	{
+		if (m_pMPPanelUI->GetWidth() + dt * mp_speed > 439.f)
+		{
+			m_pMPPanelUI->SetWidth(439.f);
+			m_bSholudFill_MP = false;
+			m_fMPBarFill_Elapse = 0.f;
+		}
+		m_pMPPanelUI->AddWidth(dt * mp_speed);
+
+	}
+
+}
+
 void Player::StateHandler()
 {
 	if (m_eCurrentState == PlayerAnimState::DEATH)
@@ -649,17 +698,28 @@ void Player::HolySlash()
 	}	
 	if (m_bHolySlashing)
 	{		
-		if (m_pAnimator->GetAnimation()->m_sAnimationName=="HolySlash" 
+		if (GetDamageTaken() > 0)
+		{
+			m_bShouldZoomOut = true;
+		}
+		else if (m_pAnimator->GetAnimation()->m_sAnimationName=="HolySlash" 
 			&& m_pAnimator->GetCurrentFrameIndex() == 20
 			&& m_bHolySlashFlag == false)
 		{
 			Bullet* bullet_comp = m_pBulletFactory->CreateBullet(BULLET_TYPE::PISTOL);
 			m_pBullet = bullet_comp;
 			assert(m_pBullet != nullptr);
-
 			EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());			
 			m_bHolySlashFlag = true;
-			m_bShouldZoomOut = true;
+			m_bShouldZoomOut = true;			
+
+
+			int mp_taken = 1; //1==mp taken
+			int cur_mp = GetCurrentMP();
+			float ratio = float(1) / float(cur_mp);
+			float new_width = ratio * m_pMPPanelUI->GetScale().x;
+			m_pMPPanelUI->SetWidth(m_pMPPanelUI->GetScale().x - new_width);
+			m_iCurrentMP -= 1;			
 		}
 		else if (m_pAnimator->GetCurrentFrameIndex() == 20 && m_bHolySlashFlag == true)
 		{

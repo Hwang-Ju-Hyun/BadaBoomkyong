@@ -36,8 +36,11 @@ public:
     inline void SetWidth(float _width) { m_fWidth = _width; }
     inline void AddWidth(float _width) { m_fWidth += _width; }
     inline void AddHeight(float _height) { m_fHeight += _height; }
+    inline float const GetWidth()const {return m_fWidth;}
+    inline float const GetHeight()const { return m_fHeight; }
     glm::vec3 const GetPos()const { return glm::vec3{ m_fX,m_fY,m_fZ }; }
     glm::vec2 const GetScale()const { return glm::vec2{ m_fWidth,m_fHeight }; }
+
     virtual void RenderScreenSpace();
     virtual void RenderWorldSpace(const Camera* _cam);
 protected:

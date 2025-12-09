@@ -92,6 +92,9 @@ public:
 private:
     int m_iInitHP = 5;
     int m_iCurrentHP=5;
+    int m_iInitMP = 3;
+    int m_iCurrentMP = 3;
+
     bool m_bIsAlive = true;
     //right : postive left : negative
     int m_iDir = 1;
@@ -118,8 +121,11 @@ public:
     inline const bool GetIsDashing()const { return m_bIsDashing; }    
     inline Melee* GetMelee()const { return m_pMelee; }
     inline void AddHP(int _hp) { m_iCurrentHP += _hp; }
+    inline void AddMP(int _mp) { m_iCurrentMP += _mp; }
     inline void MinusCurrentHP(int _hp) { m_iCurrentHP -= _hp; }
+    inline void MinusCurrentMP(int _mp) { m_iCurrentHP -= _mp; }
     inline const int GetCurrentHP()const { return m_iCurrentHP; }
+    inline const int GetCurrentMP()const { return m_iCurrentMP; }
     inline void SetIsAlive(bool _alive) { m_bIsAlive = _alive; }
     inline const bool GetIsAlive()const { return m_bIsAlive; }
     inline void SetNormalMeleeAttacking(bool _attacking) { m_bNormalMeleeAttacking = _attacking; }
@@ -168,6 +174,7 @@ private:
     void Dash();
     void Death();    
     void ComboUpdate();
+    void HPMPBarUpdate();
 private:
     bool m_bIsHurting = false;
 public:
@@ -212,4 +219,12 @@ private:
 
     const float m_fDash_bar_width = 85.f;
     bool m_bIsDashInput = false;
+
+    float m_fHPBarFill_Elapse=0.f;
+    float m_fHPBarFill_MaxTime = 3.f;
+    bool m_bSholudFill_HP=false;
+
+    float m_fMPBarFill_Elapse = 0.f;
+    float m_fMPBarFill_MaxTime = 3.f;
+    bool m_bSholudFill_MP = false;
 };
