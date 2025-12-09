@@ -38,6 +38,7 @@
 #include "UIWidget.h"
 #include "UIPanel.h"
 #include "AudioManager.h"
+#include "MathUtil.h"
 
 class AnimIdelState;
 template<typename T>
@@ -115,7 +116,7 @@ void Player::Init()
 
 void Player::Awake()
 {	
-	m_iCurrentHP = m_iInitHP;
+	m_fCurrentHP = m_fInitHP;
 	m_bIsAlive = true;
 	m_pCam = RenderManager::GetInstance()->GetCamera();
 	InitHPBarUi();
@@ -165,12 +166,13 @@ void Player::Update()
 
 	if (GetDamageTaken() > 0)
 	{
-		int dam_taken = GetDamageTaken();
-		int cur_hp = GetCurrentHP();
+		float dam_taken = GetDamageTaken();
+		float cur_hp = GetCurrentHP();
 		float ratio = float(dam_taken) / float(cur_hp);
 		float new_width = ratio * m_pHPPanelUI->GetScale().x;
 		m_pHPPanelUI->SetWidth(m_pHPPanelUI->GetScale().x - new_width);
-		m_iCurrentHP -= dam_taken;
+		m_fCurrentHP -= dam_taken;
+		m_bIsHurting = true;
 		SetDamageTaken(0);
 	}
 
@@ -194,7 +196,7 @@ void Player::EnterCollision(Collider* _other)
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::DEATH_ZONE)
 	{
 		std::cout << "Enter : lava col" << std::endl;
-		m_iCurrentHP = 0;
+		m_fCurrentHP = 0;
 	}
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PORTAL)
 	{
@@ -395,9 +397,9 @@ void Player::Death()
 {		
 	auto input = InputManager::GetInstance();
 	if (input->GetKetCode(GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
-		m_iCurrentHP = 0;
+		m_fCurrentHP = 0;
 
-	m_iCurrentHP > 0 ? m_bIsAlive = true : m_bIsAlive=false;
+	m_fCurrentHP > 0 ? m_bIsAlive = true : m_bIsAlive=false;
 
 	if (!m_bIsAlive)
 	{
@@ -433,12 +435,13 @@ void Player::HPMPBarUpdate()
 
 	if (m_pHPPanelUI->GetWidth() < 730.f)
 	{
-		m_fHPBarFill_Elapse += dt;
-		m_bSholudFill_HP = true;
+		m_fHPBarFill_Elapse += dt;		
 	}
+	if (m_fHPBarFill_MaxTime < m_fHPBarFill_Elapse)
+		m_bSholudFill_HP = true;
 
 	float hp_speed = 100.f;
-	if (m_fHPBarFill_MaxTime < m_fHPBarFill_Elapse&& m_bSholudFill_HP)
+	if (m_bSholudFill_HP)
 	{
 		if (m_pHPPanelUI->GetWidth() + dt * hp_speed > 730.f)
 		{
@@ -447,21 +450,23 @@ void Player::HPMPBarUpdate()
 			m_fHPBarFill_Elapse = 0.f;
 		}			
 		m_pHPPanelUI->AddWidth(dt * 100.f);
-		if (GetDamageTaken() > 0)
+		if (m_bIsHurting)
 		{
 			m_bSholudFill_HP = false;
 			m_fHPBarFill_Elapse = 0.f;
 		}
+		m_fCurrentHP = MathUtil::GetInstance()->clamp(m_fCurrentHP + (5.f / m_pHPPanelUI->GetWidth()), 0.f,m_fInitHP);
 	}
 
 	if (m_pMPPanelUI->GetWidth() < 439.f)
 	{
 		m_fMPBarFill_Elapse += dt;
-		m_bSholudFill_MP = true;
 	}
+	if (m_fMPBarFill_MaxTime < m_fMPBarFill_Elapse)
+		m_bSholudFill_MP = true;
 
 	float mp_speed = 100.f;
-	if (m_fMPBarFill_MaxTime < m_fMPBarFill_Elapse && m_bSholudFill_MP)
+	if (m_bSholudFill_MP)
 	{
 		if (m_pMPPanelUI->GetWidth() + dt * mp_speed > 439.f)
 		{
@@ -470,9 +475,8 @@ void Player::HPMPBarUpdate()
 			m_fMPBarFill_Elapse = 0.f;
 		}
 		m_pMPPanelUI->AddWidth(dt * mp_speed);
-
-	}
-
+		m_fCurrentMP = MathUtil::GetInstance()->clamp(m_fCurrentMP + (3.f / m_pMPPanelUI->GetWidth()), 0.f, m_fInitMP);
+	}	
 }
 
 void Player::StateHandler()
@@ -698,7 +702,7 @@ void Player::HolySlash()
 	}	
 	if (m_bHolySlashing)
 	{		
-		if (GetDamageTaken() > 0)
+		if (m_bIsHurting)
 		{
 			m_bShouldZoomOut = true;
 		}
@@ -714,12 +718,13 @@ void Player::HolySlash()
 			m_bShouldZoomOut = true;			
 
 
-			int mp_taken = 1; //1==mp taken
-			int cur_mp = GetCurrentMP();
-			float ratio = float(1) / float(cur_mp);
+			float mp_taken = 1.f; //1==mp taken
+			float cur_mp = GetCurrentMP();
+			float ratio = float(1.f) / float(cur_mp);
 			float new_width = ratio * m_pMPPanelUI->GetScale().x;
 			m_pMPPanelUI->SetWidth(m_pMPPanelUI->GetScale().x - new_width);
-			m_iCurrentMP -= 1;			
+			m_fCurrentMP -= 1;		
+
 		}
 		else if (m_pAnimator->GetCurrentFrameIndex() == 20 && m_bHolySlashFlag == true)
 		{

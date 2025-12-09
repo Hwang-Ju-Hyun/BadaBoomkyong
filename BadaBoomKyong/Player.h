@@ -90,10 +90,10 @@ public:
     static float m_fComboAccTime;
     int m_iComboIndex = 0;
 private:
-    int m_iInitHP = 5;
-    int m_iCurrentHP=5;
-    int m_iInitMP = 3;
-    int m_iCurrentMP = 3;
+    float m_fInitHP = 5;
+    float m_fCurrentHP=5;
+    float m_fInitMP = 3;
+    float m_fCurrentMP = 3;
 
     bool m_bIsAlive = true;
     //right : postive left : negative
@@ -120,12 +120,12 @@ public:
     inline const bool GetDashable()const { return m_bDashable; }
     inline const bool GetIsDashing()const { return m_bIsDashing; }    
     inline Melee* GetMelee()const { return m_pMelee; }
-    inline void AddHP(int _hp) { m_iCurrentHP += _hp; }
-    inline void AddMP(int _mp) { m_iCurrentMP += _mp; }
-    inline void MinusCurrentHP(int _hp) { m_iCurrentHP -= _hp; }
-    inline void MinusCurrentMP(int _mp) { m_iCurrentHP -= _mp; }
-    inline const int GetCurrentHP()const { return m_iCurrentHP; }
-    inline const int GetCurrentMP()const { return m_iCurrentMP; }
+    inline void AddHP(float _hp) { m_fCurrentHP += _hp; }
+    inline void AddMP(float _mp) { m_fCurrentMP += _mp; }
+    inline void MinusCurrentHP(float _hp) { m_fCurrentHP -= _hp; }
+    inline void MinusCurrentMP(float _mp) { m_fCurrentHP -= _mp; }
+    inline const float GetCurrentHP()const { return m_fCurrentHP; }
+    inline const float GetCurrentMP()const { return m_fCurrentMP; }
     inline void SetIsAlive(bool _alive) { m_bIsAlive = _alive; }
     inline const bool GetIsAlive()const { return m_bIsAlive; }
     inline void SetNormalMeleeAttacking(bool _attacking) { m_bNormalMeleeAttacking = _attacking; }
