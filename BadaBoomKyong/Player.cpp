@@ -628,6 +628,7 @@ void Player::StateHandler()
 	if (m_bIsHurting)
 	{
 		m_bMovable = true;
+		m_bShouldZoomOut = true;
 		if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
 		{
 			m_pAnimator->GetAnimation()->m_bLoopCount = 0;
@@ -748,11 +749,7 @@ void Player::HolySlash()
 	}	
 	if (m_bHolySlashing)
 	{		
-		if (m_bIsHurting)
-		{
-			m_bShouldZoomOut = true;
-		}
-		else if (m_pAnimator->GetAnimation()->m_sAnimationName=="HolySlash" 
+		if (m_pAnimator->GetAnimation()->m_sAnimationName=="HolySlash" 
 			&& m_pAnimator->GetCurrentFrameIndex() == 20
 			&& m_bHolySlashFlag == false)
 		{

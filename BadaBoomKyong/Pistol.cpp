@@ -25,6 +25,7 @@ void Pistol::Init()
 	SetName(PistolTypeName);
 	m_pTransform = dynamic_cast<Transform*>(GetOwner()->FindComponent(Transform::TransformTypeName));
 	m_pSprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
+	
 	m_pCollider = dynamic_cast<Collider*>(GetOwner()->FindComponent(Collider::ColliderTypeName));
 	GameObject* player_obj = (GameObjectManager::GetInstance()->FindObject(Player::PlayerTypeName));
 	m_pPlayer = dynamic_cast<Player*>(player_obj->FindComponent(Player::PlayerTypeName));

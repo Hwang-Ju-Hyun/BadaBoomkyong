@@ -68,8 +68,7 @@ void RenderManager::InitDebugLineShader()
 {
 	debugLineShader = new Shader();
 	debugLineShader->CreateShaderProgramFromFiles("line.vert", "line.frag");
-	m_debugLineShader = debugLineShader;
-
+	m_debugLineShader = debugLineShader;	
 }
 
 void RenderManager::InitTextShader()

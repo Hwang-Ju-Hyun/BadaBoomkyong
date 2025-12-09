@@ -172,10 +172,10 @@ void main()
             }               
          }         
     }    
-    else
-    {
-        color = vec4(UV,0.0,1.0); // UV 색상 디버깅용
-    }
+    //else
+    //{
+    //    color = vec4(UV,0.0,0.0); // UV 색상 디버깅용
+    //}
 
 
       // ---- Fog 처리 ----
