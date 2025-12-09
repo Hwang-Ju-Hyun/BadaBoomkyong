@@ -55,8 +55,6 @@ void GameStart::Init()
 	m_pUIBackground->SetPivot({ 0.f,0.f });
 	TextureResource* bar_tex = m_pUIBackground->LoadTexture("_Bar", "../Extern/Assets/Texture/background/background.png");
 
-
-
 	m_pUICanvas->Init();
 	m_pUIBackCanvas->Init();
 	m_pUIBackCanvas->AddChild(back_ground_widget);

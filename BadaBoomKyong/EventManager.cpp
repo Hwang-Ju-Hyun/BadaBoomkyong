@@ -41,7 +41,13 @@ void EventManager::Excute(const EVENT& _eve)
 	case EVENT_TYPE::DELETE_OBJECT:
 	{
 		GameObject* obj = reinterpret_cast<GameObject*>(_eve.lParam);
+		auto type = obj->GetGroupType();
 		GameObjectManager::GetInstance()->DeleteObject(obj);
+		if (type == GROUP_TYPE::PLAYER)
+		{
+			BaseLevel* lvl_over = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::GAME_OVER);
+			EventManager::GetInstance()->LevelChange(lvl_over);
+		}
 		break;
 	}		
 	case EVENT_TYPE::LEVEL_CHANGE:

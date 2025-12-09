@@ -20,8 +20,11 @@ public:
 	void Update();
 	void Exit();
 	void DeleteAll();
+	void DeleteAllStages();
+	STAGE_TYPE m_eLastStageType;
 public:
 	void ChangeLevel(BaseLevel* _lvl);
+	void RestartLastStage();
 	inline BaseLevel* FindLevel(STAGE_TYPE _eType){ return m_hashLevels[_eType]; }
 	inline BaseLevel* GetCurrentLevel() { return m_pCurrentLevel; }
 	inline const STAGE_TYPE GetStageType() const { return m_eCurrentStageType; }

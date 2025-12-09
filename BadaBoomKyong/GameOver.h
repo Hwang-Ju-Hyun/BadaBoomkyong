@@ -19,6 +19,7 @@ public:
 
 	UICanvas* m_pUIBackCanvas=nullptr;
 	UIPanel* m_pUIBackground = nullptr;
+	UIText* m_pGameOverText= nullptr;
 	UIText* m_pReStartText=nullptr;
 	UIText* m_pExitText= nullptr;
 };

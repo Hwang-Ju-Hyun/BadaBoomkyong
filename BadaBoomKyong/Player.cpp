@@ -96,6 +96,16 @@ Player::~Player()
 		delete m_pAnimStateMachine;
 		m_pAnimStateMachine = nullptr;
 	}				
+	if (m_pHolySlashParticle)
+	{
+		delete m_pHolySlashParticle;
+		m_pHolySlashParticle = nullptr;
+	}
+	if (m_pPs)
+	{
+		delete m_pPs;
+		m_pPs = nullptr;
+	}
 }
 
 void Player::Init()
@@ -138,9 +148,17 @@ void Player::Exit()
 		m_pAnimStateMachine = nullptr;
 	}
 	if (m_pHolySlashParticle)
+	{
 		delete m_pHolySlashParticle;
+		m_pHolySlashParticle = nullptr;
+	}
+		
 	if (m_pPs)
+	{
 		delete m_pPs;
+		m_pPs = nullptr;
+	}
+		
 }
 
 void Player::Update() 
@@ -491,7 +509,10 @@ void Player::HPMPBarUpdate()
 void Player::StateHandler()
 {
 	if (m_eCurrentState == PlayerAnimState::DEATH)
+	{		
 		return;
+	}
+		
 	if (m_bIsSprinting)
 		std::fabs(m_pRigidBody->GetVelocity().x) <= g_epsilon ? m_bIsSprinting = false : m_bIsSprinting = true;
 
