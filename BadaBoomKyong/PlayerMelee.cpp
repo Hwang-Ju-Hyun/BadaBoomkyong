@@ -73,12 +73,14 @@ void PlayerMelee::Update()
         else
             m_vOffset = { 55.f,0.f,0.f };
 
-        glm::vec3 player_pos = m_pPlayerTransform->GetPosition();        
+        if (m_pPlayerTransform)
+        {
+            glm::vec3 player_pos = m_pPlayerTransform->GetPosition();
 
-        glm::vec3 final_pos = player_pos + m_vOffset;
+            glm::vec3 final_pos = player_pos + m_vOffset;
 
-        
-        m_pTransform->SetPosition(final_pos);              
+            m_pTransform->SetPosition(final_pos);
+        }        
     }        
     else
     {        

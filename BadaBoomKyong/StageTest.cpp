@@ -31,6 +31,7 @@ void StageTest::Init()
 
 	RenderManager::GetInstance()->Init();
 	RenderManager::GetInstance()->InitDebugLineShader();
+	
 	//RenderManager::GetInstance()->Init();
 	//RenderManager::GetInstance()->InitDebugLineShader();
 
@@ -40,15 +41,14 @@ void StageTest::Init()
 #endif
 	UIManager::GetInstance()->Init();
 
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
+	//CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::MONSTER);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLAYER);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MELEE, GROUP_TYPE::MONSTER);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MELEE, GROUP_TYPE::PLAYER);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PLATFORM);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MONSTER, GROUP_TYPE::PLATFORM);
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLATFORM);
-	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::PORTAL);
+	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLATFORM);	
 
 }
 
@@ -69,7 +69,7 @@ void StageTest::Exit()
 	EventManager::GetInstance()->Exit();
 	UIManager::GetInstance()->Exit();
 	GameObjectManager::GetInstance()->Exit();		
-
+	CollisionManager::GetInstance()->Exit();
 #ifdef _DEBUG
 	// Cleanup
 	ImGui_ImplOpenGL3_Shutdown();

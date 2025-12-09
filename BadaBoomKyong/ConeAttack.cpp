@@ -47,7 +47,8 @@ BTNodeState ConeAttack::Update(BlackBoard& _bb)
     switch (m_eState)
     {
     case ConeAttackState::GO:
-    {
+    {        
+        m_pPlayer->m_bCanHolySlash = false;
         glm::vec3 dir = m_vConeCamPos-m_pCam->GetCamPosition();
         float speed = 600.f;
         dir = glm::normalize(dir);
@@ -151,6 +152,7 @@ BTNodeState ConeAttack::Update(BlackBoard& _bb)
         m_pBoss->SetCurrentAnimState(MonsterAnimState::APPEAR);
         if (dist < 20.f)
         {
+            m_pPlayer->m_bCanHolySlash = true;
             m_pCam->SetCamPosOffset(m_pCam->GetCamPosOriginOffset());
             return BTNodeState::SUCCESS;
         }

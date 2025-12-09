@@ -61,7 +61,8 @@ void MainEditor::Update()
 	UpdateEditorCameraControls();
 
 	if (GameStateManager::GetInstance()->GetCurrentLevel()->GetStageType() != STAGE_TYPE::GAME_START
-		&& GameStateManager::GetInstance()->GetCurrentLevel()->GetStageType() != STAGE_TYPE::GAME_OVER)
+		&& GameStateManager::GetInstance()->GetCurrentLevel()->GetStageType() != STAGE_TYPE::GAME_OVER
+		&& GameStateManager::GetInstance()->GetCurrentLevel()->GetStageType() != STAGE_TYPE::CONGRATULATION)
 	{
 		DrawGizmo();
 	}

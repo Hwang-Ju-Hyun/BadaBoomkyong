@@ -236,11 +236,20 @@ void SmokeDemon::Update()
 		SetDamageTaken(0);
 	}
 
-	auto hp = GetCurrentHP();
-	hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
+	auto hp = GetCurrentHP();	
 
+	if (GetIsAlive())
+	{
+		hp <= 0 ? SetIsAlive(false) : SetIsAlive(true);
+		if (!GetIsAlive())
+			AudioManager::GetInstance()->PlaySound("CurseDemonDeath", 0.7f);		
+	}
 	if (!GetIsAlive())
+	{
+		m_pHPPanelUI->SetWidth(0);
 		m_eCurrentState = MonsterAnimState::DEATH;
+	}
+
 
 	if (m_pAnimStateMachine)
 		m_pAnimStateMachine->Update();

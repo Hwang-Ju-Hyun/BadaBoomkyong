@@ -14,7 +14,7 @@ FlyingDemonMelee::FlyingDemonMelee(GameObject* _owner, GameObject* _attacker)
     :Melee(_owner,_attacker)
 {
     SetName(FlyingDemonMeleeTypeName);
-    m_fLifeTime = 1.f;
+    m_fLifeTime = 0.6f;
 }
 
 FlyingDemonMelee::~FlyingDemonMelee()
@@ -54,7 +54,7 @@ void FlyingDemonMelee::Awake()
 
     m_fCurTime = 0.f;
 
-    AudioManager::GetInstance()->PlaySound("FlyingDemonAtk", 0.7f);
+    AudioManager::GetInstance()->PlaySound("FlyingDemonAtk", 1.0f);
 }
 
 void FlyingDemonMelee::Update()

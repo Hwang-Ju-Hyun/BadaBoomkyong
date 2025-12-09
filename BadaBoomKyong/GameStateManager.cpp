@@ -18,7 +18,7 @@
 #include "UIManager.h"
 #include "RenderManager.h"
 #include "AudioManager.h"
-
+#include "Congratulation.h"
 
 GameStateManager::GameStateManager()
 {
@@ -28,6 +28,7 @@ GameStateManager::GameStateManager()
 	//m_hashLevels.insert({ STAGE_TYPE::STAGE_03,new Stage03(STAGE_TYPE::STAGE_03,"Stage03") });
 	m_hashLevels.insert({ STAGE_TYPE::STAGE_TEST,new StageTest(STAGE_TYPE::STAGE_TEST,"StageTest") });
 	m_hashLevels.insert({ STAGE_TYPE::GAME_OVER,new GameOver(STAGE_TYPE::GAME_OVER,"GameOver") });
+	m_hashLevels.insert({ STAGE_TYPE::CONGRATULATION,new Congratulation(STAGE_TYPE::CONGRATULATION,"Congratulation")});
 	//m_hashLevels.insert({ STAGE_TYPE::GAME_OVER,new GameOver(STAGE_TYPE::GAME_OVER,"GameOver")});
 	//m_hashLevels.insert({ STAGE_TYPE::CONGRATULATION,new Congratulation(STAGE_TYPE::CONGRATULATION,"Congratulation") });
 }

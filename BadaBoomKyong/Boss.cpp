@@ -93,10 +93,10 @@ BTNode* Boss::BuildBossBT()
 	
 	
 	BTNode* randomSelector = new WeightedRandomSelector({
-		std::make_pair(moveAndAttackSequence,8.5f),
-		std::make_pair(new RangeAttack(this),5.5f),
-		std::make_pair(new TeleportAttack(this),2.5f),
-		std::make_pair(new Sequence({new Wait(5.1f),new ConeAttack(this),new Wait(0.1f)}),50.1f)
+		std::make_pair(moveAndAttackSequence,18.5f),
+		std::make_pair(new RangeAttack(this),3.5f),
+		std::make_pair(new TeleportAttack(this),5.5f),
+		std::make_pair(new Sequence({new Wait(1.1f),new ConeAttack(this),new Wait(0.1f)}),0.1f)
 		});
 	
 	BTNode* Act_IfFarSequence = new Sequence({
@@ -121,6 +121,7 @@ BTNode* Boss::BuildBossBT()
 void Boss::Aiming(glm::vec3 _targetPos)
 {		
 	glm::vec3 pos = { GetPosition().x,GetPosition().y-50.f,GetPosition().z };
+	std::cout << "Target : " << _targetPos.x << " , " << _targetPos.y << " , " << _targetPos.z << std::endl;
 	m_LineLenderer.DrawLine(pos, _targetPos, 50.f, { 1.f,1.f,0.f,1.f });
 }
 
@@ -266,11 +267,19 @@ void Boss::Update()
 	HandleGroundCol();
 
 	auto hp = GetCurrentHP();
-	hp < 0 ? SetIsAlive(false) : SetIsAlive(true);
+
+	if (GetIsAlive())
+	{
+		hp <= 9 ? SetIsAlive(false) : SetIsAlive(true);
+		if (!GetIsAlive())
+			AudioManager::GetInstance()->PlaySound("CurseDemonDeath", 0.7f);
+	}
 
 	if (!GetIsAlive())
+	{		
 		m_eCurrentState = MonsterAnimState::DEATH;
-
+	}
+		
 	m_vPosition = m_pTransform->GetPosition();
 
 	m_pBTAgent->Update();

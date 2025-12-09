@@ -129,6 +129,7 @@ void Player::Awake()
 	m_fCurrentHP = m_fInitHP;
 	m_bIsAlive = true;
 	m_pCam = RenderManager::GetInstance()->GetCamera();
+	m_bMovable = true;
 	InitHPBarUi();
 	InitDashBarUI();
 }
@@ -213,7 +214,9 @@ void Player::EnterCollision(Collider* _other)
 	}	
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::DEATH_ZONE)
 	{
+#ifdef _DEBUG
 		std::cout << "Enter : lava col" << std::endl;
+#endif
 		m_fCurrentHP = 0;
 	}
 	if (_other->GetOwner()->GetGroupType() == GROUP_TYPE::PORTAL)
@@ -249,36 +252,38 @@ void Player::ExitCollision(Collider* _other)
 
 void Player::Move() 
 {	
-	auto input = InputManager::GetInstance();
-	glm::vec3 velocity = m_pRigidBody->GetVelocity();
-	velocity.x = 0.f;	
-	if (input->GetKetCode(GLFW_KEY_X) == GLFW_REPEAT)
+	if (m_bMovable)
 	{
-		if (m_iDir == -1)
-		{
-			Sprite* sprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
-			if (sprite)
-				sprite->SetIsFlipX(false); // 왼x쪽 볼 때 FlipX 켜기
-			m_iDir *= -1;
-		}
-		velocity.x = m_fSpeed;
-	}
-	if (input->GetKetCode(GLFW_KEY_Z) == GLFW_REPEAT)
-	{		
-		if (m_iDir == 1)
-		{
-			Sprite* sprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
-			if (sprite)
-				sprite->SetIsFlipX(true); // 왼쪽 볼 때 FlipX 켜기
-			m_iDir *= -1;
-		}		
-		velocity.x = -m_fSpeed; 
-	}
-	
-	m_pRigidBody->SetVelocity(velocity);
-	std::fabs(velocity.x) > 0 ? m_bIsMoving = true:m_bIsMoving=false;
-	
 
+		auto input = InputManager::GetInstance();
+		glm::vec3 velocity = m_pRigidBody->GetVelocity();
+		velocity.x = 0.f;
+		if (input->GetKetCode(GLFW_KEY_X) == GLFW_REPEAT)
+		{
+			if (m_iDir == -1)
+			{
+				Sprite* sprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
+				if (sprite)
+					sprite->SetIsFlipX(false); // 왼x쪽 볼 때 FlipX 켜기
+				m_iDir *= -1;
+			}
+			velocity.x = m_fSpeed;
+		}
+		if (input->GetKetCode(GLFW_KEY_Z) == GLFW_REPEAT)
+		{
+			if (m_iDir == 1)
+			{
+				Sprite* sprite = dynamic_cast<Sprite*>(GetOwner()->FindComponent(Sprite::SpriteTypeName));
+				if (sprite)
+					sprite->SetIsFlipX(true); // 왼쪽 볼 때 FlipX 켜기
+				m_iDir *= -1;
+			}
+			velocity.x = -m_fSpeed;
+		}
+		m_pRigidBody->SetVelocity(velocity);
+		std::fabs(velocity.x) > 0 ? m_bIsMoving = true : m_bIsMoving = false;
+	}
+	
 	glm::vec3 dir = glm::normalize(glm::vec3{ 0.1f,-1.f,0.f });
 	m_ray = { m_pCollider->GetFinalPosition(),dir };
 	if (CollisionManager::GetInstance()->RayCast(m_ray, m_pCollider->GetScale().y-15.f, m_rayHit, GROUP_TYPE::PLATFORM))
@@ -307,8 +312,9 @@ void Player::Fire()
 void Player::MeleeAttack()
 {
 	auto input = InputManager::GetInstance();
-	m_pMelee = m_pMeleeFactory->CreateMelee(GROUP_TYPE::PLAYER);	
-	if (input->GetMouseBtn(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	m_pMelee = m_pMeleeFactory->CreateMelee(GROUP_TYPE::PLAYER);
+
+	if (input->GetMouseBtn(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS&&m_bMovable)
 	{								
 		
 		PlayerMelee* melee_comp = dynamic_cast<PlayerMelee*>(m_pMelee);
@@ -370,62 +376,66 @@ void Player::Dash()
 	auto input = InputManager::GetInstance();
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
 	
-	if (input->GetKetCode(GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-	{					
-		m_bIsDashInput = true;
-	}
-	if (m_fDashCoolTime >= 2.99f && m_bDashable&&m_bIsDashInput)
+	if (m_bMovable)
 	{
-		m_fDashAccTime += dt;		
-		if (m_fDashAccTime <= m_fDashDuration)
+		if (input->GetKetCode(GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		{
-			m_pDashPanelUI->AddWidth((m_fDash_bar_width / m_fDashDuration) * dt * -1);			
-			m_bIsDashing = true;
-			m_pRigidBody->SetVelocity({ m_iDir * m_fDashSpeed,0.f,0.f });
+			m_bIsDashInput = true;
 		}
-		else
+		if (m_fDashCoolTime >= 2.99f && m_bDashable && m_bIsDashInput)
 		{
-			if (m_pDashPanelUI->GetScale().x <= 10.f)
+			m_fDashAccTime += dt;
+			if (m_fDashAccTime <= m_fDashDuration)
 			{
-				m_pDashPanelUI->SetWidth(0.f);				
-			}			
-			m_pDashPanelUI->SetWidth(0.f);
-			m_bDashable = false;
+				m_pDashPanelUI->AddWidth((m_fDash_bar_width / m_fDashDuration) * dt * -1);
+				m_bIsDashing = true;
+				m_pRigidBody->SetVelocity({ m_iDir * m_fDashSpeed,0.f,0.f });
+			}
+			else
+			{
+				if (m_pDashPanelUI->GetScale().x <= 10.f)
+				{
+					m_pDashPanelUI->SetWidth(0.f);
+				}
+				m_pDashPanelUI->SetWidth(0.f);
+				m_bDashable = false;
+				m_bIsDashInput = false;
+				m_fDashCoolTime = 3.f;
+				m_fDashAccTime = 0.f;
+			}
+		}
+		if (m_bDashable == false)
+		{
+			m_bIsDashing = false;
 			m_bIsDashInput = false;
-			m_fDashCoolTime = 3.f;
-			m_fDashAccTime = 0.f;
+			m_fDashCoolTime -= dt;
+			m_pDashPanelUI->AddWidth(dt * (m_fDash_bar_width / 3.f));//3.f==DashCoolTime
+			if (m_fDashCoolTime <= 0.01f)
+			{
+				m_pDashPanelUI->SetWidth(m_fDash_bar_width);
+				m_fDashCoolTime = 3.f;
+				m_bDashable = true;
+			}
 		}
 	}
-	if (m_bDashable == false)
-	{
-		m_bIsDashing = false;
-		m_bIsDashInput = false;
-		m_fDashCoolTime -= dt;
-		m_pDashPanelUI->AddWidth(dt * (m_fDash_bar_width / 3.f));//3.f==DashCoolTime
-		if (m_fDashCoolTime <= 0.01f)
-		{
-			m_pDashPanelUI->SetWidth(m_fDash_bar_width);
-			m_fDashCoolTime =3.f;
-			m_bDashable = true;
-		}
-	}	
+	
 }
 
 void Player::Death()   
 {		
 	auto input = InputManager::GetInstance();
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	if (input->GetKetCode(GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 		m_fCurrentHP = 0;
-#endif
+//#endif
 	m_fCurrentHP > 0 ? m_bIsAlive = true : m_bIsAlive=false;
 
 	if (!m_bIsAlive)
 	{
 		m_bIsHurting = false;		
-		m_eCurrentState = PlayerAnimState::DEATH;		
-		
+		m_eCurrentState = PlayerAnimState::DEATH;				
 		m_pRigidBody->SetIsKinematic(true);
+		m_bMovable = false;
 	}
 }
 
@@ -617,6 +627,7 @@ void Player::StateHandler()
 			
 	if (m_bIsHurting)
 	{
+		m_bMovable = true;
 		if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)
 		{
 			m_pAnimator->GetAnimation()->m_bLoopCount = 0;
@@ -627,20 +638,24 @@ void Player::StateHandler()
 
 void Player::Jump()
 {
-	auto input = InputManager::GetInstance();
-	if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS && m_pRigidBody->GetIsGround())
+	if (m_bMovable)
 	{
-		m_iCurJumpCount++;
-		jumpPressed = true;		
-		glm::vec3 velocity = m_pRigidBody->GetVelocity();
-		velocity.y = m_fJumpImpulse;
-		m_pRigidBody->SetVelocity(velocity);
-		m_pRigidBody->SetIsGround(false);
-		m_eCurrentState = PlayerAnimState::JUMP;
+		auto input = InputManager::GetInstance();
+		if (input->GetKetCode(GLFW_KEY_SPACE) == GLFW_PRESS && m_pRigidBody->GetIsGround())
+		{
+			m_iCurJumpCount++;
+			jumpPressed = true;
+			glm::vec3 velocity = m_pRigidBody->GetVelocity();
+			velocity.y = m_fJumpImpulse;
+			m_pRigidBody->SetVelocity(velocity);
+			m_pRigidBody->SetIsGround(false);
+			m_eCurrentState = PlayerAnimState::JUMP;
 
-		
-		AudioManager::GetInstance()->PlaySound("jump", 0.7f);
+
+			AudioManager::GetInstance()->PlaySound("jump", 0.7f);
+		}
 	}
+	
 }
 
 const char* Player::GetComboClipName(ComboStep _step) const
@@ -724,11 +739,12 @@ void Player::HolySlash()
 		return;
 	float dt = TimeManager::GetInstance()->GetDeltaTime();
 	auto input = InputManager::GetInstance();	
-	if (input->GetKetCode(GLFW_KEY_Q) == GLFW_PRESS)
+	if (input->GetKetCode(GLFW_KEY_Q) == GLFW_PRESS&&m_fCurrentMP-1.f>-0.1f&& m_bCanHolySlash)
 	{		
 		m_eCurrentState = PlayerAnimState::HOLY_SLASH;
 		m_bHolySlashing = true;
 		m_pHolySlashParticle->CreateParticles(m_pHolySlashParticle->GetEmitSize());		
+		m_bMovable = false;
 	}	
 	if (m_bHolySlashing)
 	{		
@@ -743,10 +759,11 @@ void Player::HolySlash()
 			Bullet* bullet_comp = m_pBulletFactory->CreateBullet(BULLET_TYPE::PISTOL);
 			m_pBullet = bullet_comp;
 			assert(m_pBullet != nullptr);
-			EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());			
+			EventManager::GetInstance()->SetActiveTrue(m_pBullet->GetOwner());
+
 			m_bHolySlashFlag = true;
 			m_bShouldZoomOut = true;			
-
+			m_bMovable = true;
 
 			float mp_taken = 1.f; //1==mp taken
 			float cur_mp = GetCurrentMP();
@@ -754,7 +771,6 @@ void Player::HolySlash()
 			float new_width = ratio * m_pMPPanelUI->GetScale().x;
 			m_pMPPanelUI->SetWidth(m_pMPPanelUI->GetScale().x - new_width);
 			m_fCurrentMP -= 1;		
-
 		}
 		else if (m_pAnimator->GetCurrentFrameIndex() == 20 && m_bHolySlashFlag == true)
 		{
@@ -771,7 +787,7 @@ void Player::HolySlash()
 		if (m_bHolySlashing && m_pAnimator->GetCurrentFrameIndex() < 20&&m_pAnimator->GetAnimation()->m_sAnimationName == "HolySlash")
 		{
 			m_pCam->AddCamPosOffset({ 0.f,0.f,-dt * zoom_in_speed });			
-		}					
+		}
 	}
 
 	if (m_bShouldZoomOut)

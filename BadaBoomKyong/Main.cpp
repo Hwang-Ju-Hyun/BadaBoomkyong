@@ -74,57 +74,57 @@ void main(void)
 }
 #endif
 
-//int APIENTRY WinMain(HINSTANCE hInstance,
-//    HINSTANCE hPrevInstance,
-//    LPSTR     lpCmdLine,
-//    int       nCmdShow)
-//{
-//    Application::GetInstance()->Init();
-//    TimeManager::m_dDeltaTime = 0;
-//    TimeManager::m_dLastFrame = 0;
-//    static int update_cnt = 0;
-//    static int fps = 0;
-//    static float AccDT = 0.f;
-//    FT_Library ft;
-//    if (FT_Init_FreeType(&ft))
-//    {
-//        //std::cout << "FreeType init failed!\n";
-//        return 0;
-//    }
-//
-//    //std::cout << "FreeType OK!\n";
-//    FT_Done_FreeType(ft);    
-//
-//    while (!glfwWindowShouldClose(Window::GetInstance()->GetWindowHandle()))
-//    {
-//        float CurrentTime = glfwGetTime();
-//        TimeManager::m_dDeltaTime = CurrentTime - TimeManager::m_dLastFrame;
-//        TimeManager::m_dLastFrame = CurrentTime;
-//
-//        Application::GetInstance()->Update();
-//        RenderManager::GetInstance()->Draw();
-//
-//        UIManager::GetInstance()->Render();
-//
-//        EventManager::GetInstance()->Update();
-//
-//        update_cnt++;
-//        AccDT += TimeManager::m_dDeltaTime;
-//        if (AccDT >= 1.f)
-//        {
-//            std::ostringstream outs;
-//            outs.precision(2);
-//            outs << std::fixed
-//                << "MyGame - FPS: " << fps;
-//
-//            glfwSetWindowTitle(Window::GetInstance()->GetWindowHandle(), outs.str().c_str());
-//            fps = update_cnt;
-//            update_cnt = 0;
-//            AccDT = 0.f;
-//        }
-//        std::cout << fps << std::endl;
-//    }
-//
-//    Application::GetInstance()->Exit();
-//    return 0;
-//}
+int APIENTRY WinMain(HINSTANCE hInstance,
+    HINSTANCE hPrevInstance,
+    LPSTR     lpCmdLine,
+    int       nCmdShow)
+{
+    Application::GetInstance()->Init();
+    TimeManager::m_dDeltaTime = 0;
+    TimeManager::m_dLastFrame = 0;
+    static int update_cnt = 0;
+    static int fps = 0;
+    static float AccDT = 0.f;
+    FT_Library ft;
+    if (FT_Init_FreeType(&ft))
+    {
+        //std::cout << "FreeType init failed!\n";
+        return 0;
+    }
+
+    //std::cout << "FreeType OK!\n";
+    FT_Done_FreeType(ft);    
+
+    while (!glfwWindowShouldClose(Window::GetInstance()->GetWindowHandle()))
+    {
+        float CurrentTime = glfwGetTime();
+        TimeManager::m_dDeltaTime = CurrentTime - TimeManager::m_dLastFrame;
+        TimeManager::m_dLastFrame = CurrentTime;
+
+        Application::GetInstance()->Update();
+        RenderManager::GetInstance()->Draw();
+
+        UIManager::GetInstance()->Render();
+
+        EventManager::GetInstance()->Update();
+
+        update_cnt++;
+        AccDT += TimeManager::m_dDeltaTime;
+        if (AccDT >= 1.f)
+        {
+            std::ostringstream outs;
+            outs.precision(2);
+            outs << std::fixed
+                << "MyGame - FPS: " << fps;
+
+            glfwSetWindowTitle(Window::GetInstance()->GetWindowHandle(), outs.str().c_str());
+            fps = update_cnt;
+            update_cnt = 0;
+            AccDT = 0.f;
+        }
+        std::cout << fps << std::endl;
+    }
+
+    Application::GetInstance()->Exit();
+    return 0;
+}

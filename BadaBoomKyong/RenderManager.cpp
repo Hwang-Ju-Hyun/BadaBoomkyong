@@ -63,12 +63,13 @@ GLuint RenderManager::GetDebugLineShader() const
 {
 	return m_debugLineShader ? m_debugLineShader->GetShaderProgramHandle() : 0;
 }
-
+#include "LineLenderer.h"
 void RenderManager::InitDebugLineShader()
 {
 	debugLineShader = new Shader();
 	debugLineShader->CreateShaderProgramFromFiles("line.vert", "line.frag");
 	m_debugLineShader = debugLineShader;
+
 }
 
 void RenderManager::InitTextShader()
@@ -127,6 +128,7 @@ void RenderManager::Init()
 
 	ShaderUniformInit();
 	InitTextShader();
+	//InitDebugLineShader();
 
 	if (GameStateManager::GetInstance()->GetCurrentLevel()->GetStageType()<= STAGE_TYPE::STAGE_03)
 	{

@@ -85,8 +85,10 @@ void Pistol::EnterCollision(Collider* _col)
 	{
 		if (m_pMonster)
 		{
-			m_pMonster->MinusCurrentHp(100);
-			m_pMonster->SetIsHurting(true);
+			m_pMonster->MinusCurrentHp(3);
+			m_pMonster->SetDamageTaken(3);
+			m_pMonster->SetIsHurting(true) ;
+			m_pMonster->SetIsStagger(true);
 		}
 	}
 }

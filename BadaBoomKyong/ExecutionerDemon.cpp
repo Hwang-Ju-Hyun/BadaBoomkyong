@@ -154,7 +154,7 @@ void ExecutionerDemon::Update()
 
 	glm::vec3 pos = m_pTransform->GetPosition();
 	glm::vec3 scale = m_pTransform->GetScale();
-	m_pHPPanelBorderUI->SetPos(pos.x - 80.f, pos.y - 30.f, pos.z);
+	m_pHPPanelBorderUI->SetPos(pos.x - 80.f, pos.y + 40.f, pos.z);
 
 	if (GetDamageTaken() > 0)
 	{
@@ -177,6 +177,7 @@ void ExecutionerDemon::Update()
 
 	 if (!GetIsAlive())
 	 {
+		 m_pHPPanelUI->SetWidth(0.f);
 		 m_eCurrentState = MonsterAnimState::DEATH;
 	 }		
 

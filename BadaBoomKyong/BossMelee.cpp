@@ -13,7 +13,7 @@ BossMelee::BossMelee(GameObject* _owner, GameObject* _attacker)
 	:Melee(_owner,_attacker)
 {
 	SetName(BossMeleeTypeName);
-	m_fLifeTime = 1.f;
+	m_fLifeTime = 0.6f;
 }
 
 BossMelee::~BossMelee()

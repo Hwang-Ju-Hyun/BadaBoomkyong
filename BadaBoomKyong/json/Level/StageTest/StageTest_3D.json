@@ -9,7 +9,7 @@
         "CompData": {
           "Pos": [
             99.76316833496094,
-            -76990.9453125,
+            990.9453125,
             0.0
           ],
           "Sca": [
@@ -114,9 +114,9 @@
               "Name": "Death",
               "TextureName": "Death",
               "TexturePath": "../Extern/Assets/Texture/Player/Sprites/Death/Death.png",
-              "Max": 25,
+              "Max": 26,
               "Row": 1,
-              "Col": 25,
+              "Col": 26,
               "Duration": 0.10000000149011612,
               "Loop": false
             },

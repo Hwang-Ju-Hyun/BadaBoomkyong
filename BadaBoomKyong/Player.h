@@ -92,8 +92,8 @@ public:
 private:
     float m_fInitHP = 5;
     float m_fCurrentHP=5;
-    float m_fInitMP = 3;
-    float m_fCurrentMP = 3;
+    float m_fInitMP = 2;
+    float m_fCurrentMP = 2;
 
     bool m_bIsAlive = true;
     //right : postive left : negative
@@ -227,4 +227,7 @@ private:
     float m_fMPBarFill_Elapse = 0.f;
     float m_fMPBarFill_MaxTime = 3.f;
     bool m_bSholudFill_MP = false;
+public:
+    bool m_bMovable = true;
+    bool m_bCanHolySlash = true;
 };

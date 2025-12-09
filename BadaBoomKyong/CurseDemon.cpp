@@ -199,6 +199,7 @@ void CurseDemon::Update()
 
 	if (!GetIsAlive())
 	{
+		m_pHPPanelUI->SetWidth(0);
 		m_eCurrentState = MonsterAnimState::DEATH;		
 	}
 		

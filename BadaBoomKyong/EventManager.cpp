@@ -42,10 +42,16 @@ void EventManager::Excute(const EVENT& _eve)
 	{
 		GameObject* obj = reinterpret_cast<GameObject*>(_eve.lParam);
 		auto type = obj->GetGroupType();
+		std::string name = obj->GetName();
 		GameObjectManager::GetInstance()->DeleteObject(obj);
 		if (type == GROUP_TYPE::PLAYER)
 		{
 			BaseLevel* lvl_over = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::GAME_OVER);
+			EventManager::GetInstance()->LevelChange(lvl_over);
+		}
+		if (name == "Boss")
+		{
+			BaseLevel* lvl_over = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::CONGRATULATION);
 			EventManager::GetInstance()->LevelChange(lvl_over);
 		}
 		break;

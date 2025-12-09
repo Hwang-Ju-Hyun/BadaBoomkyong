@@ -142,7 +142,7 @@ void Monster::InitHPBarUi()
 	m_pHPCanvasUI = new UICanvas(UIRenderSpace::WORLD_SPACE);
 	UIWidget* HP_Bar_Widget = new UIWidget(m_pHPCanvasUI);
 	
-	m_pHPPanelBorderUI = new UIPanel(HP_Bar_Widget->GetOwner(), pos.x - 60.f, pos.y + 30.f, pos.z, 155.f, 10.f);
+	m_pHPPanelBorderUI = new UIPanel(HP_Bar_Widget->GetOwner(), pos.x - 100.f, pos.y + 30.f, pos.z, 155.f, 10.f);
 	TextureResource* hp_border_tex = m_pHPPanelBorderUI->LoadTexture("HP_Bar", "../Extern/Assets/Texture/UI/Health_Bars/Borders/Border_Style_4.png");
 	m_pHPPanelBorderUI->SetPivot({ 0.f,0.f });
 	

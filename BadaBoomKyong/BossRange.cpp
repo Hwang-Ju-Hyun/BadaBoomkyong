@@ -100,6 +100,20 @@ void BossRange::Exit()
 
 void BossRange::EnterCollision(Collider* _col)
 {
+    m_pPlayer = _col->GetOwner()->FindComponent<Player>();
+    if (_col->GetOwner()->GetGroupType() == GROUP_TYPE::PLAYER)
+    {
+        if (m_pPlayer)
+        {
+            m_pPlayer->MinusCurrentHP(1);
+            m_pPlayer->SetDamageTaken(1);
+            if (m_pPlayer->GetIsAlive())
+            {
+                m_pPlayer->SetIsHurting(true);
+                EventManager::GetInstance()->SetActiveFalse(GetOwner());
+            }
+        }
+    }
 }
 
 void BossRange::OnCollision(Collider* _col)
