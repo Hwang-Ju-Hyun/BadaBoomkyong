@@ -72,7 +72,7 @@
         {
         "Type": "Pistol",
         "CompData": {
-          "Speed": 10.0          
+          "Speed": 1000.0          
         }
       }
     ],

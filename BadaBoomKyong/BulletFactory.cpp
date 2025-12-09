@@ -309,11 +309,15 @@ void BulletFactory::PlayerBulletInit()
 	for (int i = 0;i < 5; i++)
 	{
 		Pistol* bullet_comp = nullptr;
-		GameObject* bullet_obj = new GameObject(Pistol::PistolTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::BULLET);
-		bullet_comp = dynamic_cast<Pistol*>(bullet_obj->AddComponent_and_Get(Pistol::PistolTypeName, new Pistol(bullet_obj, player_obj)));
-		Transform* trs = dynamic_cast<Transform*>(bullet_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(bullet_obj)));
-		Sprite* spr = dynamic_cast<Sprite*>(bullet_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(bullet_obj)));
-		Collider* col = dynamic_cast<Collider*>(bullet_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(bullet_obj)));
+		GameObject* bullet_obj = Serializer::GetInstance()->LoadPrefab("json/Prefab/Player/Slash/Slash_Prefab.json");
+		//Pistol* bullet_comp = nullptr;
+		//GameObject* bullet_obj = new GameObject(Pistol::PistolTypeName, MODEL_TYPE::PLANE, GROUP_TYPE::BULLET);
+		bullet_comp = dynamic_cast<Pistol*>(bullet_obj->FindComponent<Pistol>());
+		bullet_comp->SetShooter(player_obj);
+		//bullet_comp = dynamic_cast<Pistol*>(bullet_obj->AddComponent_and_Get(Pistol::PistolTypeName, new Pistol(bullet_obj, player_obj)));
+		//Transform* trs = dynamic_cast<Transform*>(bullet_obj->AddComponent_and_Get(Transform::TransformTypeName, new Transform(bullet_obj)));
+		//Sprite* spr = dynamic_cast<Sprite*>(bullet_obj->AddComponent_and_Get(Sprite::SpriteTypeName, new Sprite(bullet_obj)));
+		//Collider* col = dynamic_cast<Collider*>(bullet_obj->AddComponent_and_Get(Collider::ColliderTypeName, new Collider(bullet_obj)));
 		bullet_obj->SetActiveAllComps(false);
 		bullet_obj->SetActive(false);
 		m_pBulletPool->m_arrPool[i] = bullet_obj;
