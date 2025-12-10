@@ -87,16 +87,16 @@ Boss::~Boss()
 BTNode* Boss::BuildBossBT()
 {						
 	BTNode* moveAndAttackSequence = new Sequence({
-	  new MoveToTarget(this),                 
+	  new MoveToTarget(this),      
 	  new NormalAttack(this)                  
 		});		
 	
 	
 	BTNode* randomSelector = new WeightedRandomSelector({
 		std::make_pair(moveAndAttackSequence,18.5f),
-		std::make_pair(new RangeAttack(this),3.5f),
+		std::make_pair(new RangeAttack(this),5.5f),
 		std::make_pair(new TeleportAttack(this),5.5f),
-		std::make_pair(new Sequence({new Wait(1.1f),new ConeAttack(this),new Wait(0.1f)}),0.1f)
+		std::make_pair(new Sequence({new Wait(1.1f),new ConeAttack(this),new Wait(0.1f)}),5.1f)
 		});
 	
 	BTNode* Act_IfFarSequence = new Sequence({
@@ -270,7 +270,7 @@ void Boss::Update()
 
 	if (GetIsAlive())
 	{
-		hp <= 9 ? SetIsAlive(false) : SetIsAlive(true);
+		hp <= 0 ? SetIsAlive(false) : SetIsAlive(true);
 		if (!GetIsAlive())
 			AudioManager::GetInstance()->PlaySound("CurseDemonDeath", 0.7f);
 	}

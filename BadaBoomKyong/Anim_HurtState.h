@@ -72,6 +72,9 @@ public:
             case MonsterAnimState::NORMAL_ATTACK:
                 mon_machine->ChangeAnimState(static_cast<int>(MonsterAnimState::NORMAL_ATTACK));
                 break;
+            case MonsterAnimState::DEATH:
+                mon_machine->ChangeAnimState(static_cast<int>(MonsterAnimState::DEATH));
+                break;
             }
         }
     }

@@ -32,6 +32,7 @@ void ConeRange::Init()
     Boss* boss = dynamic_cast<Boss*>(GetShooter()->FindComponent<Boss>());
     m_pPlayer = boss->GetPlayer();
     m_pPlayerTransform = static_cast<Transform*>(m_pPlayer->GetOwner()->FindComponent<Transform>());
+    
     assert(m_pTransform != nullptr && m_pCollider != nullptr);
 
     GetOwner()->SetActiveAllComps(false);

@@ -13,6 +13,7 @@ uniform sampler2D uOutTexture;
 uniform bool uHurtEffect;
 uniform vec3 uCameraPosition;
 uniform bool uLightAffect;
+uniform bool IsCone;
 
 
 // ---- Fog 관련 uniform 추가 ----
@@ -172,10 +173,18 @@ void main()
             }               
          }         
     }    
-    //else
-    //{
-    //    color = vec4(UV,0.0,0.0); // UV 색상 디버깅용
-    //}
+    else
+    {
+        //color = vec4(UV,0.0,0.0); // UV 색상 디버깅용
+        if(IsCone)
+        {            
+            color = vec4(UV,0.0,1.0); 
+        }
+        else
+        {
+            color = vec4(0.0,0.0,0.0,0.0);    
+        }
+    }
 
 
       // ---- Fog 처리 ----

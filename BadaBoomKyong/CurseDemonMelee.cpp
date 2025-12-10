@@ -14,7 +14,7 @@ CurseDemonMelee::CurseDemonMelee(GameObject* _owner,GameObject* _attacker)
 	:Melee(_owner, _attacker)
 {
     SetName(CurseDemonMeleeTypeName);
-    m_fLifeTime = 1.f;
+    m_fLifeTime = 0.7f;
 }
 
 CurseDemonMelee::~CurseDemonMelee()

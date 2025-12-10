@@ -231,6 +231,7 @@ void Player::EnterCollision(Collider* _other)
 			BaseLevel* lvl_3 = GameStateManager::GetInstance()->FindLevel(STAGE_TYPE::STAGE_TEST);
 			EventManager::GetInstance()->LevelChange(lvl_3);
 		}
+
 	}		
 }
 
@@ -424,10 +425,10 @@ void Player::Dash()
 void Player::Death()   
 {		
 	auto input = InputManager::GetInstance();
-//#ifdef _DEBUG
+#ifdef _DEBUG
 	if (input->GetKetCode(GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 		m_fCurrentHP = 0;
-//#endif
+#endif
 	m_fCurrentHP > 0 ? m_bIsAlive = true : m_bIsAlive=false;
 
 	if (!m_bIsAlive)

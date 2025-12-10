@@ -200,7 +200,6 @@ void SmokeDemon::Update()
 			m_eCurrentState = MonsterAnimState::WALK;
 		}
 
-
 		if (m_eCurrentState == MonsterAnimState::NORMAL_ATTACK)
 		{
 			if (m_pAnimator->GetAnimation()->m_bLoopCount >= 1)

@@ -39,8 +39,8 @@ void Congratulation::Init()
 	//m_pUIBackground = new UIText(back_ground_widget->GetOwner(), "GAME OVER", 80.f, 15.f, 2.f, glm::vec3{ 1.0f,0.5f,1.f, });
 	//m_pUIBackground->SetPivot({ 0.f,0.f });
 	//TextureResource* bar_tex = m_pUIBackground->LoadTexture("GameOverBack", "../Extern/Assets/Texture/background/GameOverBack.png");
-	m_pConText = new UIText(back_ground_widget->GetOwner(), "CONGRATULATION", 800.f, 600.f, 1.5f, glm::vec3{ 1.0f,1.0f,1.f, });	
-	m_pExitText = new UIText(back_ground_widget->GetOwner(), "EXIT - E", 500.f, 215, 1.f, glm::vec3{ 1.0f,0.5f,1.f, });
+	m_pConText = new UIText(back_ground_widget->GetOwner(), "CONGRATULATION", 550.f, 600.f, 1.5f, glm::vec3{ 1.0f,1.0f,1.f, });	
+	m_pExitText = new UIText(back_ground_widget->GetOwner(), "EXIT - E", 700.f, 215, 1.f, glm::vec3{ 1.0f,0.5f,1.f, });
 
 	back_ground_widget->AddChild(m_pConText);	
 	back_ground_widget->AddChild(m_pExitText);

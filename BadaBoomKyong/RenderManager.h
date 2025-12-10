@@ -54,6 +54,7 @@ private:
 	GLint m_iUV_Offset_Location;
 	GLint m_iUV_Scale_Location;
 	GLint m_iHas_texture_location;
+	GLint m_iIsCone;
 	GLint m_iOut_texture_location;
 	GLint m_iHurtEffect_location;
 	GLint m_iM2W_Location;

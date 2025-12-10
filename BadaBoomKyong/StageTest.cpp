@@ -10,7 +10,7 @@
 #include "GameObjectManager.h"
 #include "UIManager.h"
 #include "MainEditor.h"
-
+#include "AudioManager.h"
 
 StageTest::StageTest(STAGE_TYPE _stageType,const std::string& _name)
 	:BaseLevel(_stageType,_name)
@@ -30,18 +30,14 @@ void StageTest::Init()
 	ComponentManager::GetInstance()->Init();
 
 	RenderManager::GetInstance()->Init();
-	RenderManager::GetInstance()->InitDebugLineShader();
-	
-	//RenderManager::GetInstance()->Init();
-	//RenderManager::GetInstance()->InitDebugLineShader();
-
+	RenderManager::GetInstance()->InitDebugLineShader();	
 
 #ifdef _DEBUG	
 	MainEditor::GetInstance()->Init();
 #endif
 	UIManager::GetInstance()->Init();
 
-	//CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
+	//CollisionManager::GetInstance()->CheckCollision(GROUxP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::MONSTER);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLAYER);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MELEE, GROUP_TYPE::MONSTER);
@@ -50,16 +46,17 @@ void StageTest::Init()
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::MONSTER, GROUP_TYPE::PLATFORM);
 	CollisionManager::GetInstance()->CheckCollision(GROUP_TYPE::BULLET, GROUP_TYPE::PLATFORM);	
 
+	AudioManager::GetInstance()->LoadSound("bossBgm", "../Extern/Assets/Sound/bossBgm.wav",true);
+	AudioManager::GetInstance()->PlaySound("bossBgm");
 }
 
 void StageTest::Update()
 {
 }
 
-
-
 void StageTest::Exit()
 {
+	AudioManager::GetInstance()->StopSound("bossBgm");
 	//Serializer::GetInstance()->SaveJson_Object("json/Level/StageTest/StageTest_3D.json",true);
 	//Serializer::GetInstance()->SaveJson_Object("json/Level/StageTest/StageTest_2D.json", false);
 	FactoryManager::GetInstance()->Exit();

@@ -192,7 +192,7 @@ void RenderManager::ShaderUniformInit()
 	m_iHas_texture_location = RegistOrGetUniformLocation(shdr_handle_3D,"uHasTexture");
 	m_iOut_texture_location	= RegistOrGetUniformLocation(shdr_handle_3D,"uOutTexture");
 	m_iHurtEffect_location	= RegistOrGetUniformLocation(shdr_handle_3D,"uHurtEffect");
-
+	m_iIsCone= RegistOrGetUniformLocation(shdr_handle_3D, "IsCone");
 
 	m_iHasNormalMap_location = RegistOrGetUniformLocation(shdr_handle_3D, "uHasNormalMap");
 	m_iOut_NormalMap = RegistOrGetUniformLocation(shdr_handle_3D, "uNormalMap");
@@ -405,7 +405,7 @@ void RenderManager::Draw()
 #ifdef _DEBUG
 						Collider* col = static_cast<Collider*>(obj->FindComponent(Collider::ColliderTypeName));
 						if (col)
-						{
+						{							
 							col->DrawCollider();
 						}
 #endif
@@ -426,6 +426,10 @@ void RenderManager::Draw()
 					}
 					else
 					{
+						if(spr->GetOwner()->GetName()=="ConeBullet")
+							glUniform1i(m_iIsCone, true);
+						else
+							glUniform1i(m_iIsCone, false);
 						glUniform1i(m_iHas_texture_location, false);
 					}
 
